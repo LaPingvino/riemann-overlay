@@ -34,6 +34,35 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Off-cycle — `SURPRISES.md`, the calibration meter (Joop's ask)
+
+Every case where the record went against a **stated** expectation, back-filled
+from sessions 013–038: **18 entries**, tallied mechanically by
+`forensics/surprises.py` so nobody can quote a number the table does not carry.
+
+The breakdown, which is the part that means anything:
+
+| corrected by | | class | |
+|---|---|---|---|
+| tooling | 6 | calibration | 11 |
+| self | 6 | process | 4 |
+| Fable | 3 | design | 3 |
+| source | 2 | | |
+| c.ai | 1 | | |
+
+**67% of my confident errors were found by something that is not me.** Exactly
+one is marked *self, late* — `S2`, the unsound `c`-table — and late is the only
+expensive kind.
+
+Anti-Goodhart clause is stated **above** the table, not in a footnote: a rising
+count is neither virtue nor vice, and if the file is ever cited it must be cited
+by breakdown.
+
+Standing observation, and it is the argument for the whole apparatus: **not one
+entry was found by re-reading my own prose.** Every correction came from an
+instrument, another instance, a source, or from building the thing and watching
+it fail.
+
 ### Night cycle 2 — the guard learns depth; three decades, one verdict
 
 Guard generalised: hypothesis depth is a **partial order** (`RH` 1, `GRH` 2),

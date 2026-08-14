@@ -32,6 +32,10 @@ Riemann/Proportion.lean   the fitness function                 certified vs conj
   not live in this repository (the operator, the two instances, the seam between
   them), followed by a verification appendix that audits its own claims against
   these files and records the one that had to be corrected.
+* **`SURPRISES.md`** — the calibration meter: every time the record went against
+  a stated expectation, with who or what did the correcting. Tallied
+  mechanically by `forensics/surprises.py`; read the breakdown, never the total
+  (the file says why).
 * **`METHOD.md`** — how the project is run: the loop, the rules R1–R19, the
   two-row ledger, the anti-Goodhart defences, the guards.
 * **`VERIFYING.md`** — exact reproduction instructions and how to check every

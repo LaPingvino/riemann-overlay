@@ -4,7 +4,11 @@ Everything here is meant to be checkable by a third party with no access to the
 project's history. Commands are given verbatim; where a check cannot be
 performed from the repository alone, that is stated rather than papered over.
 
-`METHOD.md` explains *why* these checks exist. This file is *how*.
+`METHOD.md` explains *why* these checks exist. This file is *how*. `FRAMING.md`
+explains where the project came from, and closes with a **verification
+appendix** that lists which of its own claims were checked against this
+repository and the one that was corrected — that appendix is the model for how
+claims here should be read.
 
 ---
 
@@ -145,6 +149,22 @@ seven are declared but not consumed by that row.
 
 Both numbers are worth reading; they answer different questions.
 
+**What the log does and does not certify.** Be precise about this — it is the
+one claim `FRAMING.md`'s verification appendix had to correct:
+
+* the **trusted base** is content-addressed. `tools/proportion.go` hashes the
+  *statements* of every axiom in `Riemann/Assumptions.lean`, and that digest —
+  currently `v2/cd7a22e688df` — appears in **every** `PROPORTION.log` line. A
+  statement that changes without a `base.version` bump aborts the tool with
+  exit `3` and no log line.
+* **claimed names are checked to exist**: `audit/Declarations.lean`, run before
+  any log line, exit `4` on failure.
+* **per-theorem axiom cones are NOT recorded in the log.** The only cone the
+  ledger prints is that of the best-scoring certified row. Any other
+  declaration's axiom footprint is auditable only by running `#print axioms` on
+  it yourself, as in §3.3 below. "Auditable via the logged digests" would be an
+  overstatement, and `FRAMING.md`'s appendix says so explicitly.
+
 ### 3.3 `#print axioms` on the headline declarations
 
 ```bash
@@ -196,6 +216,10 @@ independently re-verified here**:
   names".
 * `LEADS.md` records `Riemann/Fiber.lean` as 10 declarations, sorry-free and
   axiom-free.
+* `FRAMING.md`'s verification appendix records `Riemann/Basic.lean`,
+  `Gauge.lean`, `Blindness.lean` and `Fiber.lean` as axiom-free (only
+  `propext`/`Classical.choice`/`Quot.sound`), and counts **119**
+  `theorem`/`lemma` declarations across `Riemann/*.lean`.
 * `README.md` and `E.md`/`A.md` record `Riemann/Basic.lean`,
   `Riemann/Transfer.lean`, `Riemann/Fujii.lean` and `Riemann/Gauge.lean` as
   proved and axiom-free.
@@ -244,14 +268,18 @@ counting, which is why the ledger reads `sorries: 0`.
 
 ---
 
-## 4. The forensics guards
+## 4. The forensics scripts
 
-Both are stdlib-only Python 3 and self-test when run directly.
+`forensics/` holds **two guards** and **one experiment**; the distinction
+matters, because only the guards are allowed to block work.
 
 ```bash
-python3 forensics/lemma1_guard.py       # prints a self-test over constant models
-python3 forensics/provenance_lint.py    # prints the provenance report
+python3 forensics/lemma1_guard.py       # GUARD — self-test over constant models
+python3 forensics/provenance_lint.py    # GUARD — prints the provenance report
+python3 forensics/quarry.py             # EXPERIMENT — not a guard
 ```
+
+All three are stdlib-only Python 3; the two guards self-test when run directly.
 
 * **`lemma1_guard.py`** checks a candidate form-factor model `D` on `[1, λ]`
   against Goldston's Lemma 1 — under RH, `∫_B^{B+1} F ≤ 3` uniformly for all
@@ -265,8 +293,17 @@ python3 forensics/provenance_lint.py    # prints the provenance report
   also propagates an RH-conditional flag, which is what produced the mechanical
   `T3(b)` verdicts in `FAILURES.md`.
 
-Neither is wired into `proportion.go`; they are run by hand *before* a table is
-built, per the operational rules in `LOOP.md`.
+* **`quarry.py`** is **not** a guard. It re-runs the project's retracted
+  computations as *experiments*, importing `provenance_lint` and evaluating its
+  rules. Its header records a freeze constraint that a reader should hold it
+  to: the guard's DAG (`provenance_lint.NODES`) is **not edited** by it; where
+  an experiment needs a node the guard does not carry, it builds a **local
+  experiment table** and says so, and any surviving node becomes a *proposed*
+  DAG addition to be applied after the freeze lifts. Nothing it prints is
+  certified by the guards.
+
+Neither guard is wired into `proportion.go`; they are run by hand *before* a
+table is built, per the operational rules in `LOOP.md`.
 
 ---
 

@@ -27,6 +27,11 @@ Riemann/Proportion.lean   the fitness function                 certified vs conj
 
 ## Where to start
 
+* **`FRAMING.md`** — where this came from: the companion document written by the
+  collaborating claude.ai instance, describing the half of the project that does
+  not live in this repository (the operator, the two instances, the seam between
+  them), followed by a verification appendix that audits its own claims against
+  these files and records the one that had to be corrected.
 * **`METHOD.md`** — how the project is run: the loop, the rules R1–R19, the
   two-row ledger, the anti-Goodhart defences, the guards.
 * **`VERIFYING.md`** — exact reproduction instructions and how to check every

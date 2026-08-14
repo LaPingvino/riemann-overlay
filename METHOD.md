@@ -37,6 +37,7 @@ Registers are markdown files that accumulate rather than get rewritten.
 | `STATEMENTS.md` | the translation layer between prose statements and Lean statements |
 | `NIGHT.md` | the overnight-mode digest |
 | `PROPORTION.log` | the append-only ledger line, one per cycle |
+| `FRAMING.md` | the companion document from the other side of the seam — the origin and architecture of the collaboration, with a verification appendix auditing its own claims |
 
 ---
 
@@ -275,6 +276,14 @@ block the ledger line; two are Python instruments run before any table is built.
 | **Base-hash drift** | `baseHash` in `proportion.go` | an axiom statement changed without a `base.version` bump | `ESCALATION`, exit **3**, no log line |
 | **Contamination lint** | `forensics/provenance_lint.py` | builds the provenance DAG of every input and flags three ways an input can be unusable: **CIRCULAR** (ancestry hits the target, its dual, or the certificate class's own optimum), **SCALE** (consumed outside its validity range), **QUALITY** (supplier weaker than consumer requires). Replays the project's three expensive failures and blocks all three at proposal time. Also marks RH-conditional nodes and propagates the flag | report printed above any table |
 | **Lemma 1 guard** | `forensics/lemma1_guard.py` | any candidate form-factor model `D` past support 1 must satisfy Goldston's Lemma 1, `∫_B^{B+1} F ≤ 3` under RH, uniformly in `B ≥ 1`. Retroactively it kills every `c ≥ 4` row this project published | prints `VIOLATES RH (Lemma 1)` |
+
+**Guards versus experiments.** `forensics/` also contains `quarry.py`, which is
+*not* a guard: it re-runs the project's retracted computations as experiments,
+importing `provenance_lint` and evaluating its rules **without editing the
+guard's DAG** — a constraint stated in its own header, with any surviving node
+recorded as a *proposed* addition to be applied after the freeze lifts. Only
+`lemma1_guard.py` and `provenance_lint.py` are guards; nothing `quarry.py`
+prints is certified.
 
 The regression and declaration guards are the direct implementation of R17: the
 absence claims "the base derives no falsehood" and "every claimed name exists"

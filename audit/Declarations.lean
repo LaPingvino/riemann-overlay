@@ -85,3 +85,10 @@ import Riemann
 #check @Riemann.Blindness.landau_discriminates₂
 #check @Riemann.Blindness.not_discriminates₂_of_factors
 #check @Riemann.Blindness.swap_not_a_gauge_pair
+-- rung 0: the capacity skeleton (no arithmetic input; not about zeta)
+#check @Riemann.Capacity.Admissible
+#check @Riemann.Capacity.pinned_value_is_floor
+#check @Riemann.Capacity.pinned_value_attained
+#check @Riemann.Capacity.unbounded_below_of_neg_outside
+#check @Riemann.Capacity.value_eq_pinned
+#check @Riemann.Capacity.no_gain_past_known

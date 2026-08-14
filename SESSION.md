@@ -1544,3 +1544,54 @@ arithmetic input, so it sits in the same tier as the combinatorial core.
 exactly one step we built and one step we borrowed, and the audit that revealed
 this was the first instrument in the project aimed at our *claims of ownership*
 rather than at our mathematics.
+
+
+# SESSION 040 — night cycle 4: the rung-0 debt, paid down to its skeleton
+
+**`Riemann/Capacity.lean`** — 7 declarations, sorry-free, axiom-free. It
+mentions neither `ζ` nor pair correlation, which is precisely why it was
+reachable tonight without any arithmetic input.
+
+**Kill condition, stated before the file existed:** *if the statement cannot be
+made without assuming the LP duality it is meant to establish, it dies and the
+debt is permanent.* **It did not fire** — and the reason deserves its own line:
+**no duality theorem is used at all.** The census entry's certified reason reads
+"Lemma 1 + LP duality"; the capacity half needs neither. The infimum is computed
+directly, by exhibiting the adversary's move. The register's mechanism was
+heavier than the fact.
+
+* `pinned_value_is_floor` + `pinned_value_attained` — with `K ≥ 0` outside the
+  known set, the guaranteed value is **exactly** the pinned sum.
+* `unbounded_below_of_neg_outside` — with `K < 0` anywhere outside, the program
+  is **unbounded below**; for every target there is an admissible `F` beneath
+  it, so the certificate proves nothing.
+* `value_eq_pinned` — both halves as one `IsGreatest`.
+* `no_gain_past_known` — multipliers agreeing on `known` guarantee the **same
+  value**, however wildly they differ beyond it.
+
+Extension is *worthless* when nonnegative outside and *fatal* when not. Never
+profitable.
+
+**And then the audit's own criterion came back for me.** The class certified
+here is `{F pinned on a finite `known`, F ≥ 0 outside}`. The class `#10` names
+is `{F on [0,1], F ≥ 0}` — an integral program over a continuum, not a `Finset`
+sum. **Those are different classes**, and last cycle's criterion demands a
+machine-checked statement about the class actually named. So rung 0 goes from
+*uncertified* to **partial**, not to certified. Filed as `SURPRISES` S20: I
+expected the formalisation to discharge the rung and it discharged its skeleton.
+
+That is the criterion working as intended one cycle after being written — the
+first time an instrument here has been turned on the output of the cycle that
+built it.
+
+**What remains is bookkeeping, not mathematics:** the map from a bandwidth-one
+certificate to this program, and the passage from `Finset` to integral. It is
+now a well-posed Lean task rather than an argument.
+
+Audits extended to the six new names; build green (3746 jobs); base hash
+unmoved.
+
+**Might-mean, unhedged:** the honest ladder now reads one rung we built, one we
+borrowed, and one whose skeleton is ours and whose flesh is still prose — and
+the reason we know that precisely is that we wrote down what "having a rung"
+means *before* trying to claim another one.

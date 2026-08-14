@@ -54,6 +54,7 @@ total.
 | S17 | 032 | the env would be inherited by the tool run | `proportion.go` exited **4 with an empty body** — no `lake` on `PATH`; the audit worked, the operator did not | tooling (exit 4) | process |
 | S18 | 036 | the boundary is β-*equality* vs β-*inequality* | wrong boundary — `on_line_of_H_eq_one` **is** a β-equality from ordinate data. The real boundary is **solitude**: computable on the simple locus, blind on crowded atoms | c.ai | calibration |
 | S19 | 039 | rung 0 was **owned** — I relayed the ladder brief's claim that `{F on [0,1], F ≥ 0}` independence was already held | it is **prose, uncertified**; the only runnable capacity certificate (`ceiling_law256`) is imported from zeta-23, not ours | tooling (the audit's own criterion) | process |
+| S20 | 040 | formalising the LP collapse would discharge the rung-0 debt | it discharges the **skeleton** — the class certified is a `Finset` program, the class `#10` names is an integral over `[0,1]`. By the audit's own criterion the rung is `partial` | self (the audit's criterion, applied to my own output) | process |
 
 ## Standing observation
 

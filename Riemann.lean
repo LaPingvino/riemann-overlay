@@ -9,3 +9,4 @@ import Riemann.Gauge
 import Riemann.Proportion
 import Riemann.Blindness
 import Riemann.Fiber
+import Riemann.Capacity

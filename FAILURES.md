@@ -244,7 +244,7 @@ Two rung genres emerged, and the distinction is not cosmetic:
 | 7 | `μ_T`-invariant hypotheses | `no_muInvariant_bundle_computes_Noff` | two-model | **rung 1** |
 | 8 | `μ_T`-invariant hypotheses, at every smoothing radius | `two_le_Hr_of_off_line` | two-model | **rung 1** |
 | 9 | — | — | — | none (fate: circular) |
-| 10 | `{F on [0,1], F ≥ 0}` + positivity | **prose only — no machine-checked statement** | capacity | rung 0 *claimed, uncertified* |
+| 10 | `{F on [0,1], F ≥ 0}` + positivity | `Riemann/Capacity.lean` — **skeleton** certified; the *instantiation* to the actual LP is still prose | capacity | rung 0 *partial* |
 | 11 | — | — | — | none (shortfall) |
 
 **Certified rungs: 4 of 11.** Three at rung 1, all built this week; one at rung
@@ -279,3 +279,47 @@ So the honest ladder is: **rung 1 occupied by three theorems we built, rung 0
 occupied by one theorem we imported, and the rung-0 result we claimed as our own
 still owes its certificate.** Filed as a debt, not a defect — the argument may
 well be right; it is simply not yet a rung by this audit's own criterion.
+
+
+## The rung-0 debt, partly paid (night cycle 4)
+
+`Riemann/Capacity.lean` — 7 declarations, sorry-free, axiom-free, and it
+mentions neither `ζ` nor pair correlation, which is exactly why it was reachable
+without arithmetic input.
+
+**Kill condition, stated before the file existed:** *if the statement cannot be
+made without assuming the LP duality it is meant to establish, it dies and the
+debt is permanent.* **It did not fire**, and the reason is worth its own line:
+**no duality theorem is used at all.** The register's certified reason reads
+"Lemma 1 + LP duality"; the capacity half needs neither. It is an infimum
+computed directly by exhibiting the adversary's move — a fact about an order,
+not a theorem about a program.
+
+* `pinned_value_is_floor` + `pinned_value_attained` — with `K ≥ 0` outside the
+  known set, the guaranteed value is **exactly** the pinned sum.
+* `unbounded_below_of_neg_outside` — with `K < 0` anywhere outside, the program
+  is **unbounded below**: for every target `B` there is an admissible `F`
+  undercutting it. The certificate proves nothing.
+* `value_eq_pinned` — both halves as one `IsGreatest`.
+* `no_gain_past_known` — two multipliers agreeing on `known` guarantee **the
+  same value**, however wildly they differ beyond it.
+
+So the extension is *worthless* when nonnegative and *fatal* when not. Never
+profitable. That is `#10`'s content, and it is now machine-checked.
+
+### What is still owed, by this audit's own criterion
+
+The class certified here is `{F pinned on a finite `known`, F ≥ 0 outside}`.
+The class named in `#10` is `{F on [0,1], F ≥ 0}` — an integral program over a
+continuum, not a `Finset` sum. **These are not the same class**, and the ladder
+audit's criterion demands a machine-checked statement about the class actually
+named.
+
+**Honest verdict: rung 0 is `partial`, not `certified`.** The skeleton is
+proved; the instantiation — the map from a bandwidth-one certificate to this
+program, and the passage from `Finset` to integral — remains prose. Recorded as
+`SURPRISES` S20: I expected formalising the collapse would discharge the rung,
+and it discharged its skeleton.
+
+The remaining step is measure-theoretic bookkeeping rather than mathematics, and
+it is now a well-posed Lean task instead of an argument.

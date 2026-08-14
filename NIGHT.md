@@ -34,6 +34,26 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 4 — the rung-0 debt, paid down to its skeleton
+
+`Riemann/Capacity.lean`: 7 declarations, sorry-free, axiom-free, mentioning
+neither `ζ` nor pair correlation. **Kill condition** (that the statement would
+need the LP duality it is meant to establish) **did not fire** — and no duality
+theorem is used at all. The register's "Lemma 1 + LP duality" was heavier than
+the fact: the infimum is computed directly by exhibiting the adversary's move.
+
+Extension past the known range is **worthless** when the multiplier is
+nonnegative outside (`value_eq_pinned`, `no_gain_past_known`) and **fatal** when
+it is not (`unbounded_below_of_neg_outside`). Never profitable.
+
+**Then last cycle's criterion came back for me.** The class certified is a
+`Finset` program; the class `#10` names is an integral over `[0,1]`. Different
+classes, so rung 0 goes from *uncertified* to **partial**, not certified —
+`SURPRISES` S20. The instrument was turned on the output of the cycle that built
+it, one cycle later, and it bit.
+
+Remaining step is measure-theoretic bookkeeping, now a well-posed Lean task.
+
 ### Night cycle 3 — the ladder audited; rung 0 is borrowed
 
 W34d run with a **mechanical** criterion (a rung needs a machine-checked

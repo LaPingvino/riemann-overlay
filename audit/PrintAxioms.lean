@@ -17,3 +17,6 @@ import Riemann
 #print axioms Riemann.Blindness.landau_discriminates
 #print axioms Riemann.Blindness.landau_discriminates₂
 #print axioms Riemann.Blindness.swap_not_a_gauge_pair
+#print axioms Riemann.Capacity.value_eq_pinned
+#print axioms Riemann.Capacity.no_gain_past_known
+#print axioms Riemann.Capacity.unbounded_below_of_neg_outside

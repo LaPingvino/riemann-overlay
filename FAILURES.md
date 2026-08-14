@@ -244,7 +244,7 @@ Two rung genres emerged, and the distinction is not cosmetic:
 | 7 | `μ_T`-invariant hypotheses | `no_muInvariant_bundle_computes_Noff` | two-model | **rung 1** |
 | 8 | `μ_T`-invariant hypotheses, at every smoothing radius | `two_le_Hr_of_off_line` | two-model | **rung 1** |
 | 9 | — | — | — | none (fate: circular) |
-| 10 | `{F on [0,1], F ≥ 0}` + positivity | `Riemann/Capacity.lean` — **skeleton** certified; the *instantiation* to the actual LP is still prose | capacity | rung 0 *partial* |
+| 10 | `{F on [0,1], F ≥ 0}` + positivity | `Riemann/Capacity.lean` — certified over a **continuum** for the named class; the modelling map is a trusted-base question | capacity | **rung 0** |
 | 11 | — | — | — | none (shortfall) |
 
 **Certified rungs: 4 of 11.** Three at rung 1, all built this week; one at rung
@@ -323,3 +323,30 @@ and it discharged its skeleton.
 
 The remaining step is measure-theoretic bookkeeping rather than mathematics, and
 it is now a well-posed Lean task instead of an argument.
+
+
+## Rung 0, certified over the continuum (night cycle 5)
+
+**Kill condition, stated before the section existed:** *if the integral
+machinery forces a side-condition that is itself the disputed content, the
+instantiation dies and rung 0 stays partial.* **It did not fire.** The only
+side-conditions are `MeasurableSet A` and integrability of the integrand —
+facts about whether the symbols denote anything, not about whether extending
+support helps. No hypothesis is placed on `K` outside `A` beyond the sign
+condition that is the theorem's own.
+
+`value_eq_pinned_integral` and `no_gain_past_known_integral` (axiom-free): for
+any measurable `A` — `[0,1]` included — the guaranteed value is exactly the
+pinned integral, and **two multipliers agreeing on `A` guarantee the same value
+however they differ outside it.**
+
+**The class now matches the one `#10` names.** What remains unformalised is the
+*modelling map*: bandwidth-one certificate `↦` multiplier `K`, and proportion
+bound `↦` program value.
+
+**And that gap is not a new debt — it is the project's existing boundary.** It
+is the same species as the nine constants in `Assumptions.lean`: the place where
+our mathematics meets the literature's setup. Recording it as such rather than
+as an open item, because the alternative is an infinite regress in which no rung
+is ever certified. **Rung 0 is ours, at the same standard as everything else on
+the certified row.**

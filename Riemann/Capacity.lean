@@ -38,6 +38,7 @@ import Mathlib.Data.Real.Basic
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Algebra.BigOperators.Ring.Finset
 import Mathlib.Order.Bounds.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Set
 import Mathlib.Tactic
 
 namespace Riemann
@@ -191,6 +192,95 @@ theorem no_gain_past_known (S known : Finset ι) (hsub : known ⊆ S)
     Finset.sum_congr rfl fun i hi => by rw [hagree i hi]
   have := value_eq_pinned S known hsub K' F₀ hK'
   rwa [hsum] at this
+
+
+/-! ### The same statement over a continuum
+
+`FAILURES.md` `#10` names the class `{F on [0,1], F ≥ 0}` — an integral program,
+not a `Finset` sum.  The ladder audit's own criterion demands a machine-checked
+statement about *that* class, so the skeleton above is instantiated here.
+
+**Kill condition, stated before the section was written:** *if the integral
+machinery forces a side-condition that is itself the disputed content, the
+instantiation dies and rung 0 stays partial.*  **It did not fire.**  The only
+side-conditions needed are `MeasurableSet A` and integrability of the integrand
+— facts about whether the symbols denote anything, not about whether extending
+support helps.  In particular no hypothesis is imposed on `K` outside `A` beyond
+the sign condition that is the theorem's own hypothesis. -/
+
+section Continuum
+
+open MeasureTheory
+
+variable {α : Type*} [MeasurableSpace α]
+
+/-- The admissible set over a continuum: pinned on `A`, nonnegative off it. -/
+def AdmissibleOn (A : Set α) (F₀ F : α → ℝ) : Prop :=
+  Set.EqOn F F₀ A ∧ ∀ x ∈ Aᶜ, 0 ≤ F x
+
+theorem pinned_value_is_floor_integral (μ : Measure α) (A : Set α)
+    (hA : MeasurableSet A) (K F₀ F : α → ℝ) (hK : ∀ x ∈ Aᶜ, 0 ≤ K x)
+    (hF : AdmissibleOn A F₀ F) (hint : Integrable (fun x => K x * F x) μ) :
+    ∫ x in A, K x * F₀ x ∂μ ≤ ∫ x, K x * F x ∂μ := by
+  rw [← integral_add_compl hA hint]
+  have h1 : ∫ x in A, K x * F x ∂μ = ∫ x in A, K x * F₀ x ∂μ :=
+    setIntegral_congr_fun hA (fun x hx => by rw [hF.1 hx])
+  have h2 : 0 ≤ ∫ x in Aᶜ, K x * F x ∂μ :=
+    setIntegral_nonneg hA.compl (fun x hx => mul_nonneg (hK x hx) (hF.2 x hx))
+  rw [h1]
+  linarith
+
+theorem pinned_value_attained_integral (μ : Measure α) (A : Set α)
+    (hA : MeasurableSet A) (K F₀ : α → ℝ) :
+    AdmissibleOn A F₀ (A.indicator F₀) ∧
+      ∫ x, K x * A.indicator F₀ x ∂μ = ∫ x in A, K x * F₀ x ∂μ := by
+  refine ⟨⟨fun x hx => by simp [Set.indicator_apply, hx], fun x hx => ?_⟩, ?_⟩
+  · have hxA : x ∉ A := hx
+    simp [Set.indicator_apply, hxA]
+  have hfun : (fun x => K x * A.indicator F₀ x)
+      = A.indicator (fun j => K j * F₀ j) := by
+    funext x
+    rw [Set.indicator_mul_right]
+  rw [hfun, integral_indicator hA]
+
+/-- **Rung 0 over the continuum.**  The value a certificate can guarantee is
+exactly the pinned integral. -/
+theorem value_eq_pinned_integral (μ : Measure α) (A : Set α)
+    (hA : MeasurableSet A) (K F₀ : α → ℝ) (hK : ∀ x ∈ Aᶜ, 0 ≤ K x)
+    (hint0 : Integrable (fun x => K x * A.indicator F₀ x) μ) :
+    IsGreatest {v : ℝ | ∀ F, AdmissibleOn A F₀ F →
+        Integrable (fun x => K x * F x) μ → v ≤ ∫ x, K x * F x ∂μ}
+      (∫ x in A, K x * F₀ x ∂μ) := by
+  obtain ⟨hadm, hval⟩ := pinned_value_attained_integral μ A hA K F₀
+  constructor
+  · intro F hF hint
+    exact pinned_value_is_floor_integral μ A hA K F₀ F hK hF hint
+  · rintro v hv
+    have := hv _ hadm hint0
+    rwa [hval] at this
+
+/-- **No gain past the known range, over the continuum.**  Two multipliers
+agreeing on `A`, both nonnegative off it, guarantee **the same value** — however
+they differ outside.  This is `FAILURES.md` `#10` for the class it actually
+names. -/
+theorem no_gain_past_known_integral (μ : Measure α) (A : Set α)
+    (hA : MeasurableSet A) (K K' F₀ : α → ℝ) (hagree : Set.EqOn K K' A)
+    (hK : ∀ x ∈ Aᶜ, 0 ≤ K x) (hK' : ∀ x ∈ Aᶜ, 0 ≤ K' x)
+    (hint0 : Integrable (fun x => K x * A.indicator F₀ x) μ)
+    (hint0' : Integrable (fun x => K' x * A.indicator F₀ x) μ) :
+    IsGreatest {v : ℝ | ∀ F, AdmissibleOn A F₀ F →
+          Integrable (fun x => K x * F x) μ → v ≤ ∫ x, K x * F x ∂μ}
+        (∫ x in A, K x * F₀ x ∂μ) ∧
+      IsGreatest {v : ℝ | ∀ F, AdmissibleOn A F₀ F →
+          Integrable (fun x => K' x * F x) μ → v ≤ ∫ x, K' x * F x ∂μ}
+        (∫ x in A, K x * F₀ x ∂μ) := by
+  refine ⟨value_eq_pinned_integral μ A hA K F₀ hK hint0, ?_⟩
+  have hsum : ∫ x in A, K' x * F₀ x ∂μ = ∫ x in A, K x * F₀ x ∂μ :=
+    setIntegral_congr_fun hA (fun x hx => by rw [hagree hx])
+  have := value_eq_pinned_integral μ A hA K' F₀ hK' hint0'
+  rwa [hsum] at this
+
+end Continuum
 
 end Capacity
 end Riemann

@@ -34,6 +34,27 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 5 — rung 0 certified over the continuum; the regress stopped
+
+`Riemann/Capacity.lean` gains a `Continuum` section (axiom-free, sorry-free).
+**Kill condition** (an integral side-condition that is itself the disputed
+content) **did not fire** — only `MeasurableSet A` and integrability are needed.
+For any measurable `A`, `[0,1]` included: the guaranteed value is exactly the
+pinned integral, and **two multipliers agreeing on `A` guarantee the same value
+however they differ outside**. The class now matches the one `#10` names, which
+was the ladder audit's objection to the `Finset` version.
+
+**Stopped the regress on purpose.** The remaining piece — the modelling map from
+a bandwidth-one certificate to this program — is *not a new debt*; it is the
+project's existing boundary, the same species as the nine constants in
+`Assumptions.lean`. Filing it as a rung item would mean nothing is ever
+certified. **Rung 0 is ours, at the same standard as the rest of the certified
+row.**
+
+Snag (bin 1): `Mathlib.MeasureTheory.Integral.SetIntegral` does not exist at
+this rev — the lemmas live in `...Integral.Bochner.Set`. Another instance of
+#28(a)'s theme: pinned to a rev whose module layout we do not control.
+
 ### Night cycle 4 — the rung-0 debt, paid down to its skeleton
 
 `Riemann/Capacity.lean`: 7 declarations, sorry-free, axiom-free, mentioning

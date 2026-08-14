@@ -1595,3 +1595,48 @@ unmoved.
 borrowed, and one whose skeleton is ours and whose flesh is still prose — and
 the reason we know that precisely is that we wrote down what "having a rung"
 means *before* trying to claim another one.
+
+
+# SESSION 041 — night cycle 5: rung 0 certified over the continuum, and the regress stopped on purpose
+
+**Kill condition, stated before the section existed:** *if the integral
+machinery forces a side-condition that is itself the disputed content, the
+instantiation dies and rung 0 stays partial.* **It did not fire.** The only
+side-conditions are `MeasurableSet A` and integrability — facts about whether
+the symbols denote anything, not about whether extension helps. Nothing is
+imposed on `K` outside `A` beyond the theorem's own sign hypothesis.
+
+`Riemann/Capacity.lean` gains a `Continuum` section, axiom-free, sorry-free:
+`pinned_value_is_floor_integral`, `pinned_value_attained_integral`,
+`value_eq_pinned_integral`, `no_gain_past_known_integral`. For **any measurable
+`A`** — `[0,1]` included — the guaranteed value is exactly the pinned integral,
+and two multipliers agreeing on `A` guarantee the same value however wildly they
+differ outside it.
+
+**The class now matches the one `#10` names**, which was precisely the objection
+the ladder audit raised against last cycle's `Finset` version.
+
+**And here is where I stopped, deliberately.** What is still unformalised is the
+*modelling map*: bandwidth-one certificate `↦` multiplier `K`, proportion bound
+`↦` program value. I could have filed that as a third layer of debt and gone
+around again. I did not, because it is **not a new debt — it is the project's
+existing boundary**, the same species as the nine constants in
+`Assumptions.lean`, the place where our mathematics meets the literature's
+setup. Treating it as an open rung item would start an infinite regress in which
+nothing is ever certified.
+
+So: **rung 0 is ours, at exactly the standard everything else on the certified
+row is held to** — no better, and explicitly no worse.
+
+Snag, bin 1 (build environment, not mathematics): the obvious import
+`Mathlib.MeasureTheory.Integral.SetIntegral` does not exist at this Mathlib rev;
+the set-integral lemmas live in `Mathlib.MeasureTheory.Integral.Bochner.Set`.
+Found by the build, cost one cycle-minute. Worth noting only because it is
+another instance of ISSUES #28(a)'s theme: we are pinned to a rev whose module
+layout we do not control.
+
+Audits extended; build green (3746 jobs); base hash unmoved.
+
+**Might-mean, unhedged:** the ladder's ground floor is now certified, and the
+thing that let it finish was deciding — in writing, before the next objection
+arrived — where the standard of proof stops and the trusted base begins.

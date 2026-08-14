@@ -175,5 +175,92 @@ theorem not_factors_of_discriminates (Φ : ZeroData → ℝ) (a : ℝ)
   refine h ?_
   rw [hg, hg, config_ordinates_eq (show 2 + 2 * 0 = 0 + 2 * 1 by norm_num) a a]
 
+
+/-! ### The first functional to pass the acceptance test
+
+`Discriminates` is a specification; a specification with no known passing
+instance is a wish.  Here is one, and its proof is the strict
+arithmetic–geometric mean inequality.
+
+`landau x D := Σ_{ρ ∈ Z} x^β` is the Landau weight evaluated on a
+configuration — a finite sum, no analytic content.  All `config` zeros sit at
+ordinate `0`, so the oscillating factor `e^{iγ log x}` is a common unit and the
+real part carries everything; that is why a real-valued functional suffices for
+the test.
+
+On the two fiber states of mass two:
+
+* `landau x (config 2 0 a) = 2 * x^(1/2)`
+* `landau x (config 0 1 a) = x^a + x^(1-a)`
+
+and `x^a + x^(1-a) > 2 x^(1/2)` for every `x > 1` and `a ≠ 1/2` — strict AM–GM,
+nothing more.  **The discrimination that no functional of `μ_T` can make is
+performed by an inequality older than the Hypothesis**, at every `x`, with the
+excess growing in `log x`.  E16's `cosh` is AM–GM's excess.
+
+*Honesty clause, so the result stays its own size.*  This certifies that the
+**functional** discriminates.  It does not certify that we can **evaluate** it on
+`ζ`'s actual zeros to the needed precision — that is `W16`'s separability
+problem, untouched.  What changes is that the acceptance test now has a
+known-passing calibration input, and every later candidate is measured against
+it. -/
+
+/-- The Landau weight of a configuration: `Σ_ρ x^β`. -/
+noncomputable def landau (x : ℝ) (D : ZeroData) : ℝ :=
+  (D.Z.map fun p => x ^ p.1).sum
+
+@[simp] lemma landau_config (x : ℝ) (k j : ℕ) (a : ℝ) :
+    landau x (config k j a) = k * x ^ ((1:ℝ)/2) + j * (x ^ a + x ^ (1 - a)) := by
+  show (Multiset.map (fun p : ℝ × ℝ => x ^ p.1)
+      (Multiset.replicate k ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate j (a, (0:ℝ))
+          + Multiset.replicate j ((1 - a : ℝ), (0:ℝ))))).sum = _
+  rw [Multiset.map_add, Multiset.map_add, Multiset.map_replicate,
+    Multiset.map_replicate, Multiset.map_replicate, Multiset.sum_add,
+    Multiset.sum_add, Multiset.sum_replicate, Multiset.sum_replicate,
+    Multiset.sum_replicate]
+  push_cast
+  ring
+
+/-- `x^a ≠ x^(1/2)` when `a ≠ 1/2` and `x > 1`: the exponent map is injective. -/
+private lemma rpow_ne {x : ℝ} (hx : 1 < x) {a : ℝ} (ha : a ≠ 1/2) :
+    x ^ a ≠ x ^ ((1:ℝ)/2) := by
+  rcases lt_trichotomy a (1/2 : ℝ) with h | h | h
+  · exact ne_of_lt ((Real.rpow_lt_rpow_left_iff hx).2 h)
+  · exact absurd h ha
+  · exact ne_of_gt ((Real.rpow_lt_rpow_left_iff hx).2 h)
+
+/-- **The Landau weight passes the acceptance test**, at every `x > 1` and every
+depth — by strict AM–GM. -/
+theorem landau_discriminates {x : ℝ} (hx : 1 < x) {a : ℝ} (ha : a ≠ 1/2) :
+    Discriminates (landau x) a := by
+  have hx0 : (0:ℝ) < x := lt_trans one_pos hx
+  set s : ℝ := x ^ ((1:ℝ)/2) with hs
+  set u : ℝ := x ^ a with hu
+  have hspos : 0 < s := Real.rpow_pos_of_pos hx0 _
+  have hupos : 0 < u := Real.rpow_pos_of_pos hx0 _
+  have hvpos : 0 < x ^ (1 - a) := Real.rpow_pos_of_pos hx0 _
+  have hss : s * s = x := by
+    rw [hs, ← Real.rpow_add hx0]
+    norm_num
+  have huv : u * x ^ (1 - a) = x := by
+    rw [hu, ← Real.rpow_add hx0]
+    norm_num
+  have hne : u ≠ s := rpow_ne hx ha
+  show landau x (config 2 0 a) ≠ landau x (config 0 1 a)
+  rw [landau_config, landau_config]
+  push_cast
+  intro hcon
+  have hkey : x ^ (1 - a) = s * s / u := by
+    field_simp
+    rw [mul_comm, huv]
+    nlinarith [hss]
+  rw [hkey] at hcon
+  have hsub : (u - s) * (u - s) = 0 := by
+    field_simp at hcon
+    nlinarith [hcon, hupos, hspos]
+  have : u - s = 0 := by nlinarith [hsub]
+  exact hne (by linarith)
+
 end Blindness
 end Riemann

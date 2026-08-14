@@ -22,7 +22,7 @@ this column as evidence.**
 | 8 | A2, fatten the atoms | **forced**: the mirror preserves ordinates exactly, so no vertical smoothing separates a zero from its twin | crystal | resolution is not a free parameter | Lean, cycle 5 |
 | 9 | `#24`, CMR constant fed back | **circular** (one extremal problem, two faces) **and scale-mismatched** (asymptotic in `ℓ`) | crystal | class outputs cannot be class inputs | cycle 8 |
 | 10 | `#25`, class walls past support 1 | Lemma 1 + LP duality: optimum snaps to `λ = 1`, Montgomery's `2/3` — extension is *harmful* | crystal | two-sidedness must enter through the **inputs** | cycle 9 |
-| 11 | `#27`, **the gate** | the weighted sum amplifies each shift's error by `h`, forcing power savings; MRT supplies **log-power** — `X^θ ≪ (log X)^{A+1}` is false | cascade | the two literatures are separated by exactly the Type II gap | cycle 11 |
+| 11 | `#27`, **the gate** | the weighted sum amplifies each shift's error by `h`, forcing power savings; MRT supplies **log-power** — `X^θ ≪ (log X)^{A+1}` is false **at every `θ > 0`** (quarry, exp. A) | cascade | the two literatures are separated by exactly the Type II gap | cycle 11 |
 
 ## Contamination note — read before using the `plane` column
 
@@ -148,3 +148,48 @@ of eleven failures are the input being an output. That is a fact about *our
 method*, not about `ζ`: the project's most common failure mode is feeding the
 machinery its own exhaust, and R18's condition (2) was written after the fourth
 instance rather than the first.
+
+
+## Quarry annotations (A3 annex) — `forensics/quarry.py`
+
+Deliberately **not** new census entries: the quarry re-runs retracted
+computations as experiments and its yield is sharper *reasons*, not more
+deaths. Inflating the census would be exactly the Goodhart move the doctrine
+forbids.
+
+**On `#11` (the gate) — it is a shape gate, not a range gate.** Wildcard, kill
+condition stated first: *if some `θ > 0` satisfies `X^θ ≪ (log X)^{A+1}`
+asymptotically, the gate is a threshold in `θ` and the "shape not range"
+reading dies.* It did not fire. For every `θ > 0` the left side is a power and
+the right a log-power, so the gate fails uniformly in `θ`: **the axis the field
+has advanced on for thirty years (Mikawa `1/3` → MRT `8/33`) is orthogonal to
+the requirement.** Improving the shift range moves the crossover and never
+crosses it.
+
+**And the quantitative half is the find.** The failure is *purely asymptotic*.
+Crossover `log X` at which the gate closes:
+
+| θ \ A | 2 | 5 | 10 | 20 | 50 |
+|---|---|---|---|---|---|
+| Mikawa `1/3` | 31 | 79 | 169 | 373 | 1067 |
+| MRT `8/33` | 48 | 118 | 251 | 546 | 1545 |
+
+i.e. `X` beyond `10^13` … `10^671`. **No numerical experiment at any feasible
+height could have seen this obstruction, and none could ever have warned us.**
+`#27` survived a hand computation and died to a shape check — which is exactly
+the disease the QUALITY rule was built for, now with a measured invisibility
+radius.
+
+**On `#9` (CMR fed back) — circular at *every* scale.** Run at window scales
+`0.3, 1.0, 1.32, 1.5, 3.0`: CMR is CIRCULAR at all of them (ancestry hits
+`EP1`) and additionally SCALE-invalid below `3.0`. The scales where it is
+scale-valid are ones our window never reaches, and Rule 1 blocks it there too.
+So the corridor is not under-fuelled from this node — it is **unfuellable** from
+it, and no choice of window rescues it.
+
+**Hypothesis-depth stratification.** 8/11 unconditional, 3/11 RH, **0/11 GRH**.
+The GRH tier is empty, which is a recruitment criterion rather than a gap: a
+death consuming GRH would be bridge material that changes in *more* worlds, and
+we have manufactured none. *Proposed for after the freeze:* GRH as a second
+flag on the guard's DAG rather than a member of `RH_CONDITIONAL`, so hypothesis
+depth becomes a partial order instead of a bit.

@@ -849,3 +849,39 @@ only possible fuel.
 only past `10¹⁰⁰`. Caught by asking for the asymptotic statement instead of a
 value. The guard culture is now catching errors inside the cycle that produced
 them, which is the first time that has happened twice in one turn.
+
+## #28 — [bin 2, reproducibility] the build depends on a live remote, and the audit grep is off by one
+
+Found by the packaging agent while writing `VERIFYING.md`. Two defects in the
+repo's *verifiability* rather than its mathematics — filed because a repo whose
+whole claim is "check this yourself" must be checkable by someone who is not us.
+
+**(a) No vendored dependency.** `lakefile.toml` carries `rev = "main"` while
+`lake-manifest.json` pins `3635e74…`. The manifest is what makes reproduction
+possible, and it points at `github.com/anthropics/zeta-23-lean`, which is
+publicly reachable today. There is **no vendored copy**: if that repository
+moves or disappears, the build stops being reproducible and every axiom-free
+claim becomes uncheckable by a third party. The `rev = "main"` in the lakefile
+is the sharper half — it invites a `lake update` that silently retargets the
+pin.
+*Fix, cheap:* pin the lakefile to the manifest's rev. *Fix, durable:* vendor or
+mirror the dependency. Not done this cycle — it touches the build's trusted
+inputs, so it is escalated rather than executed.
+
+**(b) The documented audit command is off by one.**
+`Riemann/Assumptions.lean`'s house rules say `grep '^axiom' Riemann/Assumptions.lean`
+**is** the audit. It returns **10** lines, not 9: line 26 is the prose
+`axiom must extend it**:` inside the consistency-model doc comment.
+`tools/proportion.go` strips comments first and is not fooled, so **no logged
+number was ever wrong** — but the command we tell a reader to run disagrees with
+the tool by one, which is precisely the kind of gap that erodes trust in
+everything else on the page. Documented in `VERIFYING.md` §3.1 as a known
+discrepancy.
+*Fix:* reword the doc comment so no line begins with `axiom`, or change the
+stated audit command to the comment-stripping one. Either is a one-line edit;
+neither is done under this cycle's escalation discipline.
+
+**(c) Noted, already tracked:** `audit/Declarations.lean` and
+`audit/PrintAxioms.lean` do not cover the `Blindness.lean` / `Fiber.lean` names.
+Flagged in SESSION 033 as deferred under the freeze; it is the first
+post-freeze item.

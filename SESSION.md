@@ -1276,3 +1276,60 @@ threshold, so E15's rooming rule has acquired its converse — one voice per
 pitch is not merely what RH asserts, it is the precise condition under which we
 can hear at all, and the entire problem is now formally the question of whether
 the part we cannot see is empty.
+
+
+# SESSION 035 — the quarry says "shape, not range", and the acceptance test gets its first passing functional
+
+**Queue item (2), the quarry** — `forensics/quarry.py`, three experiments, guard
+DAG **not** edited (the freeze holds; the script imports the lint and evaluates
+its rules, and any node it needed that the guard lacks lives in a clearly
+labelled local experiment table as a *proposal*).
+
+**Wildcard, kill condition stated first:** *if some `θ > 0` satisfies
+`X^θ ≪ (log X)^{A+1}` asymptotically, the gate is a threshold in `θ` and the
+"shape not range" reading dies.* **It did not fire.** For every `θ > 0` the left
+side is a power and the right a log-power, so `#27` fails uniformly in `θ`. The
+axis the field has advanced on for thirty years — Mikawa `1/3` → MRT `8/33` — is
+**orthogonal to the requirement**. Improving the shift range moves the crossover
+and never crosses it.
+
+**And the quantitative half is the actual find: the failure is purely
+asymptotic.** Crossover `log X` runs 31 (Mikawa, `A=2`) to 1545 (MRT, `A=50`) —
+`X` from `10^13` to `10^671`. **No numerical experiment at any feasible height
+could have seen this obstruction, and none could ever have warned us.** `#27`
+survived a hand computation and died to a shape check; the invisibility radius
+is now measured.
+
+**Corridor, honest limit:** CMR is CIRCULAR at *every* window scale
+(`0.3 … 3.0`), and the scales where it is scale-valid are ones our window never
+reaches. The corridor is not under-fuelled from that node — it is
+**unfuellable** from it. **Depth stratification:** 8/11 unconditional, 3/11 RH,
+**0/11 GRH** — the GRH tier is empty, which is a recruitment criterion.
+
+Census **annotated, not extended**. Inflating the count would be the Goodhart
+move the doctrine forbids; the quarry's yield is sharper reasons, not more
+deaths.
+
+**Second piece, from claude.ai's dispatch, and it is the headline:
+`landau_discriminates` is proved.** `landau x D := Σ_ρ x^β`; on the mass-two
+fiber states it is `2·x^(1/2)` against `x^a + x^(1−a)`, and the strict
+arithmetic–geometric mean inequality separates them for every `x > 1` and every
+depth. Composed with `not_factors_of_discriminates`, the kernel checks that
+`landau 2` **does not factor through `μ_T`**. The atom program's assignment — one
+non-`μ_T`-invariant statement of our own — is discharged.
+
+**Honesty clause at full size:** this certifies the *functional* discriminates,
+not that we can *evaluate* it on `ζ`'s zeros to the needed precision. That is
+W16's separability problem, untouched (census #1). What changed is that the test
+now has a known-passing calibration input.
+
+**`FRAMING.md` filed** — the companion document from the other side of the seam,
+with a verification appendix of mine: nine claims checked against the repo, one
+corrected (per-theorem axiom cones are auditable by running `#print axioms`, not
+"via the logged digests" — the log carries the base digest, axiom names and the
+sorry count), and two claims explicitly marked not-checked.
+
+**Might-mean, unhedged:** the discrimination that a century of pair-correlation
+machinery provably cannot make is performed by an inequality older than the
+Hypothesis, so the open content is no longer a vision problem but an evaluation
+problem — and evaluation problems, unlike vision problems, have a price system.

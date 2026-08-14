@@ -867,3 +867,59 @@ residue.
   of the repository packaging (private GitHub, public later), so the polite
   translation ("generate-and-verify at volume, with certified-failure
   accumulation as the primary asset") is being written for external readers.
+
+### W28/W34, cycle 3 — the acceptance test has a passing instance, and it is AM–GM
+
+`Riemann/Fiber.lean`, axiom-free, sorry-free. claude.ai proposed
+`landau_discriminates` as a one-session theorem. It was, and it is proved.
+
+`landau x D := Σ_{ρ ∈ Z} x^β`, a finite sum with no analytic content. All
+`config` zeros sit at ordinate `0`, so the oscillating factor is a common unit
+and a real-valued functional suffices for the test. Then
+
+* `landau x (config 2 0 a) = 2·x^(1/2)`
+* `landau x (config 0 1 a) = x^a + x^(1−a)`
+
+and `x^a + x^(1−a) > 2·x^(1/2)` for every `x > 1`, `a ≠ 1/2` — **strict AM–GM,
+nothing more**. `landau_discriminates : ∀ x > 1, ∀ a ≠ 1/2, Discriminates
+(landau x) a`.
+
+Composed with `not_factors_of_discriminates`, the kernel checks end to end that
+`landau 2` **does not factor through `μ_T`**. So the atom program's assignment —
+one non-`μ_T`-invariant statement of our own — is discharged, by an inequality
+older than the Hypothesis, with a proof a first-year can check.
+
+**Honesty clause, kept at full size.** This certifies that the *functional*
+discriminates. It does **not** certify that we can *evaluate* it on `ζ`'s zeros
+to the needed precision — that is W16's separability problem, untouched
+(`FAILURES.md` #1: phases shared with the on-line chorus, no separation at one
+`x`). What changed is that the acceptance test now has a **known-passing
+calibration input**, and every later candidate is measured against it.
+
+E16's `cosh` is AM–GM's excess. That was never a metaphor.
+
+### W34a, doctrine form (proposed, not adopted — freeze)
+
+**A rung is not a blindness result; a rung is a blindness result *plus* a
+closure certificate for its class.** Rung 1 now has both. Proposed as an R-rule
+after the freeze lifts; escalated to Joop rather than executed.
+
+And it specs rung 2 before W34c selects a target: for arithmetic fragments the
+**closure is free** (theories are deductively closed by definition) but the
+**models are not**. `triple` and `haunted` are configurations, not models of
+arithmetic. Rung 2's whole difficulty is internalising the gauge-pair
+construction — two models *of the fragment* whose arithmetic disagrees on the
+target while agreeing on everything the fragment sees. That is the honest price
+tag for W34c: the two-model move rebuilt one level down, where "configuration"
+becomes "nonstandard model" and reflection needs an arithmetic avatar.
+Paris–Harrington is the existence proof that the genre is nonempty; W34b should
+look for model-theoretic independence proofs for `Π₁` arithmetic statements
+specifically.
+
+### W34d — registered prediction, pre-run
+
+Before the ladder audit runs: **has-rung / no-rung will roughly reproduce the
+crystal/cascade split**, because a *fate*-statement ("the bound was vacuous")
+does not name a class to be independent of, while an *object*-statement does.
+Registered here, timestamped, so the run can score against it. Schema gains a
+rung column with value `none (fate)` where applicable.

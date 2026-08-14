@@ -923,3 +923,33 @@ crystal/cascade split**, because a *fate*-statement ("the bound was vacuous")
 does not name a class to be independent of, while an *object*-statement does.
 Registered here, timestamped, so the run can score against it. Schema gains a
 rung column with value `none (fate)` where applicable.
+
+### W34d — DONE. The ladder has one occupied rung above the ground, and the ground is borrowed
+
+Audit in `FAILURES.md`. Criterion made **mechanical**: an entry has a rung iff a
+machine-checked statement exists that no member of a named class decides the
+target. Two genres separated — **two-model** (forcing shape) and **capacity**
+(LP/extremal shape).
+
+**Certified rungs: 4 of 11.** `#4`, `#7`, `#8` at **rung 1** (class:
+`μ_T`-invariant hypotheses; certificates in `Blindness.lean`/`Fiber.lean`, all
+built this week). `#6` at **rung 0** (class: bandwidth-one certificates;
+certificate `Zeta23.PairCeiling.ceiling_law256`, verified axiom-free tonight in
+the dependency).
+
+**Registered prediction confirmed in direction:** all four certified rungs are
+`crystal`; **no `cascade` entry has one**. No p-value — sample of 10 and the
+class-naming half was done with the prediction in hand. The certificate half is
+clean and carries the direction. `#9` defects again, as it did in the tri-read.
+
+**Debt, filed:** `#10`'s rung 0 — the one the ladder brief listed as *owned* —
+is **prose**. No Lean statement says `{F on [0,1], F ≥ 0}` + positivity fails to
+decide the target. The argument may be right; it is not a rung by this audit's
+criterion. **The only capacity certificate we can run came in with zeta-23.**
+Recorded as `SURPRISES` S19.
+
+**Next rung-0 item, and it is cheap:** formalise the LP-duality collapse enough
+to state "no `F` supported in `[0,1]` with `F ≥ 0` yields more than Montgomery's
+`2/3`". That is a capacity statement about a convex program, not a theorem about
+`ζ`, so it is Lean-reachable without any arithmetic input — the same shape as
+`Basic.lean`'s combinatorial core.

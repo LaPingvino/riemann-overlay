@@ -1489,3 +1489,58 @@ keep: patch scripts assert everything first, write once.
 BBMZ and MRT is no longer a bookkeeping device but a claim about the field's
 own history, and the claim is that its measured axis of progress has never once
 been the axis its intended consumer bills for.
+
+
+# SESSION 039 — night cycle 3: the ladder audited, and rung 0 turns out to be borrowed
+
+**Piece: W34d, the ladder audit**, with the criterion made mechanical on
+purpose — an entry has a rung iff a **machine-checked** statement exists saying
+no member of a named class decides the target. Certificate existence is a
+`#print axioms` check; only class-naming is judgement, and it is marked.
+
+Two genres separated, and the distinction is load-bearing: **two-model** (the
+forcing shape — exhibit two structures agreeing on what the class sees) and
+**capacity** (the LP/extremal shape — bound the class's optimum below the
+target).
+
+**Certified rungs: 4 of 11.**
+
+* `#4`, `#7`, `#8` — **rung 1**, class `μ_T`-invariant hypotheses, certificates
+  in `Blindness.lean`/`Fiber.lean`. All three were built this week.
+* `#6` — **rung 0**, class bandwidth-one certificates, certificate
+  `Zeta23.PairCeiling.ceiling_law256`. I verified it axiom-free tonight; note it
+  is **not reachable from our root** — `import Riemann` does not see it, and it
+  had to be imported directly from the dependency.
+
+**Registered prediction, scored.** Filed in SESSION 034 before the run:
+has-rung/no-rung would roughly reproduce crystal/cascade. **Confirmed in
+direction** — all four certified rungs are crystal, **no cascade entry has
+one**. **No p-value quoted and none available:** sample of 10, and the
+class-naming half was done with the prediction in hand, which is the exact
+contamination R19 exists for. The certificate half is mechanical and is what
+carries the direction. `#9` defects here as it did in the tri-read — unstable
+under every classifier we own.
+
+**The unpredicted finding, and it is the uncomfortable one: rung 0 is borrowed
+and our own rung-0 claim is uncertified.** `#10`'s LP-duality collapse — listed
+in the ladder brief as *owned* — exists here as **prose**. There is no Lean
+statement that `{F on [0,1], F ≥ 0}` + positivity fails to decide the target.
+The only capacity certificate we can actually run arrived with zeta-23. Filed as
+`SURPRISES` S19 (class `process`): I relayed "owned" without checking, and the
+audit's own criterion caught it.
+
+**Snag, bin 2:** `ceiling_law256` is cited across four registers as *our*
+ceiling and is not imported by `Riemann.lean`. Nothing false was published — the
+theorem is real and axiom-free — but a reader following `import Riemann` cannot
+reach it. Cheap fix available; not done tonight (it changes the root's import
+surface, which is a build-shape decision).
+
+**Next rung-0 item, cheap and Lean-reachable:** formalise the LP collapse as a
+capacity statement about a convex program — "no `F` supported in `[0,1]` with
+`F ≥ 0` beats Montgomery's `2/3`". That is not a theorem about `ζ` and needs no
+arithmetic input, so it sits in the same tier as the combinatorial core.
+
+**Might-mean, unhedged:** the ladder we have been describing as a staircase has
+exactly one step we built and one step we borrowed, and the audit that revealed
+this was the first instrument in the project aimed at our *claims of ownership*
+rather than at our mathematics.

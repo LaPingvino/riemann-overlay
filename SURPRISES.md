@@ -53,6 +53,7 @@ total.
 | S16 | 038 | five string assertions would match the guard file | the fourth failed on whitespace; the guard was left untouched, which was luck of construction rather than design | tooling (assertion) | process |
 | S17 | 032 | the env would be inherited by the tool run | `proportion.go` exited **4 with an empty body** — no `lake` on `PATH`; the audit worked, the operator did not | tooling (exit 4) | process |
 | S18 | 036 | the boundary is β-*equality* vs β-*inequality* | wrong boundary — `on_line_of_H_eq_one` **is** a β-equality from ordinate data. The real boundary is **solitude**: computable on the simple locus, blind on crowded atoms | c.ai | calibration |
+| S19 | 039 | rung 0 was **owned** — I relayed the ladder brief's claim that `{F on [0,1], F ≥ 0}` independence was already held | it is **prose, uncertified**; the only runnable capacity certificate (`ceiling_law256`) is imported from zeta-23, not ours | tooling (the audit's own criterion) | process |
 
 ## Standing observation
 

@@ -34,6 +34,28 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 3 — the ladder audited; rung 0 is borrowed
+
+W34d run with a **mechanical** criterion (a rung needs a machine-checked
+"no member of class `C` decides the target"). **4 of 11 certified**: `#4`,
+`#7`, `#8` at rung 1 (`μ_T`-invariant, built this week) and `#6` at rung 0
+(bandwidth-one, `Zeta23.PairCeiling.ceiling_law256`, verified axiom-free
+tonight — and **imported**, not ours).
+
+Registered prediction **confirmed in direction**: all certified rungs are
+`crystal`, none is `cascade`. No p-value — sample of 10 and half the
+classification was judgement.
+
+**Unpredicted, and the reason this cycle mattered:** `#10`'s rung 0 — the one
+the ladder brief called *owned* — is **prose**, with no Lean statement behind
+it. Filed as `SURPRISES` S19. Next rung-0 item is cheap and needs no arithmetic:
+the LP collapse is a capacity claim about a convex program.
+
+Snag (bin 2): `ceiling_law256` is cited across four registers as our ceiling and
+is **not reachable from `import Riemann`**. Nothing false was published; a reader
+following our root simply cannot get to it. Fix is cheap but changes the root's
+import surface, so it waits.
+
 ### Off-cycle — `SURPRISES.md`, the calibration meter (Joop's ask)
 
 Every case where the record went against a **stated** expectation, back-filled

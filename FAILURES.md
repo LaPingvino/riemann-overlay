@@ -217,3 +217,65 @@ guard is the authority — the agreement is what licensed the deletion.
 progress, one rejection reason. The guard now says mechanically what quarry
 experiment A says arithmetically: **the axis the field advances on is not the
 axis the bridge bills.**
+
+
+## W34d — the ladder audit (registered prediction, scored)
+
+**The criterion is mechanical, deliberately.** An entry has a **rung** iff a
+*machine-checked* statement exists of the form "no member of class `C` decides
+(or exceeds) the target", with `C` explicitly named. Certificate existence is an
+`#print axioms` check, not a judgement; only the class-*naming* half is
+judgement, and it is marked where it matters.
+
+Two rung genres emerged, and the distinction is not cosmetic:
+
+* **two-model** — exhibit two structures agreeing on everything `C` sees and
+  disagreeing on the target. The forcing shape.
+* **capacity** — bound `C`'s optimum below the target. The LP/extremal shape.
+
+| # | class it is independent of | certificate | genre | rung |
+|---|---|---|---|---|
+| 1 | single-`x` phased Landau evaluation | — | — | *candidate* |
+| 2 | — | — | — | none (fate: circular) |
+| 3 | cheap classical growth invariants (Jensen) | — | — | *candidate* |
+| 4 | `μ_T`-invariant hypotheses | `no_muInvariant_theory_computes_NscStd`, `blind_at_every_crowded_mass` | two-model | **rung 1** |
+| 5 | — | — | — | none (fate: verdict error) |
+| 6 | bandwidth-one certificates | `Zeta23.PairCeiling.ceiling_law256` — axiom-free, **verified tonight** | capacity | **rung 0** |
+| 7 | `μ_T`-invariant hypotheses | `no_muInvariant_bundle_computes_Noff` | two-model | **rung 1** |
+| 8 | `μ_T`-invariant hypotheses, at every smoothing radius | `two_le_Hr_of_off_line` | two-model | **rung 1** |
+| 9 | — | — | — | none (fate: circular) |
+| 10 | `{F on [0,1], F ≥ 0}` + positivity | **prose only — no machine-checked statement** | capacity | rung 0 *claimed, uncertified* |
+| 11 | — | — | — | none (shortfall) |
+
+**Certified rungs: 4 of 11.** Three at rung 1, all built this week; one at rung
+0, and it is **imported**, not ours.
+
+### Scoring the pre-registered prediction
+
+Registered before the run (`LEADS.md`, SESSION 034): *has-rung / no-rung will
+roughly reproduce the crystal/cascade split.*
+
+**Confirmed in direction, and cleanly.** All four certified rungs are `crystal`;
+**no `cascade` entry has one.** The defectors are `#9` and `#10` — crystal with
+no certificate — plus `#5`, which is `n/a` by construction.
+
+**No p-value, and none is available.** The sample is 10 classifiable entries and
+the class-naming half was done with the prediction in hand, which is exactly the
+contamination R19 exists to prevent. What is clean is the certificate half: the
+theorems either exist or they do not, and that half is what carries the
+direction. Note also that `#9` is the same lone crystal defector that broke the
+tri-read's co-classification — it is unstable under every classifier we have run.
+
+### The finding that was not predicted, and it is the uncomfortable one
+
+**Rung 0 is not ours and is not certified.** `#10`'s LP-duality collapse — the
+rung the ladder brief listed as *owned* — exists in this repo as **prose**.
+There is no Lean statement that the class `{F on [0,1], F ≥ 0}` + positivity
+fails to decide the target; the argument is written out and believed. The only
+capacity certificate we can actually run is `ceiling_law256`, which came in with
+zeta-23.
+
+So the honest ladder is: **rung 1 occupied by three theorems we built, rung 0
+occupied by one theorem we imported, and the rung-0 result we claimed as our own
+still owes its certificate.** Filed as a debt, not a defect — the argument may
+well be right; it is simply not yet a rung by this audit's own criterion.

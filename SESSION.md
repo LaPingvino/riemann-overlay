@@ -1447,3 +1447,45 @@ verification on the board.
 phase-removal over a stretch of `c` that is affordable at heights we have
 already computed, so the question stopped being whether the value channel can
 see and became whether anyone will pay to look between `c = 1` and `c = 1.4`.
+
+
+# SESSION 038 — night cycle 2: the guard learns depth, and three decades get one verdict
+
+**Piece: the guard change** (`forensics/provenance_lint.py`).
+
+**Kill condition stated first:** *if generalising `RH_CONDITIONAL` from a bit to
+a hypothesis-depth order changes the T3(b) answer away from 3/11, the change has
+altered a published result rather than refined it, and it reverts.* **It did not
+fire.** `HYPOTHESIS_DEPTH = {RH: 1, GRH: 2}`, `RH_CONDITIONAL` retained as the
+`depth ≥ 1` set so every existing caller keeps its meaning. Changers
+`[9,10,11]`, 3/11, unchanged; tiers 8 unconditional / 3 RH / **0 GRH**.
+
+**R17 witness, and it is the reason the deletion was safe.** `quarry.py`'s local
+experiment table and the guard's new `depth()` are two independent
+implementations of the same stratification, and they agreed exactly (8/3/0)
+*before* the swap. The local table is now gone and the guard is the authority —
+the agreement is what licensed removing the second implementation, not a
+preference for tidiness.
+
+**The progress axis is now a node family.** `Mikawa_third`, `BBMZ_theta`,
+`MRT_8_33`, all supplying `log-power`. Fed to `GM_bridge` they yield **three
+identical QUALITY verdicts** — thirty years of exponent improvements, one
+rejection reason, printed by the guard rather than argued in prose. Experiment D
+added to the quarry to exhibit it.
+
+Full suite green afterwards: `lemma1_guard` self-test passes (D=4 correctly
+flagged as violating Lemma 1), `lake build` 3745 jobs, `proportion.go` clean,
+base hash `cd7a22e688df` unmoved.
+
+**Snag, bin 2 (worth naming because it nearly cost the guard).** My first patch
+attempt asserted on five exact string matches and the fourth failed on a
+whitespace difference — the file was left **untouched** because every write
+happens after every assertion. That is the correct failure mode and it was luck
+of construction rather than design: an edit script that writes incrementally
+would have left the guard half-generalised and still green. Filed as a habit to
+keep: patch scripts assert everything first, write once.
+
+**Might-mean, unhedged:** a guard that can print the same rejection for Mikawa,
+BBMZ and MRT is no longer a bookkeeping device but a claim about the field's
+own history, and the claim is that its measured axis of progress has never once
+been the axis its intended consumer bills for.

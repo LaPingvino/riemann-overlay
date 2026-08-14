@@ -193,3 +193,27 @@ death consuming GRH would be bridge material that changes in *more* worlds, and
 we have manufactured none. *Proposed for after the freeze:* GRH as a second
 flag on the guard's DAG rather than a member of `RH_CONDITIONAL`, so hypothesis
 depth becomes a partial order instead of a bit.
+
+
+## Guard generalisation (night cycle 2) — hypothesis depth is now a partial order
+
+**Kill condition, stated first:** *if generalising `RH_CONDITIONAL` from a bit
+to a depth order changes the T3(b) answer away from 3/11, the change has
+altered a published result rather than refined it, and it reverts.*
+
+**It did not fire.** `provenance_lint` now carries
+`HYPOTHESIS_DEPTH = {RH: 1, GRH: 2}` with `RH_CONDITIONAL` retained as the
+`depth ≥ 1` set, so every existing caller keeps its meaning. Re-run: changers
+`[9, 10, 11]`, **3/11**, unchanged; tiers **8 unconditional / 3 RH / 0 GRH**.
+
+**R17 witness for the green light:** `quarry.py`'s local experiment table and
+the guard's new `depth()` were two independent implementations, and they agreed
+exactly (8/3/0) *before* the swap. The local table has now been deleted and the
+guard is the authority — the agreement is what licensed the deletion.
+
+**And the progress axis is now a node family.** `Mikawa_third`, `BBMZ_theta`,
+`MRT_8_33` are in the DAG, all three supplying `log-power`. Run against
+`GM_bridge` they produce **three identical QUALITY verdicts**. Three decades of
+progress, one rejection reason. The guard now says mechanically what quarry
+experiment A says arithmetically: **the axis the field advances on is not the
+axis the bridge bills.**

@@ -6,11 +6,12 @@ actually the quarry — a documented RH-conditional failure with an exactly name
 gap is bridge material.  So the retractions get re-run, not re-buried, with the
 lint on and every RH-node flagged.
 
-FREEZE NOTE.  The guard's DAG (`provenance_lint.NODES`) is **not edited** here.
-This file imports the guard and evaluates its rules; where an experiment needs a
-node the guard does not carry (historical shift ranges, the GRH tier), it builds
-a **local experiment table** and says so.  Any node that survives becomes a
-*proposed* DAG addition, to be applied after the freeze lifts, not before.
+DAG NOTE.  This file was written under a register freeze and used a local
+experiment table for the nodes the guard did not carry (historical shift ranges,
+the GRH tier).  Night cycle 2 **adopted** those nodes into the guard, and the
+local table is gone: `provenance_lint.depth` is now the authority.  The two
+implementations agreed exactly before the swap (8/3/0), which is the R17 witness
+for the adoption.
 
 Run: python3 forensics/quarry.py
 """
@@ -137,54 +138,50 @@ def experiment_B():
 
 # ---------------------------------------------------------------- experiment C
 # The GRH tier, stratifying bridge material by hypothesis depth.
-# LOCAL EXPERIMENT TABLE — the guard's DAG is not touched.
-
-EXPERIMENT_NODES = {
-    # name:        (depends_on,       validity,     note)
-    "GRH":         ([],               (0.0, 9.9),   "generalised RH — strictly stronger than RH"),
-    "CGdL_68.45":  (["GRH", "EP1"],   (0.0, 9.9),   "CGdL's GRH-tier proportion; RECALL, not VERIFIED"),
-}
-
-
-def hypothesis_depth(name):
-    """0 = unconditional, 1 = RH, 2 = GRH.  Experiment-local."""
-    deps, _, _ = EXPERIMENT_NODES.get(name, (None, None, None)) or (None, None, None)
-    if deps is None:
-        anc = L.ancestry(name) | {name}
-        return 1 if "RH" in anc else 0
-    anc = set(deps)
-    for d in list(deps):
-        if d in L.NODES:
-            anc |= L.ancestry(d)
-    if "GRH" in anc:
-        return 2
-    return 1 if "RH" in anc else 0
-
-
-DEPTH_NAME = {0: "unconditional", 1: "RH", 2: "GRH"}
+# ADOPTED (night cycle 2): this experiment's local table has been folded into
+# the guard.  `provenance_lint.depth` is now the authority and the local table
+# is gone; the two agreed exactly before the swap, which is the R17 witness.
 
 
 def experiment_C():
     print(SEP)
     print("EXPERIMENT C — bridge material stratified by hypothesis depth")
     print(SEP)
-    print("LOCAL EXPERIMENT TABLE (guard DAG unedited; GRH/CGdL are proposals)\n")
-    rows = []
+    print("using the guard's own DAG and `provenance_lint.depth` (adopted)\n")
     for i, (name, ins) in sorted(L.DEATHS.items()):
-        depth = max([hypothesis_depth(x) for x in ins], default=0)
-        rows.append((i, name, depth))
-        print(f"  {i:2d}  {name:32s} {DEPTH_NAME[depth]}")
-    for tier in (0, 1, 2):
-        n = sum(1 for _, _, d in rows if d == tier)
-        print(f"\n  tier {DEPTH_NAME[tier]:14s}: {n}/11")
+        d = max((L.depth(x) for x in ins), default=0)
+        print(f"  {i:2d}  {name:32s} {L.DEPTH_NAME[d]}")
+    for tier in sorted(L.DEPTH_NAME):
+        n = sum(1 for _, ins in L.DEATHS.values()
+                if max((L.depth(x) for x in ins), default=0) == tier)
+        print(f"\n  tier {L.DEPTH_NAME[tier]:14s}: {n}/11")
     print("""
   READING.  The census is stratified at depth 0 and 1 only — nothing on the
   books yet consumes GRH, so the GRH tier is EMPTY.  That is a recruitment
   criterion, not a gap in the analysis: a death that consumed GRH would be
   bridge material of a *deeper* kind (it would change in more worlds), and we
-  have manufactured none.  Proposal for after the freeze: add GRH to the
-  guard's RH_CONDITIONAL family as a second flag rather than a member, so
-  depth is a partial order and not a bit.
+  have manufactured none.
+""")
+
+
+# ---------------------------------------------------------------- experiment D
+# The progress axis, run through the guard's QUALITY rule.
+
+
+def experiment_D():
+    print(SEP)
+    print("EXPERIMENT D — the field's progress axis, billed by the QUALITY rule")
+    print(SEP)
+    print("""Each historical shift range is now a node.  They differ in REACH
+(theta) and are identical in QUALITY (log-power).  The bridge bills quality.
+""")
+    for supplier in ("Mikawa_third", "BBMZ_theta", "MRT_8_33"):
+        print(f"-- {supplier} feeding GM_bridge")
+        L.lint([(supplier, 1.32), ("GM_bridge", 1.32)], (1.0, 1.32))
+        print()
+    print("""  Three decades of progress, three identical verdicts.  The guard now
+  says mechanically what experiment A says arithmetically: the gate is a SHAPE
+  gate, and the axis the field advances on is not the axis it bills.
 """)
 
 
@@ -192,6 +189,7 @@ if __name__ == "__main__":
     experiment_A()
     experiment_B()
     experiment_C()
+    experiment_D()
     print(SEP)
-    print("guard DAG unchanged; see the FREEZE NOTE at the top of this file.")
+    print("guard DAG now carries these nodes; see the DAG NOTE at the top.")
     print(SEP)

@@ -34,6 +34,22 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 2 — the guard learns depth; three decades, one verdict
+
+Guard generalised: hypothesis depth is a **partial order** (`RH` 1, `GRH` 2),
+not a bit. **Kill condition** — that the T3(b) answer move off 3/11 — **did not
+fire**: changers `[9,10,11]`, tiers **8 / 3 / 0**. R17 witness: `quarry.py`'s
+local table and the guard's new `depth()` agreed exactly *before* the swap, and
+that agreement is what licensed deleting the local one.
+
+The field's progress axis is now a node family — `Mikawa_third`, `BBMZ_theta`,
+`MRT_8_33`, all `log-power`. Against `GM_bridge` they give **three identical
+QUALITY verdicts**. The guard now prints what quarry experiment A computes: the
+axis the field advances on is not the axis the bridge bills.
+
+Suite green: `lemma1_guard` self-test, `lake build` (3745), `proportion.go`,
+base hash unmoved.
+
 ### Night cycle 1 — the audits catch up; W16 becomes a price
 
 Two safe post-freeze items closed: the existence audit now covers 26 names from

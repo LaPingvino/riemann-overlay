@@ -16,7 +16,14 @@ a graph property, so it is mechanically detectable.
 Run before building any table; print the report above it, like lemma1_guard.
 """
 
-RH_CONDITIONAL = {"RH"}        # nodes whose STATEMENT requires RH; the flag propagates
+# Hypothesis depth, as a PARTIAL ORDER rather than a bit (night cycle 2).  A
+# death consuming GRH is bridge material of a deeper kind than one consuming RH:
+# it changes in strictly more worlds.  RH_CONDITIONAL is retained as the
+# "depth >= 1" set, so every existing caller keeps its meaning and the T3(b)
+# answer is unchanged by construction — which was the stated kill condition.
+HYPOTHESIS_DEPTH = {"RH": 1, "GRH": 2}
+DEPTH_NAME = {0: "unconditional", 1: "RH", 2: "GRH"}
+RH_CONDITIONAL = set(HYPOTHESIS_DEPTH)
 
 TARGET = "N*_bound"            # what our certificates bound
 CLASS_OPTIMUM = {"EP1", "class_closure"}   # outputs of the certificate class itself
@@ -28,6 +35,13 @@ NODES2 = {
     "MRT_corr":  ("log-power", "none"),
     "GM_bridge": ("none",      "power"),
     "sieve_twin":("none",      "none"),
+    # The field's progress axis, as suppliers.  All three supply log-power: the
+    # axis they advance on is REACH (the shift range theta), not QUALITY (the
+    # error's shape).  quarry.py experiment A: the gate fails for every theta>0,
+    # so these differ only in a coordinate the consumer does not bill for.
+    "Mikawa_third": ("log-power", "none"),
+    "BBMZ_theta":   ("log-power", "none"),
+    "MRT_8_33":     ("log-power", "none"),
 }
 
 NODES = {
@@ -44,6 +58,11 @@ NODES = {
     "sieve_twin":       ([],                                  (0.0, 9.9), "unconditional arithmetic"),
     "MRT_corr":         (["sieve_twin"],                      (1.0, 9.9), "Vaughan + Kuznetsov; log-power saving only"),
     "GM_bridge":        (["RH"],                              (1.0, 2.0), "needs POWER-saving input (survey 6.3)"),
+    "GRH":              ([],                                   (0.0, 9.9), "generalised RH — strictly deeper than RH"),
+    "CGdL_68_45":       (["GRH", "EP1"],                        (0.0, 9.9), "CGdL GRH-tier proportion; RECALL not VERIFIED"),
+    "Mikawa_third":     (["sieve_twin"],                        (1.0, 9.9), "theta = 1/3; log-power only"),
+    "BBMZ_theta":       (["sieve_twin"],                        (1.0, 9.9), "later theta; RECALL; log-power only"),
+    "MRT_8_33":         (["sieve_twin"],                        (1.0, 9.9), "theta = 8/33, the current wall; log-power only"),
     TARGET:             ([],                                  (0.0, 9.9), "the thing being bounded"),
 }
 
@@ -77,9 +96,15 @@ def lint(inputs, window):
     print(f"  => {'PASS' if ok else 'BLOCKED — do not build the table'}")
     return ok
 
+def depth(name):
+    """Hypothesis depth of an input: 0 unconditional, 1 RH, 2 GRH."""
+    return max((HYPOTHESIS_DEPTH.get(n, 0) for n in (ancestry(name) | {name})),
+               default=0)
+
+
 def rh_consuming(name):
-    """Does this input's ancestry consume RH?  Mechanical answer to T3(b)."""
-    return bool((ancestry(name) | {name}) & RH_CONDITIONAL)
+    """Does this input's ancestry consume a hypothesis?  Mechanical T3(b)."""
+    return depth(name) >= 1
 
 # which inputs each census death actually consumed (FAILURES.md ids)
 DEATHS = {
@@ -101,10 +126,17 @@ def t3b_report():
     changers = []
     for i, (name, ins) in sorted(DEATHS.items()):
         hits = [x for x in ins if rh_consuming(x)]
-        verdict = "CHANGES (consumes RH via " + ", ".join(hits) + ")" if hits else "survives"
+        d = max((depth(x) for x in ins), default=0)
+        verdict = (f"CHANGES at depth {DEPTH_NAME[d]} (via " + ", ".join(hits) + ")"
+                   if hits else "survives")
         if hits: changers.append(i)
         print(f"  {i:2d}  {name:32s} {verdict}")
     print(f"\n  changers: {changers}  ({len(changers)}/11)")
+    tiers = {}
+    for i, (_, ins) in sorted(DEATHS.items()):
+        tiers.setdefault(max((depth(x) for x in ins), default=0), []).append(i)
+    for t in sorted(DEPTH_NAME):
+        print(f"  tier {DEPTH_NAME[t]:14s}: {len(tiers.get(t, []))}/11  {tiers.get(t, [])}")
     return changers
 
 if __name__ == "__main__":

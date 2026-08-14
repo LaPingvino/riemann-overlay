@@ -1,0 +1,13 @@
+name = "riemann"
+version = "0.1.0"
+defaultTargets = ["Riemann"]
+
+[[lean_lib]]
+name = "Riemann"
+
+# Session 003: zeta-23 is imported, not axiomatised (ISSUES #4, #11).
+# Mathlib is inherited transitively at zeta-23's pinned revision.
+[[require]]
+name = "zeta23"
+git = "https://github.com/anthropics/zeta-23-lean"
+rev = "main"

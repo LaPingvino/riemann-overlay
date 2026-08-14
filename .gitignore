@@ -1,0 +1,46 @@
+# --- Lean / Lake build outputs (9+ GB; never tracked) -------------------------
+/.lake
+.lake/
+*.olean
+*.ilean
+*.trace
+*.hash
+*.c.o
+build/
+
+# `lake-manifest.json` and `lean-toolchain` ARE tracked on purpose: together
+# they pin the exact build (toolchain version + every dependency revision).
+# Do not add them here.
+
+# --- stale backup tree (kept on disk, not in history) -------------------------
+/Riemann.v4240.bak/
+
+# --- agent / editor / shell scaffolding ---------------------------------------
+# NOTE: several of these exist in the working directory as masked character
+# devices rather than regular files; they must not be added to the index.
+/.claude/
+**/.claude/
+.mcp.json
+.idea
+.vscode
+.ripgreprc
+.gitconfig
+.gitmodules
+.bashrc
+.bash_profile
+.profile
+.zshrc
+.zprofile
+
+# --- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- editor cruft -------------------------------------------------------------
+*~
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

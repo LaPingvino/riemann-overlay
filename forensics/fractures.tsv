@@ -1,0 +1,20 @@
+# E20 fracture inventory — for each result: which half SUCCEEDED, which half FAILED,
+# and whether the cut falls on the foundational(F)/generative(G) plane.
+# class: ALIGNED (cut on the plane) | MISALIGNED (falsifies universality) | WHOLE (no half-failure — not in scope) | ENG (reporting-layer, out of scope)
+id	result	succeeded_half	failed_half	class	note
+1	W16 Landau sums	magnitude: signal clears error by orders of magnitude (F: mean values)	separation: phases shared with on-line chorus (G: which zeros, individually)	ALIGNED	loud in the atoms, mute in the residue
+2	W6 haunted census	the census charge m(m-1)>=6 (F: counting structure)	equidistribution of exact coincidences (G: where zeros actually fall)	ALIGNED	circularity is on the generative side
+3	Weil positivity	the witness exists (F: a form built from the Euler product)	certifies nothing new (G: its positivity IS the sieve's output)	ALIGNED	the canonical instance
+4	Hardy 1914	sign changes exist (F: a one-line positivity)	only infinitude, no proportion (G: how many, where)	ALIGNED	the first half-success in the subject
+5	mollifier tradition	compression works (F: Dirichlet polynomial approximating 1/zeta)	stops at theta=4/7 (G: shifted convolutions of Lambda)	ALIGNED	the cap is the plane
+6	Vaughan's identity	translates Lambda into d-like pieces (F)	leaves a bilinear remainder (G)	ALIGNED	the plane written as an equation
+7	MRT correlations	Lambda*d_k asymptotics on average (F: divisor side)	range stuck at X^{8/33} for Lambda*Lambda (G: prime side)	ALIGNED	the address, 8/33
+8	currency flip (W22)	value side has excess T^{4/7} past diagonal (F)	position side has zero excess (G: Lambda coefficients)	ALIGNED	the flip IS the plane's asymmetry
+9	W7 realizability	cheap invariants all satisfied (F: density, pairing, multiplicity)	only the Euler product bites (G)	ALIGNED	"only the expensive one bites" = only the generative face resists
+10	W12 depth-pricing	counting statements priced (F)	depth-shaped statements priced at zero (G: where a zero sits)	ALIGNED?	SUSPECT — see analysis
+--- candidate counterexamples (results with NO half-failure) ---
+11	census /6 (six_mul_NscStd_le)	whole theorem	none	WHOLE	purely combinatorial
+12	offline_le tightness	whole theorem (tight, witnessed)	none	WHOLE	purely combinatorial
+13	gauge counterexample	whole theorem	none	WHOLE	purely combinatorial
+14	A2 resolution independence	whole theorem	none	WHOLE	purely combinatorial
+15	Nsc_eq_ordinate_functional	whole theorem	none	WHOLE	purely combinatorial

@@ -1,0 +1,16 @@
+# W26 / T2 dataset — one row per restatement in the RH sequence.
+# RULES (S doctrine, reporting layer): every date and every residue carries a source.
+#   confidence: VERIFIED (primary source checked) | RECALL (model recollection — VERIFY) | INSIDE (we are in it)
+#   residue / residue_source: TO BE FILLED BY OPERATOR, from CONTEMPORARY sources only
+#   (reviews, problem lists, survey complaints written between restatement N and N+1) — never post-hoc synthesis.
+id	year	event	actor	s_move_form	residue	residue_class	residue_source	date_confidence	date_source
+R1	1859	explicit formula	Riemann	absence of a term -> presence of zeros in the prime count	TODO	TODO	TODO	RECALL	TODO
+R2	1914	infinitely many critical zeros	Hardy	absence of proof -> presence of sign changes (∫|Z| > |∫Z|)	TODO	TODO	TODO	RECALL	TODO
+R3	1952	positivity criterion	Weil	absence of off-line zeros -> presence of a sign	TODO	TODO	TODO	RECALL	TODO
+R4	1973	pair correlation	Montgomery	absence of structure -> presence of repulsion	TODO	TODO	TODO	RECALL	TODO
+R5	1987	numerical GUE confirmation	Odlyzko	absence of counterexample -> presence of a spectral statistic	TODO	TODO	TODO	RECALL	TODO
+R6	1999	operator framing matures	Connes; Berry-Keating	absence of a reason -> presence of a Hamiltonian	TODO	TODO	TODO	RECALL	TODO
+R7	2018	Lambda >= 0	Rodgers-Tao	absence of slack -> presence of an equilibrium bound	TODO	TODO	TODO	RECALL	TODO
+R8	2023	de-conditioning	BGST	absence of RH -> presence of a narrow-box hypothesis	TODO	TODO	TODO	RECALL	TODO
+R9	2025	the mu_T coordinate	GLSS	absence of simplicity+criticality -> presence of atom mass	TODO	TODO	TODO	INSIDE	arXiv:2503.15449
+R10	2026	the signature container	zeta-23	absence of off-line zeros -> presence of a rank/signature bound	TODO	TODO	TODO	INSIDE	zeta-23-lean

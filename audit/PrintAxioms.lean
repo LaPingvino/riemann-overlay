@@ -11,3 +11,9 @@ import Riemann
 #print axioms Riemann.certified_nsc
 #print axioms Riemann.nsc_row_opens
 #print axioms Riemann.certified_axiomFree
+#print axioms Riemann.Blindness.no_muInvariant_theory_computes_NscStd
+#print axioms Riemann.Blindness.onLine_not_muInvariant
+#print axioms Riemann.Blindness.blind_at_every_crowded_mass
+#print axioms Riemann.Blindness.landau_discriminates
+#print axioms Riemann.Blindness.landau_discriminates₂
+#print axioms Riemann.Blindness.swap_not_a_gauge_pair

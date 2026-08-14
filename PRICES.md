@@ -262,3 +262,77 @@ disease.
 Which is why the two horizontal channels that *do* have finite prices —
 parity (free) and the row-crossing (`(C−1)/6`) — are both **counting**
 statements about atoms, not geometric statements about `β`.
+
+## The evaluation column (W16, re-priced) — `forensics/w16_price.py`
+
+`landau_discriminates` closed the **vision** half: the discriminating functional
+exists, is elementary, and is kernel-certified. So the column that matters now
+is **evaluation** — what does it cost to certify Landau-type values on `ζ`'s
+actual zeros? Priced here for the first time, in the coordinate `x = T^c` with
+depth `δ = 1/log T` (which makes `δ·log x = c` exactly).
+
+**Wildcard, kill condition stated first:** *if the crossover `c` at a height
+where zeros are known (`T ≲ 10^13`) is `≤ 1`, the unpaid range `c ∈ (1,2)` is
+unaffordable at every feasible height and the Landau route is dead outright
+rather than merely unpaid.* **It did not fire.**
+
+### The signal is scale-free in this coordinate
+
+Per-pair excess over the on-line chorus, exactly (`Fiber.lean` + AM–GM):
+`x^a + x^{1−a} − 2x^{1/2} = 2x^{1/2}(cosh(δ log x) − 1)`. At `x = T^c` and
+`δ = 1/log T` this is `2x^{1/2}(cosh c − 1)` — a **fixed fraction of the chorus
+term, set by `c` alone**. The signal does not fade with `T`.
+
+| `c` | 0.5 | 1.0 | 1.5 | 2.0 | 2.25 |
+|---|---|---|---|---|---|
+| `cosh c − 1` | 0.128 | 0.543 | 1.352 | 2.762 | 3.797 |
+
+### The price, and where the affordable-but-unpaid window sits
+
+Aggregate **unphased** excess `κ·N(T)·x^{1/2}(cosh c − 1)` against
+Landau–Gonek's `E ≪ x log(2xT) loglog 3x` gives margin
+`κ·T^{1−c/2}(cosh c − 1) / (2π(1+c)·loglog x)`. Crossover `c` (largest `c` still
+clearing 1):
+
+| `T` | `κ=1` | `κ=0.01` | `κ=10⁻⁴` |
+|---|---|---|---|
+| `10^6` | 1.482 | 0.665 | 0.010 |
+| `10^12` | 1.744 | **1.386** | 1.021 |
+| `10^24` | 1.870 | 1.698 | 1.525 |
+| `10^50` | 1.936 | 1.855 | 1.774 |
+| `10^100` | 1.967 | 1.927 | 1.887 |
+
+At `T = 10^12`, `κ = 0.01`: the window is **`c ∈ (1, ≈1.39]`** — nonempty, at a
+height where zeros have actually been computed. It **opens** at `T ≈ 10^7.6`
+(`κ = 0.01`) or `T ≈ 10^3.4` (`κ = 1`), and widens to `(1,2)` as `T → ∞`.
+
+### What is actually being bought
+
+**The binding constraint is the phase, not the magnitude.** Every margin above
+is for the **unphased** sum. Landau–Gonek supplies the **phased** one: each
+excess arrives multiplied by `e^{iγ log x}`, one unknown per zero. Killing the
+phase is what second moments in `x` do, and that device is paid only to the
+diagonal. **So the price of the Landau route is the price of exactly one
+phase-removal**, and every other line item on this page is affordable.
+
+Census `#1` said this in words — *phases shared with the on-line chorus*. This
+column says it with a number, and locates the unpaid stretch.
+
+### And the asymptotics lie in the other direction this time
+
+The exponent `1 − c/2` promises every `c < 2` eventually clears. At `T = 10^12`
+the crossover is `1.39`; reaching `c = 1.9` needs `T ≳ 10^50`. `#27`'s
+asymptotics were **crueller** than the numerics (invisibility radius `10^13`–`10^671`);
+here they are **kinder**. Both times the honest statement required computing the
+crossover rather than reading the exponent — which is the general lesson and
+belongs beside `S`'s invisibility-radius entry.
+
+### Caveat the conclusion leans on
+
+Identifying "paid" with `c ≤ 1` assumes the correspondence between this
+coordinate and the pair-correlation support parameter (`𝓕` known for support
+`≤ 1`). That dictionary is **[RECALL, UNVERIFIED]** — the same `h ↔ α` check
+already open in the registers. If the true correspondence is `c ≤ 2`, the unpaid
+window is **empty** and this column's second reading collapses. Nothing else
+here depends on it. **This is now the cheapest high-value verification on the
+board.**

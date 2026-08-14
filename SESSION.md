@@ -1390,3 +1390,60 @@ turned out not to be a test, because discovering that a same-`μ_T` pair can be 
 symmetry rather than a gauge pair is exactly the distinction that separates a
 calibration suite from a collection of examples — and we would have shipped the
 collection.
+
+
+# SESSION 037 — night cycle 1: the audits catch up, and W16 becomes a price
+
+**Post-freeze housekeeping, both safe, both done.** (a) `audit/Declarations.lean`
+gains 26 names from `Blindness.lean` and `Fiber.lean`, and `audit/PrintAxioms.lean`
+six — the existence audit and the axiom audit now cover the week's theorems.
+(b) ISSUES #28(b) closed: the doc comment in `Assumptions.lean` reworded so no
+line begins with `axiom`, and `grep '^axiom' Riemann/Assumptions.lean` now
+returns **9**, matching the tool.
+
+**R17 witness for that green light:** the base statement hash did **not** move
+(`cd7a22e688df`) across a comment-only edit. That is the positive object — the
+detector fingerprints axiom *statements*, so a prose change must leave it fixed,
+and it did. A hash that had moved would have meant the fingerprinter was reading
+comments.
+
+**The piece: W16 re-priced** (`forensics/w16_price.py`). Vision is closed, so
+what does evaluation cost? Coordinate `x = T^c`, depth `δ = 1/log T`, which makes
+`δ log x = c` exactly.
+
+**Wildcard, kill condition stated first:** *if the crossover `c` at a height
+where zeros are known (`T ≲ 10^13`) is `≤ 1`, the unpaid range is unaffordable
+everywhere feasible and the Landau route is dead outright.* **It did not fire.**
+
+* The per-pair excess is `2x^{1/2}(cosh c − 1)` — **a fixed fraction of the
+  chorus term, set by `c` alone.** The signal is scale-free in this coordinate;
+  it does not fade with `T`.
+* Aggregate **unphased** margin against Landau–Gonek's error crosses 1 at
+  `c ≈ 1.386` for `T = 10^12`, `κ = 0.01`. The window `c ∈ (1, ≈1.39]` is
+  **nonempty at a height where zeros have actually been computed**; it opens at
+  `T ≈ 10^7.6` and widens to `(1,2)`.
+* **So the binding constraint is the phase, not the magnitude.** Landau–Gonek
+  supplies the *phased* sum, one unknown `e^{iγ log x}` per zero; the
+  discriminator wants the unphased one; second moments in `x` are the
+  phase-killer and are paid only to the diagonal. **The price of the Landau
+  route is the price of exactly one phase-removal.** Census #1 said this in
+  words; the column says it with a number and locates the unpaid stretch.
+
+**And the asymptotics lie in the opposite direction from `#27`.** The exponent
+promises every `c < 2`; at `T = 10^12` the crossover is `1.39`, and `c = 1.9`
+needs `T ≳ 10^50`. `#27`'s asymptotics were crueller than its numerics; here
+they are kinder. Both times the honest statement needed the crossover computed
+rather than the exponent read — filed beside `S`'s invisibility-radius entry as
+the general lesson.
+
+**Caveat carried in the open, because the conclusion leans on it:** identifying
+"paid" with `c ≤ 1` assumes the dictionary between this coordinate and the
+pair-correlation support parameter. That is **[RECALL, UNVERIFIED]** — the same
+`h ↔ α` check already open. If the truth is `c ≤ 2`, the unpaid window is empty
+and the second reading collapses. It is now the cheapest high-value
+verification on the board.
+
+**Might-mean, unhedged:** the Landau route's entire remaining bill is one
+phase-removal over a stretch of `c` that is affordable at heights we have
+already computed, so the question stopped being whether the value channel can
+see and became whether anyone will pay to look between `c = 1` and `c = 1.4`.

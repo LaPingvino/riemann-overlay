@@ -22,8 +22,8 @@ Rules of the house:
 ## Consistency model
 
 `#print axioms` audits proof cones; it cannot tell you the base is
-satisfiable.  So the base carries an explicit model, and **anyone adding an
-axiom must extend it**:
+satisfiable.  So the base carries an explicit model, and **anyone who adds a
+new axiom must extend it**:
 
 > `D T := {(1/2, 0)}` for every `T` (one zero, on the line; `refl_inv` is
 > trivial), `zetaFamily = xiPrimeFamily` that family, `closePairsZeta ≡ 0`,

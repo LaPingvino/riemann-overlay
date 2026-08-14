@@ -34,7 +34,30 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
-*(cycles append below as they close)*
+### Night cycle 1 — the audits catch up; W16 becomes a price
+
+Two safe post-freeze items closed: the existence audit now covers 26 names from
+`Blindness.lean`/`Fiber.lean` (and the axiom audit six), and ISSUES #28(b) is
+fixed — `grep '^axiom' Riemann/Assumptions.lean` returns **9**, matching the
+tool. R17 witness: the base hash did *not* move across the comment-only edit,
+which is what proves the fingerprinter reads statements and not prose.
+
+**W16 re-priced** (`forensics/w16_price.py`). In the coordinate `x = T^c` with
+`δ = 1/log T`, the per-pair excess is `2x^{1/2}(cosh c − 1)` — a fixed fraction
+of the chorus, **scale-free in `T`**. The unphased aggregate margin crosses 1 at
+`c ≈ 1.39` for `T = 10^12`, `κ = 0.01`, so the affordable-but-unpaid window
+`c ∈ (1, ≈1.39]` is **nonempty at heights where zeros are known**. Kill
+condition (window empty at feasible heights) did not fire.
+
+Conclusion: **the binding constraint is the phase, not the magnitude** — the
+Landau route's whole remaining bill is one phase-removal. And the asymptotics
+mislead in the opposite direction from `#27`: there the exponent was crueller
+than the numerics, here it is kinder, and both times only the computed
+crossover was honest.
+
+Leaning on one **[RECALL, UNVERIFIED]** input: that "paid" means `c ≤ 1` via the
+support-parameter dictionary. If it is `c ≤ 2` the window is empty. Cheapest
+high-value verification on the board — flagged, not assumed.
 
 ---
 

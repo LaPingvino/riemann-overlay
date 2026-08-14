@@ -57,3 +57,31 @@ import Riemann
 #check @Riemann.c0_lower_bound
 #check @Riemann.Gauge.prop1_tight
 #check @Riemann.Gauge.pairOnly_Nsc
+-- rung 1: the blindness cluster relativised (W28 / tri-read {4,7,8})
+#check @Riemann.Blindness.MuInvariant
+#check @Riemann.Blindness.MuInvariant.forall
+#check @Riemann.Blindness.no_muInvariant_bundle_computes_NscStd
+#check @Riemann.Blindness.no_muInvariant_theory_computes_NscStd
+#check @Riemann.Blindness.no_muInvariant_bundle_computes_Noff
+#check @Riemann.Blindness.separating_bundle_excludes
+#check @Riemann.Blindness.NscStd_not_ordinate_functional
+#check @Riemann.Blindness.onLine_not_muInvariant
+#check @Riemann.Blindness.NscStd_eq_Nsc_of_onLine
+#check @Riemann.Blindness.two_le_Hr_of_off_line
+-- the fiber: blindness supported exactly on the crowded atoms
+#check @Riemann.Blindness.config
+#check @Riemann.Blindness.config_ordinates_eq
+#check @Riemann.Blindness.config_parity
+#check @Riemann.Blindness.Noff_eq_zero_of_simple
+#check @Riemann.Blindness.blind_at_every_crowded_mass
+-- the acceptance test and its calibration inputs
+#check @Riemann.Blindness.Discriminates
+#check @Riemann.Blindness.not_discriminates_of_factors
+#check @Riemann.Blindness.not_factors_of_discriminates
+#check @Riemann.Blindness.landau
+#check @Riemann.Blindness.landau_discriminates
+#check @Riemann.Blindness.Discriminates₂
+#check @Riemann.Blindness.spectator_gauge_pair
+#check @Riemann.Blindness.landau_discriminates₂
+#check @Riemann.Blindness.not_discriminates₂_of_factors
+#check @Riemann.Blindness.swap_not_a_gauge_pair

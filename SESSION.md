@@ -1333,3 +1333,60 @@ sorry count), and two claims explicitly marked not-checked.
 machinery provably cannot make is performed by an inequality older than the
 Hypothesis, so the open content is no longer a vision problem but an evaluation
 problem — and evaluation problems, unlike vision problems, have a price system.
+
+
+# SESSION 036 — a second calibration family, and a test-design rule bought by building an invalid test
+
+**The suite gains family 2** (`Riemann/Fiber.lean`, axiom-free). Family 1 lives
+at a single ordinate, so every zero shares `e^{iγ log x}` and the test exercises
+only functionals reading the `β` multiset. Family 2 adds a **spectator**: the
+mass-two gauge pair at height `0` plus a simple on-line zero at height `γ`.
+`spectator_gauge_pair` — same `μ_T`, different `N_off`, ordinate measure spread
+over two heights. `landau_discriminates₂` — the Landau weight passes it too, at
+every `x > 1`, depth and spectator height; the spectator's `x^(1/2)` cancels and
+strict AM–GM does the rest. `not_discriminates₂_of_factors` — nothing factoring
+through `μ_T` passes, as it must be.
+
+**And the cycle's real yield came from a family that failed to be a test.** The
+obvious third family is the **swap**: `(2,0)` at `0` with `(0,1)` at `γ`, against
+the two exchanged. It looks sharper — same `μ_T`, genuinely different phase
+structure — and the real Landau weight does not discriminate it
+(`landau_swap_invariant`).
+
+That is not a defect. `swap_not_a_gauge_pair`: the swap agrees on **every target
+count** — same `μ_T`, same `N_off`, same `NscStd`. It is a *symmetry* of the
+configuration space, and every functional ought to agree on it. Rule, filed
+before anyone reads a failure there as evidence:
+
+> **A calibration input is two configurations agreeing on `μ_T` and disagreeing
+> on a target.** Same-`μ_T` pairs that also agree on the targets are symmetries,
+> and discriminating them is not a virtue.
+
+**Correction to the incoming dispatch, and to my own next step.** The phase
+caveat was correct as a caveat but its proposed fix does not do what it says: I
+built the two-height family expecting it to force the phase channel, and it does
+not. No family built from configurations at *any* number of heights forces
+phase, because the targets (`N_off`, `NscStd`) are themselves ordinate-blind in
+the relevant sense. **Whether the phase channel is necessary remains open**, and
+the honest statement is that family 2 broadens the test without deciding it.
+
+**E24 filed** — the oldest inequality performs the newest discrimination; E16's
+`cosh` annotated as AM–GM's excess, `x^a + x^(1−a) = 2x^(1/2)cosh((a−1/2)log x)`.
+
+**S gains a number** — the invisibility radius. `#27`'s gate is false for every
+`θ > 0` but only *visibly* false past `X` between `10^13` and `10^671`. Below
+`10^13` every hand computation agrees with a false statement. It is the
+project's largest measured silence that could not have been broken by looking,
+and the specimen for why shape checks outrank numerical ones: the conserved
+quantity is the error's *shape*, decidable in one line without evaluating
+anything.
+
+**`FRAMING.md` appendix updated**: the wildcard hit-rate moves from "not checked"
+to "asserted by its owner with a tally", with the tally recorded and the note
+that I have not recounted it.
+
+**Might-mean, unhedged:** the cycle's most valuable object was a test that
+turned out not to be a test, because discovering that a same-`μ_T` pair can be a
+symmetry rather than a gauge pair is exactly the distinction that separates a
+calibration suite from a collection of examples — and we would have shipped the
+collection.

@@ -262,5 +262,174 @@ theorem landau_discriminates {x : ℝ} (hx : 1 < x) {a : ℝ} (ha : a ≠ 1/2) :
   have : u - s = 0 := by nlinarith [hsub]
   exact hne (by linarith)
 
+
+/-! ### A second calibration family, at distinct ordinates
+
+The first family lives at a single ordinate, so every zero shares the factor
+`e^{iγ log x}` and a real-valued functional suffices.  That makes the test
+*narrow*: it exercises only functionals that read the `β` multiset, and it
+cannot tell whether a candidate depends on the configuration being **one atom**.
+
+So the suite gains a second family with a **spectator**: the mass-two gauge pair
+at height `0`, plus a simple on-line zero at a different height `γ`.  The two
+members still share `μ_T` and still differ in off-line content, but now the
+ordinate measure is genuinely spread and the candidate must survive a
+configuration it does not exhaust.
+
+A candidate must declare which family it discriminates on. -/
+
+/-- `configAt γ k j a`: the fiber state `(k, j)` at height `γ` rather than `0`. -/
+noncomputable def configAt (γ : ℝ) (k j : ℕ) (a : ℝ) : ZeroData where
+  Z := Multiset.replicate k ((1/2 : ℝ), γ)
+      + (Multiset.replicate j (a, γ) + Multiset.replicate j ((1 - a : ℝ), γ))
+  refl_inv := by
+    have h0 : refl ((1/2 : ℝ), γ) = ((1/2 : ℝ), γ) := by
+      show ((1 - 1/2 : ℝ), γ) = _
+      norm_num
+    have h1 : refl (a, γ) = ((1 - a : ℝ), γ) := rfl
+    have h2 : refl ((1 - a : ℝ), γ) = (a, γ) := by
+      show ((1 - (1 - a) : ℝ), γ) = _
+      norm_num
+    rw [Multiset.map_add, Multiset.map_add, Multiset.map_replicate,
+      Multiset.map_replicate, Multiset.map_replicate, h0, h1, h2, add_comm
+      (Multiset.replicate j ((1 - a : ℝ), γ))]
+
+lemma config_eq_configAt (k j : ℕ) (a : ℝ) : config k j a = configAt 0 k j a := rfl
+
+/-- Superposition of two configurations. -/
+noncomputable def superpose (D D' : ZeroData) : ZeroData where
+  Z := D.Z + D'.Z
+  refl_inv := by rw [Multiset.map_add, D.refl_inv, D'.refl_inv]
+
+@[simp] lemma add_ordinates (D D' : ZeroData) :
+    (superpose D D').ordinates = D.ordinates + D'.ordinates := by
+  show Multiset.map Prod.snd (D.Z + D'.Z) = _
+  rw [Multiset.map_add]; rfl
+
+@[simp] lemma add_Noff (D D' : ZeroData) : (superpose D D').Noff = D.Noff + D'.Noff := by
+  classical
+  show Multiset.card (Multiset.filter (fun p => p.1 ≠ 1/2) (D.Z + D'.Z)) = _
+  rw [Multiset.filter_add, Multiset.card_add]; rfl
+
+@[simp] lemma landau_add (x : ℝ) (D D' : ZeroData) :
+    landau x (superpose D D') = landau x D + landau x D' := by
+  show (Multiset.map (fun p : ℝ × ℝ => x ^ p.1) (D.Z + D'.Z)).sum = _
+  rw [Multiset.map_add, Multiset.sum_add]; rfl
+
+@[simp] lemma configAt_ordinates (γ : ℝ) (k j : ℕ) (a : ℝ) :
+    (configAt γ k j a).ordinates = Multiset.replicate (k + 2 * j) γ := by
+  show Multiset.map Prod.snd (Multiset.replicate k ((1/2 : ℝ), γ)
+      + (Multiset.replicate j (a, γ) + Multiset.replicate j ((1 - a : ℝ), γ))) = _
+  rw [Multiset.map_add, Multiset.map_add, Multiset.map_replicate,
+    Multiset.map_replicate, Multiset.map_replicate,
+    ← Multiset.replicate_add, ← Multiset.replicate_add]
+  congr 1
+  ring
+
+lemma configAt_Noff {a : ℝ} (ha : a ≠ 1/2) (γ : ℝ) (k j : ℕ) :
+    (configAt γ k j a).Noff = 2 * j := by
+  classical
+  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+  show Multiset.card (Multiset.filter (fun p => p.1 ≠ 1/2)
+      (Multiset.replicate k ((1/2 : ℝ), γ)
+        + (Multiset.replicate j (a, γ) + Multiset.replicate j ((1 - a : ℝ), γ)))) = _
+  rw [Multiset.filter_add, Multiset.filter_add,
+    filter_replicate_neg (fun p : ℝ × ℝ => p.1 ≠ 1/2) k ((1/2 : ℝ), γ) (by norm_num),
+    filter_replicate_pos (fun p : ℝ × ℝ => p.1 ≠ 1/2) j (a, γ) ha,
+    filter_replicate_pos (fun p : ℝ × ℝ => p.1 ≠ 1/2) j ((1 - a : ℝ), γ) ha']
+  simp [Multiset.card_add]
+  ring
+
+@[simp] lemma landau_configAt (x : ℝ) (γ : ℝ) (k j : ℕ) (a : ℝ) :
+    landau x (configAt γ k j a) = k * x ^ ((1:ℝ)/2) + j * (x ^ a + x ^ (1 - a)) := by
+  show (Multiset.map (fun p : ℝ × ℝ => x ^ p.1)
+      (Multiset.replicate k ((1/2 : ℝ), γ)
+        + (Multiset.replicate j (a, γ) + Multiset.replicate j ((1 - a : ℝ), γ)))).sum = _
+  rw [Multiset.map_add, Multiset.map_add, Multiset.map_replicate,
+    Multiset.map_replicate, Multiset.map_replicate, Multiset.sum_add,
+    Multiset.sum_add, Multiset.sum_replicate, Multiset.sum_replicate,
+    Multiset.sum_replicate]
+  push_cast
+  ring
+
+/-- Family 2, member A: the crowded atom in state `(2,0)` at height `0`, plus a
+simple on-line spectator at height `γ`. -/
+noncomputable def spectatorA (γ a : ℝ) : ZeroData :=
+  superpose (configAt 0 2 0 a) (configAt γ 1 0 a)
+
+/-- Family 2, member B: the same, with the crowded atom in state `(0,1)`. -/
+noncomputable def spectatorB (γ a : ℝ) : ZeroData :=
+  superpose (configAt 0 0 1 a) (configAt γ 1 0 a)
+
+/-- **Family 2 is a genuine gauge pair**, and its ordinate measure is spread
+over two heights rather than concentrated on one. -/
+theorem spectator_gauge_pair {a : ℝ} (ha : a ≠ 1/2) (γ : ℝ) :
+    (spectatorA γ a).ordinates = (spectatorB γ a).ordinates ∧
+      (spectatorA γ a).Noff ≠ (spectatorB γ a).Noff := by
+  refine ⟨?_, ?_⟩
+  · simp [spectatorA, spectatorB]
+  · simp [spectatorA, spectatorB, configAt_Noff ha]
+
+/-- The acceptance test on family 2. -/
+def Discriminates₂ (Φ : ZeroData → ℝ) (γ a : ℝ) : Prop :=
+  Φ (spectatorA γ a) ≠ Φ (spectatorB γ a)
+
+/-- **Nothing factoring through `μ_T` passes family 2 either** — as it must be,
+since family 2 is a gauge pair. -/
+theorem not_discriminates₂_of_factors (g : Multiset ℝ → ℝ) {a : ℝ} (ha : a ≠ 1/2)
+    (γ : ℝ) : ¬ Discriminates₂ (fun D => g D.ordinates) γ a := by
+  intro h
+  exact h (congrArg g (spectator_gauge_pair ha γ).1)
+
+/-- **The Landau weight passes family 2 as well**, at every `x > 1`, every depth
+and every spectator height: the spectator contributes the same `x^(1/2)` to
+both members and cancels, leaving strict AM–GM. -/
+theorem landau_discriminates₂ {x : ℝ} (hx : 1 < x) {a : ℝ} (ha : a ≠ 1/2)
+    (γ : ℝ) : Discriminates₂ (landau x) γ a := by
+  have hcore : landau x (config 2 0 a) ≠ landau x (config 0 1 a) :=
+    landau_discriminates hx ha
+  rw [landau_config, landau_config] at hcore
+  simp only [Discriminates₂, spectatorA, spectatorB, landau_add, landau_configAt]
+  push_cast at hcore ⊢
+  intro hcon
+  exact hcore (by linarith)
+
+
+/-! ### A test-design rule, learned by building an invalid test
+
+The obvious third family is the **swap**: the crowded state `(2,0)` at height
+`0` with `(0,1)` at height `γ`, against the same two states exchanged.  It looks
+like a sharper test — the ordinate measure is identical and the *phase*
+structure differs — and the real-valued Landau weight does not discriminate it.
+
+That is not a defect in the Landau weight.  The swap pair agrees on **every
+target count**: same `μ_T`, same `N_off`, same `NscStd`.  It is a symmetry of
+the configuration space (relabelling heights), not a gauge pair, and *every*
+functional ought to agree on it.
+
+So the rule the suite needs, stated before someone reads a failure on this
+family as evidence:
+
+> **A calibration input must be two configurations agreeing on `μ_T` and
+> disagreeing on a target.** Same-`μ_T` pairs that also agree on the targets are
+> symmetries, and discriminating them is not a virtue.
+
+Whether the phase channel is *necessary* is therefore still open — this family
+does not decide it, and no family built from a single height can. -/
+
+/-- The swap pair agrees on off-line content, so it is a symmetry rather than a
+gauge pair. -/
+theorem swap_not_a_gauge_pair {a : ℝ} (ha : a ≠ 1/2) (γ : ℝ) :
+    (superpose (configAt 0 2 0 a) (configAt γ 0 1 a)).Noff
+      = (superpose (configAt 0 0 1 a) (configAt γ 2 0 a)).Noff := by
+  simp [configAt_Noff ha]
+
+/-- …and the real Landau weight agrees on it, as it should. -/
+theorem landau_swap_invariant (x a γ : ℝ) :
+    landau x (superpose (configAt 0 2 0 a) (configAt γ 0 1 a))
+      = landau x (superpose (configAt 0 0 1 a) (configAt γ 2 0 a)) := by
+  simp [landau_add, landau_configAt]
+  ring
+
 end Blindness
 end Riemann

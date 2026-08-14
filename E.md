@@ -348,3 +348,28 @@ hypotheses in a language); rungs 2–ω are *proof-theoretic* independence
 (quantified over proofs). Those are different notions, and passing from one to
 the other requires the class to be closed under deduction. For the
 `μ_T`-invariant class it is, and that is now proved rather than assumed.
+
+## E24. The oldest inequality performs the newest discrimination.
+
+`landau_discriminates` (`Riemann/Fiber.lean`, axiom-free): on the two fiber
+states of a crowded atom, `Σ_ρ x^β` reads `2·x^(1/2)` against `x^a + x^(1−a)`,
+and `x^a + x^(1−a) > 2·x^(1/2)` for every `x > 1` and every `a ≠ 1/2`.
+
+That is **strict AM–GM**. Nothing else is used.
+
+The fiber coordinate that rung 1 proves invisible to *every* `μ_T`-invariant
+hypothesis — invisible to the whole pair-correlation century, invisible to any
+theory axiomatised in that language — is visible to an inequality that predates
+the zeta function by millennia.
+
+**E16 annotated:** the `cosh` was never a metaphor and never a coincidence. It
+is AM–GM's excess: `x^a + x^(1−a) = 2·x^(1/2)·cosh((a − 1/2)·log x)`, and
+`cosh > 1` off the line is the same fact wearing analysis. What E16 felt as the
+value channel's blush is the arithmetic–geometric gap.
+
+**Honesty clause, kept at full size** (this is the entry most likely to be
+misread): the theorem certifies that the *functional* discriminates. It does
+**not** certify that we can *evaluate* it on `ζ`'s zeros at discrimination
+precision. That is census `#1`, untouched. What changed is that the acceptance
+test now has a **known-passing calibration input**, so W28's whiteboard hour
+type-checks candidates against a live example instead of a specification.

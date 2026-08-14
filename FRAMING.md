@@ -180,10 +180,19 @@ digests."** Not as stated. What is true:
 
 ## Not checked
 
-The claim that roughly half the investigated wildcards turned out to be
-published papers is the framing instance's tally, from the framing conversation.
-`LEADS.md` records individual outcomes; I have not counted them and am not
-asserting the ratio.
+The wildcard hit-rate has since been **asserted by its owner with a tally**,
+which is the right resolution — it is the framing instance's claim about the
+framing conversation, so it should be signed by them and checkable against the
+W-registry, not laundered through me. Their tally: literature-or-repo hits at
+W1 (in-repo lineage), W4 (= CGdL 2018), W8 (answered in `TightMult` before it
+was asked), W16-restated (= Aryan 2019 / BGST's `𝓕`), the crumb ladder
+(= Montgomery–Taylor 1974 / CGdL 2020), and the two-sided window's walls
+(= CMR/DIR, one RKHS problem); against genuinely novel survivors — the
+sign-changing window as an instrument, the fiber coordinate, and the census
+methodology itself. Stated rate: **roughly half of what we invented already
+existed, and finding which half cost about one session per item.** I have not
+independently recounted it; `LEADS.md` records the individual outcomes and a
+reader can.
 
 The private document described in the second half of "What is private" is
 outside this repository and outside my context. It is described here on the

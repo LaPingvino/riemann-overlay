@@ -132,3 +132,34 @@ Any claim of the form *"there is no…"*, and any green light of the form
 *"no errors"*, gets **one** question: **what positive object witnesses this
 silence?** No witness, no belief. This replaces building the instruments one
 scar at a time.
+
+## The invisibility radius — S gets a number
+
+The quarry's experiment A measured something S has only ever asserted: **how far
+past all possible calibration a truth can live.**
+
+`#27`'s gate is `X^θ ≪ (log X)^{A+1}`. It is false for every `θ > 0`, uniformly.
+But the crossover — the `X` beyond which the falsity is *visible* — runs:
+
+| θ \ A | 2 | 5 | 10 | 20 | 50 |
+|---|---|---|---|---|---|
+| Mikawa `1/3` | `10^13.4` | `10^34` | `10^74` | `10^162` | `10^463` |
+| MRT `8/33` | `10^20.8` | `10^51` | `10^109` | `10^237` | `10^671` |
+
+Below `10^13` every hand computation agrees with a false statement. **No
+numerical experiment at any feasible height could have warned us, and none ever
+will.** This is the project's largest measured "silence that could not have been
+broken by looking".
+
+**Why it belongs in S rather than only in the census.** S says: replace
+"nothing is there" with "something is conserved". Here the conserved quantity is
+the *shape* of the error — a power is a power at every `X`, a log-power is a
+log-power at every `X`, and the comparison of shapes is decidable without
+evaluating anything. The shape check sees in one line what no amount of
+arithmetic below `10^13` could see at all.
+
+**The doctrinal consequence, and it is the specimen to cite:** shape checks
+outrank numerical checks, not as a stylistic preference but because there exist
+truths — this one, measured — entirely beyond the reach of every possible
+numerical calibration. `#27` survived a hand computation and died to a shape
+check. That is the QUALITY rule's disease with an exhibit and a number.

@@ -1,4 +1,44 @@
-# NIGHT — overnight run of 2026-08-13/14
+# NIGHT — overnight run of 2026-08-14/15
+
+Read top to bottom; shortest section first. Repo is live and private at
+`github.com/LaPingvino/riemann-overlay`; every cycle commits and pushes, so the
+morning diff is the night's work.
+
+## Needs a ruling
+
+Two items were escalated during the day and are **parked unresolved** rather
+than decided overnight, per the escalation discipline. Neither blocks the queue.
+
+* **ISSUES #28(a) — the build's trusted input.** `lakefile.toml` carries
+  `rev = "main"` while `lake-manifest.json` pins `3635e74…` at
+  `github.com/anthropics/zeta-23-lean`, and there is **no vendored copy**. If
+  that repository moves, every axiom-free claim becomes uncheckable by a third
+  party, and `rev = "main"` invites a `lake update` that silently retargets the
+  pin. Cheap fix: pin the lakefile to the manifest rev. Durable fix: vendor or
+  mirror. **Not touched overnight** — it is a trusted input, and the whole point
+  of the repo going public is that its build is reproducible without us.
+* **The W34a doctrine rule.** Proposed for `LOOP.md`: *a rung is not a blindness
+  result; a rung is a blindness result **plus** a closure certificate for its
+  class.* Rung 1 now has both. Doctrine edits are operator-ruled, so it waits.
+
+## Parked
+
+* **Whether the phase channel is necessary** — open, and family 2 does not
+  decide it (SESSION 036). No family built from configurations at any number of
+  heights forces phase, because the targets are ordinate-blind in the relevant
+  sense. Parked with its price: deciding it needs a target that reads ordinates,
+  which we do not have.
+* **The GRH tier is empty** (0/11). Recruitment criterion, not a gap. The CGdL
+  68.45 machinery run is the cheapest tier-3 census source and is queued, not
+  overdue.
+
+## Landed
+
+*(cycles append below as they close)*
+
+---
+
+# NIGHT — overnight run of 2026-08-13/14 (previous night, kept)
 
 Read top to bottom; shortest section first.
 

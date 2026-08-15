@@ -250,3 +250,7 @@ import Riemann
 #check @Riemann.proportion_of_noHaunted
 #check @Riemann.proportion_of_noHaunted_zeta
 #check @Riemann.Blindness.Nsc_eq_NscStd_iff_noHaunted
+#check @Riemann.Blindness.hauntedCount
+#check @Riemann.Blindness.NscStd_eq_Nsc_add_haunted
+#check @Riemann.Blindness.Nsc_add_three_mul_haunted_le_N
+#check @Riemann.Blindness.three_mul_NscStd_le_of_identity

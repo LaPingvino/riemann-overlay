@@ -3018,6 +3018,95 @@ theorem Nsc_eq_NscStd_iff_noHaunted (D : ZeroData) :
     · rw [if_pos hone, if_pos (by omega)]
     · rw [if_neg hone, if_neg (fun hsc => hone (himp hsc))]
 
+/-! ### The master identity: `NscStd = Nsc + haunted`
+
+`108` found that the whole conditional apparatus answers one question.  It also
+*reduces* to one fact, and stating it makes `084`, the ladder and `NoHaunted`
+corollaries rather than separate results.
+
+**Kill condition, filed first:** *if `NscStd = Nsc + hauntedCount` fails — if
+some ordinate is counted by `NscStd` without being simple or haunted — the
+identity is wrong and the reduction does not exist.*  It did not fire. -/
+
+/-- The number of **haunted** ordinates: a lone critical zero shadowed by
+off-line pairs. -/
+noncomputable def hauntedCount (D : ZeroData) : ℕ :=
+  (D.ordinates.toFinset.filter fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1).card
+
+/-- **`NscStd = Nsc + hauntedCount`** — an identity, not a bound.
+
+Every standard-simple ordinate is either simple or haunted, and the two cases are
+disjoint by definition.  So the gap between the literature's count and the
+project's is *exactly* the number of haunted ordinates. -/
+theorem NscStd_eq_Nsc_add_haunted (D : ZeroData) :
+    D.NscStd = D.Nsc + hauntedCount D := by
+  classical
+  have key : (D.NscStd : ℤ) = (D.Nsc : ℤ) + (hauntedCount D : ℤ) := by
+    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hC : (hauntedCount D : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1 then (1 : ℤ) else 0) := by
+      rw [hauntedCount, Finset.card_filter]; push_cast; rfl
+    rw [hA, hB, hC, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun γ _ => ?_
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, if_pos (by omega : D.H γ - offAt D γ = 1),
+        if_neg (by simp [hone])]
+      norm_num
+    · rw [if_neg hone]
+      by_cases hsc : D.H γ - offAt D γ = 1
+      · rw [if_pos hsc, if_pos ⟨hsc, hone⟩]; norm_num
+      · rw [if_neg hsc, if_neg (by tauto)]; norm_num
+  exact_mod_cast key
+
+/-- **The mass accounting: `Nsc + 3·hauntedCount ≤ N`.**  A simple ordinate
+carries one zero, a haunted one at least three, and they are disjoint. -/
+theorem Nsc_add_three_mul_haunted_le_N (D : ZeroData) :
+    D.Nsc + 3 * hauntedCount D ≤ D.N := by
+  classical
+  have key : (D.Nsc : ℤ) + 3 * (hauntedCount D : ℤ) ≤ (D.N : ℤ) := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hC : (hauntedCount D : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1 then (1 : ℤ) else 0) := by
+      rw [hauntedCount, Finset.card_filter]; push_cast; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    rw [hB, hC, hN, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun γ _ => ?_
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, if_neg (by simp [hone]), hone]; norm_num
+    · rw [if_neg hone]
+      by_cases hsc : D.H γ - offAt D γ = 1
+      · rw [if_pos ⟨hsc, hone⟩]
+        have : (3 : ℤ) ≤ (D.H γ : ℤ) := by
+          have : 3 ≤ D.H γ := by omega
+          exact_mod_cast this
+        linarith
+      · rw [if_neg (by tauto)]
+        have : (0 : ℤ) ≤ (D.H γ : ℤ) := Int.natCast_nonneg _
+        linarith
+  exact_mod_cast key
+
+/-- **`084` derived from the identity**, rather than from its own sum estimate:
+`3·NscStd = 3·Nsc + 3·hauntedCount ≤ 3·Nsc + (N − Nsc) = N + 2·Nsc`. -/
+theorem three_mul_NscStd_le_of_identity (D : ZeroData) :
+    3 * D.NscStd ≤ D.N + 2 * D.Nsc := by
+  have hid := NscStd_eq_Nsc_add_haunted D
+  have hmass := Nsc_add_three_mul_haunted_le_N D
+  omega
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

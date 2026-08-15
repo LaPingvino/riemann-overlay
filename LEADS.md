@@ -1638,3 +1638,31 @@ bound. The implications run one way only:
 > `multiplicity ≤ M` (+ a certified row) `⟹ (★)`,  and **not** conversely.
 
 Recorded so that nobody spends a cycle trying to close the loop.
+
+
+---
+
+# The master identity (SESSION 109)
+
+Everything in the `084`–`108` arc reduces to one equation and one inequality:
+
+> **`NscStd = Nsc + hauntedCount`**  (identity — `NscStd_eq_Nsc_add_haunted`)
+> **`Nsc + 3·hauntedCount ≤ N`**     (mass accounting — `Nsc_add_three_mul_haunted_le_N`)
+
+From these alone:
+
+| result | how it follows |
+|---|---|
+| `084`'s `3·NscStd ≤ N + 2·Nsc` | eliminate `hauntedCount` between the two |
+| `NoHaunted ⟹ Proportion κ` (`107`) | `hauntedCount = 0` in the identity |
+| `Nsc = NscStd ↔ NoHaunted` (`108`) | the identity with `hauntedCount = 0` |
+| the ladder (`105`) | replace `3` in the mass accounting by `m` |
+| the `Nsc` row's exact value | `Nsc/N = NscStd/N − hauntedCount/N` |
+
+**The last line is the useful one.** The row is not approximately the baseline
+minus something — it is *exactly* `κ` minus the haunted density. So any bound
+`hauntedCount ≤ δ·N` gives `Proportion (κ − δ)` immediately, and the whole
+conditional apparatus is a search for such a `δ`.
+
+`0.50875 = 0.6725 − 0.16375`, and `0.16375` is the haunted density the trivial
+mass accounting permits.

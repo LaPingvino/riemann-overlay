@@ -4570,3 +4570,43 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 ladder, the multiplicity criteria, the exceptional sets — is a family of partial
 answers to one question asked in its third session, and the `0.50875` row is what
 that question costs when it goes unanswered.
+
+
+# SESSION 109 — the whole arc is one identity and one inequality
+
+`108` found the apparatus answers one question. It also *reduces* to one fact,
+and this cycle states it.
+
+**Kill condition, filed first:** *if `NscStd = Nsc + hauntedCount` fails — if
+some ordinate is counted by `NscStd` without being simple or haunted — the
+identity is wrong and the reduction does not exist.* It did not fire.
+
+* `NscStd_eq_Nsc_add_haunted` (new, axiom-free) — **an identity, not a bound.**
+  Every standard-simple ordinate is simple or haunted, disjointly, so the gap
+  between the literature's count and the project's is *exactly* the number of
+  haunted ordinates.
+* `Nsc_add_three_mul_haunted_le_N` (new) — the mass accounting: a simple ordinate
+  carries one zero, a haunted one at least three.
+* `three_mul_NscStd_le_of_identity` — and `084` falls out by eliminating
+  `hauntedCount` between them. **Derived, not aliased**: I wrote the alias first,
+  noticed its docstring claimed a corollary while its proof cited the original,
+  and replaced it with the actual derivation.
+
+`LEADS.md` gains the reduction table: `084`, `NoHaunted`, `108`'s equivalence and
+the ladder are all consequences of these two lines.
+
+**The line worth keeping.** The row is not the baseline minus an estimate — it is
+
+> `Nsc/N = NscStd/N − hauntedCount/N`, **exactly**,
+
+so any bound `hauntedCount ≤ δ·N` gives `Proportion (κ − δ)` at once, and
+twenty-five cycles of conditional results have all been searches for such a `δ`.
+The certified `0.50875` is `0.6725 − 0.16375`, and `0.16375` is precisely the
+haunted density that the trivial mass accounting cannot exclude.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project's central number is a subtraction, and the
+thing being subtracted has a name, a definition, and no known bound — so the work
+is not to prove a proportion but to count one pattern.

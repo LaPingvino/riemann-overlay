@@ -1694,3 +1694,31 @@ which is the consistency check.
 on the haunted density must come from a fact about ζ that is not a relation among
 its own counting functions — which is exactly what `087`'s ξ′ route and `105`'s
 pattern-exclusion are, and why both are hypotheses rather than theorems.
+
+
+## `NoHaunted` in the known hierarchy (SESSION 115, from claude.ai)
+
+The hypothesis of the project's strongest conditional row sits below a standard
+conjecture:
+
+> **LI** (linear independence of the positive ordinates over `ℚ`; Wintner,
+> Ingham 1942, the standing hypothesis of Rubinstein–Sarnak's bias work)
+> **⟹ all ordinates distinct ⟹ no haunting.**
+
+So `NoHaunted` is the **weakest** member of that chain — milder than what the
+prime-race literature routinely assumes. A conditional row keyed to it asks less
+than the field's own standard extra hypothesis. **[RECALL, UNVERIFIED]** on the
+attributions; the implications themselves are immediate (distinct ordinates make
+every atom mass one, so `hauntedCount = 0`).
+
+**Empirically absent too:** the verified zeros to height `3×10¹²` have pairwise
+distinct ordinates, so haunting — like off-line zeros — is empirically absent at
+computed heights. Two absences, one instrument each.
+
+**Why the quantity has no name.** claude.ai searched and reports none, with a
+reason worth keeping: haunting only exists in the *unconditional* world. Under
+RH it is vacuous; the classical unconditional quantities (`N`, `N_d`, `N⊛`) are
+`μ_T`-visible and, by `Blindness`, provably cannot isolate it. The nearest named
+object is the distinct-zeros deficit `N(T) − N_d(T)`, of which `hauntedCount` is
+the cross-term nobody has had reason to separate. The unconditional regime where
+it is live was opened recently; an unnamed inhabitant is expected.

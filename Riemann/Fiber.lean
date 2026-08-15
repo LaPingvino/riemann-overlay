@@ -3259,6 +3259,22 @@ theorem cap_witness_respects_derived {a : ℝ} (ha : a ≠ 1/2) :
     by rw [hOff, hSc', hN],
     by rw [hHnt, hSc', hN]⟩
 
+/-- **The blindness theorem as a literature-search oracle.**
+
+A haunted ordinate of mass `3` and an on-line triple zero are the *same* `μ_T`
+atom.  So any statement invariant under `μ_T` — every pair-correlation and
+zero-repulsion result, which govern the spacing of *distinct* ordinates —
+excludes both or neither.  Since no known repulsion result excludes triple
+zeros, none can exclude haunting.
+
+This is why `105`'s pattern-exclusion hypothesis cannot be found in that corpus:
+not "we searched and did not find it", but **the corpus provably cannot contain
+it**.  An impossibility theorem used to prune a reading queue rather than to
+close a route. -/
+theorem haunted_indistinguishable_from_triple {a : ℝ} :
+    (configAt 0 1 1 a).ordinates = (configAt 0 3 0 a).ordinates :=
+  config_ordinates_eq (by norm_num) a a
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

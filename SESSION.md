@@ -4826,3 +4826,66 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 zero counts and a single 1963-zero configuration satisfies all of them while
 sitting at the certified floor, which means the floor is the theory's, not the
 zeta function's.
+
+
+# SESSION 115 — claude.ai's three answers, wired in, one audit closed negative
+
+The `111` briefing asked three questions. All three came back. This cycle wires
+them into the registers and runs the one audit they suggested.
+
+**(i) The ξ′ blocker has a citation.** `NzComparable` — `N_{ξ'}(T) = N_ζ(T) +
+O(log T)` — is **Conrey, J. Number Theory 16 (1983), 49–74**, which proves the
+counting for all `ξ^(m)`; ξ's zeros are ζ's nontrivial ones. Berndt (1970) covers
+ζ-derivatives if ever needed. Filed **[RECALL, UNVERIFIED]** — neither paper has
+been read here, and a citation is a pointer, not a discharge. `OffTransfer`
+remains open.
+
+**The audit it suggested closes negative, and that is the honest result.**
+claude.ai flagged that Conrey 1983 gives `≥ 81.37%` of ξ′'s zeros on the line,
+upgraded to `82.402%` by the `θ = 4/7` mollifier, and asked whether the repo's
+constant reflects the upgrade — with a possible free improvement attached.
+
+> It reflects neither and beats both. `zeta23_xiPrime` asserts
+> `Proportion 0.85838`, and `Proportion` is the **simple-and-on-line** count —
+> strictly stronger than "on the line". No free points.
+
+Checking took one `sed`; assuming would have put a wrong number in `PRICES.md`.
+
+**(ii) The haunted density has no name, and the namelessness is explained.** It
+exists only unconditionally: vacuous under RH, and provably invisible to the
+classical `μ_T` quantities by our own `Blindness`. The nearest named object is
+the distinct-zeros deficit `N(T) − N_d(T)`, of which it is the cross-term nobody
+has separated. Recorded in `LEADS.md` for the packaging.
+
+**(iii) The corpus provably cannot contain `105`'s hypothesis — and this is a new
+instrument function.** `haunted_indistinguishable_from_triple` (new, three lines,
+axiom-free): a haunted mass-`3` ordinate and an on-line triple zero are the same
+`μ_T` atom. So every pair-correlation and repulsion statement excludes both or
+neither, and none excludes triple zeros. Repulsion governs *distinct* ordinates;
+exact coincidence is the gauge-invisible direction.
+
+**`METHOD.md` gains the general form:** an impossibility theorem can retire a
+reading task. "We searched and found nothing" is weak; "the corpus cannot contain
+it, here is the theorem" is a result. Caveat stated — it prunes only corpora
+whose statements are invariant in the relevant sense.
+
+**And `LEADS.md` gains the hierarchy:** LI ⟹ all ordinates distinct ⟹ no
+haunting. `NoHaunted` is the **weakest** member — milder than the standing
+hypothesis of the prime-race literature. Empirically, the verified zeros to
+`3×10¹²` have pairwise distinct ordinates, so haunting is absent at computed
+heights exactly as off-line zeros are.
+
+**Ruling for Joop, now concrete.** Discharging `NzComparable` means extending the
+zeta-23 import or adding an axiom, and adding one would raise the certified
+proportion by `+9.29`, which `Assumptions.lean` forbids. My reading is that a
+counting-function comparison is a different kind of object from a proportion
+axiom and may be admissible where a proportion axiom is not — but that is
+doctrine, and yours.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the project's central unknown has no name because it
+can only be seen from a position almost nobody has occupied — unconditional, and
+looking at coincidences rather than spacings — which is either why it is
+worthless or why it is available.

@@ -492,3 +492,46 @@ mass exactly `3`. That is a statement about one configuration, and it is worth
 quite different.
 
 *Both remain hypotheses. Neither is asserted, and the ledger stays at `50.88%`.*
+
+
+## The ξ′ route's blocker has a citation (SESSION 115, from claude.ai)
+
+`087` priced the ξ′ transfer at **+9.29 points** and blocked it on two
+hypotheses. claude.ai supplies the literature for one of them:
+
+* **`NzComparable`** — `N_{ξ'}(T) = N_ζ(T) + O(log T)`. **Conrey, "Zeros of
+  derivatives of Riemann's ξ-function on the critical line," J. Number Theory 16
+  (1983), 49–74**, which proves the counting for all `ξ^(m)`; ξ's zeros *are* ζ's
+  nontrivial ones. For ζ-derivatives if ever needed instead: **Berndt, "The
+  number of zeros for ζ^(k)(s)," J. London Math. Soc. (2) 2 (1970), 577–580**.
+  **[RECALL, UNVERIFIED]** — neither paper has been read here; the citation is
+  claude.ai's and is recorded as a pointer, not as a discharge.
+* **`OffTransfer`** — still open; absorbing Levinson–Montgomery's `O(log T)` into
+  `o(N)` needs Riemann–von Mangoldt, which the same shelf presumably supplies.
+
+*Ruling for Joop, now with a concrete reference:* discharging `NzComparable`
+means either extending the zeta-23 import or adding an axiom. `Assumptions.lean`
+forbids raising the certified proportion by assumption, and this would do exactly
+that (+9.29). My reading is that a **counting-function comparison is a different
+kind of object from a proportion axiom** and might be admissible where a
+proportion axiom is not — but that is a doctrine question and yours, not mine.
+
+### The 4/7 audit: no free improvement
+
+claude.ai flagged that Conrey 1983 gives `≥ 81.37%` of ξ′'s zeros on the critical
+line, upgraded to `82.402%` by the `θ = 4/7` mollifier (arXiv:1206.3737), and
+asked whether the repo's constant reflects the upgrade.
+
+**It reflects neither, and is better than both.** `zeta23_xiPrime` asserts
+`Proportion 0.85838` from zeta-23's `xiDeriv_simple_on_line` — and `Proportion`
+is the **simple-and-on-line** count, a strictly stronger property than "on the
+line". So the repo's constant exceeds `82.402%` on a stronger statement. No free
+points; audit closed.
+
+### Why the route pays, structurally
+
+claude.ai's third pointer, recorded for the packaging: Farmer, *"Differentiation
+evens out zero spacings"* (math/0310252), and Farmer–Gonek on the pair
+correlation of ξ′'s zeros. Differentiation actively smooths the zero
+distribution, so the ξ′ world is provably better behaved than ζ's — the
+transfer's mechanism has a name and a literature. **[RECALL, UNVERIFIED]**.

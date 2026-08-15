@@ -346,3 +346,27 @@ description of why the process looks like this:
 > half's at search speed, Joop's at a glance, the kernel's instantly, the
 > literature's in fifty years. **The project is the practice of routing every
 > claim to the fastest available no.**
+
+
+## Impossibility results as search-space pruning (SESSION 115)
+
+A new function for the blindness theorems, and the first instance is recorded in
+`Fiber.haunted_indistinguishable_from_triple`.
+
+`105` asked whether its pattern-exclusion hypothesis — "no ordinate carries
+exactly one critical zero and one off-line pair" — is recognisable from the
+zero-repulsion or pair-correlation literature. The answer is **provably no, and
+without reading the corpus**: a haunted mass-`3` ordinate and an on-line triple
+zero are the same `μ_T` atom, so any `μ_T`-invariant statement excludes both or
+neither, and no known repulsion result excludes triple zeros. Repulsion governs
+the spacing of *distinct* ordinates; exact coincidence is precisely the
+gauge-invisible direction.
+
+**So an impossibility theorem can retire a reading task.** "We searched and found
+nothing" is weak evidence; "the corpus cannot contain it, here is the theorem" is
+a result. Where a class-impossibility exists, check it against the reading queue
+before reading — it may empty entries.
+
+*Caveat, stated: this prunes only corpora whose statements are invariant in the
+relevant sense. It says nothing about literature that reads the objects the class
+cannot.*

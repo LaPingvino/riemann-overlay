@@ -385,3 +385,17 @@ Two guards print alarms while passing, and both are correct:
   statement about `ζ`.
 
 Exit code is the verdict; the prose is the reasoning. Read the exit code first.
+
+
+## Two small disciplines, both bought by slips (SESSION 128)
+
+**Assert before replacing.** A `str.replace` that does not match is a silent
+no-op. `127` shipped a commit message saying "gate-clean" because a downgrade
+edit missed a line-wrapped sentence and the substitution quietly did nothing.
+Every scripted edit to a register or source file asserts the old text is present
+first; the assert is the witness that the edit had a target.
+
+**When correcting a stale claim, grep for the sentence, not the file.** `128`
+found one stale claim living in *two* registers in different wordings. A sweep
+scoped to a file finds one copy and stops. Search the phrase across all
+registers before writing the correction.

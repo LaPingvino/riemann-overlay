@@ -490,3 +490,25 @@ of the file was found: the register carries both.
 
 **Rate 2/56 ≈ 3.6%**, and both catches are staleness rather than overclaim, which
 is the defect class no instrument in the project patrols (`121`).
+
+
+---
+
+## SESSION 128 — `E.md` and `FAILURES.md` triaged
+
+**1 true positive in 31**, and it is a *duplicated* stale claim:
+
+> *"The only capacity certificate we can run came in with zeta-23"* —
+> `LEADS.md` line 962 **and** `FAILURES.md` line 275, in different wordings.
+
+`Riemann/Capacity.lean` carries eleven capacity theorems of our own, axiom-free
+and audited. `LEADS.md` even names the repair as "next rung-0 item, and it is
+cheap" — and it was done: `no_gain_past_known` is exactly that statement.
+Annotated at both locations.
+
+The other 30 are false positives of the four shapes documented in `089`.
+
+**New sub-species: the duplicated stale claim.** A sentence copied between
+registers goes stale in both, and correcting one leaves the other. Neither
+`121`'s sweep nor `127`'s would have caught this — `121` looked at `CLAIMS.md`,
+`127` at `LEADS.md`, and each would have found one copy and moved on.

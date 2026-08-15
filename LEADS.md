@@ -962,6 +962,16 @@ decide the target. The argument may be right; it is not a rung by this audit's
 criterion. **The only capacity certificate we can run came in with zeta-23.**
 Recorded as `SURPRISES` S19.
 
+> ⚠️ **Stale since `Capacity.lean` (`SESSION 128` found it in two registers at
+> once).** `Riemann/Capacity.lean` carries eleven capacity theorems of our own,
+> axiom-free and audited — `pinned_value_is_floor`, `value_eq_pinned`,
+> `no_gain_past_known`, `unbounded_below_of_neg_outside`, their integral forms,
+> and `reweighting_worst_case`. The "next rung-0 item, and it is cheap" named
+> below **was done**: that is exactly what `no_gain_past_known` states. So
+> `ceiling_law256` is no longer the only runnable capacity certificate, nor the
+> only one we can *own*.
+
+
 **Next rung-0 item, and it is cheap:** formalise the LP-duality collapse enough
 to state "no `F` supported in `[0,1]` with `F ≥ 0` yields more than Montgomery's
 `2/3`". That is a capacity statement about a convex program, not a theorem about

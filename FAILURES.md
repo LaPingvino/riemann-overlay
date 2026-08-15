@@ -275,6 +275,16 @@ fails to decide the target; the argument is written out and believed. The only
 capacity certificate we can actually run is `ceiling_law256`, which came in with
 zeta-23.
 
+> ⚠️ **Stale since `Capacity.lean` (`SESSION 128` found it in two registers at
+> once).** `Riemann/Capacity.lean` carries eleven capacity theorems of our own,
+> axiom-free and audited — `pinned_value_is_floor`, `value_eq_pinned`,
+> `no_gain_past_known`, `unbounded_below_of_neg_outside`, their integral forms,
+> and `reweighting_worst_case`. The "next rung-0 item, and it is cheap" named
+> below **was done**: that is exactly what `no_gain_past_known` states. So
+> `ceiling_law256` is no longer the only runnable capacity certificate, nor the
+> only one we can *own*.
+
+
 So the honest ladder is: **rung 1 occupied by three theorems we built, rung 0
 occupied by one theorem we imported, and the rung-0 result we claimed as our own
 still owes its certificate.** Filed as a debt, not a defect — the argument may

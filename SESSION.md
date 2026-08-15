@@ -5413,3 +5413,45 @@ before saying it is green; I did not witness the gate before saying it was clean
 A string replacement that fails silently is exactly the shape that needs a
 witness — and the guard *did* fire, into a terminal I had already stopped
 reading.
+
+
+# SESSION 128 — the same stale claim in two registers
+
+`127` triaged `LEADS.md`; `E.md` (14 flags) and `FAILURES.md` (17) had never been
+done.
+
+**Kill condition, filed first:** *if both are all known mechanical shapes, the
+gate has nothing to say about these registers and I stop running it on them.*
+**It did not fire — 1 true positive in 31, and it is duplicated.**
+
+> *"The only capacity certificate we can run came in with zeta-23"*
+> — `LEADS.md` 962 **and** `FAILURES.md` 275, differently worded.
+
+`Riemann/Capacity.lean` carries eleven capacity theorems of our own, axiom-free
+and in the audit. `LEADS.md` even names the repair in the next paragraph — *"next
+rung-0 item, and it is cheap"* — and it was done: `no_gain_past_known` **is** that
+statement. So the register is carrying a defect, its proposed fix, and no note
+that the fix landed.
+
+**The sub-species is new and worth naming: the duplicated stale claim.** A
+sentence copied between registers goes stale in both, and correcting one leaves
+the other. Neither `121` nor `127` would have caught this — `121` swept
+`CLAIMS.md`, `127` swept `LEADS.md`, and each would have found a copy and moved
+on satisfied. `METHOD.md` gains the rule: **grep the sentence, not the file.**
+
+**And the wildcard, bought by `127`'s own slip.** `METHOD.md` also gains *assert
+before replacing*: a `str.replace` that does not match is a silent no-op, which
+is how `127` shipped a commit message claiming a clean gate it had not re-run.
+Every scripted edit now asserts its target exists first — the assert is the
+witness that the edit had somewhere to land.
+
+Rate across the three register triages: `LEADS` 2/56, `E` + `FAILURES` 1/31,
+`CLAIMS` 0/4 (`101`). **3 true positives in 91, all staleness, none an
+overclaim.**
+
+Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
+`cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the guards were built when the danger was saying too
+much, and the project has since aged into a state where every defect they find is
+the opposite one.

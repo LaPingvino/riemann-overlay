@@ -58,6 +58,7 @@ total.
 | S21 | 043 | `β ≤ 0` would be needed as a precondition for prop1's LP-optimality | **not needed** — the optimality holds for every `(α, β)` in the class, so the certified statement is strictly stronger than the docstring it replaces | tooling (the unused-variable linter) | calibration |
 | S22 | 044 | the docstring disease would have more instances — at least one more Lean impossibility claim would turn out to be prose | **none did.** `c0_lower_bound` and `offline_le_tight` are real theorems; grade B is empty. The two remaining uncertified claims are grade **C** (class informal), a different species that formalisation cannot cure | tooling (the sweep) | calibration |
 | S23 | 045 | promoting a grade-C claim would be a research question, not a formalisation task | W7's took **one cycle** — the cheap invariants all share one shape (`H γ ≤ M`), which *is* the class definition, and it needs no Euler product | self (by attempting it) | calibration |
+| S24 | 046 | the last grade-C entry would either promote to A or stay C | **neither** — its class is well defined but its support is a *numerical optimisation*, so the grading scheme was missing a bin. Grade **N** added. And the optimisation's code is not in the repo at all | self (by attempting the promotion) | design |
 
 ## Standing observation
 

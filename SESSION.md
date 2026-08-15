@@ -1809,3 +1809,49 @@ Audits extended; build green (3747 jobs); base hash unmoved; 23 surprises, still
 project's residual vagueness turned out, on first contact, to be mostly a
 naming delay — the informal classes were informal because nobody had needed them
 precisely, not because they resist precision.
+
+
+# SESSION 046 — night cycle 10: a fourth grade, and the first reproducibility defect
+
+**Kill condition, stated first:** *if "post-1974 extremal technology" collapses
+into the bandwidth-one class already certified by `ceiling_law256`, the entry is
+a duplicate of an existing grade-A row rather than a new class.* **It did not
+fire** — the registers are explicit that the `0.28pp` gap up to the
+bandwidth-one ceiling "does not live in window shape", so the `v` slot is a
+strict subclass.
+
+**The class is definable, and the grading scheme was missing a bin.** The
+claim's support is not a proof (A), not prose (B), not an undefined class (C).
+It is a **numerical optimisation** — `N = 160` midpoint quadrature over windows
+at `λ = 1`, giving `0.6725126` against Montgomery–Taylor's `3/2 − ϑ cot ϑ`.
+`CLAIMS.md` gains **grade N: class defined, evidence numerical.** Cite with
+"numerically" attached; never as a bound.
+
+**Verified:** `3/2 − (1/√2)cot(1/√2) = 0.6725007036794116`, matching the
+register to every quoted digit, with the reported optimiser `1.19 × 10⁻⁵` above
+it — consistent with the stated quadrature error. So the *identification* is
+sound as a numerical statement.
+
+**And the finding that outweighs the grade: the optimisation's code is not in
+this repo.** `forensics/` holds five scripts and none of them is a window
+optimiser. `LEADS.md`'s table and `E.md`'s `18.18pp` "constants are properties
+of the instrument" claim both rest on a computation a reader cannot re-run —
+and neither can we. Filed as `ISSUES` #29, the first **reproducibility** defect
+found here (as opposed to a mathematical one).
+
+**Deliberately not repaired tonight, and this is the judgement of the cycle.**
+Reconstructing the variational problem from memory would produce a script that
+computes *something*, and presenting it as the original computation would be a
+fabricated provenance — exactly the disease `provenance_lint.py` was built to
+catch. The honest repair needs the source in hand. Until then the claim carries
+grade N with an explicit "code not in repo" mark.
+
+`SURPRISES` S24: I expected the last grade-C entry to either promote to A or
+stay C. It did neither, and the scheme had to grow.
+
+Guards green, build unchanged, base hash unmoved.
+
+**Might-mean, unhedged:** the project has been careful about which of its claims
+are *proved* and careless about which of its numbers are *re-runnable*, and the
+two most-quoted numbers in the registers turn out to sit on the wrong side of
+that second line.

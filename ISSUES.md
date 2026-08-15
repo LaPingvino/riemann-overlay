@@ -885,3 +885,34 @@ neither is done under this cycle's escalation discipline.
 `audit/PrintAxioms.lean` do not cover the `Blindness.lean` / `Fiber.lean` names.
 Flagged in SESSION 033 as deferred under the freeze; it is the first
 post-freeze item.
+
+
+## #29 — [bin 2, reproducibility] the window-optimisation table has no code in the repo
+
+Found by night cycle 10's attempt to promote the last grade-C claim.
+
+`LEADS.md`'s window table (`λ`-sweep, optimum `0.6725126` at `λ = 1`, `N = 160`
+midpoint quadrature) and `E.md`'s E17 table (the `18.18pp` "constants are
+properties of the instrument" claim) both rest on a numerical optimisation whose
+**script is not in `forensics/` or anywhere else in the repo**.
+
+Everything else numerical here is reproducible: `lemma1_guard.py`,
+`provenance_lint.py`, `quarry.py`, `w16_price.py`, `surprises.py`. This is the
+sole exception, and it happens to sit under two of the project's most-quoted
+claims.
+
+**What is verified:** the closed form is right —
+`3/2 − (1/√2)cot(1/√2) = 0.6725007036794116`, matching the register to all
+quoted digits, and the reported optimiser is `1.19 × 10⁻⁵` above it, consistent
+with the stated quadrature error.
+
+**What is not:** that the optimisation actually ranged over the class claimed,
+at the resolution claimed.
+
+**Deliberately not repaired tonight.** Reconstructing the variational problem
+from memory would yield a script computing *something*; presenting it as the
+original would be a fabricated provenance — precisely the disease
+`provenance_lint.py` exists to catch. The honest repair is to re-derive the
+functional from the source with the source in hand, then commit the script.
+Until then the claim carries grade **N** in `CLAIMS.md` with an explicit
+"code not in repo" mark, and must not be cited as a bound.

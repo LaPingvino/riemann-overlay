@@ -21,6 +21,12 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
   result; a rung is a blindness result **plus** a closure certificate for its
   class.* Rung 1 now has both. Doctrine edits are operator-ruled, so it waits.
 
+* **ISSUES #29 — the window optimisation has no code.** `LEADS.md`'s table and
+  `E.md`'s `18.18pp` claim rest on a computation that is not in the repo. The
+  honest repair needs the source paper in hand to re-derive the functional; I
+  will not reconstruct it from memory. Your call whether that is worth a
+  session.
+
 ## Parked
 
 * **Whether the phase channel is necessary** — open, and family 2 does not
@@ -33,6 +39,26 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
   overdue.
 
 ## Landed
+
+### Night cycle 10 — a fourth grade, and the first reproducibility defect
+
+**Kill condition** (that the last grade-C entry duplicates the bandwidth-one row)
+**did not fire**: the `v` slot is a strict subclass, and the registers say so.
+
+But the class's support is a **numerical optimisation**, not a proof — so
+`CLAIMS.md` gains **grade N** (class defined, evidence numerical; cite with
+"numerically", never as a bound). Verified tonight:
+`3/2 − (1/√2)cot(1/√2) = 0.6725007036794116`, matching the register exactly,
+optimiser `1.19 × 10⁻⁵` above, consistent with the quoted quadrature error.
+
+**The bigger finding: that optimisation's code is not in the repo.** `LEADS.md`'s
+window table and `E.md`'s `18.18pp` instrument claim both rest on a computation
+nobody — including us — can re-run. **`ISSUES` #29**, the first reproducibility
+defect here.
+
+**Not repaired tonight, on purpose:** reconstructing the functional from memory
+would fabricate a provenance, which is the exact disease the lint exists to
+catch. Needs the source in hand.
 
 ### Night cycle 9 — "cheap invariants" defined; grade C loosens
 

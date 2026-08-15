@@ -19,8 +19,13 @@ grade A.**
   be stated; none exists yet. **This is the disease.** Cite only with the word
   "unformalised" attached.
 * **C — class undefined.** The claim quantifies over something informal ("cheap
-  invariants", "post-1974 technology"). It cannot be promoted without first
+  invariants", "classical invariant"). It cannot be promoted without first
   defining the class, and it is **not a bound**. Never cite as one.
+* **N — class defined, evidence numerical.** The class is precise and the claim
+  is checkable in principle, but what supports it is a computation, not a proof.
+  Cite only with the word "numerically" attached. **Never as a bound.** A grade-N
+  entry whose *code is not in the repo* is worse than unproved — it is
+  unreproducible, and must say so.
 
 ## The inventory
 
@@ -38,7 +43,7 @@ grade A.**
 | The bandwidth-one ceiling is `≤ 0.6818287` | bandwidth-one certificates | `Zeta23.PairCeiling.ceiling_law256` — **imported**, and *not reachable from `import Riemann`* | **A**, with a caveat parked for Joop |
 | "Multiplicity bounds cannot tighten `C`" (W7, precise part) | `BoundedMult M` — `H γ ≤ M`, pure counting, no Euler product | `Optimal.prop1_LP_optimal_cheap` | **A** |
 | "No free classical invariant *of any kind* will tighten `C`" (W7, general) | *"classical invariant"* — still informal | — | **C** |
-| "Post-1974 extremal technology cannot buy anything through the window" | *"post-1974 technology"* — informal | — | **C** |
+| "Post-1974 extremal technology cannot buy anything through the `v` slot" | the `v` slot of the rank–trace container at `λ = 1` — **well defined** | a quadrature optimisation (`N = 160` midpoint, `0.6725126` vs M–T's `0.6725007`) whose **code is not in the repo** | **N** |
 | E20's plane: the cleavage is the one thing no single-natured instrument can certify | *"single-natured instrument"* — informal | — | **C**, and already marked statistically unsupported in `FAILURES.md` |
 
 ## The sweep's verdict (night cycle 8)
@@ -85,3 +90,37 @@ any kind tightens `C` — quantifies over a class still undefined and stays C.
 **Revised guidance:** grade C means *the class has not been defined yet*, not
 *the class cannot be defined*. When a C entry's claims all share one shape, that
 shape is usually the definition. Filed as `SURPRISES` S23.
+
+
+## Amendment (night cycle 10) — a fourth grade, and an unreproducible table
+
+**Kill condition, stated first:** *if "post-1974 extremal technology" collapses
+into the bandwidth-one class already certified by `ceiling_law256`, the entry is
+a duplicate of an existing grade-A row rather than a new class.* **It did not
+fire.** The registers are explicit that the two are different: the `0.28pp` gap
+up to the bandwidth-one ceiling "does not live in window shape; it must live in
+the richer certificate class their ceiling theorem quantifies over". The `v`
+slot is a strict subclass.
+
+**So the class is definable — and the grading scheme was missing a bin.** The
+claim's support is neither a proof (grade A) nor prose (B) nor an undefined
+class (C). It is a **numerical optimisation**: `N = 160` midpoint quadrature
+over windows at `λ = 1`, giving `0.6725126` against Montgomery–Taylor's
+`3/2 − ϑ cot ϑ`. Hence grade **N**.
+
+**Verified tonight:** `3/2 − (1/√2)cot(1/√2) = 0.6725007036794116`, matching the
+register's `0.6725007` exactly. The quoted optimiser sits `1.19 × 10⁻⁵` above
+it, consistent with the stated quadrature error — so the *identification* is
+sound as a numerical statement.
+
+**And the snag that matters more than the grade:** the optimisation's **code is
+not in this repo.** `forensics/` holds `lemma1_guard.py`, `provenance_lint.py`,
+`quarry.py`, `w16_price.py` and `surprises.py` — no window optimiser. The table
+in `LEADS.md` and the `18.18pp` instrument claim in `E.md` rest on a computation
+that a reader cannot re-run and that we cannot re-run either.
+
+That is a **reproducibility defect, not a mathematical one**, and it is the
+first found in this repo. It is filed as `ISSUES` #29 rather than repaired
+tonight: reconstructing the variational problem from memory would produce a
+script that computes *something*, and passing that off as the original
+computation is exactly the failure mode this project exists to avoid.

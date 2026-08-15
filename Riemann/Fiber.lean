@@ -3426,6 +3426,40 @@ theorem six_mul_haunted_add_N_le_Nstar (D : ZeroData) :
   have h6 := ZeroData.six_mul_NscStd_le D
   omega
 
+/-- **A fourth bound: `6·hauntedCount ≤ factMoment 3`.**
+
+`123` said there were exactly three certified bounds on the haunted count.  There
+is a fourth, from the third **factorial** moment `Σ H(H−1)(H−2)`: a haunted
+ordinate has mass `≥ 3`, so it contributes `≥ 3·2·1 = 6`.
+
+The `6` is the same `6` as in `six_mul_haunted_add_N_le_Nstar`, and for the same
+reason — mass `3` is the cheapest haunted ordinate — but the two consume
+different inputs, `N⊛` there and the third factorial moment here.
+
+**Its ledger value is nil**, and that is worth stating: nothing certified bounds
+`factMoment 3`, and `Optimal.moment_route_walled` shows no moment inequality of
+order `≥ 3` can be made to bind.  So the fourth bound exists, is sharp at mass
+`3`, and buys nothing — which is why `123` did not miss it by looking. -/
+theorem six_mul_haunted_le_factMoment_three (D : ZeroData) :
+    6 * hauntedCount D ≤ factMoment D 3 := by
+  classical
+  rw [hauntedCount, factMoment, Finset.card_filter, Finset.mul_sum]
+  refine Finset.sum_le_sum fun γ _ => ?_
+  by_cases h : D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1
+  · rw [if_pos h]
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    have h3 : 3 ≤ D.H γ := by omega
+    obtain ⟨t, ht⟩ : ∃ t, D.H γ = t + 3 := ⟨D.H γ - 3, by omega⟩
+    rw [ht]
+    simp [Nat.descFactorial]
+    have hstep : 1 * (2 * 3) ≤ (t + 1) * ((t + 2) * (t + 3)) :=
+      Nat.mul_le_mul (by omega)
+        (Nat.mul_le_mul (by omega) (by omega))
+    omega
+  · rw [if_neg h]
+    simp
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

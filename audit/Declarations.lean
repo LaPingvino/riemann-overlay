@@ -275,3 +275,4 @@ import Riemann
 #check @Riemann.hauntedDensity_of_noSmallHaunted
 #check @Riemann.Blindness.six_mul_haunted_add_N_le_Nstar
 #check @Riemann.hauntedDensity_of_starBound
+#check @Riemann.Blindness.six_mul_haunted_le_factMoment_three

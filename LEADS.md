@@ -1795,6 +1795,14 @@ inequalities bounding that quantity, and they consume three different inputs:
 | `2·hauntedCount ≤ N_off` | the off-line count | `083`'s coupling |
 | `2·hauntedCount + NscStd ≤ N` | the baseline alone | `110` |
 | `6·hauntedCount + N ≤ N⊛` | **`(★)`** | `Basic.six_mul_NscStd_le` via `109`'s identity |
+| `6·hauntedCount ≤ factMoment 3` | the third factorial moment | `124` — **nil value**, nothing bounds it |
+
+> ⚠️ **"Exactly three" was wrong (`SESSION 124`).** There are four, and the
+> fourth is the third-factorial-moment bound above. Its ledger value is nil —
+> nothing certified bounds `factMoment 3`, and `Optimal.moment_route_walled`
+> shows no moment inequality of order `≥ 3` can be made to bind — which is why
+> the enumeration missed it: I was listing bounds that *pay*, and wrote the
+> sentence as if I had listed bounds that *exist*.
 
 The third is the only one that consumes a star bound, and it is why the `/6`
 bridge exists. With a star bound `C` it gives `δ = (C−1)/6`, which beats the

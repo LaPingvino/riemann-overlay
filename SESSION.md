@@ -5203,6 +5203,13 @@ exactly three certified bounds on the haunted count:
 | `2·hauntedCount + NscStd ≤ N` | the baseline alone (`110`) |
 | `6·hauntedCount + N ≤ N⊛` | **`(★)`** |
 
+> ⚠️ **"Exactly three" was wrong — `124` found a fourth.** The third factorial
+> moment bounds the haunted count too (`six_mul_haunted_le_factMoment_three`).
+> Its value is nil, which is why I did not see it: I enumerated the bounds that
+> *pay* and wrote the sentence as though I had enumerated the bounds that
+> *exist*. The conclusion below about `(★)` is unaffected — the fourth bound
+> consumes neither `(★)` nor anything else certified.
+
 Only the third consumes a star bound. So **`(★)`'s entire contribution to the
 `Nsc` row is a bound on the haunted count** — Routes I and III exist to buy a
 `C`, and what a `C` buys is a `δ`. It beats the unconditional `0.16375` exactly
@@ -5217,3 +5224,42 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 literature's proportion are three different ways of paying for the same thing,
 and the project's whole route table is a price list for one quantity nobody else
 has named.
+
+
+# SESSION 124 — "exactly three" was wrong, and the fourth is worthless
+
+`123` wrote *"There are exactly three certified bounds on the haunted count"*.
+That is an enumeration claim, which is the `S34` shape, so it gets checked rather
+than trusted.
+
+**Kill condition, filed first:** *if the third moment gives no bound on the
+haunted count, "exactly three" stands and no correction is needed.* **It fired.**
+
+`six_mul_haunted_le_factMoment_three` (new, axiom-free):
+**`6·hauntedCount ≤ Σ H(H−1)(H−2)`**. A haunted ordinate has mass `≥ 3`, so it
+contributes `≥ 3·2·1 = 6` to the third factorial moment. The `6` is the same `6`
+as in the `N⊛` bound and for the same reason — mass `3` is the cheapest haunted
+ordinate — but the two consume different inputs.
+
+**Its ledger value is nil, and that is the interesting part.** Nothing certified
+bounds `factMoment 3`, and `Optimal.moment_route_walled` proves no moment
+inequality of order `≥ 3` can be made to bind. So the fourth bound exists, is
+sharp at mass `3`, and buys nothing.
+
+**Which is exactly why I missed it.** I enumerated the bounds that *pay* and
+wrote the sentence as though I had enumerated the bounds that *exist*. The two
+lists differ by the ones with no supplier, and a claim about what exists cannot
+be assembled by thinking about what is useful. Corrected at both locations —
+`123`'s session entry and the `LEADS.md` table.
+
+`123`'s conclusion about `(★)` is unaffected: the fourth bound consumes neither
+`(★)` nor anything else certified, so "only one of these consumes a star bound"
+remains true with four in the list.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** an enumeration made while thinking about value will
+always be an enumeration of the valuable, and the project's registers are full of
+sentences whose quantifier was set by what I was looking for rather than by what
+is there.

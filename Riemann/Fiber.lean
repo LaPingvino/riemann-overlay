@@ -3275,6 +3275,85 @@ theorem haunted_indistinguishable_from_triple {a : ℝ} :
     (configAt 0 1 1 a).ordinates = (configAt 0 3 0 a).ordinates :=
   config_ordinates_eq (by norm_num) a a
 
+/-! ### The LI hierarchy, certified — and where `NoHaunted` sits in it
+
+claude.ai supplies the chain `LI ⟹ all ordinates distinct ⟹ no haunting`, with
+`NoHaunted` its weakest member.  Certifying it turns up a distinction the prose
+form hides.
+
+**Kill condition, filed first:** *if `NoHaunted` itself implies `N_off = 0`, it
+is RH-in-window and worthless as a conditional hypothesis.*  It did not fire —
+and the middle member of the chain **does** imply it. -/
+
+/-- **Distinct ordinates ⟹ no haunting.**  A haunted ordinate carries mass
+`≥ 3`. -/
+theorem noHaunted_of_allDistinct (D : ZeroData) (h : ∀ γ, D.H γ ≤ 1) :
+    ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 := by
+  intro γ hsc
+  have h1 := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have := h γ
+  omega
+
+/-- **…but distinct ordinates already imply `N_off = 0`.**
+
+The functional equation puts every off-line zero at the same height as its
+partner, so an off-line zero forces mass `≥ 2`.  "All ordinates distinct" is
+therefore at least as strong as RH-in-window — it *assumes the conclusion*. -/
+theorem Noff_eq_zero_of_allDistinct (D : ZeroData) (h : ∀ γ, D.H γ ≤ 1) :
+    D.Noff = 0 := by
+  classical
+  have hz : ∀ γ, offAt D γ = 0 := by
+    intro γ
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    have := h γ
+    omega
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  rw [hoff]
+  exact Finset.sum_eq_zero fun γ _ => hz γ
+
+/-- **`NoHaunted` does not imply `N_off = 0`** — and this is what makes it the
+only member of the chain worth conditioning on.
+
+Witness: `configAt 0 0 1 a`, a lone off-line pair.  Its ordinate has `onAt = 0`,
+so it is **unhaunted**; and `N_off = 2 > 0`.  So `NoHaunted` permits off-line
+zeros — it forbids only their *coincidence with a lone critical zero*.
+
+`LI` and "all ordinates distinct" both assume RH-in-window.  `NoHaunted` does
+not.  It is not merely the weakest member of the chain; it is the only member
+that is not already the conclusion. -/
+theorem noHaunted_not_imp_Noff_zero {a : ℝ} (ha : a ≠ 1/2) :
+    (∀ γ, (configAt 0 0 1 a).H γ - offAt (configAt 0 0 1 a) γ = 1 →
+        (configAt 0 0 1 a).H γ = 1)
+      ∧ (configAt 0 0 1 a).Noff ≠ 0 := by
+  classical
+  refine ⟨?_, ?_⟩
+  · intro γ hsc
+    have h1 := H_eq_onAt_add_offAt (configAt 0 0 1 a) γ
+    have hon : onAt (configAt 0 0 1 a) γ = 0 := by
+      by_cases hγ : γ = 0
+      · subst hγ
+        show Multiset.card (Multiset.filter (fun p => p.2 = 0 ∧ p.1 = 1/2)
+            (Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+              + (Multiset.replicate 1 (a, (0:ℝ))
+                + Multiset.replicate 1 ((1 - a : ℝ), (0:ℝ))))) = 0
+        have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+        rw [Multiset.filter_add, Multiset.filter_add,
+          filter_replicate_neg (fun p : ℝ × ℝ => p.2 = 0 ∧ p.1 = 1/2) 1
+            (a, (0:ℝ)) (fun h => ha h.2),
+          filter_replicate_neg (fun p : ℝ × ℝ => p.2 = 0 ∧ p.1 = 1/2) 1
+            ((1 - a : ℝ), (0:ℝ)) (fun h => ha' h.2)]
+        simp
+      · have : (configAt 0 0 1 a).H γ = 0 := by
+          rw [ZeroData.H_eq_count, configAt_ordinates, Multiset.count_replicate,
+            if_neg (by simpa using Ne.symm hγ)]
+        omega
+    omega
+  · rw [configAt_Noff ha]
+    norm_num
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

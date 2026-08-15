@@ -262,3 +262,6 @@ import Riemann
 #check @Riemann.baseline_cap_witness
 #check @Riemann.Blindness.cap_witness_respects_derived
 #check @Riemann.Blindness.haunted_indistinguishable_from_triple
+#check @Riemann.Blindness.noHaunted_of_allDistinct
+#check @Riemann.Blindness.Noff_eq_zero_of_allDistinct
+#check @Riemann.Blindness.noHaunted_not_imp_Noff_zero

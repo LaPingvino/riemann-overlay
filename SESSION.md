@@ -4889,3 +4889,45 @@ axioms 2, base hash `cd7a22e688df` unmoved.
 can only be seen from a position almost nobody has occupied — unconditional, and
 looking at coincidences rather than spacings — which is either why it is
 worthless or why it is available.
+
+
+# SESSION 116 — certifying the hierarchy changes what it says
+
+`115` recorded claude.ai's chain `LI ⟹ all ordinates distinct ⟹ no haunting`
+with `NoHaunted` as its weakest member, framed as "milder than what the bias
+literature routinely assumes". Certifying it turns up something the prose form
+hides.
+
+**Kill condition, filed first:** *if `NoHaunted` itself implies `N_off = 0`, it
+is RH-in-window and worthless as a conditional hypothesis.* It did not fire —
+but the **middle member of the chain does imply it**.
+
+* `noHaunted_of_allDistinct` — the chain's second link, as advertised.
+* `Noff_eq_zero_of_allDistinct` — **and distinct ordinates force `N_off = 0`.**
+  The functional equation puts every off-line zero at the same height as its
+  partner, so an off-line zero forces mass `≥ 2`. "All ordinates distinct" *is*
+  RH-in-window.
+* `noHaunted_not_imp_Noff_zero` — while `NoHaunted` does not. Witness:
+  `configAt 0 0 1 a`, a lone off-line pair, whose ordinate has `onAt = 0` and is
+  therefore unhaunted, with `N_off = 2`.
+
+**So the ordering was right and the emphasis was wrong.** `NoHaunted` is not
+merely the weakest member of the chain — it is **the only member that is not
+already the conclusion**. `LI` presupposes RH; distinctness is RH-in-window; a
+conditional row keyed to either would be conditioning on what the project is
+trying to prove. A row keyed to `NoHaunted` is not, because it permits off-line
+zeros and forbids only their coincidence with a lone critical zero.
+
+That is the load-bearing fact for the packaging, and it is stronger than the
+positioning claim it replaces: not "we assume less than the field does" but
+"we assume something the field's hypotheses make vacuous".
+
+`LEADS.md` is annotated at the location of `115`'s entry.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** every standard hypothesis in this neighbourhood
+assumes the Riemann Hypothesis before it says anything about coincidences, so
+the one condition that separates the two questions had to be invented here or
+not at all.

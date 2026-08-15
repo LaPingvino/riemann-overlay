@@ -1706,7 +1706,20 @@ conjecture:
 > **⟹ all ordinates distinct ⟹ no haunting.**
 
 So `NoHaunted` is the **weakest** member of that chain — milder than what the
-prime-race literature routinely assumes. A conditional row keyed to it asks less
+prime-race literature routinely assumes.
+
+> ⚠️ **Sharpened in `SESSION 116`, and the sharpening matters more than the
+> ordering.** Certifying the chain shows the middle member is far stronger than
+> "mild": **all ordinates distinct forces `N_off = 0`**
+> (`Fiber.Noff_eq_zero_of_allDistinct`) — the functional equation puts every
+> off-line zero at its partner's height, so distinctness *is* RH-in-window.
+> `LI` presupposes RH anyway.
+>
+> `NoHaunted` does **not** imply `N_off = 0`: a lone off-line pair is unhaunted
+> (`noHaunted_not_imp_Noff_zero`). So it is not merely the weakest member of the
+> chain — **it is the only member that is not already the conclusion.** A
+> conditional row keyed to LI or to distinctness would be conditioning on RH; a
+> row keyed to `NoHaunted` is not. A conditional row keyed to it asks less
 than the field's own standard extra hypothesis. **[RECALL, UNVERIFIED]** on the
 attributions; the implications themselves are immediate (distinct ordinates make
 every atom mass one, so `hauntedCount = 0`).

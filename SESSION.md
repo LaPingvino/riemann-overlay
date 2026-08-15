@@ -3078,3 +3078,65 @@ Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
 are hiding in, only how many there are in total — so any instrument that reads
 the ledger alone is blind to the *distribution* of off-line mass across the
 crowds, and that is a second blindness, distinct from the fiber one.
+
+
+# SESSION 076 — the guard against unwitnessed claims was exempting any sentence that named a file
+
+Queue item 1: triage `claims_gate`'s `CLAIMS.md` flags and report the
+true-positive rate honestly.
+
+**Kill condition, filed first:** *if all flags are false positives, the gate
+measures nothing on this register and I should stop quoting its count rather
+than keep it.* It fired on the letter and not on the substance — see below.
+
+**Seven flags, not six** (the standing note counted only the unwitnessed ones).
+Hand-graded one by one in `CLAIMS.md`'s new triage section: **0/7 true
+positives.** That number is stated plainly and it is not a verdict on the gate.
+`CLAIMS.md` has been triaged and cleaned twice already; a near-zero rate on a
+clean register is the expected reading. The gate's rate has still never been
+measured where it matters, on the untriaged registers.
+
+**What the triage actually found were two mechanical defects, and the important
+one runs the other way.**
+
+1. **Filename false-witness.** The converse-witness pattern `Namespace.name`
+   also matches `FAILURES.md`, `LEADS.md`, `S.md`, `Gauge.lean`. **Three of the
+   four *passing* sentences passed on a filename alone.** A guard whose entire
+   job is to catch unwitnessed claims had been silently exempting any sentence
+   that mentioned a file. That is a false-*negative* generator, and no flag
+   count could ever have shown it — flag counts only report what fires.
+2. **Quoted material.** Three of seven flags triggered on text the sentence was
+   quoting *in order to retract it* (`S30`'s false identity, S23's "never
+   curable by formalisation") or listing as vocabulary (the gate's own
+   `IDENTITY` wordlist, quoted in `CLAIMS.md`).
+
+Both fixed. `forensics/*.py` is now admitted as a witness by name — a script
+that reproduces the digits is a converse witness in this project, and
+`window_opt.py` is what resolved `ISSUES` #29.
+
+**The measurement, decomposed:**
+
+| register | baseline | +quoted only | +filename only | both |
+|---|---|---|---|---|
+| `CLAIMS.md` | 3 | 1 | 5 | 2 |
+| `LEADS.md` | 47 | 45 | 50 | 48 |
+| `E.md` | 16 | 14 | 16 | 14 |
+| `FAILURES.md` | 16 | 16 | 17 | 17 |
+| **total** | **82** | **76** | **88** | **81** |
+
+`−6` and `+6`. The headline moves by one. Reporting only the aggregate would
+have read as "nothing changed" while both error modes were repaired — logged as
+`S32`. No meaning is claimed for the cancellation; two independent effects came
+out the same size, and after `S30` I am not calling that anything else.
+
+Two sentences in `CLAIMS.md` were reworded anyway to drop known false-positive
+triggers, and the earlier triage note's "next refinement is definitional
+sentences" is corrected at its location: that was the wrong next refinement.
+
+No Lean changed; build re-run green (3757 jobs), base hash `cd7a22e688df`
+unmoved, ledger row unchanged. This is hygiene cycle 1 of the R20 cap of three.
+
+**Might-mean, unhedged:** a guard that reports how often it fires cannot report
+how often it should have fired and did not, so every instrument in this project
+needs a hand-triage of its *passes*, not just of its flags — and none has had
+one.

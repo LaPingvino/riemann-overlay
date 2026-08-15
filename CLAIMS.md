@@ -270,9 +270,72 @@ that it needs a human check instead.* **It did not fire.**
   universal claims) and 3 false.
 * **Rate ≈ 3/7**, comparable to the original gate's 3/6 at its first measurement.
 
+> ⚠️ **Superseded by the SESSION 076 triage below, and the correction belongs
+> here.** "Exempting definitional sentences is the next refinement" was the
+> wrong next refinement. A full hand-triage of all seven `CLAIMS.md` flags found
+> two *different* mechanical shapes, neither of them definitional sentences, and
+> one of them a **false-negative** generator the flag count could not show.
+
 **The false positives cluster on one shape: definitions and file premises.**
 *"Absence is never certified as absence"* is `S.md`'s founding thesis, not a
 claim owing a converse; the compression criterion is a definition and contains
 `iff` by construction. **Exempting definitional sentences is the next
 refinement — named, not built**, and deliberately left unbuilt this cycle so the
 rate above is measured against the instrument as it actually stands.
+
+
+---
+
+## SESSION 076 — full hand-triage of the gate on `CLAIMS.md`
+
+Seven sentences trigger, not six (the earlier note counted only the unwitnessed
+ones). Every one graded by hand:
+
+| # | trigger | verdict |
+|---|---|---|
+| 1 | `never` — "the risk was never that we believed false things" | **false** positive: scoped to the two cases named in the same sentence |
+| 2 | `never` — quoting *"Never curable by formalisation"* to retract it | **false** positive: quoted retracted text |
+| 3 | `exactly the` — the `#29` resolution note | **false** positive: the claim is true and `forensics/window_opt.py` reproduces it |
+| 4 | `never`, `iff` — quoting `S.md`'s founding thesis | **false** positive: quoted material |
+| 5 | `is the same` — *"the same hazard by a different route"* | **false** positive (as already graded above): a metaphor between hazards, not an identity between objects |
+| 6 | `two readings of one` — quoting `S30` to retract it | **false** positive: quoted retracted text |
+| 7 | the `IDENTITY` wordlist itself, quoted | **false** positive: vocabulary listing |
+
+**True-positive rate on `CLAIMS.md`: 0/7.** Stated plainly, and it is *not*
+evidence the gate is useless: `CLAIMS.md` is the register that has already been
+triaged and cleaned twice, so a near-zero rate here is the expected reading of a
+clean register. The gate's rate must be measured on the untriaged registers, and
+that measurement has not been made.
+
+**Two mechanical defects found, both fixed this cycle.**
+
+1. **Filename false-witness — a false *negative* generator, and the more serious
+   of the two.** `FAILURES.md`, `LEADS.md`, `S.md` and `Gauge.lean` all satisfied
+   the `Namespace.lemma` witness pattern. **Three of the four passing sentences
+   passed on a filename alone.** Any sentence mentioning a file was silently
+   exempt. Fixed by excluding known extensions, and by admitting
+   `forensics/*.py` explicitly — a script that reproduces the digits *is* a
+   converse witness in this project.
+2. **Quoted material.** Three of the seven flags triggered on text the sentence
+   was quoting in order to retract it, or listing as vocabulary. Fixed by
+   stripping italic-quoted, double-quoted and backtick-quoted spans before
+   matching; a trigger surviving outside them is the author speaking.
+
+**Measured effect, decomposed — and the decomposition is the point:**
+
+| register | baseline | +quoted only | +filename only | both |
+|---|---|---|---|---|
+| `CLAIMS.md` | 3 | 1 | 5 | 2 |
+| `LEADS.md` | 47 | 45 | 50 | 48 |
+| `E.md` | 16 | 14 | 16 | 14 |
+| `FAILURES.md` | 16 | 16 | 17 | 17 |
+| **total** | **82** | **76** | **88** | **81** |
+
+The two corrections are `−6` and `+6`, and the headline count moves by **one**.
+Had this cycle reported only the aggregate, it would have read as "the gate is
+unchanged" while both of its error modes had been repaired. No claim is made
+that the cancellation means anything; it is two independent effects that
+happened to be the same size.
+
+**Still not done:** the untriaged flags on `LEADS.md` (48), `E.md` (14) and
+`FAILURES.md` (17) remain untriaged and must not be quoted as a defect rate.

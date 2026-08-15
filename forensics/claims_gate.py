@@ -66,11 +66,32 @@ NEGATIVE = [
     r"\bhas no\b", r"\bdoes not exist\b", r"\blost\b",
 ]
 
-# A converse witness looks like a Lean name: Namespace.lemma_name, or an
-# explicit admission that the converse is open.
-WITNESS = re.compile(r"[A-Z][A-Za-z0-9]*\.[A-Za-z_][A-Za-z0-9_']*"
+# A converse witness looks like a Lean name — but NOT a filename.  Triage of the
+# 2026-08-15 run found that `FAILURES.md`, `LEADS.md`, `S.md` and `Gauge.lean`
+# all satisfied the old pattern, so **three of the four passing sentences passed
+# on a filename alone**.  That is a false-NEGATIVE generator, and the more
+# serious of the two defects the triage found: it silently exempts any sentence
+# that happens to mention a file.  Extensions are excluded explicitly.
+#
+# A reproducible script IS a converse witness in this project (`window_opt.py`
+# is what resolved `ISSUES` #29), so `forensics/*.py` is admitted by name.
+_EXT = r"(?:md|lean|py|toml|json|jsonl|go|txt|sh|yml|yaml)\b"
+WITNESS = re.compile(r"forensics/[a-z_0-9]+\.py"
+                     r"|[A-Z][A-Za-z0-9]*\.(?!" + _EXT + r")[A-Za-z_][A-Za-z0-9_']*"
                      r"|\bminimality open\b|\bconverse open\b"
                      r"|\bnot known to be minimal\b|\bupper bound\b")
+
+# Quoted material is not the author's claim.  Two of the three unwitnessed flags
+# in the 2026-08-15 triage triggered on text the sentence was *quoting to
+# retract* (`S30`'s false identity) or *listing as vocabulary* (this file's own
+# IDENTITY wordlist, quoted in CLAIMS.md).  Strip italic-quoted and
+# backtick-quoted spans before matching; a trigger surviving outside them is the
+# author speaking.
+QUOTED = re.compile(r'\*"[^"]*"\*|"[^"]{0,200}"|`[^`]*`')
+
+
+def unquoted(s):
+    return QUOTED.sub(" ", s)
 
 DOWNGRADE = [
     ("the exact", "a sufficient"), ("exactly the", "a"),
@@ -128,9 +149,10 @@ def downgrade(s):
 def scan(text, label):
     flagged, failures = [], 0
     for s in sentences(text):
-        pos = [p for p in POSITIVE if re.search(p, s, re.I)]
-        neg = [p for p in NEGATIVE if re.search(p, s, re.I)]
-        idt = [p for p in IDENTITY if re.search(p, s, re.I)]
+        bare = unquoted(s)
+        pos = [p for p in POSITIVE if re.search(p, bare, re.I)]
+        neg = [p for p in NEGATIVE if re.search(p, bare, re.I)]
+        idt = [p for p in IDENTITY if re.search(p, bare, re.I)]
         if not (pos or neg or idt):
             continue
         has_witness = bool(WITNESS.search(s))

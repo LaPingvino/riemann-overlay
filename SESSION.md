@@ -1640,3 +1640,43 @@ Audits extended; build green (3746 jobs); base hash unmoved.
 **Might-mean, unhedged:** the ladder's ground floor is now certified, and the
 thing that let it finish was deciding — in writing, before the next objection
 arrived — where the standard of proof stops and the trusted base begins.
+
+
+# SESSION 042 — night cycle 6: the fatal half, and census #10 closes
+
+**The gap I left open last cycle, closed.** The continuum section proved
+extension *useless*; it never proved it *harmful*. That asymmetry mattered:
+"useless" alone would have made `#10` a shrug rather than a warning.
+
+`unbounded_below_of_neg_outside_integral`, axiom-free, sorry-free.
+
+**Kill condition, stated first:** *if stating it requires a hypothesis that
+already assumes the conclusion, it dies and "harmful" stays `Finset`-only.*
+**It did not fire.** The hypothesis is `∫_E K < 0` on some measurable
+`E ⊆ Aᶜ` where `K` is integrable — "there is a place outside the pinned range
+where the multiplier is negative on average". That is the situation being ruled
+out, not the ruling. The witness is explicit and constructive: pin `F` on `A`,
+add a constant bump `t` on `E`, and the value is `P + t·∫_E K → −∞`.
+
+**Census `#10` is now fully in the kernel:** extension past the known range is
+**useless** when the multiplier is nonnegative outside and **fatal** when it is
+negative on average anywhere outside. Never profitable. Both halves hold for any
+measurable `A`, and neither mentions `ζ`.
+
+**Consolidation, per the queue's fallback:** all guards re-run green —
+`provenance_lint` (changers `[9,10,11]`, 3/11, tiers 8/3/0 unchanged),
+`lemma1_guard` self-test, `surprises.py` (20 entries, no new row this cycle
+because nothing went against a stated expectation — an unstated one is just a
+fact learned). Build 3746 jobs, base hash `cd7a22e688df` unmoved, audits
+extended.
+
+**Snag, bin 1:** two `simp … ; ring` branches failed opposite ways — `ring`
+had no goals in the `if_neg` case and was needed in the `if_pos` case. Cost two
+build cycles. The habit that fixes it is the one filed in SESSION 038 in a
+different guise: prefer `simp only` with the exact rewrite, so the tactic's
+behaviour does not depend on what the default simp set happens to close.
+
+**Might-mean, unhedged:** the difference between "extension buys nothing" and
+"extension destroys the certificate" is the difference between a dead end and a
+trap, and only the second one explains why the `0.809` episode cost a headline
+rather than an afternoon.

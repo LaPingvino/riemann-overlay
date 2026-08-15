@@ -280,6 +280,75 @@ theorem no_gain_past_known_integral (μ : Measure α) (A : Set α)
   have := value_eq_pinned_integral μ A hA K' F₀ hK' hint0'
   rwa [hsum] at this
 
+
+/-- **The fatal half, over the continuum.**  If the multiplier is negative *on
+average* over some measurable `E` outside the known range, the program is
+unbounded below: for every target `B` there is an admissible, integrable `F`
+undercutting it.  The certificate then proves nothing at all.
+
+Together with `no_gain_past_known_integral` this is the full content of census
+`#10`: extension past the known range is **useless** when the multiplier is
+nonnegative outside, and **fatal** when it is not.  Never profitable.
+
+The hypothesis `∫_E K < 0` is honest — it says there is a place outside the
+pinned range where the multiplier is negative on average, which is exactly the
+situation being ruled out.  It does not assume the conclusion. -/
+theorem unbounded_below_of_neg_outside_integral (μ : Measure α) (A E : Set α)
+    (hA : MeasurableSet A) (hE : MeasurableSet E) (hEA : E ⊆ Aᶜ)
+    (K F₀ : α → ℝ) (hKE : IntegrableOn K E μ)
+    (hEneg : ∫ x in E, K x ∂μ < 0)
+    (hint0 : Integrable (fun x => K x * A.indicator F₀ x) μ) (B : ℝ) :
+    ∃ F, AdmissibleOn A F₀ F ∧ Integrable (fun x => K x * F x) μ ∧
+      ∫ x, K x * F x ∂μ < B := by
+  classical
+  set P : ℝ := ∫ x, K x * A.indicator F₀ x ∂μ with hP
+  set Q : ℝ := ∫ x in E, K x ∂μ with hQ
+  have hQneg : 0 < -Q := by simpa [hQ] using hEneg
+  set t : ℝ := max 0 ((P - B + 1) / (-Q)) with hdt
+  have htnn : 0 ≤ t := le_max_left _ _
+  have hts : (P - B + 1) / (-Q) ≤ t := le_max_right _ _
+  -- the perturbed profile: pinned on `A`, a constant bump `t` on `E`
+  refine ⟨fun x => A.indicator F₀ x + t * E.indicator (fun _ => (1:ℝ)) x, ⟨?_, ?_⟩, ?_, ?_⟩
+  · intro x hx
+    have hxE : x ∉ E := fun h => (hEA h) hx
+    simp [Set.indicator_apply, hx, hxE]
+  · intro x hx
+    have hxA : x ∉ A := hx
+    have : 0 ≤ t * E.indicator (fun _ => (1:ℝ)) x := by
+      rcases Classical.em (x ∈ E) with h | h
+      · simp [Set.indicator_apply, h, htnn]
+      · simp [Set.indicator_apply, h]
+    simpa [Set.indicator_apply, hxA] using this
+  · have hbump : Integrable (fun x => K x * (t * E.indicator (fun _ => (1:ℝ)) x)) μ := by
+      have : (fun x => K x * (t * E.indicator (fun _ => (1:ℝ)) x))
+          = fun x => t * E.indicator K x := by
+        funext x
+        rcases Classical.em (x ∈ E) with h | h
+        · simp only [Set.indicator_apply, if_pos h, mul_one]; ring
+        · simp only [Set.indicator_apply, if_neg h, mul_zero]
+      rw [this]
+      exact ((integrable_indicator_iff hE).2 hKE).const_mul t
+    have hsum : (fun x => K x * (A.indicator F₀ x + t * E.indicator (fun _ => (1:ℝ)) x))
+        = fun x => K x * A.indicator F₀ x + K x * (t * E.indicator (fun _ => (1:ℝ)) x) := by
+      funext x; ring
+    rw [hsum]
+    exact hint0.add hbump
+  · have hsum : (fun x => K x * (A.indicator F₀ x + t * E.indicator (fun _ => (1:ℝ)) x))
+        = fun x => K x * A.indicator F₀ x + t * E.indicator K x := by
+      funext x
+      rcases Classical.em (x ∈ E) with h | h
+      · simp only [Set.indicator_apply, if_pos h, mul_one]; ring
+      · simp only [Set.indicator_apply, if_neg h, mul_zero, add_zero]
+    have hbump : Integrable (fun x => t * E.indicator K x) μ :=
+      ((integrable_indicator_iff hE).2 hKE).const_mul t
+    rw [hsum, integral_add hint0 hbump, integral_const_mul, integral_indicator hE]
+    have hle : t * Q ≤ ((P - B + 1) / (-Q)) * Q := by
+      have hQle : Q ≤ 0 := le_of_lt hEneg
+      nlinarith [hts, hQle]
+    have hcancel : ((P - B + 1) / (-Q)) * (-Q) = P - B + 1 :=
+      div_mul_cancel₀ (P - B + 1) (ne_of_gt hQneg)
+    nlinarith [hle, hcancel]
+
 end Continuum
 
 end Capacity

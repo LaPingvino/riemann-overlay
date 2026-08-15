@@ -95,3 +95,4 @@ import Riemann
 #check @Riemann.Capacity.AdmissibleOn
 #check @Riemann.Capacity.value_eq_pinned_integral
 #check @Riemann.Capacity.no_gain_past_known_integral
+#check @Riemann.Capacity.unbounded_below_of_neg_outside_integral

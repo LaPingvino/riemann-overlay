@@ -34,6 +34,22 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 6 — the fatal half; census `#10` closes
+
+`unbounded_below_of_neg_outside_integral` (axiom-free). Last cycle proved
+extension **useless**; this proves it **harmful**. **Kill condition** (a
+hypothesis that assumes the conclusion) **did not fire**: the hypothesis is
+`∫_E K < 0` on some measurable `E ⊆ Aᶜ`, which is the situation being ruled out,
+not the ruling. Witness is explicit — pin on `A`, bump by `t` on `E`, value runs
+to `−∞`.
+
+**Census `#10` is now fully in the kernel:** useless when the multiplier is
+nonnegative outside, fatal when negative on average outside. Never profitable.
+
+Consolidation: all guards green, T3(b) unchanged at 3/11, tiers 8/3/0, build
+3746, base hash unmoved, audits extended. No new `SURPRISES` row — nothing went
+against a stated expectation this cycle.
+
 ### Night cycle 5 — rung 0 certified over the continuum; the regress stopped
 
 `Riemann/Capacity.lean` gains a `Continuum` section (axiom-free, sorry-free).

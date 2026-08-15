@@ -350,3 +350,28 @@ our mathematics meets the literature's setup. Recording it as such rather than
 as an open item, because the alternative is an infinite regress in which no rung
 is ever certified. **Rung 0 is ours, at the same standard as everything else on
 the certified row.**
+
+
+## Census `#10`, fully certified (night cycle 6)
+
+The continuum section proved extension **useless**; it had not proved it
+**harmful**. `unbounded_below_of_neg_outside_integral` closes that half,
+axiom-free.
+
+**Kill condition, stated first:** *if stating it requires a hypothesis that
+already assumes the conclusion, it dies and "harmful" stays `Finset`-only.* **It
+did not fire.** The hypothesis is `∫_E K < 0` for some measurable `E ⊆ Aᶜ` with
+`K` integrable there — "there is a place outside the pinned range where the
+multiplier is negative on average", which is precisely the situation being ruled
+out, not the ruling itself. The witness is explicit: pin `F` on `A` and add a
+constant bump `t` on `E`; the value is `P + t·∫_E K`, which runs to `−∞`.
+
+**So census `#10` now reads, entirely in the kernel:**
+
+> extension past the known range is **useless** when the multiplier is
+> nonnegative outside (`no_gain_past_known_integral`) and **fatal** when it is
+> negative on average anywhere outside
+> (`unbounded_below_of_neg_outside_integral`). **Never profitable.**
+
+Both halves hold for any measurable `A`, `[0,1]` included, and neither mentions
+`ζ`.

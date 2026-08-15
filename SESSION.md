@@ -2609,3 +2609,43 @@ rather than as disappointment.
 returned the project to the exact difficulty the field named at the start, which
 is what success looks like when the thing you are subtracting is your own
 confusion.
+
+
+# SESSION 065 — W32 run: the atom bundles classify 3 of 11
+
+**Kill condition, stated first:** *if every census entry needs both bundles, the
+test has no discriminating power and W32 dies.* **It did not fire** — and what
+happened instead is more informative than either branch.
+
+**Tally: M = 2 (#1, #3), S = 1 (#11), neither = 8. No entry needs both.**
+
+**The test discriminates, and it classifies only 3 of 11.** The atom bundles
+sort *supply* failures; eight elevenths of this census is information limits,
+capacity limits and logic defects — not supply. **Five of those eight are
+theorem-backed** (`no_muInvariant_theory_computes_NscStd`, `ceiling_law256`,
+`ledger_visibility_split`, `two_le_Hr_of_off_line`,
+`no_gain_past_known_integral`), which is why this attribution is defensible
+where the earlier plane-classification was not: it is mostly not judgement.
+
+**The consistency check was unplanned and is the cycle's real find.** This
+`3 : 8` split matches T3(b)'s `3 : 8` (RH-consuming vs unconditional) and sits
+alongside `ledger_visibility_split`'s `2 : 3`. **Three independent
+classifications of the same eleven objects agree on where the line falls** —
+entries needing an arithmetic bundle are the entries consuming a hypothesis;
+entries needing neither are those whose obstruction is a property of the
+instrument.
+
+**Consequence for W28, stated plainly:** an `Atom` structure supplying M and S
+addresses `2/11` and `1/11` of the recorded difficulty. The interface is worth
+having for what it makes *statable* — the D–H and Beurling counterexamples
+bracket it — but it was never a route to the census's main mass, and saying so
+now is cheaper than discovering it after building the thing.
+
+Per R19 this is a per-entry attribution rather than a pattern-claim; the three
+judgement rows are marked, no p-value is quoted, and none is available.
+
+**Might-mean, unhedged:** the project has now sorted its own failures three
+times by three unrelated criteria and got the same partition every time, which
+is either a very robust fact about the census or a very stable fact about the
+sorter — and the five theorem-backed rows are the only reason to believe the
+first.

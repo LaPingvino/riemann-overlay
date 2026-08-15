@@ -404,3 +404,54 @@ So the register's standing consequence is now load-bearing rather than
 asserted: **improving Proposition 1 requires leaving the two-moment world** — a
 third moment `Σ m³`, which is [OPEN D]'s currency. The reduction and the ceiling
 want the same missing input, and that sentence now rests on a theorem.
+
+
+## W32 — the census as atom unit-tests. Run, and the coverage is the finding.
+
+**Kill condition, stated first:** *if every entry needs both bundles, the test
+has no discriminating power and W32 dies.* **It did not fire** — but what
+happened instead is more informative than either branch.
+
+Bundles per `forensics/W28_atom_interface_cold.md`: **M** = the multiplicative
+nature (free monoid, `Λ ≥ 0`, Euler product, explicit formula); **S** = the
+sieve nature (Type I/II, level of distribution, short intervals).
+
+| # | which bundle would a fix have needed? | basis |
+|---|---|---|
+| 1 | **M** — Landau sums are built from `Λ`; the fix wanted is correlated control of them | judgement |
+| 2 | **neither** — circularity is a logic defect, not a supply shortfall | forced |
+| 3 | **M** — *"only the Euler product bites"* is the certified reason verbatim | forced by the entry |
+| 4 | **neither** — an *information* limit; `Blindness.no_muInvariant_theory_computes_NscStd` | **theorem-backed** |
+| 5 | **neither** — a verdict error | forced |
+| 6 | **neither** — class capacity; `Zeta23.PairCeiling.ceiling_law256` | **theorem-backed** |
+| 7 | **neither** — `Fiber.ledger_visibility_split`: `N_off` is not a `μ_T` functional at any order | **theorem-backed** |
+| 8 | **neither** — `Blindness.two_le_Hr_of_off_line`: structural, at every radius | **theorem-backed** |
+| 9 | **neither** — circularity plus scale | forced |
+| 10 | **neither** — `Capacity.no_gain_past_known_integral`: a capacity fact about the class | **theorem-backed** |
+| 11 | **S** — the bridge wants a power saving from the sieve side | forced by the entry |
+
+**Tally: M = 2, S = 1, neither = 8. No entry needs both.**
+
+**So the test discriminates — and it classifies only 3 of 11.** The atom bundles
+sort *supply* failures, and **eight elevenths of this census is not about supply
+at all**: it is information limits, capacity limits, and logic defects. Five of
+those eight are now theorem-backed rather than judgement, which is why the
+attribution is defensible where the earlier plane-classification was not.
+
+**Consistency check, unplanned and worth recording:** this `3 : 8` split lines
+up with T3(b)'s `3 : 8` (RH-consuming vs unconditional) and with
+`ledger_visibility_split`'s `2 : 3`. The entries that need an arithmetic bundle
+are the entries that consume a hypothesis; the entries that need neither are the
+ones whose obstruction is a property of the instrument. **Three independent
+classifications of the same eleven objects agree on where the line falls.**
+
+**Consequence for W28's interface:** an `Atom` structure supplying M and S
+addresses **2/11 and 1/11** of the recorded difficulty respectively. The
+interface is worth having for what it makes statable, not as a route to the
+census's main mass — and nothing in the atom programme was ever going to touch
+the eight.
+
+*Contamination note, per R19: this is a per-entry attribution, not a
+pattern-claim, and the five theorem-backed rows are not judgement at all. The
+three judgement rows (1, 3, 11) are marked as such. No p-value is quoted and
+none is available.*

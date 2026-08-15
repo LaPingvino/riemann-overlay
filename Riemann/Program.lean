@@ -81,8 +81,19 @@ theorem routeII_via_B'' (closePairs : ℝ → ℝ → ℝ) (F F' : Family) (M : 
 /-! ### Route III -/
 
 /-- **Route III, as far as it composes.**  [OPEN A′] gives a narrow box *with
-an exceptional set*; BGST assumes one *without*.  This is the only arrow that
-survives: `DensityNearLine F M` ⟹ `NarrowBoxExc F δ (M δ)`. -/
+an exceptional set*; BGST assumes one *without*.
+
+⚠️ **Scope corrected (SESSION 086).**  This docstring read "this is the only
+arrow that survives", which is false as written — `routeIII_with_narrowBox` and
+`routeIII_via_A''` below are two further arrows.  The true statement is that
+this is the only arrow that survives **with no hypothesis beyond
+`DensityNearLine`**; the other two each buy their arrow with an extra
+assumption (`BGSTNarrowBox`, and `NarrowBoxTolerant` plus a fitting condition).
+An unscoped absolute in a load-bearing docstring is the defect class that cost
+the project the `Nsc` row for many cycles (`SURPRISES` S34), which is why the
+scope is now written out rather than left to the reader.
+
+The arrow: `DensityNearLine F M` ⟹ `NarrowBoxExc F δ (M δ)`. -/
 theorem routeIII_partial (F : Family) (M : ℝ → ℝ) (hA : DensityNearLine F M)
     (δ : ℝ) (hδ : 0 < δ) : NarrowBoxExc F δ (M δ) := by
   filter_upwards [hA δ hδ] with T hT

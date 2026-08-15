@@ -349,3 +349,40 @@ happened to be the same size.
 
 **Still not done:** the untriaged flags on `LEADS.md` (48), `E.md` (14) and
 `FAILURES.md` (17) remain untriaged and must not be quoted as a defect rate.
+
+
+---
+
+## SESSION 086 — the gate run on Lean docstrings, triaged
+
+`claims_gate` had only ever patrolled the markdown registers. `S34`'s defect —
+an unscoped enumeration in a load-bearing **docstring** — lived on a surface the
+instrument had never seen. First run over `Riemann/*.lean`: 69 flags, of which
+14 in the load-bearing files. All 14 hand-graded:
+
+| file | flag | verdict |
+|---|---|---|
+| `Proportion` | "never its hoped-for constant" | false — design statement about the metric tool |
+| `Proportion` | "they were simply not the only routes" | false — this is `084`'s own correction, in its corrected form |
+| `Proportion` | "removes one axiom" | false — factual and checkable |
+| `Program` | "the literature bridges that cannot be …" | false — descriptive |
+| **`Program`** | **"This is the only arrow that survives"** | **TRUE — unscoped absolute, and the next two theorems in the same file are two more arrows** |
+| `Program` | "the same pattern as ISSUES #3" | false — analogical, per the standing metaphor ruling |
+| `Gaps` | "still a hypothesis, never an axiom" | false — accurate and structural |
+| `Assumptions` | "an open problem must never be assumed" | false — directive |
+| `Basic` | "the only analytic input is the reflection symmetry" | false — true, and witnessed by `ZeroData` having exactly two fields |
+| `Basic` | "must never be compared as though they were the same" | false — directive |
+| `Basic` | ×2 theorem statements | false — statements, not claims about the record |
+| `Basic` | "the only form the accounting needs" | false — harmless |
+| `Basic` | "every ordinate carries exactly one zero" | false — a definition |
+
+**1 true positive in 14 — but it is the one being hunted.** The rate is low and
+the yield is not: the gate's first exposure to docstrings found an unscoped
+enumeration of exactly the class that produced `S34`, in a route-table file.
+
+The kill condition — *if the gate on `.lean` files produces only false
+positives, the instrument does not transfer and I say so* — **did not fire**.
+
+**Standing change:** the load-bearing Lean files are now in the gate's beat.
+`Fiber.lean` (36 flags) is almost entirely my own prose and is **untriaged**;
+it must not be quoted as a defect rate.

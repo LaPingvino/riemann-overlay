@@ -3566,3 +3566,48 @@ guess.
 standard-simple proportion is now worth one and a half points of the project's
 own row, so the cheapest thing the project can buy is no longer a theorem about
 zeta but a better reading of the theorems that already exist.
+
+
+# SESSION 086 — pointing an old instrument at a new surface
+
+`S34`'s defect was an unscoped enumeration in a **docstring**. `claims_gate` had
+only ever patrolled the markdown registers, so the surface where the project's
+most expensive prose error lived had never been swept.
+
+**Kill condition, filed first:** *if the gate on `.lean` files produces only
+false positives, the instrument does not transfer to code comments and I say
+so.* It did not fire.
+
+69 flags across `Riemann/*.lean`; 14 in the load-bearing files, all hand-graded
+in `CLAIMS.md`. **One true positive** — and it is the one being hunted:
+
+> `Program.lean:84` — *"This is the only arrow that survives:
+> `DensityNearLine F M` ⟹ `NarrowBoxExc F δ (M δ)`."*
+
+The next two theorems in the same file, `routeIII_with_narrowBox` and
+`routeIII_via_A''`, are two more arrows. The docstring is not mathematically
+wrong — the intended reading is "the only arrow with no hypothesis beyond
+`DensityNearLine`", and the other two each buy their arrow with an extra
+assumption. But the scope was unstated, which is exactly what made `certified_nsc`'s
+docstring cost the project half a ledger row. Corrected at the location, with
+the scope written out and the reason named.
+
+**One true positive in fourteen is a low rate, and the yield is not low.** The
+gate's value here was not its precision but its *reach*: it looked somewhere I
+had not, and the one thing it found was in the route-table file, the document
+that tells future cycles which directions are closed. That is precisely where an
+unscoped absolute does the most damage — `S34` is what happens when one sits
+there long enough.
+
+`Fiber.lean`'s 36 flags are almost entirely my own prose from the last twelve
+cycles and are **untriaged**; per `R17` they are not a defect rate and must not
+be quoted as one. Triaging them is a real item, not a formality — the file now
+carries more new prose than any other.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. Logged as `S35`.
+
+**Might-mean, unhedged:** the project's guards were all pointed at the registers
+because that is where claims are *published*, but the claims that actually steer
+the work live in docstrings next to the theorems, and those had never been read
+by anything but me.

@@ -407,6 +407,18 @@ provably **not rigid**; that axiom set has room, and D–H lives in the room.
 > **D–H is promoted from testbed column to the programme's anti-rigidity
 > control.**
 
+**CERTIFIED, next cycle, and the split matters.** `Fiber.zeroData_not_rigid` and
+`zeroData_admits_both` (axiom-free) prove the *combinatorial* half without any
+literature: `Gauge.pairOnly` is a lawful `ZeroData` with every zero off the
+line, and `config 1 0 (1/4)` is one with none — so the axioms are silent on
+position in **both** directions, which is what *"leaves room"* means.
+
+**What D–H adds is a different strength and must not be quoted as the same
+fact.** `pairOnly` shows the *combinatorial* axioms have room; D–H shows that
+room is occupied by a genuine analytic object with a Dirichlet series. The first
+is certified; the second is `[RECALL]` — and it is the second that makes the
+control interesting.
+
 ### ⚠️ Correction to the dispatch, at the point of use
 
 The dispatch says the room-filler is *"what D–H lacks — which W7 already

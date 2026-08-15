@@ -2702,3 +2702,40 @@ rather than as an extra checkbox.
 instruments cannot see, and the answer to *why the zeros are not bothered* is
 that nothing was ever asking them — which reframes every impossibility on the
 board as a report about the asker.
+
+
+# SESSION 067 — anti-rigidity certified, and the two strengths kept apart
+
+**Kill condition, stated first:** *if anti-rigidity genuinely requires
+Davenport–Heilbronn, the claim rests on `[RECALL]` literature and must be graded
+that way rather than certified.* **It did not fire.**
+
+E24 promoted D–H to the programme's anti-rigidity control on the strength of a
+docstring. The content that actually matters — *the axiom set leaves room* —
+needs only a witness, and the repo already had two.
+
+`zeroData_not_rigid` and `zeroData_admits_both`, axiom-free: `Gauge.pairOnly` is
+a lawful `ZeroData` with **every** zero off the critical line, and
+`config 1 0 (1/4)` is one with **none**. So functional-equation symmetry plus
+counting is silent on position in *both* directions — which is precisely what
+"leaves room" means, and it needs no literature at all.
+
+**And the two strengths are now kept apart in the register, because they are not
+the same fact.** `pairOnly` shows the **combinatorial** axioms have room. D–H
+shows that room is **occupied by a genuine analytic object** with a Dirichlet
+series and a functional equation. The first is certified here; the second stays
+`[RECALL]` — and the second is the one that makes the control interesting.
+Quoting them interchangeably would be exactly the conflation `CLAIMS.md` exists
+to prevent, so E24's paragraph now carries both at their own grades.
+
+One `Optimal.single` reference had to become `config 1 0 (1/4)`: `Optimal`
+imports `Fiber`, not the reverse, and the witness had to live on the right side
+of that edge. Noted because it is the second time this week the import direction
+decided where a theorem goes.
+
+Build green (3757 jobs), one new grade-A row, base hash unmoved.
+
+**Might-mean, unhedged:** the anti-rigidity control the fourth approach wanted
+was sitting in `Gauge.lean` from the second day, built for an entirely different
+purpose, which is what it looks like when a project's early instruments turn out
+to have been aimed at the right object before anyone could say why.

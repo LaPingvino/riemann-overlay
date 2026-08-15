@@ -150,3 +150,5 @@ import Riemann
 #check @Riemann.Blindness.factMoment
 #check @Riemann.Blindness.factMoment_eq_zero_of_masses_le_two
 #check @Riemann.Optimal.moment_route_walled
+#check @Riemann.Blindness.zeroData_not_rigid
+#check @Riemann.Blindness.zeroData_admits_both

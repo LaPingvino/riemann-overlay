@@ -1169,5 +1169,50 @@ theorem factMoment_eq_zero_of_masses_le_two (D : ZeroData) {k : ℕ} (hk : 3 ≤
   refine Finset.sum_eq_zero fun γ _ => ?_
   exact Nat.descFactorial_eq_zero_iff_lt.2 (lt_of_le_of_lt (hm γ) (by omega))
 
+
+/-! #### Anti-rigidity, certified without literature (E24)
+
+E24 reads *"the zeros could not be otherwise"* as **rigidity** — that the axiom
+set pins its satisfiers — and promotes Davenport–Heilbronn to the programme's
+**anti-rigidity control**: functional equation plus counting admits an object
+with off-line zeros, so those axioms do not pin anything.
+
+**Kill condition, stated before this section was written:** *if anti-rigidity
+genuinely requires D–H, the claim rests on `[RECALL]` literature and must be
+graded accordingly rather than certified.*  **It did not fire.**  The content
+that matters — *the axiom set leaves room* — needs only a witness, and
+`Gauge.pairOnly` is one: a lawful `ZeroData`, reflection-symmetric, whose zeros
+are entirely off the critical line.
+
+**What D–H adds, and it is a different strength.**  `pairOnly` shows the
+*combinatorial* axioms have room.  D–H shows that room is occupied by a genuine
+analytic object with a Dirichlet series and a functional equation.  The first is
+certified here; the second is `[RECALL]` and is the one that makes the control
+interesting.  They should not be quoted as the same fact. -/
+
+/-- **The `ZeroData` axioms are not rigid.**  They admit a configuration all of
+whose zeros lie off the critical line — so functional-equation symmetry plus
+counting cannot force anything about position.
+
+This is the certified half of E24's anti-rigidity control.  Davenport–Heilbronn
+is the *arithmetic* witness for the same fact and remains `[RECALL]`; this one
+needs no literature. -/
+theorem zeroData_not_rigid :
+    ∃ D : ZeroData, 0 < D.N ∧ D.Noff = D.N ∧ D.Nsc = 0 :=
+  ⟨Gauge.pairOnly, by rw [Gauge.pairOnly_N]; norm_num,
+    by rw [Gauge.pairOnly_Noff, Gauge.pairOnly_N], Gauge.pairOnly_Nsc⟩
+
+/-- And the same axioms admit a configuration with **no** off-line zeros, so
+they do not force the opposite either: the axiom set is silent on position in
+both directions, which is what "leaves room" means. -/
+theorem zeroData_admits_both :
+    (∃ D : ZeroData, 0 < D.N ∧ D.Noff = D.N) ∧
+      (∃ D : ZeroData, 0 < D.N ∧ D.Noff = 0) := by
+  refine ⟨⟨Gauge.pairOnly, by rw [Gauge.pairOnly_N]; norm_num, ?_⟩,
+    ⟨config 1 0 (1/4), ?_, ?_⟩⟩
+  · rw [Gauge.pairOnly_Noff, Gauge.pairOnly_N]
+  · rw [config_N]; norm_num
+  · rw [config_Noff (by norm_num : (1/4 : ℝ) ≠ 1/2)]
+
 end Blindness
 end Riemann

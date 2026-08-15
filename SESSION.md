@@ -4452,3 +4452,42 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 this project certifies is held open by one picture repeated, so the cheapest
 possible purchase is not a stronger theorem about zeros in general but a reason
 that one arrangement of three zeros cannot occur.
+
+
+# SESSION 106 — the ladder is sharp, and half its rungs were slack
+
+`105` built a ladder of conditional rows indexed by `m`. Two questions a future
+cycle would ask before using it: is the constant `m` best, and is every `m` a
+real rung?
+
+**Kill condition, filed first:** *if a constant larger than `m` is admissible
+under `NoSmallHaunted m`, the ladder is not sharp and its rungs understate what
+the hypothesis buys.* **It fired — at even `m`.**
+
+* `haunted_odd` (new, axiom-free): a standard-simple ordinate carries an **odd**
+  number of zeros. `H = onAt + offAt` with `onAt = 1` and `offAt` even.
+* `noSmallHaunted_succ_of_even` — therefore at even `m`, "haunted mass `≥ m`" is
+  *the same hypothesis* as "haunted mass `≥ m + 1`". The even rungs of `105`'s
+  ladder report a worse number for the same assumption: `m = 4` would give
+  `0.5633` where the hypothesis actually delivers `0.590625`.
+* `ladder_sharp_at_odd` — and at odd `m ≥ 3` nothing better exists. The haunted
+  atom of mass `m` is admitted by the hypothesis and has `NscStd = 1`, `Nsc = 0`,
+  `N = m`, so any valid `c·NscStd ≤ N + b·Nsc` has `c ≤ m`.
+
+**So the ladder is odd-indexed, and that is not a convention but a fact about the
+functional equation.** Off-line zeros come in conjugate pairs, so a lone critical
+zero shadowed by them always sits at odd mass; there is no such thing as a
+haunted ordinate of even mass, and a hypothesis that pretends to exclude one is
+excluding nothing.
+
+Annotated at the ladder's location in `PRICES.md`. Sharpness at `j = 0` is
+excluded and stated: mass `1` is a *simple* atom, not a haunted one, and there
+the bound is `c ≤ 1 + b` rather than `c ≤ 1`.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the parity that makes the functional equation pair
+off-line zeros is the same parity that makes half of this ladder illusory, so
+even the shape of the project's conditional results is dictated by the one
+symmetry it started from.

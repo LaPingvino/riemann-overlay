@@ -240,3 +240,6 @@ import Riemann
 #check @Riemann.Blindness.no_NscStd_coefficient_at_three
 #check @Riemann.Blindness.haunted_atom_saturates
 #check @Riemann.Blindness.three_mul_NscStd_eq_iff
+#check @Riemann.Blindness.haunted_odd
+#check @Riemann.Blindness.noSmallHaunted_succ_of_even
+#check @Riemann.Blindness.ladder_sharp_at_odd

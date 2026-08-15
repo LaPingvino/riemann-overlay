@@ -2830,6 +2830,78 @@ theorem mul_NscStd_le_N_add_pred_mul_Nsc (D : ZeroData) (m : ℕ) (hm : 1 ≤ m)
     exact key
   exact_mod_cast this
 
+/-! ### The ladder is sharp — but only at *odd* rungs
+
+`105` gives `m·NscStd ≤ N + (m−1)·Nsc` under `NoSmallHaunted m`.  Two questions
+a future cycle would ask: is `m` the best constant, and does every `m` give a
+distinct rung?
+
+**Kill condition, filed first:** *if a constant larger than `m` is admissible
+under `NoSmallHaunted m`, the ladder is not sharp and its rungs understate what
+the hypothesis buys.*  **It fired — at even `m`.** -/
+
+/-- **A standard-simple ordinate carries an odd number of zeros.**  `H = onAt +
+offAt` with `offAt` even, and `onAt = 1`. -/
+theorem haunted_odd (D : ZeroData) {γ : ℝ} (h : D.H γ - offAt D γ = 1)
+    (hpos : 0 < D.H γ) : ¬ Even (D.H γ) := by
+  have h1 := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  rw [Nat.not_even_iff_odd]
+  exact ⟨(D.H γ - 1) / 2, by omega⟩
+
+/-- **At even `m` the ladder understates: the hypothesis at `m` is already the
+hypothesis at `m + 1`.**  Haunted ordinates carry odd mass, so "mass `≥ m`" and
+"mass `≥ m + 1`" are the same requirement when `m` is even.  The sharp ladder is
+therefore indexed by the **odd** numbers, and an even rung should be read up. -/
+theorem noSmallHaunted_succ_of_even (D : ZeroData) (m : ℕ) (hm : Even m)
+    (h : ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 ∨ m ≤ D.H γ) :
+    ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 ∨ m + 1 ≤ D.H γ := by
+  intro γ hsc
+  rcases h γ hsc with hone | hbig
+  · exact Or.inl hone
+  · right
+    by_cases hz : 0 < D.H γ
+    · have hodd := haunted_odd D hsc hz
+      obtain ⟨k, hk⟩ := Nat.not_even_iff_odd.1 hodd
+      obtain ⟨j, hj⟩ := hm
+      omega
+    · omega
+
+/-- **…and at odd `m` the constant `m` cannot be improved.**  The haunted atom of
+mass `m` is admitted by `NoSmallHaunted m` and has `NscStd = 1`, `Nsc = 0`,
+`N = m`, so any valid `c·NscStd ≤ N + b·Nsc` has `c ≤ m`. -/
+theorem ladder_sharp_at_odd {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j) {c b : ℝ}
+    (h : ∀ D : ZeroData,
+      (∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 ∨ 1 + 2 * j ≤ D.H γ) →
+        c * D.NscStd ≤ D.N + b * D.Nsc) :
+    c ≤ 1 + 2 * j := by
+  classical
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := j) (by omega)
+  have hN : (configAt 0 1 j a).N = 1 + 2 * j := by simpa using configAt_N (0:ℝ) 1 j a
+  have hSc : ((configAt 0 1 j a).NscStd : ℤ) = 1 := by
+    rw [NscStd_from_profile, hp]; simp
+  have hsc : ((configAt 0 1 j a).Nsc : ℤ) = 0 := by
+    rw [Nsc_from_profile, hp]; simp; omega
+  have hSc' : (configAt 0 1 j a).NscStd = 1 := by exact_mod_cast hSc
+  have hsc' : (configAt 0 1 j a).Nsc = 0 := by exact_mod_cast hsc
+  have hhyp : ∀ γ, (configAt 0 1 j a).H γ - offAt (configAt 0 1 j a) γ = 1 →
+      (configAt 0 1 j a).H γ = 1 ∨ 1 + 2 * j ≤ (configAt 0 1 j a).H γ := by
+    intro γ _
+    right
+    rw [ZeroData.H_eq_count, configAt_ordinates]
+    by_cases hγ : γ = 0
+    · rw [hγ]; simp
+    · exfalso
+      have : (configAt 0 1 j a).H γ = 0 := by
+        rw [ZeroData.H_eq_count, configAt_ordinates, Multiset.count_replicate,
+          if_neg (by simpa using Ne.symm hγ)]
+      have h1 := H_eq_onAt_add_offAt (configAt 0 1 j a) γ
+      omega
+  have := h (configAt 0 1 j a) hhyp
+  rw [hSc', hsc', hN] at this
+  push_cast at this
+  linarith
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

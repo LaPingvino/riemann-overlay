@@ -478,6 +478,13 @@ At `κ = 0.6725`:
 | `7` | none of mass `3` or `5` | `0.617917` |
 | `→ ∞` | no haunted ordinate at all | `0.6725` — the whole baseline |
 
+⚠️ **Read only the odd rungs (SESSION 106).** Haunted ordinates carry **odd**
+mass (`Fiber.haunted_odd`), so `NoSmallHaunted m` at even `m` is already the
+hypothesis at `m + 1` (`noSmallHaunted_succ_of_even`) and the even rung
+understates its own hypothesis — `m = 4` would report `0.5633` for a hypothesis
+that actually delivers `0.590625`. At odd `m ≥ 3` the constant is **sharp**
+(`ladder_sharp_at_odd`): the haunted atom of mass `m` forbids any larger one.
+
 **The `m = 5` rung is the cheap one.** Its hypothesis is not "no off-line zeros";
 it permits off-line pairs anywhere *except* shadowing a lone critical zero at
 mass exactly `3`. That is a statement about one configuration, and it is worth

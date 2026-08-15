@@ -3460,6 +3460,39 @@ theorem six_mul_haunted_le_factMoment_three (D : ZeroData) :
   · rw [if_neg h]
     simp
 
+/-! ### Counting the bounds was the wrong operation
+
+`123` said three, `124` found a fourth.  The frame is wrong: bounds on
+`hauntedCount` are *cheap*, and two more are one line each.  What matters is not
+how many exist but which is sharpest on the certified inputs. -/
+
+/-- `hauntedCount ≤ NscStd` — immediate from the identity, since `Nsc ≥ 0`. -/
+theorem haunted_le_NscStd (D : ZeroData) : hauntedCount D ≤ D.NscStd := by
+  have hid := NscStd_eq_Nsc_add_haunted D
+  omega
+
+/-- `3·hauntedCount ≤ N` — each haunted ordinate carries three zeros. -/
+theorem three_mul_haunted_le_N (D : ZeroData) : 3 * hauntedCount D ≤ D.N := by
+  have h := Nsc_add_three_mul_haunted_le_N D
+  omega
+
+/-- **Both are strictly weaker than `110`'s, on the certified inputs.**
+
+`three_mul_haunted_le_N` gives `δ ≤ 1/3 ≈ 0.3333`; `haunted_le_NscStd` gives no
+numeric `δ` at all, because the baseline bounds `NscStd` from *below*.  `110`'s
+`2·hauntedCount + NscStd ≤ N` gives `δ ≤ (1 − κ)/2 = 0.16375`, and `111` caps any
+baseline-only argument there.
+
+So the honest statement is not a count.  It is: **`0.16375` is the best `δ` the
+certified inputs support, and no enumeration of bounds changes that** — a bound
+is worth listing only when it is sharper on the inputs actually held. -/
+theorem best_delta_is_from_110 (D : ZeroData) :
+    2 * hauntedCount D + D.NscStd ≤ D.N
+      ∧ 3 * hauntedCount D ≤ D.N
+      ∧ hauntedCount D ≤ D.NscStd :=
+  ⟨two_mul_haunted_add_NscStd_le_N D, three_mul_haunted_le_N D,
+   haunted_le_NscStd D⟩
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

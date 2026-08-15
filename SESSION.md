@@ -5263,3 +5263,46 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 always be an enumeration of the valuable, and the project's registers are full of
 sentences whose quantifier was set by what I was looking for rather than by what
 is there.
+
+
+# SESSION 125 — counting the bounds was the wrong operation
+
+`123` said three certified bounds on the haunted count; `124` found a fourth and
+corrected the number. Correcting a number twice is a sign the *frame* is wrong,
+so this cycle tests the frame instead of extending the count.
+
+**Kill condition, filed first:** *if every additional bound I can write down is
+weaker than the certified `0.16375`, then counting was numerically harmless and
+the enumeration frame can stay.* **It fired on the numbers and not on the
+frame**, which is the finding.
+
+Two more bounds, one line each:
+
+* `three_mul_haunted_le_N` — `3·hauntedCount ≤ N`, since each haunted ordinate
+  carries three zeros. Gives `δ ≤ 1/3 ≈ 0.3333`.
+* `haunted_le_NscStd` — immediate from the identity, since `Nsc ≥ 0`. Gives no
+  numeric `δ` at all, because the baseline bounds `NscStd` from *below*.
+
+Both are strictly weaker than `110`'s `δ = 0.16375`. So the count was harmless
+arithmetically — and that is precisely why it was misleading. **Bounds on this
+quantity are cheap.** There is no interesting number of them; six exist because I
+wrote six, and a seventh is available to anyone who wants one.
+
+**The honest statement is not a count.** It is:
+
+> `δ = 0.16375` is the best the certified inputs support, and `111` caps any
+> baseline-only argument there.
+
+A bound is worth listing when it is sharpest on an input actually held. `123`'s
+sentence and `124`'s correction were both answering "how many?", which has no
+useful answer; the question is "which is sharpest, and on what?". Corrected at
+the `LEADS.md` table, above `124`'s correction rather than replacing it — the
+sequence of three framings is itself the record.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** three cycles spent counting something uncountable is
+what it looks like when a register's format asks a question the mathematics does
+not have, and the fix was not a better count but noticing that the column should
+never have existed.

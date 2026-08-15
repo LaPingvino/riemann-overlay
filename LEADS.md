@@ -1797,6 +1797,13 @@ inequalities bounding that quantity, and they consume three different inputs:
 | `6·hauntedCount + N ≤ N⊛` | **`(★)`** | `Basic.six_mul_NscStd_le` via `109`'s identity |
 | `6·hauntedCount ≤ factMoment 3` | the third factorial moment | `124` — **nil value**, nothing bounds it |
 
+> ⚠️ **`SESSION 125`: stop counting.** `123` said three, `124` found a fourth,
+> and two more are one line each (`3·haunted ≤ N`, `haunted ≤ NscStd` —
+> `Fiber.best_delta_is_from_110`). Bounds on this quantity are cheap; the table
+> below lists the ones that are *sharpest on an input we hold*, which is the only
+> property worth tabulating. **`δ = 0.16375` is the best the certified inputs
+> support**, and `111` caps any baseline-only argument there.
+
 > ⚠️ **"Exactly three" was wrong (`SESSION 124`).** There are four, and the
 > fourth is the third-factorial-moment bound above. Its ledger value is nil —
 > nothing certified bounds `factMoment 3`, and `Optimal.moment_route_walled`

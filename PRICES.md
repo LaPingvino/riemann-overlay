@@ -561,3 +561,51 @@ only in the currency it reports.
 
 *Not added to `tools/metric.json`: the ledger maximises over rows, and an upper
 bound on a defect is not commensurate with a lower bound on simple zeros.*
+
+
+## claude.ai's answers, wired in (SESSION 132)
+
+**1. `OffTransfer` is Conrey 1983 too — the same paper.** Conrey, *J. Number
+Theory* 16 (1983), 49–74 is the Riemann–von Mangoldt theorem **for `ξ^(m)`**: the
+`N_m(T)` asymptotic with `O(log T)` error. So **both halves of the `+9.29` route
+cite one 1983 paper**, and the cheapest nine points on the board are one
+bibliography item. Berndt 1970 is needed only if the route ever switches to `ζ'`,
+in which case Levinson–Montgomery 1974 (*Acta Math.* 133, 49–65) joins it.
+**[RECALL, UNVERIFIED]** — unread here; a citation is a pointer, not a discharge.
+
+*Ruling for Joop, unchanged in substance and sharper in cost:* discharging both
+hypotheses is now **one paper**, and doing it by axiom would raise the certified
+proportion by `+9.29`, which `Assumptions.lean` forbids.
+
+**2. The genre exists, is two years old, and is active.** Conditioning
+strictly-weaker-than-RH for simple-zero proportions is a current programme:
+narrow box (BGST 2024, *Acta Arith.* 214 — a **horizontal-location** hypothesis);
+pair correlation assumed without RH (Goldston–Suriajaya 2025/26, and GLSS
+arXiv:2507.06823 for the AH variant — a **statistics** hypothesis); zero-density
+type (Aryan, arXiv:1902.05473 — a **density** hypothesis). All
+**[RECALL, UNVERIFIED]**.
+
+**So the packaging headline is not "we invented a genre".** It is:
+
+> the genre is young and its members are location-, statistics- and
+> density-shaped; **`NoHaunted` is a member of a new kind — pure coincidence**,
+> constraining neither where zeros are nor how they correlate, only that one
+> exact-height pattern does not occur — and the genre's conclusions all factor
+> through **one identity**, `ProportionStd κ + hauntedCount ≤ δ·N ⟹
+> Proportion (κ − δ)`. The contribution is a **classification with a normal
+> form**, not a new hypothesis.
+
+**3. Coincidence has no literature, by oracle — and the convertible currency is
+the distinct-zeros deficit.** `Fiber.two_mul_haunted_add_atomCount_le_N`: a
+haunted ordinate contributes `≥ 2` to `N − N_d`, so a distinct-zeros proportion
+`N_d ≥ c·N` gives `δ = (1−c)/2`.
+
+**And the project already holds one.** `certified_atomCount` is
+`N_d ≥ (0.6725 − o(1))·N` at the baseline tier, and it converts to
+`δ = 0.16375` — `certified_haunted_via_distinctZeros`, the same number as the
+off-line route. Two shelves, one price, and `111` caps both.
+
+*Open check c.ai suggests, one cycle:* whether any **unconditional** distinct-zeros
+proportion exists post-BGST. If none does, the repo's `δ = 0.16375` may be the
+best haunting bound in existence — a packaging sentence, and one I will not write
+until the search is done.

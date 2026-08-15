@@ -285,3 +285,6 @@ import Riemann
 #check @Riemann.certified_atomCount
 #check @Riemann.certified_oddAtoms
 #check @Riemann.Blindness.oddAtoms_le_atomCount
+#check @Riemann.Blindness.two_mul_haunted_add_atomCount_le_N
+#check @Riemann.hauntedDensity_of_distinctZeros
+#check @Riemann.certified_haunted_via_distinctZeros

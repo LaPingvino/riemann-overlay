@@ -555,6 +555,32 @@ theorem oddAtoms_ge_of_proportionStd {F : Family} {κ : ℝ}
     exact_mod_cast this
   linarith
 
+/-- **A distinct-zeros proportion is a haunted-density bound, at rate `(1−c)/2`.**
+
+`N − atomCount` is the **distinct-zeros deficit** `N(T) − N_d(T)`, a quantity the
+literature names and studies (Cheer–Goldston and descendants).  A haunted
+ordinate contributes at least `2` to it
+(`Blindness.two_mul_haunted_add_atomCount_le_N`), so `atomCount ≥ c·N` gives
+`HauntedDensity ((1−c)/2)`.
+
+This is the convertible currency for the haunting problem: the literature cannot
+bound haunting directly — by `Blindness` it cannot even see it — but it can bound
+the deficit, and the deficit pays at rate one-half. -/
+theorem hauntedDensity_of_distinctZeros {F : Family} {c : ℝ}
+    (h : ∀ ε > 0, ∀ᶠ T in atTop, (c - ε) * F.Nz T ≤ F.atomCount T) :
+    HauntedDensity F ((1 - c) / 2) := by
+  intro ε hε
+  filter_upwards [h ε hε, F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hbase : 2 * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ) + F.atomCount T
+      ≤ F.Nz T := by
+    have := Blindness.two_mul_haunted_add_atomCount_le_N (F.D T)
+    unfold Family.atomCount Family.Nz
+    exact_mod_cast this
+  have hsplit : (1 - c) / 2 + ε = (1 - c + 2 * ε) / 2 := by ring
+  rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ (by norm_num : (0:ℝ) < 2)]
+  nlinarith [hT, hbase, hpos']
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

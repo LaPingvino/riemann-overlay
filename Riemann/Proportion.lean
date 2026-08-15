@@ -285,6 +285,23 @@ theorem certified_oddAtoms :
       (0.6725 - ε) * zetaFamily.Nz T ≤ zetaFamily.oddAtoms T :=
   oddAtoms_ge_of_proportionStd certified_std
 
+/-- **The project already holds an unconditional distinct-zeros proportion, and
+it reproduces the haunted bound exactly.**
+
+`certified_atomCount` is `N_d(T) ≥ (0.6725 − o(1))·N(T)` — a **distinct-zeros
+proportion at the baseline tier**, which is the quantity the haunting literature
+would have to supply. Converting it at the deficit's rate one-half gives
+`δ = (1 − 0.6725)/2 = 0.16375`: the same bound as `certified_haunted`, by a route
+through a quantity the literature names.
+
+So the distinct-zeros shelf and the off-line shelf pay the *same* price here, and
+`111` caps both. -/
+theorem certified_haunted_via_distinctZeros : HauntedDensity zetaFamily 0.16375 := by
+  have h := hauntedDensity_of_distinctZeros
+    (F := zetaFamily) (c := 0.6725) certified_atomCount
+  have e : ((1 : ℝ) - 0.6725) / 2 = 0.16375 := by norm_num
+  rwa [e] at h
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

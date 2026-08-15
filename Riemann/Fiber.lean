@@ -3502,6 +3502,34 @@ theorem oddAtoms_le_atomCount (D : ZeroData) : oddAtoms D ≤ atomCount D := by
   rw [oddAtoms, atomCount]
   exact Finset.card_filter_le _ _
 
+/-- **The haunted count converts from the distinct-zeros deficit:
+`2·hauntedCount + atomCount ≤ N`.**
+
+`N − atomCount` is `N(T) − N_d(T)`, the **distinct-zeros deficit** — a named
+quantity with its own literature (Cheer–Goldston and descendants).  A haunted
+ordinate carries mass `≥ 3` and so contributes `≥ 2` to the deficit.
+
+So any distinct-zeros proportion `atomCount ≥ c·N` gives
+`hauntedCount ≤ (1−c)/2 · N`.  **And the project already holds such a
+proportion:** `certified_atomCount` gives `c = 0.6725`, hence `δ = 0.16375` — the
+same bound as `110`'s, by a route through a quantity the literature names. -/
+theorem two_mul_haunted_add_atomCount_le_N (D : ZeroData) :
+    2 * hauntedCount D + atomCount D ≤ D.N := by
+  classical
+  rw [hauntedCount, atomCount, Finset.card_filter, Finset.mul_sum,
+    Finset.card_eq_sum_ones, ← Finset.sum_add_distrib, N_eq_sum_H]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [ZeroData.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  by_cases h : D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1
+  · rw [if_pos h]
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    omega
+  · rw [if_neg h]
+    omega
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

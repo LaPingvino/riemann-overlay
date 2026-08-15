@@ -1842,3 +1842,24 @@ from the other direction.
 
 **So `(★)`'s entire contribution to the `Nsc` row is a bound on the haunted
 count.** Route I and Route III exist to buy a `C`; what a `C` buys is `δ`.
+
+
+## The genre, and where `NoHaunted` sits in it (SESSION 132, from claude.ai)
+
+**[RECALL, UNVERIFIED]** throughout — attributions are claude.ai's, unread here.
+
+| member | hypothesis shape | conclusion |
+|---|---|---|
+| BGST 2024 (*Acta Arith.* 214) | **location** — all zeros in `T^{3/8} < γ ≤ T` within `1/(2 log T)` of the line | `≥ 61.7%` simple |
+| Goldston–Suriajaya 2025/26; GLSS arXiv:2507.06823 | **statistics** — PCC assumed *without* RH (and the AH variant) | `100%` simple and critical, asymptotically |
+| Aryan arXiv:1902.05473 | **density** | `2/3` simple |
+| **`NoHaunted`** (this project) | **coincidence** — one exact-height pattern absent | `0.6725` |
+
+`NoHaunted` is not comparable to the narrow box: the box permits haunting inside
+it. It is exact where PCC is asymptotic. And it is strictly weaker than
+RH-in-window (`117`), which no other member is.
+
+**The normal form is the contribution.** Every conclusion in the table factors
+through `ProportionStd κ + hauntedCount ≤ δ·N ⟹ Proportion (κ − δ)`
+(`proportion_of_hauntedDensity`), and the five in-repo instances are its
+specialisations. A young genre with a zoo, given a normal form.

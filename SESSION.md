@@ -5576,3 +5576,57 @@ Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base has
 **Might-mean, unhedged:** counting results is as unreliable as counting bounds
 was in `125`, and for the same reason — a list assembled while proving things
 records the order they arrived in, not the order they depend on.
+
+
+# SESSION 132 — the deficit is the currency, and the genre already exists
+
+claude.ai answered the `127` briefing. One answer was directly actionable and is
+now certified; the rest reshape the packaging.
+
+**Kill condition, filed first:** *if the distinct-zeros conversion gives a worse
+`δ` than `0.16375`, the route is not equivalent and the currency is weaker than
+ours.* It did not fire — it gives **exactly** `0.16375`.
+
+**The mathematics.** `two_mul_haunted_add_atomCount_le_N` (new, axiom-free):
+`2·hauntedCount + atomCount ≤ N`. Since `N − atomCount` is the **distinct-zeros
+deficit** `N(T) − N_d(T)` — a quantity the literature names — a haunted ordinate
+contributes at least `2` to it, so any distinct-zeros proportion `N_d ≥ c·N`
+gives `δ = (1−c)/2`.
+
+**And the project already holds such a proportion.** `certified_atomCount` is
+`N_d ≥ (0.6725 − o(1))·N` at the baseline tier — exactly the quantity the
+haunting literature would have to supply — and it converts to `δ = 0.16375`
+(`certified_haunted_via_distinctZeros`). Two shelves, off-line and
+distinct-zeros, pay the same price, and `111` caps both. `130`'s instantiation,
+written to close a bookkeeping gap, turns out to be the bridge to the named
+literature.
+
+**`OffTransfer` is Conrey 1983 — the same paper as `NzComparable`.** Both halves
+of the `+9.29` route are one 1983 item. **[RECALL, UNVERIFIED]**; the ruling for
+Joop is unchanged in substance and much sharper in cost.
+
+**The genre exists and is two years old**, which is better than the alternative I
+had been drifting toward. Members are location-shaped (BGST 2024),
+statistics-shaped (Goldston–Suriajaya; GLSS), and density-shaped (Aryan).
+`NoHaunted` is a member of a **new kind — pure coincidence** — constraining
+neither where zeros are nor how they correlate. So the headline is **not** "a new
+hypothesis"; it is **a classification of a young genre, with its weakest member
+exhibited and its normal form proved**: every member's conclusion factors through
+`ProportionStd κ + hauntedCount ≤ δ·N ⟹ Proportion (κ − δ)`.
+
+That is a better claim than the one I was assembling, and it is smaller.
+
+**Filed, not built:** claude.ai's expiry design for stale text — `valid-as-of:
+<commit>` plus a dependency-triggered flag script. Its argument answers `113` and
+`120` directly: staleness has no local signature, so detect nothing and invalidate
+instead. Recorded in `METHOD.md`; the retrofit is a cycle of its own.
+
+**Also filed:** read zeta-23's own Appendix C on responsibility before `FRAMING`'s
+final form. One fetch, and a live precedent from eleven days ago.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2,
+base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the quantity this project invented a name for is the
+cross-term of one the literature has studied since 1993, and the conversion rate
+is one-half — so the haunting problem was never unreachable, only unaddressed.

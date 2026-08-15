@@ -399,3 +399,28 @@ first; the assert is the witness that the edit had a target.
 found one stale claim living in *two* registers in different wordings. A sweep
 scoped to a file finds one copy and stops. Search the phrase across all
 registers before writing the correction.
+
+
+## Expire staleness, do not detect it (SESSION 132, claude.ai's design — FILED, NOT BUILT)
+
+Two instruments for stale text failed calibration (`113`, `120`). claude.ai's
+diagnosis: **staleness is cache invalidation**, and judgment-based detectors fail
+because staleness has no local signature — the text that is stale looks exactly
+like the text that is current.
+
+The mechanical alternative is **expiry, not detection**:
+
+* every `CLAIMS` / `ISSUES` / `LEADS` entry gains a `valid-as-of: <commit>` field
+  at write time;
+* a trivial script flags any entry whose **cited files changed** since that
+  commit.
+
+No judgment, no calibration — dependency-triggered re-grade flags. Entries confess
+their own age, so pessimism never needs patrolling. The failure mode is
+over-flagging after a large refactor, which is a nuisance rather than a silence,
+and that asymmetry is the whole argument.
+
+**Status: filed, not built.** Retrofitting the field to existing entries is the
+bulk of the work and it is not this cycle's. Recorded here so the design is not
+re-derived, and because `113`/`120` earned the rule that an instrument gets
+written down before it gets written.

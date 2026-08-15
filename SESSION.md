@@ -3032,3 +3032,49 @@ Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
 certificate class can already see that an even pile-up contributes nothing to
 the standard-simple count, and every question about what it cannot see should
 be asked about odd atoms only.
+
+
+# SESSION 075 — the profile is not minimal, and the question was the wrong shape
+
+Queue item 3: *is the profile minimal — is there a coarser sufficient statistic
+for the ledger?*
+
+**Kill condition, filed before construction:** *if the ledger separates every
+realisable pair of distinct profiles, minimality stands unrefuted and I report
+the question open rather than answered.* **It fired.**
+
+`twoAtom_profile` (new): the two-atom configuration with mass `k₁+2j₁` at
+height `0` and `k₂+2j₂` at height `γ` has profile
+`{(k₁+2j₁, 2j₁), (k₂+2j₂, 2j₂)}`. Built on `configAt`, `superpose`,
+`offAt_configAt_self/other` — all already in the file.
+
+`profile_not_minimal` (new, axiom-free): exchange the off-line mass between the
+two atoms.
+
+| | atom at `0` | atom at `γ` | profile |
+|---|---|---|---|
+| `A` | mass `4`, `2` off-line | mass `2`, on-line | `{(4,2),(2,0)}` |
+| `B` | mass `4`, on-line | mass `2`, `2` off-line | `{(4,0),(2,2)}` |
+
+Distinct profiles; `N = 6`, `N⊛ = 20`, `Nsc = 0`, `NscStd = 0`, `N_off = 2` on
+both. Every ledger equality is proved *through* last week's `*_from_profile`
+theorems — the profile computation is done once and the five ledger values fall
+out as arithmetic on two explicit multisets. That is the first time the profile
+theorems have been used as instruments rather than stated as results.
+
+**What the finding actually is.** `profile → ledger` is not injective, so the
+ledger is a strictly coarser sufficient statistic and the profile is not
+minimal. But that is cheap: *any* target is its own minimal sufficient
+statistic, so the queued question is degenerate as posed. Re-posed in `LEADS.md`
+under two restrictions that are not degenerate — minimal among
+`μ_T`-augmentations, and minimal among ordinate-*local* statistics. The
+counterexample above is unavailable under locality, because it works by moving
+data between ordinates; so the local form is genuinely open and is the one the
+blindness programme actually wants.
+
+Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the ledger cannot tell which crowd the off-line zeros
+are hiding in, only how many there are in total — so any instrument that reads
+the ledger alone is blind to the *distribution* of off-line mass across the
+crowds, and that is a second blindness, distinct from the fiber one.

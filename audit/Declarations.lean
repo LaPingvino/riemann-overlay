@@ -159,3 +159,7 @@ import Riemann
 #check @Riemann.Blindness.config_NscStd
 #check @Riemann.Blindness.odd_mass_NscStd_ambiguous
 #check @Riemann.Blindness.even_mass_NscStd_zero
+#check @Riemann.Blindness.twoAtom
+#check @Riemann.Blindness.twoAtom_ordinates
+#check @Riemann.Blindness.twoAtom_profile
+#check @Riemann.Blindness.profile_not_minimal

@@ -1412,3 +1412,30 @@ the same fact, one of them the formula's own boundary case.
 `Fiber.gauge_orbit_size`, axiom-free. This is the quantitative form of the
 qualitative claim, and it says the shadow grows **linearly in the mass**: a
 crowded atom of mass `m` hides `⌊m/2⌋` alternatives, no more and no fewer.
+
+
+## Minimality of the profile — answered in the negative, and re-posed
+
+`profile_not_minimal` (axiom-free) exhibits two realisable configurations with
+**distinct profiles and identical ledgers**: mass `4` carrying `2` off-line
+beside a wholly on-line mass `2`, versus a wholly on-line mass `4` beside a
+mass `2` carrying `2` off-line. Profiles `{(4,2),(2,0)}` and `{(4,0),(2,2)}`;
+`N = 6`, `N⊛ = 20`, `Nsc = 0`, `NscStd = 0`, `N_off = 2` on both.
+
+So `profile → ledger` is not injective and the profile is not minimal. But the
+useful content is that **the question as posed is degenerate**: the ledger is
+trivially its own minimal sufficient statistic, so "is `X` minimal for the
+ledger" is only meaningful once the competitors are restricted. Two restricted
+forms worth asking, neither yet attempted:
+
+1. **Minimal among `μ_T`-augmentations.** `(μ_T, offAt)` is sufficient
+   (`ledger_determined`) and not minimal (`offAt_not_minimal`). Is there a
+   *smallest* `f` with `(μ_T, f)` sufficient, and is the profile it?
+2. **Minimal among ordinate-local statistics** — statistics of the form
+   "a function of the per-ordinate data, aggregated". The profile is local in
+   this sense; the ledger is not (it is the aggregate itself). Under locality
+   the counterexample above is unavailable, because it exchanges data *between*
+   ordinates.
+
+Filed as the honest successor to the queued question, not as a claim that
+either restricted form has an answer.

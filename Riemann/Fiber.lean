@@ -1265,6 +1265,102 @@ theorem gauge_orbit_size {a : ℝ} (ha : a ≠ 1/2) (m : ℕ) :
     fun hne => fiber_states_distinguished ha m j₁ j₂ hb₁ hb₂ hne⟩
 
 
+
+/-! ### Is the profile minimal?  No — and the question was ill-posed
+
+The profile determines the ledger (`N_from_profile` … `NscStd_from_profile`).
+Queue item: *is it minimal — is there a coarser sufficient statistic?*
+
+**Kill condition, filed before construction:** *if the ledger separates every
+pair of distinct profiles that can be realised, minimality stands unrefuted and
+the question is reported open, not answered.*  **It fired.**
+
+Two two-atom configurations of the same total mass exchange their off-line
+mass between the atoms:
+
+* `A` — mass `4` with `2` off-line at height `0`, mass `2` all on-line at `γ`
+* `B` — mass `4` all on-line at `0`, mass `2` with `2` off-line at `γ`
+
+Their profiles `{(4,2),(2,0)}` and `{(4,0),(2,2)}` are **distinct**, and all
+five ledger quantities agree.  So `profile → ledger` is not injective, the
+ledger is itself a strictly coarser sufficient statistic, and the profile is
+**not** minimal.
+
+The finding is really about the question.  *Any* target quantity is its own
+minimal sufficient statistic, so "is `X` minimal for the ledger" is degenerate
+unless the competing statistics are restricted — to `μ_T`-augmentations, or to
+statistics that are local in the ordinate.  Re-posed at that grade below. -/
+
+/-- Two atoms: mass `k₁ + 2j₁` at height `0`, mass `k₂ + 2j₂` at height `γ`. -/
+noncomputable def twoAtom (γ a : ℝ) (k₁ j₁ k₂ j₂ : ℕ) : ZeroData :=
+  superpose (configAt 0 k₁ j₁ a) (configAt γ k₂ j₂ a)
+
+lemma twoAtom_ordinates (γ a : ℝ) (k₁ j₁ k₂ j₂ : ℕ) :
+    (twoAtom γ a k₁ j₁ k₂ j₂).ordinates
+      = Multiset.replicate (k₁ + 2 * j₁) (0:ℝ)
+        + Multiset.replicate (k₂ + 2 * j₂) γ := by
+  rw [twoAtom, add_ordinates, configAt_ordinates, configAt_ordinates]
+
+lemma twoAtom_profile {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) {k₁ j₁ k₂ j₂ : ℕ}
+    (h1 : k₁ + 2 * j₁ ≠ 0) (h2 : k₂ + 2 * j₂ ≠ 0) :
+    profile (twoAtom γ a k₁ j₁ k₂ j₂)
+      = {(k₁ + 2 * j₁, 2 * j₁), (k₂ + 2 * j₂, 2 * j₂)} := by
+  classical
+  have hord := twoAtom_ordinates γ a k₁ j₁ k₂ j₂
+  have hfin : (twoAtom γ a k₁ j₁ k₂ j₂).ordinates.toFinset = {0, γ} := by
+    have e1 : ¬(k₁ = 0 ∧ j₁ = 0) := fun h => h1 (by omega)
+    have e2 : ¬(k₂ = 0 ∧ j₂ = 0) := fun h => h2 (by omega)
+    rw [hord]
+    simp [Multiset.toFinset_add, Multiset.toFinset_replicate, e1, e2]
+  have hH0 : (twoAtom γ a k₁ j₁ k₂ j₂).H 0 = k₁ + 2 * j₁ := by
+    rw [ZeroData.H_eq_count, hord]
+    simp [Multiset.count_replicate, hγ, Ne.symm hγ]
+  have hHg : (twoAtom γ a k₁ j₁ k₂ j₂).H γ = k₂ + 2 * j₂ := by
+    rw [ZeroData.H_eq_count, hord]
+    simp [Multiset.count_replicate, hγ, Ne.symm hγ]
+  have hO0 : offAt (twoAtom γ a k₁ j₁ k₂ j₂) 0 = 2 * j₁ := by
+    rw [twoAtom, offAt_superpose, offAt_configAt_self ha,
+      offAt_configAt_other (a := a) (Ne.symm hγ) k₂ j₂]
+    omega
+  have hOg : offAt (twoAtom γ a k₁ j₁ k₂ j₂) γ = 2 * j₂ := by
+    rw [twoAtom, offAt_superpose, offAt_configAt_self ha,
+      offAt_configAt_other (a := a) hγ k₁ j₁]
+    omega
+  rw [profile, hfin]
+  rw [show ({0, γ} : Finset ℝ).val = (0 : ℝ) ::ₘ {γ} from
+    Finset.insert_val_of_notMem (by simpa using Ne.symm hγ)]
+  simp [hH0, hHg, hO0, hOg]
+
+/-- **The profile is not minimal.**  Two realisable configurations with
+*distinct* profiles and *identical* ledgers: exchange the off-line mass between
+a mass-`4` atom and a mass-`2` atom.  So `profile → ledger` is not injective,
+and the ledger is itself a strictly coarser sufficient statistic.
+
+The kill condition — *the ledger separates every realisable pair of distinct
+profiles* — fired here. -/
+theorem profile_not_minimal {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    profile (twoAtom γ a 2 1 2 0) ≠ profile (twoAtom γ a 4 0 0 1)
+      ∧ (twoAtom γ a 2 1 2 0).N = (twoAtom γ a 4 0 0 1).N
+      ∧ (twoAtom γ a 2 1 2 0).Nstar = (twoAtom γ a 4 0 0 1).Nstar
+      ∧ (twoAtom γ a 2 1 2 0).Nsc = (twoAtom γ a 4 0 0 1).Nsc
+      ∧ (twoAtom γ a 2 1 2 0).NscStd = (twoAtom γ a 4 0 0 1).NscStd
+      ∧ (twoAtom γ a 2 1 2 0).Noff = (twoAtom γ a 4 0 0 1).Noff := by
+  have pA := twoAtom_profile hγ ha (k₁ := 2) (j₁ := 1) (k₂ := 2) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 4) (j₁ := 0) (k₂ := 0) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨by rw [pA, pB]; decide, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+  · have : ((twoAtom γ a 2 1 2 0).Nsc : ℤ) = ((twoAtom γ a 4 0 0 1).Nsc : ℤ) := by
+      rw [Nsc_from_profile, Nsc_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · have : ((twoAtom γ a 2 1 2 0).NscStd : ℤ) = ((twoAtom γ a 4 0 0 1).NscStd : ℤ) := by
+      rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

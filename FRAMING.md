@@ -198,3 +198,40 @@ The private document described in the second half of "What is private" is
 outside this repository and outside my context. It is described here on the
 operator's authority, reviewed by the operator, and I neither verify nor
 characterize it.
+
+
+## Seam measurement (2026-08-15) — and it is not yet measurable
+
+The document above claims the two instances' asymmetry is maintained
+deliberately *"because two instances of one model will otherwise converge, and
+convergence destroys the check."* One convergence event has now occurred, so the
+claim is worth measuring rather than repeating.
+
+**Kill condition, stated first:** *if the correction record shows the two
+instances mostly agreeing rather than correcting each other, the seam has
+already converged and its value claim is stale.*
+
+**What is mechanically countable:**
+
+| direction | count | evidence |
+|---|---|---|
+| claude.ai → VPS | **2** | `SURPRISES` S18 (the equality/inequality boundary was the wrong cut), S27 (the question that dissolved `#29`) |
+| VPS → claude.ai | **2** | E24's W7 grade correction; F15's cast analysis, corrected by `ledger_visibility_split` |
+| convergence | **1** | tier-1 anti-rigidity, proposed and proved independently within one hour |
+
+**Verdict: the kill condition did not fire, and the measurement does not
+support the claim either.** At `n ≈ 5` events, two corrections each way and one
+convergence is consistent with almost any underlying rate. **The seam's
+non-convergence is not yet measurable**, and the honest status of the design
+rationale is *unverified*, not *confirmed*.
+
+What the record does support is narrower and still useful: **corrections travel
+in both directions**, which is at least evidence the two sides are not
+producing identical output. The `SURPRISES` breakdown carries the same signal
+from a different angle — `tooling 9 / self 12 / Fable 3 / c.ai 2 / source 2 /
+Joop 1`, with roughly half of all confident errors caught by something that is
+not the operator.
+
+*Recorded here rather than in the main document because the main document is
+claude.ai's and this is a measurement of its claim. Per R19, no rate is quoted
+and none is available.*

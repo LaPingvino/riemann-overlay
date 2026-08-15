@@ -2783,3 +2783,45 @@ configuration built to prove we are blind, which means this project's
 impossibility results and its constructions are the same objects read in
 opposite directions — and that is probably why the census keeps sorting `3 : 8`
 no matter who sorts it.
+
+
+# SESSION 069 — the seam measured, and it is not yet measurable
+
+**Kill condition, stated first:** *if the correction record shows the two
+instances mostly agreeing rather than correcting each other, the seam has
+already converged and its value claim is stale.* **It did not fire** — and the
+measurement does not confirm the claim either.
+
+`FRAMING.md` asserts the asymmetry is maintained *"because two instances of one
+model will otherwise converge, and convergence destroys the check."* Last
+cycle's tier-1 convergence made that worth counting rather than repeating.
+
+**Mechanically countable:** claude.ai → VPS, **2** (`S18`, `S27`); VPS →
+claude.ai, **2** (E24's W7 grade correction; F15's cast analysis, corrected by
+`ledger_visibility_split`); convergence, **1**.
+
+**At `n ≈ 5` that is consistent with almost any underlying rate.** The seam's
+non-convergence is **not yet measurable**, and the design rationale's honest
+status is *unverified*, not *confirmed*. Filed in `FRAMING.md`'s appendix — the
+main document is claude.ai's, and this is a measurement of its claim, so it
+belongs in the half that is mine.
+
+**I had been about to write the reassuring version** — "corrections flow both
+ways, the seam is earning its cost" — and the count does technically support
+that. It does not support the stronger sentence the design rests on. The
+difference between "not falsified" and "confirmed" at `n = 5` is exactly the
+gap `CLAIMS.md` was built to police, and it applies to our methodology as
+readily as to our mathematics.
+
+What the record *does* support: corrections travel in both directions, so the
+two sides are at least not producing identical output. `SURPRISES` says the same
+from another angle — `tooling 9 / self 12 / Fable 3 / c.ai 2 / source 2 /
+Joop 1`.
+
+Per R19 no rate is quoted and none is available.
+
+**Might-mean, unhedged:** the project has spent a day proving that its
+instruments cannot see certain things, and the first time it turned that
+standard on its own methodology the answer was the same — the seam's central
+claim is currently an article of faith with five data points, which is precisely
+the epistemic position we refuse to accept from a certificate.

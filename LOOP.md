@@ -84,6 +84,9 @@ degradations, not less.
 
 | **R19** | **No pattern-claim about this project's own corpus may be asserted without a blind classification.** Strip hypothesis-language, hand the corpus to an agent given no hypothesis, demand its **own** categories, score against a mapping registered *before* the run. Applies to failures, residues, E-annotations, and any future atom tests. Without it the corpus returns whatever pattern was brought to it — measured, once, at the cost of E20's statistical support | W∞ T2, the blind null |
 
+| **R20** | **Hygiene cycles cap at three consecutive, and any audit-of-an-audit requires new object-level input since the audited audit.** Night cycles 8–12 were the loop Goodharting itself on the virtue of carefulness: real findings (`CLAIMS.md`, `ISSUES` #29, two misordered retractions), diminishing returns, no external forcing function. The ad-hoc patch — *"three consecutive hygiene cycles is enough, return to mathematics"* — worked, and standing doctrine is where working patches go. Recursion is this project's failure mode even when it is succeeding | night 2026-08-14/15, cycles 8–12; proposed by claude.ai, adopted by Joop |
+| **R21** | **A rung is not a blindness result; a rung is a blindness result *plus* a closure certificate for its class.** "No hypothesis of class `𝒞` decides `P`" only becomes independence if `𝒞` is closed under deduction — otherwise a *consequence* of several `𝒞`-hypotheses could decide `P` when no single one does. Rung 1 has both (`MuInvariant.and/.or/.not/.imp/.forall`, then `no_muInvariant_theory_computes_NscStd`). Rung 2's difficulty is that for arithmetic fragments closure is free but the **models** are not | W34a, night cycle of 2026-08-14; adopted by Joop |
+
 ## Operational rules (bin-2 scar tissue)
 
 * **Contamination lint before any table.** `forensics/provenance_lint.py`

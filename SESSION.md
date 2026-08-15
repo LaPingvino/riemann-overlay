@@ -2138,3 +2138,54 @@ Build green (3747 jobs), audits extended, base hash unmoved, one new grade-A row
 — the cycle's most valuable output was a sentence I was able to see coming and
 chose not to write, which is the first time the surprise register has prevented
 an entry rather than recorded one.
+
+
+# SESSION 054 — morning: four rulings executed, and the gate that patrols prose
+
+Joop ruled "fix what needs fixed". All four items discharged.
+
+**ISSUES #28(a) — the lakefile pin, fixed.** `rev` moved from `"main"` to the
+manifest's exact commit `3635e74826a4c1fcece7d1cd2b6fa75e43a00510`, with the
+reason in the file: a floating rev makes the dependency a trusted input carrying
+someone else's uptime *and* someone else's content, and a `lake update` would
+silently retarget every axiom-free claim here. Build green afterwards.
+
+**`PairCeiling` imported from the root.** `Zeta23.PairCeiling.ceiling_law256` is
+now reachable from `import Riemann` and verified axiom-free from there. Base
+hash `cd7a22e688df` and axiom count `2` both unmoved — correct, because
+importing a *proved* theorem changes reachability, not trust. The ceiling was
+cited across four registers as ours; now a reader following our root can get to
+it.
+
+**R20 and R21 adopted into `LOOP.md`.** R20: hygiene cycles cap at three
+consecutive, and any audit-of-an-audit needs new object-level input — the
+standing form of the ad-hoc patch that stopped cycles 8–12. R21: a rung is a
+blindness result **plus** a closure certificate for its class (W34a).
+
+**ISSUES #29 — resolved, and it was my error.** Covered in SESSION 053's commit:
+the specification was in `LEADS.md` three lines above the table.
+`forensics/window_opt.py` reproduces all seven digits. `SURPRISES` S27.
+
+**And the new instrument: `forensics/claims_gate.py`.** The night's error
+profile — `tooling 9 / self 11`, every new entry self-caught — says the guards
+are **saturated**, not failing: circularity/scale/quality stopped occurring
+because instruments exist, and the error mass migrated to the unguarded surface,
+which is the exactness of our own sentences. The gate scans for exactness /
+uniqueness / completeness language and requires a converse witness; with none it
+**rewrites** rather than blocks ("exact" → "sufficient", "the" → "a", "cannot" →
+"is not known to").
+
+Calibrated on both known failures: `S26`'s *"nothing else at all"* and `S27`'s
+*"cannot be reproduced"* are both caught, and both corrected forms pass. This is
+the first instrument here that patrols **prose** rather than mathematics — which
+is where `S` always said the bugs live.
+
+**Honest limit, per R17.** The gate flags 6 sentences in `CLAIMS.md`, 26 in
+`LEADS.md`, 10 in `E.md`. **I have not triaged those 42.** Some are certainly
+false positives — `E.md` is deliberately written in the language of felt
+necessity. The counts are a to-do, not a verdict, and quoting them as a defect
+rate would be the very error the gate exists to catch.
+
+**Might-mean, unhedged:** the guards stopped catching things not because they
+got worse but because they worked, and the useful reading of a silent instrument
+is never "we are clean" but "the errors have moved somewhere it cannot see."

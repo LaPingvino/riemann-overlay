@@ -2280,6 +2280,57 @@ lemma lowMult_eq_goodCount (D : ZeroData) (k : ℕ) :
     by_cases h : q.1 ≤ k <;> simp [h]
   exact_mod_cast key
 
+/-- **…and at *every* proportion below `1`, not just `3/4`.**
+
+`no_starBound_from_goodness` fixes the good proportion at `3/4`, which does not
+exclude a hypothesis of the form "at least `99%` of the zeros are good".  This
+does: for any rational level `p/q < 1` and any `B`, a configuration with at least
+that proportion of its zeros at good atoms and `N⊛ > B·N`.
+
+The family is `c·m` simple atoms beside one atom of mass `m`, with `c` chosen
+from the level and `m` from `B`: the good proportion is `c/(c+1)`, pushed as
+close to `1` as required, while `N⊛/N = (c+m)/(c+1)` still runs away in `m`.
+
+**Kill condition, filed first:** *if the witness cannot be pushed past some
+`α < 1`, proportions above that level are not excluded and `094`'s might-mean
+must be downgraded.*  It did not fire. -/
+theorem no_starBound_from_goodness_at_any_level {a : ℝ} (ha : a ≠ 1/2)
+    (good : ℕ × ℕ → Prop) [DecidablePred good] (hgood : good (1, 0))
+    (p q B : ℕ) (hpq : p < q) :
+    ∃ D : ZeroData, p * D.N ≤ q * goodCount D good ∧ B * D.N < D.Nstar := by
+  classical
+  set c := max p 1 with hc
+  set m := (c + 1) * (B + 1) + 1 with hm
+  set L : List (ℕ × ℕ) := List.replicate (c * m) (1, 0) ++ [(m, 0)] with hL
+  have hc1 : 1 ≤ c := le_max_right _ _
+  have hcp : p ≤ c := le_max_left _ _
+  have hne : ∀ x ∈ L, x.1 + 2 * x.2 ≠ 0 := by
+    intro x hx
+    rw [hL, List.mem_append] at hx
+    rcases hx with hx | hx
+    · rw [List.eq_of_mem_replicate hx]; norm_num
+    · simp only [List.mem_singleton] at hx
+      rw [hx]; omega
+  have hp := chain_profile ha L hne
+  rw [hL] at hp
+  norm_num [List.map_append, List.map_replicate] at hp
+  have hN : (chain a L).N = c * m + m := by
+    rw [N_from_profile, hp]; simp; try ring
+  have hS : (chain a L).Nstar = c * m + m * m := by
+    rw [Nstar_from_profile, hp]; simp; try ring
+  have hG : c * m ≤ goodCount (chain a L) good := by
+    rw [goodCount, hp]
+    simp [hgood]
+  refine ⟨chain a L, ?_, ?_⟩
+  · rw [hN]
+    have hcq : p * (c + 1) ≤ q * c := by nlinarith [hcp, hc1, hpq]
+    calc p * (c * m + m) = (p * (c + 1)) * m := by ring
+      _ ≤ (q * c) * m := Nat.mul_le_mul hcq (le_refl m)
+      _ = q * (c * m) := by ring
+      _ ≤ q * goodCount (chain a L) good := Nat.mul_le_mul (le_refl q) hG
+  · rw [hN, hS, hm]
+    nlinarith [hc1, Nat.zero_le B]
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

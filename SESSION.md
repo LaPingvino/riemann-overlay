@@ -3960,6 +3960,53 @@ the statement rather than in a comment.
 Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
 axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 
+> ⚠️ **The might-mean below outran the theorem, and `095` closed the gap rather
+> than downgrading it.** `no_starBound_from_goodness` fixes the good proportion
+> at `3/4`, which does not exclude a hypothesis at `99%`.
+> `no_starBound_from_goodness_at_any_level` now covers every level below `1`, so
+> the sentence stands as written — but it did not, when written.
+
 **Might-mean, unhedged:** every "positive proportion" theorem in this subject is
 structurally incapable of reaching the second moment, and the barrier is not the
 strength of the proportion but the shape of the sentence.
+
+
+# SESSION 095 — the might-mean outran the theorem by a factor of four
+
+`094` proved that no goodness proportion bounds `N⊛`, with the good proportion
+fixed at `3/4`. Its might-mean said *"every 'positive proportion' theorem in this
+subject is structurally incapable of reaching the second moment"*. **A `3/4`
+witness does not exclude a hypothesis at `99%`** — the sentence was one
+quantifier wider than the theorem under it.
+
+I noticed on re-reading rather than through the gate, which does not flag
+quantifier drift.
+
+**Kill condition, filed first:** *if the witness cannot be pushed past some
+`α < 1`, proportions above that level are not excluded and `094`'s might-mean
+must be downgraded at its location.* **It did not fire**, so the gap closed
+upward instead of downward.
+
+`no_starBound_from_goodness_at_any_level` (axiom-free): for any rational level
+`p/q < 1`, any goodness predicate accepting the simple atom, and any `B`, there
+is a configuration with at least `p/q` of its zeros at good atoms and
+`N⊛ > B·N`. The family is `c·m` simple atoms beside one atom of mass `m`, with
+`c` chosen from the level and `m` from `B` — the good proportion `c/(c+1)` goes
+as close to `1` as required while `N⊛/N = (c+m)/(c+1)` still runs away.
+
+**The level `1` case is genuinely excluded**, and that is the whole content of
+the boundary: proportion `1` means every zero is at a good atom, and with `good`
+the simple-atom predicate that is RH-simplicity. So the theorem is sharp — it
+covers everything strictly below the conclusion the program is trying to prove.
+
+An annotation is written above `094`'s might-mean recording that it outran its
+theorem, because the sentence now stands but did not when it was written, and a
+reader should not have to reconstruct which.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the barrier is not a threshold anywhere below certainty
+— any theorem short of "all zeros are good" leaves room for a single ordinate to
+carry the entire second moment, so the subject's whole vocabulary of positive
+proportions stops exactly one step short of the quantity it needs.

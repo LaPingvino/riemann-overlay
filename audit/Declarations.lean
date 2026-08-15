@@ -222,3 +222,4 @@ import Riemann
 #check @Riemann.Blindness.goodCount
 #check @Riemann.Blindness.no_starBound_from_goodness
 #check @Riemann.Blindness.lowMult_eq_goodCount
+#check @Riemann.Blindness.no_starBound_from_goodness_at_any_level

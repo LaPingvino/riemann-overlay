@@ -1173,3 +1173,66 @@ two require `j` and are provably outside `μ_T`.
 already proved — across `Basic.lean`, `Blindness.lean` and `Fiber.lean` — and
 the assembly is the point: **this is the clearest single statement the
 development has, and until now it was scattered over three files.**
+
+## W20 — ANSWERED by claude.ai's read; W35 re-scoped
+
+All literature values below are **[RECALL, UNVERIFIED]** — supplied by
+claude.ai, not read here — and one carries a stronger flag.
+
+**Rudnick–Sarnak 1996** (Duke 81; announced C.R. Acad. Sci. 319, 1994): the
+`n`-level correlations of `ζ`'s zeros agree with `U(N)`'s for test functions
+with **combined** Fourier support `Σⱼ|ξⱼ| < 2` — one budget shared across all
+`n` variables. General automorphic `L`-functions need GRH-adjacent hypotheses.
+
+> ⚠️ **[VERIFY BEFORE USE]** A RIMS survey of RS reportedly says of `ζ`:
+> *"Although their main theorem does not assume the Riemann Hypothesis, here we
+> assume it for simplicity."* If accurate, RS's `n`-level theorem for `ζ` is
+> **unconditional** in the restricted-support regime — and W20's question
+> *"does BGST de-conditioning generalise to `n ≥ 3`?"* is answered by **it never
+> needed to**. This must be checked against the Duke paper's actual theorem
+> statement before anything consumes it. Highest-priority small item.
+
+**The kill condition on W35's probe did not fire, and the reason is precise.**
+It asked whether level-3 information is known only where level 2 already gives
+nothing. The answer is the good case: `Σ|ξ| < 2` at `n = 3` buys **no new
+reach** — the corridor past `α = 1` is untouched — but it is **new information
+relative to the two-moment LP**, and that is our own theorem, not a hope:
+`Optimal.prop1_LP_optimal` says the two-moment world is exhausted, and the
+level-3 coincidence-diagonal is a functional that world cannot express.
+
+**So the offer was never new support. It is new *order* within the old
+support.**
+
+### The composition, named end to end
+
+| role | named object | status |
+|---|---|---|
+| supplier | RS 1996, level-3 at `Σ|ξ| < 2` | `[RECALL]`, one `[VERIFY]` flag |
+| dictionary | Conrey–Snaith, *In support of n-correlation* (arXiv:1212.5537) | `[RECALL]` |
+| consumer | a three-moment LP over `Σm`, `Σm²`, `Σm³` | **not yet built — see below** |
+| visibility | `Fiber.thirdMoment_determined` — the consumer can see the goods | **kernel-certified** |
+
+### The step that needs no literature at all, and should come first
+
+Before anyone fetches RS, **the three-moment LP can be solved in-repo exactly as
+the two-moment one was.** `Optimal.lean` already carries `LinearBound a b` and
+`prop1_LP_optimal`; extending to `LinearBound3 a b c` over `(N, N⊛, Σm³)` and
+finding its optimum is the same argument with one more coordinate and more test
+configurations.
+
+That prices the entire programme above **before** any paper is read: if the
+three-moment optimum is still `2 − C`, the supplier is irrelevant and W35 dies
+cheaply; if it beats `2 − C`, the value of RS's theorem is known in advance and
+exactly. **This is the sensitivity curve `PRICES.md` asks for, and it is pure
+in-repo work.** Queued as the next W35 item.
+
+## W36 — endorsed, with its literature attached
+
+Also `[RECALL, UNVERIFIED]`: Katz–Sarnak for the ensembles; **Faifman–Rudnick**,
+*Statistics of the zeros of zeta functions in families of hyperelliptic curves
+over a finite field* (Compositio 146, 2010); **Rudnick**, *Traces of high powers
+of the Frobenius class in the hyperelliptic ensemble* (Acta Arith. 143, 2010).
+
+W36's harness question — are repeated eigenvalues frequent enough at feasible
+`q` to separate the inequalities — **plausibly has its answer already tabulated
+there.** Read before building; that ordering is the whole lesson of `S27`.

@@ -1066,3 +1066,53 @@ carry nothing.
 
 **Whether the profile is minimal is not proved and is not claimed.** A coarser
 sufficient statistic may exist; nothing here rules one out.
+
+## W35 — the third moment IS the level-3 diagonal (entropy, new angle)
+
+**Not previously connected in the registers**, and the witness for that claim is
+a grep over every `.md` in the repo: `Σ m³` appears in four places as what
+`prop1` needs, `n`-level correlation appears once (W20), and no entry joins
+them.
+
+**The identification.** `N⊛ = Σ_γ H(γ)²` — proved in-repo
+(`N_Nstar_ordinate_functional`, `Nstar_from_profile`) — is the count of
+**coincident pairs**, i.e. the coincidence-diagonal of the 2-level correlation.
+Then `Σ_γ H(γ)³` is the count of **coincident triples**: the same diagonal one
+level up. The level-2 half is witnessed; the level-3 statement is a definition
+here, not yet a theorem.
+
+**Why it is on the critical path.** `Optimal.prop1_LP_optimal` says improving
+Proposition 1 requires leaving the two-moment world, and `ISSUES` #20 names the
+missing object as `Σ m³`. If that object is the level-3 diagonal, then the
+question *"what does the third moment cost?"* becomes *"what does the known
+support range give at level 3?"* — which is exactly the question the project
+already answered at level 2, and which W20 was filed to probe and never run.
+
+**The probe, with its kill condition first:** *if Rudnick–Sarnak-type `n`-level
+results are known only for test-function support strictly inside the range
+where the level-2 result already gives us nothing new, then level 3 inherits
+level 2's corridor problem and buys nothing — and that inheritance is the
+finding.* Needs literature not in the registers; every value must be
+`[RECALL, UNVERIFIED]` until fetched.
+
+## W36 — function fields as a numerical laboratory (entropy, new mode)
+
+`W28`'s model check uses function fields as a *pass/fail* test for the atom
+interface. Nothing in the registers uses them as a **source of data**.
+
+Over `F_q`, the zeros of a curve's zeta function are Frobenius eigenvalues:
+finite in number, computable exactly, and RH is Weil's theorem. So the `offAt`
+coordinate is **identically zero** there — but `H` is not, because repeated
+eigenvalues genuinely occur.
+
+That is a world where the off-line side is empty and the mass side is alive:
+the exact calibration our apparatus has never had. Concretely, it would let us
+compute real `profile`s, check which certified inequalities (`prop1`,
+`six_mul_NscStd_le`, `two_NscStd_le`) are ever tight on genuine arithmetic data,
+and see how far `Nsc` and `NscStd` diverge when crowding is real rather than
+constructed.
+
+**Kill condition, first:** *if repeated Frobenius eigenvalues are too rare in
+small genus to separate the inequalities, the laboratory is underpowered at
+feasible `q` and that is the finding* — a `#27`-shaped answer, and worth knowing
+before anyone builds the harness.

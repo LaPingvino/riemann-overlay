@@ -2192,6 +2192,94 @@ theorem no_starBound_from_lowMult {a : ℝ} (ha : a ≠ 1/2) (k B : ℕ) (hk : 1
   rw [hN, hS]
   nlinarith [Nat.zero_le B, hm]
 
+/-! ### The class impossibility, proved rather than asserted
+
+`093` closed the low-multiplicity thresholds and then *asserted* the general
+form: no statistic of the shape "at least `α` of the zeros are nice" can reach
+`(★)`, whatever "nice" means, provided simple zeros qualify.  Asserting a
+generalisation from a witness is exactly what `S30` cost, so it is proved here.
+
+**Kill condition, filed first:** *if the general statement needs a hypothesis
+beyond "simple atoms count as good", the generalisation is wrong and gets
+downgraded at its location.*  It did not fire — that one hypothesis is all it
+takes. -/
+
+/-- The number of zeros sitting at atoms the predicate `good` accepts.  `good`
+is an arbitrary property of the atom's profile entry `(mass, off-line mass)` —
+the finest local data there is, by `profile_minimal_among_local`. -/
+noncomputable def goodCount (D : ZeroData) (good : ℕ × ℕ → Prop)
+    [DecidablePred good] : ℕ :=
+  ((profile D).map fun q => if good q then q.1 else 0).sum
+
+/-- **No goodness proportion of any kind bounds `N⊛`.**
+
+Let `good` be *any* predicate on atoms whatsoever, subject to the single
+requirement that a simple on-line atom counts as good.  Then for every `B` there
+is a configuration in which at least three quarters of the zeros sit at good
+atoms and `N⊛ > B·N`.
+
+This subsumes `no_starBound_from_proportionStd` (`good q ↔ q.1 - q.2 = 1`) and
+`no_starBound_from_lowMult` (`good q ↔ q.1 ≤ k`), and it explains both: a
+proportion bounds the *good* part from below and leaves the remainder
+unconstrained, while `N⊛` is decided by the remainder. -/
+theorem no_starBound_from_goodness {a : ℝ} (ha : a ≠ 1/2)
+    (good : ℕ × ℕ → Prop) [DecidablePred good] (hgood : good (1, 0)) (B : ℕ) :
+    ∃ D : ZeroData, 3 * D.N ≤ 4 * goodCount D good ∧ B * D.N < D.Nstar := by
+  classical
+  set m := 4 * B + 4 with hm
+  set L : List (ℕ × ℕ) := List.replicate (3 * m) (1, 0) ++ [(m, 0)] with hL
+  have hne : ∀ p ∈ L, p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    rw [hL, List.mem_append] at hp
+    rcases hp with hp | hp
+    · rw [List.eq_of_mem_replicate hp]; norm_num
+    · simp only [List.mem_singleton] at hp
+      rw [hp]; omega
+  have hp := chain_profile ha L hne
+  rw [hL] at hp
+  norm_num [List.map_append, List.map_replicate] at hp
+  have hN : (chain a L).N = 4 * m := by
+    rw [N_from_profile, hp]; simp; try ring
+  have hS : (chain a L).Nstar = 3 * m + m * m := by
+    rw [Nstar_from_profile, hp]; simp; try ring
+  have hG : 3 * m ≤ goodCount (chain a L) good := by
+    rw [goodCount, hp]
+    simp [hgood]
+  refine ⟨chain a L, by omega, ?_⟩
+  rw [hN, hS]
+  nlinarith [Nat.zero_le B, hm]
+
+/-- **`lowMult` is a `goodCount`**, so `no_starBound_from_lowMult` is a genuine
+instance of `no_starBound_from_goodness` and not merely an analogue. -/
+lemma lowMult_eq_goodCount (D : ZeroData) (k : ℕ) :
+    lowMult D k = goodCount D (fun q => q.1 ≤ k) := by
+  classical
+  have key : ((lowMult D k : ℕ) : ℤ) = ((goodCount D (fun q => q.1 ≤ k) : ℕ) : ℤ) := by
+    have e : Multiset.card (D.ordinates.filter fun γ => D.H γ ≤ k) = lowMult D k := by
+      rw [ZeroData.ordinates, Multiset.filter_map, Multiset.card_map, lowMult]
+      rfl
+    rw [← e, card_filter_eq_sum, Finset.sum_multiset_map_count]
+    have hstep : ∀ γ ∈ D.ordinates.toFinset,
+        D.ordinates.count γ • (if D.H γ ≤ k then (1 : ℤ) else 0)
+          = (if D.H γ ≤ k then (D.H γ : ℤ) else 0) := by
+      intro γ _
+      rw [← D.H_eq_count]
+      by_cases h : D.H γ ≤ k
+      · rw [if_pos h, if_pos h]; simp
+      · rw [if_neg h, if_neg h]; simp
+    rw [Finset.sum_congr rfl hstep]
+    have hprof : ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ ≤ k then (D.H γ : ℤ) else 0)
+          = ((profile D).map fun q => if q.1 ≤ k then (q.1 : ℤ) else 0).sum := by
+      rw [profile, Multiset.map_map]
+      rfl
+    rw [hprof, goodCount]
+    push_cast
+    rw [Multiset.map_map]
+    refine congrArg Multiset.sum (Multiset.map_congr rfl fun q _ => ?_)
+    by_cases h : q.1 ≤ k <;> simp [h]
+  exact_mod_cast key
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

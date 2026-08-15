@@ -3919,3 +3919,47 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** the program cannot be reached by any theorem of the
 form "most zeros are well-behaved", because its central quantity is decided
 entirely by the zeros that are not.
+
+
+# SESSION 094 — proving the generalisation `093` asserted
+
+`093` closed the low-multiplicity thresholds and then wrote: *"no statistic of
+the form 'at least `α` of the zeros are nice' can reach `(★)`, whatever 'nice'
+means, as long as being simple qualifies."* That sentence was an **assertion from
+a witness**, which is precisely what `S30` cost. This cycle proves it.
+
+**Kill condition, filed first:** *if the general statement needs a hypothesis
+beyond "simple atoms count as good", the generalisation is wrong and gets
+downgraded at its location.* It did not fire — that one hypothesis is all it
+takes.
+
+`no_starBound_from_goodness` (axiom-free): let `good` be **any** predicate on
+atoms whatsoever, subject only to `good (1, 0)` — a simple on-line atom counts as
+good. Then for every `B` there is a configuration with
+
+> at least three quarters of its zeros at good atoms, and `N⊛ > B·N`.
+
+`good` ranges over predicates on the profile entry `(mass, off-line mass)`, which
+`profile_minimal_among_local` established is the finest local data there is. So
+the theorem is not about a convenient family of statistics; it is about all of
+them.
+
+**And the subsumption is a theorem, not prose.** `lowMult_eq_goodCount` proves
+`lowMult D k = goodCount D (·.1 ≤ k)`, so `093`'s result is a genuine instance
+rather than an analogue, and `091`'s is the instance `good q ↔ q.1 - q.2 = 1`.
+Writing that lemma was the point of the cycle: "subsumes" is exactly the kind of
+word the gate exists to catch.
+
+**What the proof shows about *why*.** The hypothesis used is only that the good
+class contains the simple atom. Nothing else about `good` matters, because the
+witness makes its good part maximally good and hides everything else in a single
+atom. A proportion bounds the good part from below and leaves the remainder
+unconstrained; `N⊛` is decided by the remainder. The mechanism is now visible in
+the statement rather than in a comment.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** every "positive proportion" theorem in this subject is
+structurally incapable of reaching the second moment, and the barrier is not the
+strength of the proportion but the shape of the sentence.

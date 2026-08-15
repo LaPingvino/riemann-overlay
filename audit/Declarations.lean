@@ -219,3 +219,6 @@ import Riemann
 #check @Riemann.starBound_of_multiplicity_le
 #check @Riemann.Blindness.lowMult
 #check @Riemann.Blindness.no_starBound_from_lowMult
+#check @Riemann.Blindness.goodCount
+#check @Riemann.Blindness.no_starBound_from_goodness
+#check @Riemann.Blindness.lowMult_eq_goodCount

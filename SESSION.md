@@ -2997,3 +2997,38 @@ Build green (3757 jobs), one new grade-A row, base hash unmoved.
 that rises with the crowd — every additional pair of zeros at an ordinate adds
 exactly one configuration the instruments cannot exclude, so the harder a place
 is to see into, the more there is in it to miss.
+
+
+# SESSION 074 — the shadow is not everywhere: it lives on the odd atoms
+
+`SESSION 073` counted the orbit; this cycle asks **which of its members the
+invisible row can even reach**, and the answer localises the blindness by half.
+
+**Kill condition, filed before the section was written:** *if some even-mass
+fiber state contributed to `NscStd`, the localisation would fail and the
+blindness would not be confined to odd atoms.* It did not fire.
+
+`config_NscStd` (new, axiom-free): a fiber state `config k j a` contributes
+`if k = 1 then 1 else 0` to `NscStd`. The on-line part is `k` copies of one
+point, so `onAt = k`; the off-line points are excluded by position. Both
+directions are then immediate:
+
+* **`even_mass_NscStd_zero`** — over an even mass every `k = m − 2j` is even,
+  so no state contributes. And `m`'s parity is `μ_T`-visible
+  (`config_parity`), so at an even atom `NscStd`'s contribution is not merely
+  constant across the orbit — it is **determined by `μ_T` alone**.
+* **`odd_mass_NscStd_ambiguous`** — the converse, so the localisation is
+  witnessed both ways: for odd `m ≥ 3`, `config m 0 a` and
+  `config 1 ((m−1)/2) a` share their ordinates and disagree on `NscStd`.
+
+So of the `⌊m/2⌋ + 1` states counted last cycle, the ones that matter for the
+invisible row are confined to **odd masses `≥ 3`**. At `m = 1` there is one
+state and it contributes `1`; at every even mass the contribution is `0` and
+visibly so; the entire `NscStd` shadow is the odd crowd.
+
+Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** half the crowded places were never dark — the
+certificate class can already see that an even pile-up contributes nothing to
+the standard-simple count, and every question about what it cannot see should
+be asked about odd atoms only.

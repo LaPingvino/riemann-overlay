@@ -1264,5 +1264,88 @@ theorem gauge_orbit_size {a : ℝ} (ha : a ≠ 1/2) (m : ℕ) :
   exact ⟨fiber_states_share_ordinates m j₁ j₂ hb₁ hb₂ a,
     fun hne => fiber_states_distinguished ha m j₁ j₂ hb₁ hb₂ hne⟩
 
+
+/-! #### The blindness is confined to *odd* crowded atoms
+
+`gauge_orbit_size` counts the states; this locates which of them the invisible
+row can even reach.  At an atom of mass `m = k + 2j`, `NscStd` counts the atom
+exactly when its on-line part is `k = 1`.  For **even** `m` every state has `k`
+even, so **no** state contributes — and `m`'s parity is `μ_T`-visible
+(`config_parity`).
+
+**Kill condition, stated before the section was written:** *if some even-mass
+state contributed to `NscStd`, the localisation would fail and the blindness
+would not be confined to odd atoms.*  It did not fire.
+
+So the invisible row's ambiguity lives **only on odd atoms of mass `≥ 3`**:
+
+* `m = 1` — one state, contributes `1`. Determined.
+* `m` even — every state contributes `0`. **Determined, and determined by `μ_T`
+  alone**, since parity is visible.
+* `m` odd, `m ≥ 3` — exactly one of the `⌊m/2⌋ + 1` states contributes.
+  **This is the whole shadow.** -/
+
+lemma config_onAt (k j : ℕ) {a : ℝ} (ha : a ≠ 1/2) : onAt (config k j a) 0 = k := by
+  classical
+  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+  show Multiset.card (Multiset.filter (fun p => p.2 = 0 ∧ p.1 = 1/2)
+      (Multiset.replicate k ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate j (a, (0:ℝ))
+          + Multiset.replicate j ((1 - a : ℝ), (0:ℝ))))) = _
+  rw [Multiset.filter_add, Multiset.filter_add,
+    filter_replicate_pos (fun p : ℝ × ℝ => p.2 = 0 ∧ p.1 = 1/2) k ((1/2 : ℝ), (0:ℝ))
+      ⟨rfl, rfl⟩,
+    filter_replicate_neg (fun p : ℝ × ℝ => p.2 = 0 ∧ p.1 = 1/2) j (a, (0:ℝ))
+      (fun h => ha h.2),
+    filter_replicate_neg (fun p : ℝ × ℝ => p.2 = 0 ∧ p.1 = 1/2) j
+      ((1 - a : ℝ), (0:ℝ)) (fun h => ha' h.2)]
+  simp
+
+/-- The `NscStd` contribution of a single fiber state: `1` exactly when its
+on-line part is `1`. -/
+theorem config_NscStd (k j : ℕ) {a : ℝ} (ha : a ≠ 1/2) :
+    (config k j a).NscStd = if k = 1 then 1 else 0 := by
+  classical
+  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+  rw [NscStd_eq_onAt_functional]
+  show Multiset.card (Multiset.filter (fun p => p.1 = 1/2 ∧ onAt (config k j a) p.2 = 1)
+      (Multiset.replicate k ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate j (a, (0:ℝ))
+          + Multiset.replicate j ((1 - a : ℝ), (0:ℝ))))) = _
+  rw [Multiset.filter_add, Multiset.filter_add,
+    filter_replicate_neg (fun p : ℝ × ℝ => p.1 = 1/2 ∧ onAt (config k j a) p.2 = 1)
+      j (a, (0:ℝ)) (fun h => ha h.1),
+    filter_replicate_neg (fun p : ℝ × ℝ => p.1 = 1/2 ∧ onAt (config k j a) p.2 = 1)
+      j ((1 - a : ℝ), (0:ℝ)) (fun h => ha' h.1)]
+  by_cases hk : k = 1
+  · rw [filter_replicate_pos (fun p : ℝ × ℝ => p.1 = 1/2 ∧ onAt (config k j a) p.2 = 1)
+      k ((1/2 : ℝ), (0:ℝ)) ⟨rfl, by rw [config_onAt k j ha]; exact hk⟩, if_pos hk]
+    simp [hk]
+  · rw [filter_replicate_neg (fun p : ℝ × ℝ => p.1 = 1/2 ∧ onAt (config k j a) p.2 = 1)
+      k ((1/2 : ℝ), (0:ℝ)) (by
+        intro h
+        exact hk (by rw [← config_onAt k j ha]; exact h.2)), if_neg hk]
+    simp
+
+/-- **…and on odd atoms of mass `≥ 3` it really is ambiguous** — the converse
+half, so the localisation is witnessed in both directions.  Two states of the
+same odd mass `m ≥ 3` share their ordinates and disagree on `NscStd`. -/
+theorem odd_mass_NscStd_ambiguous (m : ℕ) (hm : m % 2 = 1) (h3 : 3 ≤ m)
+    {a : ℝ} (ha : a ≠ 1/2) :
+    (config m 0 a).ordinates = (config 1 ((m - 1) / 2) a).ordinates
+      ∧ (config m 0 a).NscStd ≠ (config 1 ((m - 1) / 2) a).NscStd := by
+  refine ⟨config_ordinates_eq (by omega) a a, ?_⟩
+  rw [config_NscStd m 0 ha, config_NscStd 1 ((m - 1) / 2) ha,
+    if_neg (by omega : m ≠ 1), if_pos rfl]
+  omega
+
+/-- **Even-mass atoms are determined, and determined by `μ_T` alone.**  Every
+state over an even mass contributes `0` to `NscStd`, and parity is visible
+(`config_parity`) — so the invisible row's ambiguity is confined to **odd**
+atoms of mass `≥ 3`. -/
+theorem even_mass_NscStd_zero (k j : ℕ) {a : ℝ} (ha : a ≠ 1/2)
+    (hk : k ≠ 1) : (config k j a).NscStd = 0 := by
+  rw [config_NscStd k j ha, if_neg hk]
+
 end Blindness
 end Riemann

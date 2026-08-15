@@ -155,3 +155,7 @@ import Riemann
 #check @Riemann.Blindness.fiber_states_share_ordinates
 #check @Riemann.Blindness.fiber_states_distinguished
 #check @Riemann.Blindness.gauge_orbit_size
+#check @Riemann.Blindness.config_onAt
+#check @Riemann.Blindness.config_NscStd
+#check @Riemann.Blindness.odd_mass_NscStd_ambiguous
+#check @Riemann.Blindness.even_mass_NscStd_zero

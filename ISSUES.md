@@ -955,3 +955,25 @@ revision.
 Still open, and deliberately: **there is no vendored copy.** The pin removes the
 "someone else's content" half of the risk; the "someone else's uptime" half
 remains. Vendoring or mirroring is a larger call.
+
+
+## #30 — [bin 3, process] R17 was never applied to the loop's own liveness
+
+The loop stopped at 10:50 and was not noticed until 14:36, because the turn that
+landed `SESSION 056` ended on prose instead of on `ScheduleWakeup`, and the
+closing line then *asserted* the loop was armed.
+
+**This is R17 exactly**, turned on the one system that was never checked: every
+green build got "no witness, no belief" all night; the scheduler got a claim.
+The dropped call is a slip. The asserted state without a check is the defect.
+
+Neither existing guard covers it. `provenance_lint` types mathematical inputs;
+`claims_gate` catches exactness language, and *"the loop is armed"* has none —
+it is a plain factual claim about live state.
+
+**Cheapest fix, not yet built:** any statement about the loop's liveness must
+cite the `ScheduleWakeup` return (which prints the scheduled time) in the same
+turn, or say nothing. That is the two-slot discipline of `claims_gate` applied
+to state claims rather than exactness claims — forward slot: the tool result.
+
+Filed as `SURPRISES` S28. Found by Joop in three words.

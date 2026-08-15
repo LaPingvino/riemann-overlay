@@ -223,3 +223,6 @@ import Riemann
 #check @Riemann.Blindness.no_starBound_from_goodness
 #check @Riemann.Blindness.lowMult_eq_goodCount
 #check @Riemann.Blindness.no_starBound_from_goodness_at_any_level
+#check @Riemann.Blindness.Nstar_add_mul_Nsc_le
+#check @Riemann.starBound_of_multiplicity_and_proportion
+#check @Riemann.starBound_of_multiplicity_two

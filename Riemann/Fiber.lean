@@ -2331,6 +2331,52 @@ theorem no_starBound_from_goodness_at_any_level {a : ℝ} (ha : a ≠ 1/2)
   · rw [hN, hS, hm]
     nlinarith [hc1, Nat.zero_le B]
 
+/-! ### The bare supremum is useless; the supremum *plus the row* is not
+
+`092` showed a multiplicity supremum `M` gives `StarBound M`, useless for `prop1`
+unless `M ≤ 1`.  That is correct about the **bare** supremum.  Combined with a
+lower bound on `Nsc` — which the ledger now certifies — it does much better,
+because the simple atoms cost `1` each rather than `M`.
+
+**Kill condition, filed first:** *if the joint criterion cannot give `C < 2` at
+any `M ≥ 2`, multiplicity control never substitutes for simplicity and `092`'s
+wall is total.*  **It did not fire — `M = 2` suffices.** -/
+
+/-- **`N⊛ + M·Nsc ≤ (1 + M)·N`** for any multiplicity supremum `M`.
+
+Per atom: `H² + M·[H = 1] ≤ H + M·H`, with equality at `H = 1` and slack
+`H(M − H)` above.  Dividing by `N`: `C ≤ 1 + M·(1 − Nsc/N)` — the simple atoms
+are charged `1`, not `M`, and a certified `Nsc` row therefore buys down the star
+constant. -/
+theorem Nstar_add_mul_Nsc_le (D : ZeroData) (M : ℕ) (h : ∀ γ, D.H γ ≤ M) :
+    D.Nstar + M * D.Nsc ≤ (1 + M) * D.N := by
+  classical
+  have key : (D.Nstar : ℤ) + M * D.Nsc ≤ (1 + M) * D.N := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    have hS0 : D.Nstar = ∑ γ ∈ D.ordinates.toFinset, D.H γ * D.H γ :=
+      Nstar_eq_sum_H_sq D
+    have hS : (D.Nstar : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ) * (D.H γ : ℤ)) := by
+      rw [hS0, Nat.cast_sum]; push_cast; rfl
+    rw [hS, hB, hN, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun γ _ => ?_
+    have hHM : (D.H γ : ℤ) ≤ (M : ℤ) := by exact_mod_cast h γ
+    have hH0 : (0 : ℤ) ≤ (D.H γ : ℤ) := Int.natCast_nonneg _
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, hone]
+      push_cast
+      ring_nf
+      nlinarith [hHM, hH0]
+    · rw [if_neg hone]
+      nlinarith [hHM, hH0]
+  exact_mod_cast key
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros
@@ -2358,9 +2404,16 @@ theorem Nstar_le_of_multiplicity_le (D : ZeroData) (M : ℕ)
     rfl
   omega
 
-/-- **…and the constant is `M`, so the bound is useless for `prop1`.**  `prop1`
-needs `C < 2`; over the naturals `M < 2` forces `M ≤ 1`, i.e. every ordinate
-carries at most one zero — which is what the program is trying to *prove*.
+/-- **…and the constant is `M`, so the *bare* bound is useless for `prop1`.**
+`prop1` needs `C < 2`; over the naturals `M < 2` forces `M ≤ 1`, i.e. every
+ordinate carries at most one zero — which is what the program is trying to
+*prove*.
+
+⚠️ **Scope corrected at this location (SESSION 096).**  "Useless" is right about
+the supremum *alone* and wrong about the supremum *plus a certified `Nsc` row*:
+`Nstar_add_mul_Nsc_le` charges simple atoms `1` instead of `M`, giving
+`C ≤ 1 + M(1 − κ)`, which is `< 2` already at `M = 2`.  See
+`starBound_of_multiplicity_two`.
 
 So `(★)`'s constant is not a supremum.  `Nstar_eq_sum_H_sq` says what it is:
 `N⊛/N = Σ H² / Σ H`, the **size-biased mean multiplicity**.  That sits strictly

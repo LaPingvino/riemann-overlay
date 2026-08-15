@@ -428,3 +428,33 @@ not spend a literature probe on a question that cannot change a number.
 *Ruling for Joop: delete `baseline_przz` (declared surface 9 → 8) or keep it as
 the record of an independent literature result, which matters only if the
 zeta-23 baseline is ever retracted. Not taken unilaterally.*
+
+
+## `(★)` from multiplicity alone (SESSION 096)
+
+`092` priced a multiplicity supremum `M` as worthless: it gives `StarBound M`,
+and `prop1` needs `C < 2`, so `M ≤ 1` — simplicity, the conclusion.
+
+**That pricing was for the bare supremum, and it is wrong for the combination.**
+`Nstar_add_mul_Nsc_le` charges a simple atom `1` rather than `M`, so a certified
+`Nsc` row buys the constant down:
+
+> `C ≤ 1 + M·(1 − κ)`
+
+At the ledger's `κ = 0.50875` this is `< 2` **as soon as `M = 2`**. So:
+
+> **If no zero of `ζ` has multiplicity three or more, `(★)` holds** with
+> `C ≤ 1.9825`, unconditionally otherwise.
+
+**What it is worth, stated plainly.** Through `prop1` this yields
+`Proportion 0.0175` — far worse than the `0.50875` already certified, so it buys
+**nothing** on the headline row. Its value is that `(★)` is what Routes I and III
+exist to produce, and `(★)` feeds `offline_le` and the narrow box, neither of
+which the `Nsc` row reaches. A hypothesis strictly weaker than RH-simplicity now
+closes the program's central gap.
+
+**And the exchange rate is now explicit:** every point of the `Nsc` row buys `M`
+points of star constant. At `κ = 2/3` the criterion would reach `M = 2` with room
+to spare; at `κ → 1` it reaches any fixed `M`. So improving the `Nsc` row and
+bounding multiplicities are the *same* purchase seen from two ends — which is a
+connection the route table did not have.

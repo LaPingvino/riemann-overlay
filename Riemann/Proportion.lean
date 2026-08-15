@@ -120,6 +120,28 @@ theorem certified_nsc_via_offline : zetaFamily.toCounts.Proportion 0.50875 := by
   have e : (0.6725 : ℝ) - 0.3275 / 2 = 0.50875 := by norm_num
   rwa [e] at h
 
+/-- **`(★)` follows from "no zero has multiplicity ≥ 3".**
+
+`starBound_of_multiplicity_and_proportion` at `M = 2` and the certified row
+`κ = 0.50875` gives `C ≤ 1 + 2·(1 − 0.50875) = 1.9825 < 2`.
+
+This is the first sufficient condition for `(★)` in the registers that does not
+assume the conclusion: a multiplicity-`≤ 2` hypothesis is strictly weaker than
+simplicity, and it is carried as a hypothesis here, never as an axiom.
+
+**Candour about what it is worth.** Through `prop1` it yields
+`Proportion (2 − 1.9825) = 0.0175`, which is **far worse** than the `0.50875`
+already certified unconditionally. The value is not the proportion — it is that
+`(★)` itself, which Routes I and III exist to obtain, drops out of a hypothesis
+about multiplicities alone. `(★)` feeds `offline_le` and the narrow box, and
+those are not reachable from the `Nsc` row directly. -/
+theorem starBound_of_multiplicity_two
+    (hM : ∀ T γ, (zetaFamily.D T).H γ ≤ 2) :
+    zetaFamily.toCounts.StarBound 1.9825 := by
+  have h := starBound_of_multiplicity_and_proportion hM certified_nsc_unconditional
+  have e : (1 : ℝ) + ((2 : ℕ) : ℝ) * (1 - 0.50875) = 1.9825 := by norm_num
+  rwa [e] at h
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

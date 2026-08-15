@@ -4010,3 +4010,51 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 — any theorem short of "all zeros are good" leaves room for a single ordinate to
 carry the entire second moment, so the subject's whole vocabulary of positive
 proportions stops exactly one step short of the quantity it needs.
+
+
+# SESSION 096 — the supremum is not useless once the row is paid for
+
+`092` priced a multiplicity supremum as worthless for `prop1`: it gives
+`StarBound M`, and `C < 2` forces `M ≤ 1`, which is simplicity. That pricing is
+correct for the **bare** supremum and wrong for the combination with the `Nsc`
+row the ledger has carried since `084`.
+
+**Kill condition, filed first:** *if the joint criterion cannot give `C < 2` at
+any `M ≥ 2`, multiplicity control never substitutes for simplicity and `092`'s
+wall is total.* **It did not fire — `M = 2` suffices.**
+
+`Nstar_add_mul_Nsc_le` (new, axiom-free): `N⊛ + M·Nsc ≤ (1 + M)·N` for any
+multiplicity supremum `M`. Per atom it is `H² + M·[H = 1] ≤ H + M·H`, equality at
+`H = 1`. The content is that **a simple atom is charged `1`, not `M`** — which is
+exactly what a certified `Nsc` row pays for. Dividing by `N`:
+
+> `C ≤ 1 + M·(1 − κ)`
+
+and at `M = 2`, `κ = 0.50875` that is `1.9825 < 2`
+(`starBound_of_multiplicity_two`).
+
+> **If no zero of `ζ` has multiplicity three or more, `(★)` holds.**
+
+That is the first sufficient condition for `(★)` in the registers which does not
+assume the conclusion — strictly weaker than simplicity, carried as a hypothesis
+and never as an axiom.
+
+**Candour about its worth.** Through `prop1` it gives `Proportion 0.0175`, far
+below the `0.50875` already certified. It buys **nothing** on the headline row.
+Its value is that `(★)` feeds `offline_le` and the narrow box, which the `Nsc`
+row does not reach, and that Routes I and III exist entirely to produce it.
+
+`092`'s docstring is corrected at its location: "useless" now reads "the *bare*
+bound is useless", with a pointer here.
+
+**And it connects two purchases the route table kept apart.** Every point of the
+`Nsc` row buys `M` points of star constant, so improving the row and bounding
+multiplicities are the same transaction from opposite ends.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the program's central hypothesis is now reachable from
+a statement about multiplicities that is weaker than anything it was trying to
+prove, and the reason nobody saw it is that the two ingredients were priced in
+different cycles and never multiplied together.

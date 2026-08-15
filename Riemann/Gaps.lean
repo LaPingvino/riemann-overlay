@@ -221,6 +221,39 @@ theorem starBound_of_multiplicity_le {F : Family} {M : ℕ}
   show F.Ns T ≤ ((M : ℝ) + ε) * F.Nz T
   nlinarith [hb, hnn]
 
+/-- **A multiplicity supremum, *plus* a certified `Nsc` row, gives a useful star
+bound.**  `starBound_of_multiplicity_le` charges every zero `M`; this charges the
+simple ones `1`, which is what the ledger's row pays for:
+
+> `C ≤ 1 + M·(1 − κ)`.
+
+At `M = 2` and the certified `κ = 0.50875` this is `C ≤ 1.9825 < 2` — so
+**"no zero of `ζ` has multiplicity three or more" already implies `(★)`**, a
+hypothesis strictly weaker than simplicity and the first sufficient condition for
+`(★)` in the registers that does not assume the conclusion. -/
+theorem starBound_of_multiplicity_and_proportion {F : Family} {M : ℕ} {κ : ℝ}
+    (hM : ∀ T γ, (F.D T).H γ ≤ M) (hp : F.toCounts.Proportion κ) :
+    F.toCounts.StarBound (1 + M * (1 - κ)) := by
+  intro ε hε
+  have hδ : 0 < ε / (M + 1) := by positivity
+  filter_upwards [hp _ hδ, F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hNsc : (κ - ε / (M + 1)) * F.Nz T ≤ F.Nsc T := by
+    have h' : κ - ε / (M + 1) ≤ F.Nsc T / F.Nz T := hT
+    rw [le_div_iff₀ hpos'] at h'
+    exact h'
+  have hbase : F.Ns T + M * F.Nsc T ≤ (1 + M) * F.Nz T := by
+    have := Blindness.Nstar_add_mul_Nsc_le (F.D T) M (hM T)
+    unfold Family.Ns Family.Nsc Family.Nz
+    exact_mod_cast this
+  have hM1 : (0 : ℝ) < M + 1 := by positivity
+  have hkey : (M : ℝ) * (ε / (M + 1)) ≤ ε := by
+    rw [mul_div_assoc'] at *
+    rw [div_le_iff₀ hM1]
+    nlinarith [hε.le]
+  show F.Ns T ≤ (1 + M * (1 - κ) + ε) * F.Nz T
+  nlinarith [hNsc, hbase, hpos', hkey]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

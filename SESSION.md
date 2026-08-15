@@ -4740,3 +4740,49 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 its five guards but the habit of re-reading the previous cycle before starting
 the next, because the errors that survive everything else are the ones where the
 prose is one quantifier ahead of the proof.
+
+
+# SESSION 113 — an instrument built, calibrated, and failed
+
+`S38` recorded that quantifier drift has now been caught twice by re-reading and
+never by an instrument. The honest response to a defect that recurs is to build
+the detector, so this cycle built it.
+
+**Kill condition, filed first:** *if the detector does not fire on `S37`'s and
+`S38`'s own sentences, it does not detect the defect it was built for and I do
+not ship it.* **It fired.**
+
+`forensics/scope_gate.py` looks for the shape both failures share: a **universal**
+sentence citing an **existential** theorem. An existential exhibits one object; a
+universal ranges over all of them; the step between is where both errors lived.
+It reads real declaration types out of `audit/Declarations.lean` via `lake`, and
+refuses to report a pass when `lake` is unavailable.
+
+**Calibration: 0 of 2.** It fires on neither sentence it was designed for.
+
+**And the reason is the finding.** Both sentences drift *by dropping the
+citation*. The prose generalises away from the theorem and stops naming it — the
+name stays in an adjacent paragraph. So the signature I designed for is the one
+shape the defect never has. Widening to paragraph or section scope over-fires
+immediately: every session entry contains universal prose and existential
+witnesses by construction.
+
+Its single live flag — `Capacity.reweighting_worst_case`, where the prose says a
+worst case is "attained" — is a false positive, and correctly so: attainment
+*is* an existential claim, and saying so is not drift.
+
+**Verdict.** The file is kept and its docstring rewritten to say it failed, why,
+and not to rebuild it. It is not registered as a guard and its output must not be
+quoted. The control for this defect class remains re-reading the previous cycle
+before starting the next — which caught `S37` and `S38` both, and is the only
+thing that has.
+
+Logged as `S39`: I expected the defect to be lintable, and building the linter is
+what showed it is not.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** a failure mode that hides by removing its own evidence
+cannot be caught by looking at the evidence, which is why this project's most
+effective guard is a habit rather than a script.

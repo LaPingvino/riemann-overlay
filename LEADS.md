@@ -1304,3 +1304,28 @@ polynomial.
 **Live remainder:** the level-3 *correlation* may still matter elsewhere — this
 kills its use as a third moment in a linear bound on `Nsc`, which is the only
 consumer W35 named. Any other consumer needs its own pricing.
+
+
+### W28 gains a third audit column: constitutive vs merely used (E24)
+
+The interface's audit has asked two questions of each candidate axiom: does `ζ`
+satisfy it, and does it help. E24 adds a third:
+
+> **Is this axiom part of what `ζ` *is*?** Checkable against the Hamburger /
+> Kaczorowski–Perelli shelf: *does dropping it admit known non-`ζ` satisfiers?*
+
+D–H answers that question for the current `ZeroData` axioms — functional
+equation plus counting admits D–H, so those axioms are **not** constitutive, and
+`Blindness.lean` already says so in its opening indictment.
+
+**And W32's result sharpens what this column can be worth.** The atom bundles
+classify `3/11` of the census; the other eight are information, capacity and
+logic limits. A constitutive axiom set would have to speak to the eight, and
+nothing in M or S does. **The rigidity criterion is therefore not a refinement
+of the bundles — it is a different demand on them**, and W28's whiteboard hour
+should treat it as such rather than as an extra checkbox.
+
+Cast members `[RECALL, UNVERIFIED]`: Hamburger 1921; Kaczorowski–Perelli on
+Selberg-class low degree. A converse-theorem survey (Hecke, Weil converse
+theorems, higher degree) is offered by claude.ai on request — the field's
+existing rigidity inventory, never priced in our currency.

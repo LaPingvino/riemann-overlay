@@ -2649,3 +2649,56 @@ times by three unrelated criteria and got the same partition every time, which
 is either a very robust fact about the census or a very stable fact about the
 sorter — and the five theorem-backed rows are the only reason to believe the
 first.
+
+
+# SESSION 066 — E24: the fourth approach, and one correction at the point of use
+
+Joop's question *"why are the zeros not bothered?"*, pursued literally, turns
+out to name a proof shape: **rigidity** — that the moduli space of objects like
+`ζ` is a point. Filed as **E24**, with the E22/E23 merger it forces.
+
+**And it is the only shape that has ever killed a Riemann Hypothesis.**
+Weil/Deligne did not locate the Frobenius eigenvalues; the geometry **forced**
+the weights. The *why* was the proof.
+
+**Two cast members are already theorems** `[RECALL, UNVERIFIED]`: Hamburger 1921
+(`ζ` determined by its functional equation plus analytic conditions) and
+Kaczorowski–Perelli (Selberg degree `0 < d < 1` empty, degree `1` exactly `ζ`
+and shifts). **The negative control is ours and it is in the repo:**
+`Blindness.lean` opens by stating that **Davenport–Heilbronn *is* a
+`ZeroData`** — so functional equation plus counting is provably *not* rigid, and
+D–H is promoted from testbed column to the programme's **anti-rigidity
+control**.
+
+**⚠️ One correction, made at the point of use.** The dispatch attributes to W7
+the certified claim that *"the Euler product is the only expensive
+constraint."* **It is not certified.** `CLAIMS.md` carries W7 in two rows: the
+precise part — multiplicity bounds are vacuous — is grade **A**
+(`prop1_LP_optimal_cheap`); the general claim is grade **C**, its class still
+informal, explicitly **not a bound**. It remains the best candidate answer to
+*what leaves no room*; it is not a proved one, and that difference is the entire
+subject of `CLAIMS.md`.
+
+**The substantive upgrade: the constitutive criterion.** E22 asked for axioms
+*sufficient* for RH; E24 asks for axioms that are **constitutive** — sound,
+**characterising** (Hamburger-style), and forcing. `(1)+(3)` certifies;
+`(1)+(2)+(3)` explains, and the cash-out is not aesthetic: **explanatory proofs
+transfer.** A constitutive set forcing RH would be a schema for the Selberg
+class, as Deligne's argument covered every variety while Weil positivity covers
+nothing beyond its own equivalence.
+
+**The merger.** The atom is the *why* as axioms; the ladder is the *why* as the
+impossibility of everything why-less — each rung certifies its class **leaves
+room**. One approach, two directions, meeting at the constitutive axiom set.
+
+**And W32, one cycle old, sharpens what the new column can be worth.** The atom
+bundles classify `3/11` of the census; the other eight are information, capacity
+and logic limits. A constitutive axiom set would have to speak to the eight, and
+nothing in M or S does — **so rigidity is not a refinement of the bundles but a
+different demand on them**, and W28's whiteboard hour should treat it that way
+rather than as an extra checkbox.
+
+**Might-mean, unhedged:** the project spent two days proving what its
+instruments cannot see, and the answer to *why the zeros are not bothered* is
+that nothing was ever asking them — which reframes every impossibility on the
+board as a report about the asker.

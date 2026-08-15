@@ -373,3 +373,89 @@ misread): the theorem certifies that the *functional* discriminates. It does
 precision. That is census `#1`, untouched. What changed is that the acceptance
 test now has a **known-passing calibration input**, so W28's whiteboard hour
 type-checks candidates against a live example instead of a specification.
+
+## E24. The zeros are unbothered because they are corollaries.
+
+Filed from claude.ai's dispatch, itself from Joop's question *"why are the zeros
+not bothered?"* pursued literally rather than rhetorically.
+
+**The claim, formalised.** *"The zeros could not be otherwise"* is the proof
+shape called **rigidity**: that the moduli space of objects like `ζ` is a point,
+with no deformation parameter along which a counterexample could live.
+
+**And this is the only shape that has ever killed a Riemann Hypothesis.**
+Weil/Deligne did not locate the Frobenius eigenvalues; they proved the geometry
+**forces** the weights. The *why* was the proof.
+
+### Cast members already on the shelf — theorems, not fiction
+
+**[RECALL, UNVERIFIED]** — supplied by claude.ai, not read here:
+
+* **Hamburger 1921**: `ζ` is determined by its functional equation plus basic
+  analytic conditions. The rigidity genre is a century old and nonempty *for `ζ`
+  itself*.
+* **Kaczorowski–Perelli** (Selberg class, low degree): degree `0 < d < 1` is
+  **empty**; degree `1` is exactly `ζ` and its shifts. Near `ζ` the moduli space
+  is a point, provably.
+
+**And the negative control is ours, and it is in the repo.**
+Davenport–Heilbronn has the functional equation, the counting, the reflection
+symmetry — and off-line zeros. `Blindness.lean` states it as the indictment of
+`ZeroData`: **D–H *is* a `ZeroData`**. So *"functional equation + counting"* is
+provably **not rigid**; that axiom set has room, and D–H lives in the room.
+
+> **D–H is promoted from testbed column to the programme's anti-rigidity
+> control.**
+
+### ⚠️ Correction to the dispatch, at the point of use
+
+The dispatch says the room-filler is *"what D–H lacks — which W7 already
+certified: the Euler product is the only expensive constraint."*
+
+**W7-general is grade `C`, not certified.** `CLAIMS.md` carries two W7 rows: the
+*precise* part — multiplicity bounds cannot tighten `C`
+(`Optimal.prop1_LP_optimal_cheap`, grade **A**) — and the *general* claim, *"no
+free classical invariant of any kind"*, whose class is still informal and which
+is **grade C and not a bound**. The Euler-product sentence is the general one.
+
+It remains the best candidate answer to *what leaves no room*. It is not a
+certified one, and the difference is the whole subject of `CLAIMS.md`.
+
+### The constitutive criterion — the substantive upgrade to E22
+
+The atom programme asked for axioms **sufficient** for RH. The fourth approach
+demands axioms that are **constitutive**:
+
+1. provably instantiated by `ζ` (soundness);
+2. provably **characterising** `ζ`, Hamburger-style — nothing else satisfies
+   them, or the satisfiers form a classified family (**rigidity**);
+3. jointly forcing the zeros.
+
+`(1)+(3)` certifies; `(1)+(2)+(3)` **explains** — and the cash-out is not
+aesthetic: **explanatory proofs transfer.** A constitutive axiom set forcing RH
+would be a proof-schema for the Selberg class, exactly as Deligne's argument
+covered every variety while Weil positivity covers nothing beyond its own
+equivalence.
+
+### The merger: E22 and E23 are one approach, two directions
+
+The **atom** is the *why* stated as axioms. The **ladder** is the *why* stated
+as the impossibility of everything why-less — each rung certifies that its class
+**leaves room** (two-model arguments: the gauge pair, D–H, forcing-style). They
+meet at the constitutive axiom set.
+
+`E23m` accordingly gains the reading: **each rung certifies non-rigidity of its
+class.**
+
+### The honest boundary, kept
+
+Necessity and provability are different — the integers are categorical while
+provability is incomplete, and the gap is exactly where E23's ladder climbs. No
+amount of essence-talk closes it for free. What the fourth approach changes is
+the **target** of formalisation: not the zeros' location but `ζ`'s identity,
+with the location as corollary. Weil's precedent says that order of operations
+is not a detour; it is the only route that has arrived.
+
+*The poetry, to be written when earned: the zeros are unbothered because they
+are corollaries, and the proof will consist of saying what they are corollaries
+**of**, completely enough that nothing is left for them to decide.*

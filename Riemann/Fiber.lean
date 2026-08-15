@@ -1068,5 +1068,69 @@ theorem ledger_visibility_split :
     exact no_muInvariant_bundle_computes_Noff (fun _ => True) (fun _ _ _ => Iff.rfl)
       (a := 1/4) (by norm_num) (Or.inl trivial) ⟨f, fun D _ => hf D⟩
 
+
+/-! #### The third moment cannot help — an exact obstruction
+
+W35 proposed supplying `Σ m³` to beat `prop1`.  claude.ai's LP analysis showed
+the certified value would be `(2 − C) + s·(3C − 2 − C₃)` for a free parameter
+`s ≥ 0`, so the third moment helps **iff** `C₃ < 3C − 2`.
+
+That condition is never satisfiable, and the reason is an identity:
+
+    3·N⊛ − 2·N − Σm³  =  − Σ_atoms m(m−1)(m−2)
+
+and `m(m−1)(m−2) ≥ 0` for every natural `m`, with equality exactly when
+`m ≤ 2`.  So `Σm³ ≥ 3N⊛ − 2N` for **every** configuration, the improvement
+term `3C − 2 − C₃` is `≤ 0` always, and the optimum sits at `s = 0` — which is
+`prop1` unchanged.
+
+**The third moment buys nothing for this route.**  Not "not yet"; the
+obstruction is an inequality true of all configurations, so no supplier — RS,
+Fujii, Tsang — can change it.
+
+Note what the obstruction is made of.  `m(m−1)(m−2)` vanishes at `m ≤ 2` and is
+**6** at `m = 3`: the same `6` as `six_mul_NscStd_le`.  The third moment carries
+information about atoms of mass `≥ 3` and nothing else, and it carries it in the
+direction that costs. -/
+
+/-- `3h² ≤ h³ + 2h` for every natural `h` — the pointwise form of
+`m(m−1)(m−2) ≥ 0`. -/
+private lemma three_sq_le_cube_add_two (h : ℕ) : 3 * h * h ≤ h * h * h + 2 * h := by
+  rcases Nat.lt_or_ge h 3 with hlt | hge
+  · interval_cases h <;> norm_num
+  · nlinarith [hge]
+
+lemma N_eq_sum_H (D : ZeroData) :
+    D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+  classical
+  have h2 : ∀ γ ∈ D.ordinates.toFinset, D.H γ = D.ordinates.count γ :=
+    fun γ _ => D.H_eq_count γ
+  rw [Finset.sum_congr rfl h2, Multiset.toFinset_sum_count_eq,
+    (ZeroData.N_Nstar_ordinate_functional D).1]
+
+lemma Nstar_eq_sum_H_sq (D : ZeroData) :
+    D.Nstar = ∑ γ ∈ D.ordinates.toFinset, D.H γ * D.H γ := by
+  classical
+  have h2 : D.Nstar = (D.ordinates.map fun γ => D.H γ).sum := by
+    rw [ZeroData.Nstar, ZeroData.ordinates, Multiset.map_map]
+    rfl
+  rw [h2, Finset.sum_multiset_map_count]
+  refine Finset.sum_congr rfl fun γ _ => ?_
+  rw [← D.H_eq_count γ, smul_eq_mul]
+
+/-- **The exact obstruction: `Σm³ ≥ 3N⊛ − 2N`, for every configuration.**
+
+Hence `C₃ ≥ 3C − 2` always, the three-moment LP's improvement term is never
+positive, and the optimum stays at `prop1`'s `2 − C`.  No level-3 supplier can
+move this route. -/
+theorem three_Nstar_le_thirdMoment_add_two_N (D : ZeroData) :
+    3 * D.Nstar ≤ thirdMoment D + 2 * D.N := by
+  classical
+  rw [N_eq_sum_H, Nstar_eq_sum_H_sq, thirdMoment, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ _ => ?_
+  have := three_sq_le_cube_add_two (D.H γ)
+  linarith [this]
+
 end Blindness
 end Riemann

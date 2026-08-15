@@ -141,3 +141,6 @@ import Riemann
 #check @Riemann.Blindness.thirdMoment_determined
 #check @Riemann.Blindness.moment_determined
 #check @Riemann.Blindness.ledger_visibility_split
+#check @Riemann.Blindness.N_eq_sum_H
+#check @Riemann.Blindness.Nstar_eq_sum_H_sq
+#check @Riemann.Blindness.three_Nstar_le_thirdMoment_add_two_N

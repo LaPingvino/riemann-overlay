@@ -1272,3 +1272,35 @@ anything certified.
 
 `forensics/three_moment_lp.py` carries the verification and the verdict.
 Filed as `SURPRISES` S29.
+
+### W35 — DEAD, with a certificate. The third moment cannot help.
+
+**Kill condition:** *if the three-moment optimum is still `2 − C`, the third
+moment buys nothing and W35 dies cheaply.* **It fired**, and the obstruction is
+exact rather than circumstantial.
+
+claude.ai's LP gives certified value `(2 − C) + s·(3C − 2 − C₃)`, so the third
+moment helps **iff** `C₃ < 3C − 2`. That is never satisfiable, by an identity:
+
+> `3N⊛ − 2N − Σm³ = − Σ_atoms m(m−1)(m−2)`, and `m(m−1)(m−2) ≥ 0` for every
+> natural `m`.
+
+Hence **`Σm³ ≥ 3N⊛ − 2N` for every configuration**
+(`Fiber.three_Nstar_le_thirdMoment_add_two_N`, axiom-free), the improvement term
+is `≤ 0` always, and the optimum sits at `s = 0` — `prop1` unchanged.
+
+**This kills the route, not the probe's timing.** No supplier can change an
+inequality true of all configurations: RS, Fujii, Tsang are all irrelevant to
+it. **The pricing was worth doing precisely because it cost nothing and the
+literature fetch it pre-empted would have cost a session.**
+
+**What the obstruction is made of, and it is not a coincidence.**
+`m(m−1)(m−2)` vanishes at `m ≤ 2` and equals **6** at `m = 3` — the same `6` as
+`six_mul_NscStd_le`. The third moment carries information about atoms of mass
+`≥ 3` and nothing else, and it carries it in the direction that costs. The
+project's `/6` census result and this obstruction are two readings of one
+polynomial.
+
+**Live remainder:** the level-3 *correlation* may still matter elsewhere — this
+kills its use as a third moment in a linear bound on `Nsc`, which is the only
+consumer W35 named. Any other consumer needs its own pricing.

@@ -2426,3 +2426,47 @@ proved from two configurations that are both realizable.
 detector — it says the constraint set and the input set disagree about which
 world they describe, and this one found that disagreement in a quantity two
 instances had already agreed to price.
+
+
+# SESSION 061 — W35 dies with a certificate: the third moment cannot help
+
+**Kill condition, stated first:** *if the three-moment optimum is still `2 − C`,
+the third moment buys nothing and W35 dies cheaply.* **It fired.**
+
+Last cycle left the LP unbounded and named the missing piece: the realizable
+region of `(C, C₃)` over integer masses. Computing it answers the whole question
+in one identity:
+
+> `3N⊛ − 2N − Σm³ = − Σ_atoms m(m−1)(m−2)`
+
+and `m(m−1)(m−2) ≥ 0` for every natural `m`. So `Σm³ ≥ 3N⊛ − 2N` for **every**
+configuration; the improvement term `3C − 2 − C₃` is never positive; the LP
+optimum sits at `s = 0`, which is `prop1` unchanged.
+
+`three_Nstar_le_thirdMoment_add_two_N`, axiom-free, with `N_eq_sum_H` and
+`Nstar_eq_sum_H_sq` as the two regrouping lemmas it needed.
+
+**The route is dead, not deferred.** No supplier can change an inequality true
+of all configurations — RS, Fujii and Tsang are equally irrelevant to it. And
+the pricing cost one cycle while the literature fetch it pre-empted would have
+cost a session: **the inward-pricing-before-outward-reading ordering paid on its
+first use.**
+
+**The obstruction is the project's own `6`.** `m(m−1)(m−2)` vanishes at `m ≤ 2`
+and equals `6` at `m = 3` — the same `6` as `six_mul_NscStd_le`. The third
+moment sees atoms of mass `≥ 3` and nothing else, and sees them in the direction
+that costs. The `/6` census result and this obstruction are two readings of one
+polynomial, which is the first time two of this project's results have turned
+out to be the same fact.
+
+**Live remainder, stated so the death is not overread:** this kills the level-3
+diagonal's use as a third moment in a *linear bound on `Nsc`* — the only
+consumer W35 named. The level-3 correlation may matter to some other consumer;
+that consumer would need its own pricing.
+
+No `SURPRISES` row: the kill condition fired as stated and nothing I asserted
+was overturned.
+
+**Might-mean, unhedged:** the quantity that would have improved the bound is
+identically the quantity that measures crowded atoms, so the route asked the
+zeros to be simple by paying attention to exactly the places they are not.

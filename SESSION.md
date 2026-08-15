@@ -2470,3 +2470,48 @@ was overturned.
 **Might-mean, unhedged:** the quantity that would have improved the bound is
 identically the quantity that measures crowded atoms, so the route asked the
 zeros to be simple by paying attention to exactly the places they are not.
+
+
+# SESSION 062 — List F filed, and F4 died on arrival by its own kill condition
+
+claude.ai's fourth register: **fictions**, derivations narrated as if they
+existed, each naming the cast that would have to be hired. Filed as `F.md` with
+the protocol intact — never killed, converted to a rung when a cast is proven
+impossible.
+
+**F4 arrived flagged "may not be fiction" and its kill condition fired
+immediately, twice, without a paper.**
+
+The fiction: the gate's power-requirement is an artifact of sharp cutoffs, so
+Cesàro-weighted shift averages would drop amplification from `h` to `h^ε`.
+
+1. **The premise is already false in our own record.** `ISSUES` #27 states the
+   weight as `Σ_{|k|<h}(h−|k|)`. **That is the Fejér/Cesàro weight.** The
+   smoothing the fiction proposes adding was in the derivation from the start.
+2. **And no shape helps.** With per-shift absolute bounds `|E_k| ≤ E`, the total
+   error is `Σ w_k|E_k| ≤ E·Σw_k`, and the main term fixes `Σw_k ≈ h²` for every
+   admissible weight. Checked for Fejér, flat and Gaussian: same total mass,
+   same `h²E`, whatever the sup or profile.
+
+**So `#27` strengthens from *"MRT is too weak"* to *"no reweighting of the GM
+identity can be strong enough"*** — annotated at its own location, per the
+ordering rule. Per the F-protocol, F4 converts to a rung: a ceiling theorem for
+the class of shape-modified GM bridges.
+
+**The live remnant is not smoothing but cancellation.** The one escape left is
+correlated control across shifts rather than per-shift absolute bounds — which
+is precisely F5's existing cast (a large-sieve inequality for Landau sums). F4's
+remnant is absorbed there rather than kept as a separate item.
+
+**Scope, stated:** this argues from the *recorded* derivation, which is itself
+`[RECALL]` from Goldston's survey §9. If that is misrecorded, the conversion
+inherits the error. Not a Lean theorem.
+
+Two other annotations while filing: F1's hardest cast member has a proved
+special case (`landau_discriminates` is the one-point off-line evaluation), and
+F2 should be read against `SESSION 061` — the third moment provably cannot help,
+so F2 asks whether the full moment sequence does what no finite prefix can.
+
+**Might-mean, unhedged:** a register of things that are not true earned its keep
+in the hour it was created, because narrating a route one theorem past its
+terminus is the fastest way to discover the terminus was load-bearing.

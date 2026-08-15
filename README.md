@@ -32,6 +32,9 @@ Riemann/Proportion.lean   the fitness function                 certified vs conj
   not live in this repository (the operator, the two instances, the seam between
   them), followed by a verification appendix that audits its own claims against
   these files and records the one that had to be corrected.
+* **`F.md`** — the fictions: derivations narrated as if they existed, each
+  naming the cast that would have to be hired for the story to compile. A
+  fiction whose cast is proven impossible converts to a rung.
 * **`CLAIMS.md`** — every class-impossibility assertion ("no member of class `C`
   can do `X`"), graded **A** certified / **B** certifiable-but-prose / **C**
   class-undefined. Anything cited as a bound must be grade A.

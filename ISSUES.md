@@ -844,6 +844,16 @@ it. That does not weaken W27's T3 — it makes T3 **the only game**: the
 sign-changing window's domain is the whole corridor, and corridor walls are its
 only possible fuel.
 
+**STRENGTHENED (2026-08-15, `F.md` F4).** The weight `(h−|k|)` above **is** the
+Fejér/Cesàro weight, so there is no sharp window to smooth away. And no weight
+of any shape helps: with per-shift absolute bounds `|E_k| ≤ E`, the total error
+is `Σ w_k|E_k| ≤ E·Σw_k`, and the main term fixes `Σw_k ≈ h²` for every
+admissible weight — checked numerically for Fejér, flat and Gaussian profiles,
+all giving the same `h²E`. So `#27` upgrades from *"MRT is too weak"* to **"no
+reweighting of the GM identity can be strong enough"**. The only escape the
+argument leaves is **cancellation between shifts**, which is a correlated-error
+question, not a window question (`F.md` F5).
+
 **Process note (in-cycle, twice):** my first amplification check printed "OK" at
 `X = 10³⁰` — a small-numbers illusion, since `X^θ` overtakes `(log X)^{A+1}`
 only past `10¹⁰⁰`. Caught by asking for the asymptotic statement instead of a

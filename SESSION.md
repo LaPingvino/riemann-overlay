@@ -4271,3 +4271,49 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** the second moment can be small while a single zero is
 enormously multiple, so `(★)` and multiplicity control are genuinely different
 hypotheses and the program has been treating one as a proxy for the other.
+
+
+# SESSION 102 — why the criterion must use the weaker row, and a repo that defends itself
+
+**Piece.** The criterion `C ≤ M − (M−1)·κ` takes `Nsc ≥ 0.50875` as input while
+`NscStd ≥ 0.6725` sits right beside it — larger, better certified, and enough to
+reach `M = 4` if it could be used. So: can it?
+
+**Kill condition, filed first:** *if a positive coefficient on `[onAt = 1]` is
+admissible at `M ≥ 3`, the criterion should use the stronger row and I have been
+feeding it the weaker one.* **It fired — no positive coefficient exists.**
+
+`no_NscStd_coefficient_at_three` (axiom-free): the **haunted atom of mass 3**
+kills it. That configuration has `N = 3`, `N⊛ = 9 = 3·N`, and `NscStd = 1`, so
+`N⊛ + b·NscStd ≤ 3·N` forces `b ≤ 0`. The per-atom estimate is already tight
+there, with nothing left to spend.
+
+This is the same object that has been doing the work all along — the haunted
+atom is what separates `NscStd` from `Nsc` (`084`), what forces the `(3,2)`
+constants (`085`), and now what stops the stronger row entering the criterion.
+`M ≤ 2` remains the only regime where `NscStd` may be used, and `097` explains
+why: there the haunted atom does not exist.
+
+**Wildcard: the repo now defends itself against its own prompt.** Three rulings
+have been parked with Joop for many cycles, and one of them — the stale STATE
+line — is not inert. It once told me the `Nsc` row was "honestly zero", and that
+belief survived many cycles until `084`. A compacted instance reading the prompt
+rather than the disk would re-block an open row.
+
+I cannot edit the cron job. I can put the correction where a compacted instance
+reads first: `LOOP.md` now opens with a **READ FIRST** block listing every way
+the heartbeat prompt is currently wrong, each with its witness, and the standing
+instruction that the disk is authoritative.
+
+That is `S33` turned from an observation into a defence. It does not discharge
+the ruling — Joop should still fix the cron text — but it removes the failure
+mode's teeth in the meantime.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** one configuration — a simple zero on the line with an
+off-line pair hiding at the same height — is simultaneously the reason the two
+simplicity notions differ, the reason the transfer costs what it costs, and the
+reason the better number cannot be used, so the entire arithmetic of this project
+is the arithmetic of that one picture.

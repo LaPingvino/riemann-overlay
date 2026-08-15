@@ -2615,6 +2615,41 @@ theorem starBound_allows_any_multiplicity {a : ℝ} (ha : a ≠ 1/2) (m : ℕ)
   · rw [hN, hS]; omega
   · rw [hp]; simp
 
+/-- **`NscStd` cannot substitute for `Nsc` in the criterion once `M ≥ 3`.**
+
+The per-atom estimate is `H² + (M−1)·[H = 1] ≤ M·H`.  The obvious improvement
+would replace `[H = 1]` by `[onAt = 1]`, since `NscStd ≥ 0.6725` is both larger
+and better certified than `Nsc ≥ 0.50875` — and would reach `M = 4`.
+
+It is not available.  A **haunted** atom of mass `3` has `onAt = 1` and
+`H² = 9 = M·H` at `M = 3`, leaving no room for any positive coefficient.  Below,
+that atom witnesses it: `Nstar = 9`, `N = 3`, `NscStd = 1`, so
+`Nstar + b·NscStd ≤ 3·N` forces `b ≤ 0`.
+
+**Kill condition, filed first:** *if a positive coefficient on `[onAt = 1]` is
+admissible at `M ≥ 3`, the criterion should use the stronger row and I have been
+feeding it the weaker one.*  **It fired: no positive coefficient exists.** -/
+theorem no_NscStd_coefficient_at_three {a : ℝ} (ha : a ≠ 1/2) {b : ℕ} (hb : 1 ≤ b) :
+    ¬ (∀ D : ZeroData, (∀ γ, D.H γ ≤ 3) →
+        D.Nstar + b * D.NscStd ≤ 3 * D.N) := by
+  intro hcon
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 1) (by norm_num)
+  norm_num at hp
+  have hH : ∀ γ, (configAt 0 1 1 a).H γ ≤ 3 := by
+    intro γ
+    rw [ZeroData.H_eq_count, configAt_ordinates]
+    have := Multiset.count_le_card γ (Multiset.replicate (1 + 2 * 1) (0:ℝ))
+    simpa using this
+  have hN : (configAt 0 1 1 a).N = 3 := by simpa using configAt_N (0:ℝ) 1 1 a
+  have hS : (configAt 0 1 1 a).Nstar = 9 := by
+    rw [Nstar_from_profile, hp]; decide
+  have hSc : ((configAt 0 1 1 a).NscStd : ℤ) = 1 := by
+    rw [NscStd_from_profile, hp]; decide
+  have hSc' : (configAt 0 1 1 a).NscStd = 1 := by exact_mod_cast hSc
+  have := hcon (configAt 0 1 1 a) hH
+  rw [hN, hS, hSc'] at this
+  omega
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

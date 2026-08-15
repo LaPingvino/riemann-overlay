@@ -1,5 +1,24 @@
 # LOOP — the Tetris doctrine
 
+> ## ⚠️ READ FIRST — the cron prompt's STATE line is stale
+>
+> The heartbeat prompt is a fixed text fired by cron; it ages while the disk
+> moves (`SURPRISES` S33). As of `SESSION 102` it is wrong in three ways, and
+> **the disk is authoritative**:
+>
+> | the prompt says | the truth, with its witness |
+> |---|---|
+> | `ledger Nsc 0.00%` | **`Nsc 50.88%`** — `certified_nsc_unconditional`, `SESSION 084`. Run `go run tools/proportion.go` and believe that. |
+> | `binding constraint = Fujii's implied constant` | binding is `baseline_zeta23`; Fujii binds nothing since the `Nsc` row opened |
+> | *"Minimality of the profile is NOT proved and must not be claimed"* | settled **both** ways: `profile_not_minimal` (globally, `075`) and `profile_minimal_among_local` (locally, `077`) |
+> | queue items 1, 2, 3 | all discharged — `076`, `FAILURES.md`'s W32 table, `075`/`077` |
+>
+> This block exists because a stale STATE line is not inert: it once told me the
+> `Nsc` row was honestly zero, and that belief survived many cycles (`S34`).
+> A future compacted instance reading the prompt and not the disk would
+> re-block an open row.
+
+
 Adopted from Addendum 5. The steering shape for sessions 002+ if the project
 runs as a standing loop. One cycle = one session.
 

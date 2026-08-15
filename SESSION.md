@@ -3395,3 +3395,42 @@ Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
 the off-line zeros it cannot count — that there is an even number of them and
 that each odd crowd shelters at least one zero from them — and those two facts
 are the whole of what the functional equation contributes to the ledger.
+
+
+# SESSION 083 — the two invisible rows are not independent
+
+`079`–`082` gave each invisible row an exact bracket. A reader could take that
+to mean the class's ignorance is two free unknowns. It is not, and this cycle
+says by how much.
+
+An atom contributes to `NscStd` only when its on-line part is `1` — that is, only
+at **maximal** off-line mass. Pushing `NscStd` up therefore drags `N_off` up
+with it, and the exchange rate is the haunted count.
+
+**Kill condition, filed first:** *if a haunted atom can exist with fewer than
+two off-line zeros, the coupling is looser than `2 : 1` and the bound is wrong.*
+It did not fire — on-line part `1` with mass `≠ 1` forces off-line mass `≥ 1`,
+and `even_offAt` upgrades that to `≥ 2`.
+
+* `two_mul_NscStd_le_Noff_add_two_mul_Nsc` — **`2·(NscStd − Nsc) ≤ N_off`**,
+  written additively so truncated subtraction carries none of the content.
+  `NscStd − Nsc` is the haunted count already named in `Basic.lean`, so the
+  theorem reads: **every haunted zero costs at least two off-line zeros.**
+* `coupling_tight` — and the rate is exact, on the same mass-`3` family that
+  made both brackets tight: `NscStd = t`, `Nsc = 0`, `N_off = 2t`, equality at
+  every `t ≤ n`. It cost four lines because `bracket_tight_chain` and
+  `Noff_tight_chain` already had the values; that reuse is the return on
+  `081`'s builder.
+
+**What this changes about the blindness picture.** The class cannot read either
+row, but it *can* rule out the joint hypothesis "many haunted zeros and few
+off-line zeros" — the configuration a reader might have thought was the worst
+case is arithmetically unavailable. The ignorance is two-dimensional but the
+admissible region is a wedge, not a rectangle.
+
+Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** RH-adjacent bad news comes in a fixed exchange rate —
+you cannot have a zero that merely *looks* simple without paying for it with two
+zeros that are visibly off the line, so the hardest case for the certificate
+class is also the most expensive one for the counterexample.

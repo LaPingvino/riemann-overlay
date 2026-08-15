@@ -184,3 +184,5 @@ import Riemann
 #check @Riemann.Blindness.Noff_even
 #check @Riemann.Blindness.Noff_add_oddAtoms_le_N
 #check @Riemann.Blindness.Noff_tight_chain
+#check @Riemann.Blindness.two_mul_NscStd_le_Noff_add_two_mul_Nsc
+#check @Riemann.Blindness.coupling_tight

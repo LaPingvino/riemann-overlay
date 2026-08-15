@@ -1834,6 +1834,62 @@ theorem Noff_tight_chain {a : ℝ} (ha : a ≠ 1/2) (n t : ℕ) (h : t ≤ n) :
   · rw [N_from_profile, hp]
     simp [Nat.add_sub_cancel' h, Nat.mul_comm]
 
+/-! ### The two invisible rows are *coupled*
+
+`NscStd` and `N_off` each have an exact bracket now.  A reader could take that
+to mean the class's ignorance is two independent unknowns.  It is not: an atom
+contributes to `NscStd` only when its on-line part is `1`, i.e. only at
+*maximal* off-line mass, so pushing `NscStd` up drags `N_off` up with it.
+
+The coupling is exactly the haunted count.  `NscStd − Nsc` counts atoms that are
+standard-simple without being simple — mass `≥ 3`, on-line part `1` — and each
+of those carries at least two off-line zeros.
+
+**Kill condition, filed before the section was written:** *if a haunted atom can
+exist with fewer than two off-line zeros, the coupling is looser than `2 : 1`
+and the bound is wrong.*  It did not fire: on-line part `1` with mass `≠ 1`
+forces off-line mass `≥ 1`, and `even_offAt` upgrades that to `≥ 2`. -/
+
+/-- **Every haunted zero costs at least two off-line zeros:**
+`2·(NscStd − Nsc) ≤ N_off`, stated additively to keep truncated subtraction out
+of the content.  The two rows the certificate class cannot read are therefore
+not independent unknowns — the class cannot be maximally wrong about both at
+once. -/
+theorem two_mul_NscStd_le_Noff_add_two_mul_Nsc (D : ZeroData) :
+    2 * D.NscStd ≤ D.Noff + 2 * D.Nsc := by
+  classical
+  have key : (2 * D.NscStd : ℤ) ≤ (D.Noff : ℤ) + 2 * (D.Nsc : ℤ) := by
+    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hC0 : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+      rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+    have hC : (D.Noff : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (offAt D γ : ℤ) := by
+      rw [hC0, Nat.cast_sum]
+    rw [hA, hB, hC, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun γ _ => ?_
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    split_ifs <;> omega
+  exact_mod_cast key
+
+/-- **The `2 : 1` coupling is sharp**, and on the very family that made both
+brackets tight: `n` atoms of mass `3` with `t` of them haunted give
+`NscStd = t`, `Nsc = 0`, `N_off = 2t`, so the inequality is an equality at every
+`t ≤ n`.  A mass-`3` haunted atom carries exactly two off-line zeros and cannot
+carry fewer. -/
+theorem coupling_tight {a : ℝ} (ha : a ≠ 1/2) (n t : ℕ) (h : t ≤ n) :
+    2 * (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))).NscStd
+      = (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))).Noff
+        + 2 * (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))).Nsc := by
+  obtain ⟨-, hNscStd, hNsc, -⟩ := bracket_tight_chain ha n t h
+  obtain ⟨hoff, -⟩ := Noff_tight_chain ha n t h
+  rw [hNscStd, hNsc, hoff]
+  omega
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

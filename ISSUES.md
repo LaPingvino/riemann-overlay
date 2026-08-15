@@ -887,7 +887,26 @@ Flagged in SESSION 033 as deferred under the freeze; it is the first
 post-freeze item.
 
 
-## #29 — [bin 2, reproducibility] the window-optimisation table has no code in the repo
+## #29 — RESOLVED, and the original diagnosis was wrong
+
+> ⚠️ **Read this before the note below.** `#29` claimed the repair needed the
+> source paper. **It did not.** The full specification — functional,
+> discretisation, linear algebra — was in `LEADS.md` three lines above the table
+> the entire time. `forensics/window_opt.py` implements it and reproduces every
+> quoted value to all seven digits (`c*(1.00) = 0.7533028`,
+> `2 − 1/c* = 0.6725126`, `λ = 0.75` likewise). **The table is reproducible; the
+> defect was mine, not the record's.**
+>
+> What I did wrong: I searched `forensics/` for a *script*, found none, and
+> concluded the computation was lost — without checking whether the
+> *specification* was in the register. Under-searching, then filing the gap as
+> external. The refusal to reconstruct from memory was still correct; the
+> correct path was simply to read three lines up. Filed as `SURPRISES` S27.
+>
+> Grade in `CLAIMS.md` stays **N** — the evidence is still numerical, not a
+> proof — but the "code not in repo" mark is removed.
+
+## #29 (original note, superseded) — [bin 2, reproducibility] the window-optimisation table has no code in the repo
 
 Found by night cycle 10's attempt to promote the last grade-C claim.
 

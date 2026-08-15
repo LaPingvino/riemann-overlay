@@ -3499,3 +3499,70 @@ the question I had gone seven cycles without asking.
 **Might-mean, unhedged:** the project's own bookkeeping was the binding
 constraint, not the mathematics — half the zeros were already certified simple
 in the strong sense and nobody had multiplied the inequality out.
+
+
+# SESSION 085 — the bridge's constants are optimal, and what that leaves open
+
+`084` moved the `Nsc` row to `50.875%` via `3·NscStd ≤ N + 2·Nsc`. The
+immediate risk is a future cycle burning itself trying to improve the constants,
+so this cycle settles them.
+
+**Kill condition, filed first:** *if some configuration permits `c > 3`, or
+`c = 3` with `d < 2`, the pair is not optimal and the claim must be weakened.*
+It did not fire.
+
+`bridge_optimal` (new, axiom-free): any unconditional bridge
+`c·NscStd ≤ N + d·Nsc` valid on all `ZeroData` has `c ≤ 3`, and `c = 3` forces
+`d ≥ 2`. Two **single-atom** witnesses do all the work:
+
+* a haunted atom of mass `3` — `NscStd = 1`, `Nsc = 0`, `N = 3` — forces
+  `c ≤ 3`;
+* a simple atom — `NscStd = Nsc = N = 1` — forces `c ≤ 1 + d`.
+
+So `(3κ − 1)/2` cannot be improved by any inequality of that shape, and
+`0.50875` is the most the baseline yields through it.
+
+**The scope is stated and it is not vacuous.** `bridge_optimal` quantifies over
+bridges in the *triple* `(NscStd, N, Nsc)`. The proof of `(3,2)` discards a real
+piece of information — a non-contributing **even** atom has mass `≥ 2`, not just
+`≥ 1` — and `oddAtoms` is `μ_T`-visible (`bracket_muInvariant`). A bound in the
+four quantities is therefore **not** excluded by this theorem. `LEADS.md` records
+it as the cheapest open item on the board, and it is pure combinatorics.
+
+I am being explicit about the gap because `084`'s lesson was precisely a
+non-exhaustive enumeration of routes stated as if it were exhaustive. The
+correction is not to stop enumerating; it is to name the quantifier.
+
+Build green (3757 jobs), one new grade-A row, ledger unchanged at
+`NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash `cd7a22e688df` unmoved.
+
+## Wildcard, same cycle: the four-quantity bridge — **kill condition fired**
+
+`LEADS.md` had barely recorded direction 1 as the cheapest open item when it
+became cheap enough to run.
+
+**Kill condition, filed first:** *if the four-quantity bound reduces to `(3,2)`
+with no gain, it does not improve the row and I say so.* **It fired.**
+
+`two_mul_atomCount_add_oddAtoms_le`: `2·A + #{odd atoms} ≤ N + 2·Nsc`, where `A`
+is the atom count (`atomCount`, the number of distinct ordinates — a `μ_T`
+functional). Per atom this is `2 + [odd] ≤ mass + 2·[mass = 1]`, tight at masses
+`1`, `2` **and** `3`, so it is genuinely finer than `(3,2)`: it uses that a
+non-contributing even atom has mass `≥ 2`.
+
+And it collapses. `A ≥ NscStd` and `#{odd atoms} ≥ NscStd`, so substituting
+recovers `3·NscStd ≤ N + 2·Nsc` exactly — `three_mul_NscStd_le_of_four` proves
+the old bound *from* the new one. The finer inequality has nothing to spend,
+because the literature input supplies a proportion for `NscStd` and nothing for
+`A` or `#{odd atoms}`. It becomes useful only given a lower bound on the atom
+count — equivalently an upper bound on average multiplicity, which is `N⊛`
+territory and therefore back to `(★)`.
+
+That is a clean negative and it was worth the twenty minutes: the direction I had
+just filed as most promising is closed, and closed by a theorem rather than by a
+guess.
+
+**Might-mean, unhedged:** every additional point of the literature's
+standard-simple proportion is now worth one and a half points of the project's
+own row, so the cheapest thing the project can buy is no longer a theorem about
+zeta but a better reading of the theorems that already exist.

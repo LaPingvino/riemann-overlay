@@ -1478,3 +1478,33 @@ lemma that the profile of such a fold is the multiset of the chosen pairs. That
 is the same shape as `twoAtom_profile` but at arbitrary arity, and it needs
 injectivity of `(· : ℕ → ℝ)` to keep the heights distinct. Filed as the next
 Lean-shaped item in this thread; nothing about it is conjectural, only unbuilt.
+
+
+## After `S084`: what could still improve the `Nsc` row
+
+`bridge_optimal` closes the shape `c·NscStd ≤ N + d·Nsc` at `(3, 2)`, so
+`(3κ − 1)/2 = 0.50875` is the most that shape yields from the baseline. Three
+directions remain, in increasing order of cost:
+
+1. **A bridge using more `μ_T`-visible data.** The proof of `(3,2)` throws away
+   the fact that a *non*-contributing even atom has mass `≥ 2`. A bound in
+   `(NscStd, N, Nsc, oddAtoms)` — all four visible — is not excluded by
+   `bridge_optimal`, whose scope is the triple. **This is the cheapest item on
+   the board and it is pure combinatorics.**
+
+   > ❌ **RUN THE SAME CYCLE, and it does not move the row.**
+   > `Fiber.two_mul_atomCount_add_oddAtoms_le`: `2·A + #{odd atoms} ≤ N + 2·Nsc`,
+   > where `A` is the atom count — strictly finer, tight at masses `1, 2, 3`.
+   > But `A ≥ NscStd` and `#{odd atoms} ≥ NscStd`, and substituting recovers
+   > `3·NscStd ≤ N + 2·Nsc` **exactly** (`three_mul_NscStd_le_of_four`). The
+   > literature input supplies a proportion for `NscStd` and nothing for `A` or
+   > `#{odd atoms}`, so the finer bound has nothing to spend. It becomes useful
+   > only alongside a lower bound on the *atom count* — i.e. an upper bound on
+   > average multiplicity, which is `N⊛` territory and therefore back to `(★)`.
+2. **A better `κ`.** The row is `(3κ − 1)/2`, so every point of `ProportionStd`
+   is worth `1.5` points of `Nsc`. Improving the literature input is now
+   *leveraged*, which it was not when the row was believed closed.
+3. **A star bound**, which now has to *beat* `0.50875` rather than open the row:
+   Proposition 1 needs `C < 1.49125`, the `/6` bridge `C < 1.9825`. Both are far
+   inside what any current route offers, so this direction became **less**
+   attractive, not more.

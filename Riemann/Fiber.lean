@@ -1946,6 +1946,127 @@ theorem three_mul_NscStd_le_N_add_two_mul_Nsc (D : ZeroData) :
     split_ifs <;> omega
   exact_mod_cast key
 
+/-! ### The bridge's constants are optimal
+
+`three_mul_NscStd_le_N_add_two_mul_Nsc` is `3·NscStd ≤ N + 2·Nsc`.  A future
+cycle will want to improve it, so here is why it cannot be improved — two
+single-atom witnesses settle both constants at once.
+
+**Kill condition, filed before the section was written:** *if some configuration
+permits `c > 3`, or `c = 3` with `d < 2`, the pair is not optimal and the claim
+must be weakened.*  It did not fire. -/
+
+/-- The one-atom witnesses: a haunted atom of mass `3`, and a simple atom. -/
+lemma haunted_atom_counts {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 1 1 a).NscStd = 1 ∧ (configAt 0 1 1 a).Nsc = 0
+      ∧ (configAt 0 1 1 a).N = 3 := by
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 1) (by norm_num)
+  norm_num at hp
+  refine ⟨?_, ?_, by simpa using configAt_N (0:ℝ) 1 1 a⟩
+  · have : ((configAt 0 1 1 a).NscStd : ℤ) = 1 := by
+      rw [NscStd_from_profile, hp]; decide
+    exact_mod_cast this
+  · have : ((configAt 0 1 1 a).Nsc : ℤ) = 0 := by
+      rw [Nsc_from_profile, hp]; decide
+    exact_mod_cast this
+
+lemma simple_atom_counts {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 1 0 a).NscStd = 1 ∧ (configAt 0 1 0 a).Nsc = 1
+      ∧ (configAt 0 1 0 a).N = 1 := by
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 0) (by norm_num)
+  norm_num at hp
+  refine ⟨?_, ?_, by simpa using configAt_N (0:ℝ) 1 0 a⟩
+  · have : ((configAt 0 1 0 a).NscStd : ℤ) = 1 := by
+      rw [NscStd_from_profile, hp]; decide
+    exact_mod_cast this
+  · have : ((configAt 0 1 0 a).Nsc : ℤ) = 1 := by
+      rw [Nsc_from_profile, hp]; decide
+    exact_mod_cast this
+
+/-- **`(3, 2)` is the optimal constant pair.**  Any unconditional bridge
+`c·NscStd ≤ N + d·Nsc` valid on all `ZeroData` has `c ≤ 3`, and if `c = 3` then
+`d ≥ 2`.  The haunted atom forces the first, the simple atom the second — so the
+`Nsc` row's `(3κ − 1)/2` cannot be improved by any inequality of this shape. -/
+theorem bridge_optimal {c d : ℝ}
+    (h : ∀ D : ZeroData, c * (D.NscStd : ℝ) ≤ (D.N : ℝ) + d * (D.Nsc : ℝ)) :
+    c ≤ 3 ∧ (c = 3 → 2 ≤ d) := by
+  obtain ⟨h1, h2, h3⟩ := haunted_atom_counts (a := (0:ℝ)) (by norm_num)
+  obtain ⟨g1, g2, g3⟩ := simple_atom_counts (a := (0:ℝ)) (by norm_num)
+  have hH := h (configAt 0 1 1 (0:ℝ))
+  have hS := h (configAt 0 1 0 (0:ℝ))
+  rw [h1, h2, h3] at hH
+  rw [g1, g2, g3] at hS
+  norm_num at hH hS
+  exact ⟨hH, fun hc => by rw [hc] at hS; linarith⟩
+
+/-! ### The four-quantity bridge, and why it does not move the row
+
+`bridge_optimal` closes the shape `c·NscStd ≤ N + d·Nsc`.  Its scope is the
+triple, and the proof of `(3,2)` throws away that a non-contributing **even**
+atom has mass `≥ 2`.  Using that, plus the atom count `A` (visible: it is the
+number of distinct ordinates) and `oddAtoms`, gives a strictly finer bound.
+
+**Kill condition, filed first:** *if the four-quantity bound reduces to `(3,2)`
+with no gain, it does not improve the row and I say so.*  **It fired.** -/
+
+/-- The number of atoms — the count of distinct ordinates.  A `μ_T` functional. -/
+noncomputable def atomCount (D : ZeroData) : ℕ := D.ordinates.toFinset.card
+
+/-- **The four-quantity bridge:** `2·A + #{odd atoms} ≤ N + 2·Nsc`.  Per atom
+this is `2 + [odd] ≤ mass + 2·[mass = 1]`, tight at masses `1`, `2` and `3`. -/
+theorem two_mul_atomCount_add_oddAtoms_le (D : ZeroData) :
+    2 * atomCount D + oddAtoms D ≤ D.N + 2 * D.Nsc := by
+  classical
+  have key : (2 * atomCount D + oddAtoms D : ℤ) ≤ (D.N : ℤ) + 2 * (D.Nsc : ℤ) := by
+    have hO : (oddAtoms D : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if ¬ Even (D.H γ) then (1 : ℤ) else 0) := by
+      rw [oddAtoms, Finset.card_filter]; push_cast; rfl
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    have e1 : (2 * atomCount D + oddAtoms D : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset,
+            ((2 : ℤ) + if ¬ Even (D.H γ) then 1 else 0) := by
+      rw [Finset.sum_add_distrib, ← hO, Finset.sum_const, atomCount]
+      push_cast
+      ring
+    have e2 : ((D.N : ℤ) + 2 * (D.Nsc : ℤ))
+        = ∑ γ ∈ D.ordinates.toFinset,
+            ((D.H γ : ℤ) + 2 * if D.H γ = 1 then 1 else 0) := by
+      rw [Finset.sum_add_distrib, ← hN, ← Finset.mul_sum, ← hB]
+    rw [e1, e2]
+    refine Finset.sum_le_sum fun γ hγ => ?_
+    have hpos : 0 < D.H γ := by
+      rw [ZeroData.H_eq_count, Multiset.count_pos]
+      exact Multiset.mem_toFinset.1 hγ
+    by_cases hev : Even (D.H γ)
+    · obtain ⟨r, hr⟩ := hev
+      rw [if_neg (by simpa using ⟨r, hr⟩)]
+      split_ifs <;> omega
+    · obtain ⟨k, hk⟩ := Nat.not_even_iff_odd.1 hev
+      rw [if_pos hev]
+      split_ifs <;> omega
+  exact_mod_cast key
+
+/-- **…and it collapses back to `(3, 2)`.**  Every atom is an ordinate and
+every atom counted by `NscStd` is odd, so `A ≥ NscStd` and
+`#{odd atoms} ≥ NscStd`; substituting recovers
+`3·NscStd ≤ N + 2·Nsc` exactly.  The finer bound therefore buys nothing on the
+literature's input, which supplies a proportion for `NscStd` and nothing for `A`
+or `#{odd atoms}` — the kill condition fired. -/
+theorem three_mul_NscStd_le_of_four (D : ZeroData) :
+    3 * D.NscStd ≤ D.N + 2 * D.Nsc := by
+  have h4 := two_mul_atomCount_add_oddAtoms_le D
+  have hodd := NscStd_le_oddAtoms D
+  have hA : D.NscStd ≤ atomCount D := le_trans hodd (by
+    rw [atomCount, oddAtoms]
+    exact Finset.card_filter_le _ _)
+  omega
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

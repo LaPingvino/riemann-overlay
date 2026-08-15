@@ -192,3 +192,9 @@ import Riemann
 #check @Riemann.Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc
 #check @Riemann.proportion_of_proportionStd
 #check @Riemann.certified_nsc_unconditional
+#check @Riemann.Blindness.haunted_atom_counts
+#check @Riemann.Blindness.simple_atom_counts
+#check @Riemann.Blindness.bridge_optimal
+#check @Riemann.Blindness.atomCount
+#check @Riemann.Blindness.two_mul_atomCount_add_oddAtoms_le
+#check @Riemann.Blindness.three_mul_NscStd_le_of_four

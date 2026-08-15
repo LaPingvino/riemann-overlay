@@ -5455,3 +5455,42 @@ Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base has
 **Might-mean, unhedged:** the guards were built when the danger was saying too
 much, and the project has since aged into a state where every defect they find is
 the opposite one.
+
+
+# SESSION 129 — the central quantity gets a certified number
+
+Thirty cycles of work identified `hauntedCount` as the thing the `Nsc` row is a
+subtraction of, gave it a name, characterised its extremal configurations, capped
+what the baseline can say about it, and placed its vanishing in the hypothesis
+hierarchy. **It had never been stated as a certified fact about `ζ`.**
+
+**Kill condition, filed first:** *if the haunted density needs anything beyond
+`certified_offline`, there is no such row.* It did not fire.
+
+`certified_haunted`: **`hauntedCount ≤ (0.16375 + o(1))·N`** — at most `16.375%`
+as many haunted ordinates as zeros. `#print axioms` gives `baseline_zeta23` and
+`zetaNonempty`, the same two every other row consumes. It is `certified_offline`
+halved, because a haunted ordinate carries at least two off-line zeros.
+
+**It is essentially attained.** `114`'s witness has `hauntedCount = 321` against
+`N = 1963` — density `0.16352`, where the bound permits `321.44`. The slack is
+**less than half a haunted ordinate**, and it is the discretisation of the
+`1000 : 321` ratio rather than looseness.
+
+**Why this was worth a cycle rather than being implicit.** The proof is four
+lines and every ingredient existed. But the arc's whole conclusion is that the
+project trades in `δ`, and until now `δ` appeared only inside other theorems'
+proofs — the price list quoted the row and never the floor. A quantity named in
+thirty cycles of registers and never stated about `ζ` is exactly the kind of gap
+`121`–`128` were finding in the other direction.
+
+Not added to `tools/metric.json`, for `certified_offline`'s reason: the ledger
+maximises over rows, and an upper bound on a defect is not commensurate with a
+lower bound on simple zeros.
+
+Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
+`cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project's central object went thirty cycles without
+a number attached to it because every cycle used it as a step and none treated it
+as a result.

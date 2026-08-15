@@ -279,3 +279,4 @@ import Riemann
 #check @Riemann.Blindness.haunted_le_NscStd
 #check @Riemann.Blindness.three_mul_haunted_le_N
 #check @Riemann.Blindness.best_delta_is_from_110
+#check @Riemann.certified_haunted

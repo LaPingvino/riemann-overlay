@@ -535,3 +535,29 @@ evens out zero spacings"* (math/0310252), and Farmer–Gonek on the pair
 correlation of ξ′'s zeros. Differentiation actively smooths the zero
 distribution, so the ξ′ world is provably better behaved than ζ's — the
 transfer's mechanism has a name and a literature. **[RECALL, UNVERIFIED]**.
+
+
+## The haunted row, certified (SESSION 129)
+
+`certified_haunted` — **`hauntedCount ≤ (0.16375 + o(1))·N`** for `ζ`, at the
+same two axioms as every other row (`#print axioms`: `baseline_zeta23`,
+`zetaNonempty`).
+
+It is `certified_offline` halved: a haunted ordinate carries at least two
+off-line zeros, so the off-line density row caps the haunted density at half its
+value.
+
+**And it is essentially attained.** `114`'s witness — `1000` simple atoms beside
+`321` haunted mass-`3` atoms — has `hauntedCount = 321`, `N = 1963`, so a haunted
+density of `321/1963 ≈ 0.16352`. The bound permits `321.44`. The slack is **less
+than half a haunted ordinate**, which is the discretisation of `1000 : 321` and
+not looseness in the argument.
+
+**Why it matters for the price list.** Every conditional row in this project is
+`Proportion (κ − δ)` for a bound `hauntedCount ≤ δ·N`. This is the certified
+`δ`, and `111` proves nothing derived from the baseline alone can beat it. So the
+price list now has its floor stated in the currency it trades in, rather than
+only in the currency it reports.
+
+*Not added to `tools/metric.json`: the ledger maximises over rows, and an upper
+bound on a defect is not commensurate with a lower bound on simple zeros.*

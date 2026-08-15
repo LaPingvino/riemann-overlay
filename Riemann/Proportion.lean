@@ -236,6 +236,27 @@ theorem certified_nsc_via_haunted : zetaFamily.toCounts.Proportion 0.50875 := by
   have e : (0.6725 : ℝ) - 0.3275 / 2 = 0.50875 := by norm_num
   rwa [e] at h
 
+/-- **A certified statement about the haunted ordinates of `ζ`.**
+
+The `084`–`128` arc identified `hauntedCount` as the quantity the `Nsc` row is a
+subtraction of, and named it — an ordinate carrying one critical zero shadowed by
+off-line pairs.  This is the first certified bound on it:
+
+> **`hauntedCount ≤ (0.16375 + o(1))·N`** — at most `16.375%` as many haunted
+> ordinates as zeros.
+
+Same axiom tier as the rest (`baseline_zeta23`, `zetaNonempty`), and it is
+`certified_offline` halved: a haunted ordinate carries at least two off-line
+zeros, so the off-line density row caps the haunted density at half its value.
+
+Not added to `tools/metric.json`, for the same reason as `certified_offline`:
+the ledger maximises over rows, and an *upper* bound on a defect is not
+commensurate with a *lower* bound on simple zeros. -/
+theorem certified_haunted : HauntedDensity zetaFamily 0.16375 := by
+  have h := hauntedDensity_of_offLineImport certified_offline
+  have e : (0.3275 : ℝ) / 2 = 0.16375 := by norm_num
+  rwa [e] at h
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

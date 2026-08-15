@@ -3841,3 +3841,45 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 simple zeros, because a single sufficiently crowded ordinate can carry unbounded
 `N⊛` while every other zero stays simple — so the program's central quantity
 cannot be bought from the literature's central quantity at any price.
+
+
+# SESSION 092 — the other wall: `(★)` is a size-biased mean, not a supremum
+
+`091` proved a proportion of simple zeros cannot bound `N⊛`. That is one wall.
+This cycle builds the other, so the program's central hypothesis is bracketed
+rather than merely unreached.
+
+**Kill condition, filed first:** *if a max-multiplicity bound gives a useful star
+bound (`C < 2`), then `(★)` reduces to multiplicity control and the route table
+is missing an entry.* **It fired**, and the way it fired is the finding.
+
+`Nstar_le_of_multiplicity_le` / `starBound_of_multiplicity_le` (axiom-free): a
+supremum bound `H ≤ M` gives `StarBound M`. The constant is `M` itself — and
+`prop1` needs `C < 2`, which over the naturals is `M ≤ 1`: every ordinate carries
+at most one zero. That is the conclusion the program is trying to reach, not a
+hypothesis it can assume.
+
+**So `(★)`'s constant is neither of the project's cheap neighbours.**
+`Nstar_eq_sum_H_sq` says what it is: `N⊛/N = Σ H² / Σ H`, the **size-biased mean
+multiplicity**. The two walls locate it exactly —
+
+> unreachable from a proportion of simple zeros (`091`), and strictly weaker than
+> a multiplicity supremum (here).
+
+That is worth having written down because the route table describes `(★)` as a
+second-moment estimate, which is true and does not say what kind of object the
+constant is. It is an average, weighted by the thing being averaged, and both
+neighbouring notions fail for opposite reasons: the proportion is blind to one
+crowded ordinate, the supremum charges for it at full price.
+
+*Candour about `multiplicity_bound_useless`: it is `omega` on `M < 2 → M ≤ 1`.
+The content is the framing, not the lemma, and the lemma is there so the framing
+cannot drift.*
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the program's whole difficulty is that it needs an
+average that one bad ordinate can ruin and no supremum can afford, which is why
+every route reaches for a second moment and every cheap substitute fails at one
+end or the other.

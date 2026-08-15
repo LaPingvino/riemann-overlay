@@ -1508,3 +1508,28 @@ directions remain, in increasing order of cost:
    Proposition 1 needs `C < 1.49125`, the `/6` bridge `C < 1.9825`. Both are far
    inside what any current route offers, so this direction became **less**
    attractive, not more.
+
+
+## Where `(★)`'s constant lives — two walls, certified (SESSION 092)
+
+`N⊛/N = Σ H² / Σ H` (`Blindness.Nstar_eq_sum_H_sq`): the **size-biased mean
+multiplicity**. Two certified walls now locate it.
+
+* **Below:** a proportion of *simple* zeros cannot reach it at any constant.
+  `no_starBound_from_proportionStd` — `3m` simple atoms beside one atom of mass
+  `m` hold the proportion at `3/4` while `N⊛/N = (3+m)/4` runs away.
+* **Above:** a multiplicity *supremum* `M` reaches it, at constant `M`
+  (`starBound_of_multiplicity_le`) — and `prop1` needs `C < 2`, so over the
+  naturals that is `M ≤ 1`: every zero simple, the conclusion rather than a
+  hypothesis.
+
+**So `(★)` asks for control of a size-biased mean**, which is strictly weaker
+than a supremum and strictly stronger than a proportion of simple zeros. Every
+route in the program is an attempt to supply exactly that, and the two walls say
+neither of the project's cheap neighbours will substitute.
+
+*Open, and now sharply posed:* is there a `μ_T`-visible statistic strictly
+between "proportion of simple zeros" and "size-biased mean multiplicity" that the
+literature does supply? The blindness results say `μ_T` sees `H` entirely, so
+this is not an information question — it is a question about which functionals of
+`H` the analytic methods reach.

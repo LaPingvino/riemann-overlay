@@ -2118,6 +2118,43 @@ theorem NscStd_le_atomCount (D : ZeroData) : D.NscStd ≤ atomCount D :=
     rw [atomCount, oddAtoms]
     exact Finset.card_filter_le _ _)
 
+/-! ### Where `(★)` actually lives: between a proportion and a supremum
+
+`no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros
+cannot bound `N⊛`.  This section supplies the other wall: a bound on the
+**maximum** multiplicity does bound `N⊛` — but only uselessly.
+
+**Kill condition, filed first:** *if a max-multiplicity bound gives a useful star
+bound (`C < 2`), then `(★)` reduces to multiplicity control and the program's
+route table is missing an entry.*  **It fired**: the constant it delivers is `M`
+itself, and `M < 2` over the naturals means `M ≤ 1` — every zero simple, which is
+the conclusion, not a hypothesis. -/
+
+/-- **A supremum bound on multiplicity gives a star bound, at constant `M`.**
+`N⊛ = Σ_ρ H(γ_ρ)`, so capping every `H` caps the sum term by term. -/
+theorem Nstar_le_of_multiplicity_le (D : ZeroData) (M : ℕ)
+    (h : ∀ γ, D.H γ ≤ M) : D.Nstar ≤ M * D.N := by
+  classical
+  have h1 : D.Nstar = (D.Z.map fun p => D.H p.2).sum := rfl
+  have h2 : (D.Z.map fun p => D.H p.2).sum ≤ (D.Z.map fun _ => M).sum := by
+    refine Multiset.sum_map_le_sum_map _ _ ?_
+    intro p _
+    exact h p.2
+  have h3 : (D.Z.map fun _ : ℝ × ℝ => M).sum = M * D.N := by
+    rw [Multiset.map_const', Multiset.sum_replicate, smul_eq_mul, Nat.mul_comm]
+    rfl
+  omega
+
+/-- **…and the constant is `M`, so the bound is useless for `prop1`.**  `prop1`
+needs `C < 2`; over the naturals `M < 2` forces `M ≤ 1`, i.e. every ordinate
+carries at most one zero — which is what the program is trying to *prove*.
+
+So `(★)`'s constant is not a supremum.  `Nstar_eq_sum_H_sq` says what it is:
+`N⊛/N = Σ H² / Σ H`, the **size-biased mean multiplicity**.  That sits strictly
+between the two walls — unreachable from a proportion of simple zeros
+(`no_starBound_from_proportionStd`), and strictly weaker than a supremum bound. -/
+theorem multiplicity_bound_useless (M : ℕ) (hM : M < 2) : M ≤ 1 := by omega
+
 /-! ### What a `ProportionStd` does *not* buy: `N⊛` is unbounded
 
 `090` turned the baseline around and read it as a zero-density statement.  The

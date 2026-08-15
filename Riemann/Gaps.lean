@@ -201,6 +201,26 @@ theorem atomCount_ge_of_proportionStd {F : Family} {κ : ℝ}
     exact_mod_cast this
   linarith
 
+/-- **A supremum bound on multiplicity is a star bound, at the same constant.**
+Together with `Blindness.no_starBound_from_proportionStd` this brackets where
+`(★)`'s constant lives: **not** obtainable from a proportion of simple zeros at
+any constant, and obtainable from a multiplicity supremum only at constant `M` —
+which `prop1` can use only when `M ≤ 1`, i.e. when every zero is already simple.
+
+`(★)`'s constant is neither: `Blindness.Nstar_eq_sum_H_sq` gives
+`N⊛/N = Σ H² / Σ H`, the **size-biased mean multiplicity**. -/
+theorem starBound_of_multiplicity_le {F : Family} {M : ℕ}
+    (h : ∀ T γ, (F.D T).H γ ≤ M) : F.toCounts.StarBound M := by
+  intro ε hε
+  filter_upwards with T
+  have hb : F.Ns T ≤ (M : ℝ) * F.Nz T := by
+    have := Blindness.Nstar_le_of_multiplicity_le (F.D T) M (h T)
+    unfold Family.Ns Family.Nz
+    exact_mod_cast this
+  have hnn := F.Nz_nonneg T
+  show F.Ns T ≤ ((M : ℝ) + ε) * F.Nz T
+  nlinarith [hb, hnn]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

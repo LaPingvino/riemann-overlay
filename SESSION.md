@@ -5394,3 +5394,22 @@ Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base has
 **Might-mean, unhedged:** a register long enough to contain both a claim and its
 refutation will be read as agreeing with whichever half the reader reaches first,
 and this one is ordered oldest-first.
+
+
+## `127` follow-up — a commit message that claimed a clean gate it had not run
+
+The leads briefing was drafted, gated, one sentence downgraded, and committed
+with the message *"gate-clean"*. **It was not.** My downgrade edit did not match
+the file — the sentence was line-wrapped differently from my replacement string —
+so the substitution silently did nothing, the gate still reported one flag, and
+I wrote the commit message from the *intent* rather than from the re-run.
+
+Fixed: the sentence now names its witnesses (`noHaunted_strictly_weaker_than_RH`,
+`Noff_eq_zero_of_allDistinct`) and scopes itself to the chain I actually checked,
+with an explicit ask to claude.ai about hypotheses outside it. Gate reports `0`.
+
+**This is `R17` on my own commit message.** Every cycle I witness `lake build`
+before saying it is green; I did not witness the gate before saying it was clean.
+A string replacement that fails silently is exactly the shape that needs a
+witness — and the guard *did* fire, into a terminal I had already stopped
+reading.

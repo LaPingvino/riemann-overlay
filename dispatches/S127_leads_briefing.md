@@ -46,9 +46,11 @@ and haunted mass is therefore odd (`106`).
 with the **last implication strict** — a lone off-line pair is unhaunted with
 `N_off = 2`. Distinct-ordinates forces `N_off = 0` because the functional
 equation puts every off-line zero at its partner's height. So every standard
-hypothesis in this neighbourhood **already contains RH**, and `NoHaunted` is the
-only member that does not. The project's best conditional row is keyed to a
-hypothesis *strictly weaker than RH restricted to the window*.
+member of that chain **already contains RH**, and `NoHaunted` does not
+(`Fiber.noHaunted_strictly_weaker_than_RH`, `Noff_eq_zero_of_allDistinct`). I
+have checked the chain, not the whole neighbourhood — if a standard hypothesis
+outside it is also RH-free, I would want to know. The project's best conditional
+row is keyed to a hypothesis *strictly weaker than RH restricted to the window*.
 
 ## Questions
 

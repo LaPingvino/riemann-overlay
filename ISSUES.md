@@ -971,7 +971,21 @@ Neither existing guard covers it. `provenance_lint` types mathematical inputs;
 `claims_gate` catches exactness language, and *"the loop is armed"* has none —
 it is a plain factual claim about live state.
 
-**Cheapest fix, not yet built:** any statement about the loop's liveness must
+**FIXED (2026-08-15, Joop's suggestion): the loop is a cron heartbeat, not a
+self-rearming wakeup.** Job `e05114b3`, `23,53 * * * *`, off the crowded
+:00/:30 marks. The structural point is that it fires whether or not the operator
+remembers — the failure mode was that `ScheduleWakeup` made the operator the
+single point of failure, and the fix is to move the timer outside the thing that
+failed. Joop's framing: *ADHD tricks*. Limits, stated rather than assumed:
+session-only (dies with the session, survives forgetfulness but not a restart)
+and auto-expiring after 7 days.
+
+The heartbeat prompt also carries a clause the self-paced loop lacked — *"if
+nothing is worth a cycle, say so in one line and do nothing"*. The old loop had
+a standing incentive to produce work on every wake, which is plausibly part of
+why cycles 8–12 drifted into auditing the audits (R20).
+
+**Residual, not yet built:** any statement about the loop's liveness must
 cite the `ScheduleWakeup` return (which prints the scheduled time) in the same
 turn, or say nothing. That is the two-slot discipline of `claims_gate` applied
 to state claims rather than exactness claims — forward slot: the tool result.

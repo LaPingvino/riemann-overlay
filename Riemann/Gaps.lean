@@ -537,6 +537,24 @@ theorem hauntedDensity_of_starBound {F : Family} {C : ℝ}
   rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ (by norm_num : (0:ℝ) < 6)]
   nlinarith [hbase, hstar, hpos']
 
+/-- The number of **odd-mass** ordinates at height `T`. -/
+noncomputable def Family.oddAtoms (F : Family) (T : ℝ) : ℝ :=
+  ((Blindness.oddAtoms (F.D T) : ℕ) : ℝ)
+
+/-- **The literature's row is also a lower bound on the odd-mass ordinates.**
+Every standard-simple ordinate has odd mass (`Blindness.haunted_odd`), so
+`ProportionStd κ` forces at least `κ·N` of them. -/
+theorem oddAtoms_ge_of_proportionStd {F : Family} {κ : ℝ}
+    (hstd : F.ProportionStd κ) :
+    ∀ ε > 0, ∀ᶠ T in atTop, (κ - ε) * F.Nz T ≤ F.oddAtoms T := by
+  intro ε hε
+  filter_upwards [hstd ε hε] with T hT
+  have h : F.NscStd T ≤ F.oddAtoms T := by
+    have := Blindness.NscStd_le_oddAtoms (F.D T)
+    unfold Family.NscStd Family.oddAtoms
+    exact_mod_cast this
+  linarith
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

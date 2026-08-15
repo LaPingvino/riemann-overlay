@@ -5494,3 +5494,43 @@ Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base has
 **Might-mean, unhedged:** the project's central object went thirty cycles without
 a number attached to it because every cycle used it as a step and none treated it
 as a result.
+
+
+# SESSION 130 — two more steps promoted to results
+
+`129` closed a gap of a specific shape: a quantity used as a step in thirty
+cycles of proofs and never stated as a fact about `ζ`. That shape is checkable
+for the other visible quantities.
+
+**Kill condition, filed first:** *if the `ζ` instantiations already exist, there
+is no gap and I say so.* **It did not fire — neither existed.**
+
+* `atomCount_ge_of_proportionStd` was proved in `091` as a general theorem about
+  families and **never instantiated**. Now `certified_atomCount`: `ζ` has **at
+  least `67.25%` as many distinct ordinates as zeros**, so its **mean vertical
+  multiplicity is at most `1/0.6725 ≈ 1.487`**.
+* `oddAtoms` had **no Family layer at all** — it existed only on `ZeroData`,
+  despite `079`'s `NscStd ≤ oddAtoms` being one of the seven bounds the haunted
+  atom saturates. Now `certified_oddAtoms`: **at least `67.25%` as many odd-mass
+  ordinates as zeros**, since every standard-simple ordinate has odd mass.
+
+Same axiom tier as every other row, and both proofs are one line given what
+existed.
+
+**The pattern behind all three of `129`/`130`'s finds.** A theorem proved to
+*enable* something gets stated at the generality the enabling needed — over
+families, over arbitrary `κ` — and the `ζ` instance is skipped because nothing
+downstream wanted it. The project's certified statements about `ζ` are therefore
+a strict subset of what it has proved about `ζ`, and the difference is invisible
+because both halves are green.
+
+That is the mirror image of `121`–`128`'s stale negatives: there the registers
+understated by *not updating*; here they understate by *not instantiating*.
+
+Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
+`cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** a formal development records what was needed, not what
+was true, so the list of things this project can say about the Riemann zeta
+function is shorter than the list of things it has proved — and only by writing
+the instantiations does the difference become visible.

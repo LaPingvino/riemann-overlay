@@ -257,6 +257,27 @@ theorem certified_haunted : HauntedDensity zetaFamily 0.16375 := by
   have e : (0.3275 : ℝ) / 2 = 0.16375 := by norm_num
   rwa [e] at h
 
+/-- **Two more certified statements about `ζ`, from the same baseline.**
+
+Both were general theorems with no `ζ` instance — `129`'s gap exactly: a quantity
+used as a step and never stated as a result.
+
+* **at least `67.25%` as many distinct ordinates as zeros**, so the **mean
+  vertical multiplicity is at most `1/0.6725 ≈ 1.487`**;
+* **at least `67.25%` as many odd-mass ordinates as zeros**, since every
+  standard-simple ordinate has odd mass.
+
+Same axiom tier as every other row. -/
+theorem certified_atomCount :
+    ∀ ε > 0, ∀ᶠ T in atTop,
+      (0.6725 - ε) * zetaFamily.Nz T ≤ zetaFamily.atomCount T :=
+  atomCount_ge_of_proportionStd certified_std
+
+theorem certified_oddAtoms :
+    ∀ ε > 0, ∀ᶠ T in atTop,
+      (0.6725 - ε) * zetaFamily.Nz T ≤ zetaFamily.oddAtoms T :=
+  oddAtoms_ge_of_proportionStd certified_std
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

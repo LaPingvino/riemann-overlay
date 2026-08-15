@@ -280,3 +280,7 @@ import Riemann
 #check @Riemann.Blindness.three_mul_haunted_le_N
 #check @Riemann.Blindness.best_delta_is_from_110
 #check @Riemann.certified_haunted
+#check @Riemann.Family.oddAtoms
+#check @Riemann.oddAtoms_ge_of_proportionStd
+#check @Riemann.certified_atomCount
+#check @Riemann.certified_oddAtoms

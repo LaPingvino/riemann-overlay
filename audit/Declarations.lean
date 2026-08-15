@@ -217,3 +217,5 @@ import Riemann
 #check @Riemann.atomCount_ge_of_proportionStd
 #check @Riemann.Blindness.Nstar_le_of_multiplicity_le
 #check @Riemann.starBound_of_multiplicity_le
+#check @Riemann.Blindness.lowMult
+#check @Riemann.Blindness.no_starBound_from_lowMult

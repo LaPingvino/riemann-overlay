@@ -1528,6 +1528,13 @@ than a supremum and strictly stronger than a proportion of simple zeros. Every
 route in the program is an attempt to supply exactly that, and the two walls say
 neither of the project's cheap neighbours will substitute.
 
+> ⚠️ **Narrowed the next cycle.** The obvious candidate family is dead:
+> `no_starBound_from_lowMult` kills *every* threshold `k`, not just `k = 1`. Any
+> statistic that survives must therefore say something about how the
+> **non-good** zeros are arranged, not merely how many there are — a proportion
+> of any low-multiplicity class is blind to a single unboundedly crowded
+> ordinate.
+
 *Open, and now sharply posed:* is there a `μ_T`-visible statistic strictly
 between "proportion of simple zeros" and "size-biased mean multiplicity" that the
 literature does supply? The blindness results say `μ_T` sees `H` entirely, so

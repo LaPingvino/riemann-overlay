@@ -2118,6 +2118,80 @@ theorem NscStd_le_atomCount (D : ZeroData) : D.NscStd ≤ atomCount D :=
     rw [atomCount, oddAtoms]
     exact Finset.card_filter_le _ _)
 
+/-! ### The wall generalises: *no* low-multiplicity proportion bounds `N⊛`
+
+`no_starBound_from_proportionStd` kills the case `k = 1` — a proportion of
+*simple* zeros. The natural repair is to ask for a proportion of zeros at
+ordinates of multiplicity `≤ k`, for some larger `k`. It fails for every `k`,
+and the same witness family does it.
+
+**Kill condition, filed first:** *if some `k` makes the low-multiplicity
+proportion sufficient to bound `N⊛`, then the `k = 1` negative was special and
+the wall is not general.* **It fired: no `k` works.** -/
+
+/-- Zeros sitting at ordinates of multiplicity at most `k`. -/
+noncomputable def lowMult (D : ZeroData) (k : ℕ) : ℕ :=
+  Multiset.card (D.Z.filter fun p => D.H p.2 ≤ k)
+
+/-- **The whole family of low-multiplicity proportions is insufficient.**  For
+every threshold `k ≥ 1` and every `B`, a configuration with three quarters of its
+zeros at simple ordinates — so `lowMult k` is `3/4` of `N` for *every* `k` — and
+`N⊛ > B·N`.
+
+The obstruction is not the choice of threshold.  It is that a proportion counts
+zeros in the *good* part and says nothing about how the remainder is arranged,
+while `N⊛` is dominated by exactly that remainder. -/
+theorem no_starBound_from_lowMult {a : ℝ} (ha : a ≠ 1/2) (k B : ℕ) (hk : 1 ≤ k) :
+    ∃ D : ZeroData, 4 * lowMult D k = 3 * D.N ∧ B * D.N < D.Nstar := by
+  classical
+  set m := 4 * B + k + 4 with hm
+  set L : List (ℕ × ℕ) := List.replicate (3 * m) (1, 0) ++ [(m, 0)] with hL
+  have hne : ∀ p ∈ L, p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    rw [hL, List.mem_append] at hp
+    rcases hp with hp | hp
+    · rw [List.eq_of_mem_replicate hp]; norm_num
+    · simp only [List.mem_singleton] at hp
+      rw [hp]; omega
+  have hp := chain_profile ha L hne
+  rw [hL] at hp
+  simp only [List.map_append, List.map_replicate, List.map_cons,
+    List.map_nil] at hp
+  have hN : (chain a L).N = 4 * m := by
+    rw [N_from_profile, hp]; simp; try ring
+  have hS : (chain a L).Nstar = 3 * m + m * m := by
+    rw [Nstar_from_profile, hp]; simp; try ring
+  have hLow : ((lowMult (chain a L) k : ℕ) : ℤ) = ((3 * m : ℕ) : ℤ) := by
+    have e : Multiset.card ((chain a L).ordinates.filter fun γ => (chain a L).H γ ≤ k)
+        = lowMult (chain a L) k := by
+      rw [ZeroData.ordinates, Multiset.filter_map, Multiset.card_map, lowMult]
+      rfl
+    rw [← e, card_filter_eq_sum, Finset.sum_multiset_map_count]
+    have hmk : ¬ (m ≤ k) := by omega
+    have hstep : ∀ γ ∈ (chain a L).ordinates.toFinset,
+        (chain a L).ordinates.count γ •
+            (if (chain a L).H γ ≤ k then (1 : ℤ) else 0)
+          = (if (chain a L).H γ ≤ k then ((chain a L).H γ : ℤ) else 0) := by
+      intro γ _
+      rw [← ZeroData.H_eq_count]
+      by_cases h : (chain a L).H γ ≤ k
+      · rw [if_pos h, if_pos h]; simp
+      · rw [if_neg h, if_neg h]; simp
+    rw [Finset.sum_congr rfl hstep]
+    have hprof : ∑ γ ∈ (chain a L).ordinates.toFinset,
+        (if (chain a L).H γ ≤ k then ((chain a L).H γ : ℤ) else 0)
+          = ((profile (chain a L)).map
+              fun q => if q.1 ≤ k then (q.1 : ℤ) else 0).sum := by
+      rw [profile, Multiset.map_map]
+      rfl
+    rw [hprof, hp]
+    simp [hmk]
+    omega
+  have hLow' : lowMult (chain a L) k = 3 * m := by exact_mod_cast hLow
+  refine ⟨chain a L, by rw [hLow', hN]; ring, ?_⟩
+  rw [hN, hS]
+  nlinarith [Nat.zero_le B, hm]
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

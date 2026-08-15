@@ -3883,3 +3883,39 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 average that one bad ordinate can ruin and no supremum can afford, which is why
 every route reaches for a second moment and every cheap substitute fails at one
 end or the other.
+
+
+# SESSION 093 — the wall is not about the threshold
+
+`091` showed a proportion of *simple* zeros cannot bound `N⊛`. The obvious repair
+is to ask for a proportion of zeros at ordinates of multiplicity `≤ k` for some
+larger `k`, and that repair is the first thing a future cycle would try.
+
+**Kill condition, filed first:** *if some `k` makes the low-multiplicity
+proportion sufficient, then the `k = 1` negative was special and the wall is not
+general.* **It fired: no `k` works.**
+
+`no_starBound_from_lowMult` (axiom-free): for every threshold `k ≥ 1` and every
+`B`, a configuration with `4·lowMult k = 3·N` — three quarters of its zeros at
+*simple* ordinates, so the count is `3/4` of `N` for **every** `k` at once — and
+`N⊛ > B·N`.
+
+**One witness family kills the whole class**, because the family's good part is
+as good as it gets: the `3m` atoms are simple, so they lie in `lowMult k` for
+every `k ≥ 1`, and raising the threshold cannot help a statistic that is already
+counting them all. Raising `k` only ever *adds* the crowded atom, which is
+exactly what a proportion statement is allowed to ignore.
+
+**The lesson generalises past the counterexample.** A proportion counts the good
+part and says nothing about the arrangement of the remainder; `N⊛` is dominated
+by the remainder. So no statistic of the form "at least `α` of the zeros are
+nice" can reach `(★)`, whatever "nice" means, as long as `nice` is closed under
+being simple. `LEADS.md` records the narrowing: a surviving statistic must
+constrain how the **non-good** zeros are arranged.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the program cannot be reached by any theorem of the
+form "most zeros are well-behaved", because its central quantity is decided
+entirely by the zeros that are not.

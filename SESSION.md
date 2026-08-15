@@ -5509,6 +5509,11 @@ is no gap and I say so.* **It did not fire — neither existed.**
   families and **never instantiated**. Now `certified_atomCount`: `ζ` has **at
   least `67.25%` as many distinct ordinates as zeros**, so its **mean vertical
   multiplicity is at most `1/0.6725 ≈ 1.487`**.
+> ⚠️ **`131`: these are not two findings.** `Fiber.oddAtoms_le_atomCount` — the
+> odd ordinates are a subset of the ordinates — makes the second a **corollary**
+> of the first. The odd-mass statement is the result; the mean-multiplicity
+> reading is its weaker shadow.
+
 * `oddAtoms` had **no Family layer at all** — it existed only on `ZeroData`,
   despite `079`'s `NscStd ≤ oddAtoms` being one of the seven bounds the haunted
   atom saturates. Now `certified_oddAtoms`: **at least `67.25%` as many odd-mass
@@ -5534,3 +5539,40 @@ Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base has
 was true, so the list of things this project can say about the Riemann zeta
 function is shorter than the list of things it has proved — and only by writing
 the instantiations does the difference become visible.
+
+
+# SESSION 131 — the two findings were one
+
+`130` closed a gap by instantiating two general theorems for `ζ` and presented
+them as two certified statements. Before building anything on that, the cheap
+check: are they independent?
+
+**Kill condition, filed first:** *if `oddAtoms ≤ atomCount` fails, the two are
+independent and `130`'s presentation stands.* **It fired.**
+
+`oddAtoms_le_atomCount` (new, one line): the odd-mass ordinates are a **subset**
+of the ordinates. So *"at least `67.25%` as many odd ordinates as zeros"* implies
+*"at least `67.25%` as many distinct ordinates as zeros"*, and `130` reported a
+result and its corollary as two results.
+
+**The correction makes the statement stronger, not weaker.** The mean-multiplicity
+reading — *"at most `1.487` zeros per ordinate"* — is the shadow. What is actually
+proved is that at least `67.25%` of the ordinate count is **odd**, which says
+something about the *parity structure* of `ζ`'s vertical multiplicities that the
+averaged form discards.
+
+Corrected at three locations: the docstring, the `CLAIMS.md` row, and `130`'s
+session entry.
+
+**And this is the third distinct way the same audit has gone wrong.** `121`–`128`
+found registers understating by not updating; `129`–`130` found them understating
+by not instantiating; this is overstating by *double-counting a consequence*. All
+three are the same underlying thing — the difference between what is proved and
+what is written down is not tracked by anything, in either direction.
+
+Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
+`cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** counting results is as unreliable as counting bounds
+was in `125`, and for the same reason — a list assembled while proving things
+records the order they arrived in, not the order they depend on.

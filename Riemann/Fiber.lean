@@ -3493,6 +3493,15 @@ theorem best_delta_is_from_110 (D : ZeroData) :
   ⟨two_mul_haunted_add_NscStd_le_N D, three_mul_haunted_le_N D,
    haunted_le_NscStd D⟩
 
+/-- **`oddAtoms ≤ atomCount`** — the odd-mass ordinates are a subset of the
+ordinates.  So a lower bound on `oddAtoms` implies one on `atomCount`, and
+`130`'s two certified statements about `ζ` are not independent: the odd one
+subsumes the other. -/
+theorem oddAtoms_le_atomCount (D : ZeroData) : oddAtoms D ≤ atomCount D := by
+  classical
+  rw [oddAtoms, atomCount]
+  exact Finset.card_filter_le _ _
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

@@ -262,10 +262,17 @@ theorem certified_haunted : HauntedDensity zetaFamily 0.16375 := by
 Both were general theorems with no `ζ` instance — `129`'s gap exactly: a quantity
 used as a step and never stated as a result.
 
-* **at least `67.25%` as many distinct ordinates as zeros**, so the **mean
-  vertical multiplicity is at most `1/0.6725 ≈ 1.487`**;
 * **at least `67.25%` as many odd-mass ordinates as zeros**, since every
-  standard-simple ordinate has odd mass.
+  standard-simple ordinate has odd mass;
+* hence **at least `67.25%` as many distinct ordinates as zeros**, so the **mean
+  vertical multiplicity is at most `1/0.6725 ≈ 1.487`**.
+
+⚠️ **Corrected `SESSION 131`:** `130` presented these as two findings. They are
+not independent — `Fiber.oddAtoms_le_atomCount` says the odd ordinates are a
+subset of the ordinates, so the **first implies the second**. The odd-mass
+statement is the result; the multiplicity bound is its corollary, and the
+mean-multiplicity reading understates what is proved: at least `67.25%` of the
+ordinate-count is *odd*, not merely distinct.
 
 Same axiom tier as every other row. -/
 theorem certified_atomCount :

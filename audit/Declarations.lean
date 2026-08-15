@@ -284,3 +284,4 @@ import Riemann
 #check @Riemann.oddAtoms_ge_of_proportionStd
 #check @Riemann.certified_atomCount
 #check @Riemann.certified_oddAtoms
+#check @Riemann.Blindness.oddAtoms_le_atomCount

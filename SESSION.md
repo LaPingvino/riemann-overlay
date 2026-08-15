@@ -2100,3 +2100,41 @@ before becoming "we know something that would suffice", and the gap between
 those two sentences is the entire remaining research question — because a
 coarsening of `offAt` that still determines the ledger would be a cheaper thing
 to go looking for than `offAt` itself.
+
+
+# SESSION 053 — night cycle 17: the residue narrowed, and an overclaim declined
+
+**Kill condition, stated first:** *if relabelling ordinates can change any
+ledger quantity, the residue genuinely depends on ordinate identity and the
+profile idea dies.* **It did not fire.**
+
+`ledger_relabel_invariant` (axiom-free): for **any injective** `σ`, relabelling
+the ordinates leaves all five ledger quantities unchanged. Six supporting
+lemmas — `relabel_N`, `relabel_H`, `relabel_count`, `relabel_Nstar`,
+`relabel_Nsc`, `relabel_NscStd`, `relabel_Noff` — each a short `filter_map` /
+`count_map` argument.
+
+**So ordinate names are provably not part of the residue**, and last cycle's
+swap pair is revealed as one instance of a general theorem rather than a lucky
+example.
+
+**And here is what I did not write.** The tempting sentence is "therefore the
+residue is the profile — the multiset of `(mass, off-line mass)` pairs". That
+does not follow: invariance under relabelling is weaker than determination by
+the profile, because two configurations can share a profile without being
+related by any relabelling. **`SURPRISES` S26 is one cycle old and records
+exactly this species of overreach**, so the register says invariance and stops
+there.
+
+The minimal residue remains unidentified. What is now known: it lies below
+`(μ_T, offAt)`, and it is relabelling-invariant.
+
+No `SURPRISES` row — the kill condition was a question and did not fire, and the
+overclaim was declined rather than made and retracted.
+
+Build green (3747 jobs), audits extended, base hash unmoved, one new grade-A row.
+
+**Might-mean, unhedged:** the discipline earned its keep tonight in the negative
+— the cycle's most valuable output was a sentence I was able to see coming and
+chose not to write, which is the first time the surprise register has prevented
+an entry rather than recorded one.

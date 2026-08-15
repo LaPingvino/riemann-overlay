@@ -719,5 +719,105 @@ theorem offAt_not_minimal {a : ℝ} (ha : a ≠ 1/2) {γ : ℝ} (hγ : γ ≠ 0)
         ≠ offAt (superpose (configAt 0 0 1 a) (configAt γ 2 0 a)) 0 :=
   ⟨swap_not_a_gauge_pair ha γ, (landau_cannot_determine_offAt ha hγ).2⟩
 
+
+/-! #### Coarsening the residue: ordinate identity is irrelevant
+
+`offAt_not_minimal` showed `(μ_T, offAt)` is more than the ledger needs, using
+the swap pair.  What the swap pair actually exploits is that the *names* of the
+ordinates carry no information: exchanging which height hosts which fiber state
+changes `offAt` as a function and changes nothing the ledger reports.
+
+Proved here in general: **the entire ledger is invariant under any injective
+relabelling of ordinates.**  So the residue is at most the *profile* — the
+multiset of `(mass, off-line mass)` pairs — and never the labelled function
+`offAt`. -/
+
+/-- Relabel the ordinates by an injective `σ`, leaving abscissae alone. -/
+noncomputable def relabel (D : ZeroData) (σ : ℝ → ℝ) : ZeroData where
+  Z := D.Z.map fun p => (p.1, σ p.2)
+  refl_inv := by
+    have hcomm : refl ∘ (fun p : ℝ × ℝ => (p.1, σ p.2))
+        = (fun p : ℝ × ℝ => (p.1, σ p.2)) ∘ refl := by
+      funext p; rfl
+    rw [Multiset.map_map, hcomm, ← Multiset.map_map, D.refl_inv]
+
+@[simp] lemma relabel_N (D : ZeroData) (σ : ℝ → ℝ) : (relabel D σ).N = D.N := by
+  show Multiset.card (D.Z.map _) = _
+  rw [Multiset.card_map]; rfl
+
+lemma relabel_H (D : ZeroData) {σ : ℝ → ℝ} (hσ : Function.Injective σ) (γ : ℝ) :
+    (relabel D σ).H (σ γ) = D.H γ := by
+  classical
+  show Multiset.card (Multiset.filter _ (D.Z.map fun p => (p.1, σ p.2))) = _
+  rw [Multiset.filter_map, Multiset.card_map, ZeroData.H]
+  congr 1
+  refine Multiset.filter_congr fun p _ => ?_
+  exact ⟨fun h => hσ h, fun h => congrArg σ h⟩
+
+lemma relabel_Noff (D : ZeroData) (σ : ℝ → ℝ) : (relabel D σ).Noff = D.Noff := by
+  classical
+  show Multiset.card (Multiset.filter _ (D.Z.map fun p => (p.1, σ p.2))) = _
+  rw [Multiset.filter_map, Multiset.card_map, ZeroData.Noff]
+  congr 1
+
+lemma relabel_count (D : ZeroData) {σ : ℝ → ℝ} (hσ : Function.Injective σ)
+    (p : ℝ × ℝ) : (relabel D σ).Z.count (p.1, σ p.2) = D.Z.count p := by
+  classical
+  show Multiset.count _ (D.Z.map fun q => (q.1, σ q.2)) = _
+  rw [Multiset.count_map, Multiset.count_eq_card_filter_eq]
+  congr 1
+  refine Multiset.filter_congr fun q _ => ?_
+  constructor
+  · intro h
+    have h1 : q.1 = p.1 := (Prod.ext_iff.1 h).1.symm
+    have h2 : q.2 = p.2 := hσ (Prod.ext_iff.1 h).2.symm
+    exact (Prod.ext h1 h2).symm
+  · intro h; rw [← h]
+
+lemma relabel_Nstar (D : ZeroData) {σ : ℝ → ℝ} (hσ : Function.Injective σ) :
+    (relabel D σ).Nstar = D.Nstar := by
+  classical
+  show (((D.Z.map fun p => (p.1, σ p.2))).map fun p => (relabel D σ).H p.2).sum = _
+  rw [Multiset.map_map, ZeroData.Nstar]
+  refine congrArg _ (Multiset.map_congr rfl fun p _ => ?_)
+  exact relabel_H D hσ p.2
+
+lemma relabel_Nsc (D : ZeroData) {σ : ℝ → ℝ} (hσ : Function.Injective σ) :
+    (relabel D σ).Nsc = D.Nsc := by
+  classical
+  show Multiset.card (Multiset.filter _ (D.Z.map fun p => (p.1, σ p.2))) = _
+  rw [Multiset.filter_map, Multiset.card_map, ZeroData.Nsc]
+  congr 1
+  refine Multiset.filter_congr fun p _ => ?_
+  show (p.1 = 1/2 ∧ (relabel D σ).H (σ p.2) = 1) ↔ (p.1 = 1/2 ∧ D.H p.2 = 1)
+  rw [relabel_H D hσ]
+
+lemma relabel_NscStd (D : ZeroData) {σ : ℝ → ℝ} (hσ : Function.Injective σ) :
+    (relabel D σ).NscStd = D.NscStd := by
+  classical
+  show Multiset.card (Multiset.filter _ (D.Z.map fun p => (p.1, σ p.2))) = _
+  rw [Multiset.filter_map, Multiset.card_map, ZeroData.NscStd]
+  congr 1
+  refine Multiset.filter_congr fun p _ => ?_
+  show (p.1 = 1/2 ∧ (relabel D σ).Z.count (p.1, σ p.2) = 1)
+      ↔ (p.1 = 1/2 ∧ D.Z.count p = 1)
+  rw [relabel_count D hσ]
+
+/-- **The ledger does not know the ordinates' names.**  Every counted quantity
+is invariant under an injective relabelling of ordinates.
+
+So the residue `(μ_T, offAt)` of `ledger_determined` is strictly more than
+needed: what matters is the *profile*, the multiset of `(mass, off-line mass)`
+pairs, with the heights themselves discarded.  The swap pair of
+`offAt_not_minimal` is one instance of this theorem — the relabelling that
+exchanges two heights. -/
+theorem ledger_relabel_invariant (D : ZeroData) {σ : ℝ → ℝ}
+    (hσ : Function.Injective σ) :
+    (relabel D σ).N = D.N ∧ (relabel D σ).Nstar = D.Nstar ∧
+      (relabel D σ).Nsc = D.Nsc ∧ (relabel D σ).NscStd = D.NscStd ∧
+      (relabel D σ).Noff = D.Noff :=
+  ⟨relabel_N D σ, relabel_Nstar D hσ, relabel_Nsc D hσ, relabel_NscStd D hσ,
+    relabel_Noff D σ⟩
+
 end Blindness
 end Riemann

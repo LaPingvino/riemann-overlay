@@ -1029,3 +1029,27 @@ distinguishes the pair is *which ordinate carries the crowd* — precisely what
 the phase `e^{iγ log x}` carries and the real weight discards. That is census
 `#1`'s separability problem as a determination failure, and it is consistent
 with `forensics/w16_price.py`: the binding constraint is the phase.
+
+### The residue, narrowed once (night cycle 17)
+
+**Kill condition:** *if relabelling ordinates can change any ledger quantity,
+the residue genuinely depends on ordinate identity and the profile idea dies.*
+**It did not fire.**
+
+`ledger_relabel_invariant` (axiom-free): for **any injective** `σ : ℝ → ℝ`,
+relabelling the ordinates leaves `N`, `N⊛`, `Nsc`, `NscStd` and `N_off`
+unchanged. The swap pair of `offAt_not_minimal` is one instance — the
+relabelling that exchanges two heights.
+
+**So ordinate names are provably not part of the residue.** Whatever the minimal
+information is, it is invariant under relabelling.
+
+**Stated precisely, and deliberately not further —** because overclaiming this
+exact result is what `SURPRISES` S26 records from last cycle. What is proved is
+*invariance*. What is **not** proved is that the **profile** (the multiset of
+`(mass, off-line mass)` pairs) **determines** the ledger; that needs the profile
+construction and a separate argument. Two configurations can share a profile
+without being related by a relabelling, so invariance does not give it.
+
+**The minimal residue therefore remains unidentified**, but it is now known to
+live below `(μ_T, offAt)` and above nothing yet, and to be relabelling-invariant.

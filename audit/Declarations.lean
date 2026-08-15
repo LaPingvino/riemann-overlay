@@ -124,3 +124,7 @@ import Riemann
 #check @Riemann.Blindness.offAt_superpose
 #check @Riemann.Blindness.landau_cannot_determine_offAt
 #check @Riemann.Blindness.offAt_not_minimal
+#check @Riemann.Blindness.relabel
+#check @Riemann.Blindness.relabel_H
+#check @Riemann.Blindness.relabel_count
+#check @Riemann.Blindness.ledger_relabel_invariant

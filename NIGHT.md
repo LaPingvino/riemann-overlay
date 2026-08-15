@@ -40,6 +40,24 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 17 — the residue narrowed; an overclaim declined
+
+**Kill condition** (that relabelling ordinates could change a ledger quantity)
+**did not fire**. `ledger_relabel_invariant` (axiom-free): for **any injective**
+`σ`, relabelling ordinates leaves `N`, `N⊛`, `Nsc`, `NscStd`, `N_off` unchanged.
+Last cycle's swap pair is one instance of this, not a lucky example.
+
+**Ordinate names are provably not part of the residue.**
+
+**What I declined to write:** "therefore the residue is the profile". It does not
+follow — invariance is weaker than determination, since two configurations can
+share a profile without any relabelling relating them. `SURPRISES` S26 is one
+cycle old and records exactly this overreach, so the register says invariance and
+stops.
+
+Minimal residue still unidentified; now known to sit below `(μ_T, offAt)` and to
+be relabelling-invariant.
+
 ### Night cycle 16 — the residue is an UPPER BOUND; last cycle's claim corrected
 
 **Kill condition** (that the Landau weight determines `offAt`, which would shrink

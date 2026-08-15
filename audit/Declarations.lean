@@ -147,3 +147,6 @@ import Riemann
 #check @Riemann.Capacity.reweighting_worst_case
 #check @Riemann.Capacity.weighted_sum_le_mass_mul
 #check @Riemann.Capacity.equal_mass_equal_worst_case
+#check @Riemann.Blindness.factMoment
+#check @Riemann.Blindness.factMoment_eq_zero_of_masses_le_two
+#check @Riemann.Optimal.moment_route_walled

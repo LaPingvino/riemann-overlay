@@ -32,6 +32,7 @@ moment `Σ m³` — [OPEN D]'s currency.  The reduction and the ceiling want the
 same missing input.
 -/
 import Riemann.Gauge
+import Riemann.Fiber
 
 namespace Riemann
 namespace Optimal
@@ -197,6 +198,36 @@ theorem prop1_LP_optimal_cheap {M : ℕ} (hM : 2 ≤ M) {a b : ℝ}
   rcases le_or_gt (-1 : ℝ) b with hcase | hcase
   · nlinarith [h2, hcase, hC2]
   · nlinarith [h1, hcase, hC1]
+
+
+/-! ### The moment route is walled at every order
+
+`Fiber.factMoment_eq_zero_of_masses_le_two` says every descending factorial
+moment of order `≥ 3` vanishes when all atoms have mass `≤ 2`.  Both witnesses
+that force `prop1`'s optimum — `single` (mass 1) and `Gauge.pairOnly` (mass 2) —
+are of that kind.
+
+**A moment inequality cannot exclude a configuration on which it is tight**, so
+no moment constraint of *any* order removes either witness, and a constraint
+that cannot exclude the binding witnesses cannot move the bound.  The moment
+route is walled at every order, not merely at three
+(`Fiber.three_Nstar_le_thirdMoment_add_two_N` was the `k = 3` case). -/
+
+theorem single_factMoment {k : ℕ} (hk : 3 ≤ k) :
+    Blindness.factMoment single k = 0 :=
+  Blindness.factMoment_eq_zero_of_masses_le_two _ hk fun γ =>
+    le_trans (H_le_N single γ) (le_of_eq_of_le single_N (by norm_num))
+
+theorem pairOnly_factMoment {k : ℕ} (hk : 3 ≤ k) :
+    Blindness.factMoment Gauge.pairOnly k = 0 :=
+  Blindness.factMoment_eq_zero_of_masses_le_two _ hk fun γ =>
+    le_trans (H_le_N Gauge.pairOnly γ) (le_of_eq_of_le Gauge.pairOnly_N (le_refl 2))
+
+/-- **The moment route is walled at every order.** -/
+theorem moment_route_walled {k : ℕ} (hk : 3 ≤ k) :
+    Blindness.factMoment single k = 0 ∧
+      Blindness.factMoment Gauge.pairOnly k = 0 :=
+  ⟨single_factMoment hk, pairOnly_factMoment hk⟩
 
 end Optimal
 end Riemann

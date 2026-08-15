@@ -1132,5 +1132,42 @@ theorem three_Nstar_le_thirdMoment_add_two_N (D : ZeroData) :
   have := three_sq_le_cube_add_two (D.H γ)
   linarith [this]
 
+
+/-! #### The moment route is walled at every order
+
+`three_Nstar_le_thirdMoment_add_two_N` killed the third moment.  claude.ai
+observed the generalisation, and it is the stronger statement:
+
+> the configuration that makes `prop1` tight has **every** descending factorial
+> moment of order `≥ 3` equal to zero.
+
+`prop1`'s two extremal witnesses are `single` (one atom of mass `1`) and
+`Gauge.pairOnly` (one atom of mass `2`).  For `m ≤ 2` and `k ≥ 3` the descending
+factorial `m(m−1)⋯(m−k+1)` vanishes — it has more factors than `m` has room
+for.  So every factorial moment functional of order `≥ 3`, hence every
+polynomial moment functional of order `≥ 3`, is **zero** on the extremal family.
+
+**A moment inequality cannot exclude a configuration on which it is tight.**  So
+no moment constraint of any order — third, fourth, or the whole infinite
+sequence — removes the witnesses that force `prop1`'s optimum.  The moment route
+to improving `prop1` is walled **at every order**, not merely at three.
+
+What survives is *equality*-grade, not inequality-grade: recovering the mass
+distribution itself would need asymptotic **identities** for the moments
+(Fujii-with-main-terms), which is a different supply chain.  `F.md`'s F2 should
+be read at that grade and no higher. -/
+
+/-- The `k`-th descending factorial moment of the mass distribution. -/
+noncomputable def factMoment (D : ZeroData) (k : ℕ) : ℕ :=
+  ∑ γ ∈ D.ordinates.toFinset, Nat.descFactorial (D.H γ) k
+
+/-- **Every factorial moment of order `≥ 3` vanishes when all atoms have mass
+`≤ 2`** — i.e. on exactly the family that makes `prop1` tight. -/
+theorem factMoment_eq_zero_of_masses_le_two (D : ZeroData) {k : ℕ} (hk : 3 ≤ k)
+    (hm : ∀ γ, D.H γ ≤ 2) : factMoment D k = 0 := by
+  classical
+  refine Finset.sum_eq_zero fun γ _ => ?_
+  exact Nat.descFactorial_eq_zero_iff_lt.2 (lt_of_le_of_lt (hm γ) (by omega))
+
 end Blindness
 end Riemann

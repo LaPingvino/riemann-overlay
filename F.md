@@ -115,6 +115,15 @@ conditions), a known genre never asked of `S(t)`. *Note: `SESSION 061` proved
 the third moment cannot help via `Σm(m−1)(m−2) ≥ 0`; F2 should be read as asking
 whether the full sequence does what no finite prefix can.*
 
+> ⚠️ **ANSWERED at inequality grade (2026-08-15).** It does not.
+> `Optimal.moment_route_walled` (axiom-free): both witnesses forcing `prop1`'s
+> optimum have **every** factorial moment of order `≥ 3` equal to zero, so no
+> moment inequality of any order can exclude them — a constraint tight on the
+> binding witness cannot move the bound. **What survives F2 is equality-grade
+> only:** recovering the mass distribution needs asymptotic *identities* for the
+> moments (Fujii-with-main-terms), a different supply chain. Re-filed at that
+> grade and no higher.
+
 **F3 — the flow entropy.** Cast: the Lyapunov functional (E5m's named gap), its
 monotonicity, and — the hard member — arithmetic evaluability at `t = 0`. Spawn:
 read Csordas–Smith–Varga's Lehmer-pair machinery as inequalities *on a

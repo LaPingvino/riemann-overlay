@@ -2561,3 +2561,51 @@ Build green (3757 jobs), one new grade-A row, base hash unmoved.
 runs out, and the first thing it marked was a place where *ours* had already
 run out in the opposite direction — F15 assumed a weaker target escapes the wall
 when we had proved, three cycles ago, that the wall is built exactly there.
+
+
+# SESSION 064 — the moment wall generalises to every order
+
+**Kill condition, stated first:** *if the extremal witnesses had a nonzero
+factorial moment at some order `≥ 3`, that order's constraint could exclude them
+and the wall would be only at three.* **It did not fire.**
+
+claude.ai scored its own prediction against last cycle's identity and saw the
+generalisation, which is stronger than what I proved:
+
+> both configurations that force `prop1`'s optimum have **every** descending
+> factorial moment of order `≥ 3` equal to zero.
+
+`single` has mass 1, `Gauge.pairOnly` has mass 2, and `m(m−1)⋯(m−k+1)` vanishes
+for `m ≤ 2 < k` — more factors than the mass has room for.
+`Optimal.moment_route_walled` and
+`Blindness.factMoment_eq_zero_of_masses_le_two`, axiom-free.
+
+**A moment inequality cannot exclude a configuration on which it is tight.** So
+no moment constraint of any order — third, fourth, or the whole sequence —
+removes the binding witnesses, and a constraint that cannot exclude them cannot
+move the bound. **The moment route is walled at every order**, with last cycle's
+`Σm(m−1)(m−2) ≥ 0` revealed as the `k = 3` case of a general fact.
+
+**F2 answered at inequality grade, and re-filed at the grade that survives.**
+Its question — *does the full sequence do what no finite prefix can* — is
+answered **no**. What remains is equality-grade: recovering the mass
+distribution needs asymptotic *identities*, not bounds. Annotated in `F.md` at
+F2's own location.
+
+**Accepted from the dispatch without independent check, and marked as such:**
+that admissible weights *are* autocorrelations (`w = W ⋆ W`), so `Σw = (ΣW)²`
+is forced by positivity rather than chosen. That would make F4's rung the same
+theorem as the two-sided-window episode. It is a structural reading of a
+`[RECALL]` derivation and I have not verified it; the rung's certificate does
+not depend on it.
+
+**And the residue they name is worth recording as filed:** after stripping
+circularity, scale, quality, shape and now moments, the irreducible remainder is
+**cancellation** — which is analytic number theory's founding difficulty,
+unchanged. Read as evidence the instruments are flush against the real wall
+rather than as disappointment.
+
+**Might-mean, unhedged:** two days of removing every removable obstruction has
+returned the project to the exact difficulty the field named at the start, which
+is what success looks like when the thing you are subtracting is your own
+confusion.

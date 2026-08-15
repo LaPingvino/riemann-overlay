@@ -1116,3 +1116,28 @@ constructed.
 small genus to separate the inequalities, the laboratory is underpowered at
 feasible `q` and that is the finding* — a `#27`-shaped answer, and worth knowing
 before anyone builds the harness.
+
+### W35, first result: the third moment is on the *visible* side
+
+**Kill condition:** *if `Σ m³` is not `μ_T`-visible it sits on the blindness
+side and the registers' framing stands as written.* **It did not fire.**
+
+`thirdMoment_determined` and `moment_determined` (axiom-free): `H γ` is
+`ordinates.count γ`, so **every** moment of the mass distribution is a
+functional of `μ_T` alone.
+
+**This is an addition to the registers, not a correction of them** — nothing on
+file said otherwise; the distinction simply had not been drawn. Two open
+directions were being carried close together and are now separated:
+
+* **more moments of `μ_T`** (`Σ m³` and beyond, = W35's level-3 diagonal):
+  inside the certificate class's *reach*. What is missing is a theorem supplying
+  the value, not an ability to see it. `Blindness` does not obstruct this.
+* **the fiber coordinate** (`offAt`): not a functional of `μ_T` at any order, so
+  no amount of higher-moment information reaches it
+  (`NscStd_not_ordinate_functional`).
+
+**Consequence for the route table:** improving `prop1` does **not** require
+breaking the blindness. Only one of the project's two open directions is an
+impossibility result; the other is an ordinary missing theorem. Those had been
+priced as though they were the same kind of thing.

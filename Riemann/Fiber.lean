@@ -965,5 +965,53 @@ theorem NscStd_from_profile (D : ZeroData) :
   refine Finset.sum_congr rfl fun γ _ => ?_
   rw [honAt]
 
+
+/-! #### The third moment is `μ_T`-visible — two axes, not one
+
+`Optimal.prop1_LP_optimal` says improving Proposition 1 requires leaving the
+two-moment world, and `ISSUES` #20 names the missing object as `Σ m³`.  W35
+identifies that as the coincidence-diagonal of the 3-level correlation.
+
+**Kill condition, stated before this section was written:** *if `Σ m³` turns out
+not to be `μ_T`-visible, it sits on the blindness side and the registers'
+framing stands.*  **It did not fire.**  `H γ` is `ordinates.count γ`, so any
+moment of the mass distribution is a functional of `μ_T` alone.
+
+That separates two things the registers have been carrying close together:
+
+* **more moments of `μ_T`** — `Σ m³` and beyond.  Inside the certificate class's
+  reach in principle; what is missing is a *theorem supplying them*, not an
+  ability to see them.
+* **the fiber coordinate** — `offAt`, and the profile's second component.  Not a
+  functional of `μ_T` at any order (`Blindness.NscStd_not_ordinate_functional`),
+  so no amount of higher-moment information reaches it.
+
+Improving `prop1` therefore does **not** require breaking the blindness.  The
+two open directions are independent, and only one of them is an impossibility. -/
+
+/-- The third moment of the mass distribution: `Σ_γ H(γ)³`. -/
+noncomputable def thirdMoment (D : ZeroData) : ℕ :=
+  ∑ γ ∈ D.ordinates.toFinset, D.H γ * D.H γ * D.H γ
+
+/-- **The third moment is a functional of `μ_T`.**  Contrast
+`Blindness.NscStd_not_ordinate_functional`: higher moments are inside the
+certificate class's reach, the fiber coordinate is not. -/
+theorem thirdMoment_determined {D D' : ZeroData}
+    (hord : D.ordinates = D'.ordinates) : thirdMoment D = thirdMoment D' := by
+  classical
+  rw [thirdMoment, thirdMoment, hord]
+  refine Finset.sum_congr rfl fun γ _ => ?_
+  rw [D.H_eq_count, D'.H_eq_count, hord]
+
+/-- …and so is every moment, by the same one-line argument. -/
+theorem moment_determined {D D' : ZeroData} (k : ℕ)
+    (hord : D.ordinates = D'.ordinates) :
+    ∑ γ ∈ D.ordinates.toFinset, D.H γ ^ k
+      = ∑ γ ∈ D'.ordinates.toFinset, D'.H γ ^ k := by
+  classical
+  rw [hord]
+  refine Finset.sum_congr rfl fun γ _ => ?_
+  rw [D.H_eq_count, D'.H_eq_count, hord]
+
 end Blindness
 end Riemann

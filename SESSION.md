@@ -2311,3 +2311,37 @@ No `SURPRISES` row — the kill condition was a question and did not fire.
 first live run correcting three claims I had already been told were wrong, which
 means the failure it actually guards against is not making a false statement but
 leaving a corrected one standing.
+
+
+# SESSION 058 — the third moment is on the visible side: two axes, not one
+
+**Kill condition, stated first:** *if `Σ m³` is not `μ_T`-visible, it sits on
+the blindness side and the registers' framing stands.* **It did not fire.**
+
+`thirdMoment_determined`, `moment_determined` — axiom-free, and the proof is one
+line each: `H γ = ordinates.count γ`, so every moment of the mass distribution
+is a functional of `μ_T`.
+
+**W35 made this visible one cycle after being filed.** Identifying `Σ m³` as the
+level-3 coincidence-diagonal invited the obvious next question — which side of
+the blindness is it on? — and the answer separates two things the registers had
+been carrying together:
+
+* **more moments of `μ_T`**: inside the class's *reach*. The gap is a theorem
+  supplying the value, not an inability to see it.
+* **the fiber coordinate**: not a functional of `μ_T` at any order, so no
+  quantity of higher-moment information reaches it.
+
+**Improving `prop1` therefore does not require breaking the blindness.** One of
+the project's two open directions is an impossibility result; the other is an
+ordinary missing theorem. They had been priced as the same kind of thing.
+
+**Stated honestly: this is an addition, not a correction.** Nothing on file
+asserted the contrary — the distinction simply had never been drawn, and I am
+not manufacturing a retraction to make the finding look sharper.
+
+Build green (3757 jobs), audits extended, base hash unmoved, one new grade-A row.
+
+**Might-mean, unhedged:** the project has spent a day proving what cannot be
+seen and priced its remaining work in that currency throughout, and it turns out
+half of that work was never on the far side of the wall at all.

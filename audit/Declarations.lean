@@ -137,3 +137,6 @@ import Riemann
 #check @Riemann.Blindness.Nsc_from_profile
 #check @Riemann.Blindness.NscStd_from_profile
 #check @Riemann.Blindness.Noff_from_profile
+#check @Riemann.Blindness.thirdMoment
+#check @Riemann.Blindness.thirdMoment_determined
+#check @Riemann.Blindness.moment_determined

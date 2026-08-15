@@ -96,3 +96,9 @@ import Riemann
 #check @Riemann.Capacity.value_eq_pinned_integral
 #check @Riemann.Capacity.no_gain_past_known_integral
 #check @Riemann.Capacity.unbounded_below_of_neg_outside_integral
+-- prop1's optimality in the two moments, certified (was a docstring claim)
+#check @Riemann.Optimal.LinearBound
+#check @Riemann.Optimal.linearBound_prop1
+#check @Riemann.Optimal.linearBound_le_one
+#check @Riemann.Optimal.linearBound_mass2
+#check @Riemann.Optimal.prop1_LP_optimal

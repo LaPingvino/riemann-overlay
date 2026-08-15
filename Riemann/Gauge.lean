@@ -136,6 +136,9 @@ single mirror pair, so no constant better than `1` holds in
 `N + N_off ≤ N⊛`, and the `(C−1)` in `Family.offline_le` cannot be improved to
 `(C−1)/2`.
 
+**Optimality is no longer a docstring claim:** see `Riemann/Optimal.lean`,
+`prop1_LP_optimal` — and it holds with *no* sign hypothesis on `β`.
+
 R16 calibration: regrouping over atoms pays only when the termwise charge
 *under*-counts. Here a lone pair's own two terms already saturate the
 inequality, so there is nothing for grouping to collect. -/

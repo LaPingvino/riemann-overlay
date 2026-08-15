@@ -1680,3 +1680,47 @@ behaviour does not depend on what the default simp set happens to close.
 "extension destroys the certificate" is the difference between a dead end and a
 trap, and only the second one explains why the `0.809` episode cost a headline
 rather than an afternoon.
+
+
+# SESSION 043 — night cycle 7: a second docstring promoted, and the linter finds a superfluous hypothesis
+
+W19 and the GRH tier both need literature values the registers do not hold, so
+per the standing constraint I took an in-repo item instead — and the ladder
+audit's standard, turned on our own prose, found another instance of the disease
+it was built for.
+
+**`Gauge.lean` claimed, in a docstring, that `prop1` is LP-optimal in `(N, N⊛)`:
+that no `Nsc ≥ αN + βN⊛` beats `(2,−1)`.** Only a single tightness witness was
+ever proved. `Riemann/Optimal.lean` (axiom-free, sorry-free) proves the claim.
+
+**Kill condition, stated first:** *if two test configurations do not suffice —
+if some `(α,β)` satisfying both constraints still beats `2 − C` somewhere in the
+regime — prop1's optimality needs more constraints and the docstring is
+downgraded.* **It did not fire.** Two suffice:
+
+* a single simple on-line zero (`N=1, N⊛=1, Nsc=1`) forces `α + β ≤ 1`;
+* the lone mirror pair (`Gauge.pairOnly`: `N=2, N⊛=4, Nsc=0`) forces
+  `α + 2β ≤ 0`.
+
+A two-case split on `β ≷ −1` then gives `α + βC ≤ 2 − C` on `1 ≤ C ≤ 2`, with
+equality at `(2,−1)`.
+
+**And the certified statement is stronger than the prose it replaces.** I wrote
+`β ≤ 0` into the theorem as an obviously-needed precondition and justified it in
+the docstring. **Lean's unused-variable linter reported that the proof never
+touches it.** Optimality holds for *every* `(α,β)` in the class. Filed as
+`SURPRISES` S21 — corrected by tooling, and by a linter whose job is style,
+which found a superfluous *mathematical* hypothesis.
+
+So the register's standing consequence now rests on a theorem rather than an
+assertion: **improving Proposition 1 requires leaving the two-moment world** —
+a third moment `Σ m³`, [OPEN D]'s currency. The reduction and the ceiling want
+the same missing input.
+
+`Gauge.lean`'s docstring now points at the theorem instead of making the claim.
+Audits extended; build green (3747 jobs); base hash unmoved.
+
+**Might-mean, unhedged:** two of this project's load-bearing "the class cannot
+do better" claims turned out to live in docstrings, and both were true — which
+means the risk was never that we believed false things, but that we could not
+tell which of our beliefs a reader was entitled to check.

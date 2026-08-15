@@ -23,3 +23,4 @@ import Riemann
 #print axioms Riemann.Capacity.value_eq_pinned_integral
 #print axioms Riemann.Capacity.no_gain_past_known_integral
 #print axioms Riemann.Capacity.unbounded_below_of_neg_outside_integral
+#print axioms Riemann.Optimal.prop1_LP_optimal

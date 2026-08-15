@@ -375,3 +375,32 @@ constant bump `t` on `E`; the value is `P + t·∫_E K`, which runs to `−∞`.
 
 Both halves hold for any measurable `A`, `[0,1]` included, and neither mentions
 `ζ`.
+
+
+## A second docstring promoted to a theorem (night cycle 7)
+
+The ladder audit's standard — *a claim about what a class cannot do needs a
+machine-checked statement, not a docstring* — was aimed at census entries. Turned
+on our own `Gauge.lean` docstring it found the same disease: **"no linear bound
+`Nsc ≥ αN + βN⊛` beats `(2,−1)`"** was prose, with only a single tightness
+witness proved.
+
+`Riemann/Optimal.lean` (axiom-free) fixes that with exactly two configurations:
+
+* a single simple on-line zero (`N=1, N⊛=1, Nsc=1`) forces `α + β ≤ 1`;
+* the lone mirror pair (`Gauge.pairOnly`: `N=2, N⊛=4, Nsc=0`) forces
+  `α + 2β ≤ 0`.
+
+Those two already give `α + βC ≤ 2 − C` throughout `1 ≤ C ≤ 2`, attained by
+`(2,−1)`. **Kill condition** — that two configurations would not suffice —
+**did not fire**.
+
+**And the certified statement is stronger than the prose it replaces:** no sign
+hypothesis on `β` is required. I had written `β ≤ 0` into the theorem as an
+obvious precondition; Lean's *unused-variable linter* pointed out the proof
+never touched it (`SURPRISES` S21).
+
+So the register's standing consequence is now load-bearing rather than
+asserted: **improving Proposition 1 requires leaving the two-moment world** — a
+third moment `Σ m³`, which is [OPEN D]'s currency. The reduction and the ceiling
+want the same missing input, and that sentence now rests on a theorem.

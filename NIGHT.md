@@ -34,6 +34,23 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 7 — a second docstring promoted; the linter finds a superfluous hypothesis
+
+W19 and the GRH tier need literature the registers do not hold, so: an in-repo
+item. `Gauge.lean` claimed **in a docstring** that `prop1` is LP-optimal in
+`(N, N⊛)`. `Riemann/Optimal.lean` (axiom-free) proves it, from exactly two
+configurations — a single simple zero (`α + β ≤ 1`) and the lone mirror pair
+(`α + 2β ≤ 0`). **Kill condition** (two configurations insufficient) **did not
+fire**.
+
+**The certified statement is stronger than the prose:** no sign hypothesis on
+`β` is needed. I had written `β ≤ 0` in as obvious; **the unused-variable linter
+reported the proof never touches it** (`SURPRISES` S21). A style linter found a
+superfluous mathematical hypothesis.
+
+The register's consequence — improving Proposition 1 requires a third moment,
+[OPEN D]'s currency — now rests on a theorem.
+
 ### Night cycle 6 — the fatal half; census `#10` closes
 
 `unbounded_below_of_neg_outside_integral` (axiom-free). Last cycle proved

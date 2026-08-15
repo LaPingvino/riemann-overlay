@@ -10,3 +10,4 @@ import Riemann.Proportion
 import Riemann.Blindness
 import Riemann.Fiber
 import Riemann.Capacity
+import Riemann.Optimal

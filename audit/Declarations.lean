@@ -234,3 +234,4 @@ import Riemann
 #check @Riemann.Blindness.Nstar_add_pred_mul_Nsc_le
 #check @Riemann.starBound_of_mult_le
 #check @Riemann.starBound_of_mult_le_three
+#check @Riemann.Blindness.Nstar_add_pred_mul_Nsc_le_except

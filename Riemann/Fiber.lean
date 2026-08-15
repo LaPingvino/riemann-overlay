@@ -2490,6 +2490,80 @@ theorem Nstar_add_pred_mul_Nsc_le (D : ZeroData) (M : ℕ) (hM : 1 ≤ M)
     exact key
   exact_mod_cast this
 
+/-- **The criterion tolerates exceptions, and the tolerance is `√N`.**
+
+`Nstar_add_pred_mul_Nsc_le` needs a supremum on *every* ordinate.  Allow a set of
+exceptional ordinates carrying `E` zeros in total, with `H ≤ M` outside it:
+
+> `N⊛ + (M−1)·Nsc ≤ M·N + E²`.
+
+The exceptional term is `E²` because the worst arrangement puts all `E` zeros at
+one ordinate, and `Σ H² ≤ (Σ H)²`.  So `(★)` survives exactly while
+`E² = o(N)` — an exceptional set of size `o(√N)`.
+
+**Kill condition, filed first:** *if the exceptional set can be as large as
+`o(N)`, the square-root threshold is not the real boundary.*  It did not fire:
+`E = c√N` contributes `c²N`, which shifts `C` by `c²` and is not `o(1)`. -/
+theorem Nstar_add_pred_mul_Nsc_le_except (D : ZeroData) (M : ℕ) (hM : 1 ≤ M)
+    (exc : ℝ → Prop) [DecidablePred exc]
+    (h : ∀ γ, ¬ exc γ → D.H γ ≤ M) :
+    D.Nstar + (M - 1) * D.Nsc
+      ≤ M * D.N + (∑ γ ∈ D.ordinates.toFinset.filter exc, D.H γ) ^ 2 := by
+  classical
+  set S := D.ordinates.toFinset with hSdef
+  set E := ∑ γ ∈ S.filter exc, D.H γ with hE
+  have hN0 : D.N = ∑ γ ∈ S, D.H γ := by
+    rw [N_from_profile, profile, Multiset.map_map]; rfl
+  have hS0 : D.Nstar = ∑ γ ∈ S, D.H γ * D.H γ := Nstar_eq_sum_H_sq D
+  have hB0 : D.Nsc = ∑ γ ∈ S, (if D.H γ = 1 then 1 else 0) := by
+    have : (D.Nsc : ℤ) = ∑ γ ∈ S, (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    exact_mod_cast this
+  -- split every sum along `exc`
+  have hsplit : ∀ f : ℝ → ℕ, ∑ γ ∈ S, f γ
+      = (∑ γ ∈ S.filter exc, f γ) + ∑ γ ∈ S.filter (fun γ => ¬ exc γ), f γ :=
+    fun f => (Finset.sum_filter_add_sum_filter_not S exc f).symm
+  -- exceptional part: `Σ H² ≤ E²`
+  have hexc : ∑ γ ∈ S.filter exc, (D.H γ * D.H γ + (M - 1) * (if D.H γ = 1 then 1 else 0))
+      ≤ E * E + (M - 1) * E := by
+    rw [Finset.sum_add_distrib, ← Finset.mul_sum]
+    refine Nat.add_le_add ?_ ?_
+    · calc ∑ γ ∈ S.filter exc, D.H γ * D.H γ
+          ≤ ∑ γ ∈ S.filter exc, D.H γ * E :=
+            Finset.sum_le_sum fun γ hγ => Nat.mul_le_mul_left _
+              (Finset.single_le_sum (f := D.H) (fun _ _ => Nat.zero_le _) hγ)
+        _ = E * E := by rw [← Finset.sum_mul]
+    · refine Nat.mul_le_mul_left _ (Finset.sum_le_sum fun γ hγ => ?_)
+      by_cases hh : D.H γ = 1
+      · rw [if_pos hh, hh]
+      · rw [if_neg hh]; exact Nat.zero_le _
+  -- ordinary part: the sharp per-atom estimate
+  have hord : ∑ γ ∈ S.filter (fun γ => ¬ exc γ),
+      (D.H γ * D.H γ + (M - 1) * (if D.H γ = 1 then 1 else 0))
+        ≤ M * ∑ γ ∈ S.filter (fun γ => ¬ exc γ), D.H γ := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_le_sum fun γ hγ => ?_
+    have hnot : ¬ exc γ := (Finset.mem_filter.1 hγ).2
+    have hHM : D.H γ ≤ M := h γ hnot
+    by_cases hh : D.H γ = 1
+    · rw [if_pos hh, hh]; omega
+    · rw [if_neg hh]
+      have : D.H γ * D.H γ ≤ M * D.H γ := Nat.mul_le_mul_right _ hHM
+      omega
+  have hEle : E ≤ D.N := by
+    rw [hN0]
+    exact le_trans (Finset.sum_le_sum_of_subset (Finset.filter_subset _ _)) (le_refl _)
+  have hNsplit := hsplit D.H
+  have hcomb : D.Nstar + (M - 1) * D.Nsc
+      = ∑ γ ∈ S, (D.H γ * D.H γ + (M - 1) * (if D.H γ = 1 then 1 else 0)) := by
+    rw [hS0, hB0, Finset.mul_sum, ← Finset.sum_add_distrib]
+  rw [hcomb, hsplit (fun γ => D.H γ * D.H γ + (M - 1) * (if D.H γ = 1 then 1 else 0))]
+  have : M * D.N = M * E + M * ∑ γ ∈ S.filter (fun γ => ¬ exc γ), D.H γ := by
+    rw [hN0, hNsplit, Nat.mul_add, hE]
+  rw [this]
+  have hM1 : M - 1 ≤ M := Nat.sub_le _ _
+  nlinarith [hexc, hord, hEle, hM1]
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

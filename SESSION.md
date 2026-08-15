@@ -4154,3 +4154,45 @@ Build green (3757 jobs), `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
 **Might-mean, unhedged:** a ledger row is not a score but a currency, and the
 half-point `084` added has just been spent on a hypothesis nobody could have
 afforded before it.
+
+
+# SESSION 099 — the criterion tolerates exceptions, and the tolerance is `√N`
+
+`097`/`098` need a supremum on **every** ordinate, which is the kind of
+hypothesis analytic number theory never delivers — its theorems come with
+exceptional sets. So: how large an exceptional set does the criterion survive?
+
+**Kill condition, filed first:** *if the exceptional set can be as large as
+`o(N)` rather than `o(√N)`, the square-root threshold is not the real boundary
+and I have mislocated it.* It did not fire.
+
+`Nstar_add_pred_mul_Nsc_le_except` (new, axiom-free): for any decidable set of
+exceptional ordinates, with `H ≤ M` outside it and `E` zeros sitting on it,
+
+> `N⊛ + (M−1)·Nsc ≤ M·N + E²`.
+
+The exceptional term is `E²` and not `E·M` because the worst arrangement puts
+all `E` zeros at a single ordinate, where `Σ H² = E²`. The proof splits the
+per-atom estimate along the exceptional predicate: outside, the sharp
+`H² + (M−1)[H=1] ≤ M·H` of `098`; inside, `H² ≤ H·E` summed to `E²`.
+
+**So the sufficient condition is not a supremum at all.** It is
+
+> `H ≤ M` outside a set carrying `o(√N)` zeros.
+
+**And `√N` is sharp, not an artifact.** The `E²` is attained — one atom of mass
+`E` contributes exactly `E²` by `Nstar_from_profile` — so an exceptional set of
+size `c√N` shifts `C` by `c²`, which is not `o(1)`.
+
+**Why it matters.** Every criterion in the registers so far has demanded control
+of *all* zeros. This is the first with a genuine exceptional-set allowance, which
+is the shape analytic results actually have. The allowance being `√N` rather than
+`εN` is the honest news: it is real, and it is small.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the program can afford to be ignorant about `√N` of the
+zeros and no more, which is a far more demanding standard than the exceptional
+sets zero-density theorems come with, and locates precisely why those theorems do
+not compose with it.

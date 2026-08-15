@@ -1540,3 +1540,32 @@ between "proportion of simple zeros" and "size-biased mean multiplicity" that th
 literature does supply? The blindness results say `μ_T` sees `H` entirely, so
 this is not an information question — it is a question about which functionals of
 `H` the analytic methods reach.
+
+
+## The multiplicity criterion, with its tolerance (SESSION 099)
+
+`Fiber.Nstar_add_pred_mul_Nsc_le_except`:
+
+> `N⊛ + (M−1)·Nsc ≤ M·N + E²`
+
+for any decidable set of exceptional ordinates, where `E` counts the zeros
+sitting at them and `H ≤ M` holds outside. So the sufficient condition for `(★)`
+is not "no zero has multiplicity `> M`" but
+
+> **"`H ≤ M` outside a set carrying `o(√N)` zeros".**
+
+**The `E²` is attained, so the tolerance is not an artifact of the proof.** Put
+all `E` exceptional zeros at one ordinate: `Nstar_from_profile` on a single atom
+of mass `E` gives exactly `E²`. Hence an exceptional set of size `c√N` shifts `C`
+by `c²`, which is not `o(1)`, and `√N` is the true boundary rather than a
+convenient one.
+
+*Scope: the `√N` statement is the asymptotic reading of the inequality, and the
+attainment is arithmetic on `Nstar_from_profile` for a one-atom configuration —
+not a separate theorem. The inequality itself is certified.*
+
+**Why this matters for the route table.** Every route so far has needed control
+of *all* zeros. This is the first criterion in the registers with a genuine
+exceptional-set allowance, which is the form analytic number theory actually
+delivers — zero-density results are always "outside an exceptional set". The
+allowance is small (`√N`, not `εN`), and that smallness is the honest news.

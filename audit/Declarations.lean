@@ -239,3 +239,4 @@ import Riemann
 #check @Riemann.Blindness.starBound_allows_any_multiplicity
 #check @Riemann.Blindness.no_NscStd_coefficient_at_three
 #check @Riemann.Blindness.haunted_atom_saturates
+#check @Riemann.Blindness.three_mul_NscStd_eq_iff

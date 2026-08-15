@@ -2699,6 +2699,82 @@ theorem haunted_atom_saturates {a : ℝ} (ha : a ≠ 1/2) :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;>
     simp only [hSc, hsc, hN, hOff, hS, hOdd, hA] <;> norm_num
 
+/-! ### The extremal family, characterised
+
+`103` showed the haunted mass-`3` atom saturates seven bounds and declined to
+claim uniqueness.  It is not unique — the **simple** atom saturates all seven
+too — so the right question is which configurations are extremal, and for the
+project's central bound `3·NscStd ≤ N + 2·Nsc` (`084`, the `Nsc` row) the answer
+is exact.
+
+**Kill condition, filed first:** *if some atom shape outside "simple, or haunted
+of mass 3" also gives per-atom equality, the characterisation is wrong.*  It did
+not fire: `H = 2` gives `0 < 2`, `H = 3` with `onAt = 3` gives `0 < 3`, and a
+haunted atom of mass `5` gives `3 < 5`. -/
+
+/-- **Equality in the `Nsc` row's bound holds exactly on mixtures of simple and
+haunted-mass-`3` atoms.**
+
+`3·NscStd = N + 2·Nsc` iff every ordinate carries either one zero, or three with
+exactly one on the line.  Those are the two configurations of
+`haunted_atom_saturates`, and nothing else. -/
+theorem three_mul_NscStd_eq_iff (D : ZeroData) :
+    3 * D.NscStd = D.N + 2 * D.Nsc ↔
+      ∀ γ ∈ D.ordinates.toFinset, D.H γ = 1 ∨ (D.H γ = 3 ∧ onAt D γ = 1) := by
+  classical
+  have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+      (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+    rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+  have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+      (if D.H γ = 1 then (1 : ℤ) else 0) := by
+    rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+  have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+    rw [N_from_profile, profile, Multiset.map_map]; rfl
+  have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+    rw [hN0, Nat.cast_sum]
+  have hle : ∀ γ ∈ D.ordinates.toFinset,
+      3 * (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0)
+        ≤ (D.H γ : ℤ) + 2 * (if D.H γ = 1 then (1 : ℤ) else 0) := by
+    intro γ _
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    split_ifs <;> omega
+  have hsplit : (3 * D.NscStd = D.N + 2 * D.Nsc) ↔
+      (∑ γ ∈ D.ordinates.toFinset,
+          3 * (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0))
+        = ∑ γ ∈ D.ordinates.toFinset,
+          ((D.H γ : ℤ) + 2 * (if D.H γ = 1 then (1 : ℤ) else 0)) := by
+    rw [← Finset.mul_sum, ← hA, Finset.sum_add_distrib, ← Finset.mul_sum, ← hB, ← hN]
+    constructor
+    · intro h; exact_mod_cast congrArg (fun n : ℕ => (n : ℤ)) h
+    · intro h; exact_mod_cast h
+  rw [hsplit, Finset.sum_congr rfl (fun _ _ => rfl),
+    (Finset.sum_eq_sum_iff_of_le hle)]
+  refine forall_congr' fun γ => forall_congr' fun hγ => ?_
+  have h1 := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  constructor
+  · intro heq
+    by_cases hone : D.H γ = 1
+    · exact Or.inl hone
+    · right
+      rw [if_neg hone] at heq
+      by_cases hsc : D.H γ - offAt D γ = 1
+      · rw [if_pos hsc] at heq
+        constructor <;> omega
+      · rw [if_neg hsc] at heq
+        have hpos : 0 < D.H γ := by
+          rw [ZeroData.H_eq_count, Multiset.count_pos]
+          exact Multiset.mem_toFinset.1 hγ
+        omega
+  · intro hcase
+    rcases hcase with h | ⟨h3, hon⟩
+    · rw [if_pos (by omega : D.H γ - offAt D γ = 1), if_pos h]
+      simp [h]
+    · rw [if_pos (by omega : D.H γ - offAt D γ = 1),
+        if_neg (by omega : ¬ D.H γ = 1)]
+      simp [h3]
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

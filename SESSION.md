@@ -4355,7 +4355,12 @@ the same three-element configuration.
 
 **What this is and is not.** It is not a proof that the haunted atom is the
 *unique* extremal configuration, and I am not claiming that — several of these
-are also tight on the simple atom. It is the precise content the `102` sentence
+are also tight on the simple atom.
+
+> ⚠️ **Sharpened next cycle, and the hedge was too weak.** *All seven* are tight
+> on the simple atom, not merely several. `104`'s `three_mul_NscStd_eq_iff`
+> characterises the extremal family of the central bound exactly: mixtures of
+> simple and haunted-mass-`3` atoms, and nothing else. It is the precise content the `102` sentence
 was reaching for: the constants in this project's arithmetic are all decided by
 one picture, and now that is a theorem rather than an impression.
 
@@ -4368,3 +4373,41 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 twenty readings of one configuration's arithmetic, which means the project's
 progress has been less a search over methods than a slow inventory of what a
 single counterexample forbids.
+
+
+# SESSION 104 — the extremal family, characterised exactly
+
+`103` proved the haunted mass-`3` atom saturates seven bounds and hedged that it
+might not be unique. Checking that hedge first was the right move: **the simple
+atom saturates all seven too** — not "several", as `103` said, but all of them.
+So the extremal set is a family, and the question worth answering is which one.
+
+**Kill condition, filed first:** *if some atom shape outside "simple, or haunted
+of mass `3`" also gives per-atom equality, the characterisation is wrong.* It did
+not fire — `H = 2` gives `0 < 2`, `H = 3` with `onAt = 3` gives `0 < 3`, and a
+haunted atom of mass `5` gives `3 < 5`.
+
+`three_mul_NscStd_eq_iff` (new, axiom-free): for the project's central bound,
+
+> `3·NscStd = N + 2·Nsc` **iff** every ordinate carries either one zero, or
+> three with exactly one on the line.
+
+An **iff**, not a family of witnesses. The proof runs the `084` estimate through
+`Finset.sum_eq_sum_iff_of_le`, so equality of the sums forces equality at every
+single ordinate, and then the per-atom arithmetic leaves exactly two shapes.
+
+**And the family was already in the registers, unrecognised.** `084`'s tightness
+argument used `s` simple atoms and `h` haunted ones because that mixture returned
+the right number. It turns out that mixture is not *a* tight family but **the**
+tight family — the bound's entire equality set, found by accident twenty cycles
+before it was characterised.
+
+`103`'s hedge is corrected at its location: "several of these" understated it.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the `Nsc` row is exactly `0.50875` and not a hair more
+because of configurations made only of lone critical zeros and lone critical
+zeros shadowed by a single off-line pair, so improving the row means excluding
+that shadow and nothing else.

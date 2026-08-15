@@ -5043,3 +5043,49 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** a placeholder written into a table survives every guard
 the project owns, because nothing checks that a formula was ever derived — only
 that claims cite theorems, and a table cell cites nothing.
+
+
+# SESSION 120 — the sweep that looked for placeholders and found a stale grade
+
+`119` ended by naming a gap: nothing checks that a formula in a table was ever
+derived, because a table cell cites nothing. The narrow tell — an ellipsis inside
+a formula — is checkable, so I swept for it.
+
+**Kill condition, filed first:** *if the sweep finds no placeholders beyond the
+one already fixed, the defect was a one-off and no guard is warranted.* **It
+fired.** Every ellipsis in the registers is a legitimate use: quotation elision,
+truncated commit hashes, numeric ranges. No guard built.
+
+**But the sweep found something it was not looking for.** `CLAIMS.md`'s
+provenance table graded
+
+> `0.6725126` and the whole `λ`-sweep — **`ISSUES` #29 — code not in repo**
+
+and `#29` was resolved about ninety cycles ago: `forensics/window_opt.py`
+reproduces the sweep from the register's own specification. The grade was never
+updated. `CLAIMS.md` is the register that is supposed to be the authority on what
+is verified, and it was carrying a ninety-cycle-stale "not verified" on something
+verified.
+
+**Checking it properly turned up a second, smaller thing.** The script's check
+list held **two** of the sweep's five rows. So "fully reproduced" would have been
+an overclaim in the other direction. I ran the remaining three:
+
+| λ | `c*` | `2 − 1/c*` |
+|---|---|---|
+| 1.25 | `0.8299265` | `0.7950740` |
+| 1.50 | `0.8728770` | `0.8543632` |
+| 2.00 | `0.8995905` | `0.8883831` |
+
+All three reproduce to seven digits. The check list now holds all five, so the
+grade cannot go stale again without the script failing.
+
+Corrected at the location of the grade, with the staleness noted in the cell
+rather than only here.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** a register that records failures faithfully will keep
+recording them after they are fixed, because the discipline that files a defect
+is not the discipline that closes one.

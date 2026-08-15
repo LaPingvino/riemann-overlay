@@ -210,7 +210,7 @@ Every computed figure in the registers, traced:
 | `0.85838` (`ξ'` proportion) | axiom `zeta23_xiPrime`, declared | trusted base ✓ |
 | `0.80869`, `0.809` | **retracted** (`ISSUES` #27), marked | ✓ |
 | `7.995`, `9.532`, `3.667`, `1.4283`, `0.8126`, `10.824` | **retracted** (`ISSUES` #24/#25) | ✓ *but see the ordering defect* |
-| `0.6725126` and the whole `λ`-sweep (`0.795…0.899`) | a quadrature optimisation | **`ISSUES` #29 — code not in repo** |
+| `0.6725126` and the whole `λ`-sweep (all five rows) | `forensics/window_opt.py`, the register's own linear solve | **reproduced to seven digits, every row ✓** (was graded "code not in repo" until `SESSION 120`; `#29` was resolved ~90 cycles earlier and this grade was never updated) |
 | `1.3208` (CMR), `0.679`/`0.6792` (CGdL) | literature | `[RECALL]`, and CMR is a lint node |
 
 **The new defect: retraction ordering.** `PRICES.md` carried its retracted

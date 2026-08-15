@@ -15,6 +15,11 @@ file is transcription, not reconstruction from memory — the distinction the
 #29 note leaned on, applied correctly this time.
 
 Verified against every value the register quotes; see `check()`.
+
+**SESSION 120:** the check list originally held two of the sweep's five rows,
+which let `CLAIMS.md` keep grading the sweep "code not in repo" long after `#29`
+was resolved.  All five rows are now checked, and all five reproduce to seven
+digits.
 """
 
 import numpy as np
@@ -42,6 +47,9 @@ def proportion(lam: float, N: int = 160) -> float:
 REGISTER = [
     (0.75, 0.6325448, 0.4190843),
     (1.00, 0.7533028, 0.6725126),
+    (1.25, 0.8299265, 0.7950740),
+    (1.50, 0.8728770, 0.8543632),
+    (2.00, 0.8995905, 0.8883831),
 ]
 
 # Montgomery–Taylor's closed form, for the λ = 1 identification.

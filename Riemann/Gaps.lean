@@ -254,6 +254,31 @@ theorem starBound_of_multiplicity_and_proportion {F : Family} {M : ℕ} {κ : �
   show F.Ns T ≤ (1 + M * (1 - κ) + ε) * F.Nz T
   nlinarith [hNsc, hbase, hpos', hkey]
 
+/-- **Multiplicity `≤ 2` turns the literature's row into `(★)` at `C = 2 − κ`.**
+
+Two exact facts do it (`Blindness.Nstar_add_Nsc_eq_two_mul_N` and
+`Blindness.Nsc_eq_NscStd_of_mult_le_two`): under `H ≤ 2` the star constant is
+`2 − Nsc/N` with no estimation at all, and `Nsc = NscStd`, so the *standard*
+proportion the literature certifies applies directly.
+
+At the zeta-23 baseline `κ = 0.6725` this is `C ≤ 1.3275`. -/
+theorem starBound_of_mult_le_two {F : Family} {κ : ℝ}
+    (hM : ∀ T γ, (F.D T).H γ ≤ 2) (hstd : F.ProportionStd κ) :
+    F.toCounts.StarBound (2 - κ) := by
+  intro ε hε
+  filter_upwards [hstd ε hε] with T hT
+  have hexact : F.Ns T + F.Nsc T = 2 * F.Nz T := by
+    have := Blindness.Nstar_add_Nsc_eq_two_mul_N (F.D T) (hM T)
+    unfold Family.Ns Family.Nsc Family.Nz
+    exact_mod_cast this
+  have heq : F.Nsc T = F.NscStd T := by
+    have := Blindness.Nsc_eq_NscStd_of_mult_le_two (F.D T) (hM T)
+    unfold Family.Nsc Family.NscStd
+    exact_mod_cast this
+  show F.Ns T ≤ (2 - κ + ε) * F.Nz T
+  rw [heq] at hexact
+  nlinarith [hT, hexact]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

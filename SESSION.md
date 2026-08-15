@@ -4058,3 +4058,52 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 a statement about multiplicities that is weaker than anything it was trying to
 prove, and the reason nobody saw it is that the two ingredients were priced in
 different cycles and never multiplied together.
+
+
+# SESSION 097 — at `M = 2` there is nothing to estimate
+
+`096` derived `C ≤ 1.9825` from "no zero has multiplicity `≥ 3`" by charging a
+crowded atom `M·H`. At `M = 2` that is an estimate where an identity is
+available.
+
+**Kill condition, filed first:** *if the sharpened `M = 2` analysis does not beat
+`096`'s constant, the loose bound was already tight and there is nothing here.*
+**It did not fire, and the margin is large.**
+
+Two exact facts, both axiom-free:
+
+* `Nstar_add_Nsc_eq_two_mul_N` — under `H ≤ 2`, `N⊛ + Nsc = 2·N`. Per atom,
+  `H² + [H = 1] = 2H` for `H ∈ {1, 2}`: an **identity**, not a bound. So
+  `C = 2 − Nsc/N` exactly.
+* `Nsc_eq_NscStd_of_mult_le_two` — under `H ≤ 2`, **`Nsc = NscStd`**. A
+  standard-simple atom has `onAt = 1` and even off-line part; `H ≤ 2` forces
+  `off = 0`. The two notions the project keeps carefully apart *coincide* under
+  this hypothesis — and the literature certifies the standard one.
+
+Together: `C ≤ 2 − 0.6725 = 1.3275`, and `prop1` returns `Proportion 0.6725`.
+
+| from multiplicity `≤ 2` | `096` | `097` |
+|---|---|---|
+| star constant | `1.9825` | **`1.3275`** |
+| `Nsc` row | `0.0175` | **`0.6725`** |
+
+**`1.3275 < 4/3`.** Route III's narrow-box threshold is `4/3 = 1.333…`, so the
+hypothesis clears it — the first time anything in the registers has. And the row
+it returns is the *entire* literature baseline, transferred onto the project's
+stronger notion at no loss, because under this hypothesis there is no loss to
+suffer: the notions are equal.
+
+`096`'s "far worse than the `0.50875` already certified" is corrected at its
+location. It was true of the loose constant and is false of the sharp one.
+
+**What is not claimed.** Multiplicity `≤ 2` is a hypothesis, carried as one and
+never asserted; nothing here says it is true or reachable. The ledger is
+unchanged.
+
+Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
+`cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the entire distance between what the literature proves
+and what this project wants is created by zeros of multiplicity three or more, so
+a single hypothesis that nobody has ever needed to state would collapse the gap
+completely.

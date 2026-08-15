@@ -131,7 +131,14 @@ simplicity, and it is carried as a hypothesis here, never as an axiom.
 
 **Candour about what it is worth.** Through `prop1` it yields
 `Proportion (2 − 1.9825) = 0.0175`, which is **far worse** than the `0.50875`
-already certified unconditionally. The value is not the proportion — it is that
+already certified unconditionally.
+
+⚠️ **Superseded at this location (SESSION 097).**  The constant `1.9825` is
+loose: at `M = 2` the star constant is *exact*, `C = 2 − Nsc/N`, and
+`Nsc = NscStd` so the standard baseline applies — giving `C ≤ 1.3275` and
+`Proportion 0.6725`.  See `starBound_of_mult_le_two_zeta` and
+`proportion_of_mult_le_two`.  The "far worse" verdict below was true of the loose
+constant and is false of the sharp one. The value is not the proportion — it is that
 `(★)` itself, which Routes I and III exist to obtain, drops out of a hypothesis
 about multiplicities alone. `(★)` feeds `offline_le` and the narrow box, and
 those are not reachable from the `Nsc` row directly. -/
@@ -140,6 +147,30 @@ theorem starBound_of_multiplicity_two
     zetaFamily.toCounts.StarBound 1.9825 := by
   have h := starBound_of_multiplicity_and_proportion hM certified_nsc_unconditional
   have e : (1 : ℝ) + ((2 : ℕ) : ℝ) * (1 - 0.50875) = 1.9825 := by norm_num
+  rwa [e] at h
+
+/-- **Multiplicity `≤ 2` gives `(★)` at `C ≤ 1.3275` — and the full `0.6725` row.**
+
+`096` obtained `C ≤ 1.9825` from the same hypothesis by charging every crowded
+atom `M·H`.  At `M = 2` no estimate is needed: `N⊛ + Nsc = 2N` exactly, and
+`Nsc = NscStd`, so the *standard* baseline transfers whole.
+
+`C ≤ 2 − 0.6725 = 1.3275`, which is **below Route III's `4/3` threshold**, and
+`prop1` returns `Proportion (2 − 1.3275) = 0.6725` — the literature's row
+delivered intact on the project's stronger notion. -/
+theorem starBound_of_mult_le_two_zeta
+    (hM : ∀ T γ, (zetaFamily.D T).H γ ≤ 2) :
+    zetaFamily.toCounts.StarBound 1.3275 := by
+  have h := starBound_of_mult_le_two hM certified_std
+  have e : (2 : ℝ) - 0.6725 = 1.3275 := by norm_num
+  rwa [e] at h
+
+/-- …and therefore the whole baseline, on the project's own row. -/
+theorem proportion_of_mult_le_two
+    (hM : ∀ T γ, (zetaFamily.D T).H γ ≤ 2) :
+    zetaFamily.toCounts.Proportion 0.6725 := by
+  have h := Counts.proportion_of_starBound (starBound_of_mult_le_two_zeta hM)
+  have e : (2 : ℝ) - 1.3275 = 0.6725 := by norm_num
   rwa [e] at h
 
 /-- What the project itself proves without any axiom about `ζ`: for *any*

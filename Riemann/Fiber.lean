@@ -2377,6 +2377,71 @@ theorem Nstar_add_mul_Nsc_le (D : ZeroData) (M : ℕ) (h : ∀ γ, D.H γ ≤ M)
       nlinarith [hHM, hH0]
   exact_mod_cast key
 
+/-! ### At `M = 2` the constant is exact, and much better
+
+`096` charged a crowded atom `M·H`.  At `M = 2` there is nothing to estimate:
+every atom has `H ∈ {1, 2}` and `H² + [H = 1] = 2H` **exactly**.
+
+**Kill condition, filed first:** *if the sharpened `M = 2` analysis does not beat
+`096`'s constant, the loose bound was already tight and there is nothing here.*
+**It did not fire — the constant drops from `1.9825` to `2 − κ`.** -/
+
+/-- **Under multiplicity `≤ 2`, standard-simple *is* simple.**  A standard-simple
+atom has `onAt = 1` and even off-line part; with `H ≤ 2` that forces `off = 0`,
+so `H = 1`.  The two notions the project keeps carefully apart coincide exactly
+where this hypothesis holds — and the literature's row is stated on the *standard*
+notion. -/
+theorem Nsc_eq_NscStd_of_mult_le_two (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
+    D.Nsc = D.NscStd := by
+  classical
+  have key : (D.Nsc : ℤ) = (D.NscStd : ℤ) := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+    rw [hB, hA]
+    refine Finset.sum_congr rfl fun γ _ => ?_
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    have h2 := h γ
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone]
+      rw [if_pos (by omega)]
+    · rw [if_neg hone]
+      rw [if_neg (by omega)]
+  exact_mod_cast key
+
+/-- **Under multiplicity `≤ 2` the star constant is exact:** `N⊛ + Nsc = 2·N`.
+Per atom, `H² + [H = 1] = 2H` with `H ∈ {1, 2}` — an identity, not an estimate.
+So `C = 2 − Nsc/N`, and `prop1`'s output `2 − C` is exactly `Nsc/N`. -/
+theorem Nstar_add_Nsc_eq_two_mul_N (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
+    D.Nstar + D.Nsc = 2 * D.N := by
+  classical
+  have key : (D.Nstar : ℤ) + D.Nsc = 2 * D.N := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    have hS : (D.Nstar : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ) * (D.H γ : ℤ)) := by
+      rw [Nstar_eq_sum_H_sq D, Nat.cast_sum]; push_cast; rfl
+    rw [hS, hB, hN, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun γ hγ => ?_
+    have hpos : 0 < D.H γ := by
+      rw [ZeroData.H_eq_count, Multiset.count_pos]
+      exact Multiset.mem_toFinset.1 hγ
+    have h2 := h γ
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, hone]; norm_num
+    · have he : D.H γ = 2 := by omega
+      rw [if_neg hone, he]; norm_num
+  exact_mod_cast key
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

@@ -2968,6 +2968,56 @@ theorem noHaunted_not_mult_le_two {a : ℝ} (ha : a ≠ 1/2) :
     have := hcon 0
     omega
 
+/-- **`NoHaunted` is exactly "the two simplicity notions agree".**
+
+`Nsc ≤ NscStd` always, pointwise: a mass-one ordinate has no off-line zeros to
+carry.  The two counts are *equal* precisely when no ordinate is haunted.
+
+So the hypothesis of `proportion_of_noHaunted` is not an ad-hoc condition
+invented for that theorem — it is the exact content of `ISSUES #13`, the
+distinction the project has carried since session 003, stated as an equation.
+
+**Kill condition, filed first:** *if `Nsc = NscStd` can hold with a haunted
+ordinate present, the equivalence fails and `NoHaunted` is strictly stronger than
+agreement of the two notions.*  It did not fire.
+
+*Candour: with this in hand `proportion_of_noHaunted` is a substitution, and its
+content is this characterisation rather than the transfer.* -/
+theorem Nsc_eq_NscStd_iff_noHaunted (D : ZeroData) :
+    D.Nsc = D.NscStd ↔ ∀ γ ∈ D.ordinates.toFinset,
+      D.H γ - offAt D γ = 1 → D.H γ = 1 := by
+  classical
+  have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+      (if D.H γ = 1 then (1 : ℤ) else 0) := by
+    rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+  have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+      (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+    rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+  have hle : ∀ γ ∈ D.ordinates.toFinset,
+      (if D.H γ = 1 then (1 : ℤ) else 0)
+        ≤ (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+    intro γ _
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    split_ifs <;> omega
+  have hcast : (D.Nsc = D.NscStd) ↔ ((D.Nsc : ℤ) = (D.NscStd : ℤ)) := by
+    constructor
+    · intro h; exact_mod_cast h
+    · intro h; exact_mod_cast h
+  rw [hcast, hB, hA, Finset.sum_eq_sum_iff_of_le hle]
+  refine forall_congr' fun γ => forall_congr' fun hγ => ?_
+  have h1 := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  constructor
+  · intro heq hsc
+    by_contra hone
+    rw [if_neg hone, if_pos hsc] at heq
+    exact absurd heq (by norm_num)
+  · intro himp
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, if_pos (by omega)]
+    · rw [if_neg hone, if_neg (fun hsc => hone (himp hsc))]
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

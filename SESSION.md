@@ -4529,3 +4529,44 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** the project's strongest conditional result needs
 nothing about how crowded the zeros are, only that no crowd hides a lone survivor
 on the line — so the obstruction was never multiplicity but camouflage.
+
+
+# SESSION 108 — the hypothesis was `ISSUES #13` all along
+
+`107` gave the project's strongest conditional row from `NoHaunted`, and ended by
+calling the obstruction camouflage rather than multiplicity. The obvious next
+question is what `NoHaunted` actually *is* — whether it is an ad-hoc condition
+invented to make a theorem work.
+
+**Kill condition, filed first:** *if `Nsc = NscStd` can hold with a haunted
+ordinate present, the equivalence fails and `NoHaunted` is strictly stronger than
+agreement of the two notions.* It did not fire.
+
+`Nsc_eq_NscStd_iff_noHaunted` (new, axiom-free):
+
+> `Nsc = NscStd` **iff** no ordinate is haunted.
+
+`Nsc ≤ NscStd` holds pointwise — a mass-one ordinate has no off-line zeros to
+carry — so equality of the totals forces equality at every ordinate, and a
+haunted one would break it.
+
+**So the hypothesis is `ISSUES #13`.** That issue was opened in session 003, on
+reading zeta-23's `N0simple` and noticing it counts something weaker than the
+project's `Nsc`; Joop ruled on it; the two notions have been carried carefully
+apart for a hundred sessions. `NoHaunted` is that distinction collapsing, written
+as an equation — not a condition invented for `107`'s theorem but the oldest
+open question in the registers, given a name.
+
+**Candour, since it matters here.** With this characterisation,
+`proportion_of_noHaunted` is a substitution: assume the two counts are equal and
+the literature's row is the project's row. The content of this cycle is the
+*characterisation*, not the transfer, and it would be dishonest to present the
+transfer as the result.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project's entire conditional apparatus — the
+ladder, the multiplicity criteria, the exceptional sets — is a family of partial
+answers to one question asked in its third session, and the `0.50875` row is what
+that question costs when it goes unanswered.

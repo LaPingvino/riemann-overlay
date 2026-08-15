@@ -249,3 +249,4 @@ import Riemann
 #check @Riemann.NoHaunted
 #check @Riemann.proportion_of_noHaunted
 #check @Riemann.proportion_of_noHaunted_zeta
+#check @Riemann.Blindness.Nsc_eq_NscStd_iff_noHaunted

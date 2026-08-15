@@ -385,3 +385,46 @@ only the plumbing that says `ξ'` has about as many zeros as `ζ`.
 assumption, which `Assumptions.lean` forbids and `SESSION.md` must flag. They
 should be discharged, not assumed — most plausibly by extending the zeta-23
 import, which already reasons about both families.*
+
+
+## The exhaustive axiom audit (SESSION 088)
+
+Two route lists in four cycles turned out to be short (`S34`, and `087`'s Route II
+pricing). The axiom list is **finite**, so this enumeration can be exhaustive by
+construction rather than by assertion — which is the whole point of running it.
+
+All nine declared axioms, each with its ledger value and the reason:
+
+| axiom | ledger value | status |
+|---|---|---|
+| `zetaNonempty` | not a proportion input; supplies positivity | **realised** |
+| `xiPrimeFamily` | an opaque `Family` constant, not a claim | nil alone; carrier for `zeta23_xiPrime` |
+| `closePairsZeta` | an opaque function constant | nil alone |
+| `fujii_ineffective` | `∃ c₀, ∀ λ, StarBound (Cbound c₀ λ)`. `Cbound c₀ λ = λ + log(2+λ)/(π²λ) + c₀√(log(2+λ))/λ` grows with `c₀` and has no `c₀`-uniform minimum over `λ`, so **no numerical `C` is extractable** | nil until `c₀` is effective — checked by reading `Cbound`, not by trusting the note |
+| `fujii_closePair_bookkeeping` | conditional on `EffectiveFujii` **and** `ClosePairLowerBound` | nil until both |
+| `zeta23_xiPrime` `0.85838` | **9.29 points**, blocked on `OffTransfer` + `NzComparable` | **the one live item** (`087`) |
+| `levinson_montgomery` | an input to that route | realised in `087`'s pricing |
+| `baseline_przz` `0.4162` | **none — it is a theorem** (`przz_of_zeta23`) | **REDUNDANT, see below** |
+| `baseline_zeta23` `0.6725` | the `NscStd` row, and via `084` the `Nsc` row | **realised twice** |
+
+**Kill condition, filed first:** *if every axiom's ledger value is already
+realised or provably nil, the audit yields nothing and I say so.* **On its own
+terms it fired** — no new ledger value exists in the axiom list. The audit still
+returned something, and it is assumption-surface rather than proportion:
+
+> **`baseline_przz` is redundant.** `Family.ProportionStd.mono` (new,
+> axiom-free): `ProportionStd` is monotone in its constant. Since
+> `0.4162 ≤ 0.6725`, `przz_of_zeta23` derives the PRZZ baseline from the zeta-23
+> baseline, and `#print axioms` confirms it consumes only `baseline_zeta23`.
+> Nothing in the development consumes `baseline_przz` today.
+
+**Side effect worth naming.** `STATEMENTS.md` records `baseline_przz` as "stated
+on `NscStd`", per Joop's `ISSUES #13` ruling. Whether PRZZ's `41.62%` is really
+a *simple*-zero proportion or an on-line proportion is a literature question
+**[RECALL, UNVERIFIED]** — and the redundancy makes it moot for the ledger,
+because nothing rests on the axiom either way. Recorded so a future cycle does
+not spend a literature probe on a question that cannot change a number.
+
+*Ruling for Joop: delete `baseline_przz` (declared surface 9 → 8) or keep it as
+the record of an independent literature result, which matters only if the
+zeta-23 baseline is ever retracted. Not taken unilaterally.*

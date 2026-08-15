@@ -3663,3 +3663,48 @@ axioms 2, base hash `cd7a22e688df` unmoved.
 as long as it has held the `ξ'` import, and what stood between them was not
 mathematics but the fact that nobody had written down that the two families
 count comparably many zeros.
+
+
+# SESSION 088 — the exhaustive audit, and a redundant axiom
+
+`S34` and `087` were both "the route list was short". The response to a
+recurring enumeration failure is an enumeration that **can** be exhaustive, and
+the axiom list is finite. All nine audited; the table is in `PRICES.md`.
+
+**Kill condition, filed first:** *if every axiom's ledger value is already
+realised or provably nil, the audit yields nothing and I say so.* **It fired on
+its own terms** — there is no unclaimed ledger value in the axiom list, and the
+one live item (`zeta23_xiPrime`, 9.29 points) was already priced last cycle.
+
+Two things worth having anyway.
+
+**`fujii_ineffective` is nil for a reason I checked rather than inherited.** The
+register said "no effective `C` exists"; I read `Cbound` instead of trusting the
+note. `Cbound c₀ λ = λ + log(2+λ)/(π²λ) + c₀·√(log(2+λ))/λ` grows with `c₀` and
+its minimum over `λ` is unbounded in `c₀`, so no numerical constant is
+extractable. Same conclusion, now with a witness.
+
+**`baseline_przz` is redundant, and that is a real result.**
+`Family.ProportionStd.mono` (new, axiom-free): `ProportionStd` is monotone in its
+constant — so two `ProportionStd` axioms about the same family are *never*
+independent, the weaker is always a theorem. `przz_of_zeta23` derives PRZZ's
+`0.4162` from zeta-23's `0.6725`, and `#print axioms` confirms it consumes only
+`baseline_zeta23`. Nothing in the development consumes the axiom today.
+
+This does not move a proportion. It shrinks what has to be believed, which the
+project's own doctrine values independently of the number — and it is the first
+time an axiom has been shown *derivable* rather than merely unused.
+
+**A literature probe saved.** `STATEMENTS.md` records `baseline_przz` as stated
+on `NscStd` per Joop's `ISSUES #13` ruling. Whether PRZZ's `41.62%` is a simple-
+zero proportion or an on-line proportion is **[RECALL, UNVERIFIED]** and I am not
+resolving it — the redundancy makes it moot, since nothing rests on the axiom
+either way. Recorded so a future cycle does not spend a probe on a question that
+cannot change a number.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`, base
+hash `cd7a22e688df` unmoved. The declared axiom count is still 9 pending Joop's
+ruling on deletion.
+
+**Might-mean, unhedged:** the trusted base was never nine independent
+assumptions, and nobody had checked which of them the others already imply.

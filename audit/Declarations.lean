@@ -204,3 +204,6 @@ import Riemann
 #check @Riemann.OffTransfer
 #check @Riemann.NzComparable
 #check @Riemann.offLineImport_of_derivative
+#check @Riemann.Family.Nz_nonneg
+#check @Riemann.Family.ProportionStd.mono
+#check @Riemann.przz_of_zeta23

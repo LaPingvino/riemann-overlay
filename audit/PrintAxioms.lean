@@ -34,3 +34,4 @@ import Riemann
 #print axioms Riemann.certified_nsc_unconditional
 #print axioms Riemann.proportion_of_proportionStd
 #print axioms Riemann.Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc
+#print axioms Riemann.przz_of_zeta23

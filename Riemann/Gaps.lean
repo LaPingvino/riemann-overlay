@@ -115,6 +115,20 @@ costs `(C-1)/2`. -/
 def Family.ProportionStd (F : Family) (κ : ℝ) : Prop :=
   ∀ ε > 0, ∀ᶠ T in atTop, (κ - ε) * F.Nz T ≤ F.NscStd T
 
+/-- `N(T) ≥ 0` — it is a cardinality. -/
+lemma Family.Nz_nonneg (F : Family) (T : ℝ) : 0 ≤ F.Nz T := by
+  unfold Family.Nz; positivity
+
+/-- **`ProportionStd` is monotone in the constant.**  A larger certified
+proportion implies every smaller one — so two `ProportionStd` axioms about the
+same family are never independent: the weaker is a theorem. -/
+theorem Family.ProportionStd.mono {F : Family} {κ₁ κ₂ : ℝ} (hle : κ₁ ≤ κ₂)
+    (hp : F.ProportionStd κ₂) : F.ProportionStd κ₁ := by
+  intro ε hε
+  filter_upwards [hp ε hε] with T hT
+  have := F.Nz_nonneg T
+  nlinarith [hT, this]
+
 /-- **An off-line import**: a bound `N_off ≤ (β + o(1))·N`.  This is the currency
 a zero-density statement pays in, and — by `proportion_of_offLineImport` — the
 currency the `Nsc` row buys in. -/

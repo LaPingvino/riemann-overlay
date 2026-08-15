@@ -78,6 +78,23 @@ theorem certified_nsc_unconditional : zetaFamily.toCounts.Proportion 0.50875 := 
   have e : (3 * (0.6725 : ℝ) - 1) / 2 = 0.50875 := by norm_num
   rwa [e] at h
 
+/-- **`baseline_przz` is redundant.**  `ProportionStd` is monotone in its
+constant (`Family.ProportionStd.mono`), and `0.4162 ≤ 0.6725`, so the
+Pratt–Robles–Zaharescu–Zeindler baseline is a *theorem* given the zeta-23
+baseline — not an independent assumption.
+
+The two are recorded as separate axioms because they are separate results in the
+literature, but the trusted base does not need both: `baseline_przz` can be
+replaced by this proof wherever it is consumed (today: nowhere).
+
+**Ruling for Joop**, not taken unilaterally: whether to delete the axiom and keep
+this theorem, or keep the axiom as a record of an independent literature result.
+Deleting shrinks the declared axiom surface from 9 to 8; keeping documents that
+PRZZ is independently established, which matters if the zeta-23 baseline is ever
+retracted. -/
+theorem przz_of_zeta23 : zetaFamily.ProportionStd 0.4162 :=
+  Family.ProportionStd.mono (by norm_num) baseline_zeta23
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

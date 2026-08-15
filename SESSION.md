@@ -4233,3 +4233,41 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** a result that supersedes itself four times is one
 result discovered slowly, and the cost of not saying so is paid by whoever reads
 the registers next.
+
+
+# SESSION 101 — the criterion is one-way, and the gate check I owed
+
+`100` consolidated the multiplicity criteria into one theorem with
+specialisations. The question that consolidation raises, and that a future cycle
+would waste itself on, is whether the implication reverses.
+
+**Kill condition, filed first:** *if `(★)` with `C < 2` forces bounded
+multiplicity, the criterion is an equivalence and the route table should say so.*
+**It fired — `(★)` tolerates any fixed multiplicity.**
+
+`starBound_allows_any_multiplicity` (axiom-free): for every `m`, the
+configuration of `m²` simple atoms beside one atom of mass `m` has
+`N = m² + m`, `N⊛ = 2m²`, hence `N⊛ < 2·N`, and contains an atom of mass `m`.
+So `(★)` holds strictly below `prop1`'s threshold while a multiplicity-`m` zero
+sits inside it.
+
+> `multiplicity ≤ M` (+ a certified row) `⟹ (★)`, and **not** conversely.
+
+Recorded in `LEADS.md` beside the consolidated statement, so nobody spends a
+cycle trying to close a loop that does not close.
+
+**And the check I owed.** `100` ended with the gate reporting unwitnessed
+sentences on `CLAIMS.md` and I did not look. Looked now: **four flags, none of
+them from the rows added in `084`–`100`.** Two are the known false positives
+triaged in `076`; two are my own prose in the `086` triage write-up
+(*"a surface the instrument had never seen"*, *"the one being hunted"*), both
+accurate and both verifiable. So every claim row from the last seventeen cycles
+carries its witness — which is the first time that has been checked rather than
+assumed.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the second moment can be small while a single zero is
+enormously multiple, so `(★)` and multiplicity control are genuinely different
+hypotheses and the program has been treating one as a proxy for the other.

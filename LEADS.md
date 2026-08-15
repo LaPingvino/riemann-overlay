@@ -1626,3 +1626,15 @@ every `M ≥ 2`.
 
 **Nothing here asserts any multiplicity hypothesis.** All are carried as
 hypotheses; the ledger is unchanged at `NscStd 67.25% / Nsc 50.88%`.
+
+## The criterion is one-way (SESSION 101)
+
+`Fiber.starBound_allows_any_multiplicity`: for every `m` there is a configuration
+with `N⊛ < 2·N` — `(★)` below `prop1`'s threshold — containing an atom of mass
+`m` (`m²` simple atoms beside one atom of mass `m`). **So `(★)` tolerates any
+fixed multiplicity**, and no multiplicity bound can be extracted from a star
+bound. The implications run one way only:
+
+> `multiplicity ≤ M` (+ a certified row) `⟹ (★)`,  and **not** conversely.
+
+Recorded so that nobody spends a cycle trying to close the loop.

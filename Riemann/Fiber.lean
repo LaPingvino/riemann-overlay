@@ -2578,6 +2578,43 @@ theorem Nstar_add_pred_mul_Nsc_le_of_except (D : ZeroData) (M : ℕ) (hM : 1 ≤
     (fun γ _ => h γ)
   simpa using this
 
+/-- **`(★)` does not imply bounded multiplicity — the criterion is one-way.**
+
+`096`–`100` give multiplicity hypotheses *sufficient* for `(★)`.  They are far
+from necessary: for every `m` there is a configuration with `N⊛ < 2·N` — so
+`(★)` holds with a constant strictly below `prop1`'s threshold — containing an
+atom of mass `m`.
+
+The family is `m²` simple atoms beside one atom of mass `m`:
+`N = m² + m`, `N⊛ = 2m²`, and `2m² < 2m² + 2m`.
+
+**Kill condition, filed first:** *if `(★)` with `C < 2` forces bounded
+multiplicity, the criterion is an equivalence and the route table should say so.*
+**It fired: `(★)` tolerates any fixed multiplicity**, so nobody should try to
+extract multiplicity bounds from a star bound. -/
+theorem starBound_allows_any_multiplicity {a : ℝ} (ha : a ≠ 1/2) (m : ℕ)
+    (hm : 1 ≤ m) :
+    ∃ D : ZeroData, D.Nstar < 2 * D.N ∧ ((m, 0) : ℕ × ℕ) ∈ profile D := by
+  classical
+  set L : List (ℕ × ℕ) := List.replicate (m * m) (1, 0) ++ [(m, 0)] with hL
+  have hne : ∀ x ∈ L, x.1 + 2 * x.2 ≠ 0 := by
+    intro x hx
+    rw [hL, List.mem_append] at hx
+    rcases hx with hx | hx
+    · rw [List.eq_of_mem_replicate hx]; norm_num
+    · simp only [List.mem_singleton] at hx
+      rw [hx]; omega
+  have hp := chain_profile ha L hne
+  rw [hL] at hp
+  norm_num [List.map_append, List.map_replicate] at hp
+  have hN : (chain a L).N = m * m + m := by
+    rw [N_from_profile, hp]; simp; try ring
+  have hS : (chain a L).Nstar = m * m + m * m := by
+    rw [Nstar_from_profile, hp]; simp; try ring
+  refine ⟨chain a L, ?_, ?_⟩
+  · rw [hN, hS]; omega
+  · rw [hp]; simp
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

@@ -1338,3 +1338,51 @@ Cast members `[RECALL, UNVERIFIED]`: Hamburger 1921; Kaczorowski–Perelli on
 Selberg-class low degree. A converse-theorem survey (Hecke, Weil converse
 theorems, higher degree) is offered by claude.ai on request — the field's
 existing rigidity inventory, never priced in our currency.
+
+## W38 — the equivalence atlas (filed as briefed)
+
+Origin: Joop, via the P=NP analogy — *are there very different-looking problems
+likely equivalent?* — sharpened by the observation that the answer may be worth
+more than RH.
+
+**The object:** every **proven** RH-biconditional, classified by which face of
+E20's plane its statement lives on, with the **crossings** as the payload.
+Certified iff-theorems only; no analogies, no "morally equivalent".
+
+Seed members, all `[RECALL, UNVERIFIED]` until source-verified: Nyman–Beurling
+and Báez-Duarte; Lagarias 2002 and Robin; `Λ = 0` for de Bruijn–Newman (given
+Rodgers–Tao's `Λ ≥ 0`); Li's criterion; Weil positivity / Bombieri's form;
+Speiser; Franel–Landau; the Redheffer matrix criterion; von Koch's
+`ψ(x) = x + O(x^{1/2+ε})` and the Mertens form — **the last flagged in the brief
+itself as sufficient-but-check-necessity, so every arrow's direction is graded,
+not just its membership.** Broughan's two volumes are the raw material.
+
+**Face definitions are frozen before any entry is filed**, per R19, and the
+crossing definition is the one that matters:
+
+> a proven biconditional whose two sides lie on different faces **without
+> routing through "zeros on the line" as the junction** — the classifier must
+> check the **proof's route**, not the statement pair, because every atlas entry
+> trivially "crosses" through RH itself.
+
+**Blinding is in the design rather than appended after the first embarrassment**
+— one instance classifies faces from hypothesis-neutral phrasings, the other
+routes the proofs independently, Joop holds both sealed hashes. **Given
+`SURPRISES`' two correlated misses (S5 shared priming, S6 anchoring on
+disclosure), this is the first W-item designed against the failure mode the
+seam has actually exhibited**, and that is the right lesson to have drawn.
+
+**Both outcomes pay.** A crossing exists: someone has already built a certified
+bridge over the cleavage and filed it as a curiosity — cross-plane certification
+in theorem form. No crossing exists: **RH is the unique articulation point of
+its own equivalence graph**, which is a finding about the *literature*
+independent of anyone's opinion about `ζ`, and it hands the fourth approach its
+sharpest constraint — **the constitutive axioms must BE the junction**, with the
+atlas as acceptance suite.
+
+**T4 connects it to W32's result:** the atom bundles classify `3/11` of our
+census; the atlas is a second, harder exam **written by the field itself**.
+
+The atlas cannot die — a verified classified table of proven equivalents is a
+permanent asset at any outcome — so per R12 **the risk lives entirely in the
+classification claims**, which is exactly where the blinding sits.

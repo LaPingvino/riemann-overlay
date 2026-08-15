@@ -45,6 +45,20 @@ POSITIVE = [
     r"\bnecessary and sufficient\b",
 ]
 
+# Identity assertions — the S30 shape: "X and Y are the same object".  Purchased
+# by exactly one failure: "the /6 census result and the third-moment obstruction
+# are two readings of one polynomial", which was false (sum m(m-1) vs
+# sum m(m-1)(m-2), agreeing only at m = 3).  An identity claim is an exactness
+# claim wearing the costume of an insight, and neither the wordlist above nor
+# the lint nor the kernel was checking for it.
+IDENTITY = [
+    r"\bare the same\b", r"\bis the same\b", r"\bthe same (?:fact|object|theorem|thing|polynomial|statement)\b",
+    r"\btwo readings of one\b", r"\bturn(?:s|ed)? out to be the\b",
+    r"\bare one\b", r"\bis identically\b", r"\bare identical\b",
+    r"\bis exactly the\b", r"\bare exactly the\b",
+    r"\bnot a coincidence\b", r"\bsame (?:disease|shape|move) (?:as|seen)\b",
+]
+
 # Negative exactness — the S27 shape: impossibility claims about our own record.
 NEGATIVE = [
     r"\bcannot be\b", r"\bis not in the repo\b", r"\bno code\b",
@@ -63,6 +77,9 @@ DOWNGRADE = [
     ("nothing else", "possibly more"), ("nothing more", "possibly more"),
     ("minimal", "sufficient"), ("the unique", "a"), ("the only", "a"),
     ("if and only if", "if"), ("cannot be", "is not known to be"),
+    ("are the same", "are related"), ("is exactly the", "is a"),
+    ("not a coincidence", "possibly a coincidence"),
+    ("two readings of one", "two readings of related"),
 ]
 
 
@@ -113,10 +130,11 @@ def scan(text, label):
     for s in sentences(text):
         pos = [p for p in POSITIVE if re.search(p, s, re.I)]
         neg = [p for p in NEGATIVE if re.search(p, s, re.I)]
-        if not (pos or neg):
+        idt = [p for p in IDENTITY if re.search(p, s, re.I)]
+        if not (pos or neg or idt):
             continue
         has_witness = bool(WITNESS.search(s))
-        flagged.append((s, pos + neg, has_witness))
+        flagged.append((s, pos + neg + idt, has_witness))
         if not has_witness:
             failures += 1
     if flagged:

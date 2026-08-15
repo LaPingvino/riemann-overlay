@@ -240,3 +240,36 @@ quotations* ("not *that the class cannot be defined*"). The calibration cases
 **Remaining, and explicitly untriaged:** `LEADS.md` 25, `E.md` 10. Those counts
 are a queue, not a defect rate — the same caution that applied before the
 triage still applies to them.
+
+
+## The identity detector (2026-08-15) — fourth error class, fourth instrument
+
+**Purchased by exactly one failure**, per the house rule: `SURPRISES` S30, where
+*"the `/6` census result and the third-moment obstruction are two readings of
+one polynomial"* was false and quoted onward before it was checked.
+
+`claims_gate` gains an `IDENTITY` wordlist — *"are the same"*, *"two readings of
+one"*, *"turns out to be the"*, *"is exactly the"*, *"not a coincidence"* — on
+the principle that **an identity claim is an exactness claim wearing the costume
+of an insight**, and neither the lint (typed inputs), the gate's original
+wordlist (exactness wording), nor the kernel (unstated claims) was checking for
+it.
+
+**Kill condition, stated first:** *if the patterns fire so broadly that the
+true-positive rate is near zero, the class is not lintable and the finding is
+that it needs a human check instead.* **It did not fire.**
+
+* Calibration: both of S30's false sentences are caught; the corrected form
+  passes.
+* Live triage: `CLAIMS.md` `0 → 1` (that one a **false** positive —
+  *"the same hazard by a different route"* is metaphorical, not an identity
+  between objects); `S.md` 6, of which roughly **3 are true** (unwitnessed
+  universal claims) and 3 false.
+* **Rate ≈ 3/7**, comparable to the original gate's 3/6 at its first measurement.
+
+**The false positives cluster on one shape: definitions and file premises.**
+*"Absence is never certified as absence"* is `S.md`'s founding thesis, not a
+claim owing a converse; the compression criterion is a definition and contains
+`iff` by construction. **Exempting definitional sentences is the next
+refinement — named, not built**, and deliberately left unbuilt this cycle so the
+rate above is measured against the instrument as it actually stands.

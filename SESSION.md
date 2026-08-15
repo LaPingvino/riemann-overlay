@@ -2915,3 +2915,49 @@ this one was caught only by re-reading with a specific suspicion.
 **Might-mean, unhedged:** the pleasing sentence — two results turning out to be
 one — is the exact shape this project keeps getting wrong, because a claimed
 unification is an exactness claim wearing the costume of an insight.
+
+
+# SESSION 072 — the identity detector, and W38 filed
+
+**Kill condition, stated first:** *if identity patterns fire so broadly that the
+true-positive rate is near zero, the class is not lintable and the finding is
+that it needs a human check instead.* **It did not fire — the rate is ≈ 3/7**,
+comparable to the original gate's 3/6 at first measurement.
+
+**The instrument was purchased by exactly one failure**, which is the house
+rule: S30, where *"two readings of one polynomial"* was false and had been
+quoted onward before checking. `claims_gate` gains an `IDENTITY` wordlist, on
+the principle that **an identity claim is an exactness claim wearing the costume
+of an insight**.
+
+Both of S30's false sentences are caught; the corrected form passes. The one new
+`CLAIMS.md` flag is a **false** positive — *"the same hazard by a different
+route"* is metaphorical. `S.md`'s six run roughly 3 true, 3 false.
+
+**The false positives cluster on one shape — definitions and file premises**, and
+I left the exemption **unbuilt on purpose** so the rate above measures the
+instrument as it actually stands rather than as I would like it to.
+
+**W38 filed: the equivalence atlas.** Every *proven* RH-biconditional classified
+by face, with crossings as the payload. The definition that carries the weight:
+a crossing must connect the faces **without routing through "zeros on the line"**
+— the classifier checks the **proof's route**, not the statement pair, because
+every entry trivially crosses through RH itself.
+
+**And the brief's blinding is designed against the failure mode the seam has
+actually exhibited.** After `S5` (shared priming) and `S6` (anchoring on
+disclosure), W38 puts one instance on faces, the other on proof routes, and
+sealed hashes with Joop. **First W-item built against our measured correlated
+misses rather than against the imagined one** — two cycles after that
+measurement existed.
+
+Both outcomes pay: a crossing is cross-plane certification in theorem form; no
+crossing makes **RH the unique articulation point of its own equivalence
+graph**, a finding about the literature independent of `ζ`, which hands the
+fourth approach its sharpest constraint — the constitutive axioms must **be** the
+junction.
+
+**Might-mean, unhedged:** the atlas is a map of every road to one city, valuable
+precisely because the roads were built by a century of travellers who never
+arrived — and if the map shows no road connecting two districts except through
+the city, that is a theorem about the city nobody has to enter to prove.

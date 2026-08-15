@@ -112,3 +112,8 @@ import Riemann
 #check @Riemann.Blindness.count_eq_onAt
 #check @Riemann.Blindness.NscStd_eq_onAt_functional
 #check @Riemann.Blindness.Nsc_reads_total
+#check @Riemann.Blindness.onOrd
+#check @Riemann.Blindness.count_onOrd
+#check @Riemann.Blindness.NscStd_eq_onOrd_functional
+#check @Riemann.Blindness.onAt_determined
+#check @Riemann.Blindness.NscStd_determined

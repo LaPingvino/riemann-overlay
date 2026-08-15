@@ -1980,3 +1980,45 @@ Build green (3747 jobs), guards green, base hash unmoved.
 counting the same thing — they are two different queries against the same
 decomposition, and the whole unconditional gap is the price of the query that
 looks at the part `μ_T` throws away.
+
+
+# SESSION 050 — night cycle 14: X is bracketed, globally
+
+**Kill condition, stated first:** *if the counting step needs a hypothesis
+beyond `(ordinates, offAt)` — a nodup, a finiteness condition, anything not
+already in `ZeroData` — then the residue is larger than `j` and that is the
+finding.* **It did not fire.** The theorem carries exactly the two stated
+hypotheses and nothing else.
+
+`NscStd_determined : D.ordinates = D'.ordinates → (∀ γ, offAt D γ = offAt D' γ)
+→ D.NscStd = D'.NscStd`, axiom-free.
+
+The route: `onOrd D`, the ordinates of the **on-line** zeros with multiplicity.
+Its count at `γ` is exactly `onAt γ` (`count_onOrd`); `NscStd` is a functional of
+it (`NscStd_eq_onOrd_functional`); `onAt` is determined by `μ_T` and `offAt`
+(`onAt_determined`, straight from the fiber decomposition); and a multiset over
+`ℝ` is determined by its counts. Four small lemmas, one conclusion.
+
+**So the characterisation of X is complete, and global rather than pointwise:**
+
+> **Withhold the fiber coordinate and no `μ_T`-invariant theory recovers the
+> target. Supply it and the target is determined.**
+
+Necessity is `Blindness.no_muInvariant_theory_computes_NscStd`; sufficiency is
+`Fiber.NscStd_determined`. Between them the residue is pinned exactly — not
+"at most", not "essentially", exactly.
+
+Last cycle's LEADS entry said sufficiency was "pointwise only" and named the
+packaging as the next item. **That text is corrected at its own location**, per
+the ordering rule adopted two cycles ago — the update sits where the stale claim
+was, not two hundred lines below it.
+
+No `SURPRISES` row: the kill condition was a question and it did not fire; I
+predicted the step was well-posed and closable, and it was.
+
+Build green (3747 jobs), audits extended, base hash unmoved.
+
+**Might-mean, unhedged:** the project spent a day proving what its instruments
+cannot see and one cycle proving what would suffice, and the second was the
+cheaper half — which suggests the hard part of an impossibility result is never
+the impossibility, it is knowing exactly which coordinate to name.

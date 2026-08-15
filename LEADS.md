@@ -989,8 +989,20 @@ decomposition they consult.** `Nsc` reads the total mass, which `μ_T` supplies;
 **Kill condition** — that `NscStd` might need some further feature of the
 configuration — **did not fire**: `onAt` suffices.
 
-**What is NOT proved, stated so nobody cites it:** the *packaged* form —
-"same `μ_T` **and** same `offAt` at every ordinate ⟹ same `NscStd`". That needs
-a counting step (each qualifying ordinate contributes exactly one zero to the
-filter) which is not in the file. It is the next item, and until it exists the
-sufficiency claim is **pointwise only**.
+**UPDATE (night cycle 14): the packaged form is proved.**
+`NscStd_determined : D.ordinates = D'.ordinates → (∀ γ, offAt D γ = offAt D' γ)
+→ D.NscStd = D'.NscStd`, axiom-free, **with exactly those two hypotheses** — no
+nodup, no finiteness, nothing beyond `(μ_T, offAt)`. The route was the on-line
+ordinate multiset `onOrd`, whose multiplicity at `γ` is `onAt γ`
+(`count_onOrd`); `NscStd` is a functional of it
+(`NscStd_eq_onOrd_functional`), and a multiset is determined by its counts.
+
+**So sufficiency is global, not pointwise, and X is bracketed:**
+
+> **Withhold the fiber coordinate and no `μ_T`-invariant theory recovers the
+> target (`Blindness.no_muInvariant_theory_computes_NscStd`); supply it and the
+> target is determined (`Fiber.NscStd_determined`).**
+
+The kill condition — that the counting step might need a hypothesis beyond
+`(μ_T, offAt)`, which would mean the residue is larger than `j` — **did not
+fire**.

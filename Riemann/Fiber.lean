@@ -522,5 +522,72 @@ theorem Nsc_reads_total (D : ZeroData) :
   refine Multiset.filter_congr fun p hp => ?_
   exact ⟨fun h => h.2, fun h => ⟨ZeroData.on_line_of_H_eq_one hp h, h⟩⟩
 
+
+/-! #### From pointwise to global
+
+The pointwise results say `NscStd` reads `onAt`.  To say the fiber coordinate is
+the **whole** residue we need the packaged form: two configurations agreeing on
+`μ_T` and on `offAt` have the same `NscStd`.
+
+The route is the on-line ordinate multiset `onOrd`, whose multiplicity at `γ` is
+exactly `onAt γ`.  A multiset over `ℝ` is determined by its counts, so `onOrd`
+is determined by `onAt`, and `NscStd` is a functional of `onOrd`. -/
+
+/-- The ordinates of the **on-line** zeros, with multiplicity. -/
+noncomputable def onOrd (D : ZeroData) : Multiset ℝ :=
+  (D.Z.filter fun p => p.1 = 1/2).map Prod.snd
+
+lemma count_onOrd (D : ZeroData) (γ : ℝ) : (onOrd D).count γ = onAt D γ := by
+  classical
+  rw [onOrd, Multiset.count_map, onAt, Multiset.filter_filter]
+  congr 1
+  refine Multiset.filter_congr fun p _ => ?_
+  exact ⟨fun h => ⟨h.1.symm, h.2⟩, fun h => ⟨h.1.symm, h.2⟩⟩
+
+/-- **`NscStd` is a functional of the on-line ordinate multiset alone.** -/
+theorem NscStd_eq_onOrd_functional (D : ZeroData) :
+    D.NscStd = Multiset.card ((onOrd D).filter fun γ => (onOrd D).count γ = 1) := by
+  classical
+  have h1 : D.NscStd
+      = Multiset.card ((D.Z.filter fun p => p.1 = 1/2).filter
+          fun p => onAt D p.2 = 1) := by
+    rw [NscStd_eq_onAt_functional, Multiset.filter_filter]
+    congr 1
+    exact Multiset.filter_congr fun _ _ => and_comm
+  rw [h1, ← Multiset.card_map Prod.snd]
+  congr 1
+  rw [onOrd, Multiset.filter_map]
+  refine congrArg _ (Multiset.filter_congr fun p _ => ?_)
+  show onAt D p.2 = 1 ↔ Multiset.count p.2 (onOrd D) = 1
+  rw [count_onOrd]
+
+/-- `onAt` is determined by `μ_T` together with `offAt` — immediately, from the
+fiber decomposition. -/
+theorem onAt_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
+    (hoff : ∀ γ, offAt D γ = offAt D' γ) (γ : ℝ) : onAt D γ = onAt D' γ := by
+  have hH : D.H γ = D'.H γ := by
+    rw [ZeroData.H_eq_count, ZeroData.H_eq_count, hord]
+  have h1 := H_eq_onAt_add_offAt D γ
+  have h2 := H_eq_onAt_add_offAt D' γ
+  have h3 := hoff γ
+  omega
+
+/-- **The residue is exactly the fiber coordinate.**  Two configurations
+agreeing on `μ_T` and on the off-line mass at every ordinate have the same
+`NscStd`.
+
+With `Blindness.no_muInvariant_theory_computes_NscStd` this brackets `X` from
+both sides: **withhold the fiber coordinate and no `μ_T`-invariant theory
+recovers the target; supply it and the target is determined.**  Nothing beyond
+`(μ_T, offAt)` is needed — which is what "the whole residue" means. -/
+theorem NscStd_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
+    (hoff : ∀ γ, offAt D γ = offAt D' γ) : D.NscStd = D'.NscStd := by
+  classical
+  have hon : onOrd D = onOrd D' := by
+    refine Multiset.ext.2 fun γ => ?_
+    rw [count_onOrd, count_onOrd]
+    exact onAt_determined hord hoff γ
+  rw [NscStd_eq_onOrd_functional, NscStd_eq_onOrd_functional, hon]
+
 end Blindness
 end Riemann

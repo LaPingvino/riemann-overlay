@@ -40,6 +40,24 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 14 — X bracketed, globally
+
+**Kill condition** (that the counting step needs a hypothesis beyond
+`(ordinates, offAt)`, meaning the residue is larger than `j`) **did not fire**.
+
+`NscStd_determined` (axiom-free): same `μ_T` **and** same `offAt` everywhere ⟹
+same `NscStd`, with exactly those two hypotheses. Route: `onOrd`, the on-line
+ordinate multiset, whose count at `γ` is `onAt γ`; `NscStd` is a functional of
+it; a multiset is determined by its counts.
+
+**The characterisation is now complete and global:** withhold the fiber
+coordinate and no `μ_T`-invariant theory recovers the target
+(`Blindness.no_muInvariant_theory_computes_NscStd`); supply it and the target is
+determined (`Fiber.NscStd_determined`). The residue is pinned exactly.
+
+Last cycle's "pointwise only" caveat is corrected **at its own location** in
+`LEADS.md`, per the ordering rule.
+
 ### Night cycle 13 — X characterised from the other side
 
 Back to mathematics. **Kill condition** (that `NscStd` needs some feature beyond

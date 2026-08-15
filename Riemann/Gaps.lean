@@ -437,6 +437,50 @@ theorem baseline_cap {D : ZeroData} (hpos : 0 < D.N)
     rw [le_div_iff₀ hposR] at h'
     nlinarith [h', hscR, hposR]
 
+/-- **A bound on the haunted density** — the quantitative form of `NoHaunted`,
+and the currency `109`'s identity trades in. -/
+def HauntedDensity (F : Family) (δ : ℝ) : Prop :=
+  ∀ ε > 0, ∀ᶠ T in atTop,
+    ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ) ≤ (δ + ε) * F.Nz T
+
+/-- **The canonical conditional row: `ProportionStd κ` and `hauntedCount ≤ δ·N`
+give `Proportion (κ − δ)`.**
+
+Immediate from `Blindness.NscStd_eq_Nsc_add_haunted`: the row is
+`Nsc/N = NscStd/N − hauntedCount/N`, an identity, so a density bound subtracts
+directly.  `NoHaunted` is the case `δ = 0`. -/
+theorem proportion_of_hauntedDensity {F : Family} {κ δ : ℝ}
+    (hh : HauntedDensity F δ) (hstd : F.ProportionStd κ) :
+    F.toCounts.Proportion (κ - δ) := by
+  intro ε hε
+  filter_upwards [hstd (ε / 2) (by linarith), hh (ε / 2) (by linarith),
+    F.toCounts.pos] with T hT hH hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hid : F.NscStd T
+      = F.Nsc T + ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ) := by
+    have := Blindness.NscStd_eq_Nsc_add_haunted (F.D T)
+    unfold Family.NscStd Family.Nsc
+    exact_mod_cast this
+  show κ - δ - ε ≤ F.Nsc T / F.Nz T
+  rw [le_div_iff₀ hpos']
+  linarith [hT, hH, hid]
+
+/-- **`087`'s off-line route is the special case `δ = β/2`.**  A haunted ordinate
+carries at least two off-line zeros (`Blindness.two_mul_haunted_add_NscStd_le_N`
+via the coupling), so an off-line import at `β` is a haunted density at `β/2`. -/
+theorem hauntedDensity_of_offLineImport {F : Family} {β : ℝ}
+    (h : OffLineImport F β) : HauntedDensity F (β / 2) := by
+  intro ε hε
+  filter_upwards [h ε (by linarith), F.toCounts.pos] with T hO hpos
+  have hcoup : 2 * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ) ≤ F.Noff T := by
+    have hnat := Blindness.NscStd_eq_Nsc_add_haunted (F.D T)
+    have hcp := Blindness.two_mul_NscStd_le_Noff_add_two_mul_Nsc (F.D T)
+    have : 2 * Blindness.hauntedCount (F.D T) ≤ (F.D T).Noff := by omega
+    unfold Family.Noff
+    exact_mod_cast this
+  have hnn := F.Nz_nonneg T
+  nlinarith [hO, hcoup, hnn, hε.le]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

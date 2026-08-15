@@ -4970,3 +4970,41 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 as "assume strictly less than the Riemann Hypothesis on this window and the
 literature's proportion transfers whole", which is a sentence about the shape of
 the problem rather than about our arithmetic.
+
+
+# SESSION 118 — one conditional instrument, and a third route to the same number
+
+Everything in the `084`–`117` arc is a conditional row of some shape, and they
+have accumulated as separate theorems. `109`'s identity says they should not be
+separate: the row is a subtraction, so every conditional result is a bound on the
+subtracted term.
+
+**Kill condition, filed first:** *if a haunted-density bound gives no better than
+`087`'s off-line route `κ − β/2`, the direct form adds nothing.* It fired **in
+the reading that matters least** — the two agree when translated — and the point
+is the translation itself.
+
+* `HauntedDensity` / `proportion_of_hauntedDensity` (new, axiom-free) —
+  **`ProportionStd κ` with `hauntedCount ≤ δ·N` gives `Proportion (κ − δ)`.**
+  Two lines from the identity. `NoHaunted` is `δ = 0`.
+* `hauntedDensity_of_offLineImport` — and `087`'s off-line route is the special
+  case `δ = β/2`, since a haunted ordinate carries at least two off-line zeros.
+  So the earlier instrument is a corollary of this one, not a sibling.
+
+**A third derivation of the certified row.** `certified_nsc_via_haunted` runs
+`certified_offline` (`β = 0.3275`) through the halving and the subtraction:
+`0.6725 − 0.16375 = 0.50875`. Three derivations now agree exactly — the per-atom
+bound of `084`, the off-line exchange rate of `090`, and the haunted density.
+After `S34` I do not think a large claim resting on one chain is safe; it now
+rests on three that share only the baseline.
+
+`LEADS.md` records the unification: **there is one conditional instrument, not
+five**, and every hypothesis the project has priced is a `δ`.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project has exactly one conditional theorem and
+has been discovering it in pieces for thirty-four cycles, which suggests the
+right first move on any new hypothesis is to ask what `δ` it buys rather than
+what route it opens.

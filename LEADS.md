@@ -1754,3 +1754,24 @@ off-line pair is unhaunted with `N_off = 2`. So
 That is the strongest available positioning statement, and it is now certified
 rather than argued. Every other hypothesis in the neighbourhood — `LI`,
 distinctness, RH itself — contains the conclusion; `NoHaunted` does not.
+
+
+## The conditional row, in one statement (SESSION 118)
+
+Every conditional result in the `084`–`117` arc is an instance of
+
+> **`ProportionStd κ` + `hauntedCount ≤ δ·N` ⟹ `Proportion (κ − δ)`**
+> (`proportion_of_hauntedDensity`)
+
+because `109`'s identity makes the row a subtraction. The instances:
+
+| `δ` | hypothesis | row at `κ = 0.6725` |
+|---|---|---|
+| `0` | `NoHaunted` (`107`) | `0.6725` |
+| `β/2` | an off-line import at `β` (`087`) | `κ − β/2` |
+| `0.16375` | the unconditional off-line row (`090`) | **`0.50875`** — the ledger |
+| `(κ − 1/m)/…` | the mass ladder (`105`) | the odd rungs |
+
+So there is one conditional instrument, not five, and the search is for a `δ`.
+`111` caps what the counting can supply at `δ = 0.16375`; anything smaller must
+come from outside.

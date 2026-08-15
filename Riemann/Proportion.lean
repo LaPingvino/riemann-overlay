@@ -221,6 +221,21 @@ theorem baseline_cap_witness :
     (a := (0 : ℝ)) (by norm_num)
   exact ⟨constFamily D hpos, baseline_cap hpos hstd hsc⟩
 
+/-- **The `Nsc` row by a third route: through the haunted density.**
+
+`certified_offline` gives `β = 0.3275`; `hauntedDensity_of_offLineImport` halves
+it to `δ = 0.16375`; `proportion_of_hauntedDensity` subtracts it from the
+baseline.  `0.6725 − 0.16375 = 0.50875`.
+
+Three derivations now agree exactly: the per-atom bound
+(`certified_nsc_unconditional`), the off-line exchange rate
+(`certified_nsc_via_offline`), and this one. -/
+theorem certified_nsc_via_haunted : zetaFamily.toCounts.Proportion 0.50875 := by
+  have h := proportion_of_hauntedDensity
+    (hauntedDensity_of_offLineImport certified_offline) certified_std
+  have e : (0.6725 : ℝ) - 0.3275 / 2 = 0.50875 := by norm_num
+  rwa [e] at h
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

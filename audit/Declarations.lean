@@ -267,3 +267,7 @@ import Riemann
 #check @Riemann.Blindness.noHaunted_not_imp_Noff_zero
 #check @Riemann.Blindness.noHaunted_of_Noff_zero
 #check @Riemann.Blindness.noHaunted_strictly_weaker_than_RH
+#check @Riemann.HauntedDensity
+#check @Riemann.proportion_of_hauntedDensity
+#check @Riemann.hauntedDensity_of_offLineImport
+#check @Riemann.certified_nsc_via_haunted

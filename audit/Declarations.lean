@@ -260,3 +260,4 @@ import Riemann
 #check @Riemann.constFamily
 #check @Riemann.baseline_cap
 #check @Riemann.baseline_cap_witness
+#check @Riemann.Blindness.cap_witness_respects_derived

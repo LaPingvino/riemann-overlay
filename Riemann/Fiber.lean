@@ -3193,6 +3193,72 @@ theorem row_essentially_optimal {a : ℝ} (ha : a ≠ 1/2) :
   exact ⟨chain a L, by rw [hN]; norm_num, by rw [hN, hSc']; norm_num,
     by rw [hN, hsc']; norm_num⟩
 
+/-- **The cap witness satisfies every certified consequence of the baseline.**
+
+`112` capped baseline-only arguments at `0.50944` with the `1000 : 321` witness.
+That cap is only robust if the witness also survives the facts the project has
+*derived* from the baseline — otherwise one of them would exclude it and the row
+could be pushed higher by adjoining it.
+
+The full accounting of the witness: `N = 1963`, `NscStd = 1321`, `Nsc = 1000`,
+`N_off = 642`, `hauntedCount = 321`.  Then
+
+* `N_off/N = 642/1963 ≈ 0.32705 ≤ 0.3275` — inside `certified_offline` (`090`);
+* `N_off + NscStd = 1963 = N` — `090`'s disjointness, **tight**;
+* `2·hauntedCount + NscStd = 1963 = N` — `110`'s canonical bound, **tight**;
+* `Nsc + N_off = 1642 ≤ 1963` — `Nsc_add_Noff_le_N`.
+
+**Kill condition, filed first:** *if the witness violates any certified
+consequence of the baseline, the cap is not robust.*  It did not fire: the
+witness sits inside the off-line row with `0.00045` to spare and saturates the
+two bounds that are supposed to be tight on it. -/
+theorem cap_witness_respects_derived {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData, D.N = 1963 ∧ D.NscStd = 1321 ∧ D.Nsc = 1000
+      ∧ D.Noff = 642 ∧ hauntedCount D = 321
+      ∧ 10000 * D.Noff ≤ 3275 * D.N
+      ∧ D.Noff + D.NscStd = D.N
+      ∧ 2 * hauntedCount D + D.NscStd = D.N := by
+  classical
+  set L : List (ℕ × ℕ) :=
+    List.replicate 1000 (1, 0) ++ List.replicate 321 (1, 1) with hL
+  have hne : ∀ x ∈ L, x.1 + 2 * x.2 ≠ 0 := by
+    intro x hx
+    rw [hL, List.mem_append] at hx
+    rcases hx with hx | hx
+    · rw [List.eq_of_mem_replicate hx]; norm_num
+    · rw [List.eq_of_mem_replicate hx]; norm_num
+  have hp := chain_profile ha L hne
+  rw [hL] at hp
+  norm_num [List.map_append, List.map_replicate] at hp
+  have hsum : ∀ f : ℕ × ℕ → ℤ,
+      ((profile (chain a L)).map f).sum = 1000 * f (1, 0) + 321 * f (3, 2) := by
+    intro f
+    rw [hp]
+    simp only [Multiset.map_coe, Multiset.sum_coe, List.map_append,
+      List.map_replicate, List.sum_append, List.sum_replicate]
+    simp [nsmul_eq_mul]
+  have hN : (chain a L).N = 1963 := by
+    rw [N_from_profile, hp]
+    simp only [Multiset.map_coe, Multiset.sum_coe, List.map_append,
+      List.map_replicate, List.sum_append, List.sum_replicate, smul_eq_mul]
+  have hOff : (chain a L).Noff = 642 := by
+    rw [Noff_from_profile, hp]
+    simp only [Multiset.map_coe, Multiset.sum_coe, List.map_append,
+      List.map_replicate, List.sum_append, List.sum_replicate, smul_eq_mul]
+  have hSc : ((chain a L).NscStd : ℤ) = 1321 := by
+    rw [NscStd_from_profile, hsum]; norm_num
+  have hsc : ((chain a L).Nsc : ℤ) = 1000 := by
+    rw [Nsc_from_profile, hsum]; norm_num
+  have hSc' : (chain a L).NscStd = 1321 := by exact_mod_cast hSc
+  have hsc' : (chain a L).Nsc = 1000 := by exact_mod_cast hsc
+  have hHnt : hauntedCount (chain a L) = 321 := by
+    have := NscStd_eq_Nsc_add_haunted (chain a L)
+    omega
+  exact ⟨chain a L, hN, hSc', hsc', hOff, hHnt,
+    by rw [hOff, hN]; norm_num,
+    by rw [hOff, hSc', hN],
+    by rw [hHnt, hSc', hN]⟩
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

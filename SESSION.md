@@ -4786,3 +4786,43 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** a failure mode that hides by removing its own evidence
 cannot be caught by looking at the evidence, which is why this project's most
 effective guard is a habit rather than a script.
+
+
+# SESSION 114 — the cap survives everything the baseline implies
+
+`112` capped baseline-only arguments at `0.50944`. A cap is only worth having if
+its witness also survives the facts the project has *derived* from the baseline;
+if any of them excluded the witness, adjoining that fact would push the row
+higher and the cap would be an artifact of ignoring our own results.
+
+**Kill condition, filed first:** *if the witness violates any certified
+consequence of the baseline, the cap is not robust.* It did not fire.
+
+`cap_witness_respects_derived` (new, axiom-free) gives the witness's full
+accounting — `N = 1963`, `NscStd = 1321`, `Nsc = 1000`, `N_off = 642`,
+`hauntedCount = 321` — and checks it against every certified consequence:
+
+| certified fact | witness | verdict |
+|---|---|---|
+| `certified_offline`: `N_off ≤ 0.3275·N` (`090`) | `642/1963 ≈ 0.32705` | inside, by `0.00045` |
+| `N_off + NscStd ≤ N` (`090`) | `642 + 1321 = 1963` | **tight** |
+| `2·hauntedCount + NscStd ≤ N` (`110`) | `642 + 1321 = 1963` | **tight** |
+| `Nsc + N_off ≤ N` | `1642 ≤ 1963` | slack |
+
+**The pattern is the reassuring part.** The witness saturates exactly the two
+bounds that `104` and `110` proved are tight on simple/haunted mixtures, and sits
+*inside* the one bound that is not — the off-line density row — with `0.00045` to
+spare. That is what a genuinely extremal configuration should look like: tight
+where the theory says tight, slack where it says slack.
+
+So the cap at `0.50944` is not an artifact of ignoring our own results. Every
+consequence the baseline has been made to yield is consistent with a
+configuration whose `Nsc` row is `0.509424`.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project has proved four separate things about ζ's
+zero counts and a single 1963-zero configuration satisfies all of them while
+sitting at the certified floor, which means the floor is the theory's, not the
+zeta function's.

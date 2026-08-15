@@ -388,3 +388,41 @@ positives, the instrument does not transfer and I say so* — **did not fire**.
 **Standing change:** the load-bearing Lean files are now in the gate's beat.
 `Fiber.lean` (36 flags) is almost entirely my own prose and is **untriaged**;
 it must not be quoted as a defect rate.
+
+
+---
+
+## SESSION 089 — triaging my own prose (`Fiber.lean`, 36 flags)
+
+The largest untriaged flag set was one I created: twelve cycles of new prose in
+`Fiber.lean`. Triaged in full.
+
+**1 true positive**, and it is a stale superlative I wrote and then refuted
+myself, twelve cycles ago:
+
+| # | text | verdict |
+|---|---|---|
+| 13 | *"**The residue is exactly the fiber coordinate.** … Nothing beyond `(μ_T, offAt)` is needed — which is what 'the whole residue' means"* (`onOrd_determined`) | **TRUE** — the converse is false and `offAt_not_minimal` refutes it. `S26` recorded the retraction, but it lives 150 lines further down, so the superlative stood here unqualified |
+| 12 | *"the fiber coordinate really is the whole residue"* (`NscStd_eq_onAt_functional`) | **TRUE — same claim, second location** |
+
+Both corrected at their locations, each naming `offAt_not_minimal` and `S26`.
+
+The other 34 are false positives of four mechanical shapes, all previously
+identified: theorem statements quoted into the flagged sentence (11 of them);
+claims whose Lean witness sits on an adjacent line and so falls outside the
+sentence the splitter built (9); genuine algebraic identities printed in full and
+backed by a named theorem — e.g. *"the reason is an identity: `3N⊛ − 2N − Σm³ =
+−Σ m(m−1)(m−2)`"*, which is `three_Nstar_le_thirdMoment_add_two_N` (6); and
+directives or `[RECALL]`-marked comparisons (8).
+
+**Rate: 2/36.** Low, and the two it found are the *same* defect the register's
+most expensive prose entries are about — a sufficiency result written up as an
+identity, with the retraction filed somewhere else.
+
+**The kill condition** — *if the triage finds no true positives in my own prose,
+the gate has nothing to say about my writing* — **did not fire.** The instrument
+reads my prose no worse than anyone's.
+
+**Standing note:** the dominant false-positive shape here is sentence-splitting
+across a docstring/theorem boundary, which is a fixable parser issue and not a
+wordlist issue. Named, not built.

@@ -503,9 +503,13 @@ theorem count_eq_onAt (D : ZeroData) {p : ℝ × ℝ} (hp : p.1 = 1/2) :
 
 Together with `H_eq_onAt_add_offAt` this makes `NscStd` a pointwise functional
 of `(μ_T, offAt)` — the sufficiency direction complementing
-`Blindness.no_muInvariant_theory_computes_NscStd`'s necessity.  The fiber
-coordinate really is the whole residue: supply it and the target is determined;
-withhold it and no `μ_T`-invariant theory can recover the target. -/
+`Blindness.no_muInvariant_theory_computes_NscStd`'s necessity: supply the fiber
+coordinate and the target is determined; withhold it and no `μ_T`-invariant
+theory can recover it.
+
+⚠️ **Corrected here (SESSION 089):** this read "the fiber coordinate really is
+the *whole residue*", which `offAt_not_minimal` refutes — `(μ_T, offAt)` is
+sufficient, not minimal (`SURPRISES` S26). -/
 theorem NscStd_eq_onAt_functional (D : ZeroData) :
     D.NscStd = Multiset.card (D.Z.filter fun p => p.1 = 1/2 ∧ onAt D p.2 = 1) := by
   classical
@@ -579,14 +583,23 @@ theorem onAt_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
   have h3 := hoff γ
   omega
 
-/-- **The residue is exactly the fiber coordinate.**  Two configurations
-agreeing on `μ_T` and on the off-line mass at every ordinate have the same
-`NscStd`.
+/-- **`(μ_T, offAt)` is a sufficient statistic for the residue.**  Two
+configurations agreeing on `μ_T` and on the off-line mass at every ordinate have
+the same `NscStd`.
 
-With `Blindness.no_muInvariant_theory_computes_NscStd` this brackets `X` from
-both sides: **withhold the fiber coordinate and no `μ_T`-invariant theory
-recovers the target; supply it and the target is determined.**  Nothing beyond
-`(μ_T, offAt)` is needed — which is what "the whole residue" means. -/
+⚠️ **Corrected at this location (SESSION 089).**  This docstring read "the
+residue is **exactly** the fiber coordinate … nothing beyond `(μ_T, offAt)` is
+needed — which is what 'the whole residue' means".  The forward direction is
+this theorem; the converse is **false**, and `offAt_not_minimal` below refutes
+it — `(μ_T, offAt)` is sufficient but *not* minimal.  That retraction was
+recorded as `SURPRISES` S26 and lives 150 lines further down, which left the
+superlative standing here unqualified for twelve cycles.  A retraction belongs
+above what it retracts.
+
+What is true, in both directions: with
+`Blindness.no_muInvariant_theory_computes_NscStd` this brackets `X` — **withhold
+the fiber coordinate and no `μ_T`-invariant theory recovers the target; supply it
+and the target is determined.**  Sufficiency, not minimality. -/
 theorem onOrd_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
     (hoff : ∀ γ, offAt D γ = offAt D' γ) : onOrd D = onOrd D' := by
   classical

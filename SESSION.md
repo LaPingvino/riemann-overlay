@@ -3708,3 +3708,49 @@ ruling on deletion.
 
 **Might-mean, unhedged:** the trusted base was never nine independent
 assumptions, and nobody had checked which of them the others already imply.
+
+
+# SESSION 089 — the retraction that never reached the text it retracted
+
+Three rulings are parked with Joop, so this cycle took the item I owed rather
+than one that raises a fourth: the 36 untriaged `claims_gate` flags in
+`Fiber.lean`, all of them my own prose from twelve cycles.
+
+**Kill condition, filed first:** *if the triage finds no true positives in my own
+prose, the gate has nothing to say about my writing and I should stop running it
+there.* It did not fire.
+
+**2 true positives in 36**, and they are the same claim in two places:
+
+> `onOrd_determined` — *"**The residue is exactly the fiber coordinate.** …
+> Nothing beyond `(μ_T, offAt)` is needed."*
+> `NscStd_eq_onAt_functional` — *"the fiber coordinate really is the whole
+> residue."*
+
+The forward direction is those theorems. The converse is **false** —
+`offAt_not_minimal` refutes it, `(μ_T, offAt)` is sufficient but not minimal.
+That is `SURPRISES` S26, which I filed **twelve cycles ago**, one cycle after
+making the claim.
+
+**And the retraction never reached the text.** It was written at
+`offAt_not_minimal`, 150 lines below both docstrings. The R-rule says a
+retraction must appear above what it retracts; I had recorded the correction in
+the register and at the *new* theorem, and left the original sentences standing.
+I then wrote five more theorems in that file, past those sentences, without
+seeing them.
+
+Logged as `S36`. The lesson is not "I overclaimed" — that was S26 and it is
+priced. It is that **filing a retraction is not the same as landing it**, and the
+gate is what found the difference, on a surface I had deferred four times as
+"my own writing, low yield".
+
+The other 34 flags are false positives of four mechanical shapes, all documented
+in `CLAIMS.md`. The dominant one — sentence-splitting across a docstring/theorem
+boundary — is a parser issue, not a wordlist issue; named, not built.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`, base
+hash `cd7a22e688df` unmoved. No new ruling raised.
+
+**Might-mean, unhedged:** a project that records its corrections in a register
+and not in the text will read correctly to its historians and incorrectly to
+itself.

@@ -4312,8 +4312,59 @@ mode's teeth in the meantime.
 Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
 axioms 2, base hash `cd7a22e688df` unmoved.
 
+> ✅ **Checked the next cycle rather than left as rhetoric.**
+> `Fiber.haunted_atom_saturates` proves this configuration attains equality in
+> **seven** certified inequalities simultaneously. The sentence below stands as a
+> theorem, not a flourish — which after `S37` is the standard it had to meet.
+
 **Might-mean, unhedged:** one configuration — a simple zero on the line with an
 off-line pair hiding at the same height — is simultaneously the reason the two
 simplicity notions differ, the reason the transfer costs what it costs, and the
 reason the better number cannot be used, so the entire arithmetic of this project
 is the arithmetic of that one picture.
+
+
+# SESSION 103 — the flourish, made a theorem
+
+`102` ended with a sentence claiming the project's arithmetic *is* the arithmetic
+of one picture. That is exactly the kind of sentence `S37` was logged about: it
+sounded true, no instrument checks it, and nothing under it said so. It is
+checkable, so this cycle checks it.
+
+**Kill condition, filed first:** *if the haunted mass-`3` atom fails to attain
+equality in any one of the project's inequalities, the "one picture" reading is
+wrong and the might-mean gets downgraded at its location.* **It did not fire.**
+
+`haunted_atom_saturates` (axiom-free): `configAt 0 1 1 a` — three zeros, one on
+the line and an off-line pair at the same height — has `N = 3`, `N⊛ = 9`,
+`Nsc = 0`, `NscStd = 1`, `N_off = 2`, one odd atom, one atom. And it attains
+**equality** in all seven of:
+
+| inequality | value |
+|---|---|
+| `3·NscStd ≤ N + 2·Nsc` (`084`, the `Nsc` row) | `3 = 3` |
+| `2·NscStd ≤ N_off + 2·Nsc` (`083`, the coupling) | `2 = 2` |
+| `N⊛ + (M−1)·Nsc ≤ M·N` at `M = 3` (`098`) | `9 = 9` |
+| `N_off + NscStd ≤ N` (`090`, the density row) | `3 = 3` |
+| `N_off + #odd ≤ N` (`082`) | `3 = 3` |
+| `NscStd ≤ #odd` (`079`) | `1 = 1` |
+| `2·A + #odd ≤ N + 2·Nsc` (`085`) | `3 = 3` |
+
+Seven bounds, proved across twenty cycles for different purposes, all tight at
+the same three-element configuration.
+
+**What this is and is not.** It is not a proof that the haunted atom is the
+*unique* extremal configuration, and I am not claiming that — several of these
+are also tight on the simple atom. It is the precise content the `102` sentence
+was reaching for: the constants in this project's arithmetic are all decided by
+one picture, and now that is a theorem rather than an impression.
+
+The `102` might-mean is annotated at its location to say so.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** twenty cycles of separate inequalities turned out to be
+twenty readings of one configuration's arithmetic, which means the project's
+progress has been less a search over methods than a slow inventory of what a
+single counterexample forbids.

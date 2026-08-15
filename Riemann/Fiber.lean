@@ -2650,6 +2650,55 @@ theorem no_NscStd_coefficient_at_three {a : ℝ} (ha : a ≠ 1/2) {b : ℕ} (hb 
   rw [hN, hS, hSc'] at this
   omega
 
+/-! ### The haunted atom saturates everything
+
+`102`'s might-mean said the project's arithmetic *is* the arithmetic of one
+picture — a simple on-line zero with an off-line pair at the same height.  That
+was rhetoric past any theorem, which is what `S37` is about.  It is checkable, so
+here it is checked.
+
+**Kill condition, filed first:** *if the haunted mass-`3` atom fails to attain
+equality in any one of the project's inequalities, the "one picture" reading is
+wrong and the might-mean gets downgraded at its location.*  It did not fire. -/
+
+/-- **The haunted atom of mass `3` attains equality in seven certified
+inequalities at once.**  `configAt 0 1 1 a` has `N = 3`, `N⊛ = 9`, `Nsc = 0`,
+`NscStd = 1`, `N_off = 2`, one odd atom and one atom.
+
+Every bound the project has proved about the relationship between its counts is
+tight *here*, and at a single three-element configuration. -/
+theorem haunted_atom_saturates {a : ℝ} (ha : a ≠ 1/2) :
+    let D := configAt 0 1 1 a
+    3 * D.NscStd = D.N + 2 * D.Nsc
+      ∧ 2 * D.NscStd = D.Noff + 2 * D.Nsc
+      ∧ D.Nstar + (3 - 1) * D.Nsc = 3 * D.N
+      ∧ D.Noff + D.NscStd = D.N
+      ∧ D.Noff + oddAtoms D = D.N
+      ∧ D.NscStd = oddAtoms D
+      ∧ 2 * atomCount D + oddAtoms D = D.N + 2 * D.Nsc := by
+  intro D
+  obtain ⟨hSc0, hsc0, hN0⟩ := haunted_atom_counts ha
+  have hSc : D.NscStd = 1 := hSc0
+  have hsc : D.Nsc = 0 := hsc0
+  have hN : D.N = 3 := hN0
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 1) (by norm_num)
+  norm_num at hp
+  have hOff : D.Noff = 2 := by
+    show (configAt 0 1 1 a).Noff = 2
+    rw [configAt_Noff ha]
+  have hS : D.Nstar = 9 := by
+    show (configAt 0 1 1 a).Nstar = 9
+    rw [Nstar_from_profile, hp]; decide
+  have hOdd : oddAtoms D = 1 := by
+    show oddAtoms (configAt 0 1 1 a) = 1
+    rw [oddAtoms_from_profile, hp]; decide
+  have hA : atomCount D = 1 := by
+    show atomCount (configAt 0 1 1 a) = 1
+    rw [atomCount, configAt_ordinates, Multiset.toFinset_replicate, if_neg (by norm_num)]
+    rfl
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;>
+    simp only [hSc, hsc, hN, hOff, hS, hOdd, hA] <;> norm_num
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

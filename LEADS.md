@@ -96,6 +96,11 @@ must leave bandwidth one, which is [OPEN D] again.
 * **L5** is the only item that could move a number without closing a box, and
   it is independent of everything else here — good subagent work if wanted.
 
+  > ⚠️ **Refuted by the project's own history (`SESSION 127`).** `084` moved the
+  > `Nsc` row from `0.00%` to `50.88%` without closing any box and without
+  > touching `L5` — it was pure combinatorics on the existing baseline. The
+  > board assessment above is from session 003 and was never revisited.
+
 
 ## Session-003 wildcard: the λ-sweep (L9 numerics, done)
 
@@ -1066,6 +1071,15 @@ carry nothing.
 
 **Whether the profile is minimal is not proved and is not claimed.** A coarser
 sufficient statistic may exist; nothing here rules one out.
+
+> ⚠️ **Settled both ways, and the answers live further down this file
+> (`SESSION 127` moved the pointer here).** A coarser sufficient statistic
+> **does** exist — the ledger itself — so `Fiber.profile_not_minimal` refutes
+> minimality outright (`075`); and `Fiber.profile_minimal_among_local` proves
+> minimality among ordinate-local statistics (`077`). The paragraph above was
+> correct when written and has been superseded for fifty cycles, with its
+> replacement filed in a later section rather than here. That is `SURPRISES` S36
+> repeating at register scale.
 
 ## W35 — the third moment IS the level-3 diagonal (entropy, new angle)
 

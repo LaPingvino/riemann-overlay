@@ -5353,3 +5353,44 @@ Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, sorries
 vocabulary of failure will eventually be read as failing, so the last
 undocumented thing in this project was what its instruments sound like when they
 are working.
+
+
+# SESSION 127 — the route table triaged, and it disagreed with itself
+
+`126` recorded `LEADS.md`'s 56 `claims_gate` flags as untriaged. That is the
+register `LOOP.md` step 2 sends every cycle to, so an untriaged count there is
+owed under `R17`.
+
+**Kill condition, filed first:** *if the flags are all known mechanical shapes,
+the gate has nothing to say about the route table and I stop running it there.*
+**It did not fire — 2 true positives in 56.**
+
+* **"Whether the profile is minimal is not proved and is not claimed."** Settled
+  both ways in `075` (`profile_not_minimal` — the ledger *is* a coarser
+  sufficient statistic) and `077` (`profile_minimal_among_local`). Fifty cycles
+  stale.
+* **"`L5` is the only item that could move a number without closing a box."**
+  `084` moved the `Nsc` row by `50.88` points without closing a box and without
+  `L5`. A session-003 board assessment, never revisited.
+
+**And the first one was found by the second half of the same file.** Flags 45–49
+are the *corrected* minimality statements, filed in a later section by `075` and
+`077`. So `LEADS.md` has been carrying the claim and its refutation
+simultaneously, fifty cycles apart, and the gate found the pair. That is
+`SURPRISES` S36 — a retraction filed somewhere other than the text it retracts —
+repeating at the scale of a register rather than a docstring.
+
+Rate **2/56 ≈ 3.6%**. Both catches are staleness, not overclaim, which remains
+the defect class no instrument patrols.
+
+**The prompt's own RECENT block carries the same stale sentence** — *"Minimality
+of the profile is NOT proved and must not be claimed"* — which `LOOP.md`'s READ
+FIRST banner has corrected since `102`. Three sources now agree it is stale and
+one of them is the cron text, which only Joop can edit.
+
+Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** a register long enough to contain both a claim and its
+refutation will be read as agreeing with whichever half the reader reaches first,
+and this one is ordered oldest-first.

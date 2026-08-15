@@ -464,3 +464,29 @@ reads my prose no worse than anyone's.
 **Standing note:** the dominant false-positive shape here is sentence-splitting
 across a docstring/theorem boundary, which is a fixable parser issue and not a
 wordlist issue. Named, not built.
+
+
+---
+
+## SESSION 127 — `LEADS.md` triaged, all 56 flags
+
+The route table had never been triaged, and it is the register that decides what
+future cycles do.
+
+**2 true positives in 56.** Both are stale claims, not overclaims — the `121`/`122`
+species again:
+
+| flag | verdict |
+|---|---|
+| *"Whether the profile is minimal is not proved and is not claimed"* | **TRUE** — settled both ways in `075`/`077`, fifty cycles earlier, with the answers filed in a **later section of the same file** |
+| *"`L5` is the only item that could move a number without closing a box"* | **TRUE** — `084` moved the `Nsc` row by `50.88` points without closing a box and without `L5`; a session-003 board assessment never revisited |
+
+The other 54 are false positives of the four mechanical shapes documented in
+`089`: theorem statements quoted into the flagged sentence, claims whose Lean
+witness sits on an adjacent line, genuine identities printed in full, and
+directives or `[RECALL]`-marked comparisons. A large block (flags 45–49) are the
+*corrected* profile-minimality statements — which is how the stale one at the top
+of the file was found: the register carries both.
+
+**Rate 2/56 ≈ 3.6%**, and both catches are staleness rather than overclaim, which
+is the defect class no instrument in the project patrols (`121`).

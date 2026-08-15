@@ -5630,3 +5630,51 @@ base hash `cd7a22e688df` unmoved.
 **Might-mean, unhedged:** the quantity this project invented a name for is the
 cross-term of one the literature has studied since 1993, and the conversion rate
 is one-half — so the haunting problem was never unreachable, only unaddressed.
+
+
+# SESSION 133 — expiry rejected before building; and the harness dispatch lands
+
+**Kill condition, filed first:** *if the expiry design would not have caught the
+defects this project actually found, it is the wrong instrument and I report that
+instead of shipping it.* **It fired.**
+
+`132` committed to building claude.ai's `valid-as-of` expiry. Tested first
+against the four stale claims `120`–`128` found: **it catches none.** All four
+were invalidated by something being **added** — a file created, an import added,
+theorems proved — and none of them cited a dependency that moved. The
+`0.6818287` row even cited its declaration correctly; what changed was
+reachability, not the statement. Expiry asks "did my source move?", and the
+defect is "does something now exist that I do not cite?".
+
+Rejecting a design by analysis cost minutes; `113` and `120` each cost a cycle by
+building first.
+
+**`forensics/absence_queue.py`** instead — not a detector, a **queue**. Every
+claim of absence is a standing obligation to re-check; the script lists them and
+judges nothing. **Calibration 4/4.** Exit is always `0`. Its first run corrected
+its own settled-filter: this project writes corrections *below* the text they
+correct, so the following paragraph counts, and without that it re-flagged what
+`127` and `128` had already fixed. **14 absence claims currently outstanding.**
+
+**The harness dispatch is filed** in `LEADS.md` — six foreign-model tasks,
+guards, and its own kill condition. **The plain-words rule is adopted now** and
+written into `METHOD.md`: our dialect addresses the RH-primed region, and per
+`E20` the grooves are where the blind spots are.
+
+**And one escalation, because the data column cannot start.** `find` returns **no
+numeric data anywhere in the repo**, and the sandbox network allowlist is
+`github.com` only — Odlyzko's tables and LMFDB are unreachable. The cheapest item
+claude.ai names, *"nobody has read the zero tables asking how close heights come
+to sharing"*, is an afternoon's arithmetic and **none of it can begin** until the
+files are on the machine.
+
+> **Joop: widen the allowlist, or drop the tables into the repo.** This is the
+> only thing blocking the flesh phase, and it is the one blocker I cannot route
+> around.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2,
+base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the project has spent a hundred cycles proving things
+about an object it has never once looked at, and the instrument that would fix
+that is a file download.

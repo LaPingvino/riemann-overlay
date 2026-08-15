@@ -424,3 +424,48 @@ and that asymmetry is the whole argument.
 bulk of the work and it is not this cycle's. Recorded here so the design is not
 re-derived, and because `113`/`120` earned the rule that an instrument gets
 written down before it gets written.
+
+
+## Expiry tested and rejected; the absence queue instead (SESSION 133)
+
+`132` filed claude.ai's expiry design (`valid-as-of: <commit>`, flag when cited
+deps change). **Tested against the four stale claims this project has actually
+found — it catches none of them.**
+
+| stale claim | invalidated by | cited deps changed? |
+|---|---|---|
+| "code not in repo" | `window_opt.py` was **created** | no — cited nothing |
+| "unreachable from our root" | an **import** was added; the declaration never moved | **no** |
+| "only capacity certificate came in with zeta-23" | `Capacity.lean` was **created** | no |
+| "profile minimality is not proved" | two theorems were **proved** | no |
+
+All four were invalidated by something being **added**. Expiry asks "did my
+source move?"; the defect is "does something now exist that I do not cite?".
+Filed before building, which is what `113` and `120` cost a cycle each to learn.
+
+**`forensics/absence_queue.py`** instead: list every claim of *absence*, because
+each is a standing obligation to re-check. It makes no judgment about staleness —
+it cannot — it only ensures no such claim is invisible. Calibration **4/4** on the
+above. Exit is always `0`: a work queue, not an alarm.
+
+Its own first run taught it one thing: corrections in this project are written
+*below* the text they correct, so the **following paragraph** counts as the
+settlement. Without that, it re-flagged the two claims `127` and `128` had already
+annotated.
+
+## The plain-words rule (SESSION 133, Joop and claude.ai — ADOPTED)
+
+Our dispatches are written in the literature's dialect — *form factor*,
+*mollifier*, *ordinate*, *certificate class*. That dialect addresses the
+RH-primed region of any model reading it, and per `E20` the grooves are where the
+blind spots live: the vocabulary is inherited from the tradition whose limits we
+keep certifying.
+
+**Effective now:** every dispatch's key questions carry a plain-words
+restatement; foreign-model seeds are plain words **only**; and when a problem is
+stuck, re-asking it in kitchen language is a legitimate move costing one
+sentence.
+
+Precedent from our own record — *"one voice per pitch"*, *"the primes keep the
+ledger"*, *"nobody shares"*. The `E`-file's plain phrasings repeatedly preceded
+the theorems; the register was doing this before it was named.

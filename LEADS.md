@@ -1863,3 +1863,60 @@ RH-in-window (`117`), which no other member is.
 through `ProportionStd κ + hauntedCount ≤ δ·N ⟹ Proportion (κ − δ)`
 (`proportion_of_hauntedDensity`), and the five in-repo instances are its
 specialisations. A young genre with a zoo, given a normal form.
+
+
+---
+
+# The foreign-entropy harness and the data column (SESSION 133, from claude.ai via Joop)
+
+**Received and filed. Nothing here outranks the standing queue.**
+
+## The harness — six tasks
+
+OpenCode on the VPS with free model families. The principle: for the divergent
+slot **lineage distance beats capability**. Every cognitive component of this
+project shares one ancestry; `T2` proved our blind passes are blind to context
+but not to lineage. Free models are **entropy wells**, their outputs feedstock
+tagged `[FOREIGN, family, UNVERIFIED]`, never conclusions.
+
+1. **R19 blind classification, lineage-grade** — census/residue/atlas faces to a
+   foreign model with hypothesis-language stripped. Agreement is finally
+   *replication*; disagreement is their noise or our lineage-artifact.
+2. **Collision beats** — two register entries, neutrally stated: "do these know
+   each other?"
+3. **Vocabulary probes** — a bare statement, "what is this called and who works
+   on it?" A literature channel orthogonal to claude.ai's searches.
+4. **Adversarial claim reading** — "find the sentence that claims more than its
+   citation supports." Semantics-grade where `claims_gate` is a wordlist, and
+   foreign readers lack our habituation to our own prose.
+5. **Idiocy generation from neutral seeds** — plain-words statement of an open
+   item, harvest approaches.
+6. **Per-family calibration ledger** — every output scored hit/known/noise/harmful.
+   Doubles as the first measurement of how independent the free lineages really
+   are. (They all ate arXiv too.)
+
+**Kill condition for the harness, pre-stated:** if after the calibration window
+no family beats noise on any task type, the wells are dry and the harness retires
+to a one-line `METHOD.md` note — which would itself be a finding about how much
+of the free tier is one lineage in different wrappers.
+
+## The data column — and it is blocked
+
+Diagnosis: the reading phase was **skeleton-building**, and skeletons are what
+literature supplies. The skeleton is load-tested; the flesh phase is due. Items:
+
+| item | status |
+|---|---|
+| `W15` Odlyzko/AH/GUE classifier, foreign models as feature-proposers | never run |
+| `W21`/`W9` the verified `12.3` trillion as load-bearing input | never run |
+| `W36` function-field laboratory — `offAt ≡ 0` a theorem, ground truth attached | briefed, unbuilt |
+| `T2`-of-`W27` log log signature on real zeros | briefed, unbuilt |
+| **the haunted census, empirically** — near-hauntings, minimal vertical gaps | **new, cheapest, and nobody has looked** |
+
+**⚠️ ESCALATION — the data column cannot start on this VPS as configured.**
+`find` over the repo returns **no numeric data of any kind**, and the sandbox's
+network allowlist is `github.com` only. Odlyzko's tables and LMFDB are
+unreachable. The cheapest item on the board — *"how close do heights ever come to
+sharing?"* — is one afternoon's arithmetic and zero of it can begin until the
+files are on the machine. **Joop: either widen the allowlist or drop the tables
+in the repo.**

@@ -265,3 +265,5 @@ import Riemann
 #check @Riemann.Blindness.noHaunted_of_allDistinct
 #check @Riemann.Blindness.Noff_eq_zero_of_allDistinct
 #check @Riemann.Blindness.noHaunted_not_imp_Noff_zero
+#check @Riemann.Blindness.noHaunted_of_Noff_zero
+#check @Riemann.Blindness.noHaunted_strictly_weaker_than_RH

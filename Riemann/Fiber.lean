@@ -3354,6 +3354,42 @@ theorem noHaunted_not_imp_Noff_zero {a : ℝ} (ha : a ≠ 1/2) :
   · rw [configAt_Noff ha]
     norm_num
 
+/-- **RH-in-window ⟹ no haunting.**  With no off-line zeros, a standard-simple
+ordinate has `H = onAt = 1`.  The last link of the chain. -/
+theorem noHaunted_of_Noff_zero (D : ZeroData) (h : D.Noff = 0) :
+    ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 := by
+  classical
+  have hz : ∀ γ, offAt D γ = 0 := by
+    intro γ
+    have hle : offAt D γ ≤ D.Noff := by
+      rw [offAt, ZeroData.Noff]
+      refine Multiset.card_le_card (Multiset.monotone_filter_right _ ?_)
+      intro p hp
+      exact hp.2
+    omega
+  intro γ hsc
+  have := hz γ
+  omega
+
+/-- **The chain, complete and strict at its last link.**
+
+> `LI` ⟹ all ordinates distinct ⟹ `N_off = 0` (RH-in-window) ⟹ `NoHaunted`,
+
+with the final implication **strict**: a lone off-line pair is unhaunted with
+`N_off = 2` (`noHaunted_not_imp_Noff_zero`).
+
+So the project's conditional row is keyed to a hypothesis **strictly weaker than
+RH restricted to the window** — every other member of the chain already contains
+the conclusion. -/
+theorem noHaunted_strictly_weaker_than_RH {a : ℝ} (ha : a ≠ 1/2) :
+    (∀ D : ZeroData, D.Noff = 0 →
+        ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1)
+      ∧ ∃ D : ZeroData,
+          (∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1) ∧ D.Noff ≠ 0 :=
+  ⟨fun D h => noHaunted_of_Noff_zero D h,
+   ⟨configAt 0 0 1 a, (noHaunted_not_imp_Noff_zero ha).1,
+    (noHaunted_not_imp_Noff_zero ha).2⟩⟩
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

@@ -1735,3 +1735,22 @@ RH it is vacuous; the classical unconditional quantities (`N`, `N_d`, `N⊛`) ar
 object is the distinct-zeros deficit `N(T) − N_d(T)`, of which `hauntedCount` is
 the cross-term nobody has had reason to separate. The unconditional regime where
 it is live was opened recently; an unnamed inhabitant is expected.
+
+
+## The chain, complete (SESSION 117)
+
+> `LI` ⟹ all ordinates distinct ⟹ `N_off = 0` (RH-in-window) ⟹ `NoHaunted`
+
+Certified links: `noHaunted_of_allDistinct`, `Noff_eq_zero_of_allDistinct`,
+`noHaunted_of_Noff_zero`. **[RECALL, UNVERIFIED]** on `LI ⟹ distinct` only —
+that is the attribution, not the arithmetic.
+
+**The last link is strict** (`noHaunted_strictly_weaker_than_RH`): a lone
+off-line pair is unhaunted with `N_off = 2`. So
+
+> **the project's conditional row is keyed to a hypothesis strictly weaker than
+> RH restricted to the window.**
+
+That is the strongest available positioning statement, and it is now certified
+rather than argued. Every other hypothesis in the neighbourhood — `LI`,
+distinctness, RH itself — contains the conclusion; `NoHaunted` does not.

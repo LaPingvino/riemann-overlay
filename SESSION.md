@@ -4931,3 +4931,42 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 assumes the Riemann Hypothesis before it says anything about coincidences, so
 the one condition that separates the two questions had to be invented here or
 not at all.
+
+
+# SESSION 117 — the chain closed, and the positioning is now a theorem
+
+`116` proved `NoHaunted` does not imply RH-in-window. The other direction
+completes the comparison and settles how the conditional row should be described.
+
+**Kill condition, filed first:** *if RH-in-window fails to imply `NoHaunted`, the
+chain breaks at its last link and the two hypotheses are not comparable at all.*
+It did not fire.
+
+* `noHaunted_of_Noff_zero` (new, axiom-free) — with no off-line zeros, a
+  standard-simple ordinate has `H = onAt = 1`. The last link.
+* `noHaunted_strictly_weaker_than_RH` — the link *and* its strictness in one
+  statement, the witness being `116`'s lone off-line pair.
+
+So the chain is complete and its final step is proper:
+
+> `LI` ⟹ all ordinates distinct ⟹ `N_off = 0` ⟹ `NoHaunted`, strictly.
+
+**The positioning statement is now a theorem.** The project's conditional row —
+`Proportion 0.6725` from `NoHaunted` — is keyed to a hypothesis **strictly weaker
+than RH restricted to the window**. `115` had this as "milder than what the bias
+literature assumes", which was a comparison to a convention. `116` sharpened it
+to "the only member of the chain not already the conclusion", which was a
+comparison to a list. This is a comparison to RH itself, and it is certified.
+
+Three cycles to get one sentence right: a convention, then a list, then the
+theorem. That progression is the method working, and it is worth noting that
+each step was prompted by *certifying* the previous one rather than by doubting
+it.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project can now state its best conditional result
+as "assume strictly less than the Riemann Hypothesis on this window and the
+literature's proportion transfers whole", which is a sentence about the shape of
+the problem rather than about our arithmetic.

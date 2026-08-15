@@ -5306,3 +5306,50 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 what it looks like when a register's format asks a question the mathematics does
 not have, and the fix was not a better count but noticing that the column should
 never have existed.
+
+
+# SESSION 126 — consolidation: every guard run, and what a passing guard's alarms mean
+
+Three cycles of corrections-to-corrections (`123`–`125`) is a spent thread, and
+`125` said so itself. The remaining substantive work is blocked on literature or
+on Joop's rulings, so this cycle takes queue item 5: **re-run every guard.** They
+have not all been run in a long time, and I have been implicitly relying on them
+each cycle while only witnessing `lake build`.
+
+**Kill condition, filed first:** *if every guard passes, this confirms the state
+and I report a quiet green rather than manufacturing a finding.* **It fired.**
+
+| guard | exit | verdict |
+|---|---|---|
+| `provenance_lint` | 0 | clean; **`GM_bridge` reports `BLOCKED`** — by design |
+| `lemma1_guard` | 0 | clean; **`D = 4` reports `VIOLATES RH`** — by design |
+| `quarry` | 0 | DAG intact |
+| `w16_price` | 0 | unchanged; its `[RECALL, UNVERIFIED]` caveat still stands |
+| `three_moment_lp` | 0 | unchanged; W35 still ill-posed pending realizability |
+| `window_opt` | 0 | **PASS**, all five sweep rows (extended in `120`) |
+| `surprises` | 0 | 39 entries, 55% externally corrected |
+
+**The thing worth recording is the two scary-looking passes.**
+`provenance_lint` ends `=> BLOCKED — do not build the table`, and
+`lemma1_guard` prints `VIOLATES RH (Lemma 1)`. Both are **designed output on
+known inputs**: the first is the guard correctly refusing the `GM_bridge` (the
+`#27` death, recorded), the second is the guard demonstrating its own
+discriminating power on a synthetic constant `D = 4`, not a claim about `ζ`.
+
+A future cycle — or a compacted instance — scanning these outputs would read two
+alarms in a clean suite. Recorded here so that reading is available without
+re-deriving it, which is the same defect class as `122`'s stale headers: the
+information was in the code and not where a scan would meet it.
+
+**`claims_gate` counts, untriaged and not a defect rate:** `CLAIMS 4`,
+`LEADS 56`, `E 14`, `FAILURES 17`, `PRICES 11`, `ISSUES 38`. `CLAIMS`'s four were
+triaged in `101` (all false positives of known shapes). The rest have never been
+triaged and per `R17` must not be quoted as anything.
+
+Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, sorries
+0, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** a guard suite that prints its designed refusals in the
+vocabulary of failure will eventually be read as failing, so the last
+undocumented thing in this project was what its instruments sound like when they
+are working.

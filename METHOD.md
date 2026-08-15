@@ -370,3 +370,18 @@ before reading — it may empty entries.
 *Caveat, stated: this prunes only corpora whose statements are invariant in the
 relevant sense. It says nothing about literature that reads the objects the class
 cannot.*
+
+
+## Reading a passing guard (SESSION 126)
+
+Two guards print alarms while passing, and both are correct:
+
+* `provenance_lint` ends `=> BLOCKED — do not build the table`. That is its
+  verdict on `GM_bridge`, whose consumer needs a power saving and whose supplier
+  gives log-power — the `ISSUES #27` death, recorded and closed. A clean run
+  **says BLOCKED**.
+* `lemma1_guard` prints `VIOLATES RH (Lemma 1)` at `D = 4`. That is the guard
+  exercising its own discriminating power on a synthetic constant, not a
+  statement about `ζ`.
+
+Exit code is the verdict; the prose is the reasoning. Read the exit code first.

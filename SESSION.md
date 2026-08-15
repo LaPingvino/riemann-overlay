@@ -4677,7 +4677,14 @@ haunted mass-`3` atoms give
 > `NscStd/N = 1321/1963 ≈ 0.67295 ≥ 0.6725`,  `Nsc/N = 1000/1963 ≈ 0.50942`.
 
 **So no argument using only `ProportionStd 0.6725` can certify an `Nsc` row above
-`0.50943`.** The ledger certifies `0.50875`. The remaining `0.00068` is the
+`0.50943`.** The ledger certifies `0.50875`.
+
+> ⚠️ **Quantifier gap, closed the next cycle.** That sentence is a `Family`-level
+> claim — `Proportion` is a predicate on families — supported here by a single
+> `ZeroData`. `112`'s `baseline_cap_witness` closes it: the witness placed in a
+> constant family satisfies `ProportionStd 0.6725` and fails
+> `Proportion 0.50944`. The claim stands; it did not, as stated, follow from
+> what was proved beneath it. The remaining `0.00068` is the
 discretisation of the ratio `s : h`, not slack in the method.
 
 That converts `110`'s rhetorical claim into a measurement: the baseline is spent,
@@ -4693,3 +4700,43 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** the project has extracted `99.87%` of what its one
 external input can give, so every remaining cycle spent on the counting is a
 cycle spent on seven parts in ten thousand.
+
+
+# SESSION 112 — my own lesson, applied to my own sentence
+
+`111` proved a `ZeroData` witness and concluded that **no argument from
+`ProportionStd 0.6725` certifies an `Nsc` row above `0.50943`**. That conclusion
+is about `Proportion`, which is a predicate on *families*, not on single
+configurations. The witness did not, as stated, support it.
+
+This is `S37` exactly — a sentence one quantifier wider than the theorem under
+it — committed two cycles after logging `S37`, and in the cycle whose entire
+subject was converting an asserted claim into a proved one. I found it by
+re-reading `111` before starting, which is now the only reliable detector the
+project has for this defect.
+
+**Kill condition, filed first:** *if no `Family` realises the witness at every
+height, the `ZeroData` witness does not support the claim and `111`'s sentence
+must be downgraded at its location.* **It did not fire** — the gap closed upward.
+
+* `constFamily` (new) — the constant family on one configuration. `Proportion`
+  and `ProportionStd` are asymptotic, so a witness only bites once it is placed
+  in a family, and a constant family is the cheapest placement.
+* `baseline_cap` / `baseline_cap_witness` (new, axiom-free) — the `111`
+  configuration in a constant family satisfies `ProportionStd 0.6725` and
+  **fails** `Proportion 0.50944`.
+
+So: **no theorem of the form "`ProportionStd 0.6725` ⟹ `Proportion κ`" holds with
+`κ ≥ 0.50944`.** The ledger certifies `0.50875`. The gap is `0.00069`, and it is
+the discretisation of the `1000 : 321` witness rather than slack in the method.
+
+`111`'s sentence is annotated at its location: it stands, but it did not follow
+from what was proved beneath it when written.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project's most reliable instrument is not any of
+its five guards but the habit of re-reading the previous cycle before starting
+the next, because the errors that survive everything else are the ones where the
+prose is one quantifier ahead of the proof.

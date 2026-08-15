@@ -257,3 +257,6 @@ import Riemann
 #check @Riemann.Blindness.two_mul_haunted_add_NscStd_le_N
 #check @Riemann.Blindness.two_mul_haunted_add_NscStd_eq_iff
 #check @Riemann.Blindness.row_essentially_optimal
+#check @Riemann.constFamily
+#check @Riemann.baseline_cap
+#check @Riemann.baseline_cap_witness

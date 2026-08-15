@@ -204,6 +204,23 @@ theorem proportion_of_noHaunted_zeta (hh : NoHaunted zetaFamily) :
     zetaFamily.toCounts.Proportion 0.6725 :=
   proportion_of_noHaunted hh certified_std
 
+/-- **The baseline cap, at the level where `Proportion` is defined.**
+
+`Fiber.row_essentially_optimal` gives a `ZeroData`; `Proportion` is a predicate
+on *families*, so the witness only bites once placed in one.  `constFamily` does
+that, and the result is a family satisfying `ProportionStd 0.6725` while failing
+`Proportion 0.50944`.
+
+**No theorem of the form "`ProportionStd 0.6725` ⟹ `Proportion κ`" holds with
+`κ ≥ 0.50944`.**  The ledger certifies `0.50875`; the gap is `0.00069` and it is
+the discretisation of the witness, not slack in the method. -/
+theorem baseline_cap_witness :
+    ∃ (F : Family), F.ProportionStd 0.6725
+      ∧ ¬ F.toCounts.Proportion 0.50944 := by
+  obtain ⟨D, hpos, hstd, hsc⟩ := Blindness.row_essentially_optimal
+    (a := (0 : ℝ)) (by norm_num)
+  exact ⟨constFamily D hpos, baseline_cap hpos hstd hsc⟩
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

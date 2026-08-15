@@ -395,6 +395,48 @@ theorem proportion_of_noHaunted {F : Family} {κ : ℝ}
   rw [le_div_iff₀ hpos', heq]
   linarith [hT]
 
+/-- The constant family on one configuration.  `Proportion` and `ProportionStd`
+are asymptotic predicates on families, so a `ZeroData` witness only refutes a
+`Family`-level claim once it is placed in a family — which is what this is for. -/
+noncomputable def constFamily (D : ZeroData) (h : 0 < D.N) : Family where
+  D := fun _ => D
+  nonempty := Filter.Eventually.of_forall fun _ => h
+
+/-- **`111`'s witness, upgraded from `ZeroData` to `Family`.**
+
+The configuration of `Fiber.row_essentially_optimal` — `1000` simple atoms beside
+`321` haunted mass-`3` atoms — placed in a constant family satisfies
+`ProportionStd 0.6725` and **fails** `Proportion 0.50943`.
+
+So the cap is genuine at the level where `Proportion` is defined: no theorem of
+the form "`ProportionStd 0.6725` implies `Proportion κ`" can hold with
+`κ > 1000/1963 ≈ 0.509424`.  The ledger certifies `0.50875`. -/
+theorem baseline_cap {D : ZeroData} (hpos : 0 < D.N)
+    (hstd : 6725 * D.N ≤ 10000 * D.NscStd)
+    (hsc : 100000 * D.Nsc ≤ 50943 * D.N) :
+    (constFamily D hpos).ProportionStd 0.6725
+      ∧ ¬ (constFamily D hpos).toCounts.Proportion 0.50944 := by
+  have hNz : ∀ T : ℝ, (constFamily D hpos).Nz T = (D.N : ℝ) := fun _ => rfl
+  have hNsc : ∀ T : ℝ, (constFamily D hpos).Nsc T = (D.Nsc : ℝ) := fun _ => rfl
+  have hNscStd : ∀ T : ℝ, (constFamily D hpos).NscStd T = (D.NscStd : ℝ) :=
+    fun _ => rfl
+  have hposR : (0 : ℝ) < (D.N : ℝ) := by exact_mod_cast hpos
+  have hstdR : 6725 * (D.N : ℝ) ≤ 10000 * (D.NscStd : ℝ) := by exact_mod_cast hstd
+  have hscR : 100000 * (D.Nsc : ℝ) ≤ 50943 * (D.N : ℝ) := by exact_mod_cast hsc
+  constructor
+  · intro ε hε
+    filter_upwards with T
+    rw [hNz, hNscStd]
+    nlinarith [hstdR, hposR, hε.le]
+  · intro hcon
+    have := hcon (1 / 1000000) (by norm_num)
+    rw [Filter.eventually_atTop] at this
+    obtain ⟨T₀, hT₀⟩ := this
+    have h := hT₀ T₀ le_rfl
+    have h' : (0.50944 : ℝ) - 1 / 1000000 ≤ (D.Nsc : ℝ) / (D.N : ℝ) := h
+    rw [le_div_iff₀ hposR] at h'
+    nlinarith [h', hscR, hposR]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

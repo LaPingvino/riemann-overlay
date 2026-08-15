@@ -3160,7 +3160,7 @@ near `0.16375` at `NscStd/N ≥ 0.6725`, then `0.16375` is only our bound and
 `110`'s "nothing further to extract" must be downgraded at its location.*  It did
 not fire. -/
 theorem row_essentially_optimal {a : ℝ} (ha : a ≠ 1/2) :
-    ∃ D : ZeroData, 6725 * D.N ≤ 10000 * D.NscStd
+    ∃ D : ZeroData, 0 < D.N ∧ 6725 * D.N ≤ 10000 * D.NscStd
       ∧ 100000 * D.Nsc ≤ 50943 * D.N := by
   classical
   set L : List (ℕ × ℕ) :=
@@ -3190,7 +3190,8 @@ theorem row_essentially_optimal {a : ℝ} (ha : a ≠ 1/2) :
     norm_num
   have hSc' : (chain a L).NscStd = 1321 := by exact_mod_cast hSc
   have hsc' : (chain a L).Nsc = 1000 := by exact_mod_cast hsc
-  exact ⟨chain a L, by rw [hN, hSc']; norm_num, by rw [hN, hsc']; norm_num⟩
+  exact ⟨chain a L, by rw [hN]; norm_num, by rw [hN, hSc']; norm_num,
+    by rw [hN, hsc']; norm_num⟩
 
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 

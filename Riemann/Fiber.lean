@@ -2094,6 +2094,21 @@ theorem Nsc_add_Noff_le_N (D : ZeroData) : D.Nsc + D.Noff ≤ D.N := by
   have h3 : D.Noff = Multiset.card (D.Z.filter fun p => ¬ (p.1 = 1/2)) := rfl
   omega
 
+/-- **`N_off + NscStd ≤ N`** — the standard-simple zeros lie *on* the critical
+line and the off-line zeros do not, so the two are disjoint sub-multisets.
+Sharper than `Nsc_add_Noff_le_N`, since `Nsc ≤ NscStd`. -/
+theorem Noff_add_NscStd_le_N (D : ZeroData) : D.Noff + D.NscStd ≤ D.N := by
+  classical
+  have h1 : D.NscStd ≤ Multiset.card (D.Z.filter fun p => p.1 = 1/2) := by
+    refine Multiset.card_le_card (Multiset.monotone_filter_right _ ?_)
+    intro p hp
+    exact hp.1
+  have h2 : Multiset.card (D.Z.filter fun p => p.1 = 1/2)
+      + Multiset.card (D.Z.filter fun p => ¬ (p.1 = 1/2)) = D.N := by
+    rw [← Multiset.card_add, Multiset.filter_add_not]; rfl
+  have h3 : D.Noff = Multiset.card (D.Z.filter fun p => ¬ (p.1 = 1/2)) := rfl
+  omega
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

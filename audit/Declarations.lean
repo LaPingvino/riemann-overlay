@@ -207,3 +207,7 @@ import Riemann
 #check @Riemann.Family.Nz_nonneg
 #check @Riemann.Family.ProportionStd.mono
 #check @Riemann.przz_of_zeta23
+#check @Riemann.Blindness.Noff_add_NscStd_le_N
+#check @Riemann.offLineImport_of_proportionStd
+#check @Riemann.certified_offline
+#check @Riemann.certified_nsc_via_offline

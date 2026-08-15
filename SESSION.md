@@ -3754,3 +3754,47 @@ hash `cd7a22e688df` unmoved. No new ruling raised.
 **Might-mean, unhedged:** a project that records its corrections in a register
 and not in the text will read correctly to its historians and incorrectly to
 itself.
+
+
+# SESSION 090 — a third certified row, and the `Nsc` row confirmed by a second route
+
+`Gaps.offline_le` extracts `N_off ≤ (C−1)·N` from a star bound, and its docstring
+calls that "already a nontrivial unconditional zero-density statement". It is —
+but it needs a `C`, and none is proved. **No `C` is needed.**
+
+**Kill condition, filed first:** *if `N_off + NscStd ≤ N` fails — if some
+standard-simple zero could be off the line — the bound is wrong.* It cannot:
+`NscStd` requires `β = 1/2` by definition, so the two multisets are disjoint.
+
+* `Noff_add_NscStd_le_N` (new, axiom-free) — sharper than
+  `Nsc_add_Noff_le_N` since `Nsc ≤ NscStd`.
+* `offLineImport_of_proportionStd` — a `ProportionStd κ` is *itself* an off-line
+  import at `β = 1 − κ`.
+* `certified_offline` — at the baseline: **`N_off ≤ 0.3275·N`. At most 32.75% of
+  the zeros of `ζ` lie off the critical line**, with no star bound and no new
+  axiom (`#print axioms`: `baseline_zeta23`, `zetaNonempty` — the same two).
+
+This is the shape of statement Route III's narrow box and `offline_le` were
+trying to buy. A weak form of it was available from the baseline the whole time,
+and nobody had turned the literature's row around to face that direction.
+
+**And it closes an `R17` loop on `084`.** Feeding `certified_offline` back
+through `proportion_of_offLineImport` gives `0.6725 − 0.3275/2 = 0.50875` —
+`certified_nsc_via_offline`, which lands on `certified_nsc_unconditional`'s
+number by a route sharing no step past the baseline. The `Nsc` row now has two
+independent derivations that agree exactly. After `S34` that is worth having;
+`084` was a large claim resting on one chain, and it no longer does.
+
+**Not added to `tools/metric.json`, deliberately.** The ledger takes the maximum
+over rows as "best", and an *upper* bound on off-line zeros is not commensurate
+with a *lower* bound on simple ones — adding it would report `32.75%` as though
+it were a certified proportion of simple zeros. Recorded in the registers
+instead. No ruling raised.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the project already owned a zero-density theorem and
+had been shopping for one, because the literature's result was filed as a
+statement about simple zeros and nobody read it as a statement about the zeros
+it excludes.

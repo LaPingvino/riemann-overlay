@@ -95,6 +95,31 @@ retracted. -/
 theorem przz_of_zeta23 : zetaFamily.ProportionStd 0.4162 :=
   Family.ProportionStd.mono (by norm_num) baseline_zeta23
 
+/-- **A third certified row: the off-line zeros.**  At most `32.75%` of the
+zeros of `ζ` lie off the critical line, at the baseline's own axiom tier and
+with no star bound — the standard-simple zeros are on the line and the off-line
+ones are not, so `ProportionStd 0.6725` caps the off-line count directly.
+
+This is the statement the program has been trying to buy from Route III's narrow
+box and from `offline_le`'s star bound.  A weak form of it was available from the
+baseline the whole time. -/
+theorem certified_offline : OffLineImport zetaFamily 0.3275 := by
+  have h := offLineImport_of_proportionStd certified_std
+  have e : (1 : ℝ) - 0.6725 = 0.3275 := by norm_num
+  rwa [e] at h
+
+/-- **The `Nsc` row, by a second and independent route** — and it lands on the
+same number.  `certified_nsc_unconditional` goes through the per-atom bound
+`3·NscStd ≤ N + 2·Nsc`; this one goes through the off-line density row
+`certified_offline` and the exchange rate `proportion_of_offLineImport`.
+
+`0.6725 − 0.3275/2 = 0.50875`.  Two routes, no shared step past the baseline,
+one answer — which is the `R17` witness for `084`. -/
+theorem certified_nsc_via_offline : zetaFamily.toCounts.Proportion 0.50875 := by
+  have h := proportion_of_offLineImport certified_std certified_offline
+  have e : (0.6725 : ℝ) - 0.3275 / 2 = 0.50875 := by norm_num
+  rwa [e] at h
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

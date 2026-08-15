@@ -159,6 +159,28 @@ theorem proportion_of_offLineImport {F : Family} {κ β : ℝ}
   rw [le_div_iff₀ hpos']
   nlinarith [hT, hO, hbase, hpos']
 
+/-- **The literature's row is already a zero-density statement, with no `(★)`.**
+
+`offline_le` above extracts `N_off ≤ (C−1)·N` from a star bound.  None is
+needed: the standard-simple zeros are *on* the line, so
+`Blindness.Noff_add_NscStd_le_N` gives `N_off ≤ N − NscStd` outright, and a
+`ProportionStd κ` turns that into an off-line import at `β = 1 − κ`.
+
+At the zeta-23 baseline this is `N_off ≤ 0.3275·N` — **at most 32.75% of the
+zeros are off the critical line, unconditionally at the baseline's own axiom
+tier.**  Feeding it back through `proportion_of_offLineImport` returns
+`0.6725 − 0.16375 = 0.50875`, i.e. exactly `certified_nsc_unconditional`: the
+two derivations of the `Nsc` row agree, by different routes. -/
+theorem offLineImport_of_proportionStd {F : Family} {κ : ℝ}
+    (hstd : F.ProportionStd κ) : OffLineImport F (1 - κ) := by
+  intro ε hε
+  filter_upwards [hstd ε hε] with T hT
+  have hdisj : F.Noff T + F.NscStd T ≤ F.Nz T := by
+    have := Blindness.Noff_add_NscStd_le_N (F.D T)
+    unfold Family.Noff Family.NscStd Family.Nz
+    exact_mod_cast this
+  linarith
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

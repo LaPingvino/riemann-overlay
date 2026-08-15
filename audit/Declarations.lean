@@ -211,3 +211,7 @@ import Riemann
 #check @Riemann.offLineImport_of_proportionStd
 #check @Riemann.certified_offline
 #check @Riemann.certified_nsc_via_offline
+#check @Riemann.Blindness.no_starBound_from_proportionStd
+#check @Riemann.Blindness.NscStd_le_atomCount
+#check @Riemann.Family.atomCount
+#check @Riemann.atomCount_ge_of_proportionStd

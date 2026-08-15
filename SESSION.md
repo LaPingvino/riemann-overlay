@@ -3798,3 +3798,46 @@ axioms 2, base hash `cd7a22e688df` unmoved.
 had been shopping for one, because the literature's result was filed as a
 statement about simple zeros and nobody read it as a statement about the zeros
 it excludes.
+
+
+# SESSION 091 — the same move once more: what the baseline does and does not buy
+
+`090` read the baseline as a zero-density statement. The obvious next question is
+whether it also caps `N⊛`, because that would hand the program its star bound for
+free — the thing four routes have been trying to buy.
+
+**Kill condition, filed first:** *if `ProportionStd κ` also caps `N⊛`, the star
+bound is free and everything else should stop.* **It fired: the answer is no**,
+and now there is a witness instead of an intuition.
+
+`no_starBound_from_proportionStd` (axiom-free): for every `B` there is a
+configuration with
+
+> `4·NscStd = 3·N` — a standard-simple proportion of `3/4`, above the baseline —
+> and `N⊛ > B·N`.
+
+The family is `3m` simple atoms beside a single atom of mass `m`: the proportion
+is `3/4` for every `m`, while `N⊛/N = (3 + m)/4` grows without bound. **No
+`ProportionStd` hypothesis at any constant below `1` yields a star bound**, and
+the reason is visible: one arbitrarily crowded ordinate is invisible to a
+proportion of *simple* zeros. Built on `081`'s `chain`, which has now paid for
+itself three times.
+
+**What the same move does buy.** `NscStd_le_atomCount`: distinct standard-simple
+zeros sit at distinct ordinates, so `ProportionStd κ` forces at least `κ·N`
+**distinct ordinates** — `atomCount_ge_of_proportionStd`. At the baseline: at
+least `67.25%` as many ordinates as zeros, i.e. **mean vertical multiplicity at
+most `1/0.6725 ≈ 1.487`**.
+
+So the baseline turned around gives two statements and refuses a third:
+zero-density (`090`), mean multiplicity (here), and **not** `N⊛`. That refusal is
+the useful part, because `N⊛` is exactly what the program keeps trying to reach
+and the failure was never priced before.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the second moment is invisible to any proportion of
+simple zeros, because a single sufficiently crowded ordinate can carry unbounded
+`N⊛` while every other zero stays simple — so the program's central quantity
+cannot be bought from the literature's central quantity at any price.

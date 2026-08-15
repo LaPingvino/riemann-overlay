@@ -181,6 +181,26 @@ theorem offLineImport_of_proportionStd {F : Family} {κ : ℝ}
     exact_mod_cast this
   linarith
 
+/-- The number of distinct ordinates at height `T`. -/
+noncomputable def Family.atomCount (F : Family) (T : ℝ) : ℝ :=
+  ((Blindness.atomCount (F.D T) : ℕ) : ℝ)
+
+/-- **The literature's row is also a bound on mean vertical multiplicity.**
+`ProportionStd κ` forces at least `κ·N` *distinct* ordinates
+(`Blindness.NscStd_le_atomCount`), so the average number of zeros per ordinate is
+at most `1/κ`.  At the zeta-23 baseline: at least `67.25%` as many distinct
+ordinates as zeros, i.e. **mean multiplicity at most `1/0.6725 ≈ 1.487`**. -/
+theorem atomCount_ge_of_proportionStd {F : Family} {κ : ℝ}
+    (hstd : F.ProportionStd κ) :
+    ∀ ε > 0, ∀ᶠ T in atTop, (κ - ε) * F.Nz T ≤ F.atomCount T := by
+  intro ε hε
+  filter_upwards [hstd ε hε] with T hT
+  have h : F.NscStd T ≤ F.atomCount T := by
+    have := Blindness.NscStd_le_atomCount (F.D T)
+    unfold Family.NscStd Family.atomCount
+    exact_mod_cast this
+  linarith
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

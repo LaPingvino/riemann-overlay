@@ -2109,6 +2109,59 @@ theorem Noff_add_NscStd_le_N (D : ZeroData) : D.Noff + D.NscStd ≤ D.N := by
   have h3 : D.Noff = Multiset.card (D.Z.filter fun p => ¬ (p.1 = 1/2)) := rfl
   omega
 
+/-- **`NscStd ≤ atomCount`** — distinct standard-simple zeros sit at distinct
+ordinates, since a standard-simple zero *is* `(1/2, γ)` and has multiplicity
+one.  So the literature's row is also a lower bound on the number of **distinct
+ordinates**, hence an upper bound on the mean vertical multiplicity. -/
+theorem NscStd_le_atomCount (D : ZeroData) : D.NscStd ≤ atomCount D :=
+  le_trans (NscStd_le_oddAtoms D) (by
+    rw [atomCount, oddAtoms]
+    exact Finset.card_filter_le _ _)
+
+/-! ### What a `ProportionStd` does *not* buy: `N⊛` is unbounded
+
+`090` turned the baseline around and read it as a zero-density statement.  The
+same move applied to `N⊛` would hand the program its star bound for free, so it
+is worth killing explicitly rather than leaving unasked.
+
+**Kill condition, filed first:** *if `ProportionStd κ` also caps `N⊛`, the star
+bound is free and everything else should stop.*  **It fired — the answer is no**,
+and the witness is three lines of `chain`. -/
+
+/-- **A high standard-simple proportion does not bound `N⊛`.**  For every `B`
+there is a configuration with `4·NscStd = 3·N` — a standard-simple proportion of
+`3/4`, comfortably above the `0.6725` baseline — and `N⊛ > B·N`.
+
+The family: `3m` simple atoms beside a single atom of mass `m`.  The proportion
+is `3/4` for every `m`, while `N⊛/N = (3 + m)/4` grows without bound.  **No
+`ProportionStd` hypothesis, at any constant below `1`, yields a star bound.** -/
+theorem no_starBound_from_proportionStd {a : ℝ} (ha : a ≠ 1/2) (B : ℕ) :
+    ∃ D : ZeroData, 4 * D.NscStd = 3 * D.N ∧ B * D.N < D.Nstar := by
+  classical
+  set m := 4 * B + 4 with hm
+  set L : List (ℕ × ℕ) := List.replicate (3 * m) (1, 0) ++ [(m, 0)] with hL
+  have hm1 : m ≠ 1 := by omega
+  have hne : ∀ p ∈ L, p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    rw [hL, List.mem_append] at hp
+    rcases hp with hp | hp
+    · rw [List.eq_of_mem_replicate hp]; norm_num
+    · simp only [List.mem_singleton] at hp
+      rw [hp]; omega
+  have hp := chain_profile ha L hne
+  rw [hL] at hp
+  simp only [List.map_append, List.map_replicate, List.map_cons, List.map_nil] at hp
+  have hN : (chain a L).N = 4 * m := by
+    rw [N_from_profile, hp]; simp; try ring
+  have hS : (chain a L).Nstar = 3 * m + m * m := by
+    rw [Nstar_from_profile, hp]; simp; try ring
+  have hSc : ((chain a L).NscStd : ℤ) = ((3 * m : ℕ) : ℤ) := by
+    rw [NscStd_from_profile, hp]; simp [hm1]
+  have hSc' : (chain a L).NscStd = 3 * m := by exact_mod_cast hSc
+  refine ⟨chain a L, by rw [hSc', hN]; ring, ?_⟩
+  rw [hN, hS]
+  nlinarith [Nat.zero_le B, hm]
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

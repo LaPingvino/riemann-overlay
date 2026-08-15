@@ -3530,6 +3530,65 @@ theorem two_mul_haunted_add_atomCount_le_N (D : ZeroData) :
   · rw [if_neg h]
     omega
 
+/-! ### The Landau excess, and why the genre's other members are location-shaped
+
+`136` found that Aryan's `2/3` comes from an extension of the **Landau–Gonek**
+formula — the object `landau` models.  `landau_discriminates` already says the
+Landau weight separates configurations `μ_T` cannot.  This is the quantitative
+form, and it explains the shape of the genre.
+
+**Kill condition, filed first:** *if some off-line configuration has a smaller
+Landau sum than the all-on-line one, the excess is not monotone and the
+connection fails.*  It did not fire — AM–GM forbids it. -/
+
+/-- **The Landau weight is minimised on the critical line:
+`landau x D ≥ N·x^(1/2)` for `x > 0`.**
+
+The functional equation pairs `β` with `1 − β`, so `2·landau = Σ (x^β + x^{1−β})`,
+and `x^β · x^{1−β} = x` makes each summand at least `2√x` by AM–GM.
+
+So **the excess `landau x D − N·x^(1/2)` is a non-negative measure of off-line
+mass** — it is `0` exactly when every zero is on the line, and each off-line pair
+contributes `2√x·(cosh((β−½)·log x) − 1)`.
+
+**A reading, offered as such and not proved about anyone's paper:** the excess a
+pair contributes vanishes as `β → 1/2`, so an off-line zero arbitrarily close to
+the line is arbitrarily cheap in Landau weight.  A Landau-based route therefore
+gets no purchase on the off-line count without a **horizontal separation
+hypothesis**.  That *would* explain why the genre's location-shaped members
+(BGST's narrow box) look the way they do — but the theorem here is the
+inequality, and the explanation is a conjecture about other people's proofs that
+I have not read. -/
+theorem landau_ge_N_mul_sqrt {x : ℝ} (hx : 0 < x) (D : ZeroData) :
+    (D.N : ℝ) * x ^ ((1:ℝ)/2) ≤ landau x D := by
+  classical
+  have hrefl : (D.Z.map fun p : ℝ × ℝ => x ^ (1 - p.1)).sum = landau x D := by
+    conv_rhs => rw [landau, ← D.refl_inv]
+    rw [Multiset.map_map]
+    rfl
+  have hpair : (D.Z.map fun p : ℝ × ℝ => x ^ p.1 + x ^ (1 - p.1)).sum
+      = 2 * landau x D := by
+    rw [Multiset.sum_map_add, hrefl, landau]
+    ring
+  have hlow : (D.Z.map fun _ : ℝ × ℝ => 2 * x ^ ((1:ℝ)/2)).sum
+      ≤ (D.Z.map fun p : ℝ × ℝ => x ^ p.1 + x ^ (1 - p.1)).sum := by
+    refine Multiset.sum_map_le_sum_map _ _ fun p _ => ?_
+    have h1 : (0:ℝ) < x ^ p.1 := Real.rpow_pos_of_pos hx _
+    have h2 : (0:ℝ) < x ^ (1 - p.1) := Real.rpow_pos_of_pos hx _
+    have hprod : x ^ p.1 * x ^ (1 - p.1) = x := by
+      rw [← Real.rpow_add hx]; norm_num
+    have hs : x ^ ((1:ℝ)/2) * x ^ ((1:ℝ)/2) = x := by
+      rw [← Real.rpow_add hx]; norm_num
+    nlinarith [sq_nonneg (x ^ p.1 - x ^ (1 - p.1)),
+      sq_nonneg (x ^ p.1 + x ^ (1 - p.1) - 2 * x ^ ((1:ℝ)/2)),
+      Real.rpow_pos_of_pos hx ((1:ℝ)/2)]
+  have hconst : (D.Z.map fun _ : ℝ × ℝ => 2 * x ^ ((1:ℝ)/2)).sum
+      = (D.N : ℝ) * (2 * x ^ ((1:ℝ)/2)) := by
+    rw [Multiset.map_const', Multiset.sum_replicate, nsmul_eq_mul]
+    rfl
+  rw [hconst, hpair] at hlow
+  linarith
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

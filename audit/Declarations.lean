@@ -288,3 +288,4 @@ import Riemann
 #check @Riemann.Blindness.two_mul_haunted_add_atomCount_le_N
 #check @Riemann.hauntedDensity_of_distinctZeros
 #check @Riemann.certified_haunted_via_distinctZeros
+#check @Riemann.Blindness.landau_ge_N_mul_sqrt

@@ -5819,3 +5819,43 @@ Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
 **Might-mean, unhedged:** the project built a discriminator from first principles
 and it turns out to be the same formula a stranger used to get two-thirds, which
 means the tool was never the scarce thing — the coordinate it is pointed at was.
+
+
+# SESSION 137 — the Landau excess, and a reading kept separate from its theorem
+
+`136` found that Aryan's `2/3` comes from an extension of **Landau–Gonek** — the
+object `Fiber.landau` models, and which `landau_discriminates` already shows
+separates what `μ_T` cannot. This is the quantitative form.
+
+**Kill condition, filed first:** *if some off-line configuration has a smaller
+Landau sum than the all-on-line one, the excess is not monotone and the
+connection fails.* It did not fire — AM–GM forbids it.
+
+`landau_ge_N_mul_sqrt` (new, axiom-free): **`landau x D ≥ N·x^(1/2)`** for every
+`x > 0`. The functional equation pairs `β` with `1 − β`, so
+`2·landau = Σ (x^β + x^{1−β})`, and `x^β·x^{1−β} = x` makes each summand at least
+`2√x`.
+
+So the **excess `landau x D − N·x^(1/2)` is a non-negative measure of off-line
+mass** — zero exactly when every zero is on the line, and each off-line pair
+contributes `2√x·(cosh((β−½)·log x) − 1)`. The `cosh` that `E16` called "never a
+metaphor" is now the coefficient of a certified inequality.
+
+**And I nearly shipped a reading as a result.** The first docstring said the
+`cosh` *is why* the genre's other members constrain location — an assertion about
+papers I have read only the abstracts of. Rewritten to say what it is: the
+theorem is the inequality; the explanation is a **conjecture about other people's
+proofs**, offered as one. An off-line zero near the line is cheap in Landau
+weight, so a Landau route gets no purchase without horizontal separation — which
+*would* explain BGST's narrow box, and I do not know that it does.
+
+That correction happened before the commit rather than two cycles later, which is
+what `S37`'s lesson is supposed to buy.
+
+Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** every off-line zero pays a toll in Landau weight and
+the toll goes to zero as it approaches the line, so the horizontal coordinate is
+not one hypothesis among several — it is the only direction in which this
+instrument can be made to see.

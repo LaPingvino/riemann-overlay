@@ -2234,3 +2234,42 @@ Build green (3757 jobs), base hash unmoved.
 project's favourite shape — a correct fix that makes a tool suggest the
 incorrect one — and the only reason it was not walked into is that the reason
 for the pin had been written down in the file rather than kept in a head.
+
+
+# SESSION 056 — the profile determines the ledger
+
+**Kill condition, stated first:** *if the regrouping needs a hypothesis beyond
+`ZeroData`'s own finiteness, say so and leave the profile question partly
+answered rather than adding hypotheses until it works.* **It did not fire.**
+`Finset.sum_multiset_map_count` needs only `DecidableEq`, which is classical.
+
+All five ledger quantities are now functionals of `profile D` — the multiset of
+`(H γ, offAt γ)` pairs, one per distinct ordinate, **with the heights
+discarded** — and all five are axiom-free:
+
+* `N_from_profile` — total mass;
+* `Nstar_from_profile` — sum of squared masses;
+* `Nsc_from_profile` — count of mass-one atoms;
+* `NscStd_from_profile` — count of atoms whose on-line part is one, using
+  `onAt = H − offAt`, which is a function of the profile entry;
+* `Noff_from_profile` — total off-line mass.
+
+**So the residue is at most the profile**, strictly coarser than `(μ_T, offAt)`:
+`ledger_relabel_invariant` and the swap pair already showed the heights carry
+nothing, and this makes that concrete.
+
+One lemma unlocked three of the five, exactly as predicted when the item was
+queued — the regrouping of a sum over zeros into a sum over distinct ordinates
+was the whole obstacle.
+
+**Whether the profile is minimal is not proved and is not claimed.** A coarser
+sufficient statistic may exist and nothing here rules one out. `CLAIMS.md`'s new
+row says "sufficient; minimality not claimed" in those words, and the dispatch
+was run through `claims_gate.py` before sending.
+
+Build green (3757 jobs), audits extended, base hash unmoved.
+
+**Might-mean, unhedged:** the object the certificate class is missing has now
+been named three times, each coarser than the last — `offAt`, then
+relabelling-invariant `offAt`, now the profile — and every narrowing came from
+asking what the *previous* answer contained that the ledger never reads.

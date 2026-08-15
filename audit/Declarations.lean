@@ -128,3 +128,12 @@ import Riemann
 #check @Riemann.Blindness.relabel_H
 #check @Riemann.Blindness.relabel_count
 #check @Riemann.Blindness.ledger_relabel_invariant
+-- the profile: the ledger with the heights discarded
+#check @Riemann.Blindness.offOrd
+#check @Riemann.Blindness.count_offOrd
+#check @Riemann.Blindness.profile
+#check @Riemann.Blindness.N_from_profile
+#check @Riemann.Blindness.Nstar_from_profile
+#check @Riemann.Blindness.Nsc_from_profile
+#check @Riemann.Blindness.NscStd_from_profile
+#check @Riemann.Blindness.Noff_from_profile

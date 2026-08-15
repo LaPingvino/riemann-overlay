@@ -1051,5 +1051,18 @@ exact result is what `SURPRISES` S26 records from last cycle. What is proved is
 construction and a separate argument. Two configurations can share a profile
 without being related by a relabelling, so invariance does not give it.
 
-**The minimal residue therefore remains unidentified**, but it is now known to
-live below `(μ_T, offAt)` and above nothing yet, and to be relabelling-invariant.
+**UPDATE (2026-08-15): the profile determines the ledger.** All five quantities
+are functionals of `profile D` — the multiset of `(H γ, offAt γ)` pairs, one per
+distinct ordinate, **heights discarded**: `N_from_profile`,
+`Nstar_from_profile`, `Nsc_from_profile`, `NscStd_from_profile`,
+`Noff_from_profile`, all axiom-free. The regrouping is
+`Finset.sum_multiset_map_count`, needing only `DecidableEq`; no hypothesis
+beyond `ZeroData`'s own finiteness was required, so the stated kill condition did
+not fire.
+
+So the residue is **at most the profile**, which is strictly coarser than
+`(μ_T, offAt)` — `ledger_relabel_invariant` and the swap pair show the heights
+carry nothing.
+
+**Whether the profile is minimal is not proved and is not claimed.** A coarser
+sufficient statistic may exist; nothing here rules one out.

@@ -38,6 +38,7 @@ grade A.**
 | No functional of `μ_T` discriminates the fiber coordinate; the Landau weight does | functionals factoring through `μ_T` | `Fiber.not_discriminates_of_factors`, `landau_discriminates` | **A** |
 | `NscStd` reads the **on-line counts** and nothing else; `Nsc` reads the total mass | pointwise, over all `ZeroData` | `Fiber.NscStd_eq_onAt_functional`, `Nsc_reads_total`, `H_eq_onAt_add_offAt` | **A** |
 | **`(μ_T, offAt)` determines the *entire ledger*** — `N`, `N⊛`, `Nsc`, `NscStd`, `N_off`. **Sufficient, not minimal** | all `ZeroData`, global | `Fiber.ledger_determined`; non-minimality by `Fiber.offAt_not_minimal` | **A** |
+| **The profile determines the ledger** — all five quantities are functionals of the multiset of `(mass, off-line mass)` pairs, heights discarded. *Sufficient; minimality not claimed* | all `ZeroData` | `Fiber.N_from_profile`, `Nstar_from_profile`, `Nsc_from_profile`, `NscStd_from_profile`, `Noff_from_profile` | **A** |
 | The ledger is invariant under any injective **relabelling of ordinates** — their names carry no information | all `ZeroData`, all injective `σ` | `Fiber.ledger_relabel_invariant` | **A** |
 | The real Landau weight **cannot** recover `offAt` — it agrees on the swap pair at every `x` | functionals of `Σ_ρ x^β` alone | `Fiber.landau_cannot_determine_offAt` | **A** |
 | `prop1` is optimal among linear bounds in `(N, N⊛)` | `LinearBound a b` | `Optimal.prop1_LP_optimal` | **A** |

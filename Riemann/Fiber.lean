@@ -887,5 +887,83 @@ theorem Noff_from_profile (D : ZeroData) :
   rw [Finset.sum_congr rfl h2, Multiset.toFinset_sum_count_eq, offOrd,
     Multiset.card_map, ZeroData.Noff]
 
+
+/-- **`N⊛` is read off the profile** as the sum of squared masses.
+
+The regrouping is `Finset.sum_multiset_map_count`, which needs only
+`DecidableEq` — no hypothesis beyond `ZeroData`'s own finiteness, so the kill
+condition stated for this section did not fire. -/
+theorem Nstar_from_profile (D : ZeroData) :
+    D.Nstar = ((profile D).map fun q => q.1 * q.1).sum := by
+  classical
+  have h1 : ((profile D).map fun q => q.1 * q.1).sum
+      = ∑ γ ∈ D.ordinates.toFinset, D.H γ * D.H γ := by
+    rw [profile, Multiset.map_map]
+    rfl
+  have h2 : D.Nstar = (D.ordinates.map fun γ => D.H γ).sum := by
+    rw [ZeroData.Nstar, ZeroData.ordinates, Multiset.map_map]
+    rfl
+  rw [h1, h2, Finset.sum_multiset_map_count]
+  refine Finset.sum_congr rfl fun γ _ => ?_
+  rw [← D.H_eq_count γ, smul_eq_mul]
+
+/-- **`Nsc` is read off the profile** as the number of mass-one atoms. -/
+theorem Nsc_from_profile (D : ZeroData) :
+    (D.Nsc : ℤ) = ((profile D).map fun q => if q.1 = 1 then (1 : ℤ) else 0).sum := by
+  classical
+  have h1 : ((profile D).map fun q => if q.1 = 1 then (1 : ℤ) else 0).sum
+      = ∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then (1 : ℤ) else 0) := by
+    rw [profile, Multiset.map_map]
+    rfl
+  rw [ZeroData.Nsc_eq_ordinate_functional, h1, card_filter_eq_sum,
+    Finset.sum_multiset_map_count]
+  refine Finset.sum_congr rfl fun γ hγ => ?_
+  rw [← D.H_eq_count γ]
+  by_cases h : D.H γ = 1
+  · rw [if_pos h, h, one_smul]
+  · rw [if_neg h, smul_zero]
+
+/-- **`NscStd` is read off the profile** as the number of atoms whose on-line
+part is exactly one — and `onAt = H − offAt` is a function of the profile
+entry, which is the point.
+
+With `N_from_profile`, `Noff_from_profile` and `Nstar_from_profile`, **all five
+ledger quantities are functionals of the profile**: the heights are discarded
+entirely and only the `(mass, off-line mass)` pairs survive. -/
+theorem NscStd_from_profile (D : ZeroData) :
+    (D.NscStd : ℤ)
+      = ((profile D).map fun q => if q.1 - q.2 = 1 then (1 : ℤ) else 0).sum := by
+  classical
+  have h1 : ((profile D).map fun q => if q.1 - q.2 = 1 then (1 : ℤ) else 0).sum
+      = ∑ γ ∈ D.ordinates.toFinset,
+          (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+    rw [profile, Multiset.map_map]
+    rfl
+  have honAt : ∀ γ, D.H γ - offAt D γ = onAt D γ := by
+    intro γ; rw [H_eq_onAt_add_offAt]; omega
+  have h2 : (D.NscStd : ℤ)
+      = ∑ γ ∈ (onOrd D).toFinset, (if onAt D γ = 1 then (1 : ℤ) else 0) := by
+    rw [NscStd_eq_onOrd_functional, card_filter_eq_sum,
+      Finset.sum_multiset_map_count]
+    refine Finset.sum_congr rfl fun γ _ => ?_
+    rw [count_onOrd]
+    by_cases h : onAt D γ = 1
+    · rw [if_pos h, h, one_smul]
+    · rw [if_neg h, smul_zero]
+  have hsub : (onOrd D).toFinset ⊆ D.ordinates.toFinset := by
+    intro γ hγ
+    rw [Multiset.mem_toFinset] at hγ ⊢
+    rw [onOrd, Multiset.mem_map] at hγ
+    obtain ⟨p, hp, rfl⟩ := hγ
+    exact Multiset.mem_map_of_mem _ (Multiset.mem_of_mem_filter hp)
+  have hzero : ∀ γ ∈ D.ordinates.toFinset, γ ∉ (onOrd D).toFinset →
+      (if onAt D γ = 1 then (1 : ℤ) else 0) = 0 := by
+    intro γ _ hγ
+    have : onAt D γ = 0 := by rw [← count_onOrd]; simpa using hγ
+    rw [if_neg (by omega)]
+  rw [h1, h2, Finset.sum_subset hsub hzero]
+  refine Finset.sum_congr rfl fun γ _ => ?_
+  rw [honAt]
+
 end Blindness
 end Riemann

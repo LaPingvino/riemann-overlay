@@ -1525,11 +1525,73 @@ theorem bracket_muInvariant {D D' : ZeroData} (h : D.ordinates = D'.ordinates) :
   · unfold oddAtoms
     simp only [ZeroData.H_eq_count, h]
 
+/-- `oddAtoms` read off the profile, so it can be computed on explicit
+configurations the same way the ledger rows are. -/
+lemma oddAtoms_from_profile (D : ZeroData) :
+    oddAtoms D = Multiset.card ((profile D).filter fun q => ¬ Even q.1) := by
+  classical
+  rw [oddAtoms, profile, Multiset.filter_map, Multiset.card_map, Finset.card,
+    Finset.filter_val]
+  rfl
+
 /-- **The certificate class computes an interval, not a point.**  Both endpoints
 are functionals of `μ_T` alone, and `no_muInvariant_theory_computes_NscStd` says
 nothing inside the interval is determined. -/
 theorem NscStd_bracketed (D : ZeroData) : D.Nsc ≤ D.NscStd ∧ D.NscStd ≤ oddAtoms D :=
   ⟨ZeroData.Nsc_le_NscStd D, NscStd_le_oddAtoms D⟩
+
+/-! ### The bracket is tight — every value in it is attained
+
+`NscStd_bracketed` gives `Nsc ≤ NscStd ≤ #{odd atoms}`.  A bracket is only a
+resolution limit if the class really cannot do better, i.e. if **every** value
+in it is realised at the same `μ_T`.
+
+**Kill condition, filed before construction:** *if some value in the interval is
+unattainable at fixed `μ_T`, the bracket is not tight and the resolution reading
+overstates what the class is missing.*  It did not fire.
+
+**Scope, stated rather than implied:** what follows is tightness on the
+**two-atom family of mass 3**, where `Nsc = 0` and `#{odd atoms} = 2`, so the
+interval is the whole of `[0, 2]` and all three values — both endpoints *and*
+the interior point — are attained by configurations sharing one `μ_T`.
+Tightness for an arbitrary `μ_T` is **not** proved; see the note after the
+theorem for what the general statement would need. -/
+
+/-- **All three values of the interval `[0, 2]` are attained at one `μ_T`.**
+Two atoms of mass `3`, each independently either wholly on-line (`k = 3`,
+contributing nothing) or carrying an off-line pair (`k = 1`, contributing one).
+The `μ_T` is `{0, 0, 0, γ, γ, γ}` in every case. -/
+theorem bracket_tight_two_atoms {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (twoAtom γ a 3 0 3 0).ordinates = (twoAtom γ a 1 1 3 0).ordinates
+      ∧ (twoAtom γ a 1 1 3 0).ordinates = (twoAtom γ a 1 1 1 1).ordinates
+      ∧ (twoAtom γ a 3 0 3 0).Nsc = 0
+      ∧ oddAtoms (twoAtom γ a 3 0 3 0) = 2
+      ∧ (twoAtom γ a 3 0 3 0).NscStd = 0
+      ∧ (twoAtom γ a 1 1 3 0).NscStd = 1
+      ∧ (twoAtom γ a 1 1 1 1).NscStd = 2 := by
+  have p0 := twoAtom_profile hγ ha (k₁ := 3) (j₁ := 0) (k₂ := 3) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  have p1 := twoAtom_profile hγ ha (k₁ := 1) (j₁ := 1) (k₂ := 3) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  have p2 := twoAtom_profile hγ ha (k₁ := 1) (j₁ := 1) (k₂ := 1) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  norm_num at p0 p1 p2
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [twoAtom_ordinates, twoAtom_ordinates]
+  · rw [twoAtom_ordinates, twoAtom_ordinates]
+  · have : ((twoAtom γ a 3 0 3 0).Nsc : ℤ) = 0 := by
+      rw [Nsc_from_profile, p0]; decide
+    exact_mod_cast this
+  · rw [oddAtoms_from_profile, p0]; decide
+  · have : ((twoAtom γ a 3 0 3 0).NscStd : ℤ) = 0 := by
+      rw [NscStd_from_profile, p0]; decide
+    exact_mod_cast this
+  · have : ((twoAtom γ a 1 1 3 0).NscStd : ℤ) = 1 := by
+      rw [NscStd_from_profile, p1]; decide
+    exact_mod_cast this
+  · have : ((twoAtom γ a 1 1 1 1).NscStd : ℤ) = 2 := by
+      rw [NscStd_from_profile, p2]; decide
+    exact_mod_cast this
 
 /-! #### The blindness is confined to *odd* crowded atoms
 

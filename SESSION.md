@@ -3272,3 +3272,44 @@ simple count, it is short-sighted — it reads the answer to within a window who
 width is the number of odd crowds, so every unit of the ledger's uncertainty is
 attributable to one specific odd atom rather than to the configuration as a
 whole.
+
+
+# SESSION 080 — the bracket is tight, and the interval is a product of independent choices
+
+`079` proved `Nsc ≤ NscStd ≤ #{odd atoms}` and explicitly declined to claim the
+bracket was tight. This cycle discharges that.
+
+**Kill condition, filed first:** *if some value in the interval is unattainable
+at fixed `μ_T`, the bracket is not tight and the resolution reading overstates
+what the class is missing.* It did not fire.
+
+`bracket_tight_two_atoms` (new, axiom-free): two atoms of mass `3` at heights
+`0` and `γ`. Each is independently either wholly on-line (`k = 3`, contributing
+nothing to `NscStd`) or carrying an off-line pair (`k = 1`, contributing one).
+`μ_T = {0,0,0,γ,γ,γ}` in all cases, `Nsc = 0`, `#{odd atoms} = 2`, and the three
+configurations realise `NscStd = 0, 1, 2` — **both endpoints and the interior
+point.**
+
+`oddAtoms_from_profile` (new) is what made this cheap: `oddAtoms` is now
+computable from the profile like the five ledger rows, so the whole witness is
+arithmetic on explicit multisets.
+
+**Scope, stated and not implied.** This is tightness on one family. Tightness
+for an arbitrary `μ_T` is **not** proved. `LEADS.md` records exactly what the
+general theorem needs — an arbitrary-arity builder and its profile lemma — and
+that nothing in it is conjectural, only unbuilt.
+
+**What the interior point is worth.** Attaining the endpoints would be routine
+and nearly vacuous; attaining the *middle* is the content, because it shows the
+interval is not two extreme scenarios with a gap between them but a genuine
+range. The reason is structural: an odd atom of mass `≥ 3` is an independent
+binary choice, mass-`1` atoms are forced to contribute, even atoms are forced
+not to. The interval is a **product of independent per-atom choices**, which is
+why every value is hit and why the width is exactly the count of free atoms.
+
+Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the certificate class's ignorance about the standard
+simple count is not diffuse but itemised — one undetermined bit per odd crowd of
+mass at least three, and nothing else — so the blindness has an exact
+information content rather than merely a direction.

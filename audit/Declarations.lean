@@ -173,3 +173,5 @@ import Riemann
 #check @Riemann.Blindness.NscStd_le_oddAtoms
 #check @Riemann.Blindness.bracket_muInvariant
 #check @Riemann.Blindness.NscStd_bracketed
+#check @Riemann.Blindness.oddAtoms_from_profile
+#check @Riemann.Blindness.bracket_tight_two_atoms

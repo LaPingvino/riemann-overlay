@@ -1449,3 +1449,25 @@ forms worth asking, neither yet attempted:
 
 Filed as the honest successor to the queued question, not as a claim that
 either restricted form has an answer.
+
+
+## Tightness of the `NscStd` bracket — done on one family, open in general
+
+`Fiber.bracket_tight_two_atoms` (axiom-free) attains all of `[0, 2]` on two
+atoms of mass `3` at one `μ_T`. The mechanism generalises transparently: an odd
+atom of mass `m ≥ 3` is an **independent binary choice** — put its off-line pair
+in (`k = 1`, contributes `1`) or leave it wholly on-line (`k = m`, contributes
+`0`) — while mass-`1` atoms are forced to contribute and even atoms are forced
+not to. So the attainable set should be exactly
+
+> `{ Nsc + t : 0 ≤ t ≤ #{odd atoms of mass ≥ 3} } = [Nsc, #{odd atoms}]`
+
+with **every** value hit, because the choices are independent.
+
+**What the general theorem needs, and why it was not attempted this cycle.** A
+builder taking a multiset of ordinates plus a per-atom on/off choice to a
+`ZeroData` — a fold of `superpose` over `configAt` at distinct heights — plus a
+lemma that the profile of such a fold is the multiset of the chosen pairs. That
+is the same shape as `twoAtom_profile` but at arbitrary arity, and it needs
+injectivity of `(· : ℕ → ℝ)` to keep the heights distinct. Filed as the next
+Lean-shaped item in this thread; nothing about it is conjectural, only unbuilt.

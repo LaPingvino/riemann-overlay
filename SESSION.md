@@ -3313,3 +3313,45 @@ Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
 simple count is not diffuse but itemised — one undetermined bit per odd crowd of
 mass at least three, and nothing else — so the blindness has an exact
 information content rather than merely a direction.
+
+
+# SESSION 081 — the builder, and tightness at every width
+
+`080` proved the bracket tight on two atoms and filed the general case as
+"nothing conjectural, only unbuilt". Built.
+
+**Kill condition, filed first:** *if the profile of the fold needs a hypothesis
+beyond distinctness of the heights, the general statement is not reachable this
+way and I say so rather than adding hypotheses until it works.* **It did not
+fire, and the answer was cleaner than the question** — disjointness of the
+ordinate *supports* is the only hypothesis, and it is exactly what the
+construction supplies for free.
+
+Four new axiom-free pieces:
+
+* `profile_superpose_disjoint` — **profiles add over superpositions with
+  disjoint ordinate supports.** This is the reusable core and the part worth
+  having beyond this cycle; every future multi-atom construction can now read
+  its profile compositionally instead of by hand.
+* `chain` — the builder. A configuration from an arbitrary list of fiber states,
+  atom `i` placed at height equal to the length of the remaining tail. The
+  heights come out `n−1, …, 0`, so distinctness is automatic rather than
+  hypothesised — which is why the kill condition never had anything to catch.
+* `chain_profile` — the builder's profile is exactly its list of atoms. Only
+  hypothesis: every atom nonempty.
+* `bracket_tight_chain` — for every `t ≤ n`, `n` atoms of mass `3` realise
+  `NscStd = t` with `Nsc = 0` and `#{odd atoms} = n`, at a `μ_T` that does not
+  depend on `t` (`chain_ordinates_congr`).
+
+So the interval `[Nsc, #{odd atoms}]` is attained at **every** value and at
+**every** width, not just at width 2. The scope caveat written into `080` and
+into `LEADS.md` is discharged, and the discharge is recorded at the location of
+the caveat rather than only here.
+
+Build green (3757 jobs), one new grade-A row replacing the width-2 claim, base
+hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the certificate class's uncertainty about the standard
+simple count is exactly `#{odd atoms of mass ≥ 3}` independent bits and the
+count of those atoms is itself visible to the class — so the class can compute,
+from `μ_T` alone, precisely how much it does not know.

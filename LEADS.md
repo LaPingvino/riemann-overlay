@@ -1464,6 +1464,13 @@ not to. So the attainable set should be exactly
 
 with **every** value hit, because the choices are independent.
 
+> ✅ **BUILT next cycle.** `Fiber.chain` is the arbitrary-arity builder,
+> `chain_profile` reads its profile, and `bracket_tight_chain` attains every
+> `t ≤ n` on `n` atoms of mass `3` at a `t`-independent `μ_T`. The reusable core
+> is `profile_superpose_disjoint`, and the kill condition asked exactly the right
+> question: **disjointness of the ordinate supports is the only hypothesis
+> needed.** The paragraph below records what was wanted; it is now supplied.
+
 **What the general theorem needs, and why it was not attempted this cycle.** A
 builder taking a multiset of ordinates plus a per-atom on/off choice to a
 `ZeroData` — a fold of `superpose` over `configAt` at distinct heights — plus a

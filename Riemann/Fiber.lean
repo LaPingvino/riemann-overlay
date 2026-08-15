@@ -1540,6 +1540,170 @@ nothing inside the interval is determined. -/
 theorem NscStd_bracketed (D : ZeroData) : D.Nsc ≤ D.NscStd ∧ D.NscStd ≤ oddAtoms D :=
   ⟨ZeroData.Nsc_le_NscStd D, NscStd_le_oddAtoms D⟩
 
+/-! ### The arbitrary-arity builder
+
+`bracket_tight_two_atoms` is tightness on one family.  The general statement
+needs a configuration built from an arbitrary list of atoms, and a lemma reading
+its profile.  Both are below.
+
+**Kill condition, filed before construction:** *if the profile of the fold needs
+a hypothesis beyond distinctness of the heights, the general statement is not
+reachable this way and I say so rather than adding hypotheses until it works.* -/
+
+lemma H_superpose (D D' : ZeroData) (γ : ℝ) :
+    (superpose D D').H γ = D.H γ + D'.H γ := by
+  classical
+  rw [ZeroData.H_eq_count, ZeroData.H_eq_count, ZeroData.H_eq_count,
+    add_ordinates, Multiset.count_add]
+
+lemma H_eq_zero_of_not_mem {D : ZeroData} {γ : ℝ} (h : γ ∉ D.ordinates) :
+    D.H γ = 0 := by
+  classical
+  rw [ZeroData.H_eq_count, Multiset.count_eq_zero]
+  exact h
+
+lemma offAt_eq_zero_of_not_mem {D : ZeroData} {γ : ℝ} (h : γ ∉ D.ordinates) :
+    offAt D γ = 0 := by
+  have h1 := H_eq_onAt_add_offAt D γ
+  have h2 := H_eq_zero_of_not_mem h
+  omega
+
+/-- **Profiles add over superpositions with disjoint ordinate supports.**  The
+disjointness hypothesis is the *only* one needed — the kill condition asked
+whether anything further was required, and nothing is. -/
+lemma profile_superpose_disjoint {D D' : ZeroData}
+    (hdis : ∀ γ, γ ∈ D.ordinates → γ ∉ D'.ordinates) :
+    profile (superpose D D') = profile D + profile D' := by
+  classical
+  have hfin : (superpose D D').ordinates.toFinset
+      = D.ordinates.toFinset ∪ D'.ordinates.toFinset := by
+    rw [add_ordinates, Multiset.toFinset_add]
+  have hdisj : Disjoint D.ordinates.toFinset D'.ordinates.toFinset := by
+    rw [Finset.disjoint_left]
+    intro γ h1 h2
+    rw [Multiset.mem_toFinset] at h1 h2
+    exact hdis γ h1 h2
+  rw [profile, hfin, ← Finset.disjUnion_eq_union _ _ hdisj, Finset.disjUnion_val,
+    Multiset.map_add]
+  congr 1
+  · refine Multiset.map_congr rfl fun γ hγ => ?_
+    have hmem : γ ∈ D.ordinates := by simpa using hγ
+    have hout : γ ∉ D'.ordinates := hdis γ hmem
+    rw [H_superpose, offAt_superpose, H_eq_zero_of_not_mem hout,
+      offAt_eq_zero_of_not_mem hout]
+    simp
+  · refine Multiset.map_congr rfl fun γ hγ => ?_
+    have hin : γ ∈ D'.ordinates := by simpa using hγ
+    have hout : γ ∉ D.ordinates := fun hD => hdis γ hD hin
+    rw [H_superpose, offAt_superpose, H_eq_zero_of_not_mem hout,
+      offAt_eq_zero_of_not_mem hout]
+    simp
+
+/-- **The builder.**  A configuration from an arbitrary list of fiber states,
+atom `i` placed at height equal to the length of the remaining tail — which
+makes the heights `n-1, n-2, …, 0`, hence automatically distinct. -/
+noncomputable def chain (a : ℝ) : List (ℕ × ℕ) → ZeroData
+  | [] => ⟨0, by simp⟩
+  | (p :: ps) => superpose (configAt (ps.length : ℝ) p.1 p.2 a) (chain a ps)
+
+lemma chain_ordinates_lt (a : ℝ) (l : List (ℕ × ℕ)) :
+    ∀ γ ∈ (chain a l).ordinates, γ < (l.length : ℝ) := by
+  induction l with
+  | nil => intro γ h; simp [chain, ZeroData.ordinates] at h
+  | cons p ps ih =>
+      intro γ h
+      rw [chain, add_ordinates, Multiset.mem_add] at h
+      rcases h with h | h
+      · rw [configAt_ordinates] at h
+        rw [Multiset.eq_of_mem_replicate h]
+        simp only [List.length_cons]
+        push_cast
+        linarith
+      · have := ih γ h
+        simp only [List.length_cons]
+        push_cast
+        linarith
+
+/-- **The builder's profile is exactly the list of its atoms.**  Every atom must
+be nonempty; that is the only hypothesis, as the kill condition asked. -/
+lemma chain_profile {a : ℝ} (ha : a ≠ 1/2) :
+    ∀ l : List (ℕ × ℕ), (∀ p ∈ l, p.1 + 2 * p.2 ≠ 0) →
+      profile (chain a l) = ((l.map fun p => (p.1 + 2 * p.2, 2 * p.2) : List (ℕ × ℕ)) : Multiset (ℕ × ℕ)) := by
+  intro l
+  induction l with
+  | nil => intro _; simp [chain, profile, ZeroData.ordinates]
+  | cons p ps ih =>
+      intro hne
+      have hdis : ∀ γ, γ ∈ (configAt (ps.length : ℝ) p.1 p.2 a).ordinates →
+          γ ∉ (chain a ps).ordinates := by
+        intro γ hγ hmem
+        rw [configAt_ordinates] at hγ
+        have := chain_ordinates_lt a ps γ hmem
+        rw [Multiset.eq_of_mem_replicate hγ] at this
+        exact lt_irrefl _ this
+      rw [chain, profile_superpose_disjoint hdis,
+        configAt_profile ha (hne p (by simp)),
+        ih fun q hq => hne q (by simp [hq])]
+      simp
+
+lemma chain_ordinates_congr {a : ℝ} : ∀ l₁ l₂ : List (ℕ × ℕ),
+    (l₁.map fun p => p.1 + 2 * p.2) = (l₂.map fun p => p.1 + 2 * p.2) →
+      (chain a l₁).ordinates = (chain a l₂).ordinates := by
+  intro l₁
+  induction l₁ with
+  | nil =>
+      intro l₂ h
+      rw [List.map_eq_nil_iff.1 h.symm]
+  | cons p ps ih =>
+      intro l₂ h
+      cases l₂ with
+      | nil => simp at h
+      | cons q qs =>
+          simp only [List.map_cons, List.cons.injEq] at h
+          have hlen : ps.length = qs.length := by
+            have := congrArg List.length h.2
+            simpa using this
+          rw [chain, chain, add_ordinates, add_ordinates, configAt_ordinates,
+            configAt_ordinates, h.1, hlen, ih qs h.2]
+
+/-- **Tightness in general, on `n` atoms of mass 3.**  For every `t ≤ n` the
+builder realises `NscStd = t` while `Nsc = 0` and `#{odd atoms} = n`, and the
+`μ_T` does not depend on `t`.  So the whole interval `[Nsc, #{odd atoms}]` is
+attained, at every width. -/
+theorem bracket_tight_chain {a : ℝ} (ha : a ≠ 1/2) (n t : ℕ) (h : t ≤ n) :
+    (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))).ordinates
+        = (chain a (List.replicate n ((3 : ℕ), (0 : ℕ)))).ordinates
+      ∧ (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))).NscStd = t
+      ∧ (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))).Nsc = 0
+      ∧ oddAtoms (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))) = n := by
+  classical
+  set L := List.replicate t ((1 : ℕ), (1 : ℕ)) ++ List.replicate (n - t) ((3 : ℕ), (0 : ℕ)) with hL
+  have hne : ∀ p ∈ L, p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    rw [hL, List.mem_append] at hp
+    rcases hp with hp | hp
+    · rw [List.eq_of_mem_replicate hp]; norm_num
+    · rw [List.eq_of_mem_replicate hp]; norm_num
+  have hp : profile (chain a L) = ((List.replicate t ((3 : ℕ), (2 : ℕ))
+      ++ List.replicate (n - t) ((3 : ℕ), (0 : ℕ)) : List (ℕ × ℕ)) : Multiset (ℕ × ℕ)) := by
+    rw [chain_profile ha L hne, hL]
+    simp
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · refine chain_ordinates_congr _ _ ?_
+    rw [hL]
+    simp [List.map_append, Nat.add_sub_cancel' h]
+  · have : ((chain a L).NscStd : ℤ) = (t : ℤ) := by
+      rw [NscStd_from_profile, hp]
+      simp
+    exact_mod_cast this
+  · have : ((chain a L).Nsc : ℤ) = 0 := by
+      rw [Nsc_from_profile, hp]
+      simp
+    exact_mod_cast this
+  · rw [oddAtoms_from_profile, hp]
+    have h3 : Odd 3 := by decide
+    simp [List.filter_replicate, h3, Nat.add_sub_cancel' h]
+
 /-! ### The bracket is tight — every value in it is attained
 
 `NscStd_bracketed` gives `Nsc ≤ NscStd ≤ #{odd atoms}`.  A bracket is only a

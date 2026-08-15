@@ -175,3 +175,9 @@ import Riemann
 #check @Riemann.Blindness.NscStd_bracketed
 #check @Riemann.Blindness.oddAtoms_from_profile
 #check @Riemann.Blindness.bracket_tight_two_atoms
+#check @Riemann.Blindness.H_superpose
+#check @Riemann.Blindness.profile_superpose_disjoint
+#check @Riemann.Blindness.chain
+#check @Riemann.Blindness.chain_profile
+#check @Riemann.Blindness.chain_ordinates_congr
+#check @Riemann.Blindness.bracket_tight_chain

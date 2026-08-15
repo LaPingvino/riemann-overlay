@@ -819,5 +819,73 @@ theorem ledger_relabel_invariant (D : ZeroData) {σ : ℝ → ℝ}
   ⟨relabel_N D σ, relabel_Nstar D hσ, relabel_Nsc D hσ, relabel_NscStd D hσ,
     relabel_Noff D σ⟩
 
+
+/-! #### The profile
+
+The *profile* is the multiset of `(mass, off-line mass)` pairs, one per distinct
+ordinate, with the heights themselves discarded.  `ledger_relabel_invariant`
+says the residue cannot depend on the heights; the profile is the natural
+candidate for what is left.
+
+**Kill condition, stated before the section was written:** *if the construction
+needs a finiteness or decidable-support fact not available for an arbitrary
+`ZeroData`, the question is not answerable at this generality and that is the
+finding.*  **It did not fire** — `Z` is a `Multiset`, hence finite, so
+`ordinates.toFinset` exists classically with no extra hypothesis. -/
+
+/-- The ordinates of the **off-line** zeros, with multiplicity. -/
+noncomputable def offOrd (D : ZeroData) : Multiset ℝ :=
+  (D.Z.filter fun p => p.1 ≠ 1/2).map Prod.snd
+
+lemma count_offOrd (D : ZeroData) (γ : ℝ) : (offOrd D).count γ = offAt D γ := by
+  classical
+  rw [offOrd, Multiset.count_map, offAt, Multiset.filter_filter]
+  congr 1
+  refine Multiset.filter_congr fun p _ => ?_
+  exact ⟨fun h => ⟨h.1.symm, h.2⟩, fun h => ⟨h.1.symm, h.2⟩⟩
+
+/-- The profile: one `(H γ, offAt γ)` pair per distinct ordinate. -/
+noncomputable def profile (D : ZeroData) : Multiset (ℕ × ℕ) :=
+  D.ordinates.toFinset.val.map fun γ => (D.H γ, offAt D γ)
+
+/-- **`N` is read off the profile** as the total mass. -/
+theorem N_from_profile (D : ZeroData) :
+    D.N = ((profile D).map Prod.fst).sum := by
+  classical
+  have h1 : ((profile D).map Prod.fst).sum
+      = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+    rw [profile, Multiset.map_map]
+    rfl
+  rw [h1]
+  have h2 : ∀ γ ∈ D.ordinates.toFinset, D.H γ = D.ordinates.count γ :=
+    fun γ _ => D.H_eq_count γ
+  rw [Finset.sum_congr rfl h2, Multiset.toFinset_sum_count_eq,
+    (ZeroData.N_Nstar_ordinate_functional D).1]
+
+/-- **`N_off` is read off the profile** as the total off-line mass. -/
+theorem Noff_from_profile (D : ZeroData) :
+    D.Noff = ((profile D).map Prod.snd).sum := by
+  classical
+  have hsub : (offOrd D).toFinset ⊆ D.ordinates.toFinset := by
+    intro γ hγ
+    rw [Multiset.mem_toFinset] at hγ ⊢
+    rw [offOrd, Multiset.mem_map] at hγ
+    obtain ⟨p, hp, rfl⟩ := hγ
+    exact Multiset.mem_map_of_mem _ (Multiset.mem_of_mem_filter hp)
+  have hzero : ∀ γ ∈ D.ordinates.toFinset, γ ∉ (offOrd D).toFinset →
+      offAt D γ = 0 := by
+    intro γ _ hγ
+    rw [← count_offOrd]
+    simpa using hγ
+  have h1 : ((profile D).map Prod.snd).sum
+      = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [profile, Multiset.map_map]
+    rfl
+  rw [h1, ← Finset.sum_subset hsub hzero]
+  have h2 : ∀ γ ∈ (offOrd D).toFinset, offAt D γ = (offOrd D).count γ :=
+    fun γ _ => (count_offOrd D γ).symm
+  rw [Finset.sum_congr rfl h2, Multiset.toFinset_sum_count_eq, offOrd,
+    Multiset.card_map, ZeroData.Noff]
+
 end Blindness
 end Riemann

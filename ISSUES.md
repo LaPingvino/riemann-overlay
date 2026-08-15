@@ -935,3 +935,23 @@ original would be a fabricated provenance — precisely the disease
 functional from the source with the source in hand, then commit the script.
 Until then the claim carries grade **N** in `CLAIMS.md` with an explicit
 "code not in repo" mark, and must not be cited as a bound.
+
+
+## #28(a) — CLOSED (2026-08-15, Joop's ruling "fix what needs fixed")
+
+`lakefile.toml` now pins `rev` to `3635e74826a4c1fcece7d1cd2b6fa75e43a00510`,
+the exact commit the manifest records, with the reason stated in the file.
+
+**And the fix had a second half that nearly got missed.** Pinning the lakefile
+made `lake` warn *"manifest out of date: git revision of dependency 'zeta23'
+changed; use `lake update zeta23`"*, because the manifest's `inputRev` still
+read `"main"`. The obvious way to silence that warning is **exactly the failure
+mode the pin exists to prevent** — `lake update` would fetch whatever `main`
+points at today. Instead the manifest's `inputRev` was edited to the same
+commit, by hand, without an update. Now `lakefile.rev = manifest.inputRev =
+manifest.rev`, the warning is gone, and the build is green on the same
+revision.
+
+Still open, and deliberately: **there is no vendored copy.** The pin removes the
+"someone else's content" half of the risk; the "someone else's uptime" half
+remains. Vendoring or mirroring is a larger call.

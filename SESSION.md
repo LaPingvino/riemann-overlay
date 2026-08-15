@@ -2189,3 +2189,48 @@ rate would be the very error the gate exists to catch.
 **Might-mean, unhedged:** the guards stopped catching things not because they
 got worse but because they worked, and the useful reading of a silent instrument
 is never "we are clean" but "the errors have moved somewhere it cannot see."
+
+
+# SESSION 055 — the profile, partly read; and the pin's second half
+
+**Stale-prompt note.** The loop fired with the overnight prompt, which still
+listed four items as needing a ruling and said "overnight discipline applies
+until he speaks". Joop had spoken and all four were discharged. Ran under day
+discipline and re-armed corrected.
+
+**`#28(a)`'s second half, which nearly got missed.** Pinning the lakefile made
+`lake` warn that the manifest was out of date and suggest `lake update zeta23`
+— **which is exactly the failure mode the pin exists to prevent.** Fixed by
+editing the manifest's `inputRev` to the same commit by hand. Now
+`lakefile.rev = manifest.inputRev = manifest.rev`, warning gone, build green on
+the same revision. The "someone else's uptime" half is still open: there is no
+vendored copy.
+
+**The profile question, and the kill condition did not fire.** *If the
+construction needed a finiteness or decidable-support fact unavailable for an
+arbitrary `ZeroData`, the question was not answerable at this generality.* `Z`
+is a `Multiset`, hence finite, so `ordinates.toFinset` exists classically with
+no extra hypothesis.
+
+`profile D` — the multiset of `(H γ, offAt γ)` pairs, one per distinct ordinate,
+heights discarded. Two of the five ledger quantities are now read off it,
+axiom-free:
+
+* `N_from_profile` — `N` is the total mass;
+* `Noff_from_profile` — `N_off` is the total off-line mass, via `offOrd` and
+  `count_offOrd`, with the support inclusion handled by `Finset.sum_subset`.
+
+**Three remain: `N⊛`, `Nsc`, `NscStd`.** They need the regrouping of a sum over
+zeros into a sum over distinct ordinates, which `N` got for free from
+`Multiset.toFinset_sum_count_eq` and the others do not. **Named, not claimed** —
+the profile question is *partly* answered, and whether the profile determines
+the whole ledger is still open.
+
+No `SURPRISES` row: the kill condition was a question and did not fire.
+
+Build green (3757 jobs), base hash unmoved.
+
+**Might-mean, unhedged:** the pin's warning was a small trap of exactly the
+project's favourite shape — a correct fix that makes a tool suggest the
+incorrect one — and the only reason it was not walked into is that the reason
+for the pin had been written down in the file rather than kept in a head.

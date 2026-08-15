@@ -4610,3 +4610,46 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** the project's central number is a subtraction, and the
 thing being subtracted has a name, a definition, and no known bound — so the work
 is not to prove a proportion but to count one pattern.
+
+
+# SESSION 110 — three routes, one inequality, and the end of the counting
+
+`109` reduced the row to `Nsc/N = NscStd/N − hauntedCount/N`. So everything now
+depends on bounding one quantity. This cycle states that bound in its own right
+rather than as a by-product of `084`.
+
+**Kill condition, filed first:** *if some configuration has
+`2·hauntedCount + NscStd > N`, the bound is wrong and the haunted count is not
+controlled this way.* It did not fire.
+
+`two_mul_haunted_add_NscStd_le_N` (new, axiom-free): each haunted ordinate
+carries at least two off-line zeros, each standard-simple ordinate one on-line
+zero, and the collections are disjoint. So
+
+> `hauntedCount ≤ (N − NscStd)/2`,
+
+and the certified row reads off in one line: `0.6725 − (1 − 0.6725)/2 = 0.50875`.
+
+**The finding is that this is the only bound there is.** The registers reached
+the haunted count three separate ways — `083`'s coupling through `N_off`,
+`109`'s mass accounting, `090`'s off-line density row — and all three collapse
+to exactly this inequality. Within the counting functions
+`(N, NscStd, Nsc, N_off)` there is nothing further to extract. Recorded in
+`LEADS.md` so a future cycle does not spend itself looking for a fourth route.
+
+`two_mul_haunted_add_NscStd_eq_iff` confirms coherence: the bound is attained on
+precisely `104`'s extremal family, the same equality set as `084`.
+
+**What that implies for the programme.** Any improvement to the row needs a
+`δ < 0.16375` bound on the haunted density, and no such bound can come from a
+relation among ζ's own counting functions — the counting is finished. It must
+come from outside: `087`'s ξ′ transfer, or `105`'s exclusion of one local
+pattern. Both are hypotheses, and now it is clear why they have to be.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** twenty-six cycles of combinatorics have extracted
+everything the zero counts contain about each other, and the remaining gap is
+not a gap in the accounting but the exact size of what arithmetic has not yet
+been asked to say.

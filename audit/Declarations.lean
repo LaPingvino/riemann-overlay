@@ -254,3 +254,5 @@ import Riemann
 #check @Riemann.Blindness.NscStd_eq_Nsc_add_haunted
 #check @Riemann.Blindness.Nsc_add_three_mul_haunted_le_N
 #check @Riemann.Blindness.three_mul_NscStd_le_of_identity
+#check @Riemann.Blindness.two_mul_haunted_add_NscStd_le_N
+#check @Riemann.Blindness.two_mul_haunted_add_NscStd_eq_iff

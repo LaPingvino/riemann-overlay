@@ -1666,3 +1666,31 @@ conditional apparatus is a search for such a `δ`.
 
 `0.50875 = 0.6725 − 0.16375`, and `0.16375` is the haunted density the trivial
 mass accounting permits.
+
+
+## The haunted count, canonically bounded (SESSION 110)
+
+`109` reduced the row to `Nsc/N = NscStd/N − hauntedCount/N`. The bound on the
+subtracted term is
+
+> **`2·hauntedCount + NscStd ≤ N`**  (`two_mul_haunted_add_NscStd_le_N`)
+
+— each haunted ordinate carries `≥ 2` off-line zeros, each standard-simple one
+carries an on-line zero, and the collections are disjoint. Hence
+`hauntedCount ≤ (N − NscStd)/2` and the certified row is
+`0.6725 − (1 − 0.6725)/2 = 0.50875`, read off in one line.
+
+**Three routes, one inequality.** The registers reached the haunted count three
+ways — `083`'s coupling through `N_off`, `109`'s mass accounting, `090`'s
+off-line density row — and all three give exactly this. That is worth recording
+so a future cycle does not look for a fourth: within the counts
+`(N, NscStd, Nsc, N_off)` there is nothing else to say.
+
+**And it is attained** on `104`'s extremal family, mixtures of simple and haunted
+mass-`3` atoms (`two_mul_haunted_add_NscStd_eq_iff`) — the same equality set,
+which is the consistency check.
+
+**So improving the row requires leaving these counts.** Any `δ < 0.16375` bound
+on the haunted density must come from a fact about ζ that is not a relation among
+its own counting functions — which is exactly what `087`'s ξ′ route and `105`'s
+pattern-exclusion are, and why both are hypotheses rather than theorems.

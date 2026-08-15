@@ -3107,6 +3107,41 @@ theorem three_mul_NscStd_le_of_identity (D : ZeroData) :
   have hmass := Nsc_add_three_mul_haunted_le_N D
   omega
 
+/-- **The canonical bound on the haunted count: `2·hauntedCount + NscStd ≤ N`.**
+
+Each haunted ordinate carries at least two off-line zeros; each standard-simple
+ordinate carries one on-line zero; the two collections are disjoint.  So
+
+> `hauntedCount ≤ (N − NscStd)/2`,
+
+and with `109`'s identity `Nsc/N = NscStd/N − hauntedCount/N` this *is* `084`:
+the certified row `0.50875 = 0.6725 − 0.16375` reads off directly, with
+`0.16375 = (1 − 0.6725)/2`.
+
+Every route the registers have tried to the haunted count — through `N_off`
+(`083`'s coupling), through the mass accounting (`109`), through the off-line
+density row (`090`) — lands on this same inequality.
+
+**Kill condition, filed first:** *if some configuration has
+`2·hauntedCount + NscStd > N`, the bound is wrong and the haunted count is not
+controlled this way.*  It did not fire. -/
+theorem two_mul_haunted_add_NscStd_le_N (D : ZeroData) :
+    2 * hauntedCount D + D.NscStd ≤ D.N := by
+  have hid := NscStd_eq_Nsc_add_haunted D
+  have hmass := Nsc_add_three_mul_haunted_le_N D
+  omega
+
+/-- **And it is attained exactly on the extremal family of `104`** — mixtures of
+simple and haunted mass-`3` atoms.  Equality here is equality in `084`, by the
+identity, so `three_mul_NscStd_eq_iff` characterises it. -/
+theorem two_mul_haunted_add_NscStd_eq_iff (D : ZeroData) :
+    2 * hauntedCount D + D.NscStd = D.N ↔
+      ∀ γ ∈ D.ordinates.toFinset, D.H γ = 1 ∨ (D.H γ = 3 ∧ onAt D γ = 1) := by
+  rw [← three_mul_NscStd_eq_iff D]
+  have hid := NscStd_eq_Nsc_add_haunted D
+  have hmass := Nsc_add_three_mul_haunted_le_N D
+  constructor <;> intro h <;> omega
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

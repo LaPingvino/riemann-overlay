@@ -5129,3 +5129,49 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** a project that grades itself honestly will drift
 pessimistic, because every incentive it has built points at catching overclaims
 and none at catching the moment a defect stopped being true.
+
+
+# SESSION 122 — it is the headers that go stale
+
+`121` found stale negatives in `CLAIMS.md` and named the species: nothing patrols
+pessimism. `ISSUES.md` is where that costs more, because `LOOP.md` step 2 says a
+cycle begins by **re-reading `ISSUES.md`** — a stale "open" there misdirects work
+rather than merely misreporting it.
+
+**Kill condition, filed first:** *if every open `ISSUES` entry is genuinely still
+open, the staleness was confined to `CLAIMS.md` and the sweep is complete.* **It
+did not fire — two more, and they sharpen the diagnosis.**
+
+* **`#30`** — the loop-liveness defect. Its **body** has recorded the cron-heartbeat
+  fix since `2026-08-15`. Its **header** still read `[bin 3, process] R17 was
+  never applied…`, with no fixed marker.
+* **`#13`** — `Nsc` vs `NscStd`. Header: *"only the axiom restatement is still
+  Joop's"*. The restatement landed: `baseline_zeta23` and `baseline_przz` are
+  both stated on `ProportionStd` today.
+
+**The sharper diagnosis: it is the headers.** In both cases the body was updated
+faithfully and the header was not. Bodies get edited because that is where the
+new information goes; headers are navigation, and nobody edits navigation while
+holding a result. A scan of headers — which is exactly what the surface scan
+is — therefore sees a strictly more pessimistic project than the bodies describe.
+
+`#13`'s correction carries a second thing worth having: it is no longer a
+convention question. `Fiber.Nsc_eq_NscStd_iff_noHaunted` makes it the project's
+central open quantity — the two notions coincide **iff** no ordinate is haunted.
+Session 003's bookkeeping issue and session 108's `hauntedCount` are the same
+object, and the header now says so.
+
+`#30` gets a caveat rather than a claim: the heartbeat was created with a 7-day
+auto-expiry and dies with its session, so *whether it is running* is live state
+and `R17` forbids asserting it either way — which is the very rule `#30` exists
+to record.
+
+**Three cycles of sweeping is the R20 cap, and this is the third.** Next cycle
+returns to mathematics regardless of what a fourth sweep might find.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the registers are honest in their paragraphs and
+pessimistic in their titles, and since titles are what a tired reader scans, the
+project has been systematically understating itself to itself.

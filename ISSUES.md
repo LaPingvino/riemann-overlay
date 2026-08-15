@@ -283,7 +283,14 @@ this is `correlated`, as expected. The interesting part is that the *cost* of
 being `correlated` is now measured rather than asserted.
 
 
-## #13 — [bin 1, ESCALATED — **now resolved structurally**; only the axiom restatement is still Joop's] `Nsc` (H = 1) vs `NscStd` (multiplicity 1): the baseline axiom asserts more than zeta-23 proves
+## #13 — [bin 1, **CLOSED**] `Nsc` (H = 1) vs `NscStd` (multiplicity 1): the baseline axiom asserts more than zeta-23 proves
+
+> ⚠️ **Header corrected `SESSION 122`.** It read *"only the axiom restatement is
+> still Joop's"* long after the restatement landed: `baseline_zeta23` and
+> `baseline_przz` are both stated on `ProportionStd` (the `NscStd` count) today.
+> And the mathematical residue is now named: `Fiber.Nsc_eq_NscStd_iff_noHaunted`
+> proves the two notions coincide **iff** no ordinate is haunted, so `#13` is not
+> a convention question but the project's central open quantity.
 
 Found in session 003 while reading `zeta-23-lean/comparator/ChallengeDeps.lean`
 to prepare the import — i.e. *before* the import landed, which is R1 working.
@@ -970,7 +977,14 @@ Still open, and deliberately: **there is no vendored copy.** The pin removes the
 remains. Vendoring or mirroring is a larger call.
 
 
-## #30 — [bin 3, process] R17 was never applied to the loop's own liveness
+## #30 — [bin 3, process, **FIXED** — see the body] R17 was never applied to the loop's own liveness
+
+> ⚠️ **Header corrected `SESSION 122`.** The body has recorded the fix (cron
+> heartbeat) since 2026-08-15; the header still read as open, so a surface scan
+> of headers — which is what `LOOP.md` step 2 prescribes — would have seen a
+> live defect. Standing caveat, not a claim about now: the job was created with
+> a 7-day auto-expiry and dies with the session, so *whether it is running* is a
+> live-state question and `R17` forbids asserting it either way.
 
 The loop stopped at 10:50 and was not noticed until 14:36, because the turn that
 landed `SESSION 056` ended on prose instead of on `ScheduleWakeup`, and the

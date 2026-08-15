@@ -256,3 +256,4 @@ import Riemann
 #check @Riemann.Blindness.three_mul_NscStd_le_of_identity
 #check @Riemann.Blindness.two_mul_haunted_add_NscStd_le_N
 #check @Riemann.Blindness.two_mul_haunted_add_NscStd_eq_iff
+#check @Riemann.Blindness.row_essentially_optimal

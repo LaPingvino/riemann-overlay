@@ -4649,7 +4649,47 @@ pattern. Both are hypotheses, and now it is clear why they have to be.
 Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
 axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 
+> ✅ **Given a provable form the next cycle.** "Nothing further to extract" was
+> asserted from three coincidences. `111`'s `row_essentially_optimal` proves the
+> precise version: a witness configuration caps any baseline-only argument at
+> `0.50943`, and the ledger certifies `0.50875`.
+
 **Might-mean, unhedged:** twenty-six cycles of combinatorics have extracted
 everything the zero counts contain about each other, and the remaining gap is
 not a gap in the accounting but the exact size of what arithmetic has not yet
 been asked to say.
+
+
+# SESSION 111 — how close the row is to optimal, with a witness
+
+`110` said the counting is finished. That was asserted from three routes
+coinciding — the shape `S30` and `S37` were logged about. It has a provable
+form, and this cycle proves it.
+
+**Kill condition, filed first:** *if no configuration achieves haunted density
+near `0.16375` at `NscStd/N ≥ 0.6725`, then `0.16375` is only our bound and
+`110`'s "nothing further to extract" must be downgraded at its location.* It did
+not fire.
+
+`row_essentially_optimal` (new, axiom-free): `1000` simple atoms beside `321`
+haunted mass-`3` atoms give
+
+> `NscStd/N = 1321/1963 ≈ 0.67295 ≥ 0.6725`,  `Nsc/N = 1000/1963 ≈ 0.50942`.
+
+**So no argument using only `ProportionStd 0.6725` can certify an `Nsc` row above
+`0.50943`.** The ledger certifies `0.50875`. The remaining `0.00068` is the
+discretisation of the ratio `s : h`, not slack in the method.
+
+That converts `110`'s rhetorical claim into a measurement: the baseline is spent,
+to within seven parts in ten thousand. Any further gain must come from outside
+the counting functions — `087`'s ξ′ transfer or `105`'s pattern exclusion — and
+that is now a fact about the problem rather than a summary of what we tried.
+
+`110`'s might-mean is annotated at its location.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project has extracted `99.87%` of what its one
+external input can give, so every remaining cycle spent on the counting is a
+cycle spent on seven parts in ten thousand.

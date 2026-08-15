@@ -3142,6 +3142,56 @@ theorem two_mul_haunted_add_NscStd_eq_iff (D : ZeroData) :
   have hmass := Nsc_add_three_mul_haunted_le_N D
   constructor <;> intro h <;> omega
 
+/-- **The certified row is within `0.0007` of the best possible from the
+baseline alone.**
+
+`110` claimed the counting is finished.  Here is the provable form: a
+configuration of `1000` simple atoms and `321` haunted mass-`3` atoms has
+
+> `NscStd/N = 1321/1963 ≈ 0.67295 ≥ 0.6725`  and
+> `Nsc/N = 1000/1963 ≈ 0.50942`.
+
+So **no argument using only `ProportionStd 0.6725` can certify a row above
+`0.50943`**, and the ledger certifies `0.50875`.  The gap is `0.00068`, and it is
+the discretisation of `s : h`, not slack in the method.
+
+**Kill condition, filed first:** *if no configuration achieves haunted density
+near `0.16375` at `NscStd/N ≥ 0.6725`, then `0.16375` is only our bound and
+`110`'s "nothing further to extract" must be downgraded at its location.*  It did
+not fire. -/
+theorem row_essentially_optimal {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData, 6725 * D.N ≤ 10000 * D.NscStd
+      ∧ 100000 * D.Nsc ≤ 50943 * D.N := by
+  classical
+  set L : List (ℕ × ℕ) :=
+    List.replicate 1000 (1, 0) ++ List.replicate 321 (1, 1) with hL
+  have hne : ∀ x ∈ L, x.1 + 2 * x.2 ≠ 0 := by
+    intro x hx
+    rw [hL, List.mem_append] at hx
+    rcases hx with hx | hx
+    · rw [List.eq_of_mem_replicate hx]; norm_num
+    · rw [List.eq_of_mem_replicate hx]; norm_num
+  have hp := chain_profile ha L hne
+  rw [hL] at hp
+  norm_num [List.map_append, List.map_replicate] at hp
+  have hN : (chain a L).N = 1963 := by
+    rw [N_from_profile, hp]
+    simp only [Multiset.map_coe, Multiset.sum_coe, List.map_append,
+      List.map_replicate, List.sum_append, List.sum_replicate, smul_eq_mul]
+  have hSc : ((chain a L).NscStd : ℤ) = 1321 := by
+    rw [NscStd_from_profile, hp]
+    simp only [Multiset.map_coe, Multiset.sum_coe, List.map_append,
+      List.map_replicate, List.sum_append, List.sum_replicate, smul_eq_mul]
+    norm_num
+  have hsc : ((chain a L).Nsc : ℤ) = 1000 := by
+    rw [Nsc_from_profile, hp]
+    simp only [Multiset.map_coe, Multiset.sum_coe, List.map_append,
+      List.map_replicate, List.sum_append, List.sum_replicate, smul_eq_mul]
+    norm_num
+  have hSc' : (chain a L).NscStd = 1321 := by exact_mod_cast hSc
+  have hsc' : (chain a L).Nsc = 1000 := by exact_mod_cast hsc
+  exact ⟨chain a L, by rw [hN, hSc']; norm_num, by rw [hN, hsc']; norm_num⟩
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

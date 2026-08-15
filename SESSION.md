@@ -3611,3 +3611,55 @@ axioms 2, base hash `cd7a22e688df` unmoved. Logged as `S35`.
 because that is where claims are *published*, but the claims that actually steer
 the work live in docstrings next to the theorems, and those had never been read
 by anything but me.
+
+
+# SESSION 087 — Route II priced: 9.29 points sitting behind two pieces of plumbing
+
+`085` closed the combinatorial directions for the `Nsc` row. The remaining ones
+were "a better `κ`" and "a star bound", both expensive. This cycle found a third
+the register had not enumerated — which is now twice in four cycles that the
+route list was short.
+
+**Kill condition, filed first:** *if the transfer needs a hypothesis not
+currently available, it does not move the row and I say so.* **It fired**, and
+the value of the cycle is that it fired *with a number attached*.
+
+**The instrument.** `proportion_of_offLineImport` (axiom-free): `ProportionStd κ`
+plus `N_off ≤ (β + o(1))·N` gives `Proportion (κ − β/2)`. **Every point of
+off-line control is worth half a point of the project's own row.** At the
+trivial `β = 1` it reproduces `084`'s `0.50875` exactly, which is the check that
+it is the right generalisation.
+
+**The route.** `offLineImport_of_derivative`: a `Proportion κ'` for the
+*derivative* family yields `β = 1 − κ'`, because that family's simple on-line
+zeros crowd out its off-line ones (`Nsc_add_Noff_le_N`, new, axiom-free). zeta-23
+already gives `ξ'` the value `0.85838` — a number the project has held since the
+import and has been using only for Route II's `(★)` question. Through this route
+it means `β = 0.14162` and
+
+> `Nsc ≥ 0.6725 − 0.07081 = 0.60169`.
+
+**Why the ledger did not move, and this is the honest part.** Two hypotheses are
+missing, both carried as `Prop`s in `Gaps.lean` and neither asserted:
+
+* `OffTransfer` — `levinson_montgomery` is `|N_off' − N_off| ≤ c·log T`;
+  absorbing `log T` into `o(N)` is Riemann–von Mangoldt, absent from the
+  registers.
+* `NzComparable` — **`xiPrimeFamily` is an opaque axiom.** Nothing relates its
+  zero count to `zetaFamily`'s; the consistency model in `Assumptions.lean` even
+  sets the two families equal, which is precisely why no such relation can be
+  assumed for free.
+
+Adding either as an axiom would raise the certified proportion by assumption,
+which `Assumptions.lean` forbids outright. So the row stays at `50.88%` and the
+gain is filed in `PRICES.md` as **the cheapest nine points on the board** —
+needing no new theorem about `ζ`, only the plumbing that says `ξ'` has about as
+many zeros as `ζ`.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the project has been holding a 9-point improvement for
+as long as it has held the `ξ'` import, and what stood between them was not
+mathematics but the fact that nobody had written down that the two families
+count comparably many zeros.

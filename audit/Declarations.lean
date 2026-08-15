@@ -198,3 +198,9 @@ import Riemann
 #check @Riemann.Blindness.atomCount
 #check @Riemann.Blindness.two_mul_atomCount_add_oddAtoms_le
 #check @Riemann.Blindness.three_mul_NscStd_le_of_four
+#check @Riemann.Blindness.Nsc_add_Noff_le_N
+#check @Riemann.OffLineImport
+#check @Riemann.proportion_of_offLineImport
+#check @Riemann.OffTransfer
+#check @Riemann.NzComparable
+#check @Riemann.offLineImport_of_derivative

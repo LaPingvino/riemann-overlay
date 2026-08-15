@@ -115,6 +115,88 @@ costs `(C-1)/2`. -/
 def Family.ProportionStd (F : Family) (κ : ℝ) : Prop :=
   ∀ ε > 0, ∀ᶠ T in atTop, (κ - ε) * F.Nz T ≤ F.NscStd T
 
+/-- **An off-line import**: a bound `N_off ≤ (β + o(1))·N`.  This is the currency
+a zero-density statement pays in, and — by `proportion_of_offLineImport` — the
+currency the `Nsc` row buys in. -/
+def OffLineImport (F : Family) (β : ℝ) : Prop :=
+  ∀ ε > 0, ∀ᶠ T in atTop, F.Noff T ≤ (β + ε) * F.Nz T
+
+/-- **The `Nsc` row, priced against an off-line import.**
+
+`Blindness.two_mul_NscStd_le_Noff_add_two_mul_Nsc` is `2·(NscStd − Nsc) ≤ N_off`,
+axiom-free.  So a `ProportionStd κ` together with `N_off ≤ (β + o(1))·N` gives
+`Proportion (κ − β/2)` — **every point of off-line control is worth half a point
+of the project's own row.**
+
+At `β = 1` this is the unconditional `certified_nsc_unconditional`
+(`κ − 1/2`); any genuine off-line bound improves on it linearly. -/
+theorem proportion_of_offLineImport {F : Family} {κ β : ℝ}
+    (hstd : F.ProportionStd κ) (hoff : OffLineImport F β) :
+    F.toCounts.Proportion (κ - β / 2) := by
+  intro ε hε
+  filter_upwards [hstd (ε / 2) (by linarith), hoff (ε / 2) (by linarith),
+    F.toCounts.pos] with T hT hO hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hbase : 2 * F.NscStd T ≤ F.Noff T + 2 * F.Nsc T := by
+    have := Blindness.two_mul_NscStd_le_Noff_add_two_mul_Nsc (F.D T)
+    unfold Family.NscStd Family.Noff Family.Nsc
+    exact_mod_cast this
+  show κ - β / 2 - ε ≤ F.Nsc T / F.Nz T
+  rw [le_div_iff₀ hpos']
+  nlinarith [hT, hO, hbase, hpos']
+
+/-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
+axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
+into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is
+*not* in the registers.  Carried as a hypothesis, never an axiom. -/
+def OffTransfer (F F' : Family) : Prop :=
+  ∀ ε > 0, ∀ᶠ T in atTop, F.Noff T ≤ F'.Noff T + ε * F.Nz T
+
+/-- **The two families' zero counts agree to first order.**  Classical for `ζ`
+and `ξ'`, and **the missing ingredient**: `xiPrimeFamily` is an opaque axiom with
+no stated relation to `zetaFamily`, so nothing in the development connects their
+`Nz`.  Carried as a hypothesis, never an axiom. -/
+def NzComparable (F F' : Family) : Prop :=
+  ∀ ε > 0, ∀ᶠ T in atTop, F'.Nz T ≤ (1 + ε) * F.Nz T
+
+/-- **Route II, priced in ledger currency.**  A `Proportion κ'` for the
+derivative family converts to an off-line import for the base family: the
+derivative's simple on-line zeros crowd out its off-line ones
+(`Blindness.Nsc_add_Noff_le_N`), and the two transfer hypotheses carry that
+across.
+
+With zeta-23's `ξ'` value `κ' = 0.85838` this is `β = 0.14162`, and
+`proportion_of_offLineImport` then prices the `Nsc` row at
+`0.6725 − 0.07081 = 0.60169` — **provided both hypotheses are supplied.** -/
+theorem offLineImport_of_derivative {F F' : Family} {κ' : ℝ}
+    (hκ0 : 0 ≤ κ') (hκ1 : κ' ≤ 1) (hp : F'.toCounts.Proportion κ')
+    (htr : OffTransfer F F') (hcmp : NzComparable F F') :
+    OffLineImport F (1 - κ') := by
+  intro ε hε
+  have hδpos : 0 < min (ε / 8) 1 := lt_min (by linarith) one_pos
+  filter_upwards [hp _ hδpos, htr _ hδpos, hcmp _ hδpos,
+    F.toCounts.pos, F'.toCounts.pos] with T hP hT hC hpos hpos'
+  set δ := min (ε / 8) 1 with hδ
+  have hδ1 : δ ≤ 1 := min_le_right _ _
+  have hδe : δ ≤ ε / 8 := min_le_left _ _
+  have hposF : 0 < F.Nz T := hpos
+  have hposF' : 0 < F'.Nz T := hpos'
+  have hNsc' : (κ' - δ) * F'.Nz T ≤ F'.Nsc T := by
+    have hP' : κ' - δ ≤ F'.Nsc T / F'.Nz T := hP
+    rw [le_div_iff₀ hposF'] at hP'
+    exact hP'
+  have hdisj : F'.Nsc T + F'.Noff T ≤ F'.Nz T := by
+    have := Blindness.Nsc_add_Noff_le_N (F'.D T)
+    unfold Family.Nsc Family.Noff Family.Nz
+    exact_mod_cast this
+  have s1 : F'.Noff T ≤ (1 - κ' + δ) * F'.Nz T := by nlinarith [hdisj, hNsc']
+  have hnn : 0 ≤ 1 - κ' + δ := by linarith
+  have s2 : (1 - κ' + δ) * F'.Nz T ≤ (1 - κ' + δ) * ((1 + δ) * F.Nz T) :=
+    mul_le_mul_of_nonneg_left hC hnn
+  have s3 : F.Noff T ≤ (1 - κ' + δ) * ((1 + δ) * F.Nz T) + δ * F.Nz T := by linarith
+  have s4 : (1 - κ' + δ) * (1 + δ) + δ ≤ 1 - κ' + ε := by nlinarith
+  nlinarith [s3, s4, hposF]
+
 /-- **The literature's row transfers to the project's row with NO star bound.**
 
 `nscStd_le_nsc_add` above costs `(C-1)/6` and is therefore vacuous until `(★)`

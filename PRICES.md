@@ -348,3 +348,40 @@ already open in the registers. If the true correspondence is `c ≤ 2`, the unpa
 window is **empty** and this column's second reading collapses. Nothing else
 here depends on it. **This is now the cheapest high-value verification on the
 board.**
+
+
+## Route II, priced in ledger currency (SESSION 087)
+
+The `Nsc` row now has an exchange rate. `proportion_of_offLineImport`
+(axiom-free): `ProportionStd κ` together with `N_off ≤ (β + o(1))·N` gives
+`Proportion (κ − β/2)`. **Every point of off-line control is worth half a point
+of the project's own row.** At `β = 1` — the trivial bound `N_off ≤ N` — this is
+exactly `certified_nsc_unconditional`'s `0.50875`.
+
+**What Route II would pay.** `offLineImport_of_derivative`: a `Proportion κ'`
+for the derivative family gives `β = 1 − κ'`, because the derivative's simple
+on-line zeros crowd out its off-line ones (`Blindness.Nsc_add_Noff_le_N`). With
+zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
+
+> `0.6725 − 0.07081 = 0.60169`
+
+**a gain of 9.29 points, from results the project already holds.**
+
+**Why it is not claimed.** Two hypotheses, both carried as `Prop`s and neither
+an axiom, per `Assumptions.lean`'s own rule:
+
+1. `OffTransfer` — `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`;
+   absorbing the `log T` into `o(N)` needs Riemann–von Mangoldt, which is not in
+   the registers.
+2. `NzComparable` — `xiPrimeFamily` is an **opaque axiom** with no stated
+   relation to `zetaFamily`; nothing in the development connects their zero
+   counts. The consistency model even sets the two families equal.
+
+Both are classical and neither is deep. **This is now the cheapest 9 points on
+the board**, and unlike a better `κ` it does not need a new theorem about `ζ` —
+only the plumbing that says `ξ'` has about as many zeros as `ζ`.
+
+*Ruling for Joop: adding these as axioms would raise the certified proportion by
+assumption, which `Assumptions.lean` forbids and `SESSION.md` must flag. They
+should be discharged, not assumed — most plausibly by extending the zeta-23
+import, which already reasons about both families.*

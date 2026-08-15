@@ -2067,6 +2067,20 @@ theorem three_mul_NscStd_le_of_four (D : ZeroData) :
     exact Finset.card_filter_le _ _)
   omega
 
+/-- `Nsc + N_off ≤ N` — the simple on-line zeros and the off-line zeros are
+disjoint sub-multisets.  Axiom-free. -/
+theorem Nsc_add_Noff_le_N (D : ZeroData) : D.Nsc + D.Noff ≤ D.N := by
+  classical
+  have h1 : D.Nsc ≤ Multiset.card (D.Z.filter fun p => p.1 = 1/2) := by
+    refine Multiset.card_le_card (Multiset.monotone_filter_right _ ?_)
+    intro p hp
+    exact hp.1
+  have h2 : Multiset.card (D.Z.filter fun p => p.1 = 1/2)
+      + Multiset.card (D.Z.filter fun p => ¬ (p.1 = 1/2)) = D.N := by
+    rw [← Multiset.card_add, Multiset.filter_add_not]; rfl
+  have h3 : D.Noff = Multiset.card (D.Z.filter fun p => ¬ (p.1 = 1/2)) := rfl
+  omega
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

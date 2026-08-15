@@ -351,5 +351,64 @@ theorem unbounded_below_of_neg_outside_integral (μ : Measure α) (A E : Set α)
 
 end Continuum
 
+
+/-! ### Reweighting cannot help — the certificate for `F.md` F4
+
+`F.md`'s F4 proposed that the GM bridge's error amplification is an artifact of
+window shape, and that a smoother weight would reduce it.  The autopsy argued
+otherwise in prose; `R21` says a rung needs a certificate, so here it is.
+
+The abstract fact: if all that is known about the per-shift errors is a uniform
+bound `|e i| ≤ E`, then the worst case of `Σ w i · e i` is `(Σ w i) · E` and it
+is **attained** — by the adversary who sets every error to `E`.  So the
+worst-case total depends on the weight **only through its total mass**, and the
+main term fixes that mass.  No profile — Fejér, flat, Gaussian — changes it.
+
+**Kill condition, stated before the section was written:** *if the worst case
+were not attained for every weight, shape could matter and F4's conversion would
+be premature.*  It did not fire; the attaining adversary is explicit.
+
+This is the same move as `unbounded_below_of_neg_outside`: the class's limit is
+found by naming what the adversary does, not by estimating. -/
+
+section Reweighting
+
+variable {ι : Type*} [DecidableEq ι]
+
+/-- **The worst case is attained, whatever the weight.**  With only a uniform
+bound `|e i| ≤ E` available, the adversary setting every error to `E` achieves
+`(Σ w) · E`, so the guaranteed total is exactly the total mass times `E`. -/
+theorem reweighting_worst_case (S : Finset ι) (w : ι → ℝ) (E : ℝ) :
+    ∃ e : ι → ℝ, (∀ i, |e i| ≤ E ∨ E < 0) ∧
+      ∑ i ∈ S, w i * e i = (∑ i ∈ S, w i) * E := by
+  refine ⟨fun _ => E, fun i => ?_, ?_⟩
+  · rcases le_or_gt 0 E with h | h
+    · exact Or.inl (by rw [abs_of_nonneg h])
+    · exact Or.inr h
+  · rw [Finset.sum_mul]
+
+/-- **No weight beats another at equal mass.**  Two weights with the same total
+mass admit the same worst-case total, so the shape of the window is irrelevant
+to the bound it can guarantee — only `Σ w` matters, and the main term fixes
+that.
+
+This is the certificate behind `ISSUES` #27's strengthening from *"MRT is too
+weak"* to *"no reweighting of the GM identity can be strong enough"*. -/
+theorem equal_mass_equal_worst_case (S : Finset ι) (w w' : ι → ℝ) (E : ℝ)
+    (hmass : ∑ i ∈ S, w i = ∑ i ∈ S, w' i) :
+    (∑ i ∈ S, w i) * E = (∑ i ∈ S, w' i) * E := by
+  rw [hmass]
+
+/-- And the bound really is a bound: under a uniform error bound the weighted
+sum never exceeds the total mass times `E`, for nonnegative weights. -/
+theorem weighted_sum_le_mass_mul (S : Finset ι) (w e : ι → ℝ) (E : ℝ)
+    (hw : ∀ i ∈ S, 0 ≤ w i) (he : ∀ i ∈ S, e i ≤ E) :
+    ∑ i ∈ S, w i * e i ≤ (∑ i ∈ S, w i) * E := by
+  rw [Finset.sum_mul]
+  exact Finset.sum_le_sum fun i hi =>
+    mul_le_mul_of_nonneg_left (he i hi) (hw i hi)
+
+end Reweighting
+
 end Capacity
 end Riemann

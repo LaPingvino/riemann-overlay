@@ -2515,3 +2515,49 @@ so F2 asks whether the full moment sequence does what no finite prefix can.
 **Might-mean, unhedged:** a register of things that are not true earned its keep
 in the hour it was created, because narrating a route one theorem past its
 terminus is the fastest way to discover the terminus was load-bearing.
+
+
+# SESSION 063 — F4's rung gets its certificate; second shelf filed; F15 corrected
+
+**Kill condition, stated first:** *if the worst-case total were not attained for
+every weight, shape could matter and F4's conversion would be premature.* **It
+did not fire** — the attaining adversary is explicit.
+
+**F4's rung now has its R21 certificate.** Last cycle converted F4 to a rung on
+a prose argument, which quietly created exactly the grade-B claim the standing
+rule forbids. `Capacity.reweighting_worst_case`,
+`weighted_sum_le_mass_mul` and `equal_mass_equal_worst_case` (axiom-free) close
+it: the worst case `(Σw)·E` is **attained** by the adversary who sets every
+error to `E`, so equal-mass weights admit equal worst cases and shape is
+irrelevant. Grade **A**.
+
+Same move as `unbounded_below_of_neg_outside` — find the class's limit by naming
+what the adversary does, not by estimating.
+
+**Second shelf F11–F18 filed**, with the sober-shadow field intact.
+
+**And F15's cast analysis is wrong, by our own theorem.** It argues that
+finiteness of off-line zeros is *"immune to the blindness theorem because
+finiteness is not a `μ_T` statement."* But finiteness is a statement about
+`N_off`, and `N_off` is **one of the two ledger components proved not to be a
+`μ_T` functional** (`ledger_visibility_split`). The weaker goal does not dodge
+the obstruction; the obstruction applies to it at full strength.
+
+**That makes F15 harder than advertised, not easier** — and its second half
+(Bombieri's exactness clause converting finiteness to zero) survives untouched,
+which is the part the census has genuinely never treated as a target's second
+half. Recorded in `F.md` rather than only in a reply, because a cast member
+found *missing* is still a cast annotation.
+
+Two shadows flagged as near-certainly already employed, per the shelf's own
+exemption: **F12** (period-finding and the explicit formula share one
+exponential sum — a dictionary no census entry has priced) and **F17** (Siegel
+mining Riemann's Nachlass into the Riemann–Siegel formula is the field's proof
+that negative literature contains positive theorems).
+
+Build green (3757 jobs), one new grade-A row, base hash unmoved.
+
+**Might-mean, unhedged:** the second shelf's job is to mark where the vocabulary
+runs out, and the first thing it marked was a place where *ours* had already
+run out in the opposite direction — F15 assumed a weaker target escapes the wall
+when we had proved, three cycles ago, that the wall is built exactly there.

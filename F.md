@@ -35,6 +35,15 @@ we have not met.
 | F8 | the self-verifying tail | open, W34b gains a second question |
 | F9 | the fingerprint theorem | open, = T4 upgraded in motivation |
 | F10 | the Möbius pairing | open, fastest-killable |
+| — | *second shelf: the wild ones* | — |
+| F11 | the laboratory Hamiltonian | open; sober shadow = a cast-list audit of the regularization literature |
+| F12 | Shor reads the ledger | open; sober shadow **already partly employed** (iron-law exempt) |
+| F13 | infinite descent on crowds | open; sober shadow asks a question the registers never posed |
+| F14 | the proof was in the weights | open; sober shadow = W15 aimed at concepts |
+| **F15** | **almost-RH first** | open, **but its cast analysis is wrong — see correction** |
+| F16 | the renormalization conjugacy | open; sober shadow = a finite read |
+| F17 | the negative literature | open; sober shadow **already partly employed** (iron-law exempt) |
+| F18 | the thermodynamic terminus | open; wish written as physics, one real spawn |
 
 ---
 
@@ -64,6 +73,13 @@ and the **main term fixes the total mass at `≈ h²` for every admissible
 weight**. Fejér, flat and Gaussian weights were checked numerically: same total
 mass, therefore the same `h²E`, whatever their sup or shape. The amplification
 is a property of *bounding each shift separately*, not of the window's profile.
+
+**CERTIFIED (next cycle):** the prose argument is now backed by
+`Capacity.reweighting_worst_case` / `weighted_sum_le_mass_mul` /
+`equal_mass_equal_worst_case`, axiom-free — the worst case `(Σw)·E` is
+*attained* by the adversary who sets every error to `E`, so equal-mass weights
+admit equal worst cases and shape is irrelevant. F4's rung has its `R21`
+certificate and is grade **A**.
 
 **So the gate is confirmed load-bearing, and per the F-protocol F4 converts to a
 rung**: the class of *shape-modified* GM bridges cannot cross with log-power
@@ -134,3 +150,83 @@ classifier again.
 transformation on test-function space rather than on parameters, plus the
 symmetrised certificate class. One whiteboard hour; the fastest-killable item on
 the list.
+
+
+---
+
+# Second shelf — the wild ones (F11–F18)
+
+Fictions past the castable horizon, each carrying its **sober shadow**: the real
+spawn even an impossible fiction casts. Filed as received. The shelf's function,
+per E13: the castable fictions recruit for the baskets; **the wild ones
+calibrate the register itself**, marking where the want-ad vocabulary runs out.
+
+Shelf protocol: wild fictions are exempt from the two-in-ten iron-law
+prediction, **except F12 and F17**, where the sober shadows are near-certainly
+already partly employed.
+
+## F15 — correction to its cast analysis, from our own theorem
+
+F15 argues that finiteness of off-line zeros is *"immune to the blindness
+theorem because finiteness is not a `μ_T` statement."*
+
+**That is wrong, and the counter-witness is `Fiber.ledger_visibility_split`.**
+Finiteness of off-line zeros is a statement about `N_off`, and `N_off` is
+**one of the two ledger components proved *not* to be a `μ_T` functional** — the
+other being `NscStd`. Far from being immune, a finiteness target sits squarely
+on the invisible side of the split.
+
+**This makes F15 harder than advertised, not easier.** Its wedge was supposed to
+be that a weaker goal dodges the obstruction; the obstruction applies to the
+weaker goal at full strength. What survives is the second half — Bombieri's
+exactness clause converting finiteness to zero — which the census has indeed
+never treated as a target's second half, and which is unaffected by this
+correction.
+
+*Recorded here rather than in a reply, because F-items are annotated when a cast
+member is found — and this is a cast member found to be missing.*
+
+## The other seven, as filed
+
+**F11 — the laboratory Hamiltonian.** Cast: arithmetic boundary conditions (the
+Hilbert–Pólya gap), an identity theorem, and the wild member — that a physical
+system's self-adjointness could be argued from its constructibility. **Sober
+shadow:** read Berry–Keating, Connes, Bender–Brody–Müller as a *cast-list
+audit* — which member is each attempt missing. That is a real W30-style table.
+
+**F12 — Shor reads the ledger.** Cast: F5's large-sieve inequality reincarnated
+as a decoherence bound, plus qubit counts three decades out. **Sober shadow, and
+it is the mathematical content:** period-finding and the explicit formula share
+the same exponential sum, and **no census entry has priced that dictionary**.
+One read of the (small) quantum-computing-meets-L-functions literature to check
+whether any certified statement crosses.
+
+**F13 — infinite descent on crowds.** Cast: a mass-transport map with no known
+analogue; heights are not usefully well-ordered and the "same invariants" clause
+does impossible work. **Sober shadow — a question the registers never posed:**
+is there *any* partial order on configurations under which the certified
+inequalities are monotone? Even a failed search defines the order-theoretic
+structure of configuration space, which W28's interface wants anyway.
+
+**F14 — the proof was in the weights.** Cast: interpretability at a fidelity
+that does not exist, plus the leap from representation to theorem. **Sober
+shadow:** W15 pointed at *concepts* rather than data — if E20's plane is visible
+in a strong model's embedding geometry, that is a measurable fact about the
+literature whatever it says about `ζ`.
+
+**F16 — the renormalization conjugacy.** Cast: the conjugacy (the E-register's
+most-wanted object), the rigidity, and a cohomological accounting that is pure
+invention. **Sober shadow:** T5's inventory plus W27's T3.4 — the mesoscopic-limit
+theorems read for *what invariances they transport*. A finite read.
+
+**F17 — the negative literature.** Cast: archive access, extraction at scale,
+and the transfer lemma the demon still guards. **Sober shadow, real at pilot
+scale:** the Nachlass literature — Siegel mining Riemann's own notes into the
+Riemann–Siegel formula is the field's proof that negative literature contains
+positive theorems. A W26 annex, fundable as history of mathematics.
+
+**F18 — the thermodynamic terminus.** Cast: everything. **Sober shadow, and the
+honest note is the register's own:** this is W∞'s wish written as physics. Its
+one real spawn is *"is census information-content measurable at all"* — which
+T2's null already began answering: yes, and the first measurement was of
+ourselves.

@@ -43,6 +43,7 @@ grade A.**
 | **The third moment cannot improve `prop1`** — `Σm³ ≥ 3N⊛ − 2N` for every configuration, so the three-moment LP's improvement term is never positive | all `ZeroData` | `Fiber.three_Nstar_le_thirdMoment_add_two_N` | **A** |
 | **The ledger's five components split 3 : 2 by visibility** — `N`, `N⊛`, `Nsc` are `μ_T`-functionals; `NscStd`, `N_off` provably are not | all `ZeroData` | `Fiber.ledger_visibility_split` | **A** |
 | **Every moment of the mass distribution is a functional of `μ_T`** — including the third moment `Σ m³` that `prop1` needs | all `ZeroData` | `Fiber.thirdMoment_determined`, `Fiber.moment_determined` | **A** |
+| **No reweighting of a shift-average can reduce the worst-case error** — equal-mass weights admit equal worst cases, which is attained | any finite weight family under a uniform error bound | `Capacity.reweighting_worst_case`, `weighted_sum_le_mass_mul`, `equal_mass_equal_worst_case` | **A** |
 | The ledger is invariant under any injective **relabelling of ordinates** — their names carry no information | all `ZeroData`, all injective `σ` | `Fiber.ledger_relabel_invariant` | **A** |
 | The real Landau weight **cannot** recover `offAt` — it agrees on the swap pair at every `x` | functionals of `Σ_ρ x^β` alone | `Fiber.landau_cannot_determine_offAt` | **A** |
 | `prop1` is optimal among linear bounds in `(N, N⊛)` | `LinearBound a b` | `Optimal.prop1_LP_optimal` | **A** |

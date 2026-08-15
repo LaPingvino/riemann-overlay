@@ -144,3 +144,6 @@ import Riemann
 #check @Riemann.Blindness.N_eq_sum_H
 #check @Riemann.Blindness.Nstar_eq_sum_H_sq
 #check @Riemann.Blindness.three_Nstar_le_thirdMoment_add_two_N
+#check @Riemann.Capacity.reweighting_worst_case
+#check @Riemann.Capacity.weighted_sum_le_mass_mul
+#check @Riemann.Capacity.equal_mass_equal_worst_case

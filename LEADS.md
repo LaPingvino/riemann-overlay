@@ -1006,3 +1006,12 @@ ordinate multiset `onOrd`, whose multiplicity at `γ` is `onAt γ`
 The kill condition — that the counting step might need a hypothesis beyond
 `(μ_T, offAt)`, which would mean the residue is larger than `j` — **did not
 fire**.
+
+**UPDATE (night cycle 15): extended to the whole ledger.**
+`ledger_determined` proves that `(μ_T, offAt)` determines **`N`, `N⊛`, `Nsc`,
+`NscStd` and `N_off`** — every quantity the project counts. `N`, `N⊛`, `Nsc`
+need only `μ_T`; `NscStd` and `N_off` need the fiber coordinate too, and nothing
+beyond it (`Noff_determined` goes through `card_onOrd_add_Noff`, the on-line /
+off-line partition). So the exact statement of what the certificate class is
+missing is: **the ordinate measure plus one bounded natural number per crowded
+atom.**

@@ -117,3 +117,7 @@ import Riemann
 #check @Riemann.Blindness.NscStd_eq_onOrd_functional
 #check @Riemann.Blindness.onAt_determined
 #check @Riemann.Blindness.NscStd_determined
+#check @Riemann.Blindness.onOrd_determined
+#check @Riemann.Blindness.card_onOrd_add_Noff
+#check @Riemann.Blindness.Noff_determined
+#check @Riemann.Blindness.ledger_determined

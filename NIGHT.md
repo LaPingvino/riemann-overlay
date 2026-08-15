@@ -40,6 +40,20 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 15 — the complete X theorem
+
+**Kill condition** (that some ledger quantity needs more than `(μ_T, offAt)`)
+**did not fire**. `ledger_determined` (axiom-free): those two inputs determine
+**`N`, `N⊛`, `Nsc`, `NscStd` and `N_off`** — everything the project counts.
+
+The split is the content: `N`, `N⊛`, `Nsc` need only `μ_T`; `NscStd` and
+`N_off` need the fiber coordinate as well and nothing beyond it.
+
+**So what the certificate class is missing is now stated exactly, as a
+theorem:** the ordinate measure plus **one bounded natural number per crowded
+atom**. Necessity from `Blindness`, sufficiency from `Fiber`, and sufficiency
+now covers the whole ledger rather than one row.
+
 ### Night cycle 14 — X bracketed, globally
 
 **Kill condition** (that the counting step needs a hypothesis beyond

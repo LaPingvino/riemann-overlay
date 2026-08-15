@@ -2022,3 +2022,43 @@ Build green (3747 jobs), audits extended, base hash unmoved.
 cannot see and one cycle proving what would suffice, and the second was the
 cheaper half — which suggests the hard part of an impossibility result is never
 the impossibility, it is knowing exactly which coordinate to name.
+
+
+# SESSION 051 — night cycle 15: the complete X theorem
+
+**Kill condition, stated first:** *if any ledger quantity needs more than
+`(μ_T, offAt)`, the characterisation is incomplete and that quantity is the
+finding.* **It did not fire.** All five are determined, with exactly those two
+hypotheses.
+
+`ledger_determined` (axiom-free): `D.ordinates = D'.ordinates` and
+`∀ γ, offAt D γ = offAt D' γ` give
+`N = N' ∧ N⊛ = N⊛' ∧ Nsc = Nsc' ∧ NscStd = NscStd' ∧ N_off = N_off'`.
+
+The split inside it is the content: **`N`, `N⊛` and `Nsc` need only `μ_T`** —
+they were already known to factor through it — **while `NscStd` and `N_off` need
+the fiber coordinate as well, and nothing beyond it.** `Noff_determined` goes
+through `card_onOrd_add_Noff`, the on-line/off-line partition, so the off-line
+count is `N` minus the on-line ordinate multiset's size, both determined.
+
+Along the way `onOrd_determined` was lifted out of last cycle's proof into a
+standalone lemma, which is what made the `N_off` argument a three-line
+consequence rather than a repeat.
+
+**So the exact statement of what the certificate class is missing is now a
+theorem:** the ordinate measure, plus **one bounded natural number per crowded
+atom**, and nothing else at all. Necessity from `Blindness`, sufficiency from
+`Fiber`, and the sufficiency now covers every quantity the ledger reports rather
+than the one row it was originally asked about.
+
+Last cycle's LEADS entry is updated **at its own location** per the ordering
+rule.
+
+No `SURPRISES` row: the kill condition was a question and did not fire.
+
+Build green (3747 jobs), audits extended, base hash unmoved.
+
+**Might-mean, unhedged:** the two rows of the ledger were the visible half of a
+cleaner fact — three of the five counted quantities live entirely inside `μ_T`
+and two live entirely outside it, so the project's whole unconditional gap is
+the price of exactly two numbers, and one of them is a difference of the other.

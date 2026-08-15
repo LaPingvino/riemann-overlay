@@ -580,14 +580,58 @@ With `Blindness.no_muInvariant_theory_computes_NscStd` this brackets `X` from
 both sides: **withhold the fiber coordinate and no `μ_T`-invariant theory
 recovers the target; supply it and the target is determined.**  Nothing beyond
 `(μ_T, offAt)` is needed — which is what "the whole residue" means. -/
+theorem onOrd_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
+    (hoff : ∀ γ, offAt D γ = offAt D' γ) : onOrd D = onOrd D' := by
+  classical
+  refine Multiset.ext.2 fun γ => ?_
+  rw [count_onOrd, count_onOrd]
+  exact onAt_determined hord hoff γ
+
 theorem NscStd_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
     (hoff : ∀ γ, offAt D γ = offAt D' γ) : D.NscStd = D'.NscStd := by
+  rw [NscStd_eq_onOrd_functional, NscStd_eq_onOrd_functional,
+    onOrd_determined hord hoff]
+
+/-! #### The complete ledger
+
+Every quantity the project counts is now shown to be a functional of
+`(μ_T, offAt)`.  `N`, `N⊛` and `Nsc` need only `μ_T` (they were already known to
+factor through it); `NscStd` and `N_off` need the fiber coordinate as well, and
+nothing beyond it. -/
+
+/-- The on-line and off-line zeros partition the configuration. -/
+theorem card_onOrd_add_Noff (D : ZeroData) :
+    Multiset.card (onOrd D) + D.Noff = D.N := by
   classical
-  have hon : onOrd D = onOrd D' := by
-    refine Multiset.ext.2 fun γ => ?_
-    rw [count_onOrd, count_onOrd]
-    exact onAt_determined hord hoff γ
-  rw [NscStd_eq_onOrd_functional, NscStd_eq_onOrd_functional, hon]
+  rw [onOrd, Multiset.card_map, ZeroData.Noff, ZeroData.N,
+    ← Multiset.card_add, Multiset.filter_add_not]
+
+theorem Noff_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
+    (hoff : ∀ γ, offAt D γ = offAt D' γ) : D.Noff = D'.Noff := by
+  have hN : D.N = D'.N := by
+    rw [(ZeroData.N_Nstar_ordinate_functional D).1,
+      (ZeroData.N_Nstar_ordinate_functional D').1, hord]
+  have h1 := card_onOrd_add_Noff D
+  have h2 := card_onOrd_add_Noff D'
+  rw [onOrd_determined hord hoff] at h1
+  omega
+
+/-- **The complete `X` theorem.**  `(μ_T, offAt)` determines the entire ledger.
+
+Read with `Blindness.no_muInvariant_theory_computes_NscStd`, this is the exact
+statement of what the certificate class is missing: **the ordinate measure plus
+one bounded natural number per crowded atom, and nothing else at all.** -/
+theorem ledger_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
+    (hoff : ∀ γ, offAt D γ = offAt D' γ) :
+    D.N = D'.N ∧ D.Nstar = D'.Nstar ∧ D.Nsc = D'.Nsc ∧
+      D.NscStd = D'.NscStd ∧ D.Noff = D'.Noff := by
+  refine ⟨?_, ?_, ?_, NscStd_determined hord hoff, Noff_determined hord hoff⟩
+  · rw [(ZeroData.N_Nstar_ordinate_functional D).1,
+      (ZeroData.N_Nstar_ordinate_functional D').1, hord]
+  · rw [(ZeroData.N_Nstar_ordinate_functional D).2,
+      (ZeroData.N_Nstar_ordinate_functional D').2, hord]
+  · rw [ZeroData.Nsc_eq_ordinate_functional, ZeroData.Nsc_eq_ordinate_functional,
+      hord]
 
 end Blindness
 end Riemann

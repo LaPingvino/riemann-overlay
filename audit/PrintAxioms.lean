@@ -26,3 +26,4 @@ import Riemann
 #print axioms Riemann.Optimal.prop1_LP_optimal
 #print axioms Riemann.Optimal.prop1_LP_optimal_cheap
 #print axioms Riemann.Blindness.NscStd_determined
+#print axioms Riemann.Blindness.ledger_determined

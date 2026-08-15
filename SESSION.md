@@ -1855,3 +1855,42 @@ Guards green, build unchanged, base hash unmoved.
 are *proved* and careless about which of its numbers are *re-runnable*, and the
 two most-quoted numbers in the registers turn out to sit on the wrong side of
 that second line.
+
+
+# SESSION 047 — night cycle 11: the quantitative audit, and a retraction that sat below its own numbers
+
+**Kill condition, stated first:** *if `#29` is the only unreproducible number,
+the defect is isolated and the sweep says so rather than inflating it.*
+**It fired for its stated scope.** Every computed figure in the registers traces
+to a Lean theorem, an exact closed form, a declared axiom, or a marked
+retraction — except the window optimisation, which remains the sole
+missing-computation defect.
+
+Traced and confirmed sound: `0.6818287` (zeta-23 Lean), `0.6725007` (closed
+form, verified exactly), `5.035` (`= 1 + 6 × 0.6725`, and `nsc_row_opens`
+carries it), `2.345` (`= 1 + 2 × 0.6725`), `19/27 = 0.703704`, `1.3275`
+(`Fujii.Cbound_lt_record`), `0.85838` (declared axiom). The two ledger
+thresholds being one-line consequences of the baseline was the reassuring part —
+they are not free parameters anyone chose.
+
+**But the sweep found a different species of defect, and it is the cycle's
+finding.** `PRICES.md` carried the retracted `c`-table at lines 165–176 with the
+retraction banner at line **183** — *below* the numbers. A reader scanning the
+tables meets `c ≤ 7.995` before meeting the sentence that voids it. **Nothing
+false was written; it was badly ordered**, which in a register meant to be
+quoted from is the same hazard reached by a different route.
+
+Fixed this cycle: a warning now sits immediately above both tables, naming
+`ISSUES` #24 and #25 and saying plainly not to cite any figure below it.
+**Standing rule added to `CLAIMS.md`: a retraction must appear *above* the
+material it retracts, not merely somewhere in the same file.**
+
+`SURPRISES` S25 — I expected the sweep to find more missing-code defects. It
+found none, and found a category I had not been looking for.
+
+Guards green, build unchanged, base hash unmoved.
+
+**Might-mean, unhedged:** we have been auditing whether our claims are true and
+whether our numbers are re-runnable, and this cycle adds a third axis nobody had
+named — whether a reader meets the correction before or after the thing it
+corrects, which is a property of *layout* and not of truth at all.

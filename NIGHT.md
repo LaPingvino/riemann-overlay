@@ -40,6 +40,23 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 11 — the quantitative audit; a retraction below its own numbers
+
+**Kill condition** (that `#29` is isolated) **fired for its stated scope**: every
+other computed figure traces to a Lean theorem, an exact closed form, a declared
+axiom, or a marked retraction. Notably `5.035 = 1 + 6 × 0.6725` and
+`2.345 = 1 + 2 × 0.6725` — the ledger thresholds are one-line consequences of
+the baseline, not chosen parameters.
+
+**Different species found instead.** `PRICES.md` had its retracted `c`-table at
+lines 165–176 and the retraction banner at line **183** — below the numbers. A
+reader meets `c ≤ 7.995` before meeting the sentence that voids it. Nothing
+false, **badly ordered**. Fixed: warning now sits above both tables. **New
+standing rule:** a retraction must appear *above* what it retracts.
+
+`SURPRISES` S25 — expected more missing-code defects, found none, found a
+category I was not looking for.
+
 ### Night cycle 10 — a fourth grade, and the first reproducibility defect
 
 **Kill condition** (that the last grade-C entry duplicates the bandwidth-one row)

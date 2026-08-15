@@ -59,6 +59,7 @@ total.
 | S22 | 044 | the docstring disease would have more instances — at least one more Lean impossibility claim would turn out to be prose | **none did.** `c0_lower_bound` and `offline_le_tight` are real theorems; grade B is empty. The two remaining uncertified claims are grade **C** (class informal), a different species that formalisation cannot cure | tooling (the sweep) | calibration |
 | S23 | 045 | promoting a grade-C claim would be a research question, not a formalisation task | W7's took **one cycle** — the cheap invariants all share one shape (`H γ ≤ M`), which *is* the class definition, and it needs no Euler product | self (by attempting it) | calibration |
 | S24 | 046 | the last grade-C entry would either promote to A or stay C | **neither** — its class is well defined but its support is a *numerical optimisation*, so the grading scheme was missing a bin. Grade **N** added. And the optimisation's code is not in the repo at all | self (by attempting the promotion) | design |
+| S25 | 047 | the unreproducible-number sweep would find more `#29`-class defects (missing code) | `#29` is the **only** one — every other computed figure traces to a Lean theorem, an exact closed form, a declared axiom, or a marked retraction. What it found instead was a **different species**: a retraction banner sitting *below* the numbers it retracts | self (by sweeping) | design |
 
 ## Standing observation
 

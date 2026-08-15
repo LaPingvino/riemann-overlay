@@ -157,6 +157,15 @@ so for `A(u) = c(u−1)` — CCLM's "`c` per unit of support" —
 > `κ(λ,c) = 2/λ − 2/(3λ²) + c(λ−1)²/λ²`, and the averaged constant `c` enters
 > **identically** to the pointwise `K`.
 
+> ⚠️ **RETRACTED — read this before the two tables below.** These break-even
+> constants and the `c`-sweep are the table `ISSUES` #24 found unsound (scale
+> mismatch *and* circularity) and `ISSUES` #25 found **vacuous**: Lemma 1 makes
+> unit-window mass `> 3` RH-*impossible*, so `c ≤ 7.995` and `c ≤ 9.532` sit
+> entirely in impossible territory. The full retraction note is below at
+> "RETRACTED as a bound"; it is repeated here because it used to sit *after* the
+> numbers, where a reader could quote them without reaching it. **Do not cite any
+> figure in the next two tables.**
+
 **And optimising `λ` moves the thresholds a long way** (as `c` grows the optimum
 slides toward `λ → 1`, buying only as much past-1 support as the constant
 affords). Break-even constants:

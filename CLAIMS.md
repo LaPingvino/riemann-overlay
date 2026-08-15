@@ -124,3 +124,36 @@ first found in this repo. It is filed as `ISSUES` #29 rather than repaired
 tonight: reconstructing the variational problem from memory would produce a
 script that computes *something*, and passing that off as the original
 computation is exactly the failure mode this project exists to avoid.
+
+## Quantitative audit (night cycle 11)
+
+**Kill condition, stated first:** *if `#29` is the only unreproducible number,
+the defect is isolated and the sweep says so rather than inflating it.*
+**It fired for its stated scope** — `#29` is the sole *missing-computation*
+defect. The sweep then found a different species, recorded below.
+
+Every computed figure in the registers, traced:
+
+| figure | provenance | status |
+|---|---|---|
+| `0.6818287` bandlimited ceiling | `Zeta23.PairCeiling.ceiling_law256` | Lean ✓ (imported; unreachable from our root — parked) |
+| `0.6725007` Montgomery–Taylor | closed form `3/2 − (1/√2)cot(1/√2)` | verified exactly, night 10 ✓ |
+| `5.035` row-opening threshold | `1 + 6 × 0.6725`, and `Proportion.nsc_row_opens` carries `C < 5.035` | Lean ✓, arithmetic transparent |
+| `2.345` (the `/2` route's threshold) | `1 + 2 × 0.6725` | exact ✓ |
+| `19/27 = 0.703704` (CGG98) | exact rational | ✓ |
+| `1.3275` (record-beating `Cbound`) | `Fujii.Cbound_lt_record` | Lean ✓ |
+| `0.85838` (`ξ'` proportion) | axiom `zeta23_xiPrime`, declared | trusted base ✓ |
+| `0.80869`, `0.809` | **retracted** (`ISSUES` #27), marked | ✓ |
+| `7.995`, `9.532`, `3.667`, `1.4283`, `0.8126`, `10.824` | **retracted** (`ISSUES` #24/#25) | ✓ *but see the ordering defect* |
+| `0.6725126` and the whole `λ`-sweep (`0.795…0.899`) | a quadrature optimisation | **`ISSUES` #29 — code not in repo** |
+| `1.3208` (CMR), `0.679`/`0.6792` (CGdL) | literature | `[RECALL]`, and CMR is a lint node |
+
+**The new defect: retraction ordering.** `PRICES.md` carried its retracted
+`c`-table at lines 165–176 with the retraction banner at line 183 — *below* the
+numbers. A reader scanning the tables would meet `c ≤ 7.995` before meeting the
+sentence that voids it. Nothing false was written; it was **badly ordered**,
+which for a register meant to be quoted from is the same hazard by a different
+route. **Fixed this cycle:** a warning now sits immediately above the tables.
+
+**Standing rule added:** a retraction must appear *above* the material it
+retracts, not merely somewhere in the same file.

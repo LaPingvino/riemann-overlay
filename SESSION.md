@@ -5772,3 +5772,50 @@ Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
 would, so the configuration the whole `Nsc` row hangs on is not merely unobserved
 but actively suppressed — and the suppression is a fact about the data, while the
 `0.16375` is still a fact about our arithmetic.
+
+
+# SESSION 136 — the genre is real, checked rather than relayed
+
+`132` built a packaging headline on a genre I had never read: *"the genre is two
+years old, its members are location-, statistics- and density-shaped, and
+`NoHaunted` is a new kind."* Every attribution was `[RECALL, UNVERIFIED]`.
+`135` opened arXiv. So:
+
+**Kill condition, filed first:** *if the cited papers do not say what the
+registers record, the headline is wrong and gets corrected at its location.* **It
+did not fire.**
+
+| cited as | arXiv | verdict |
+|---|---|---|
+| PCC without RH | **2507.06823** | ✓ *"without the assumption of RH … asymptotically 100% … simple and on the critical line"* |
+| Aryan `2/3`, density | **1902.05473** | ✓ *"…under a zero density hypothesis, which is weaker than the Riemann hypothesis"* |
+| BGST, location | **2501.14545** | ✓ pair correlation applied to the **horizontal distribution** |
+
+**What I am claiming and what I am not.** I read **abstracts**. That discharges
+*"does the paper claim this"* and not *"is the claim correct"* — which is exactly
+what a citation is for, and the distinction goes in the register rather than being
+left to a reader.
+
+**One figure declined.** The *"`1/3` unconditional"* attributed to BGST-I is not
+in the abstract I read, so it does not enter the registers. The *Acta Arith.* 214
+narrow box and its `61.7%` stay `[RECALL, UNVERIFIED]` — not on arXiv under the
+id I was given, and I will not manufacture one.
+
+**And an author list was wrong in my own notes.** `2507.06823` is Goldston,
+**Lee, Schettler**, Suriajaya — four authors. I had been writing
+"Goldston–Suriajaya" since `132`. Corrected.
+
+**The find worth the cycle.** Aryan's paper is titled *"On an extension of the
+Landau–Gonek formula"*. The `2/3` comes from **Landau–Gonek** — which is the
+object `Fiber.landau` models and `landau_discriminates` proves separates the
+off-line configurations. A member of this genre reaches its result through the
+tool this project independently built as its discriminator, and neither
+claude.ai's search nor mine surfaced that until the title was in front of me.
+Filed as a lead: an abstract is not a proof.
+
+Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the project built a discriminator from first principles
+and it turns out to be the same formula a stranger used to get two-thirds, which
+means the tool was never the scarce thing — the coordinate it is pointed at was.

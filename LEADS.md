@@ -1846,7 +1846,30 @@ count.** Route I and Route III exist to buy a `C`; what a `C` buys is `δ`.
 
 ## The genre, and where `NoHaunted` sits in it (SESSION 132, from claude.ai)
 
-**[RECALL, UNVERIFIED]** throughout — attributions are claude.ai's, unread here.
+> ✅ **Three of four verified from the arXiv abstracts, `SESSION 136`** — the
+> allowlist opened and I read them. **Abstracts, not proofs**: this discharges
+> "does the paper claim this", not "is the claim correct", and the distinction is
+> the whole of what a citation buys.
+
+| cited as | arXiv | abstract says |
+|---|---|---|
+| Goldston–Suriajaya, PCC without RH | **2507.06823** (Goldston, **Lee, Schettler**, Suriajaya) | *"PCC … can be used to prove **without the assumption of RH** that asymptotically 100% of the zeros are both simple and on the critical line"*, plus an AH form ✓ |
+| Aryan, `2/3` under a density hypothesis | **1902.05473** | *"at least two-thirds of the zeros … are simple under a **zero density hypothesis, which is weaker than the Riemann hypothesis**"* ✓ |
+| BGST, location-shaped | **2501.14545** (Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh) | pair correlation applied to the **horizontal distribution** of zeros ✓ |
+
+**Declined:** the *"`1/3` simple-and-critical, unconditional"* figure attributed
+to BGST-I. It is not in the abstract I read and I will not carry a number I have
+not seen. **Still [RECALL, UNVERIFIED]:** the *Acta Arith.* 214 narrow-box
+statement and its `61.7%`.
+
+**And Aryan's mechanism is ours.** The paper is titled *"On an extension of the
+Landau–Gonek formula"* — the `2/3` comes from **Landau–Gonek**, which is the
+object `Fiber.landau` models and `landau_discriminates` proves separates the
+off-line configurations. A member of the genre reaches its result through the
+tool this project independently built as its discriminator. Filed as a lead, not
+a claim: I have read an abstract, not a proof.
+
+**[RECALL, UNVERIFIED]** for anything not in the table above.
 
 | member | hypothesis shape | conclusion |
 |---|---|---|

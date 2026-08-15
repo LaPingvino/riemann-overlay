@@ -2383,3 +2383,46 @@ Build green (3757 jobs), audits extended, base hash unmoved.
 always readable by the instruments it inherited, two never were, and every
 constant it has failed to move lives on the wrong side of a line that is four
 lines of Lean to state.
+
+
+# SESSION 060 — the three-moment LP is unbounded, and that localises the defect
+
+**Kill condition, stated first:** *if the three-moment optimum is still `2 − C`,
+the third moment buys nothing and W35 dies cheaply.* **It neither fired nor was
+answered**, and the reason is worth more than either branch.
+
+claude.ai registered a hand derivation before the run, flagged
+`[HAND DERIVATION, UNVERIFIED, the LP decides]`. **Their algebra is exactly
+right** — verified in exact rationals, not floats. The family
+`(a,b,c) = (2−2s, 3s−1, −s)` gives `a + mb + m²c = (2−m) − s(m−1)(m−2)`,
+feasible against every single-atom test for all `s ≥ 0`, with objective
+`(2−C) + s(3C − 2 − C₃)`.
+
+**Following it through certifies 175% of the zeros simple.** At `C = 3/2`,
+`C₃ = C²`, `s = 5` the value is `7/4`, from a feasible point. That is
+impossible, so a hypothesis is wrong — and the algebra was checked, so it is not
+the algebra.
+
+**The defect is the input region.** `(−2, 3, −1)` is a recession direction, so
+the program is unbounded whenever `3C − 2 > C₃`. `C₃ ≥ C²` is necessary and far
+from sufficient over **integer** masses: equality forces all atoms to share one
+mass `C`, so `C = 3/2` is not realizable by *any* configuration. The LP was
+being asked to price inputs no configuration can present.
+
+**My own first attempt was worse and I am recording that.** I wrote a vertex
+enumerator, and it returned values *below* `2 − C` — impossible, since
+`(2, −1, 0)` is feasible and attains it. The numerics were wrong before the
+mathematics was interesting. The exact-rational check found what floating-point
+vertex enumeration had buried. Filed as `SURPRISES` S29.
+
+**W35 is now neither alive nor dead, with its next step named:** the realizable
+region of `(C, C₃)` over integer masses — a **W7-shaped realizability problem**,
+this project's own genre.
+
+`prop1_LP_optimal` is untouched: it quantifies over the two-moment class and is
+proved from two configurations that are both realizable.
+
+**Might-mean, unhedged:** an unbounded LP is not a failed computation but a
+detector — it says the constraint set and the input set disagree about which
+world they describe, and this one found that disagreement in a quantity two
+instances had already agreed to price.

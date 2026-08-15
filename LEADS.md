@@ -1236,3 +1236,39 @@ of the Frobenius class in the hyperelliptic ensemble* (Acta Arith. 143, 2010).
 W36's harness question — are repeated eigenvalues frequent enough at feasible
 `q` to separate the inequalities — **plausibly has its answer already tabulated
 there.** Read before building; that ordering is the whole lesson of `S27`.
+
+### W35, priced — and the price could not be computed, which is the result
+
+**Kill condition:** *if the three-moment optimum is still `2 − C`, the third
+moment buys nothing and W35 dies cheaply.* **It neither fired nor was
+answered.**
+
+claude.ai registered a hand derivation before the run
+(`[HAND DERIVATION, UNVERIFIED, the LP decides]`). **Its algebra is exactly
+right**, verified in rationals: the family `(a,b,c) = (2−2s, 3s−1, −s)`
+satisfies `a + mb + m²c = (2−m) − s(m−1)(m−2)`, feasible against every
+single-atom test for all `s ≥ 0`, with value `(2−C) + s(3C − 2 − C₃)`.
+
+**And following it through certifies `7/4` of the zeros simple** at `C = 3/2`,
+`C₃ = C²`, `s = 5` — from a feasible point. A proportion above 1 is impossible,
+so a hypothesis is wrong, and it is not the algebra.
+
+**The wrong hypothesis is the realizable input region.** `(−2, 3, −1)` is a
+recession direction of the single-atom constraint set, so the program is
+unbounded whenever `3C − 2 > C₃`. `C₃ ≥ C²` (Cauchy–Schwarz) is *necessary* and
+nowhere near sufficient over **integer** atom masses: equality forces every atom
+to share one mass `C`, so `C = 3/2` is not realizable by any configuration at
+all. The LP was pricing input pairs no configuration can present.
+
+**So W35 is neither alive nor dead, and the next step is named:** the realizable
+region of `(C, C₃)` for integer masses. That is a **W7-shaped realizability
+problem** — this project's own genre, and the one whose autopsy reads *"the
+cheap invariants are satisfied by construction; only the Euler product bites."*
+
+**What this does not touch:** `prop1_LP_optimal` is unaffected — it quantifies
+over the two-moment class and is proved from two configurations that are both
+realizable. The defect is in the *three*-moment program's inputs, not in
+anything certified.
+
+`forensics/three_moment_lp.py` carries the verification and the verdict.
+Filed as `SURPRISES` S29.

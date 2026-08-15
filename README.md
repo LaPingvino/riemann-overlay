@@ -103,6 +103,10 @@ is blocked only on constructing `zetaFamily` from zeta-23's
 `(★)` exists at any constant, and `LOOP.md`'s empty-row principle says a row
 that is honestly zero beats a row quietly redefined until it is not.
 
+> ⚠️ **SESSION 084:** the `Nsc` row is no longer zero — it is **50.875%**, from
+> `3·NscStd ≤ N + 2·Nsc` (axiom-free) transported to the proportion layer with
+> no star bound. The principle stands; the example no longer applies to this row.
+
 The `axioms: 2` field is the axiom **cone of the best certified row**, not the
 size of the trusted base (which is 9); see `VERIFYING.md` §3.2.
 

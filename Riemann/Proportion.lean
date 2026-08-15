@@ -138,7 +138,12 @@ theorem nsc_of_nscStd (F : Family) {C κ : ℝ} (hstar : F.toCounts.StarBound C)
   have hz : (0:ℝ) < F.Nz T := hpos
   nlinarith [h1, h2, hz]
 
-/-- **What opens the empty row.**  Any unconditional `(★)` with `C < 2.345`
+/-- **What opened the (formerly) empty row.**  ⚠️ SESSION 084: the row is open
+at `0.50875` with no `(★)` at all.  A star bound now *improves* the row only for
+`C < 1.49125` (Proposition 1) or `C < 1.9825` (the `/6` bridge).  The statement
+below remains correct arithmetic about opening a row that is no longer closed.
+
+Any unconditional `(★)` with `C < 2.345`
 turns the zeta-23 baseline into a positive bound on the `H = 1` count. -/
 theorem nsc_row_opens {C : ℝ} (hstar : zetaFamily.toCounts.StarBound C)
     (hC : C < 5.035) :

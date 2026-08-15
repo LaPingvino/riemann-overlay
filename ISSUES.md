@@ -342,6 +342,9 @@ a cost of `(C − 1)/2`. For the zeta-23 baseline `κ = 0.6725` the transfer is
 informative for **`C < 2.345`**, and it **beats Proposition 1 for every
 `C > 1.655`** (Prop 1 gives `2 − C`, this gives `1.1725 − C/2`).
 
+> ⚠️ **STALE THRESHOLD (SESSION 084).** The `Nsc` row is **open at 50.875%** (`certified_nsc_unconditional`), so "the row opens at `C < …`" no longer describes the situation. A star-bound route now matters only if it *beats* `0.50875`: Proposition 1 needs `C < 1.49125`, the `/6` bridge needs `C < 1.9825`. The thresholds below are retained as correct arithmetic about *opening* a row that is no longer closed.
+
+
 **The correction that matters (and it kills the "score today" hope).** There
 is **no unconditional `(★)` at all** — not even `C = 2`. `N⊛ ≤ 2N` says the
 average horizontal multiplicity is at most 2; that is the program's *goal*,

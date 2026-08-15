@@ -169,7 +169,7 @@ Every computed figure in the registers, traced:
 |---|---|---|
 | `0.6818287` bandlimited ceiling | `Zeta23.PairCeiling.ceiling_law256` | Lean ✓ (imported; unreachable from our root — parked) |
 | `0.6725007` Montgomery–Taylor | closed form `3/2 − (1/√2)cot(1/√2)` | verified exactly, night 10 ✓ |
-| `5.035` row-opening threshold | `1 + 6 × 0.6725`, and `Proportion.nsc_row_opens` carries `C < 5.035` | Lean ✓, arithmetic transparent |
+| `5.035` row-opening threshold — ⚠️ **the row is no longer closed (SESSION 084); beating `0.50875` needs `C < 1.49125` (Prop 1) or `C < 1.9825` (the `/6` bridge)** | `1 + 6 × 0.6725`, and `Proportion.nsc_row_opens` carries `C < 5.035` | Lean ✓, arithmetic transparent |
 | `2.345` (the `/2` route's threshold) | `1 + 2 × 0.6725` | exact ✓ |
 | `19/27 = 0.703704` (CGG98) | exact rational | ✓ |
 | `1.3275` (record-beating `Cbound`) | `Fujii.Cbound_lt_record` | Lean ✓ |

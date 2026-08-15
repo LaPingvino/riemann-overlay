@@ -3476,8 +3476,11 @@ what was believed.
 * `#print axioms` on the combinatorial step: `[propext, Classical.choice,
   Quot.sound]` — axiom-free.
 * `#print axioms certified_nsc_unconditional`: `[propext, Classical.choice,
-  Quot.sound, baseline_zeta23, zetaNonempty]` — **exactly the two axioms the
-  `NscStd` row already consumed.** No new tier, no new assumption.
+  Quot.sound, baseline_zeta23, zetaNonempty]` — **no axiom beyond the ledger's
+  existing trusted base; the count is unchanged at 2.** (Stated carefully: the
+  `NscStd` row's declaration `certified_std` is definitionally `baseline_zeta23`
+  and so consumes one; `zetaNonempty` enters through the family's nonemptiness.
+  The honest claim is about the base, not about a per-declaration match.)
 * Independent brute force: 200 000 random configurations, **zero violations** of
   `3·NscStd ≤ N + 2·Nsc`.
 * Tightness: `s` simple atoms and `h` haunted mass-`3` atoms give

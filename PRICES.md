@@ -22,6 +22,9 @@ form of [OPEN D].
   at current constants, but nothing is known to be *purchasable* there; (ii)
   has a purchase mechanism (the imported baseline) but a steep price that only
   pays once `C < 2.345`.
+
+> ⚠️ **STALE THRESHOLD (SESSION 084).** The `Nsc` row is **open at 50.875%** (`certified_nsc_unconditional`), so "the row opens at `C < …`" no longer describes the situation. A star-bound route now matters only if it *beats* `0.50875`: Proposition 1 needs `C < 1.49125`, the `/6` bridge needs `C < 1.9825`. The thresholds below are retained as correct arithmetic about *opening* a row that is no longer closed.
+
 * **Certificate engineering is not a channel and is nearly exhausted.** On
   identical GUE input the certificate choice alone moves `0.5 → ≤0.6818287`
   (18.18pp), of which **0.28pp remains** in the bandlimited class (W11, cycle

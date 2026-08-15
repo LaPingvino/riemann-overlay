@@ -1413,6 +1413,40 @@ theorem profile_minimal_among_local {S : Type*} {a : ℝ} (ha : a ≠ 1/2)
   rw [configAt_Noff ha, configAt_Noff ha] at hOff
   rw [hN, hOff]
 
+/-! #### …and *both* additive rows are load-bearing
+
+`profile_minimal_among_local` forces injectivity from `N` and `N_off` together.
+Neither alone will do, and the witnesses are single atoms of mass `2`.
+
+**Kill condition, filed first:** *if either single row already forces
+injectivity, the "two rows" reading is wrong and the hypothesis of
+`profile_minimal_among_local` can be weakened.*  It did not fire. -/
+
+/-- **Mass alone is not enough.**  The coarsening `(m, off) ↦ m` has a
+value-multiset that determines `N` (and `N⊛`, and `Nsc`) yet misses `N_off`:
+two atoms of mass `2`, one wholly on-line and one wholly off-line. -/
+theorem mass_only_not_sufficient {a : ℝ} (ha : a ≠ 1/2) :
+    (profile (configAt 0 2 0 a)).map Prod.fst
+        = (profile (configAt 0 0 1 a)).map Prod.fst
+      ∧ (configAt 0 2 0 a).Noff ≠ (configAt 0 0 1 a).Noff := by
+  refine ⟨?_, ?_⟩
+  · rw [configAt_profile ha (by norm_num), configAt_profile ha (by norm_num)]
+    decide
+  · rw [configAt_Noff ha, configAt_Noff ha]
+    norm_num
+
+/-- **Off-line mass alone is not enough either.**  The coarsening
+`(m, off) ↦ off` misses `N`: two wholly on-line atoms of masses `2` and `4`. -/
+theorem off_only_not_sufficient {a : ℝ} (ha : a ≠ 1/2) :
+    (profile (configAt 0 2 0 a)).map Prod.snd
+        = (profile (configAt 0 4 0 a)).map Prod.snd
+      ∧ (configAt 0 2 0 a).N ≠ (configAt 0 4 0 a).N := by
+  refine ⟨?_, ?_⟩
+  · rw [configAt_profile ha (by norm_num), configAt_profile ha (by norm_num)]
+    decide
+  · rw [configAt_N, configAt_N]
+    norm_num
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

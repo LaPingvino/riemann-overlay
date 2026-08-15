@@ -3184,3 +3184,44 @@ Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
 no cleverer bookkeeping that records less per crowd and still adds up to the
 ledger, so any future gain has to come from reading *across* crowds, which is
 the one thing the counterexample shows the ledger itself already fails to do.
+
+
+# SESSION 078 — both additive rows are load-bearing, and the queue is three items stale
+
+Intended W32 (queue item 2). **It is already run**: `FAILURES.md` carries the
+table, the kill condition recorded as not fired, tally **M = 2, S = 1,
+neither = 8**. Items 1 and 3 were discharged in `076` and `075`/`077`. Three of
+the cron prompt's five queue items are stale — logged as `S33`, and the finding
+is procedural: the heartbeat text is fixed and ages while the disk moves, so
+`S27`'s discipline (check the register before reconstructing) applies to the
+queue itself, not only to computations.
+
+Took instead the sharp complement to `077`. That theorem forces injectivity from
+`N` and `N_off` *together*, and I had noted the three harder ledger rows are
+free riders. The unasked question was whether the two survivors are both
+needed.
+
+**Kill condition, filed first:** *if either single row already forces
+injectivity, the "two rows" reading is wrong and `profile_minimal_among_local`'s
+hypothesis can be weakened.* It did not fire.
+
+* `mass_only_not_sufficient` — the coarsening `(m, off) ↦ m` cannot see
+  `N_off`: two atoms of mass `2`, one wholly on-line, one wholly off-line.
+* `off_only_not_sufficient` — the coarsening `(m, off) ↦ off` cannot see `N`:
+  two wholly on-line atoms of masses `2` and `4`.
+
+Both axiom-free, both witnessed by single atoms. So the minimality result rests
+on **exactly two** of the five ledger rows and on no fewer: `N⊛`, `Nsc` and
+`NscStd` are dispensable, `N` and `N_off` are not.
+
+The three-cycle arc is now closed. The profile is not minimal outright
+(`075`), is minimal among ordinate-local statistics (`077`), and that local
+minimality is driven by precisely the two additive rows (`078`).
+
+Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the entire minimality of the certificate class's
+bookkeeping comes from two counting facts and neither of the two subtle rows,
+which means the class's residue is fixed by how much there is rather than by
+anything about where it sits — and the rows that carry the actual difficulty
+carry none of the rigidity.

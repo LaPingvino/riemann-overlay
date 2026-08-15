@@ -166,3 +166,5 @@ import Riemann
 #check @Riemann.Blindness.configAt_N
 #check @Riemann.Blindness.configAt_profile
 #check @Riemann.Blindness.profile_minimal_among_local
+#check @Riemann.Blindness.mass_only_not_sufficient
+#check @Riemann.Blindness.off_only_not_sufficient

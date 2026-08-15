@@ -4196,3 +4196,40 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 zeros and no more, which is a far more demanding standard than the exceptional
 sets zero-density theorems come with, and locates precisely why those theorems do
 not compose with it.
+
+
+# SESSION 100 — consolidating a thread that had started superseding itself
+
+Four cycles produced four multiplicity criteria, each correcting the last:
+`096` → `097` → `098` → `099`. Every correction was written at the location of
+the text it corrected, per the rule. But a reader — including a future compacted
+me — now has to walk four annotations to learn which statement is current, and
+that is `S36`'s defect at the scale of a thread rather than a sentence.
+
+**Kill condition, filed first:** *if the exceptional-set inequality does not
+specialise to the no-exception one, the family is not a hierarchy and they stay
+separate results.* It did not fire.
+
+`Nstar_add_pred_mul_Nsc_le_of_except` (new): the `E = 0` case of
+`Nstar_add_pred_mul_Nsc_le_except` **is** `098`'s theorem. So the family is one
+theorem with specialisations, and that is now checked by the kernel rather than
+asserted in a comment — which is the point, since the whole failure mode being
+guarded against is prose that drifts from the theorems.
+
+`LEADS.md` gains a consolidated section: the one theorem, the one extra
+ingredient (`Nsc = NscStd` under `M ≤ 2`, which is why that case is so much
+stronger), the table of what each hypothesis yields, and an explicit list of what
+is superseded and where its annotation lives.
+
+**The consolidation surfaced one thing worth naming.** `097`'s advantage over
+`098` at `M = 2` is *not* the sharper inequality — both give `C ≤ 2 − κ`. It is
+entirely `Nsc = NscStd`, which lets the standard baseline `0.6725` be used in
+place of `0.50875`. I had been carrying the two improvements as one story; they
+are independent, and only one of them survives to `M = 3`.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** a result that supersedes itself four times is one
+result discovered slowly, and the cost of not saying so is paid by whoever reads
+the registers next.

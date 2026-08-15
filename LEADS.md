@@ -1569,3 +1569,60 @@ of *all* zeros. This is the first criterion in the registers with a genuine
 exceptional-set allowance, which is the form analytic number theory actually
 delivers — zero-density results are always "outside an exceptional set". The
 allowance is small (`√N`, not `εN`), and that smallness is the honest news.
+
+
+---
+
+# The multiplicity criterion — consolidated (SESSION 100)
+
+Cycles `096`–`099` produced four results that supersede one another. **This is
+the current statement; everything below it is history.**
+
+## The one theorem
+
+`Fiber.Nstar_add_pred_mul_Nsc_le_except` — axiom-free, and the others are its
+specialisations (`Nstar_add_pred_mul_Nsc_le_of_except` proves that in Lean, not
+in prose):
+
+> Let `M ≥ 1`, let `exc` be any decidable set of ordinates, suppose `H γ ≤ M` for
+> every `γ ∉ exc`, and let `E` be the number of zeros at exceptional ordinates.
+> Then `N⊛ + (M−1)·Nsc ≤ M·N + E²`.
+
+Dividing by `N`: **`C ≤ M − (M−1)·κ + E²/N`**, where `κ` is a certified lower
+bound on `Nsc/N`.
+
+Per-atom it is `H² + (M−1)·[H = 1] ≤ M·H`, tight at `H = 1` **and** at `H = M`;
+the exceptional term is `E²` because the worst case puts all `E` zeros at one
+ordinate, and that case is attained.
+
+## The one extra ingredient
+
+`Fiber.Nsc_eq_NscStd_of_mult_le_two` — **under `M ≤ 2`, `Nsc = NscStd`.** This is
+what lets the *standard* baseline `0.6725` be used as `κ` instead of the
+project's `0.50875`, and it is the whole reason `M ≤ 2` is so much stronger than
+`M ≤ 3`.
+
+## What it yields
+
+| hypothesis | usable `κ` | star constant | `Nsc` row via `prop1` |
+|---|---|---|---|
+| `M ≤ 2`, no exceptions | `0.6725` (`Nsc = NscStd`) | **`1.3275`** — below Route III's `4/3` | **`0.6725`** |
+| `M ≤ 3`, no exceptions | `0.50875` | `1.9825` | `0.0175` |
+| `M ≤ 4` | `0.50875` | `≥ 2` — fails | — |
+| `M ≤ M₀` outside `o(√N)` zeros | as above | as above, `+o(1)` | as above |
+
+`C < 2` iff `κ > 1 − 1/(M−1)`. The `M = 3` line clears by `0.00875` and exists
+only because of `084`; at the pre-`084` row of `0` the criterion is empty for
+every `M ≥ 2`.
+
+## Superseded, and why kept
+
+* `096`'s `Nstar_add_mul_Nsc_le` — weaker by exactly `N − Nsc`. Annotated at its
+  location.
+* `096`'s `starBound_of_multiplicity_two` (`C ≤ 1.9825` from `M ≤ 2`) — the same
+  hypothesis now gives `1.3275`. Annotated at its location.
+* `092`'s "a multiplicity supremum is useless" — true of the **bare** supremum,
+  false once the `Nsc` row is available. Annotated at its location.
+
+**Nothing here asserts any multiplicity hypothesis.** All are carried as
+hypotheses; the ledger is unchanged at `NscStd 67.25% / Nsc 50.88%`.

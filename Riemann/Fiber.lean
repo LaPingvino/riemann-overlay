@@ -2564,6 +2564,20 @@ theorem Nstar_add_pred_mul_Nsc_le_except (D : ZeroData) (M : ℕ) (hM : 1 ≤ M)
   have hM1 : M - 1 ≤ M := Nat.sub_le _ _
   nlinarith [hexc, hord, hEle, hM1]
 
+/-- **The hierarchy, machine-checked.**  `Nstar_add_pred_mul_Nsc_le` is the
+`E = 0` case of `Nstar_add_pred_mul_Nsc_le_except`, so the multiplicity family is
+one theorem with three specialisations rather than four separate results.
+
+Stated as a theorem rather than a comment because `S36` was a retraction filed
+somewhere other than the text it corrected, and a thread of four superseding
+results is the same hazard at larger scale. -/
+theorem Nstar_add_pred_mul_Nsc_le_of_except (D : ZeroData) (M : ℕ) (hM : 1 ≤ M)
+    (h : ∀ γ, D.H γ ≤ M) : D.Nstar + (M - 1) * D.Nsc ≤ M * D.N := by
+  classical
+  have := Nstar_add_pred_mul_Nsc_le_except D M hM (fun _ => False)
+    (fun γ _ => h γ)
+  simpa using this
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

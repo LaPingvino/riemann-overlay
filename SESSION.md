@@ -5008,3 +5008,38 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 has been discovering it in pieces for thirty-four cycles, which suggests the
 right first move on any new hypothesis is to ask what `δ` it buys rather than
 what route it opens.
+
+
+# SESSION 119 — the ladder was the same instrument, and its `δ` is now exact
+
+`118` unified the conditional results under `hauntedCount ≤ δ·N ⟹ Proportion
+(κ − δ)` and put the mass ladder in the table with its `δ` written as
+`(κ − 1/m)/…` — a placeholder I did not check. That is the kind of thing that
+becomes a stale number if nobody returns to it.
+
+**Kill condition, filed first:** *if the ladder is not an instance of the density
+instrument, `118`'s unification is wrong and must be corrected at its location.*
+It is an instance.
+
+* `pred_mul_haunted_add_NscStd_le_N` (new, axiom-free) —
+  **`(m−1)·hauntedCount + NscStd ≤ N`**, which is `110`'s canonical bound with
+  `3` replaced by `m`. `110` is the case `m = 3`.
+* `hauntedDensity_of_noSmallHaunted` — hence `NoSmallHaunted m` with
+  `ProportionStd κ` gives `HauntedDensity ((1 − κ)/(m − 1))`.
+
+**The `δ` is exact and the arithmetic checks against `105` independently:** at
+`m = 3`, `δ = 0.3275/2 = 0.16375` — the ledger's; at `m = 5`,
+`δ = 0.3275/4 = 0.081875` and `0.6725 − 0.081875 = 0.590625`, which is `105`'s
+number reached without going through `105`'s theorem.
+
+So the unification is complete: `NoHaunted`, the off-line import, the mass
+ladder, and the certified row are four readings of one conditional theorem, and
+the placeholder in `118`'s table is replaced by the certified expression at its
+location.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** a placeholder written into a table survives every guard
+the project owns, because nothing checks that a formula was ever derived — only
+that claims cite theorems, and a table cell cites nothing.

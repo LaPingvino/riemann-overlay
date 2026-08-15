@@ -3390,6 +3390,27 @@ theorem noHaunted_strictly_weaker_than_RH {a : ℝ} (ha : a ≠ 1/2) :
    ⟨configAt 0 0 1 a, (noHaunted_not_imp_Noff_zero ha).1,
     (noHaunted_not_imp_Noff_zero ha).2⟩⟩
 
+/-- **The ladder, in haunted-count form: `(m−1)·hauntedCount + NscStd ≤ N`.**
+
+`110`'s canonical bound is the case `m = 3`.  With `109`'s identity this is
+exactly `105`'s ladder rewritten, so the mass hypothesis and the density
+instrument are the same statement — and the ladder's `δ` is `(1 − κ)/(m − 1)`,
+not the vaguer expression `118`'s table carried. -/
+theorem pred_mul_haunted_add_NscStd_le_N (D : ZeroData) (m : ℕ) (hm : 1 ≤ m)
+    (h : ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 ∨ m ≤ D.H γ) :
+    (m - 1) * hauntedCount D + D.NscStd ≤ D.N := by
+  obtain ⟨k, rfl⟩ : ∃ k, m = k + 1 := ⟨m - 1, by omega⟩
+  have hid := NscStd_eq_Nsc_add_haunted D
+  have h105 := mul_NscStd_le_N_add_pred_mul_Nsc D (k + 1) (by omega) h
+  simp only [Nat.add_sub_cancel] at h105 ⊢
+  have hexp : (k + 1) * D.NscStd
+      = k * D.Nsc + k * hauntedCount D + D.NscStd := by
+    rw [hid]; ring
+  rw [hexp] at h105
+  generalize k * D.Nsc = A at h105
+  generalize k * hauntedCount D = B at h105 ⊢
+  omega
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

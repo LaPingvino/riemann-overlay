@@ -271,3 +271,5 @@ import Riemann
 #check @Riemann.proportion_of_hauntedDensity
 #check @Riemann.hauntedDensity_of_offLineImport
 #check @Riemann.certified_nsc_via_haunted
+#check @Riemann.Blindness.pred_mul_haunted_add_NscStd_le_N
+#check @Riemann.hauntedDensity_of_noSmallHaunted

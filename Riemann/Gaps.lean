@@ -481,6 +481,41 @@ theorem hauntedDensity_of_offLineImport {F : Family} {β : ℝ}
   have hnn := F.Nz_nonneg T
   nlinarith [hO, hcoup, hnn, hε.le]
 
+/-- **`105`'s ladder is the density instrument at `δ = (1 − κ)/(m − 1)`.**
+
+`Blindness.pred_mul_haunted_add_NscStd_le_N` gives
+`(m−1)·hauntedCount ≤ N − NscStd`, and `ProportionStd κ` caps the right side by
+`(1 − κ)·N`.  At `m = 3` this is `0.16375` — the ledger's `δ`; at `m = 5`,
+`0.081875`, and `0.6725 − 0.081875 = 0.590625`, which is exactly `105`'s number. -/
+theorem hauntedDensity_of_noSmallHaunted {F : Family} {m : ℕ} {κ : ℝ}
+    (hm : 2 ≤ m) (hh : NoSmallHaunted F m) (hstd : F.ProportionStd κ) :
+    HauntedDensity F ((1 - κ) / ((m : ℝ) - 1)) := by
+  have hm1 : (1 : ℝ) < (m : ℝ) := by exact_mod_cast hm
+  have hm0 : (0 : ℝ) < (m : ℝ) - 1 := by linarith
+  intro ε hε
+  filter_upwards [hstd (ε * ((m : ℝ) - 1)) (by positivity), F.toCounts.pos]
+    with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hbase : ((m : ℝ) - 1) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      + F.NscStd T ≤ F.Nz T := by
+    have hnat := Blindness.pred_mul_haunted_add_NscStd_le_N (F.D T) m (by omega)
+      (fun γ => hh T γ)
+    have hcast : ((m - 1 : ℕ) : ℝ) = (m : ℝ) - 1 := by
+      have : (1 : ℕ) ≤ m := by omega
+      push_cast [Nat.cast_sub this]; ring
+    unfold Family.NscStd Family.Nz
+    have := (Nat.cast_le (α := ℝ)).2 hnat
+    push_cast [hcast] at this
+    linarith [this]
+  have hstep : ((m : ℝ) - 1) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      ≤ (1 - κ + ε * ((m : ℝ) - 1)) * F.Nz T := by
+    nlinarith [hT, hbase, hpos']
+  have hsplit : (1 - κ) / ((m : ℝ) - 1) + ε
+      = (1 - κ + ε * ((m : ℝ) - 1)) / ((m : ℝ) - 1) := by
+    field_simp
+  rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ hm0]
+  linarith [hstep]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

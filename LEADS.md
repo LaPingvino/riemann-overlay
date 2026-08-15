@@ -1770,7 +1770,14 @@ because `109`'s identity makes the row a subtraction. The instances:
 | `0` | `NoHaunted` (`107`) | `0.6725` |
 | `β/2` | an off-line import at `β` (`087`) | `κ − β/2` |
 | `0.16375` | the unconditional off-line row (`090`) | **`0.50875`** — the ledger |
-| `(κ − 1/m)/…` | the mass ladder (`105`) | the odd rungs |
+| `(1 − κ)/(m − 1)` | the mass ladder (`105`), odd rungs | `κ − (1−κ)/(m−1)` |
+
+> The ladder's `δ` was written vaguely when this table was first drawn; `119`
+> certified it as `(1 − κ)/(m − 1)` via
+> `Fiber.pred_mul_haunted_add_NscStd_le_N`, which generalises `110`'s canonical
+> bound to `(m−1)·hauntedCount + NscStd ≤ N`. At `m = 3` it is `0.16375`, at
+> `m = 5` it is `0.081875`, and `0.6725 − 0.081875 = 0.590625` — `105`'s number
+> exactly.
 
 So there is one conditional instrument, not five, and the search is for a `δ`.
 `111` caps what the counting can supply at `δ = 0.16375`; anything smaller must

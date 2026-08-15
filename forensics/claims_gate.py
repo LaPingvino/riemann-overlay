@@ -72,6 +72,22 @@ DOWNGRADE = [
 EXEMPT = re.compile(r"^\s*#|kill condition|^\s*\||superseded|RETRACTED|"
                     r"original note", re.I)
 
+# Triage of the first live run (2026-08-15) found 3 true / 3 false out of six on
+# CLAIMS.md.  Every false positive was one of two mechanical shapes, both
+# excludable without touching the wordlist:
+#
+#   DIRECTIVE  — an instruction, not a claim: "Never cite as one.",
+#                "**Never as a bound.**", "do not cite one as such".
+#   DENIED     — the trigger appears inside a phrase being *denied*:
+#                "grade C means not yet defined, not *that the class cannot be
+#                defined*".
+#
+# Keeping these out is what turns a 50% signal into a usable one.
+DIRECTIVE = re.compile(r"^\W*(never|do not|don't|always|cite|use|run|prefer)\b"
+                       r"|\bnever cite\b|\bdo not cite\b|\bnever as a\b", re.I)
+DENIED = re.compile(r"\bnot\s+\*?that\b|\bnot\s+\*[^*]*(cannot|never|"
+                    r"impossible)", re.I)
+
 
 def sentences(text):
     for para in text.split("\n\n"):
@@ -80,7 +96,8 @@ def sentences(text):
         flat = " ".join(para.split())
         for s in re.split(r"(?<=[.!?])\s+", flat):
             s = s.strip()
-            if s and not EXEMPT.search(s):
+            if s and not EXEMPT.search(s) and not DIRECTIVE.match(s) \
+                    and not DENIED.search(s):
                 yield s
 
 

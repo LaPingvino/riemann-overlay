@@ -19,8 +19,9 @@ grade A.**
   be stated; none exists yet. **This is the disease.** Cite only with the word
   "unformalised" attached.
 * **C — class undefined.** The claim quantifies over something informal ("cheap
-  invariants", "classical invariant"). It cannot be promoted without first
-  defining the class, and it is **not a bound**. Never cite as one.
+  invariants", "classical invariant"). Defining the class is the *prerequisite*
+  for promotion — and per S23 that can be cheap, so C is **not** a life
+  sentence. It is **not a bound** in the meantime; do not cite one as such.
 * **N — class defined, evidence numerical.** The class is precise and the claim
   is checkable in principle, but what supports it is a computation, not a proof.
   Cite only with the word "numerically" attached. **Never as a bound.** A grade-N
@@ -70,8 +71,14 @@ formalisation task.
 **So the pattern does not generalise into doctrine.** What survives is narrower
 and more useful: a standing inventory, and the rule that a claim cited as a
 bound must be grade A. The disease was real, finite, and is now cured; what
-remains is a category that was never curable by formalisation and must instead
-be *marked*.
+remains is a category that could not be cured by formalisation **as the classes
+then stood**.
+
+> ⚠️ **Corrected one cycle later (S23), and the correction belongs here rather
+> than sixty lines below.** "Never curable by formalisation" was wrong: W7's
+> grade-C entry was promoted in a single cycle once its class was defined
+> (`BoundedMult`, `Optimal.prop1_LP_optimal_cheap`). Grade C means *not yet
+> defined*, not *undefinable*.
 
 
 ## Amendment (night cycle 9) — grade C is not a life sentence
@@ -125,8 +132,10 @@ in `LEADS.md` and the `18.18pp` instrument claim in `E.md` rest on a computation
 that a reader cannot re-run and that we cannot re-run either.
 
 That is a **reproducibility defect, not a mathematical one**, and it is the
-first found in this repo. It is filed as `ISSUES` #29 rather than repaired
-tonight: reconstructing the variational problem from memory would produce a
+first found in this repo. It was filed as `ISSUES` #29 rather than repaired
+that night — **and #29 has since been resolved: the specification was in
+`LEADS.md` all along and `forensics/window_opt.py` reproduces every digit
+(S27).** The reasoning below stands as stated at the time: reconstructing the variational problem from memory would produce a
 script that computes *something*, and passing that off as the original
 computation is exactly the failure mode this project exists to avoid.
 
@@ -190,3 +199,38 @@ and marked.** `E.md`'s E20m does the same for the withdrawn statistics.
 
 **Tally: two instances of the defect, both now fixed; one model example.** The
 ordering rule stands, with W4 as its worked example.
+
+## Triage of the gate's own flags (2026-08-15, first live measurement)
+
+**Kill condition, stated first:** *if the true-positive rate is zero, the gate is
+noise on live registers and its wordlist needs narrowing before the instrument
+can be cited at all.* **It did not fire — the rate was 3/6.**
+
+`claims_gate.py` flagged six sentences in this file. Triaged one by one:
+
+| # | sentence | verdict |
+|---|---|---|
+| 1 | grade C "cannot be promoted without first defining the class" | **true** — the residue of the claim `S23` falsified; W7's C entry was promoted in one cycle |
+| 2 | "Never cite as one." | false — a directive, not a claim |
+| 3 | "**Never as a bound.**" | false — same |
+| 4 | "a category that was **never curable by formalisation**" | **true** — falsified by `S23` outright |
+| 5 | "grade C means not yet defined, **not** *that the class cannot be defined*" | false — the trigger sits inside a phrase being denied |
+| 6 | "filed as `ISSUES` #29 rather than repaired tonight" | **true** — stale; #29 has since been resolved (`S27`) |
+
+**All three true positives were stale text whose correction already existed
+elsewhere in the file.** The gate rediscovered ordering violations from a
+completely different direction than the ordering sweep did — a wordlist scan and
+a retraction audit converging on the same defect is the closest thing to
+independent confirmation this project has produced about its own prose.
+
+All three are now fixed **at their locations**, and `CLAIMS.md` reports **zero**
+unwitnessed flags.
+
+**And the three false positives were two mechanical shapes**, both now excluded
+without touching the wordlist: *directives* ("Never cite as one") and *denied
+quotations* ("not *that the class cannot be defined*"). The calibration cases
+`S26` and `S27` are still caught after the narrowing.
+
+**Remaining, and explicitly untriaged:** `LEADS.md` 25, `E.md` 10. Those counts
+are a queue, not a defect rate — the same caution that applied before the
+triage still applies to them.

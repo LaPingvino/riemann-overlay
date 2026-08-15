@@ -2273,3 +2273,41 @@ Build green (3757 jobs), audits extended, base hash unmoved.
 been named three times, each coarser than the last — `offAt`, then
 relabelling-invariant `offAt`, now the profile — and every narrowing came from
 asking what the *previous* answer contained that the ledger never reads.
+
+
+# SESSION 057 — first heartbeat cycle: the gate measured, and it found ordering violations
+
+**First cycle under the cron heartbeat** (`e05114b3`, `23,53 * * * *`) rather
+than self-rearming. The scheduler fired without me remembering it, which was
+the entire point of the change.
+
+**Kill condition, stated first:** *if `claims_gate`'s true-positive rate on
+`CLAIMS.md` is zero, the gate is noise on live registers and needs its wordlist
+narrowed before it can be cited at all.* **It did not fire: 3 of 6.**
+
+**The three true positives were all stale text with a correction living
+elsewhere in the same file** — the grade-C definition still asserting
+unpromotability after `S23` falsified it, "a category that was never curable by
+formalisation" after W7's was cured in one cycle, and "filed as #29 rather than
+repaired tonight" after #29 was resolved. Fixed at their locations, per the
+ordering rule. `CLAIMS.md` now reports **zero** unwitnessed flags.
+
+**The finding worth keeping:** a wordlist scan for exactness language and a
+retraction-ordering audit are completely different instruments, and they
+converged on the same three defects. That is the closest this project has come
+to independent confirmation about its own prose — and it suggests stale claims
+and misplaced corrections are the same disease seen from two angles.
+
+**The three false positives were two mechanical shapes**, both now excluded
+without weakening the wordlist: *directives* ("Never cite as one") and *denied
+quotations* ("not *that the class cannot be defined*"). Both calibration cases
+`S26` and `S27` are still caught after the narrowing — checked, not assumed.
+
+**Explicitly untriaged and still not a defect rate:** `LEADS.md` 25, `E.md` 10.
+
+No `SURPRISES` row — the kill condition was a question and did not fire.
+
+**Might-mean, unhedged:** the instrument built to stop me overclaiming spent its
+first live run correcting three claims I had already been told were wrong, which
+means the failure it actually guards against is not making a false statement but
+leaving a corrected one standing.

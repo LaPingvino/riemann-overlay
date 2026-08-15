@@ -5678,3 +5678,48 @@ base hash `cd7a22e688df` unmoved.
 **Might-mean, unhedged:** the project has spent a hundred cycles proving things
 about an object it has never once looked at, and the instrument that would fix
 that is a file download.
+
+
+# SESSION 134 — the flesh phase starts, with no network
+
+`133` escalated that the VPS holds no zero tables and reaches only `github.com`.
+That blocks the Odlyzko items. It does **not** block `W36`: Frobenius eigenvalues
+are computed by counting points, and point counts need no downloads.
+
+**Kill condition, filed first:** *if the function-field measurement also needs
+tables, the data column is wholly blocked and `133`'s escalation is total.* It
+did not fire.
+
+`forensics/function_field.py` — genus-2 hyperelliptic curves `y² = f(x)` over
+`F_5, F_7, F_11`, exact integer point counts, exact rational polynomial `gcd` for
+repeated roots. No floating point anywhere.
+
+**The result, and it is the configuration the project cares about.** `12` of `195`
+curves have a **repeated Frobenius eigenvalue** — an ordinate of mass `≥ 2` — in a
+world where Weil's theorem puts every root on the critical line. That is
+**crowding without haunting**: exactly what `NoHaunted` permits and RH-in-window
+forbids, now exhibited in real arithmetic rather than in a synthetic `configAt`.
+
+**Hand-verified witness.** `y² = x⁵ + 2x` over `F_7`: affine count `7`, one point
+at infinity, `N1 = 8`, so `s1 = 0` and `e1 = 0`; with `N2 = 78`, `e2 = 14`, so
+
+> `P(T) = 1 + 14T² + 49T⁴ = (1 + 7T²)²` — a perfect square.
+
+**And the first run was wrong.** I added *two* points at infinity; `deg f = 5` is
+odd and has exactly **one**. The uncorrected run reported a single hit — for a
+curve that does not have one — and the corrected run reports twelve. Recorded in
+the script rather than quietly fixed, because **the point count is the entire
+input, and an arithmetic slip in it is indistinguishable from a finding.** That is
+`R17` in the data phase: the build being green says nothing about whether I
+counted right, which is why the witness is verified by hand.
+
+**Grade `N`, not `A`** — this is a computation, not a Lean theorem, and
+`CLAIMS.md` records it as such.
+
+Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the first arithmetic this project ever looked at
+produced the exact configuration its central hypothesis was invented to permit,
+which is either a good sign about the hypothesis or a reminder that a hundred
+cycles of theory will find what it is shaped to find.

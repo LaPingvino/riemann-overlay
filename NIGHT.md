@@ -34,6 +34,27 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 8 — the sweep; the disease is cured, and the residue is vocabulary
+
+**Kill condition** (that no further uncertified class-impossibility claims exist,
+so the pattern must not become doctrine) **fired, informatively**. Every Lean
+docstring's impossibility claim is backed: `Fujii.c0_lower_bound` and
+`Gauge.offline_le_tight` are real theorems. I expected at least one to be prose
+(`SURPRISES` S22).
+
+**`CLAIMS.md` filed** — every class-impossibility assertion, graded: **A**
+certified (ten entries), **B** certifiable-but-prose (**empty**), **C** class
+undefined (two: W7's "cheap invariants", "post-1974 extremal technology"; plus
+E20's plane, already marked unsupported).
+
+The finding is the B/C distinction: the remaining uncertified claims are **not**
+theorems-in-waiting. They quantify over informal classes, so they can only be
+*marked*, never proved. One rule survives — **anything cited as a bound must be
+grade A** — and `README.md` points at the file.
+
+Caveat carried, not resolved: the ceiling is grade A but its certificate is
+imported and unreachable from `import Riemann` (parked for Joop).
+
 ### Night cycle 7 — a second docstring promoted; the linter finds a superfluous hypothesis
 
 W19 and the GRH tier need literature the registers do not hold, so: an in-repo

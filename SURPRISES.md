@@ -56,6 +56,7 @@ total.
 | S19 | 039 | rung 0 was **owned** — I relayed the ladder brief's claim that `{F on [0,1], F ≥ 0}` independence was already held | it is **prose, uncertified**; the only runnable capacity certificate (`ceiling_law256`) is imported from zeta-23, not ours | tooling (the audit's own criterion) | process |
 | S20 | 040 | formalising the LP collapse would discharge the rung-0 debt | it discharges the **skeleton** — the class certified is a `Finset` program, the class `#10` names is an integral over `[0,1]`. By the audit's own criterion the rung is `partial` | self (the audit's criterion, applied to my own output) | process |
 | S21 | 043 | `β ≤ 0` would be needed as a precondition for prop1's LP-optimality | **not needed** — the optimality holds for every `(α, β)` in the class, so the certified statement is strictly stronger than the docstring it replaces | tooling (the unused-variable linter) | calibration |
+| S22 | 044 | the docstring disease would have more instances — at least one more Lean impossibility claim would turn out to be prose | **none did.** `c0_lower_bound` and `offline_le_tight` are real theorems; grade B is empty. The two remaining uncertified claims are grade **C** (class informal), a different species that formalisation cannot cure | tooling (the sweep) | calibration |
 
 ## Standing observation
 

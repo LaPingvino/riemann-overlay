@@ -32,6 +32,9 @@ Riemann/Proportion.lean   the fitness function                 certified vs conj
   not live in this repository (the operator, the two instances, the seam between
   them), followed by a verification appendix that audits its own claims against
   these files and records the one that had to be corrected.
+* **`CLAIMS.md`** — every class-impossibility assertion ("no member of class `C`
+  can do `X`"), graded **A** certified / **B** certifiable-but-prose / **C**
+  class-undefined. Anything cited as a bound must be grade A.
 * **`SURPRISES.md`** — the calibration meter: every time the record went against
   a stated expectation, with who or what did the correcting. Tallied
   mechanically by `forensics/surprises.py`; read the breakdown, never the total

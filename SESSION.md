@@ -1724,3 +1724,47 @@ Audits extended; build green (3747 jobs); base hash unmoved.
 do better" claims turned out to live in docstrings, and both were true — which
 means the risk was never that we believed false things, but that we could not
 tell which of our beliefs a reader was entitled to check.
+
+
+# SESSION 044 — night cycle 8: the sweep, and the disease turns out to be cured
+
+**Kill condition, stated first:** *if the sweep finds no further uncertified
+class-impossibility claims beyond the two fixed this week, the "pattern" was two
+coincidences and must not be generalised into doctrine.*
+
+**It fired, in the informative direction.** Every impossibility claim in the
+Lean docstrings is backed by a theorem. `Fujii.c0_lower_bound` ("Route I cannot
+do better than `c₀ ≈ 0.16`") is a real proof, and `Gauge.offline_le_tight`
+backs "the `(C−1)` cannot be improved to `(C−1)/2`" with a saturating witness. I
+expected at least one of those to be prose. Filed as `SURPRISES` S22.
+
+**`CLAIMS.md` filed** — the inventory, with three grades:
+
+* **A — certified**: a machine-checked statement over the named class. **Ten
+  entries**, including all five of this week's new ones.
+* **B — certifiable but prose**: the disease. **Now empty.**
+* **C — class undefined**: the claim quantifies over something informal. **Two
+  entries** — W7's "cheap invariants" and the "post-1974 extremal technology"
+  claim — plus E20's plane, already marked statistically unsupported.
+
+**And that grade-C/grade-B distinction is the cycle's actual finding.** The two
+remaining uncertified claims are *not* theorems-in-waiting. Promoting them would
+require first **defining** "cheap invariant" and "post-1974 technology", which
+is a research question, not a formalisation task. They cannot be cured by
+proving them; they can only be **marked**.
+
+So the pattern does not become doctrine. What survives is narrower and more
+usable: a standing inventory plus one rule — **anything cited as a bound must be
+grade A**. Added to `README.md` so an outside reader can check any bound we
+quote against the file that says whether we are entitled to quote it.
+
+One caveat carried forward rather than resolved: the ceiling (`0.6818287`) is
+grade A but its certificate is **imported and not reachable from `import
+Riemann`** — already parked for Joop.
+
+Guards green, build 3747 jobs, base hash unmoved.
+
+**Might-mean, unhedged:** the sweep that was supposed to find more sloppiness
+found instead that the sloppiness was bounded, and the genuinely uncertifiable
+claims are the ones whose *class* we never defined — which relocates the
+project's remaining vagueness from its proofs to its vocabulary.

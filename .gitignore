@@ -44,3 +44,4 @@ venv/
 *.swo
 .DS_Store
 Thumbs.db
+data/zeros*

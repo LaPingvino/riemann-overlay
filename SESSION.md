@@ -5723,3 +5723,52 @@ Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
 produced the exact configuration its central hypothesis was invented to permit,
 which is either a good sign about the hypothesis or a reminder that a hundred
 cycles of theory will find what it is shaped to find.
+
+
+# SESSION 135 — the allowlist opened, and the project looked at zeros for the first time
+
+Joop granted the network change and told me the permission gate was the mechanism.
+The allowlist now carries `www-users.cse.umn.edu`, `www.lmfdb.org` and
+`arxiv.org` beside `github.com`; a backup of the settings file sits next to it.
+**Verified from inside the sandbox: all four return `200`.**
+
+**Kill condition, filed first:** *if the table's precision floor is coarser than
+the gaps it resolves, the census measures rounding rather than zeros and I must
+say so.* It did not fire — the floor is `1e-9` and the smallest raw gap is
+`0.0147`, seven orders above it.
+
+**The census.** Odlyzko's `zeros1`: `100 000` zeros, `14.134…` to `74 920.827…`.
+Normalised gap `δ_n = (γ_{n+1} − γ_n)·log(γ_n/2π)/2π`.
+
+* **mean normalised gap `0.999986`** — the normalisation validates itself, which
+  is the check that the arithmetic is right;
+* **smallest normalised gap `0.021860`**, at height `71 732.901`;
+* count below `δ` divided by `δ³`: `79 000 · 76 625 · 78 111 · 78 813` across
+  `δ = 0.1 … 0.4` — **flat to ~3% over a factor of eight**.
+
+**So the approach obeys the cubic law**: quadratic repulsion, the strongest
+suppression of coincidence the random-matrix picture allows. The **constant** is
+`0.71×` the GUE asymptotic `π²(n−1)/9 = 109 661`, and heights of `10⁴–10⁵` are
+where convergence is reported slow — marked **[RECALL, UNVERIFIED]**, because I
+have not checked that against the literature and will not let it carry the
+sentence alone.
+
+**Three things this does not show, stated because the temptation is real.**
+Nothing below `1e-9`, which the table cannot resolve. Nothing about **off-line**
+zeros, which the table does not contain. And therefore nothing directly about
+`hauntedCount`, which needs an off-line zero at a shared height — this measures
+only how close the **on-line** heights come to one another.
+
+What it does give is the finite-height shadow of the coincidence question, and it
+is the first time this project has looked at an actual zero. Graded **N**.
+
+The table is `.gitignore`d — `1.8 MB` of someone else's data does not belong in
+the repo, and the script re-fetches it.
+
+Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the zeros repel each other as hard as any random matrix
+would, so the configuration the whole `Nsc` row hangs on is not merely unobserved
+but actively suppressed — and the suppression is a fact about the data, while the
+`0.16375` is still a fact about our arithmetic.

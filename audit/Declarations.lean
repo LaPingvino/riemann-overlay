@@ -273,3 +273,5 @@ import Riemann
 #check @Riemann.certified_nsc_via_haunted
 #check @Riemann.Blindness.pred_mul_haunted_add_NscStd_le_N
 #check @Riemann.hauntedDensity_of_noSmallHaunted
+#check @Riemann.Blindness.six_mul_haunted_add_N_le_Nstar
+#check @Riemann.hauntedDensity_of_starBound

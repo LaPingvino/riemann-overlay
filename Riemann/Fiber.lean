@@ -3411,6 +3411,21 @@ theorem pred_mul_haunted_add_NscStd_le_N (D : ZeroData) (m : ℕ) (hm : 1 ≤ m)
   generalize k * hauntedCount D = B at h105 ⊢
   omega
 
+/-- **The `N⊛` bound on the haunted count: `6·hauntedCount + N ≤ N⊛`.**
+
+`Basic.six_mul_NscStd_le` read through `109`'s identity.  A haunted ordinate has
+mass `≥ 3`, so it contributes `≥ 9` to `N⊛` and `3` to `N` — a surplus of `6`
+each, which is exactly the `6` the `Basic` lemma carries.
+
+This is the **third** certified upper bound on `hauntedCount`, beside
+`2·hauntedCount ≤ N_off` (`083`) and `2·hauntedCount + NscStd ≤ N` (`110`), and
+it is the one that consumes `(★)`. -/
+theorem six_mul_haunted_add_N_le_Nstar (D : ZeroData) :
+    6 * hauntedCount D + D.N ≤ D.Nstar := by
+  have hid := NscStd_eq_Nsc_add_haunted D
+  have h6 := ZeroData.six_mul_NscStd_le D
+  omega
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

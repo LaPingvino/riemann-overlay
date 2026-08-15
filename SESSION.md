@@ -5175,3 +5175,45 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** the registers are honest in their paragraphs and
 pessimistic in their titles, and since titles are what a tired reader scans, the
 project has been systematically understating itself to itself.
+
+
+# SESSION 123 — the fifth instance, and what `(★)` is actually for
+
+`118` unified the conditional results and listed four instances. There is a
+fifth, and it is the one that changes how `(★)` should be read.
+
+**Kill condition, filed first:** *if the `/6` bridge is not an instance of the
+density instrument, `118`'s unification is incomplete and must be scoped.* It is
+an instance.
+
+* `six_mul_haunted_add_N_le_Nstar` (new, axiom-free) — **`6·hauntedCount + N ≤
+  N⊛`**. This is `Basic.six_mul_NscStd_le` read through `109`'s identity, and the
+  arithmetic explains its `6`: a haunted ordinate has mass `≥ 3`, contributing
+  `≥ 9` to `N⊛` and `3` to `N`, a surplus of exactly `6`.
+* `hauntedDensity_of_starBound` — hence a star bound `C` gives
+  `HauntedDensity ((C−1)/6)`, and the `/6` bridge is the instrument's fifth
+  instance.
+
+**And that settles what `(★)` is for, in this project's own currency.** There are
+exactly three certified bounds on the haunted count:
+
+| bound | consumes |
+|---|---|
+| `2·hauntedCount ≤ N_off` | the off-line count (`083`) |
+| `2·hauntedCount + NscStd ≤ N` | the baseline alone (`110`) |
+| `6·hauntedCount + N ≤ N⊛` | **`(★)`** |
+
+Only the third consumes a star bound. So **`(★)`'s entire contribution to the
+`Nsc` row is a bound on the haunted count** — Routes I and III exist to buy a
+`C`, and what a `C` buys is a `δ`. It beats the unconditional `0.16375` exactly
+when `C < 1.9825`, which is the threshold `098` reached from the multiplicity
+side; the two derivations of that number were independent and I did not notice
+they had to agree until now.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the second moment, the off-line count and the
+literature's proportion are three different ways of paying for the same thing,
+and the project's whole route table is a price list for one quantity nobody else
+has named.

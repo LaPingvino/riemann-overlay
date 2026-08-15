@@ -516,6 +516,27 @@ theorem hauntedDensity_of_noSmallHaunted {F : Family} {m : ℕ} {κ : ℝ}
   rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ hm0]
   linarith [hstep]
 
+/-- **The `/6` bridge is the density instrument at `δ = (C−1)/6`.**
+
+`nscStd_le_nsc_add` above extracts `NscStd − Nsc ≤ (C−1)/6 · N` from a star
+bound.  Through `109`'s identity that difference *is* the haunted count, so the
+`/6` bridge is `HauntedDensity ((C−1)/6)` — the fifth and last instance of the
+one conditional instrument, and the only one that consumes `(★)`. -/
+theorem hauntedDensity_of_starBound {F : Family} {C : ℝ}
+    (h : F.toCounts.StarBound C) : HauntedDensity F ((C - 1) / 6) := by
+  intro ε hε
+  filter_upwards [h (6 * ε) (by linarith), F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hbase : 6 * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ) + F.Nz T
+      ≤ F.Ns T := by
+    have := Blindness.six_mul_haunted_add_N_le_Nstar (F.D T)
+    unfold Family.Ns Family.Nz
+    exact_mod_cast this
+  have hstar : F.Ns T ≤ (C + 6 * ε) * F.Nz T := hT
+  have hsplit : (C - 1) / 6 + ε = (C - 1 + 6 * ε) / 6 := by ring
+  rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ (by norm_num : (0:ℝ) < 6)]
+  nlinarith [hbase, hstar, hpos']
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

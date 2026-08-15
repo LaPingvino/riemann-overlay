@@ -1771,6 +1771,7 @@ because `109`'s identity makes the row a subtraction. The instances:
 | `β/2` | an off-line import at `β` (`087`) | `κ − β/2` |
 | `0.16375` | the unconditional off-line row (`090`) | **`0.50875`** — the ledger |
 | `(1 − κ)/(m − 1)` | the mass ladder (`105`), odd rungs | `κ − (1−κ)/(m−1)` |
+| `(C − 1)/6` | a star bound `C` — the `/6` bridge (`Gaps`) | `κ − (C−1)/6` |
 
 > The ladder's `δ` was written vaguely when this table was first drawn; `119`
 > certified it as `(1 − κ)/(m − 1)` via
@@ -1782,3 +1783,23 @@ because `109`'s identity makes the row a subtraction. The instances:
 So there is one conditional instrument, not five, and the search is for a `δ`.
 `111` caps what the counting can supply at `δ = 0.16375`; anything smaller must
 come from outside.
+
+
+## The three certified bounds on `hauntedCount` (SESSION 123)
+
+Every conditional row is `hauntedCount ≤ δ·N`. There are exactly three certified
+inequalities bounding that quantity, and they consume three different inputs:
+
+| bound | consumes | source |
+|---|---|---|
+| `2·hauntedCount ≤ N_off` | the off-line count | `083`'s coupling |
+| `2·hauntedCount + NscStd ≤ N` | the baseline alone | `110` |
+| `6·hauntedCount + N ≤ N⊛` | **`(★)`** | `Basic.six_mul_NscStd_le` via `109`'s identity |
+
+The third is the only one that consumes a star bound, and it is why the `/6`
+bridge exists. With a star bound `C` it gives `δ = (C−1)/6`, which beats the
+unconditional `0.16375` exactly when `C < 1.9825` — the threshold `098` recorded
+from the other direction.
+
+**So `(★)`'s entire contribution to the `Nsc` row is a bound on the haunted
+count.** Route I and Route III exist to buy a `C`; what a `C` buys is `δ`.

@@ -1894,3 +1894,43 @@ Guards green, build unchanged, base hash unmoved.
 whether our numbers are re-runnable, and this cycle adds a third axis nobody had
 named — whether a reader meets the correction before or after the thing it
 corrects, which is a property of *layout* and not of truth at all.
+
+
+# SESSION 048 — night cycle 12: the ordering sweep, and a stale figure two hundred lines from its correction
+
+**Kill condition, stated first:** *if `PRICES.md` was the only misordering, the
+defect is isolated and the sweep says so rather than manufacturing more.*
+**It did not fire.** A second instance exists — same species, different shape.
+
+`LEADS.md` stated at lines 72 and 125 that L9's payoff window is **`+0.93pp`**.
+The correction — that `0.93pp` is the *total* gap to the bandlimited ceiling, of
+which CGdL 2020 already took `0.65pp`, leaving **`0.28pp`** — sat at line 284
+and in `E.md`, **two hundred lines below the framing it corrects**.
+
+This one is subtler than the `PRICES` case and worth the distinction: **both
+figures are arithmetically true.** `0.93pp` really is the gap from `0.6725` to
+`0.68183`. What was stale is the *framing* — calling it a "payoff window" when
+two thirds of it is already spent. A reader asking "what is left to win" met the
+wrong number first. Fixed by carrying the correction up to both points of use,
+with the total/remaining distinction stated inline.
+
+**And the sweep found the pattern done right, which I am naming as the
+template.** `LEADS.md`'s W4 heads with *"RESURRECTED. The autopsy below reached
+the wrong verdict; read the correction first"*, puts the correction immediately
+under it, and keeps the superseded autopsy below and labelled. `E.md`'s E20m
+does the same for the withdrawn `10/10`/`11/11` statistics — the withdrawal
+precedes the inventory that reports them. **Verdict in the heading, correction
+next, superseded material last and marked.**
+
+**No `SURPRISES` row this cycle.** The kill condition was posed as a genuine
+question rather than a prediction, so its not firing overturned nothing I had
+stated. Recording the reasoning because the discipline is only worth having if
+it visibly declines to manufacture entries.
+
+Tally: two instances, both fixed; one model example. Guards green, build
+unchanged, base hash unmoved.
+
+**Might-mean, unhedged:** the two ordering defects were opposite in kind — one
+was a false number correctly retracted too late, the other a true number framed
+stalely — which means the axis that matters is not whether a statement is
+right but whether the reader's *first* encounter with it is the current one.

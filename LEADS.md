@@ -72,6 +72,14 @@ type certifies at most **0.6818287** (+2.55·10⁻⁶ slack). So:
 > L9's payoff window is `0.6725 → ≤ 0.68183`, i.e. **at most +0.93pp**, and
 > the conditional record 0.6792 sits inside it.
 
+> ⚠️ **Correction, carried up from cycle 3 (`E.md` E17).** `+0.93pp` is the
+> *total* gap to the ceiling; it is **not** the available headroom. CGdL 2020
+> already took `0.65pp` of it, so the bandlimited class's **remaining** headroom
+> is **`0.28pp`**. Quote `0.28pp`, never `0.93pp`, when the question is what is
+> left to win. (This correction lived only at line 275 and in `E.md`; it is
+> repeated here because the stale framing is what a reader meets first —
+> `CLAIMS.md`'s ordering rule.)
+
 That is worth having — it would move the certified number without closing any
 OPEN box — but it cannot approach the `4/3` question. Any port aiming higher
 must leave bandwidth one, which is [OPEN D] again.
@@ -114,8 +122,9 @@ optimiser, and Montgomery–Taylor 1974 already saturated the `v` slot.
 
 **Finding 2 — this changes L9's prediction, and the dispatch confirms it.** If window shape at `λ = 1` is
 already optimal, **post-1974 extremal technology cannot buy anything through
-the `v` slot of this container.** The 0.93pp gap up to zeta-23's proved
-bandwidth-one ceiling (0.6818287) therefore does not live in window shape; it
+the `v` slot of this container.** The 0.93pp *total* gap up to zeta-23's proved
+bandwidth-one ceiling (0.6818287) — of which only **0.28pp remains** after CGdL
+2020, see the correction above — therefore does not live in window shape; it
 must live in the richer certificate class their ceiling theorem quantifies
 over (the `r`-weighting of `PairCeiling/Stability.lean`). L9's port target
 moves accordingly — and this is consistent with the session-003 preview

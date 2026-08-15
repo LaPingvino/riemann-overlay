@@ -40,6 +40,23 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 12 — the ordering sweep; a stale figure 200 lines from its fix
+
+**Kill condition** (that `PRICES` was the only misordering) **did not fire.**
+`LEADS.md` said at lines 72 and 125 that L9's payoff window is `+0.93pp`; the
+correction — that this is the *total* gap, of which CGdL took `0.65pp`, leaving
+**`0.28pp`** — sat at line 284 and in `E.md`. Subtler than the `PRICES` case:
+**both figures are true**, and what was stale was the *framing*. Fixed at both
+points of use.
+
+**Template named:** `LEADS.md`'s W4 does it right — verdict in the heading
+("read the correction first"), correction next, superseded autopsy last and
+labelled. `E.md`'s E20m likewise. That shape is now the standard.
+
+No `SURPRISES` row: the kill condition was a question, not a prediction, so
+nothing I stated was overturned. Noted because the meter is only worth having if
+it visibly declines to manufacture rows.
+
 ### Night cycle 11 — the quantitative audit; a retraction below its own numbers
 
 **Kill condition** (that `#29` is isolated) **fired for its stated scope**: every

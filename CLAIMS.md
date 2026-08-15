@@ -157,3 +157,31 @@ route. **Fixed this cycle:** a warning now sits immediately above the tables.
 
 **Standing rule added:** a retraction must appear *above* the material it
 retracts, not merely somewhere in the same file.
+
+
+## Ordering sweep (night cycle 12)
+
+**Kill condition, stated first:** *if `PRICES.md` was the only misordering, the
+defect is isolated and the sweep says so rather than manufacturing more.*
+**It did not fire — a second instance exists**, of the same species but a
+different shape: not a retracted table, a **stale figure still stated as
+current**.
+
+`LEADS.md` said, at lines 72 and 125, that L9's payoff window is `+0.93pp`. The
+correction — that `0.93pp` is the *total* gap to the ceiling, of which CGdL 2020
+already took `0.65pp`, leaving **`0.28pp`** — lived at line 284 and in `E.md`,
+i.e. **two hundred lines below the framing it corrects**. Both quoted figures
+are arithmetically true; the *framing* was stale, and a reader looking for "what
+is left to win" met the wrong number first. Fixed: the correction is now carried
+up to both points of use.
+
+**And the sweep found the pattern done right, which is worth naming as the
+template.** `LEADS.md`'s W4 entry heads with *"RESURRECTED. The autopsy below
+reached the wrong verdict; read the correction first"*, puts the correction
+immediately under it, and keeps the superseded autopsy below, labelled
+*"verdict superseded"*. That is the shape every correction in these registers
+should take: **verdict in the heading, correction next, superseded material last
+and marked.** `E.md`'s E20m does the same for the withdrawn statistics.
+
+**Tally: two instances of the defect, both now fixed; one model example.** The
+ordering rule stands, with W4 as its worked example.

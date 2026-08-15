@@ -1012,6 +1012,20 @@ fire**.
 `NscStd` and `N_off`** — every quantity the project counts. `N`, `N⊛`, `Nsc`
 need only `μ_T`; `NscStd` and `N_off` need the fiber coordinate too, and nothing
 beyond it (`Noff_determined` goes through `card_onOrd_add_Noff`, the on-line /
-off-line partition). So the exact statement of what the certificate class is
-missing is: **the ordinate measure plus one bounded natural number per crowded
-atom.**
+off-line partition).
+
+⚠️ **Correction (night cycle 16), stated here because this is where the claim
+lives.** I wrote that this is *the exact statement* of what the certificate
+class is missing. **It is an upper bound, not a tight one.**
+`offAt_not_minimal` exhibits two configurations with the **same ledger** and
+**different `offAt`** — the swap pair, one atom of mass two in each state at two
+distinct heights, exchanged. So `(μ_T, offAt)` suffices, but some coarsening of
+`offAt` would also suffice, and the minimal residue is **not yet identified**.
+
+The same pair also settles the evaluation question negatively
+(`landau_cannot_determine_offAt`): the real Landau weight agrees on it at
+*every* `x`, so no amount of sampling `Σ_ρ x^β` recovers `offAt`. What
+distinguishes the pair is *which ordinate carries the crowd* — precisely what
+the phase `e^{iγ log x}` carries and the real weight discards. That is census
+`#1`'s separability problem as a determination failure, and it is consistent
+with `forensics/w16_price.py`: the binding constraint is the phase.

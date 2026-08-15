@@ -121,3 +121,6 @@ import Riemann
 #check @Riemann.Blindness.card_onOrd_add_Noff
 #check @Riemann.Blindness.Noff_determined
 #check @Riemann.Blindness.ledger_determined
+#check @Riemann.Blindness.offAt_superpose
+#check @Riemann.Blindness.landau_cannot_determine_offAt
+#check @Riemann.Blindness.offAt_not_minimal

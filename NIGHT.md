@@ -40,6 +40,24 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 16 — the residue is an UPPER BOUND; last cycle's claim corrected
+
+**Kill condition** (that the Landau weight determines `offAt`, which would shrink
+the evaluation problem) **did not fire**. `landau_cannot_determine_offAt`: the
+swap pair agrees on `Σ_ρ x^β` at **every** `x` and differs in `offAt`. What
+separates them is *which ordinate carries the crowd* — the phase, which the real
+weight discards. Consistent with `w16_price.py`.
+
+**And asking it exposed my own overclaim.** Cycle 15 said `(μ_T, offAt)` is *the
+exact* residue, "nothing else at all". **It is sufficient, not minimal** —
+`offAt_not_minimal` shows the swap pair has the *same ledger* and *different*
+`offAt`. Corrected at its location in `LEADS.md` and `CLAIMS.md`; `SURPRISES`
+S26.
+
+**Open question this creates, and it is cheaper than what it replaces:** find a
+*coarsening* of `offAt` that still determines the ledger. The minimal residue is
+unidentified.
+
 ### Night cycle 15 — the complete X theorem
 
 **Kill condition** (that some ledger quantity needs more than `(μ_T, offAt)`)

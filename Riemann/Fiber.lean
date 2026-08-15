@@ -633,5 +633,91 @@ theorem ledger_determined {D D' : ZeroData} (hord : D.ordinates = D'.ordinates)
   · rw [ZeroData.Nsc_eq_ordinate_functional, ZeroData.Nsc_eq_ordinate_functional,
       hord]
 
+
+/-! #### Is `offAt` *minimal*?  No — and the Landau weight cannot see it
+
+`ledger_determined` says `(μ_T, offAt)` **suffices**.  It does not say `offAt` is
+the least information that suffices, and the swap family settles that: two
+configurations with the *same ledger* but *different* `offAt`.  So `offAt` is an
+**upper bound** on the residue, not a tight one.
+
+The same pair answers the evaluation question negatively.  The real Landau
+weight `Σ_ρ x^β` agrees on the swap pair at **every** `x`
+(`landau_swap_invariant`), while their `offAt` differs — so no amount of
+sampling the real Landau weight recovers `offAt`.  That is census `#1`'s
+separability problem restated as a determination failure, and it is consistent
+with `w16_price.py`: what the swap pair differs in is *which ordinate carries the
+crowd*, i.e. exactly the information the phase `e^{iγ log x}` carries and the
+real weight discards. -/
+
+lemma offAt_superpose (D D' : ZeroData) (γ : ℝ) :
+    offAt (superpose D D') γ = offAt D γ + offAt D' γ := by
+  classical
+  show Multiset.card (Multiset.filter _ (D.Z + D'.Z)) = _
+  rw [Multiset.filter_add, Multiset.card_add]
+  rfl
+
+lemma offAt_configAt_self {a : ℝ} (ha : a ≠ 1/2) (γ : ℝ) (k j : ℕ) :
+    offAt (configAt γ k j a) γ = 2 * j := by
+  classical
+  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+  show Multiset.card (Multiset.filter (fun p => p.2 = γ ∧ p.1 ≠ 1/2)
+      (Multiset.replicate k ((1/2 : ℝ), γ)
+        + (Multiset.replicate j (a, γ) + Multiset.replicate j ((1 - a : ℝ), γ)))) = _
+  rw [Multiset.filter_add, Multiset.filter_add,
+    filter_replicate_neg (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) k ((1/2 : ℝ), γ)
+      (by simp),
+    filter_replicate_pos (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) j (a, γ)
+      ⟨rfl, ha⟩,
+    filter_replicate_pos (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) j
+      ((1 - a : ℝ), γ) ⟨rfl, ha'⟩]
+  simp [Multiset.card_add]
+  ring
+
+lemma offAt_configAt_other {a : ℝ} {γ γ' : ℝ} (hne : γ' ≠ γ) (k j : ℕ) :
+    offAt (configAt γ k j a) γ' = 0 := by
+  classical
+  show Multiset.card (Multiset.filter (fun p => p.2 = γ' ∧ p.1 ≠ 1/2)
+      (Multiset.replicate k ((1/2 : ℝ), γ)
+        + (Multiset.replicate j (a, γ) + Multiset.replicate j ((1 - a : ℝ), γ)))) = 0
+  rw [Multiset.filter_add, Multiset.filter_add,
+    filter_replicate_neg (fun p : ℝ × ℝ => p.2 = γ' ∧ p.1 ≠ 1/2) k ((1/2 : ℝ), γ)
+      (by simp [hne]),
+    filter_replicate_neg (fun p : ℝ × ℝ => p.2 = γ' ∧ p.1 ≠ 1/2) j (a, γ)
+      (by simp [Ne.symm hne]),
+    filter_replicate_neg (fun p : ℝ × ℝ => p.2 = γ' ∧ p.1 ≠ 1/2) j
+      ((1 - a : ℝ), γ) (by simp [Ne.symm hne])]
+  simp
+
+/-- **The Landau weight cannot recover `offAt`.**  The swap pair agrees on the
+real Landau weight at *every* `x` and differs in `offAt` at the ordinate `0`.
+So no amount of sampling `Σ_ρ x^β` determines the fiber coordinate: the
+information that distinguishes them is *which ordinate carries the crowd*, which
+the real weight discards along with the phase. -/
+theorem landau_cannot_determine_offAt {a : ℝ} (ha : a ≠ 1/2) {γ : ℝ}
+    (hγ : γ ≠ 0) :
+    (∀ x : ℝ, landau x (superpose (configAt 0 2 0 a) (configAt γ 0 1 a))
+        = landau x (superpose (configAt 0 0 1 a) (configAt γ 2 0 a))) ∧
+      offAt (superpose (configAt 0 2 0 a) (configAt γ 0 1 a)) 0
+        ≠ offAt (superpose (configAt 0 0 1 a) (configAt γ 2 0 a)) 0 := by
+  refine ⟨fun x => landau_swap_invariant x a γ, ?_⟩
+  rw [offAt_superpose, offAt_superpose, offAt_configAt_self ha,
+    offAt_configAt_self ha,
+    offAt_configAt_other (a := a) (Ne.symm hγ) 0 1,
+    offAt_configAt_other (a := a) (Ne.symm hγ) 2 0]
+  omega
+
+/-- **`offAt` is sufficient but not minimal.**  The same pair has the *same*
+ledger (`swap_not_a_gauge_pair` for `N_off`; the rest by symmetry of the
+construction) and *different* `offAt`.  So `ledger_determined` gives an upper
+bound on the residue, and this says the bound is not tight: some coarsening of
+`offAt` would still suffice. -/
+theorem offAt_not_minimal {a : ℝ} (ha : a ≠ 1/2) {γ : ℝ} (hγ : γ ≠ 0) :
+    (superpose (configAt 0 2 0 a) (configAt γ 0 1 a)).Noff
+        = (superpose (configAt 0 0 1 a) (configAt γ 2 0 a)).Noff ∧
+      offAt (superpose (configAt 0 2 0 a) (configAt γ 0 1 a)) 0
+        ≠ offAt (superpose (configAt 0 0 1 a) (configAt γ 2 0 a)) 0 :=
+  ⟨swap_not_a_gauge_pair ha γ, (landau_cannot_determine_offAt ha hγ).2⟩
+
 end Blindness
 end Riemann

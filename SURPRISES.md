@@ -60,6 +60,7 @@ total.
 | S23 | 045 | promoting a grade-C claim would be a research question, not a formalisation task | W7's took **one cycle** — the cheap invariants all share one shape (`H γ ≤ M`), which *is* the class definition, and it needs no Euler product | self (by attempting it) | calibration |
 | S24 | 046 | the last grade-C entry would either promote to A or stay C | **neither** — its class is well defined but its support is a *numerical optimisation*, so the grading scheme was missing a bin. Grade **N** added. And the optimisation's code is not in the repo at all | self (by attempting the promotion) | design |
 | S25 | 047 | the unreproducible-number sweep would find more `#29`-class defects (missing code) | `#29` is the **only** one — every other computed figure traces to a Lean theorem, an exact closed form, a declared axiom, or a marked retraction. What it found instead was a **different species**: a retraction banner sitting *below* the numbers it retracts | self (by sweeping) | design |
+| S26 | 052 | `(μ_T, offAt)` is the **exact** residue — "nothing else at all" (stated in SESSION 051 and LEADS) | it is **sufficient but not minimal**. `offAt_not_minimal`: the swap pair has the *same ledger* and *different* `offAt`, so some coarsening would also suffice and the minimal residue is unidentified | self (by asking the next question) | calibration |
 
 ## Standing observation
 

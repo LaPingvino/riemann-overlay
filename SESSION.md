@@ -2062,3 +2062,41 @@ Build green (3747 jobs), audits extended, base hash unmoved.
 cleaner fact — three of the five counted quantities live entirely inside `μ_T`
 and two live entirely outside it, so the project's whole unconditional gap is
 the price of exactly two numbers, and one of them is a difference of the other.
+
+
+# SESSION 052 — night cycle 16: the residue is an upper bound, and I overclaimed it last cycle
+
+**Kill condition, stated first:** *if the Landau weight turns out to determine
+`offAt`, the evaluation problem is smaller than `w16_price.py` claims and that
+pricing needs revisiting.* **It did not fire — the weight cannot.**
+
+`landau_cannot_determine_offAt` (axiom-free): the swap pair — one atom of mass
+two in each fiber state, at two distinct heights, exchanged — agrees on the real
+Landau weight at **every** `x` and differs in `offAt` at `0`. So no amount of
+sampling `Σ_ρ x^β` recovers the fiber coordinate. What distinguishes the pair is
+*which ordinate carries the crowd*, which is exactly what the phase
+`e^{iγ log x}` carries and the real weight discards. Census `#1`'s separability
+problem, restated as a determination failure, and consistent with
+`w16_price.py`'s verdict that the binding constraint is the phase.
+
+**And asking that question exposed an overclaim of mine from last cycle.**
+SESSION 051 said `(μ_T, offAt)` is *"the exact statement of what the certificate
+class is missing… and nothing else at all."* **It is sufficient, not minimal.**
+`offAt_not_minimal`: the same swap pair has the **same ledger** and **different
+`offAt`**. So `ledger_determined` gives an *upper bound* on the residue, some
+coarsening of `offAt` would also suffice, and **the minimal residue is not
+identified**.
+
+Filed as `SURPRISES` S26, and the stale text is corrected **at its location** in
+`LEADS.md` and `CLAIMS.md` — not appended below, per the ordering rule. The
+correction was found by asking the next question rather than by re-reading, which
+is the standing observation of that register holding for the twenty-sixth time.
+
+Two new grade-A rows in `CLAIMS.md`; audits extended; build green (3747 jobs);
+base hash unmoved.
+
+**Might-mean, unhedged:** "we know exactly what is missing" survived one cycle
+before becoming "we know something that would suffice", and the gap between
+those two sentences is the entire remaining research question — because a
+coarsening of `offAt` that still determines the ledger would be a cheaper thing
+to go looking for than `offAt` itself.

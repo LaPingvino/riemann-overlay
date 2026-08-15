@@ -197,11 +197,16 @@ the defect is isolated and the sweep says so rather than inflating it.*
 **It fired for its stated scope** — `#29` is the sole *missing-computation*
 defect. The sweep then found a different species, recorded below.
 
+> ⚠️ **Stale as of `SESSION 120`, corrected here.** `#29` was resolved:
+> `forensics/window_opt.py` reproduces the
+> whole `λ`-sweep to seven digits. **The count of missing-computation defects is
+> now zero**, not one. The audit's conclusion stands; its subject does not.
+
 Every computed figure in the registers, traced:
 
 | figure | provenance | status |
 |---|---|---|
-| `0.6818287` bandlimited ceiling | `Zeta23.PairCeiling.ceiling_law256` | Lean ✓ (imported; unreachable from our root — parked) |
+| `0.6818287` bandlimited ceiling | `Zeta23.PairCeiling.ceiling_law256` | Lean ✓ — **reachable from `import Riemann`**, re-verified `SESSION 121`. (Graded "unreachable from our root — parked" until then; W34a's discharge made it reachable and this cell was never updated.) |
 | `0.6725007` Montgomery–Taylor | closed form `3/2 − (1/√2)cot(1/√2)` | verified exactly, night 10 ✓ |
 | `5.035` row-opening threshold — ⚠️ **the row is no longer closed (SESSION 084); beating `0.50875` needs `C < 1.49125` (Prop 1) or `C < 1.9825` (the `/6` bridge)** | `1 + 6 × 0.6725`, and `Proportion.nsc_row_opens` carries `C < 5.035` | Lean ✓, arithmetic transparent |
 | `2.345` (the `/2` route's threshold) | `1 + 2 × 0.6725` | exact ✓ |

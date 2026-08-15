@@ -5089,3 +5089,43 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 **Might-mean, unhedged:** a register that records failures faithfully will keep
 recording them after they are fixed, because the discipline that files a defect
 is not the discipline that closes one.
+
+
+# SESSION 121 — the stale-grade sweep, and it was not isolated
+
+`120` found a ninety-cycle-stale "code not in repo" in `CLAIMS.md`. That is the
+*opposite* failure mode from the one the overclaim gate hunts: a register saying
+something is **un**verified when it is verified. One instance is an accident; the
+question is whether it is a species.
+
+**Kill condition, filed first:** *if every remaining negative grade in
+`CLAIMS.md` is still accurate, the `120` case was isolated and no systematic
+staleness exists.* **It did not fire — two more.**
+
+* **`0.6818287`, the bandlimited ceiling** — graded *"Lean ✓ (imported;
+  unreachable from our root — parked)"*. W34a's discharge made it reachable.
+  Verified this cycle rather than taken from the prompt: `#check
+  @Zeta23.PairCeiling.ceiling_law256` resolves under `import Riemann`. Corrected.
+* **The audit header** — *"`#29` is the sole missing-computation defect"*, true
+  when written, and `#29` has since been resolved. The count is **zero**, not
+  one. The audit's *conclusion* stands; its subject does not. Corrected at the
+  header rather than only in the table row below it.
+
+**Three stale negatives in two cycles, all of the same species.** The project's
+guards are asymmetric: `claims_gate` patrols for claims that are too strong, the
+provenance lint patrols for unsupported numbers, and **nothing patrols for
+pessimism**. A grade that says "not done" is never challenged, because no
+instrument is offended by understatement and no cycle is motivated to revisit a
+closed-looking cell.
+
+That asymmetry is worth naming and I am not building a guard for it — `113` and
+`120` both showed what happens when I build an instrument for a defect I have
+seen twice. The control is the same as for quantifier drift: when a cycle
+discharges an issue, sweep the registers for *its number*, not only for its name.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** a project that grades itself honestly will drift
+pessimistic, because every incentive it has built points at catching overclaims
+and none at catching the moment a defect stopped being true.

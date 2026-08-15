@@ -3434,3 +3434,65 @@ Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
 you cannot have a zero that merely *looks* simple without paying for it with two
 zeros that are visibly off the line, so the hardest case for the certificate
 class is also the most expensive one for the counterexample.
+
+
+# SESSION 084 — the `Nsc` row is not zero; it is 50.875%
+
+Seven cycles of blindness theorems, none of which had touched the ledger. This
+cycle asked what they bought, and the answer was the largest single movement the
+project has recorded.
+
+**Kill condition, filed first:** *if the derived route needs any hypothesis
+beyond the coupling itself, it is a wish and not a route, and I say so.* It
+needs none.
+
+**The chain.**
+
+1. `two_mul_NscStd_le_Noff_add_two_mul_Nsc` (`083`) — every haunted zero costs
+   two off-line zeros.
+2. Sharpened here: a haunted atom has on-line part `1` and mass `≠ 1`, so its
+   off-line part is even and nonzero, so its **mass is at least 3**. It consumes
+   three zeros of `N` and contributes one to `NscStd`. Hence
+   **`3·NscStd ≤ N + 2·Nsc`** (`three_mul_NscStd_le_N_add_two_mul_Nsc`),
+   unconditional, axiom-free.
+3. `proportion_of_proportionStd` transports it: `ProportionStd κ` gives
+   `Proportion ((3κ − 1)/2)` with **no star bound**.
+4. `certified_nsc_unconditional` instantiates at the baseline:
+   `(3 × 0.6725 − 1)/2 = 0.50875`.
+
+**What was wrong before, and where the error lived.** `certified_nsc`'s
+docstring said the row was *honestly* zero because no unconditional `(★)` exists
+at any constant, so neither Proposition 1 (`2 − C`) nor the baseline route
+(`0.6725 − (C−1)/2`) can be evaluated. **Both premises are true. The conclusion
+does not follow.** The docstring enumerated the bridges from `NscStd` to `Nsc`
+and the enumeration was not exhaustive — it assumed every bridge passes through
+`(★)`. `Gaps.nscStd_le_nsc_add` and `Gaps.offline_le` are both `(★)`-conditioned,
+which is presumably why. The correction is written at the location of the
+docstring, and `Proportion 0` is kept as a true statement and as the record of
+what was believed.
+
+**Verification, because a result this size needs more than a green build.**
+
+* `#print axioms` on the combinatorial step: `[propext, Classical.choice,
+  Quot.sound]` — axiom-free.
+* `#print axioms certified_nsc_unconditional`: `[propext, Classical.choice,
+  Quot.sound, baseline_zeta23, zetaNonempty]` — **exactly the two axioms the
+  `NscStd` row already consumed.** No new tier, no new assumption.
+* Independent brute force: 200 000 random configurations, **zero violations** of
+  `3·NscStd ≤ N + 2·Nsc`.
+* Tightness: `s` simple atoms and `h` haunted mass-`3` atoms give
+  `NscStd/N = (s+h)/(s+3h)` and `Nsc/N = s/(s+3h)`; the constraint binds, and at
+  `NscStd/N = 0.6725` it returns exactly `0.50875`. The bound is not merely
+  valid, it is attained.
+
+**Ledger: `Nsc` 0.00% → 50.88%.** Axiom count unchanged at 2, base hash
+`cd7a22e688df` unmoved, sorries 0. Build green (3757 jobs).
+
+Logged as `S34`, and it is the register's most expensive entry: the belief was
+not a guess, it was a docstring I had read many times and accepted, and what
+made it visible was asking what the blindness thread had bought the ledger —
+the question I had gone seven cycles without asking.
+
+**Might-mean, unhedged:** the project's own bookkeeping was the binding
+constraint, not the mathematics — half the zeros were already certified simple
+in the strong sense and nobody had multiplied the inequality out.

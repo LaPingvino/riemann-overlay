@@ -186,3 +186,9 @@ import Riemann
 #check @Riemann.Blindness.Noff_tight_chain
 #check @Riemann.Blindness.two_mul_NscStd_le_Noff_add_two_mul_Nsc
 #check @Riemann.Blindness.coupling_tight
+#check @Riemann.Blindness.Noff_le_N
+#check @Riemann.Blindness.Nsc_ge_of_Noff_le
+#check @Riemann.Blindness.two_mul_NscStd_le_two_mul_Nsc_add_N
+#check @Riemann.Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc
+#check @Riemann.proportion_of_proportionStd
+#check @Riemann.certified_nsc_unconditional

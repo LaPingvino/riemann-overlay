@@ -31,3 +31,6 @@ import Riemann
 #print axioms Riemann.Blindness.ledger_visibility_split
 #print axioms Riemann.Blindness.three_Nstar_le_thirdMoment_add_two_N
 #print axioms Riemann.Optimal.moment_route_walled
+#print axioms Riemann.certified_nsc_unconditional
+#print axioms Riemann.proportion_of_proportionStd
+#print axioms Riemann.Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc

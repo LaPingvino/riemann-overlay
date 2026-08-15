@@ -38,11 +38,19 @@ anti-Goodhart rule says to display it rather than to hide it behind the
 number. -/
 theorem certified_std : zetaFamily.ProportionStd 0.6725 := baseline_zeta23
 
-/-- **The project's own row, and it is empty.**  `Proportion 0` is all that is
-certified for the `H = 1` notion — and it is *honestly* zero, not zero by
-convention: no unconditional `(★)` exists at any constant, so neither
-Proposition 1 (`2 - C`) nor the baseline route (`0.6725 - (C-1)/2`) can be
-evaluated.  The row opens at the first effective `C < 2.345`. -/
+/-! > ⚠️ **SUPERSEDED (SESSION 084), and the correction belongs here.**  The
+> reasoning below is sound but its enumeration of routes was not exhaustive: it
+> assumed every bridge from `NscStd` to `Nsc` passes through `(★)`.  One does
+> not.  `Gaps.proportion_of_proportionStd` is unconditional, and
+> `certified_nsc_unconditional` below gives the row **`0.50875`**.  `Proportion 0`
+> is kept as a true statement and as the record of what was believed. -/
+
+/-- **The project's own row, formerly believed empty.**  `Proportion 0` is
+trivially true.  The docstring that stood here claimed it was all that could be
+certified, on the grounds that no unconditional `(★)` exists at any constant so
+neither Proposition 1 (`2 - C`) nor the baseline route (`0.6725 - (C-1)/2`)
+can be evaluated.  Both of those remain true; they were simply not the only
+routes.  See `certified_nsc_unconditional`. -/
 theorem certified_nsc : zetaFamily.toCounts.Proportion 0 := by
   intro ε hε
   filter_upwards [zetaFamily.toCounts.pos] with T hpos
@@ -52,6 +60,23 @@ theorem certified_nsc : zetaFamily.toCounts.Proportion 0 := by
   have : 0 ≤ zetaFamily.toCounts.Nsc T / zetaFamily.toCounts.Nz T :=
     div_nonneg h0 hpos.le
   linarith
+
+/-- **The project's own row, and it is NOT empty: `0.50875`.**
+
+`Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc` is `3·NscStd ≤ N + 2·Nsc`,
+axiom-free and unconditional: a *haunted* atom — on-line part `1`, mass `≠ 1` —
+has even nonzero off-line part, hence mass at least `3`, so it consumes three
+zeros of `N` while contributing one to `NscStd`.  Transported by
+`Gaps.proportion_of_proportionStd`, the baseline `ProportionStd 0.6725` becomes
+`Proportion (3·0.6725 − 1)/2 = 0.50875` with **no star bound and no new axiom**.
+
+The axiom tier is unchanged: this consumes exactly `baseline_zeta23` (and
+`zetaNonempty`, via the family's nonemptiness), the same two the `NscStd` row
+already consumed. -/
+theorem certified_nsc_unconditional : zetaFamily.toCounts.Proportion 0.50875 := by
+  have h := proportion_of_proportionStd certified_std
+  have e : (3 * (0.6725 : ℝ) - 1) / 2 = 0.50875 := by norm_num
+  rwa [e] at h
 
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is

@@ -1890,6 +1890,62 @@ theorem coupling_tight {a : ℝ} (ha : a ≠ 1/2) (n t : ℕ) (h : t ≤ n) :
   rw [hNscStd, hNsc, hoff]
   omega
 
+/-- **The coupling read as a supply route for the `Nsc` row.**  Any upper bound
+`B` on the off-line count transfers directly to a lower bound on `Nsc` in terms
+of the already-certified `NscStd`:
+
+> `2·Nsc + B ≥ 2·NscStd`,  i.e.  `Nsc ≥ NscStd − B/2`.
+
+Nothing beyond `two_mul_NscStd_le_Noff_add_two_mul_Nsc` is used — the kill
+condition for this route asked whether any further hypothesis was needed, and
+none is.  What the route *costs* is priced in `PRICES.md`; the theorem here is
+only the conversion. -/
+theorem Nsc_ge_of_Noff_le {D : ZeroData} {B : ℕ} (hB : D.Noff ≤ B) :
+    2 * D.NscStd ≤ 2 * D.Nsc + B := by
+  have := two_mul_NscStd_le_Noff_add_two_mul_Nsc D
+  omega
+
+/-- `N_off ≤ N` — trivially, the off-line zeros are a sub-multiset. -/
+theorem Noff_le_N (D : ZeroData) : D.Noff ≤ D.N := by
+  classical
+  exact Multiset.card_le_card (Multiset.filter_le _ _)
+
+/-- **The unconditional form:** `2·NscStd ≤ 2·Nsc + N`, i.e.
+`Nsc ≥ NscStd − N/2`, with no hypothesis at all.  Axiom-free. -/
+theorem two_mul_NscStd_le_two_mul_Nsc_add_N (D : ZeroData) :
+    2 * D.NscStd ≤ 2 * D.Nsc + D.N :=
+  Nsc_ge_of_Noff_le (Noff_le_N D)
+
+/-- **`3·NscStd ≤ N + 2·Nsc` — unconditional, axiom-free, no star bound.**
+
+Sharper than the `2 :` form above, and by the same mechanism pushed one step: a
+*haunted* atom (on-line part `1`, mass `≠ 1`) has off-line part even and
+nonzero, hence **mass at least 3**.  So each haunted atom consumes three zeros
+of `N` while contributing one to `NscStd`, and each simple atom consumes one
+while contributing one to both counts.
+
+This subsumes `two_mul_NscStd_le_two_mul_Nsc_add_N`. -/
+theorem three_mul_NscStd_le_N_add_two_mul_Nsc (D : ZeroData) :
+    3 * D.NscStd ≤ D.N + 2 * D.Nsc := by
+  classical
+  have key : (3 * D.NscStd : ℤ) ≤ (D.N : ℤ) + 2 * (D.Nsc : ℤ) := by
+    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    rw [hA, hB, hN, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun γ _ => ?_
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    split_ifs <;> omega
+  exact_mod_cast key
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

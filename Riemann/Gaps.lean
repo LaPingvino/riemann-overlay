@@ -18,6 +18,7 @@ deformation of `ξ` is a project in itself.  Only its deliverable, the
 zero-density consequence [OPEN A′], appears here.
 -/
 import Riemann.Fujii
+import Riemann.Fiber
 
 open Filter
 
@@ -113,6 +114,32 @@ project's row, on the stronger `Nsc`.  `nsc_of_nscStd` is the bridge, and it
 costs `(C-1)/2`. -/
 def Family.ProportionStd (F : Family) (κ : ℝ) : Prop :=
   ∀ ε > 0, ∀ᶠ T in atTop, (κ - ε) * F.Nz T ≤ F.NscStd T
+
+/-- **The literature's row transfers to the project's row with NO star bound.**
+
+`nscStd_le_nsc_add` above costs `(C-1)/6` and is therefore vacuous until `(★)`
+is known with some `C < 2`; today nothing is proved and that bridge says
+nothing.  This one costs nothing at all:
+`Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc` is `3·NscStd ≤ N + 2·Nsc`,
+axiom-free and unconditional, because a *haunted* atom has even nonzero
+off-line part and hence mass at least `3` — it consumes three zeros of `N`
+while contributing one to `NscStd`.
+
+Consequence: `ProportionStd κ` gives `Proportion ((3κ − 1)/2)` outright.  The
+bound is **tight**: `s` simple atoms and `h` haunted atoms of mass `3` give
+`NscStd/N = (s+h)/(s+3h)` and `Nsc/N = s/(s+3h)`, and the constraint binds. -/
+theorem proportion_of_proportionStd {F : Family} {κ : ℝ} (h : F.ProportionStd κ) :
+    F.toCounts.Proportion ((3 * κ - 1) / 2) := by
+  intro ε hε
+  filter_upwards [h (2 * ε / 3) (by linarith), F.toCounts.pos] with T hT hpos
+  have hbase : 3 * F.NscStd T ≤ F.Nz T + 2 * F.Nsc T := by
+    have := Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc (F.D T)
+    unfold Family.NscStd Family.Nsc Family.Nz
+    exact_mod_cast this
+  have hpos' : 0 < F.Nz T := hpos
+  show (3 * κ - 1) / 2 - ε ≤ F.Nsc T / F.Nz T
+  rw [le_div_iff₀ hpos']
+  linarith
 
 /-! ### The gaps -/
 

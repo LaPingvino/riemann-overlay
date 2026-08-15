@@ -1,25 +1,59 @@
 {
-  "base": {"version": 2, "hash": "cd7a22e688df", "note": "zetaNonempty — zetaFamily constructed; base v1 assumed the whole structure, v2 assumes only that zeta has zeros", "context": "v2 (compacted)"},
+  "base": {
+    "version": 2,
+    "hash": "cd7a22e688df",
+    "note": "zetaNonempty \u2014 zetaFamily constructed; base v1 assumed the whole structure, v2 assumes only that zeta has zeros",
+    "context": "v2 (compacted)"
+  },
   "comment": "Two-row ledger (ISSUES #13). Row NscStd is the literature's notion (multiplicity one, on the line = zeta-23's N0simple); row Nsc is the project's stronger notion (H=1: the ordinate carries nothing else). They are linked by ZeroData.two_NscStd_le at a cost of (C-1)/2, so the row gap is a certified function of C and closes exactly when (star) succeeds.",
   "baselines": [
-    {"name": "PRZZ 2019", "value": 0.4162, "lean": "Riemann.baseline_przz", "external": true},
-    {"name": "zeta-23 Thm D", "value": 0.6725, "lean": "Riemann.baseline_zeta23", "external": true}
+    {
+      "name": "PRZZ 2019",
+      "value": 0.4162,
+      "lean": "Riemann.baseline_przz",
+      "external": true
+    },
+    {
+      "name": "zeta-23 Thm D",
+      "value": 0.6725,
+      "lean": "Riemann.baseline_zeta23",
+      "external": true
+    }
   ],
   "certified": [
-    {"row": "NscStd", "lean": "Riemann.certified_std", "value": 0.6725,
-     "binding": "Riemann.baseline_zeta23",
-     "note": "axiom placeholder; import is live (audit/Zeta23Link.lean), blocked only on discharging zetaFamily"},
-    {"row": "Nsc", "lean": "Riemann.certified_nsc", "value": 0.0,
-     "binding": "Riemann.fujii_ineffective (no effective C exists; row opens at any C < 5.035 (census /6, cycle 1))",
-     "note": "honestly zero: no unconditional (star) at any constant"}
+    {
+      "row": "NscStd",
+      "lean": "Riemann.certified_std",
+      "value": 0.6725,
+      "binding": "Riemann.baseline_zeta23",
+      "note": "axiom placeholder; import is live (audit/Zeta23Link.lean), blocked only on discharging zetaFamily"
+    },
+    {
+      "row": "Nsc",
+      "lean": "Riemann.certified_nsc_unconditional",
+      "value": 0.50875,
+      "binding": "Riemann.baseline_zeta23 (via Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc, no star bound)",
+      "note": "SESSION 084: 3*NscStd <= N + 2*Nsc is axiom-free, so ProportionStd 0.6725 gives Proportion (3*0.6725-1)/2 unconditionally; same axiom tier as the NscStd row"
+    }
   ],
   "conjectural": [
-    {"lean": "Riemann.nsc_row_opens", "value": 0.1725,
-     "requires": "OPEN 0 with c0 <= 4.5 (C < 5.035) — cheapest route to the Nsc row",
-     "binding": "Riemann.fujii_ineffective"},
-    {"lean": "Riemann.conjectural_routeI", "value": 0.6726,
-     "requires": "OPEN 0 with c0 <= 0.33", "binding": "Riemann.Cbound_lt_record"},
-    {"lean": "Riemann.conjectural_full", "value": 1.0,
-     "requires": "OPEN D", "binding": "Riemann.ExtendedSupport"}
+    {
+      "lean": "Riemann.nsc_row_opens",
+      "value": 0.1725,
+      "requires": "OPEN 0 with c0 <= 4.5 (C < 5.035) \u2014 cheapest route to the Nsc row",
+      "binding": "Riemann.fujii_ineffective"
+    },
+    {
+      "lean": "Riemann.conjectural_routeI",
+      "value": 0.6726,
+      "requires": "OPEN 0 with c0 <= 0.33",
+      "binding": "Riemann.Cbound_lt_record"
+    },
+    {
+      "lean": "Riemann.conjectural_full",
+      "value": 1.0,
+      "requires": "OPEN D",
+      "binding": "Riemann.ExtendedSupport"
+    }
   ]
 }

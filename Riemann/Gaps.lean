@@ -317,6 +317,64 @@ theorem starBound_of_mult_le {F : Family} {M : ℕ} {κ : ℝ} (hM1 : 1 ≤ M)
   show F.Ns T ≤ ((M : ℝ) - ((M : ℝ) - 1) * κ + ε) * F.Nz T
   nlinarith [hNsc, hbase, hpos', hkey, hMpos, hM0]
 
+/-- **No haunted ordinate carries fewer than `m` zeros.**  The hypothesis of the
+ladder: a standard-simple ordinate is either simple outright, or crowded to mass
+at least `m`.  Carried as a `Prop`, never an axiom. -/
+def NoSmallHaunted (F : Family) (m : ℕ) : Prop :=
+  ∀ T γ, (F.D T).H γ - Blindness.offAt (F.D T) γ = 1 →
+    (F.D T).H γ = 1 ∨ m ≤ (F.D T).H γ
+
+/-- **The ladder, transported: `ProportionStd κ` gives `Proportion ((m·κ−1)/(m−1))`.**
+
+At `m = 3` this is `084`'s `(3κ−1)/2`; each odd rung upward is worth real points,
+and the limit is `κ` itself — excluding *every* small haunted ordinate would
+transfer the literature's row whole. -/
+theorem proportion_of_noSmallHaunted {F : Family} {m : ℕ} {κ : ℝ} (hm : 2 ≤ m)
+    (hh : NoSmallHaunted F m) (hstd : F.ProportionStd κ) :
+    F.toCounts.Proportion (((m : ℝ) * κ - 1) / ((m : ℝ) - 1)) := by
+  have hm1 : (1 : ℝ) < (m : ℝ) := by exact_mod_cast hm
+  intro ε hε
+  filter_upwards [hstd (ε / m) (by positivity), F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hbase : (m : ℝ) * F.NscStd T ≤ F.Nz T + ((m : ℝ) - 1) * F.Nsc T := by
+    have hnat := Blindness.mul_NscStd_le_N_add_pred_mul_Nsc (F.D T) m (by omega)
+      (fun γ => hh T γ)
+    have hcast : ((m - 1 : ℕ) : ℝ) = (m : ℝ) - 1 := by
+      have : (1 : ℕ) ≤ m := by omega
+      push_cast [Nat.cast_sub this]; ring
+    unfold Family.NscStd Family.Nz Family.Nsc
+    have := (Nat.cast_le (α := ℝ)).2 hnat
+    push_cast [hcast] at this
+    linarith [this]
+  show ((m : ℝ) * κ - 1) / ((m : ℝ) - 1) - ε ≤ F.Nsc T / F.Nz T
+  rw [le_div_iff₀ hpos']
+  have hm0 : (0 : ℝ) < (m : ℝ) - 1 := by linarith
+  have hmpos : (0 : ℝ) < (m : ℝ) := by linarith
+  have hTm : ((m : ℝ) * κ - ε) * F.Nz T ≤ (m : ℝ) * F.NscStd T := by
+    have he : (m : ℝ) * (κ - ε / m) = (m : ℝ) * κ - ε := by field_simp
+    calc ((m : ℝ) * κ - ε) * F.Nz T
+        = (m : ℝ) * ((κ - ε / m) * F.Nz T) := by rw [← he]; ring
+      _ ≤ (m : ℝ) * F.NscStd T := by nlinarith [hT, hmpos]
+  have hstep : ((m : ℝ) * κ - 1 - ε) * F.Nz T ≤ ((m : ℝ) - 1) * F.Nsc T := by
+    nlinarith [hTm, hbase, hpos']
+  have hm2 : (2 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm
+  have hfrac : ((m : ℝ) * κ - 1) / ((m : ℝ) - 1) - ε
+      ≤ ((m : ℝ) * κ - 1 - ε) / ((m : ℝ) - 1) := by
+    have hsplit : ((m : ℝ) * κ - 1 - ε) / ((m : ℝ) - 1)
+        = ((m : ℝ) * κ - 1) / ((m : ℝ) - 1) - ε / ((m : ℝ) - 1) := by
+      field_simp
+    rw [hsplit]
+    have hle : ε / ((m : ℝ) - 1) ≤ ε := by
+      rw [div_le_iff₀ hm0]
+      nlinarith [hε.le, hm2]
+    linarith
+  calc (((m : ℝ) * κ - 1) / ((m : ℝ) - 1) - ε) * F.Nz T
+      ≤ (((m : ℝ) * κ - 1 - ε) / ((m : ℝ) - 1)) * F.Nz T :=
+        mul_le_mul_of_nonneg_right hfrac hpos'.le
+    _ ≤ F.Nsc T := by
+        rw [div_mul_eq_mul_div, div_le_iff₀ hm0]
+        linarith [hstep]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

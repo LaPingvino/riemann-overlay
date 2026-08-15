@@ -4411,3 +4411,44 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 because of configurations made only of lone critical zeros and lone critical
 zeros shadowed by a single off-line pair, so improving the row means excluding
 that shadow and nothing else.
+
+
+# SESSION 105 — the ladder out of the shadow
+
+`104`'s might-mean said improving the `Nsc` row means excluding one shadow and
+nothing else. That is quantifiable, so this cycle quantifies it.
+
+**Kill condition, filed first:** *if excluding low-mass haunted atoms does not
+improve the constant, the shadow is not where the loss lives and `104`'s
+might-mean is wrong.* **It did not fire.**
+
+`mul_NscStd_le_N_add_pred_mul_Nsc` (new, axiom-free): if every haunted ordinate
+carries at least `m` zeros, then `m·NscStd ≤ N + (m−1)·Nsc`. At `m = 3` the
+hypothesis is vacuous and this is `084`. Transported
+(`proportion_of_noSmallHaunted`), it gives `Proportion ((m·κ − 1)/(m − 1))`,
+which **increases in `m` to `κ` itself**.
+
+| `m` | hypothesis | `Nsc` row |
+|---|---|---|
+| `3` | vacuous | `0.50875` |
+| `5` | no haunted ordinate of mass exactly `3` | **`0.590625`** |
+| `7` | none of mass `3` or `5` | `0.617917` |
+| `→ ∞` | no haunted ordinate at all | `0.6725` |
+
+**The `m = 5` rung is worth 8.2 points, and its hypothesis is oddly small.** It
+does not say there are no off-line zeros. It permits off-line pairs anywhere
+except shadowing a lone critical zero at mass exactly `3` — one configuration,
+the one `103` showed saturates seven bounds and `104` showed is half the equality
+set. Excluding it alone buys most of the distance to the literature's row.
+
+That is a different *kind* of hypothesis from anything else in the registers:
+not a density statement, not a moment bound, but the exclusion of a single local
+pattern. Whether it is reachable I do not know and do not claim.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the gap between what the literature proves and what
+this project certifies is held open by one picture repeated, so the cheapest
+possible purchase is not a stronger theorem about zeros in general but a reason
+that one arrangement of three zeros cannot occur.

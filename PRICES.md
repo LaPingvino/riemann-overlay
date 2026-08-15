@@ -458,3 +458,30 @@ points of star constant. At `κ = 2/3` the criterion would reach `M = 2` with ro
 to spare; at `κ → 1` it reaches any fixed `M`. So improving the `Nsc` row and
 bounding multiplicities are the *same* purchase seen from two ends — which is a
 connection the route table did not have.
+
+
+## The haunted ladder (SESSION 105)
+
+`104` proved the `Nsc` row's bound is tight **exactly** on mixtures of simple and
+haunted-mass-`3` atoms. So the constant `3` is bought by one shape, and excluding
+it raises the constant. The ladder:
+
+> `NoSmallHaunted F m` (every haunted ordinate carries `≥ m` zeros)
+> `⟹ Proportion ((m·κ − 1)/(m − 1))`.
+
+At `κ = 0.6725`:
+
+| `m` | hypothesis | `Nsc` row |
+|---|---|---|
+| `3` | vacuous — this is `084` | `0.50875` |
+| `5` | no haunted ordinate of mass exactly `3` | **`0.590625`** |
+| `7` | none of mass `3` or `5` | `0.617917` |
+| `→ ∞` | no haunted ordinate at all | `0.6725` — the whole baseline |
+
+**The `m = 5` rung is the cheap one.** Its hypothesis is not "no off-line zeros";
+it permits off-line pairs anywhere *except* shadowing a lone critical zero at
+mass exactly `3`. That is a statement about one configuration, and it is worth
+**8.2 points** — comparable to `087`'s ξ′ route (`9.29`) and asking for something
+quite different.
+
+*Both remain hypotheses. Neither is asserted, and the ledger stays at `50.88%`.*

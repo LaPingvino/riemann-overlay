@@ -2775,6 +2775,61 @@ theorem three_mul_NscStd_eq_iff (D : ZeroData) :
         if_neg (by omega : ¬ D.H γ = 1)]
       simp [h3]
 
+/-! ### Excluding the smallest shadow: a ladder to the full baseline
+
+`104` characterised the equality set of `3·NscStd ≤ N + 2·Nsc` as mixtures of
+simple and **haunted mass-`3`** atoms.  So the constant `3` is forced by that one
+shape.  Forbid it — allow haunted atoms only from mass `m` upward — and the
+constant rises to `m`.
+
+**Kill condition, filed first:** *if excluding low-mass haunted atoms does not
+improve the constant, the shadow is not where the loss lives and `104`'s
+might-mean is wrong.*  **It did not fire.** -/
+
+/-- **The ladder: `m·NscStd ≤ N + (m−1)·Nsc` when every haunted atom has mass at
+least `m`.**
+
+The hypothesis is exactly "no standard-simple ordinate carries between `2` and
+`m−1` zeros".  At `m = 3` it is vacuous and this is `084`'s bound; each odd step
+upward buys a better constant, and the row it yields,
+`(m·κ − 1)/(m − 1)`, increases to `κ` — the *whole* literature baseline. -/
+theorem mul_NscStd_le_N_add_pred_mul_Nsc (D : ZeroData) (m : ℕ) (hm : 1 ≤ m)
+    (h : ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 ∨ m ≤ D.H γ) :
+    m * D.NscStd ≤ D.N + (m - 1) * D.Nsc := by
+  classical
+  have key : (m : ℤ) * D.NscStd ≤ (D.N : ℤ) + ((m : ℤ) - 1) * D.Nsc := by
+    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    rw [hA, hB, hN, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun γ _ => ?_
+    have hcase := h γ
+    have hmZ : (1 : ℤ) ≤ (m : ℤ) := by exact_mod_cast hm
+    by_cases hsc : D.H γ - offAt D γ = 1
+    · rw [if_pos hsc]
+      by_cases hone : D.H γ = 1
+      · rw [if_pos hone, hone]; push_cast; linarith
+      · rw [if_neg hone]
+        rcases hcase hsc with h1 | hbig
+        · exact absurd h1 hone
+        · have hbZ : (m : ℤ) ≤ (D.H γ : ℤ) := by exact_mod_cast hbig
+          omega
+    · rw [if_neg hsc]
+      have hH0 : (0 : ℤ) ≤ (D.H γ : ℤ) := Int.natCast_nonneg _
+      split_ifs <;> omega
+  have hcast : ((m - 1 : ℕ) : ℤ) = (m : ℤ) - 1 := by omega
+  have : ((m * D.NscStd : ℕ) : ℤ) ≤ ((D.N + (m - 1) * D.Nsc : ℕ) : ℤ) := by
+    push_cast [hcast]
+    exact key
+  exact_mod_cast this
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

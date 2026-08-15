@@ -2871,3 +2871,47 @@ heterogeneous layers.** `surprises.py` now reports the correlated count.
 actually a replication engine with a weak checking side-effect, and the only
 reason the project did not compound its two shared errors is that it kept
 building instruments that share nothing with either instance.
+
+
+# SESSION 071 — a false identity of my own, caught two cycles late
+
+**Kill condition, stated first:** *if `m(m−1)` and `m(m−1)(m−2)` agree for all
+`m ≥ 3`, the "one polynomial" claim stands and there is nothing to correct.*
+**It did not fire.**
+
+SESSION 061 and `LEADS.md` both say the `/6` census result and the third-moment
+obstruction are **"two readings of one polynomial"**, and that the shared `6`
+**"is not a coincidence"**. **Both sentences are wrong.**
+
+* `six_mul_card_le_Nstar_sub_N` runs on `N⊛ − N = Σ m(m−1)`.
+* The third-moment obstruction runs on `Σ m(m−1)(m−2)`.
+
+They agree at `m = 3` — `3·2 = 6` and `3·2·1 = 6` — **and nowhere else**: `2`
+against `0` at `m = 2`, `12` against `24` at `m = 4`. **The shared `6` is
+exactly the coincidence I declared it not to be.**
+
+What survives, and it is worth keeping: both bounds become active at `m = 3`,
+because that is where crowding starts. **The threshold is shared; the polynomial
+is not.**
+
+Filed as `SURPRISES` S30, and the meter marks it **self-caught LATE** — only the
+second such entry after `S2`. Late is the expensive kind, and two cycles is
+late: the claim was quoted onward in a dispatch before it was checked.
+
+**One convention question this raised, resolved explicitly.** The ordering rule
+says corrections go at the location of the stale text; `LOOP.md` says
+`SESSION.md` is append-only. Resolution: **SESSION entries are a log of what was
+believed at the time and are not rewritten; the live registers are.** The
+correction sits in `LEADS.md` at the error's own location, `SURPRISES` carries
+the scoring, and this entry is the pointer for anyone reading 061 forward.
+
+**And the class of error is one no current instrument covers.** `claims_gate`
+scans for exactness language; *"two readings of one polynomial"* has none — it
+is an assertion of **identity between two objects**, which is a shape neither
+the lint (typed inputs), the gate (exactness wording), nor the kernel
+(unstated claims) checks. **Fourth error class, fourth instrument gap**, and
+this one was caught only by re-reading with a specific suspicion.
+
+**Might-mean, unhedged:** the pleasing sentence — two results turning out to be
+one — is the exact shape this project keeps getting wrong, because a claimed
+unification is an exactness claim wearing the costume of an insight.

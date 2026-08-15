@@ -1294,12 +1294,21 @@ inequality true of all configurations: RS, Fujii, Tsang are all irrelevant to
 it. **The pricing was worth doing precisely because it cost nothing and the
 literature fetch it pre-empted would have cost a session.**
 
-**What the obstruction is made of, and it is not a coincidence.**
-`m(m−1)(m−2)` vanishes at `m ≤ 2` and equals **6** at `m = 3` — the same `6` as
-`six_mul_NscStd_le`. The third moment carries information about atoms of mass
-`≥ 3` and nothing else, and it carries it in the direction that costs. The
-project's `/6` census result and this obstruction are two readings of one
-polynomial.
+**What the obstruction is made of.** `m(m−1)(m−2)` vanishes at `m ≤ 2` and
+equals `6` at `m = 3`. The third moment carries information about atoms of mass
+`≥ 3` and nothing else, and it carries it in the direction that costs.
+
+> WARNING **Correction (2026-08-15), at the location of the error.** I wrote
+> that this and the `/6` census result are "two readings of one polynomial", and
+> that the coincidence "is not a coincidence". **Both sentences were wrong.**
+> `six_mul_card_le_Nstar_sub_N` runs on `N* - N = sum m(m-1)`; the third-moment
+> obstruction runs on `sum m(m-1)(m-2)`. **These are different polynomials.**
+> They agree at `m = 3` (`3*2 = 6` and `3*2*1 = 6`) and nowhere else: at `m = 2`
+> they read `2` and `0`, at `m = 4` they read `12` and `24`.
+>
+> **The shared `6` is exactly the coincidence I declared it not to be.** What is
+> true and survives: both bounds become active at `m = 3`, because that is where
+> crowding starts. The *threshold* is shared; the polynomial is not.
 
 **Live remainder:** the level-3 *correlation* may still matter elsewhere — this
 kills its use as a third moment in a linear bound on `Nsc`, which is the only

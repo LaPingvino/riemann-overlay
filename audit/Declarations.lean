@@ -243,3 +243,9 @@ import Riemann
 #check @Riemann.Blindness.haunted_odd
 #check @Riemann.Blindness.noSmallHaunted_succ_of_even
 #check @Riemann.Blindness.ladder_sharp_at_odd
+#check @Riemann.Blindness.Nsc_eq_NscStd_of_noHaunted
+#check @Riemann.Blindness.noHaunted_of_mult_le_two
+#check @Riemann.Blindness.noHaunted_not_mult_le_two
+#check @Riemann.NoHaunted
+#check @Riemann.proportion_of_noHaunted
+#check @Riemann.proportion_of_noHaunted_zeta

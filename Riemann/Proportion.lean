@@ -193,6 +193,17 @@ theorem starBound_of_mult_le_three
   have e : ((3 : ℕ) : ℝ) - (((3 : ℕ) : ℝ) - 1) * 0.50875 = 1.9825 := by norm_num
   rwa [e] at h
 
+/-- **The whole baseline, from a hypothesis about one pattern.**  If no ordinate
+of `ζ` carries a lone critical zero shadowed by off-line pairs, the literature's
+`0.6725` transfers to the project's stronger notion intact.
+
+Strictly weaker than `097`'s multiplicity-`≤ 2` hypothesis, which additionally
+forbids unhaunted crowding — and which buys the star bound `C ≤ 1.3275` that this
+does not. -/
+theorem proportion_of_noHaunted_zeta (hh : NoHaunted zetaFamily) :
+    zetaFamily.toCounts.Proportion 0.6725 :=
+  proportion_of_noHaunted hh certified_std
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

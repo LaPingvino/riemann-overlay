@@ -2902,6 +2902,72 @@ theorem ladder_sharp_at_odd {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j) 
   push_cast at this
   linarith
 
+/-! ### Where the two conditional families meet
+
+The registers now carry two unrelated ladders of hypotheses: multiplicity
+(`H ≤ M`, `096`–`100`) and hauntedness (`NoSmallHaunted m`, `105`–`106`).  They
+meet at the top.
+
+**Kill condition, filed first:** *if "no haunted ordinates at all" fails to
+deliver the full `κ` row, the ladder's limit is not attained and the two families
+do not meet.*  It did not fire. -/
+
+/-- **No haunted ordinates ⟹ the two simplicity notions coincide.**  This is the
+`m → ∞` end of the ladder, and it gives the literature's row **whole**. -/
+theorem Nsc_eq_NscStd_of_noHaunted (D : ZeroData)
+    (h : ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1) : D.Nsc = D.NscStd := by
+  classical
+  have key : (D.Nsc : ℤ) = (D.NscStd : ℤ) := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+    rw [hB, hA]
+    refine Finset.sum_congr rfl fun γ _ => ?_
+    have h1 := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    by_cases hsc : D.H γ - offAt D γ = 1
+    · rw [if_pos hsc, if_pos (h γ hsc)]
+    · rw [if_neg hsc, if_neg (by intro hone; exact hsc (by omega))]
+  exact_mod_cast key
+
+/-- **`H ≤ 2` is strictly stronger than "no haunted ordinates".**  A haunted
+ordinate carries odd mass `≥ 3` (`haunted_odd`), so a multiplicity bound of `2`
+forbids them — but not conversely: an ordinate of mass `4` with every zero on the
+line is unhaunted and violates `H ≤ 2`.
+
+So `097`'s `Proportion 0.6725` needed less than it assumed.  What `H ≤ 2` buys
+*beyond* the row is the star bound `C ≤ 1.3275`, which hauntedness alone does not
+give. -/
+theorem noHaunted_of_mult_le_two (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
+    ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 := by
+  intro γ hsc
+  have h1 := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have := h γ
+  omega
+
+/-- The converse fails: `configAt 0 4 0 a` has no haunted ordinate and mass `4`. -/
+theorem noHaunted_not_mult_le_two {a : ℝ} (ha : a ≠ 1/2) :
+    (∀ γ, (configAt 0 4 0 a).H γ - offAt (configAt 0 4 0 a) γ = 1 →
+        (configAt 0 4 0 a).H γ = 1)
+      ∧ ¬ (∀ γ, (configAt 0 4 0 a).H γ ≤ 2) := by
+  classical
+  have hH : (configAt 0 4 0 a).H 0 = 4 := by
+    rw [ZeroData.H_eq_count, configAt_ordinates]; simp
+  refine ⟨?_, ?_⟩
+  · intro γ hsc
+    have hoff : offAt (configAt 0 4 0 a) γ = 0 := by
+      by_cases hγ : γ = 0
+      · rw [hγ, offAt_configAt_self ha]
+      · rw [offAt_configAt_other (a := a) hγ 4 0]
+    omega
+  · intro hcon
+    have := hcon 0
+    omega
+
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 
 `no_starBound_from_proportionStd` (below) says a proportion of *simple* zeros

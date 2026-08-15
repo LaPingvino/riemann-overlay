@@ -4491,3 +4491,41 @@ axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
 off-line zeros is the same parity that makes half of this ladder illusory, so
 even the shape of the project's conditional results is dictated by the one
 symmetry it started from.
+
+
+# SESSION 107 — where the two conditional families meet
+
+The registers carry two ladders of hypotheses built eleven cycles apart and never
+related: multiplicity (`H ≤ M`, `096`–`100`) and hauntedness
+(`NoSmallHaunted m`, `105`–`106`). They meet at the top, and the meeting corrects
+something.
+
+**Kill condition, filed first:** *if "no haunted ordinates at all" fails to
+deliver the full `κ` row, the ladder's limit is not attained and the two families
+do not meet.* It did not fire.
+
+* `Nsc_eq_NscStd_of_noHaunted` (new, axiom-free) — no haunted ordinate makes the
+  two simplicity notions coincide, so `proportion_of_noHaunted` transfers the
+  literature's row **whole**: `Proportion 0.6725`. The ladder's `m → ∞` limit is
+  attained, not approached.
+* `noHaunted_of_mult_le_two` — `H ≤ 2` implies it, since a haunted ordinate
+  carries odd mass `≥ 3` (`106`).
+* `noHaunted_not_mult_le_two` — and the converse fails: `configAt 0 4 0 a`, four
+  zeros all on the line at one height, is unhaunted with `H = 4`.
+
+**So `097` assumed more than it needed for the row.** `H ≤ 2` forbids *all*
+crowding; `NoHaunted` forbids only the shadow, and permits an ordinate to carry a
+hundred critical zeros. Both give `0.6725`. What the stronger hypothesis actually
+buys is the star bound `C ≤ 1.3275` — which hauntedness alone does not, since an
+unhaunted crowd still inflates `N⊛`.
+
+That distinction was invisible while the two families sat in different sections
+of the same file. It is the kind of thing consolidation is for, and `100`'s
+consolidation did not catch it because it consolidated *within* one family.
+
+Build green (3757 jobs), ledger unchanged at `NscStd 67.25% / Nsc 50.88%`,
+axioms 2, base hash `cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** the project's strongest conditional result needs
+nothing about how crowded the zeros are, only that no crowd hides a lone survivor
+on the line — so the obstruction was never multiplicity but camouflage.

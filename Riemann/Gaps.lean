@@ -375,6 +375,26 @@ theorem proportion_of_noSmallHaunted {F : Family} {m : ℕ} {κ : ℝ} (hm : 2 �
         rw [div_mul_eq_mul_div, div_le_iff₀ hm0]
         linarith [hstep]
 
+/-- **No haunted ordinate anywhere** — the `m → ∞` end of the ladder. -/
+def NoHaunted (F : Family) : Prop :=
+  ∀ T γ, (F.D T).H γ - Blindness.offAt (F.D T) γ = 1 → (F.D T).H γ = 1
+
+/-- **The ladder's limit, attained: `NoHaunted` transfers the literature's row
+whole.**  Weaker than `097`'s `H ≤ 2` — which forbids unhaunted crowding too —
+and it yields the same proportion, though not the same star bound. -/
+theorem proportion_of_noHaunted {F : Family} {κ : ℝ}
+    (hh : NoHaunted F) (hstd : F.ProportionStd κ) : F.toCounts.Proportion κ := by
+  intro ε hε
+  filter_upwards [hstd ε hε, F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have heq : F.Nsc T = F.NscStd T := by
+    have := Blindness.Nsc_eq_NscStd_of_noHaunted (F.D T) (fun γ => hh T γ)
+    unfold Family.Nsc Family.NscStd
+    exact_mod_cast this
+  show κ - ε ≤ F.Nsc T / F.Nz T
+  rw [le_div_iff₀ hpos', heq]
+  linarith [hT]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

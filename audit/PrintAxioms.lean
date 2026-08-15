@@ -28,3 +28,4 @@ import Riemann
 #print axioms Riemann.Blindness.NscStd_determined
 #print axioms Riemann.Blindness.ledger_determined
 #print axioms Riemann.Blindness.ledger_relabel_invariant
+#print axioms Riemann.Blindness.ledger_visibility_split

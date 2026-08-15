@@ -1013,5 +1013,60 @@ theorem moment_determined {D D' : ZeroData} (k : ℕ)
   refine Finset.sum_congr rfl fun γ _ => ?_
   rw [D.H_eq_count, D'.H_eq_count, hord]
 
+
+/-! #### Minimality, and why the question was ill-posed
+
+**Kill condition, stated before this section was written:** *if the minimality
+question is trivially answered — the ledger being a sufficient statistic for
+itself — then it is ill-posed as asked and the finding is the reframing, not a
+minimal object.*  **It fired.**
+
+The ledger is five numbers.  Any five-number summary that happens to equal it is
+trivially sufficient for it, so the "minimal sufficient statistic" is the ledger,
+and asking for it teaches nothing.
+
+The question with content is *what shape* the ledger has as a functional of the
+atom distribution.  Reading off the five `_from_profile` theorems, every ledger
+quantity is a sum over atoms of one of five basis functions of `(m, j)`, where
+`m` is the mass and `2j` the off-line mass:
+
+| ledger | basis function | `μ_T`-visible? |
+|---|---|---|
+| `N` | `m` | **yes** |
+| `N⊛` | `m²` | **yes** |
+| `Nsc` | `[m = 1]` | **yes** |
+| `NscStd` | `[m − 2j = 1]` | **no** |
+| `N_off` | `2j` | **no** |
+
+So the certificate class's target is a **five-dimensional linear image** of the
+atom distribution, and the split is `3 : 2`.  Three of the five basis
+functionals depend on `m` alone and are therefore inside `μ_T`; two require `j`
+and are provably outside it.
+
+Every entry of that table is already proved.  The theorem below only assembles
+them, because the assembled statement is the clearest thing this development
+has to say and it was scattered across three files. -/
+
+/-- **The visibility split, assembled.**  Three of the ledger's five components
+are functionals of `μ_T`; two are not, and the two are exactly those whose basis
+function reads the off-line mass. -/
+theorem ledger_visibility_split :
+    -- the visible three: equal ordinates suffice
+    (∀ D D' : ZeroData, D.ordinates = D'.ordinates →
+        D.N = D'.N ∧ D.Nstar = D'.Nstar ∧ D.Nsc = D'.Nsc) ∧
+      -- the invisible two: no ordinate functional computes them
+      (¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, D.NscStd = f D.ordinates) ∧
+      (¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, D.Noff = f D.ordinates) := by
+  refine ⟨fun D D' hord => ⟨?_, ?_, ?_⟩, NscStd_not_ordinate_functional, ?_⟩
+  · rw [(ZeroData.N_Nstar_ordinate_functional D).1,
+      (ZeroData.N_Nstar_ordinate_functional D').1, hord]
+  · rw [(ZeroData.N_Nstar_ordinate_functional D).2,
+      (ZeroData.N_Nstar_ordinate_functional D').2, hord]
+  · rw [ZeroData.Nsc_eq_ordinate_functional, ZeroData.Nsc_eq_ordinate_functional,
+      hord]
+  · rintro ⟨f, hf⟩
+    exact no_muInvariant_bundle_computes_Noff (fun _ => True) (fun _ _ _ => Iff.rfl)
+      (a := 1/4) (by norm_num) (Or.inl trivial) ⟨f, fun D _ => hf D⟩
+
 end Blindness
 end Riemann

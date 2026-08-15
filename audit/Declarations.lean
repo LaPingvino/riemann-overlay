@@ -140,3 +140,4 @@ import Riemann
 #check @Riemann.Blindness.thirdMoment
 #check @Riemann.Blindness.thirdMoment_determined
 #check @Riemann.Blindness.moment_determined
+#check @Riemann.Blindness.ledger_visibility_split

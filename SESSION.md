@@ -2345,3 +2345,41 @@ Build green (3757 jobs), audits extended, base hash unmoved, one new grade-A row
 **Might-mean, unhedged:** the project has spent a day proving what cannot be
 seen and priced its remaining work in that currency throughout, and it turns out
 half of that work was never on the far side of the wall at all.
+
+
+# SESSION 059 — minimality was ill-posed; the visibility split is the result
+
+**Kill condition, stated first:** *if the minimality question is trivially
+answered — the ledger being a sufficient statistic for itself — it is ill-posed
+as asked and the finding is the reframing, not a minimal object.* **It fired.**
+
+The ledger is five numbers; anything equal to it is trivially sufficient for it.
+So "the minimal sufficient statistic" is the ledger, and asking for it teaches
+nothing. Recording that as the answer rather than quietly switching to a
+different question.
+
+**The question with content is what shape the ledger has.** Every quantity is a
+sum over atoms of one of five basis functions of `(m, j)`: `m`, `m²`, `[m = 1]`,
+`[m − 2j = 1]`, `2j`. So the target is a **five-dimensional linear image of the
+atom distribution**, and the visibility split is **3 : 2** — three basis
+functionals read the mass alone and sit inside `μ_T`; two require the fiber
+coordinate and are provably outside it.
+
+`ledger_visibility_split`, axiom-free. **Every entry of that table was already
+proved**, scattered across `Basic.lean`, `Blindness.lean` and `Fiber.lean`. The
+work was the assembly, and the assembled statement is the clearest thing this
+development has to say about its own position.
+
+Combined with SESSION 058: of the two open directions, higher moments feed the
+*visible* three and the fiber coordinate feeds the *invisible* two — so the
+`3 : 2` split is also the split between "missing theorem" and "impossibility".
+
+No `SURPRISES` row: the kill condition fired as one of its stated branches, and
+nothing I had asserted was overturned.
+
+Build green (3757 jobs), audits extended, base hash unmoved.
+
+**Might-mean, unhedged:** three of the five things this project counts were
+always readable by the instruments it inherited, two never were, and every
+constant it has failed to move lives on the wrong side of a line that is four
+lines of Lean to state.

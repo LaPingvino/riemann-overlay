@@ -1141,3 +1141,35 @@ directions were being carried close together and are now separated:
 breaking the blindness. Only one of the project's two open directions is an
 impossibility result; the other is an ordinary missing theorem. Those had been
 priced as though they were the same kind of thing.
+
+### Minimality: the question was ill-posed, and the reframing is the result
+
+**Kill condition:** *if the minimality question is trivially answered — the
+ledger being a sufficient statistic for itself — it is ill-posed as asked and
+the finding is the reframing.* **It fired.**
+
+The ledger is five numbers. Any summary equal to it is trivially sufficient for
+it, so the minimal sufficient statistic *is* the ledger and asking for it
+teaches nothing. The question with content is what **shape** the ledger has as a
+functional of the atom distribution.
+
+Reading the five `_from_profile` theorems together: every ledger quantity is a
+sum over atoms of one of five basis functions of `(m, j)` — mass `m`, off-line
+mass `2j`:
+
+| ledger | basis function | `μ_T`-visible? |
+|---|---|---|
+| `N` | `m` | yes |
+| `N⊛` | `m²` | yes |
+| `Nsc` | `[m = 1]` | yes |
+| `NscStd` | `[m − 2j = 1]` | **no** |
+| `N_off` | `2j` | **no** |
+
+**The target is a five-dimensional linear image of the atom distribution, and
+the visibility split is `3 : 2`.** Three basis functionals read `m` alone;
+two require `j` and are provably outside `μ_T`.
+
+`Fiber.ledger_visibility_split` assembles this, axiom-free. Every entry was
+already proved — across `Basic.lean`, `Blindness.lean` and `Fiber.lean` — and
+the assembly is the point: **this is the clearest single statement the
+development has, and until now it was scattered over three files.**

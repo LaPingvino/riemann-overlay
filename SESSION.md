@@ -3225,3 +3225,50 @@ bookkeeping comes from two counting facts and neither of the two subtle rows,
 which means the class's residue is fixed by how much there is rather than by
 anything about where it sits — and the rows that carry the actual difficulty
 carry none of the rigidity.
+
+
+# SESSION 079 — the class cannot compute `NscStd`, but it can compute an interval containing it
+
+`no_muInvariant_theory_computes_NscStd` is a statement about a *point*: no
+`μ_T`-invariant theory pins the invisible row. `074` then showed even atoms
+contribute `0` and odd atoms at most `1`. Those two facts together suggest the
+class is not blind but *low-resolution* — it should see a bracket.
+
+**Kill condition, filed first:** *if `NscStd` can exceed the odd-atom count, the
+interval reading is wrong and the section dies.* It did not fire.
+
+Three new axiom-free results:
+
+* `even_offAt` — off-line mass at an ordinate is even, in general and not just
+  for `config`. The functional equation pairs `β` with `1 − β` and `β ≠ 1/2`
+  makes the pairing fixed-point-free. This had existed only as a fact about the
+  fiber states; it is now a theorem about arbitrary `ZeroData`.
+* `NscStd_le_oddAtoms` — an atom contributes only when its on-line part is `1`,
+  and with even off-line part its mass is then odd.
+* `bracket_muInvariant` — **both endpoints are `μ_T` functionals**, `Nsc` by
+  `Nsc_eq_ordinate_functional` and `oddAtoms` because `H` is the ordinate count.
+
+Hence `NscStd_bracketed`:
+
+> `Nsc ≤ NscStd ≤ #{odd atoms}`, both endpoints visible to the class.
+
+**Why this is a sharpening and not a restatement.** The impossibility theorem
+says a `μ_T`-invariant theory cannot output `NscStd`. It says nothing about how
+badly it fails, and read alone it invites the reading that the row is entirely
+dark. It is not: the class localises `NscStd` to an interval whose endpoints it
+computes, and the whole content of the blindness is *which point in that
+interval*. `even_offAt` is what makes the upper endpoint sharp — without the
+parity of the off-line mass the bound would be the atom count, not the odd-atom
+count.
+
+**Not claimed:** that the interval is tight — i.e. that every value in it is
+realised by some configuration with the given `μ_T`. That is the obvious next
+question and it is not proved.
+
+Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the certificate class is not blind to the standard
+simple count, it is short-sighted — it reads the answer to within a window whose
+width is the number of odd crowds, so every unit of the ledger's uncertainty is
+attributable to one specific odd atom rather than to the configuration as a
+whole.

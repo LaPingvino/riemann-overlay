@@ -168,3 +168,8 @@ import Riemann
 #check @Riemann.Blindness.profile_minimal_among_local
 #check @Riemann.Blindness.mass_only_not_sufficient
 #check @Riemann.Blindness.off_only_not_sufficient
+#check @Riemann.Blindness.even_offAt
+#check @Riemann.Blindness.oddAtoms
+#check @Riemann.Blindness.NscStd_le_oddAtoms
+#check @Riemann.Blindness.bracket_muInvariant
+#check @Riemann.Blindness.NscStd_bracketed

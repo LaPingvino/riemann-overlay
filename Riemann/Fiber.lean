@@ -1447,6 +1447,90 @@ theorem off_only_not_sufficient {a : ℝ} (ha : a ≠ 1/2) :
   · rw [configAt_N, configAt_N]
     norm_num
 
+/-! ### What the class *can* compute: the interval
+
+`no_muInvariant_theory_computes_NscStd` says the certificate class cannot
+compute `NscStd`.  That is a statement about a point.  Since even atoms
+contribute `0` (`even_mass_NscStd_zero`) and odd atoms contribute at most `1`,
+the class should be able to compute an **interval** containing it — and both
+endpoints should be `μ_T` functionals.
+
+**Kill condition, filed before the section was written:** *if `NscStd` can
+exceed the odd-atom count, the interval reading is wrong and the section dies.*
+It did not fire.
+
+Together with `Basic.Nsc_le_NscStd` this brackets the invisible row:
+
+> `Nsc ≤ NscStd ≤ #{odd atoms}`,  both endpoints visible to `μ_T`. -/
+
+/-- **Off-line mass at an ordinate is even** — the functional equation pairs
+`β` with `1 - β`, and `β ≠ 1/2` makes the pairing fixed-point-free. -/
+lemma even_offAt (D : ZeroData) (γ : ℝ) : Even (offAt D γ) := by
+  classical
+  obtain ⟨j, hj⟩ := D.H_eq_online_add_two_mul γ
+  have honline : Multiset.card ((D.Z.filter fun q => q.2 = γ).filter
+      fun q => q.1 = 1 / 2) = onAt D γ := by
+    rw [Multiset.filter_filter, onAt]
+    congr 1
+    exact Multiset.filter_congr fun p _ => and_comm
+  rw [honline] at hj
+  have hsplit := H_eq_onAt_add_offAt D γ
+  exact ⟨j, by omega⟩
+
+/-- The number of odd-mass atoms — a `μ_T` functional, since `H` is. -/
+noncomputable def oddAtoms (D : ZeroData) : ℕ :=
+  (D.ordinates.toFinset.filter fun γ => ¬ Even (D.H γ)).card
+
+/-- **`NscStd ≤ #{odd atoms}`, and the right-hand side is `μ_T`-visible.**
+An atom contributes to `NscStd` only if its on-line part is `1`; with the
+off-line part even, its mass is then odd.  So the invisible row is bracketed
+above by a quantity the certificate class can read. -/
+theorem NscStd_le_oddAtoms (D : ZeroData) : D.NscStd ≤ oddAtoms D := by
+  classical
+  have key : (D.NscStd : ℤ) ≤ (oddAtoms D : ℤ) := by
+    rw [NscStd_from_profile]
+    have h1 : ((profile D).map fun q => if q.1 - q.2 = 1 then (1 : ℤ) else 0).sum
+        = ∑ γ ∈ D.ordinates.toFinset,
+            (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+      rw [profile, Multiset.map_map]
+      rfl
+    have h2 : (oddAtoms D : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset,
+            (if ¬ Even (D.H γ) then (1 : ℤ) else 0) := by
+      rw [oddAtoms, Finset.card_filter]
+      push_cast
+      rfl
+    rw [h1, h2]
+    refine Finset.sum_le_sum fun γ _ => ?_
+    by_cases h : D.H γ - offAt D γ = 1
+    · rw [if_pos h, if_pos]
+      intro hev
+      obtain ⟨r, hr⟩ := even_offAt D γ
+      obtain ⟨t, ht⟩ := hev
+      have := H_eq_onAt_add_offAt D γ
+      omega
+    · rw [if_neg h]
+      split <;> norm_num
+  exact_mod_cast key
+
+/-- **Both endpoints of the bracket are `μ_T` functionals.**  `Nsc` by
+`Nsc_eq_ordinate_functional`; `oddAtoms` because `H` is the ordinate count.
+This is what makes the bracket *computable by the class* rather than merely
+true. -/
+theorem bracket_muInvariant {D D' : ZeroData} (h : D.ordinates = D'.ordinates) :
+    D.Nsc = D'.Nsc ∧ oddAtoms D = oddAtoms D' := by
+  classical
+  refine ⟨?_, ?_⟩
+  · rw [ZeroData.Nsc_eq_ordinate_functional, ZeroData.Nsc_eq_ordinate_functional, h]
+  · unfold oddAtoms
+    simp only [ZeroData.H_eq_count, h]
+
+/-- **The certificate class computes an interval, not a point.**  Both endpoints
+are functionals of `μ_T` alone, and `no_muInvariant_theory_computes_NscStd` says
+nothing inside the interval is determined. -/
+theorem NscStd_bracketed (D : ZeroData) : D.Nsc ≤ D.NscStd ∧ D.NscStd ≤ oddAtoms D :=
+  ⟨ZeroData.Nsc_le_NscStd D, NscStd_le_oddAtoms D⟩
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

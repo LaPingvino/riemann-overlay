@@ -231,3 +231,6 @@ import Riemann
 #check @Riemann.starBound_of_mult_le_two
 #check @Riemann.starBound_of_mult_le_two_zeta
 #check @Riemann.proportion_of_mult_le_two
+#check @Riemann.Blindness.Nstar_add_pred_mul_Nsc_le
+#check @Riemann.starBound_of_mult_le
+#check @Riemann.starBound_of_mult_le_three

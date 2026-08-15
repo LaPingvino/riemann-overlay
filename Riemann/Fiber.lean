@@ -2344,6 +2344,11 @@ wall is total.*  **It did not fire — `M = 2` suffices.** -/
 
 /-- **`N⊛ + M·Nsc ≤ (1 + M)·N`** for any multiplicity supremum `M`.
 
+⚠️ **Superseded (SESSION 098) by `Nstar_add_pred_mul_Nsc_le`**, which is this
+bound improved by exactly `N − Nsc`: the sharp per-atom estimate is
+`H² + (M−1)·[H = 1] ≤ M·H`, tight at `H = 1` *and* at `H = M`.  Kept because the
+`096` narrative refers to it.
+
 Per atom: `H² + M·[H = 1] ≤ H + M·H`, with equality at `H = 1` and slack
 `H(M − H)` above.  Dividing by `N`: `C ≤ 1 + M·(1 − Nsc/N)` — the simple atoms
 are charged `1`, not `M`, and a certified `Nsc` row therefore buys down the star
@@ -2441,6 +2446,49 @@ theorem Nstar_add_Nsc_eq_two_mul_N (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
     · have he : D.H γ = 2 := by omega
       rw [if_neg hone, he]; norm_num
   exact_mod_cast key
+
+/-- **The sharp form at every `M`: `N⊛ + (M−1)·Nsc ≤ M·N`.**
+
+`096` proved `N⊛ + M·Nsc ≤ (1 + M)·N`, which is loose by `N − Nsc`: it charges a
+simple atom `1` and *also* keeps a spare `H`.  The tight linear-in-`H` estimate is
+
+> per atom, `H² + (M − 1)·[H = 1] ≤ M·H`,
+
+with **equality at `H = 1` and at `H = M`** — so the bound cannot be improved
+within this shape.  Dividing by `N`: `C ≤ M − (M − 1)·κ`, which is `< 2` exactly
+when `κ > 1 − 1/(M − 1)`.
+
+At the unconditional `κ = 0.50875` that threshold is met for `M ≤ 3`, so the
+sufficient hypothesis weakens from `097`'s "multiplicity `≤ 2`" to
+**"multiplicity `≤ 3`"**. -/
+theorem Nstar_add_pred_mul_Nsc_le (D : ZeroData) (M : ℕ) (hM : 1 ≤ M)
+    (h : ∀ γ, D.H γ ≤ M) : D.Nstar + (M - 1) * D.Nsc ≤ M * D.N := by
+  classical
+  have key : (D.Nstar : ℤ) + ((M : ℤ) - 1) * D.Nsc ≤ (M : ℤ) * D.N := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    have hS : (D.Nstar : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ) * (D.H γ : ℤ)) := by
+      rw [Nstar_eq_sum_H_sq D, Nat.cast_sum]; push_cast; rfl
+    rw [hS, hB, hN, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun γ _ => ?_
+    have hHM : (D.H γ : ℤ) ≤ (M : ℤ) := by exact_mod_cast h γ
+    have hH0 : (0 : ℤ) ≤ (D.H γ : ℤ) := Int.natCast_nonneg _
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, hone]; push_cast; ring_nf; nlinarith [hHM, hH0]
+    · rw [if_neg hone]; nlinarith [hHM, hH0]
+  have hcast : ((M - 1 : ℕ) : ℤ) = (M : ℤ) - 1 := by
+    have : (1 : ℕ) ≤ M := hM
+    omega
+  have : ((D.Nstar + (M - 1) * D.Nsc : ℕ) : ℤ) ≤ ((M * D.N : ℕ) : ℤ) := by
+    push_cast [hcast]
+    exact key
+  exact_mod_cast this
 
 /-! ### Where `(★)` actually lives: between a proportion and a supremum
 

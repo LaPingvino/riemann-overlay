@@ -173,6 +173,26 @@ theorem proportion_of_mult_le_two
   have e : (2 : ℝ) - 1.3275 = 0.6725 := by norm_num
   rwa [e] at h
 
+/-- **Multiplicity `≤ 3` already gives `(★)`, unconditionally otherwise.**
+
+The sharp criterion is `C ≤ M − (M−1)·κ`, which is `< 2` exactly when
+`κ > 1 − 1/(M−1)`.  The certified `κ = 0.50875` clears the threshold at `M = 3`
+(`1 − 1/2 = 0.5 < 0.50875`), giving `C ≤ 3 − 2(0.50875) = 1.9825`.
+
+So the sufficient hypothesis is **"no zero of `ζ` has multiplicity four or
+more"** — weaker than `097`'s, though it returns a much worse constant.  The two
+are complementary: `M ≤ 2` gives `C ≤ 1.3275` and the whole `0.6725` row;
+`M ≤ 3` gives only `C ≤ 1.9825`, but asks for less.
+
+Note the margin at `M = 3` is `0.00875` and comes entirely from `084`: with the
+old `Nsc` row of `0` the threshold would fail at every `M ≥ 2`. -/
+theorem starBound_of_mult_le_three
+    (hM : ∀ T γ, (zetaFamily.D T).H γ ≤ 3) :
+    zetaFamily.toCounts.StarBound 1.9825 := by
+  have h := starBound_of_mult_le (by norm_num) hM certified_nsc_unconditional
+  have e : ((3 : ℕ) : ℝ) - (((3 : ℕ) : ℝ) - 1) * 0.50875 = 1.9825 := by norm_num
+  rwa [e] at h
+
 /-- What the project itself proves without any axiom about `ζ`: for *any*
 zero family, `(★)` transfers to a proportion, and the off-line count is
 capped.  These are the load-bearing, axiom-free results. -/

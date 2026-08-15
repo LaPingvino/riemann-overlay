@@ -279,6 +279,44 @@ theorem starBound_of_mult_le_two {F : Family} {κ : ℝ}
   rw [heq] at hexact
   nlinarith [hT, hexact]
 
+/-- **The sharp multiplicity criterion at every `M`:** `C ≤ M − (M−1)·κ`.
+
+Strictly better than `starBound_of_multiplicity_and_proportion`'s
+`1 + M·(1 − κ)` — by exactly `1 − κ` — and tight, since
+`Blindness.Nstar_add_pred_mul_Nsc_le` attains equality at `H = 1` and `H = M`.
+
+`C < 2` iff `κ > 1 − 1/(M − 1)`. -/
+theorem starBound_of_mult_le {F : Family} {M : ℕ} {κ : ℝ} (hM1 : 1 ≤ M)
+    (hM : ∀ T γ, (F.D T).H γ ≤ M) (hp : F.toCounts.Proportion κ) :
+    F.toCounts.StarBound ((M : ℝ) - ((M : ℝ) - 1) * κ) := by
+  intro ε hε
+  have hMpos : (0 : ℝ) < M := by exact_mod_cast hM1
+  have hδ : 0 < ε / M := by positivity
+  filter_upwards [hp _ hδ, F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hNsc : (κ - ε / M) * F.Nz T ≤ F.Nsc T := by
+    have h' : κ - ε / M ≤ F.Nsc T / F.Nz T := hT
+    rw [le_div_iff₀ hpos'] at h'
+    exact h'
+  have hbase : F.Ns T + ((M : ℝ) - 1) * F.Nsc T ≤ (M : ℝ) * F.Nz T := by
+    have hnat := Blindness.Nstar_add_pred_mul_Nsc_le (F.D T) M hM1 (hM T)
+    have hcast : ((M - 1 : ℕ) : ℝ) = (M : ℝ) - 1 := by
+      have : (1 : ℕ) ≤ M := hM1
+      push_cast [Nat.cast_sub this]
+      ring
+    unfold Family.Ns Family.Nsc Family.Nz
+    have := (Nat.cast_le (α := ℝ)).2 hnat
+    push_cast [hcast] at this
+    linarith [this]
+  have hM0 : (0 : ℝ) ≤ (M : ℝ) - 1 := by
+    have : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM1
+    linarith
+  have hkey : ((M : ℝ) - 1) * (ε / M) ≤ ε := by
+    rw [mul_div_assoc', div_le_iff₀ hMpos]
+    nlinarith [hε.le, hMpos, hM0]
+  show F.Ns T ≤ ((M : ℝ) - ((M : ℝ) - 1) * κ + ε) * F.Nz T
+  nlinarith [hNsc, hbase, hpos', hkey, hMpos, hM0]
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

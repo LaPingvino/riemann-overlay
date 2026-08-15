@@ -4107,3 +4107,50 @@ Build green (3757 jobs), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base has
 and what this project wants is created by zeros of multiplicity three or more, so
 a single hypothesis that nobody has ever needed to state would collapse the gap
 completely.
+
+
+# SESSION 098 — the sharp criterion, and what `084` was really worth
+
+`097` sharpened the `M = 2` case by finding an identity where `096` had an
+estimate. The same slack is present at every `M`, and removing it weakens the
+hypothesis rather than improving the constant.
+
+**Kill condition, filed first:** *if the sharp general bound does not extend the
+sufficient hypothesis past `M = 2`, then `097` already captured everything.*
+**It did not fire — the hypothesis weakens to `M ≤ 3`.**
+
+`Nstar_add_pred_mul_Nsc_le` (new, axiom-free): `N⊛ + (M−1)·Nsc ≤ M·N`. The
+per-atom estimate is `H² + (M−1)·[H = 1] ≤ M·H`, with **equality at `H = 1` and
+at `H = M`** — so it cannot be improved within this shape. `096`'s version is
+this one weakened by exactly `N − Nsc`: it charged the simple atom correctly and
+then kept a spare `H` it did not need.
+
+Dividing by `N`: `C ≤ M − (M−1)·κ`, so `C < 2` **iff** `κ > 1 − 1/(M−1)`.
+
+| hypothesis | threshold on `κ` | certified `κ` clears it? | constant |
+|---|---|---|---|
+| `M ≤ 2` | `κ > 0` | yes, hugely | `C ≤ 1.3275`, row `0.6725` |
+| `M ≤ 3` | `κ > 0.5` | **yes, by `0.00875`** | `C ≤ 1.9825` |
+| `M ≤ 4` | `κ > 0.6667` | no | — |
+
+**The `M = 3` line is the finding, and it is entirely owed to `084`.** The margin
+is `0.00875`. With the `Nsc` row at its pre-`084` value of `0`, the threshold
+fails at every `M ≥ 2` — the criterion would be empty. `084` moved the row from
+`0` to `0.50875`, and the first thing that buys, four cycles later, is a
+sufficient condition for `(★)` at a strictly weaker hypothesis than `097`'s.
+
+The two criteria are complementary rather than ranked: `M ≤ 2` returns far more
+(`C ≤ 1.3275`, the full `0.6725` row) and asks more; `M ≤ 3` returns little
+(`C ≤ 1.9825`, row `0.0175`) and asks less.
+
+`096`'s inequality is marked superseded at its location.
+
+**Not claimed:** nothing here says any multiplicity hypothesis holds or is
+reachable. All are carried as hypotheses. Ledger unchanged.
+
+Build green (3757 jobs), `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
+`cd7a22e688df` unmoved. No ruling raised.
+
+**Might-mean, unhedged:** a ledger row is not a score but a currency, and the
+half-point `084` added has just been spent on a hypothesis nobody could have
+afforded before it.

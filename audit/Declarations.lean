@@ -181,3 +181,6 @@ import Riemann
 #check @Riemann.Blindness.chain_profile
 #check @Riemann.Blindness.chain_ordinates_congr
 #check @Riemann.Blindness.bracket_tight_chain
+#check @Riemann.Blindness.Noff_even
+#check @Riemann.Blindness.Noff_add_oddAtoms_le_N
+#check @Riemann.Blindness.Noff_tight_chain

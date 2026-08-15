@@ -3355,3 +3355,43 @@ hash `cd7a22e688df` unmoved.
 simple count is exactly `#{odd atoms of mass ≥ 3}` independent bits and the
 count of those atoms is itself visible to the class — so the class can compute,
 from `μ_T` alone, precisely how much it does not know.
+
+
+# SESSION 082 — the other invisible row, bracketed the same way
+
+`ledger_visibility_split` names two rows the certificate class cannot read:
+`NscStd` and `N_off`. Sessions `079`–`081` bracketed the first exactly. This
+cycle does the second, and the symmetry holds.
+
+**Kill condition, filed first:** *if `N_off` can exceed `N − #{odd atoms}`, the
+analogous bound is wrong and the symmetry between the two invisible rows fails.*
+It did not fire — an odd atom must keep at least one zero on the line, and that
+one zero per odd atom is the entire gap.
+
+Three new axiom-free results:
+
+* `Noff_even` — `N_off` is even, being a sum of the per-ordinate off-line masses
+  each of which `even_offAt` makes even. A parity constraint the class gets for
+  free from the functional equation.
+* `Noff_add_oddAtoms_le_N` — **`N_off + #{odd atoms} ≤ N`**. Stated in additive
+  form deliberately, to avoid truncated subtraction carrying the content.
+* `Noff_tight_chain` — on `n` atoms of mass `3`, `N_off = 2t` for every `t ≤ n`
+  at a `t`-independent `μ_T`, with `N = 3n`. So `N_off` ranges over **all** even
+  values from `0` to `2n`, and at `t = n` the inequality is an equality
+  (`2n + n = 3n`).
+
+**The two invisible rows are now bracketed by the same mechanism**, and it is
+the same mechanism in a precise sense rather than a rhetorical one: both bounds
+come from the per-atom decomposition `H = onAt + offAt` with `offAt` even, both
+have `μ_T`-computable endpoints, and both are attained on the *same* family of
+mass-`3` atoms built by `chain`. I am saying this having been wrong about a
+claimed unification before (`S30`); the check that distinguishes this case is
+that the shared object — `even_offAt` — appears by name in both proofs rather
+than being asserted after the fact.
+
+Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the certificate class knows exactly two things about
+the off-line zeros it cannot count — that there is an even number of them and
+that each odd crowd shelters at least one zero from them — and those two facts
+are the whole of what the functional equation contributes to the ledger.

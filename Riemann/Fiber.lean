@@ -1757,6 +1757,83 @@ theorem bracket_tight_two_atoms {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
       rw [NscStd_from_profile, p2]; decide
     exact_mod_cast this
 
+/-! ### The *other* invisible row, bracketed the same way
+
+`ledger_visibility_split` names two rows the class cannot read: `NscStd` and
+`N_off`.  The first is now bracketed exactly.  This section does the second, and
+the bound has the same shape — an inequality between `μ_T` functionals, tight at
+every value the parity allows.
+
+**Kill condition, filed before the section was written:** *if `N_off` can exceed
+`N − #{odd atoms}`, the analogous bound is wrong and the symmetry between the
+two invisible rows fails.*  It did not fire: an odd atom must keep at least one
+zero on the line, and that one zero per odd atom is the entire gap. -/
+
+/-- `N_off` is even — it is a sum of off-line masses, each even by
+`even_offAt`. -/
+theorem Noff_even (D : ZeroData) : Even D.Noff := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hdvd : 2 ∣ D.Noff := by
+    rw [hoff]
+    refine Finset.dvd_sum fun γ _ => ?_
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    exact ⟨r, by omega⟩
+  obtain ⟨c, hc⟩ := hdvd
+  exact ⟨c, by omega⟩
+
+/-- **`N_off + #{odd atoms} ≤ N`.**  Every odd atom keeps at least one zero on
+the critical line, so the off-line mass is short of the total by at least the
+number of odd atoms — and both `N` and `#{odd atoms}` are `μ_T` functionals, so
+this is a bound the certificate class can compute. -/
+theorem Noff_add_oddAtoms_le_N (D : ZeroData) : D.Noff + oddAtoms D ≤ D.N := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+    rw [N_from_profile, profile, Multiset.map_map]; rfl
+  have hodd : oddAtoms D
+      = ∑ γ ∈ D.ordinates.toFinset, (if ¬ Even (D.H γ) then 1 else 0) := by
+    rw [oddAtoms, Finset.card_filter]
+  rw [hoff, hN, hodd, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ _ => ?_
+  have h1 := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  by_cases h : Even (D.H γ)
+  · rw [if_neg (by simpa using h)]
+    omega
+  · rw [if_pos h]
+    obtain ⟨k, hk⟩ := Nat.not_even_iff_odd.1 h
+    omega
+
+/-- **The `N_off` bound is attained, and every parity-admissible value with
+it.**  On `n` atoms of mass `3`, the same family that made the `NscStd` bracket
+tight gives `N_off = 2t` for every `t ≤ n` at a `t`-independent `μ_T` — so
+`N_off` ranges over *all* even values from `0` to `2n`, and at `t = n` the
+inequality `N_off + #{odd atoms} ≤ N` holds with equality (`2n + n = 3n`). -/
+theorem Noff_tight_chain {a : ℝ} (ha : a ≠ 1/2) (n t : ℕ) (h : t ≤ n) :
+    (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))).Noff = 2 * t
+      ∧ (chain a (List.replicate t (1, 1) ++ List.replicate (n - t) (3, 0))).N = 3 * n := by
+  classical
+  set L := List.replicate t ((1 : ℕ), (1 : ℕ)) ++ List.replicate (n - t) ((3 : ℕ), (0 : ℕ))
+    with hL
+  have hne : ∀ p ∈ L, p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    rw [hL, List.mem_append] at hp
+    rcases hp with hp | hp
+    · rw [List.eq_of_mem_replicate hp]; norm_num
+    · rw [List.eq_of_mem_replicate hp]; norm_num
+  have hp : profile (chain a L) = ((List.replicate t ((3 : ℕ), (2 : ℕ))
+      ++ List.replicate (n - t) ((3 : ℕ), (0 : ℕ)) : List (ℕ × ℕ)) : Multiset (ℕ × ℕ)) := by
+    rw [chain_profile ha L hne, hL]
+    simp
+  refine ⟨?_, ?_⟩
+  · rw [Noff_from_profile, hp]
+    simp [Nat.mul_comm]
+  · rw [N_from_profile, hp]
+    simp [Nat.add_sub_cancel' h, Nat.mul_comm]
+
 /-! #### The blindness is confined to *odd* crowded atoms
 
 `gauge_orbit_size` counts the states; this locates which of them the invisible

@@ -2825,3 +2825,49 @@ instruments cannot see certain things, and the first time it turned that
 standard on its own methodology the answer was the same — the seam's central
 claim is currently an article of faith with five data points, which is precisely
 the epistemic position we refuse to accept from a certificate.
+
+
+# SESSION 070 — I measured the wrong convergence; the right one is worse
+
+**Kill condition, stated first:** *if "who endorsed before the catch" is not
+determinable from the record for most entries, the protocol starts from now and
+the historical rate is unmeasurable.* **It fired partially** — for most entries
+the question does not arise (claude.ai never saw the claim), but the two that
+matter are fully determinable.
+
+**The distinction I lacked**, from claude.ai's audit: **proposal convergence is
+not the failure mode the seam exists to prevent.** Two instances handed
+identical inputs and converging on the obviously-right next move is
+*replication* — a confirmation signal. The seam's claim was never "we will
+propose different things"; it is **"we will not miss the same things."**
+
+**So the quantity is correlated error, and on that metric the record is worse
+than SESSION 069's table:**
+
+* **S5** — E20's `11/11`: claude.ai supplied the plane framing, I classified
+  with the hypothesis in hand. **Shared priming.** Caught by a *blind Fable
+  agent*.
+* **S6** — T3(b)'s answer: I disclosed the sealed predictions, claude.ai
+  endorsed after reading them. **Anchoring on disclosure.** Caught by
+  *`provenance_lint`*.
+
+**Correlated misses: 2. Rescued by the seam: 0.** I counted the flows that
+happened rather than the stops that did not.
+
+**`FRAMING.md`'s main text is amended to the stronger claim**, proposed by
+claude.ai about its own document: the seam's error-independence is a **design
+hope with two failures and two successes**, and the system's *measured* safety
+property is **checker heterogeneity** — kernel, lint, blind agents, escrow, the
+operator, sources. Every doctrine addition since day one increased heterogeneity,
+not asymmetry. That sentence is supported at current `n`; the old one was not.
+
+**Protocol pre-registered** in `SURPRISES.md`: new entries carry `endorsed-by`
+(`VPS`/`c.ai`/`both`/`neither`) and `caught-by class`. **Kill condition: if after
+twenty further entries the `both` rate exceeds the single-instance rate, the
+seam is negative-value as a check and its budget reallocates to more
+heterogeneous layers.** `surprises.py` now reports the correlated count.
+
+**Might-mean, unhedged:** the seam was sold as an independence guarantee and is
+actually a replication engine with a weak checking side-effect, and the only
+reason the project did not compound its two shared errors is that it kept
+building instruments that share nothing with either instance.

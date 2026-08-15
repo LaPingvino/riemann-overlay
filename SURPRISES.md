@@ -73,3 +73,51 @@ correction came from an instrument, another instance, a source, or from
 claim I had already written down. That is the argument for the whole apparatus
 in one line, and it is also why `S13` and `S14` are the most valuable rows:
 they are the two cases where the correction cost nothing but the construction.
+
+
+## Correlated misses — the quantity `FRAMING`'s seam claim actually lives on
+
+claude.ai's audit of `SESSION 069` makes a distinction the measurement lacked:
+
+> **Proposal convergence is not the failure mode the seam exists to prevent.**
+> Two instances handed identical inputs and converging on the obviously-right
+> next move is **replication**, which is a confirmation signal, not a dead
+> check. The seam's claim was never *"we will propose different things"* — it is
+> ***"we will not miss the same things."***
+
+**So the killer quantity is correlated error: claims both instances endorsed,
+caught only by a third party.** On that metric the record is worse than
+`SESSION 069`'s table, and the two entries were already on file:
+
+| # | the shared miss | why correlated | who actually caught it |
+|---|---|---|---|
+| **S5** | E20's `11/11` alignment supported the plane | claude.ai supplied the plane framing; I classified with the hypothesis in hand — **shared priming** | **Fable**, blind, no hypothesis |
+| **S6** | T3(b)'s answer is `2` | I disclosed the sealed predictions (`S8`); claude.ai endorsed after reading them — **anchoring on disclosure** | **`provenance_lint`**, mechanical |
+
+**Correlated misses: 2. Rescued by the seam: 0.** Both were caught by
+*mechanical or blind* third parties. `SESSION 069` counted the flows that
+happened rather than the stops that did not, and undercounted the problem.
+
+### Protocol, pre-registered from here
+
+Every new entry gains two fields:
+
+* **endorsed-by** — `VPS` / `c.ai` / **`both`** / `neither-saw-it`
+* **caught-by class** — `kernel` / `tooling` / `blind` / `human` / `source` /
+  `self`
+
+**Kill condition, stated first:** *if after twenty more entries the `both` rate
+exceeds the single-instance rate — if the two instances miss together more often
+than alone — the seam is negative-value as a check, its budget reallocates to
+more heterogeneous layers (a third model family, more blind passes, more
+mechanical gates), and `FRAMING.md` records that the design's founding intuition
+was wrong.*
+
+If the `both` rate stays low while proposal-convergence stays high, the seam is
+what the `depthPair`/`pairOnly` coincidence suggests: **a replication engine
+with a weak-but-real checking side-effect** — worth keeping, priced honestly.
+
+**Historical backfill is partial and marked as such.** For most entries the
+question does not arise: claude.ai never saw the claim, so `endorsed-by` is
+`VPS` and the entry is silent on the seam. The two above are the determinable
+`both` cases. No historical rate is quoted.

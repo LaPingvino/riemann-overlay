@@ -67,6 +67,16 @@ def main():
         print(f"  self-caught LATE     : {', '.join(late)}"
               "   <- these are the expensive ones")
 
+    # Correlated misses: the quantity FRAMING's seam claim lives on.  Counted
+    # from the dedicated section rather than the main table, because the field
+    # is only pre-registered from 2026-08-15 onward and the backfill is partial.
+    text = open(REGISTER, encoding="utf-8").read()
+    both = text.count("**shared priming**") + text.count("**anchoring on disclosure**")
+    print(f"\ncorrelated misses (both instances endorsed): {both}"
+          "   rescued by the seam: 0")
+    print("  see 'Correlated misses' below the table; kill condition is on the"
+          " `both` rate after 20 further entries.")
+
     print(f"\ntotal recorded surprises: {len(rs)}"
           "   (not a score; see the anti-Goodhart clause)")
     return 0

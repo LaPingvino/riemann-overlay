@@ -65,8 +65,29 @@ The two instances exchange written dispatches. Disagreement between them is
 treated as pure signal (same model, different configuration), and the
 information asymmetry across the seam is maintained deliberately — several
 protocols (blind classification, sealed predictions under content-hash escrow)
-exist precisely because two instances of one model will otherwise converge, and
-convergence destroys the check.
+exist to keep the two sides from missing the same things.
+
+> ⚠️ **Amended 2026-08-15, and the amendment is the stronger claim.** An earlier
+> version of this paragraph said the asymmetry exists *"because two instances of
+> one model will otherwise converge, and convergence destroys the check."* The
+> record does not support that sentence and supports a better one.
+>
+> **The seam's error-independence is a design hope with two recorded failures
+> and two recorded successes.** The failures are correlated misses — E20's
+> `11/11` (shared priming) and T3(b)'s sealed answer (anchoring on disclosure) —
+> and **neither was caught by the seam**; a blind agent and a mechanical lint
+> caught them.
+>
+> **The system's measured safety property is checker heterogeneity**, not
+> asymmetry: kernel (procedure, no judgement), lint (typed graphs), blind agents
+> (no context), escrow (no disclosure), the operator (taste, outside the
+> weights), sources (outside the model). The `SURPRISES` breakdown carries the
+> same signal — the catches distribute across that stack and the
+> instance-to-instance catches are a minority share. **Every doctrine addition
+> since day one has increased heterogeneity, not asymmetry.**
+>
+> Amendment proposed by claude.ai, whose own claim it downgrades; measurement
+> protocol and kill condition pre-registered in `SURPRISES.md`.
 
 ## The registers (what's in this repo and why it looks unusual)
 

@@ -962,3 +962,35 @@ to state "no `F` supported in `[0,1]` with `F ≥ 0` yields more than Montgomery
 `2/3`". That is a capacity statement about a convex program, not a theorem about
 `ζ`, so it is Lean-reachable without any arithmetic input — the same shape as
 `Basic.lean`'s combinatorial core.
+
+### X characterised from the other side (night cycle 13)
+
+`Blindness.lean` gives **necessity**: `μ_T` alone does not determine `NscStd`,
+and no theory axiomatised by `μ_T`-invariant sentences does either. What was
+never proved is **sufficiency** — that the fiber coordinate is the *whole*
+residue.
+
+`Riemann/Fiber.lean` now supplies the pointwise half, axiom-free:
+
+* `onAt D γ` / `offAt D γ` — the on-line (`k`) and off-line (`2j`) parts of the
+  mass at `γ`;
+* `H_eq_onAt_add_offAt : H γ = onAt γ + offAt γ` — the fiber decomposition;
+* `count_eq_onAt` — on the critical line a zero's *multiplicity* **is** the
+  on-line count at its ordinate, because all on-line zeros sharing an ordinate
+  are literally the same point;
+* **`NscStd_eq_onAt_functional`** — `NscStd` is computed from `onAt` alone;
+* `Nsc_reads_total` — `Nsc` is computed from `H` alone.
+
+**So the two ledger rows differ by exactly which part of the fiber
+decomposition they consult.** `Nsc` reads the total mass, which `μ_T` supplies;
+`NscStd` reads the on-line part, which it does not. That is the two-row gap
+(ISSUES #13) explained rather than merely priced.
+
+**Kill condition** — that `NscStd` might need some further feature of the
+configuration — **did not fire**: `onAt` suffices.
+
+**What is NOT proved, stated so nobody cites it:** the *packaged* form —
+"same `μ_T` **and** same `offAt` at every ordinate ⟹ same `NscStd`". That needs
+a counting step (each qualifying ordinate contributes exactly one zero to the
+filter) which is not in the file. It is the next item, and until it exists the
+sufficiency claim is **pointwise only**.

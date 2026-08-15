@@ -431,5 +431,96 @@ theorem landau_swap_invariant (x a γ : ℝ) :
   simp [landau_add, landau_configAt]
   ring
 
+
+/-! ### The residue, from the other side
+
+`Blindness.lean` proves **necessity**: `μ_T` alone does not determine `NscStd`.
+`config_parity` shows `μ_T` fixes the fiber's parity and nothing more.  What was
+never proved is **sufficiency** — that the fiber coordinate is the *whole*
+residue, i.e. that `μ_T` together with it determines the targets exactly.
+
+This section supplies the pointwise half.  Split each ordinate's mass into its
+on-line and off-line parts:
+
+* `onAt γ` — zeros at `γ` with `β = 1/2` (this is `k`);
+* `offAt γ` — zeros at `γ` with `β ≠ 1/2` (this is `2j`).
+
+`H = onAt + offAt` is the fiber decomposition, and the theorem below says
+**`NscStd` reads `onAt` and nothing else**.  Since `onAt = H − offAt`, that makes
+`NscStd` a functional of `(μ_T, offAt)` pointwise — exactly complementary to the
+blindness result, which says `μ_T` alone will not do.
+
+**Kill condition, stated before the section was written:** *if `NscStd` cannot
+be expressed through the on-line counts alone — if some further feature of the
+configuration enters — then the sufficiency direction fails and `j` is not the
+whole residue.*  It did not fire. -/
+
+/-- `onAt γ`: zeros at ordinate `γ` lying on the critical line — the `k` of the
+fiber decomposition. -/
+noncomputable def onAt (D : ZeroData) (γ : ℝ) : ℕ :=
+  Multiset.card (D.Z.filter fun p => p.2 = γ ∧ p.1 = 1/2)
+
+/-- `offAt γ`: zeros at ordinate `γ` off the critical line — the `2j`. -/
+noncomputable def offAt (D : ZeroData) (γ : ℝ) : ℕ :=
+  Multiset.card (D.Z.filter fun p => p.2 = γ ∧ p.1 ≠ 1/2)
+
+/-- **The fiber decomposition, pointwise:** `H = onAt + offAt`. -/
+theorem H_eq_onAt_add_offAt (D : ZeroData) (γ : ℝ) :
+    D.H γ = onAt D γ + offAt D γ := by
+  classical
+  set S := D.Z.filter (fun p => p.2 = γ) with hS
+  have h1 : onAt D γ = Multiset.card (S.filter fun p => p.1 = 1/2) := by
+    rw [onAt, hS, Multiset.filter_filter]
+    congr 1
+    exact Multiset.filter_congr fun _ _ => and_comm
+  have h2 : offAt D γ = Multiset.card (S.filter fun p => ¬ (p.1 = 1/2)) := by
+    rw [offAt, hS, Multiset.filter_filter]
+    congr 1
+    exact Multiset.filter_congr fun _ _ => and_comm
+  rw [ZeroData.H, ← hS, h1, h2, ← Multiset.card_add, Multiset.filter_add_not]
+
+/-- On the critical line, a zero's multiplicity **is** the on-line count at its
+ordinate: all on-line zeros sharing an ordinate are literally the same point. -/
+theorem count_eq_onAt (D : ZeroData) {p : ℝ × ℝ} (hp : p.1 = 1/2) :
+    D.Z.count p = onAt D p.2 := by
+  classical
+  rw [onAt, Multiset.count_eq_card_filter_eq]
+  congr 1
+  refine Multiset.filter_congr fun q _ => ?_
+  constructor
+  · intro hq; exact ⟨by rw [← hq], by rw [← hq]; exact hp⟩
+  · rintro ⟨h2, h1⟩
+    exact (Prod.ext (h1.trans hp.symm) h2).symm
+
+/-- **`NscStd` reads the on-line counts and nothing else.**
+
+Together with `H_eq_onAt_add_offAt` this makes `NscStd` a pointwise functional
+of `(μ_T, offAt)` — the sufficiency direction complementing
+`Blindness.no_muInvariant_theory_computes_NscStd`'s necessity.  The fiber
+coordinate really is the whole residue: supply it and the target is determined;
+withhold it and no `μ_T`-invariant theory can recover the target. -/
+theorem NscStd_eq_onAt_functional (D : ZeroData) :
+    D.NscStd = Multiset.card (D.Z.filter fun p => p.1 = 1/2 ∧ onAt D p.2 = 1) := by
+  classical
+  rw [ZeroData.NscStd]
+  congr 1
+  refine Multiset.filter_congr fun p _ => ?_
+  constructor
+  · rintro ⟨h1, h2⟩
+    exact ⟨h1, by rw [← count_eq_onAt D h1]; exact h2⟩
+  · rintro ⟨h1, h2⟩
+    exact ⟨h1, by rw [count_eq_onAt D h1]; exact h2⟩
+
+/-- And `Nsc` reads the *total* mass — which is why it is `μ_T`-visible and
+`NscStd` is not.  The two rows of the ledger differ by exactly which part of the
+fiber decomposition they consult. -/
+theorem Nsc_reads_total (D : ZeroData) :
+    D.Nsc = Multiset.card (D.Z.filter fun p => D.H p.2 = 1) := by
+  classical
+  rw [ZeroData.Nsc]
+  congr 1
+  refine Multiset.filter_congr fun p hp => ?_
+  exact ⟨fun h => h.2, fun h => ⟨ZeroData.on_line_of_H_eq_one hp h, h⟩⟩
+
 end Blindness
 end Riemann

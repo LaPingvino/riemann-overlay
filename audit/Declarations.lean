@@ -105,3 +105,10 @@ import Riemann
 #check @Riemann.Optimal.BoundedMult
 #check @Riemann.Optimal.LinearBoundCheap
 #check @Riemann.Optimal.prop1_LP_optimal_cheap
+-- X from the other side: the fiber decomposition and what each row reads
+#check @Riemann.Blindness.onAt
+#check @Riemann.Blindness.offAt
+#check @Riemann.Blindness.H_eq_onAt_add_offAt
+#check @Riemann.Blindness.count_eq_onAt
+#check @Riemann.Blindness.NscStd_eq_onAt_functional
+#check @Riemann.Blindness.Nsc_reads_total

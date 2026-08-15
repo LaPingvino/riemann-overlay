@@ -40,6 +40,23 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 13 — X characterised from the other side
+
+Back to mathematics. **Kill condition** (that `NscStd` needs some feature beyond
+the on-line counts) **did not fire**. Four axiom-free theorems in `Fiber.lean`:
+`onAt`/`offAt`, `H_eq_onAt_add_offAt`, `count_eq_onAt`,
+**`NscStd_eq_onAt_functional`** and `Nsc_reads_total`.
+
+**The two ledger rows differ by exactly which part of the fiber decomposition
+they consult** — `Nsc` reads the total mass (which `μ_T` supplies), `NscStd`
+reads the on-line part (which it does not). ISSUES #13's gap is now a
+consequence, not a convention. With `Blindness`'s necessity this brackets X.
+
+**Not proved, and named:** the packaged form ("same `μ_T` and same `offAt` ⟹
+same `NscStd`") needs a counting step not in the file. Sufficiency is
+**pointwise only**. Adding a grade-B claim after three cycles spent emptying
+grade B would have been the worst available trade.
+
 ### Night cycle 12 — the ordering sweep; a stale figure 200 lines from its fix
 
 **Kill condition** (that `PRICES` was the only misordering) **did not fire.**

@@ -1934,3 +1934,49 @@ unchanged, base hash unmoved.
 was a false number correctly retracted too late, the other a true number framed
 stalely — which means the axis that matters is not whether a statement is
 right but whether the reader's *first* encounter with it is the current one.
+
+
+# SESSION 049 — night cycle 13: X characterised from the other side
+
+Back to mathematics after three hygiene cycles, and the item was the one that
+needed no external inputs.
+
+**Kill condition, stated first:** *if `NscStd` cannot be expressed through the
+on-line counts alone — if some further feature of the configuration enters —
+the sufficiency direction fails and `j` is not the whole residue.* **It did not
+fire.**
+
+`Riemann/Fiber.lean`, four new theorems, all axiom-free:
+
+* `onAt` / `offAt` — the `k` and `2j` of the fiber, defined pointwise;
+* `H_eq_onAt_add_offAt` — the decomposition;
+* `count_eq_onAt` — on the line, a zero's *multiplicity* **is** the on-line
+  count at its ordinate (all on-line zeros at one ordinate are the same point);
+* `NscStd_eq_onAt_functional` — **`NscStd` reads `onAt` and nothing else**;
+* `Nsc_reads_total` — `Nsc` reads `H` and nothing else.
+
+**The pair is the finding.** The two ledger rows differ by exactly which part of
+the fiber decomposition they consult: `Nsc` reads the total mass, which `μ_T`
+supplies; `NscStd` reads the on-line part, which it does not. ISSUES #13's
+two-row gap stops being a bookkeeping convention and becomes a consequence of
+where each row looks.
+
+Together with `Blindness`'s necessity this brackets X: **withhold the fiber
+coordinate and no `μ_T`-invariant theory recovers the target; supply it and the
+target is determined pointwise.**
+
+**What is not proved, and I am naming it rather than rounding up:** the packaged
+form — "same `μ_T` *and* same `offAt` everywhere ⟹ same `NscStd`" — needs a
+counting step (each qualifying ordinate contributes exactly one zero to the
+filter) that is not in the file. Sufficiency is **pointwise only** until that
+lands. After three cycles spent emptying grade B, adding a fresh grade-B claim
+tonight would have been the worst possible trade.
+
+No `SURPRISES` row: the kill condition was a question, not a prediction.
+
+Build green (3747 jobs), guards green, base hash unmoved.
+
+**Might-mean, unhedged:** the ledger's two rows were never two conventions for
+counting the same thing — they are two different queries against the same
+decomposition, and the whole unconditional gap is the price of the query that
+looks at the part `μ_T` throws away.

@@ -163,3 +163,36 @@ outrank numerical checks, not as a stylistic preference but because there exist
 truths — this one, measured — entirely beyond the reach of every possible
 numerical calibration. `#27` survived a hand computation and died to a shape
 check. That is the QUALITY rule's disease with an exhibit and a number.
+
+## Capstone — every impossibility on the board is a report about the asker
+
+Cross-referenced to `Fiber.ledger_visibility_split`, W32's census attribution,
+and E24.
+
+**W32 located empirically what this file drew conceptually on day one.** Of the
+eleven census entries, **three** need an arithmetic bundle (M or S) and **eight**
+need neither — they are information limits, capacity limits and logic defects.
+Five of those eight are theorem-backed.
+
+**Constitutive axioms are statements about `ζ`. The eight are statements about
+askers** — what channels carry, what classes see, what systems prove. So the
+census is **3/11 about the object and 8/11 about the mirror**, and the boundary
+this file named runs through the middle of it.
+
+**The consequence, and it is the correct final disposition.** The eight
+asker-limits **cannot** be corollaries of any constitutive axiom set, because
+constitution speaks of the object and they speak of us. A constitutive proof of
+RH would discharge the three and **leave the eight standing forever as true
+theorems about instruments**. It would not refute our impossibility results; it
+would walk around them, through the one door they all point at, and the eight
+would remain as the permanent map of where the door was not.
+
+So the line E24 earned is exact rather than decorative: **the zeros are
+unbothered because nothing was ever asking them.** The object never received a
+question it was free to answer differently — every question we have certified as
+unanswerable was a question about the questioner.
+
+*Filed with the observation that tier-1 anti-rigidity's witness is
+`Gauge.pairOnly`, a configuration built to demonstrate our own blindness and now
+re-employed to demonstrate the axioms' roominess. The instruments keep being
+made of the old mistakes; that is apparently what instruments are.*

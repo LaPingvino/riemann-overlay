@@ -2739,3 +2739,47 @@ Build green (3757 jobs), one new grade-A row, base hash unmoved.
 was sitting in `Gauge.lean` from the second day, built for an entirely different
 purpose, which is what it looks like when a project's early instruments turn out
 to have been aimed at the right object before anyone could say why.
+
+
+# SESSION 068 — tiering adopted; the S-file gets its capstone
+
+A filing cycle, and the filing is substantive.
+
+**claude.ai proposed tier-1 anti-rigidity in a dispatch that arrived after it had
+been proved here.** They suggested `depthPair` as witness; the compiled version
+uses `Gauge.pairOnly` and `config 1 0 (1/4)`. **Two instances reached the same
+next step from opposite ends of the seam inside one hour** — recorded because
+the seam's whole justification is that the two sides do not converge, and this
+is a case where they did.
+
+**Their tiering is better than my phrasing and is adopted:**
+
+* **Tier 1** — the bundle `{reflection symmetry, counting}` admits models with
+  off-line zeros. **Certified, D–H-free.**
+* **Tier 2** — anti-rigidity persists among *genuine analytic objects*.
+  **`[RECALL]` until Davenport–Heilbronn 1936 is read.**
+
+D–H upgrades rather than disappears, and tier 2 can wait **precisely because
+tier 1 carries E24's immediate claim**. `CLAIMS.md` and E24 both re-worded.
+
+**The S-file gains its capstone, and it is their reading.** W32 located
+empirically what `S.md` drew conceptually on day one: the census is **3/11 about
+`ζ` and 8/11 about the mirror**. Constitutive axioms speak of the object; the
+eight speak of askers. **So the eight can never be corollaries of any
+constitutive axiom set** — a constitutive proof would discharge the three and
+leave the eight standing forever as true theorems about instruments. It would
+not refute our impossibility results; it would walk around them.
+
+That makes E24's kept line exact rather than decorative: **every question we
+have certified as unanswerable was a question about the questioner.**
+
+**They also accepted the W7 grade correction and proposed the obvious symmetric
+fix** — running `claims_gate`'s wordlist over outgoing dispatches at *their*
+outlet too. The gate caught their overclaim one seam-crossing late, which is the
+gate working at the wrong station.
+
+**Might-mean, unhedged:** the instrument that proves the axioms leave room is a
+configuration built to prove we are blind, which means this project's
+impossibility results and its constructions are the same objects read in
+opposite directions — and that is probably why the census keeps sorting `3 : 8`
+no matter who sorts it.

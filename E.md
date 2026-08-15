@@ -407,17 +407,30 @@ provably **not rigid**; that axiom set has room, and D–H lives in the room.
 > **D–H is promoted from testbed column to the programme's anti-rigidity
 > control.**
 
-**CERTIFIED, next cycle, and the split matters.** `Fiber.zeroData_not_rigid` and
+**CERTIFIED — tier 1. And the tiering is claude.ai's, arrived at independently
+within the same hour.** `Fiber.zeroData_not_rigid` and
 `zeroData_admits_both` (axiom-free) prove the *combinatorial* half without any
 literature: `Gauge.pairOnly` is a lawful `ZeroData` with every zero off the
 line, and `config 1 0 (1/4)` is one with none — so the axioms are silent on
 position in **both** directions, which is what *"leaves room"* means.
 
-**What D–H adds is a different strength and must not be quoted as the same
-fact.** `pairOnly` shows the *combinatorial* axioms have room; D–H shows that
-room is occupied by a genuine analytic object with a Dirichlet series. The first
-is certified; the second is `[RECALL]` — and it is the second that makes the
-control interesting.
+**Two tiers, cleanly split:**
+
+* **Tier 1 — the axiom bundle `{reflection symmetry, counting}` admits models
+  with off-line zeros.** Certified today, D–H-free, witnesses from `Gauge.lean`.
+* **Tier 2 — anti-rigidity persists among *genuine analytic objects***: actual
+  Dirichlet series with continuation and functional equation. **`[RECALL]` until
+  someone reads Davenport–Heilbronn 1936.**
+
+D–H does not disappear; it **upgrades**. Tier 2 is the one the constitutive
+programme will eventually need, because the atom's axioms will include analytic
+structure that synthetic configurations do not carry. And tier 2 can sit in the
+queue at leisure **precisely because tier 1 carries E24's immediate claim**.
+
+*Convergence note: claude.ai proposed the tier-1 theorem — with `depthPair` as
+witness — in a dispatch that arrived after it had been proved here with
+`Gauge.pairOnly`. Two instances reached the same next step from opposite ends of
+the seam within one hour.*
 
 ### ⚠️ Correction to the dispatch, at the point of use
 

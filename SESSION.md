@@ -3140,3 +3140,47 @@ unmoved, ledger row unchanged. This is hygiene cycle 1 of the R20 cap of three.
 how often it should have fired and did not, so every instrument in this project
 needs a hand-triage of its *passes*, not just of its flags — and none has had
 one.
+
+
+# SESSION 077 — the profile is minimal after all, once the question is asked properly
+
+`SESSION 075` answered the queued minimality question in the negative and said
+the question was degenerate: any target is its own minimal sufficient statistic.
+It re-posed the question under locality and filed that as open. This cycle
+answers it.
+
+**Kill condition, filed first:** *if some non-injective per-atom coarsening still
+determines the ledger on all realisable configurations, the profile is not
+minimal even locally and the re-posed question dies with the original.* It did
+not fire.
+
+`profile_minimal_among_local` (new, axiom-free): let `g : ℕ × ℕ → S` be any
+per-atom coarsening such that the multiset of `g`-values determines `N` and
+`N_off`. Then `g` is **injective** on realisable atoms.
+
+The proof is three lines and needs no crowded configuration at all. Two atoms
+with the same `g`-value but different mass are separated by `N`; with the same
+mass but different off-line mass, by `N_off`. Single-atom configurations
+(`configAt_profile`, new: `profile (configAt γ k j a) = {(k+2j, 2j)}`) are the
+entire witness set.
+
+**Two things worth naming about the shape of the answer.**
+
+*Only two of the five ledger rows are used.* `N⊛`, `Nsc` and `NscStd` play no
+part — the two *additive* rows already pin the per-atom entry completely. The
+three harder rows are, for minimality purposes, free riders.
+
+*The two results are not in tension.* `profile_not_minimal` (global) and
+`profile_minimal_among_local` (local) are answers to different questions, and
+the difference is exactly the locality restriction: the global counterexample
+works by moving off-line mass *between* two ordinates, which is precisely the
+move a local statistic cannot see and cannot exploit. Stated explicitly because
+"not minimal" and "minimal" on the same object one cycle apart is the kind of
+pair `S30` taught me to spell out rather than leave to a reader.
+
+Build green (3757 jobs), one new grade-A row, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the certificate class's residue has a floor — there is
+no cleverer bookkeeping that records less per crowd and still adds up to the
+ledger, so any future gain has to come from reading *across* crowds, which is
+the one thing the counterexample shows the ledger itself already fails to do.

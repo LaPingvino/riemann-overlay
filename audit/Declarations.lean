@@ -163,3 +163,6 @@ import Riemann
 #check @Riemann.Blindness.twoAtom_ordinates
 #check @Riemann.Blindness.twoAtom_profile
 #check @Riemann.Blindness.profile_not_minimal
+#check @Riemann.Blindness.configAt_N
+#check @Riemann.Blindness.configAt_profile
+#check @Riemann.Blindness.profile_minimal_among_local

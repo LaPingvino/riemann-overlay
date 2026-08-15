@@ -1437,5 +1437,15 @@ forms worth asking, neither yet attempted:
    the counterexample above is unavailable, because it exchanges data *between*
    ordinates.
 
+   > ✅ **ANSWERED next cycle, in the affirmative.**
+   > `Fiber.profile_minimal_among_local` (axiom-free): any per-atom coarsening
+   > `g` whose value-multiset still determines `N` and `N_off` is **injective**
+   > on realisable atoms. Two atoms sharing a `g`-value but differing in mass
+   > are separated by `N`; sharing a mass but differing in off-line mass, by
+   > `N_off`. Single-atom configurations are the whole witness set, so the
+   > argument uses nothing about crowds. **The profile is minimal among
+   > ordinate-local statistics**, and only two of the five ledger rows are
+   > needed to force it — `N⊛`, `Nsc` and `NscStd` are not used.
+
 Filed as the honest successor to the queued question, not as a claim that
 either restricted form has an answer.

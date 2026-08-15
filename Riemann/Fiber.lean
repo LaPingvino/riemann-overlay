@@ -326,6 +326,13 @@ noncomputable def superpose (D D' : ZeroData) : ZeroData where
   congr 1
   ring
 
+@[simp] lemma configAt_N (γ : ℝ) (k j : ℕ) (a : ℝ) :
+    (configAt γ k j a).N = k + 2 * j := by
+  show Multiset.card (Multiset.replicate k ((1/2 : ℝ), γ)
+      + (Multiset.replicate j (a, γ) + Multiset.replicate j ((1 - a : ℝ), γ))) = _
+  simp [Multiset.card_add]
+  ring
+
 lemma configAt_Noff {a : ℝ} (ha : a ≠ 1/2) (γ : ℝ) (k j : ℕ) :
     (configAt γ k j a).Noff = 2 * j := by
   classical
@@ -1360,6 +1367,51 @@ theorem profile_not_minimal {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
       rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
     exact_mod_cast this
   · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+
+/-- The profile of a single atom. -/
+lemma configAt_profile {γ a : ℝ} (ha : a ≠ 1/2) {k j : ℕ} (h : k + 2 * j ≠ 0) :
+    profile (configAt γ k j a) = {(k + 2 * j, 2 * j)} := by
+  classical
+  have hord := configAt_ordinates γ k j a
+  have hfin : (configAt γ k j a).ordinates.toFinset = {γ} := by
+    rw [hord, Multiset.toFinset_replicate, if_neg h]
+  have hH : (configAt γ k j a).H γ = k + 2 * j := by
+    rw [ZeroData.H_eq_count, hord]
+    simp
+  rw [profile, hfin]
+  simp [hH, offAt_configAt_self ha]
+
+/-- **The profile *is* minimal among ordinate-local statistics.**
+
+`profile_not_minimal` shows the profile is not minimal outright — but that is
+degenerate, since the ledger is trivially its own minimal sufficient statistic.
+The non-degenerate question is whether the per-atom entry `(mass, off-line mass)`
+can be *coarsened*: is there a non-injective `g` such that the multiset of
+`g`-values still determines the ledger?
+
+**No.**  Any such `g` must be injective on realisable atoms, because `N` and
+`N_off` are the atom-wise sums of the two components: two atoms with the same
+`g`-value but different mass are separated by `N`, and with the same mass but
+different off-line mass by `N_off`.  Single-atom configurations suffice as
+witnesses, so the argument needs nothing about crowded configurations at all.
+
+The kill condition — *some non-injective coarsening still determines the ledger*
+— did not fire. -/
+theorem profile_minimal_among_local {S : Type*} {a : ℝ} (ha : a ≠ 1/2)
+    (g : ℕ × ℕ → S)
+    (hg : ∀ D D' : ZeroData, (profile D).map g = (profile D').map g →
+            D.N = D'.N ∧ D.Noff = D'.Noff)
+    {k₁ j₁ k₂ j₂ : ℕ} (h₁ : k₁ + 2 * j₁ ≠ 0) (h₂ : k₂ + 2 * j₂ ≠ 0)
+    (hgeq : g (k₁ + 2 * j₁, 2 * j₁) = g (k₂ + 2 * j₂, 2 * j₂)) :
+    (k₁ + 2 * j₁, 2 * j₁) = (k₂ + 2 * j₂, 2 * j₂) := by
+  have hmap : (profile (configAt 0 k₁ j₁ a)).map g
+      = (profile (configAt 0 k₂ j₂ a)).map g := by
+    rw [configAt_profile ha h₁, configAt_profile ha h₂]
+    simpa using hgeq
+  obtain ⟨hN, hOff⟩ := hg _ _ hmap
+  rw [configAt_N, configAt_N] at hN
+  rw [configAt_Noff ha, configAt_Noff ha] at hOff
+  rw [hN, hOff]
 
 /-! #### The blindness is confined to *odd* crowded atoms
 

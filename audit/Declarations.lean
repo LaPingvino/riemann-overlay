@@ -102,3 +102,6 @@ import Riemann
 #check @Riemann.Optimal.linearBound_le_one
 #check @Riemann.Optimal.linearBound_mass2
 #check @Riemann.Optimal.prop1_LP_optimal
+#check @Riemann.Optimal.BoundedMult
+#check @Riemann.Optimal.LinearBoundCheap
+#check @Riemann.Optimal.prop1_LP_optimal_cheap

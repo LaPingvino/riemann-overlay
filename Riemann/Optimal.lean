@@ -125,5 +125,78 @@ not merely an upper bound for it. -/
 theorem prop1_LP_optimal_attained {C : ℝ} : (2 : ℝ) + (-1) * C = 2 - C := by
   ring
 
+
+/-! ### W7's "cheap invariants", made precise
+
+`FAILURES.md` `#3` (W7) records that the cheap classical constraints on
+multiplicity — Jensen's formula, the argument principle, Riemann–von Mangoldt —
+permit `m ~ log γ` while the extremal configurations use `m ≤ 3`, so they are
+"vacuous by an order of magnitude" and "only the Euler product bites".
+
+`CLAIMS.md` grades that **C**: the class *"cheap invariant"* is informal, so the
+claim is not a bound and cannot be cited as one.
+
+**Kill condition, stated before this section was written:** *if the class cannot
+be defined without smuggling in the Euler product, it stays grade C permanently
+and that is the finding.*  **It did not fire.**  Every constraint in the cheap
+family has the same shape — an upper bound on horizontal multiplicity — and that
+shape is pure counting, with no multiplicative input at all.
+
+So define the class as what it actually is, and the vacuity becomes a theorem
+for the two-moment LP: **restricting to configurations of bounded multiplicity
+does not improve the optimum**, because the two configurations that force the
+constraints already have `H ≤ 2`.
+
+*Scope, stated plainly:* this certifies the vacuity of **multiplicity bounds**
+for **this** extremal problem.  The wider claim — that *no* classical invariant
+of any kind tightens `C` — quantifies over a class still undefined, and stays
+grade C. -/
+
+/-- The number of zeros at one ordinate never exceeds the total. -/
+lemma H_le_N (D : ZeroData) (γ : ℝ) : D.H γ ≤ D.N := by
+  classical
+  exact Multiset.card_le_card (Multiset.filter_le _ _)
+
+/-- A **cheap constraint**: an upper bound on horizontal multiplicity.  This is
+the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, and
+it involves no multiplicative information whatever. -/
+def BoundedMult (M : ℕ) (D : ZeroData) : Prop := ∀ γ : ℝ, D.H γ ≤ M
+
+/-- A linear bound asserted only where multiplicity is bounded by `M` — i.e. a
+bound entitled to use the cheap invariants. -/
+def LinearBoundCheap (M : ℕ) (a b : ℝ) : Prop :=
+  ∀ D : ZeroData, BoundedMult M D → a * D.N + b * D.Nstar ≤ D.Nsc
+
+lemma single_boundedMult {M : ℕ} (hM : 1 ≤ M) : BoundedMult M single :=
+  fun γ => le_trans (le_trans (H_le_N single γ) (le_of_eq single_N)) hM
+
+lemma pairOnly_boundedMult {M : ℕ} (hM : 2 ≤ M) : BoundedMult M Gauge.pairOnly :=
+  fun γ => le_trans (le_trans (H_le_N Gauge.pairOnly γ)
+    (le_of_eq Gauge.pairOnly_N)) hM
+
+/-- **W7, certified for the two-moment LP.**  Allowing a certificate to assume
+any multiplicity bound `H ≤ M` (`M ≥ 2`) buys **nothing**: the optimum is still
+`2 − C`.  The cheap invariants are satisfied by the binding configurations, so
+they cannot bind.
+
+This is the precise form of "the cheap invariants are satisfied *by
+construction*". -/
+theorem prop1_LP_optimal_cheap {M : ℕ} (hM : 2 ≤ M) {a b : ℝ}
+    (h : LinearBoundCheap M a b) {C : ℝ} (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
+    a + b * C ≤ 2 - C := by
+  have h1 : a + b ≤ 1 := by
+    have := h single (single_boundedMult (le_trans (by norm_num) hM))
+    rw [single_N, single_Nstar, single_Nsc] at this
+    push_cast at this
+    linarith
+  have h2 : a + 2 * b ≤ 0 := by
+    have := h Gauge.pairOnly (pairOnly_boundedMult hM)
+    rw [Gauge.pairOnly_N, Gauge.pairOnly_Nstar, Gauge.pairOnly_Nsc] at this
+    push_cast at this
+    linarith
+  rcases le_or_gt (-1 : ℝ) b with hcase | hcase
+  · nlinarith [h2, hcase, hC2]
+  · nlinarith [h1, hcase, hC1]
+
 end Optimal
 end Riemann

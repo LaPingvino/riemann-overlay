@@ -34,6 +34,25 @@ than decided overnight, per the escalation discipline. Neither blocks the queue.
 
 ## Landed
 
+### Night cycle 9 — "cheap invariants" defined; grade C loosens
+
+**Kill condition** (that the class cannot be defined without the Euler product)
+**did not fire**. Every cheap constraint has one shape — an upper bound on
+horizontal multiplicity — and that shape is pure counting.
+`BoundedMult M D := ∀ γ, D.H γ ≤ M`, and `Optimal.prop1_LP_optimal_cheap`
+(axiom-free) shows a bound entitled to assume **any** `M ≥ 2` still cannot beat
+`2 − C`: the binding configurations have `H ≤ 2`, so the cheap invariants are
+satisfied by construction. That is census `#3`'s certified reason, as a theorem.
+
+**Scope kept narrow:** this is the vacuity of *multiplicity bounds* for *this*
+LP. The general W7 claim stays grade C, and `CLAIMS.md` carries both rows.
+
+**The cycle corrected the file it was following:** `CLAIMS.md` had said
+promoting a grade-C claim is "a research question rather than a formalisation
+task". This one took a cycle (`SURPRISES` S23). Revised guidance: grade C means
+*not yet defined*, not *undefinable* — and when a C entry's claims share a
+shape, the shape is usually the definition.
+
 ### Night cycle 8 — the sweep; the disease is cured, and the residue is vocabulary
 
 **Kill condition** (that no further uncertified class-impossibility claims exist,

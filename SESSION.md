@@ -1768,3 +1768,44 @@ Guards green, build 3747 jobs, base hash unmoved.
 found instead that the sloppiness was bounded, and the genuinely uncertifiable
 claims are the ones whose *class* we never defined — which relocates the
 project's remaining vagueness from its proofs to its vocabulary.
+
+
+# SESSION 045 — night cycle 9: "cheap invariants" gets a definition, and grade C loosens
+
+**Kill condition, stated first:** *if the class "cheap invariant" cannot be
+defined without smuggling in the Euler product, it stays grade C permanently and
+that is the finding.* **It did not fire**, and the reason is the whole cycle:
+every constraint in the cheap family has **one shape** — an upper bound on
+horizontal multiplicity — and that shape is pure counting, with no multiplicative
+input anywhere.
+
+`BoundedMult M D := ∀ γ, D.H γ ≤ M`. That is the class. Then
+`Optimal.prop1_LP_optimal_cheap` (axiom-free): a linear bound entitled to assume
+**any** multiplicity bound `M ≥ 2` still cannot beat `2 − C`. The two binding
+configurations (`single`, `Gauge.pairOnly`) have `H ≤ 2`, so the cheap
+invariants are satisfied by construction and cannot bind.
+
+That is `FAILURES.md` `#3`'s certified reason — *"cheap invariants are satisfied
+by construction; only the Euler product bites"* — restated as a theorem for the
+two-moment LP.
+
+**Scope, stated plainly and not quietly widened:** this certifies the vacuity of
+**multiplicity bounds** for **this** extremal problem. The wider W7 claim, that
+no classical invariant of any kind tightens `C`, quantifies over a class still
+undefined and **stays grade C**. `CLAIMS.md` now carries both rows.
+
+**And the cycle corrected the file it was following.** `CLAIMS.md` asserted one
+cycle ago that promoting a grade-C claim "would require defining the class
+first, which is a research question rather than a formalisation task". For W7 it
+took one cycle. Filed as `SURPRISES` S23, and the guidance is revised in place:
+**grade C means the class has not been defined yet, not that it cannot be** —
+and when a C entry's claims all share one shape, that shape is usually the
+definition.
+
+Audits extended; build green (3747 jobs); base hash unmoved; 23 surprises, still
+65% found by something that is not me.
+
+**Might-mean, unhedged:** the vocabulary problem I diagnosed last cycle as the
+project's residual vagueness turned out, on first contact, to be mostly a
+naming delay — the informal classes were informal because nobody had needed them
+precisely, not because they resist precision.

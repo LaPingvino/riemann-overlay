@@ -36,7 +36,8 @@ grade A.**
 | `offline_le`'s `(C−1)` cannot be improved to `(C−1)/2` | the inequality itself | `Gauge.offline_le_tight` (saturating witness) | **A** |
 | Route I cannot do better than `c₀ ≈ 0.16` | any effective Fujii constant | `Fujii.c0_lower_bound` | **A** |
 | The bandwidth-one ceiling is `≤ 0.6818287` | bandwidth-one certificates | `Zeta23.PairCeiling.ceiling_law256` — **imported**, and *not reachable from `import Riemann`* | **A**, with a caveat parked for Joop |
-| "No free classical invariant will tighten `C`" (W7 autopsy) | *"cheap invariants"* — informal | — | **C** |
+| "Multiplicity bounds cannot tighten `C`" (W7, precise part) | `BoundedMult M` — `H γ ≤ M`, pure counting, no Euler product | `Optimal.prop1_LP_optimal_cheap` | **A** |
+| "No free classical invariant *of any kind* will tighten `C`" (W7, general) | *"classical invariant"* — still informal | — | **C** |
 | "Post-1974 extremal technology cannot buy anything through the window" | *"post-1974 technology"* — informal | — | **C** |
 | E20's plane: the cleavage is the one thing no single-natured instrument can certify | *"single-natured instrument"* — informal | — | **C**, and already marked statistically unsupported in `FAILURES.md` |
 
@@ -61,3 +62,26 @@ and more useful: a standing inventory, and the rule that a claim cited as a
 bound must be grade A. The disease was real, finite, and is now cured; what
 remains is a category that was never curable by formalisation and must instead
 be *marked*.
+
+
+## Amendment (night cycle 9) — grade C is not a life sentence
+
+`CLAIMS.md` asserted, one cycle ago, that promoting a grade-C claim "would
+require *defining* the class first, which is a research question rather than a
+formalisation task". **For W7 that took one cycle.**
+
+Every constraint in the cheap family has the same shape — an upper bound on
+horizontal multiplicity — and that shape is pure counting with no multiplicative
+input. `BoundedMult M D := ∀ γ, D.H γ ≤ M` is the class, and
+`Optimal.prop1_LP_optimal_cheap` proves that assuming *any* such bound
+(`M ≥ 2`) leaves the two-moment optimum at `2 − C`. The binding configurations
+have `H ≤ 2`, so the cheap invariants are satisfied by construction and cannot
+bind — which is exactly what the autopsy said, now as a theorem.
+
+**Scope, stated plainly:** this certifies the vacuity of *multiplicity bounds*
+for *this* extremal problem. The wider claim — that no classical invariant of
+any kind tightens `C` — quantifies over a class still undefined and stays C.
+
+**Revised guidance:** grade C means *the class has not been defined yet*, not
+*the class cannot be defined*. When a C entry's claims all share one shape, that
+shape is usually the definition. Filed as `SURPRISES` S23.

@@ -1386,3 +1386,29 @@ census; the atlas is a second, harder exam **written by the field itself**.
 The atlas cannot die — a verified classified table of proven equivalents is a
 permanent asset at any outcome — so per R12 **the risk lives entirely in the
 classification claims**, which is exactly where the blinding sits.
+
+### The shadow measured: `⌊m/2⌋ + 1` configurations per atom
+
+**Kill condition:** *if two distinct fiber states shared the same `N_off`, the
+orbit would be smaller than claimed and the ambiguity count wrong.* **It did not
+fire** — `N_off = 2j` separates them, so the indexing by `j` is faithful.
+
+The registers have called the missing datum *"one bounded natural number per
+crowded atom"* since W28 without ever saying **how** bounded. It is exactly
+`⌊m/2⌋`: the fiber states over mass `m` are `(m − 2j, j)` for
+`0 ≤ j ≤ ⌊m/2⌋`, all sharing one `μ_T`, all separated by `N_off`.
+
+| mass `m` | states | alternatives the class cannot rule out |
+|---|---|---|
+| 1 | 1 | **0** |
+| 2, 3 | 2 | 1 |
+| 4, 5 | 3 | 2 |
+| 6, 7 | 4 | 3 |
+
+**`m = 1` giving orbit size 1 is the R17 witness** — the mass-one case must be
+unambiguous, and `Noff_eq_zero_of_simple` says so independently. Two routes to
+the same fact, one of them the formula's own boundary case.
+
+`Fiber.gauge_orbit_size`, axiom-free. This is the quantitative form of the
+qualitative claim, and it says the shadow grows **linearly in the mass**: a
+crowded atom of mass `m` hides `⌊m/2⌋` alternatives, no more and no fewer.

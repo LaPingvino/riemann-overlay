@@ -152,3 +152,6 @@ import Riemann
 #check @Riemann.Optimal.moment_route_walled
 #check @Riemann.Blindness.zeroData_not_rigid
 #check @Riemann.Blindness.zeroData_admits_both
+#check @Riemann.Blindness.fiber_states_share_ordinates
+#check @Riemann.Blindness.fiber_states_distinguished
+#check @Riemann.Blindness.gauge_orbit_size

@@ -2961,3 +2961,39 @@ junction.
 precisely because the roads were built by a century of travellers who never
 arrived — and if the map shows no road connecting two districts except through
 the city, that is a theorem about the city nobody has to enter to prove.
+
+
+# SESSION 073 — the shadow has a size: `⌊m/2⌋ + 1` per atom
+
+**Kill condition, stated first:** *if two distinct fiber states shared the same
+`N_off`, the orbit would be smaller than claimed and the ambiguity count wrong.*
+**It did not fire** — `N_off = 2j` separates them, so `j` indexes the orbit
+faithfully.
+
+Since W28 the registers have called the missing datum *"one bounded natural
+number per crowded atom"* and never said **how** bounded. It is `⌊m/2⌋`:
+the states over mass `m` are `(m − 2j, j)` for `0 ≤ j ≤ ⌊m/2⌋`, all sharing one
+`μ_T`, all separated by `N_off`. So at an atom of mass `m` the certificate class
+cannot tell **`⌊m/2⌋ + 1`** configurations apart — one alternative at `m = 2`
+and `3`, two at `4` and `5`, and **the shadow grows linearly in the mass**.
+
+`gauge_orbit_size`, `fiber_states_share_ordinates`,
+`fiber_states_distinguished` — axiom-free.
+
+**And the formula's boundary case is its own R17 witness.** At `m = 1` it gives
+orbit size **1**: a simple atom is unambiguous. `Noff_eq_zero_of_simple` says
+the same thing by a completely different route, proved four cycles ago. Two
+independent paths to one fact, and I did not arrange it — the formula produced
+it as the `m = 1` case.
+
+That is the difference between this and `S30`'s false unification, and worth
+naming while both are fresh: **there I asserted two results were one and they
+were not; here two results agree at a point and I am claiming only the
+agreement.** The check is whether the identity is *derived* or *declared*.
+
+Build green (3757 jobs), one new grade-A row, base hash unmoved.
+
+**Might-mean, unhedged:** the blindness is not a wall of fixed height but one
+that rises with the crowd — every additional pair of zeros at an ordinate adds
+exactly one configuration the instruments cannot exclude, so the harder a place
+is to see into, the more there is in it to miss.

@@ -1214,5 +1214,55 @@ theorem zeroData_admits_both :
   · rw [config_N]; norm_num
   · rw [config_Noff (by norm_num : (1/4 : ℝ) ≠ 1/2)]
 
+
+/-! #### How much is missing, exactly: the gauge orbit has `⌊m/2⌋ + 1` elements
+
+`config_ordinates_eq` says the whole fiber over an atom of mass `m` shares one
+`μ_T`.  The registers have described the missing datum as *"one bounded natural
+number per crowded atom"* without ever saying **how** bounded.  It is exactly
+this: the fiber states are `(k, j)` with `k + 2j = m`, so `j` ranges over
+`0 … ⌊m/2⌋` and the orbit has `⌊m/2⌋ + 1` members.
+
+**Kill condition, stated before the section was written:** *if two distinct
+fiber states shared the same `N_off`, the orbit would be smaller than claimed
+and the ambiguity count wrong.*  It did not fire — `N_off = 2j` separates them.
+
+So the certificate class, at each atom of mass `m`, cannot distinguish
+`⌊m/2⌋ + 1` configurations: **one alternative at `m = 2` and `m = 3`, two at
+`m = 4` and `m = 5**, and so on.  That is the size of the shadow, per atom. -/
+
+/-- The fiber states over mass `m`, indexed by `j`: all share one `μ_T`. -/
+theorem fiber_states_share_ordinates (m j₁ j₂ : ℕ) (h₁ : 2 * j₁ ≤ m)
+    (h₂ : 2 * j₂ ≤ m) (a : ℝ) :
+    (config (m - 2 * j₁) j₁ a).ordinates = (config (m - 2 * j₂) j₂ a).ordinates :=
+  config_ordinates_eq (by omega) a a
+
+/-- …and `N_off` tells them apart, so the indexing by `j` is faithful.  The
+orbit over mass `m` therefore has exactly `⌊m/2⌋ + 1` distinct members. -/
+theorem fiber_states_distinguished {a : ℝ} (ha : a ≠ 1/2) (m j₁ j₂ : ℕ)
+    (h₁ : 2 * j₁ ≤ m) (h₂ : 2 * j₂ ≤ m) (hne : j₁ ≠ j₂) :
+    (config (m - 2 * j₁) j₁ a).Noff ≠ (config (m - 2 * j₂) j₂ a).Noff := by
+  rw [config_Noff ha, config_Noff ha]
+  omega
+
+/-- **The size of the shadow.**  At an atom of mass `m` the class sees one
+`μ_T` and cannot tell `⌊m/2⌋ + 1` configurations apart — the states are
+faithfully indexed by `j ∈ {0, …, ⌊m/2⌋}`, all sharing ordinates, all separated
+by `N_off`.
+
+This is the quantitative form of *"one bounded natural number per crowded
+atom"*: the bound is `⌊m/2⌋`. -/
+theorem gauge_orbit_size {a : ℝ} (ha : a ≠ 1/2) (m : ℕ) :
+    ∀ j₁ ∈ Finset.range (m / 2 + 1), ∀ j₂ ∈ Finset.range (m / 2 + 1),
+      (config (m - 2 * j₁) j₁ a).ordinates = (config (m - 2 * j₂) j₂ a).ordinates
+        ∧ (j₁ ≠ j₂ →
+            (config (m - 2 * j₁) j₁ a).Noff ≠ (config (m - 2 * j₂) j₂ a).Noff) := by
+  intro j₁ h₁ j₂ h₂
+  rw [Finset.mem_range] at h₁ h₂
+  have hb₁ : 2 * j₁ ≤ m := by omega
+  have hb₂ : 2 * j₂ ≤ m := by omega
+  exact ⟨fiber_states_share_ordinates m j₁ j₂ hb₁ hb₂ a,
+    fun hne => fiber_states_distinguished ha m j₁ j₂ hb₁ hb₂ hne⟩
+
 end Blindness
 end Riemann

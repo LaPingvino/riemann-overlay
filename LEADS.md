@@ -25,6 +25,25 @@ happens when a plausible structural claim is written as though established. File
 as the shape of an explanation for why `167`/`168`'s dictionary had to be an
 *inequality* (`atomCount ≤ distinctZeros`) rather than an identity.
 
+> **`SESSION 182` — attempted, and the witness pair is now named rather than
+> sketched.** The construction exists and needs nothing new:
+>
+>     A = configAt 0 0 2 a                              -- one pair, doubled
+>     B = superpose (configAt 0 0 1 a) (configAt 0 0 1 b)   -- two distinct pairs
+>
+> with `a, b ≠ 1/2`, `a ≠ b`, `a ≠ 1 − b`.  `superpose` imposes no disjointness,
+> so both stack four off-line zeros at ordinate `0`: `H = 4`, `offAt = 4`,
+> profile `{(4, 4)}` for both, while `distinctZeros` is `2` and `4`.
+>
+> **The profile half is easy** — `H_superpose` and `offAt_superpose` are additive
+> and `configAt_H` / `configAt_offAt` give the values. **The `distinctZeros` half
+> did not close**: it needs `Finset` cardinalities over multiset literals
+> (`toFinset_add`, `toFinset_replicate`, pairwise distinctness of four points in
+> `ℝ × ℝ`), and the attempt was reverted rather than left half-built.
+>
+> So the claim is **still unproved**, but it is now a specified obligation with a
+> named witness pair and a known hard half, rather than an argument.
+
 
 ## `SESSION 159` — a simplicity route that consumes *location* rather than multiplicity
 

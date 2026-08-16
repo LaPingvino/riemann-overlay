@@ -8455,3 +8455,55 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** two cycles running, the gap was a definitional
 connection nobody had written because the definitions already said it, and in
 this one the unwritten line was under the project's own central quantity.
+
+# SESSION 182 — the witness pair built, the proof reverted, the obligation sharpened
+
+**Kill condition, stated first:** *if two configurations with the same profile and
+different `distinctZeros` cannot be constructed within `ZeroData`'s `refl_inv`
+constraint, the argument fails and the `LEADS` note gets withdrawn rather than
+promoted.* **It did not fire — the construction exists. The Lean proof did not
+close, and I reverted it.**
+
+`181` filed, explicitly unproved, that `distinctZeros` is not a profile
+functional. This cycle went to settle it.
+
+## What was established
+
+The witness pair needs nothing new. `superpose` imposes **no** disjointness, so
+two off-line pairs stack at a single ordinate directly:
+
+    A = configAt 0 0 2 a                                 -- one pair, doubled
+    B = superpose (configAt 0 0 1 a) (configAt 0 0 1 b)  -- two distinct pairs
+
+with `a, b ≠ 1/2`, `a ≠ b`, `a ≠ 1 − b`. Both put four off-line zeros at ordinate
+`0`, so `H = 4`, `offAt = 4`, and the profile is `{(4, 4)}` for both — while
+`distinctZeros` is `2` and `4`.
+
+## `S84` — and the hard half was the opposite of what I expected
+
+I expected the construction to be the work and the Lean proof to be routine. It
+inverted. The profile half fell out of `H_superpose` and `offAt_superpose` in four
+lines. **`distinctZeros` did not close**: it wants `Finset` cardinalities over
+multiset literals — `toFinset_add`, `toFinset_replicate`, and four points in
+`ℝ × ℝ` separated pairwise — and I did not get it to build.
+
+**Reverted rather than left half-built.** Tree at `HEAD`, build green, sorries 0.
+
+## What the cycle is worth
+
+`181`'s note said "two configurations *should* share a profile and differ". It now
+names the pair, states which half is easy and why, and identifies the hard half as
+`Finset` bookkeeping rather than anything structural. **The claim is still
+unproved** — that is unchanged and is said in `LEADS.md` at its location — but it
+has moved from an argument to a specified obligation.
+
+That distinction is the one `175`/`176` cost a cycle to learn: a plausible
+structural claim is worth writing down only with its status attached, and
+"attempted, construction found, proof open" is a status.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new declarations.
+
+**Might-mean, unhedged:** the mathematics took four lines and the bookkeeping
+defeated me, which is the usual ratio in this project and the reason the registers
+are larger than the theory.

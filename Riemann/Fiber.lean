@@ -4527,7 +4527,13 @@ theorem noHaunted_strictly_weaker_than_RH {a : ℝ} (ha : a ≠ 1/2) :
 `110`'s canonical bound is the case `m = 3`.  With `109`'s identity this is
 exactly `105`'s ladder rewritten, so the mass hypothesis and the density
 instrument are the same statement — and the ladder's `δ` is `(1 − κ)/(m − 1)`,
-not the vaguer expression `118`'s table carried. -/
+not the vaguer expression `118`'s table carried.
+
+**Superseded as a route, kept as a fact (`SESSION 263`).**  `Gaps`'s ladder no
+longer consumes this: `263` found the off-line resource reproduces it exactly,
+because `offLineImport_of_proportionStd` converts `ProportionStd κ` into an
+off-line import at `β = 1 − κ`.  This remains the direct `N`-resource statement
+and the shorter thing to cite when the off-line detour is not wanted. -/
 theorem pred_mul_haunted_add_NscStd_le_N (D : ZeroData) (m : ℕ) (hm : 1 ≤ m)
     (h : ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 ∨ m ≤ D.H γ) :
     (m - 1) * hauntedCount D + D.NscStd ≤ D.N := by

@@ -12203,4 +12203,55 @@ duplication floor at `20`, warnings at `54`.
 **Might-mean, unhedged:** the board's numbers are over-determined — three
 independent resources deliver the same four rungs — so the constants are
 properties of the combinatorics rather than of any one hypothesis, and improving
-a route means improving an input, not finding a better argument.
+a route means improving an input, not finding a better argument. *(`263`: "three
+independent resources" is wrong — the off-line resource is `ProportionStd`
+converted by `offLineImport_of_proportionStd`, and the two ladders are one
+theorem. The closing clause survives.)*
+
+## `262`'s spare route was not spare — the ladder is off-line throughout
+
+`262` ended claiming the board's constants come from three independent
+resources. That is testable, and it is wrong.
+
+**Kill condition, filed first:** *if `offLineImport_of_proportionStd` yields a
+`β` other than `1 − κ`, the coincidence of the two ladders is not explained by
+derivation and I report the routes as genuinely independent.* It did not fire —
+that theorem gives `OffLineImport F (1 − κ)` exactly, from
+`Blindness.Noff_add_NscStd_le_N`.
+
+So the off-line resource is not independent of the proportion resource; it is
+that resource converted. Composing the conversion with `262`'s new ladder
+reproduces `hauntedDensity_of_noSmallHaunted` **on the nose** — same
+hypotheses, same conclusion, checked by typechecking the composite against the
+existing signature before touching anything.
+
+`hauntedDensity_of_noSmallHaunted` is now that composite, and the twenty lines
+of summation that used to prove it are gone. The ladder is an off-line
+phenomenon throughout: `ProportionStd` enters only by being turned into an
+off-line bound, and the rung then charges against `N_off`.
+
+`Blindness.pred_mul_haunted_add_NscStd_le_N` is no longer consumed by anything.
+Kept, and annotated at its own location as superseded-as-a-route — it is still
+the direct `N`-resource statement and the shorter citation when the off-line
+detour is not wanted. That is `LEADS`'s "superseded, and why kept" practice,
+which `096`'s `Nstar_add_mul_Nsc_le` already sits under.
+
+**So `262`'s might-mean is retracted at its location.** There are two resources,
+not three, and the second is derived from the first. The board's constants being
+over-determined was the right observation and the wrong explanation: they agree
+because the routes share a source, not because the combinatorics forces the
+number by several independent paths.
+
+**Snag, bin 2.** My edit welded the new paragraph onto the end of the preceding
+sentence — the docstring read *"…the vaguer expression `118`'s table carried.
+**Superseded as a route…**"* with no break. The build was green and
+`#print axioms` was clean, because neither reads prose. Caught by reading the file
+back, which no guard here does.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green, board unchanged at 13.
+
+**Might-mean, unhedged:** two routes here can look independent purely because
+they are written in different vocabularies, and a composite that typechecks
+against the existing signature settles it in one command — cheaper than the
+cycle I spent believing these two were different.

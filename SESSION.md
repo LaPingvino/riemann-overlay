@@ -8846,3 +8846,51 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the project spent 189 cycles measuring a quantity whose
 extremal object is three zeros and a reflection, and the last four cycles were
 spent discovering that every measurement it makes is sharp at that one object.
+
+# SESSION 190 — the best `δ` verified, and four routes to one number
+
+**First kill condition fired, on a duplicate.** I set out to state the maximal
+haunted density (`δ ≤ 1/3`, attained) and compare it to the certified `0.16375`.
+`Fiber.lean:4023` already says exactly that. Checking the register before
+building (`S27`) cost one grep and saved the cycle.
+
+**Second kill condition, stated before the replacement piece:** *if some
+`hauntedCount` bound in the file gives `δ < 0.16375` on certified inputs, that
+docstring is wrong and the ledger may be understating.* **It did not fire.**
+
+That docstring carries *"no enumeration of bounds changes that"* — an unscoped
+absolute of precisely the class `174` found is the gate's only true-positive
+shape, and `163`/`164` showed my hand-enumerations lose rows. So it was owed a
+mechanical check.
+
+## `S90` — it was understated, not overstated
+
+All 11 inequalities in `Riemann/*.lean` mentioning `hauntedCount`, evaluated on
+the certified inputs. Nothing beats `0.16375`. But **four** bounds reach it:
+
+| bound | via | `δ ≤` |
+|---|---|---|
+| `2·haunted + NscStd ≤ N` (`110`) | `NscStd/N ≥ 0.6725` | `0.16375` |
+| `Nsc + 3·haunted ≤ N` | `Nsc/N ≥ 0.50875` | `0.16375` |
+| `2·haunted + atomCount ≤ N` | `atomCount/N ≥ 0.6725` | `0.16375` |
+| `(m−1)·haunted + NscStd ≤ N` at `m = 3` | `NscStd/N ≥ 0.6725` | `0.16375` |
+
+Three of the rest give nothing on certified inputs (`6·haunted + N ≤ N⊛` and
+`6·haunted ≤ factMoment 3` have no supply; `haunted ≤ NscStd` bounds `NscStd`
+from *below*), and `3·haunted ≤ N` gives the weaker `1/3`.
+
+**They agree because their inputs do.** In exact rationals
+`1 − 0.50875 = 3 × 0.16375` and `1 − 0.6725 = 2 × 0.16375`, since `Nsc` and
+`atomCount` are both minted from `κ`. I went looking for an overclaim and found
+`162`'s circularity wearing four hats — the same phenomenon that walled three
+literature routes, now showing up as four internal bounds returning one number.
+
+Recorded at the docstring's location: the claim holds, and is stronger stated
+with its cause.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new declarations.
+
+**Might-mean, unhedged:** four different accountings of the same ledger agree to
+five decimal places, and the reason is not that they confirm each other but that
+they were all struck from one coin.

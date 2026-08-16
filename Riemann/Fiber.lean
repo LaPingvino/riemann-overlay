@@ -4027,7 +4027,28 @@ baseline-only argument there.
 
 So the honest statement is not a count.  It is: **`0.16375` is the best `δ` the
 certified inputs support, and no enumeration of bounds changes that** — a bound
-is worth listing only when it is sharper on the inputs actually held. -/
+is worth listing only when it is sharper on the inputs actually held.
+
+✅ **Verified mechanically, `SESSION 190`, and the claim understates itself.**
+Every inequality in `Riemann/*.lean` whose conclusion mentions `hauntedCount`
+was enumerated (11) and evaluated on the certified inputs.  Nothing beats
+`0.16375` — but **four** bounds *reach* it, through three different inputs:
+
+| bound | via | `δ ≤` |
+|---|---|---|
+| `2·haunted + NscStd ≤ N` (`110`) | `NscStd/N ≥ 0.6725` | `0.16375` |
+| `Nsc + 3·haunted ≤ N` | `Nsc/N ≥ 0.50875` | `0.16375` |
+| `2·haunted + atomCount ≤ N` | `atomCount/N ≥ 0.6725` | `0.16375` |
+| `(m−1)·haunted + NscStd ≤ N` at `m = 3` | `NscStd/N ≥ 0.6725` | `0.16375` |
+
+Three of the remaining bounds give nothing (`6·haunted + N ≤ N⊛` and
+`6·haunted ≤ factMoment 3` have no certified input; `haunted ≤ NscStd` bounds
+`NscStd` from *below*), and `3·haunted ≤ N` gives the weaker `1/3`.
+
+**The four agree because their inputs do.** In exact rationals
+`1 − 0.50875 = 3 × 0.16375` and `1 − 0.6725 = 2 × 0.16375`, since `Nsc` and
+`atomCount` are both minted from `κ` — `162`'s circularity, surfacing once more
+as four independent-looking routes returning one number. -/
 theorem best_delta_is_from_110 (D : ZeroData) :
     2 * hauntedCount D + D.NscStd ≤ D.N
       ∧ 3 * hauntedCount D ≤ D.N

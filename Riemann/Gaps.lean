@@ -709,6 +709,48 @@ theorem currencies_saturate_at_kappa {κ β m : ℝ} (hκ : κ < 1) (hm : 1 < m)
     κ - β / 2 ≤ κ ∧ (m * κ - 1) / (m - 1) < κ :=
   ⟨by linarith, ladder_lt_kappa hκ hm⟩
 
+/-! ### What the odd-atom class does to `prop1`'s LP — `SESSION 249`
+
+`247` showed a bound `oddAtoms ≥ c·N` excludes `Gauge.pairOnly`, the
+configuration that makes `prop1` tight.  Excluding a binding witness is exactly
+what `200`–`202` showed can free the LP, so the question is whether it does.
+
+Work on the mass-`{1,2}` family, which is where `prop1` is tight: `k` on-line
+atoms of mass `1` and `j` mirror pairs of mass `2`.  Then `N = k + 2j`,
+`N⊛ = k + 4j`, `N_sc = k`, `oddAtoms = k`, and the class constraint
+`k ≥ c(k + 2j)` caps the ratio at `r := j/k ≤ (1 − c)/(2c)`.  Per mass-one atom
+the linear bound reads `a(1 + 2r) + b(1 + 4r) ≤ 1`.
+
+Two identities settle the shape of that, and both are one line. -/
+
+/-- **`prop1` saturates the mass-`{1,2}` constraint at every ratio.**
+`SESSION 249`.  `(a, b) = (2, −1)` gives `2(1+2r) − (1+4r) = 1` for all `r`, so
+no member of this family separates `prop1` from the bound — which is
+`Gauge.prop1_tight` seen along the whole family rather than at one point. -/
+theorem prop1_saturates_mass_two_family (r : ℝ) :
+    2 * (1 + 2 * r) + (-1) * (1 + 4 * r) = 1 := by ring
+
+/-- **The class's binding ratio reproduces `2 − c`.**  `SESSION 249`.
+
+At the extreme ratio `r = (1 − c)/(2c)` the two coefficients are
+`1 + 2r = 1/c` and `1 + 4r = (2 − c)/c`, so their quotient is exactly `2 − c` —
+the star-bound break-even (`242`), and at the certified `κ` the number
+`1.3275`.
+
+**The reading, which is not proved here.**  The unrestricted LP forces
+`a + 2b ≤ 0`, obtained as `r → ∞`; capping `r` replaces it by
+`a(1+2r) + b(1+4r) ≤ 1`, whose boundary direction turns at `C = (1+4r)/(1+2r)`.
+So the odd-atom class leaves `prop1` optimal for `C ≤ 2 − c` and stops
+constraining above it.  That the class is *not* free is `247`'s point: `c = κ`
+is bought from the baseline. -/
+theorem oddAtom_class_ratio {c : ℝ} (hc : 0 < c) :
+    (1 + 4 * ((1 - c) / (2 * c))) / (1 + 2 * ((1 - c) / (2 * c))) = 2 - c := by
+  have h2 : (2 : ℝ) * c ≠ 0 := by positivity
+  have hnum : 1 + 4 * ((1 - c) / (2 * c)) = (2 - c) / c := by field_simp; ring
+  have hden : 1 + 2 * ((1 - c) / (2 * c)) = 1 / c := by field_simp; ring
+  rw [hnum, hden]
+  field_simp
+
 /-- **One constant governs the whole ladder.**  `SESSION 236`.
 
 At the certified `κ = 0.6725` the numerator `1 − κ` is `131/400 = 0.3275` — the

@@ -701,6 +701,8 @@ extremal configuration is already modest in *every* cheap invariant. Filed
 against E11's pincer: the "ceilings from below" jaw works; a "cheap
 realizability from above" jaw **does not exist**.
 
+*`249`:* and the one class known to exclude `prop1`'s tight witness (`247`, `oddAtoms ≥ c·N`) turns at exactly `2 − c` — `oddAtom_class_ratio`. So the pincer's upper jaw does not close below the star-bound break-even; the two jaws meet at the same number rather than crossing.
+
 > **`SESSION 243` — sharpened, not discharged, for one family.** Within
 > multiplicity caps the claim is now a theorem.
 > `Optimal.mult_cap_excluding_pairOnly`: `Gauge.pairOnly` has `H = 2`, so a cap

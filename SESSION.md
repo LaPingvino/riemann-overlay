@@ -11431,3 +11431,52 @@ green.
 **Might-mean, unhedged:** this project's registers cite nearly four hundred names
 and the one stale citation found so far was produced by a deletion, so the defect
 to watch for sits in deleting rather than in citing.
+
+## The odd-atom class turns at `2 − c`
+
+`247` showed `oddAtoms ≥ c·N` excludes `Gauge.pairOnly`, the configuration that
+makes `prop1` tight. `200`–`202` showed that excluding a binding witness is
+exactly what can free the LP. So: does it?
+
+**Kill condition, filed first:** *if the class's binding ratio does not come out
+to a formula the project already owns, this is a numerical coincidence and I
+report it as such rather than as structure.* It did not fire.
+
+Work the mass-`{1,2}` family, where `prop1` is tight: `k` on-line mass-`1` atoms
+and `j` mirror pairs. `N = k + 2j`, `N⊛ = k + 4j`, `N_sc = oddAtoms = k`, so the
+class caps `r := j/k` at `(1 − c)/(2c)` and the bound reads
+`a(1 + 2r) + b(1 + 4r) ≤ 1` per mass-one atom.
+
+* `prop1_saturates_mass_two_family` — `(2, −1)` gives `2(1+2r) − (1+4r) = 1` for
+  **every** `r`. No member of the family separates `prop1` from the bound;
+  `Gauge.prop1_tight` holds along the whole family, not at one point.
+* `oddAtom_class_ratio` — at the extreme ratio, `1 + 2r = 1/c` and
+  `1 + 4r = (2 − c)/c`, so their quotient is **exactly `2 − c`** — the
+  star-bound break-even of `242`, and `1.3275` at the certified `κ`. Verified in
+  exact rationals as `531/400` before being written.
+
+**The reading, stated as a reading.** The unrestricted LP forces `a + 2b ≤ 0`,
+which is the `r → ∞` limit of that constraint. Capping `r` replaces it, and the
+replacement's boundary direction turns at `C = (1+4r)/(1+2r)`. So the odd-atom
+class leaves `prop1` optimal for `C ≤ 2 − c` and stops constraining above it.
+The LP argument itself is not formalised; the two identities are.
+
+And the class is not free — `247`: `c = κ` is bought from the baseline. So the
+one place this could have loosened `prop1` is above `C = 2 − κ`, which is where
+`242` already put the star-bound break-even.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+**Snag, bin 1.** `field_simp` left `c + (1 - c) = 1` standing on one of the two
+sub-identities and closed the other outright; `ring` after it fixed the first.
+The asymmetry is the useful part — `field_simp` normalises denominators without
+finishing the numerator, so it is not a closing tactic.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** `2 − κ` has now turned up as the star-bound
+break-even, the constant `H ≤ 2` achieves, and the turning point of the
+odd-atom class, which suggests it is the boundary of what the baseline can be
+spent on rather than three separate facts.

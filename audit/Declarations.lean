@@ -216,6 +216,9 @@ import Riemann
 -- SESSION 247: E11's jaw exists and is mu_T-visible, but every instance is priced in kappa.
 #check @Riemann.Optimal.pairOnly_oddAtoms
 #check @Riemann.Optimal.oddAtoms_bound_excludes_pairOnly
+-- SESSION 249: what the odd-atom class does to prop1's LP.
+#check @Riemann.prop1_saturates_mass_two_family
+#check @Riemann.oddAtom_class_ratio
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

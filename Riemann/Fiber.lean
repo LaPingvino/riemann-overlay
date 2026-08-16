@@ -1165,6 +1165,55 @@ lemma Nstar_eq_sum_H_sq (D : ZeroData) :
   refine Finset.sum_congr rfl fun γ _ => ?_
   rw [← D.H_eq_count γ, smul_eq_mul]
 
+/-- `7h² ≤ h⁴ + 6h` for every natural `h` — the pointwise form of
+`h(h−1)(h−2)(h+3) ≥ 0`.  `SESSION 210`.  The companion of
+`three_sq_le_cube_add_two`, and chosen the same way: the linear-in-`(h², h)`
+minorant of `h⁴` that is **tight at `h = 1` and `h = 2`**. -/
+private lemma seven_sq_le_fourth_add_six (h : ℕ) :
+    7 * (h * h) ≤ h * h * h * h + 6 * h := by
+  rcases Nat.lt_or_ge h 3 with hlt | hge
+  · interval_cases h <;> norm_num
+  · have h1 : 3 * (h * h) ≤ h * h * h := by nlinarith [hge]
+    have h2 : 3 * (h * h * h) ≤ h * h * h * h := by nlinarith [hge]
+    have h3 : 9 * (h * h) ≤ h * h * h * h := by
+      calc 9 * (h * h) = 3 * (3 * (h * h)) := by ring
+        _ ≤ 3 * (h * h * h) := by omega
+        _ ≤ h * h * h * h := h2
+    omega
+
+/-- `Σm⁴`, the fourth moment of the multiplicity distribution.  `SESSION 210`. -/
+noncomputable def fourthMoment (D : ZeroData) : ℕ :=
+  ∑ γ ∈ D.ordinates.toFinset, D.H γ * D.H γ * D.H γ * D.H γ
+
+/-- **`Σm⁴ ≥ 7N⊛ − 6N`, for every configuration.**  `SESSION 210`.  The
+order-`4` analogue of `three_Nstar_le_thirdMoment_add_two_N`. -/
+theorem seven_Nstar_le_fourthMoment_add_six_N (D : ZeroData) :
+    7 * D.Nstar ≤ fourthMoment D + 6 * D.N := by
+  classical
+  rw [N_eq_sum_H, Nstar_eq_sum_H_sq, fourthMoment, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib]
+  exact Finset.sum_le_sum fun γ _ => seven_sq_le_fourth_add_six (D.H γ)
+
+/-- **`Σm⁴` on a pure on-line atom of mass `m`.**  `SESSION 210`. -/
+lemma config_fourthMoment_pure (m : ℕ) (a : ℝ) :
+    fourthMoment (config m 0 a) = m * m * m * m := by
+  classical
+  have hH : (config m 0 a).H (0:ℝ) = m := by
+    rw [config_eq_configAt, configAt_H]; simp
+  have hord : (config m 0 a).ordinates = Multiset.replicate m ((0:ℝ)) := by
+    show ((config m 0 a).Z.map Prod.snd) = _
+    have hZ : (config m 0 a).Z = Multiset.replicate m ((1/2 : ℝ), (0:ℝ)) := by
+      show Multiset.replicate m ((1/2 : ℝ), (0:ℝ))
+          + (Multiset.replicate 0 (a, (0:ℝ))
+            + Multiset.replicate 0 ((1 - a : ℝ), (0:ℝ))) = _
+      simp
+    rw [hZ, Multiset.map_replicate]
+  rw [fourthMoment, hord]
+  rcases Nat.eq_zero_or_pos m with hm | hm
+  · subst hm; simp
+  · rw [Multiset.toFinset_replicate, if_neg (by omega)]
+    simp [hH]
+
 /-- **`Σm³` on a pure on-line atom of mass `m`.**  `SESSION 208`.  One atom, so
 one term. -/
 lemma config_thirdMoment_pure (m : ℕ) (a : ℝ) :

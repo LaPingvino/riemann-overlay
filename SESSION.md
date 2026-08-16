@@ -9730,3 +9730,56 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** `ISSUES` `#20` named the third moment as the currency
 that could improve the reduction, and at the exchange rate the combinatorics
 force it buys nothing.
+
+## Order four, and the mechanism behind the cancellation
+
+`209` killed the third moment. The question it left is whether the argument was
+special to `k = 3`.
+
+**Kill condition, filed first:** *if the `k = 4` substitution does not reproduce
+the two-moment constraints exactly the way `k = 3` did, then `209`'s
+cancellation was special and I say so rather than generalising.* It did not
+fire, and the reason is now visible.
+
+The minorant at order three is `Σm³ ≥ 3N⊛ − 2N`, from the linear-in-`(m², m)`
+function agreeing with `m³` at `m = 1` and `m = 2` — and `206`'s
+characterisation places its constraints at those two masses. Subtracting a
+minorant tight at `m = 1` and `m = 2` leaves the constraints at `m = 1` and
+`m = 2` untouched, which is why `c` cancels.
+
+Order four repeats it. `seven_sq_le_fourth_add_six` is `h(h−1)(h−2)(h+3) ≥ 0` in
+pointwise form, giving `Σm⁴ ≥ 7N⊛ − 6N`, and with `A = a − 6c`, `B = b + 7c`:
+
+    mass 1:  a + b + c     = A + B  ≤ 1
+    mass 2:  2a + 4b + 16c ≤ 0  ⟺  A + 2B ≤ 0
+
+the same two constraints, and the same case split closes it.
+
+* `fourthMoment`, `seven_Nstar_le_fourthMoment_add_six_N`,
+  `config_fourthMoment_pure`
+* `LinearBound4`, `linearBound4_mass`, `prop1_as_linearBound4`,
+  `linearBound4_no_gain`, `linearBound4_LP_value` — `IsGreatest` at `2 − C`.
+
+So the moment route is walled at order four as well, and by the same mechanism
+rather than by a second accident. `Optimal.moment_route_walled` says the route
+is walled at every order by a different argument — the two binding witnesses have
+vanishing factorial moments — so there are now two independent readings of the
+same wall, one about witnesses and one about the LP.
+
+**What is not proved:** the general `k`. The pattern is stated and two orders
+carry it; `k ≥ 5` would need the minorant `m^k ≥ (2^{k−1}−1)m² + (2−2^{k−1})m`
+for every `m`, which is not in the development. Named, not assumed.
+
+**Snag, bin 1.** `nlinarith` would not close `h⁴ + 6h ≥ 7h²` for `h ≥ 3` from
+the hypothesis alone; an explicit `calc` through `9(h·h) ≤ h⁴` did. The existing
+`three_sq_le_cube_add_two` needed no such help, so the ladder gets harder for
+the tactic one order up.
+
+Eight declarations, axiom-free, all in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** every higher moment this project could buy is priced
+against a minorant that is tight exactly where the two-moment program already
+binds, so the moments are not independent currencies at all.

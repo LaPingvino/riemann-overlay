@@ -387,6 +387,76 @@ theorem linearBound3_LP_value {C : ℝ} (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
   · rintro v ⟨a, b, c, habc, rfl⟩
     exact linearBound3_no_gain habc hC1 hC2
 
+/-! ### Order four — `SESSION 210`
+
+`209` killed the third moment.  The question it leaves is whether the argument
+was special to `k = 3`.  It was not, and the reason is visible in how the
+minorant is chosen: `Σm³ ≥ 3N⊛ − 2N` comes from the linear-in-`(m², m)` function
+agreeing with `m³` **at `m = 1` and `m = 2`**, which is exactly the pair of
+constraints that settles the two-moment program.  Order four repeats it with
+`Σm⁴ ≥ 7N⊛ − 6N`. -/
+
+/-- A linear bound in `(N, N⊛, Σm⁴)`. -/
+def LinearBound4 (a b c : ℝ) : Prop :=
+  ∀ D : ZeroData, a * D.N + b * D.Nstar + c * Blindness.fourthMoment D ≤ D.Nsc
+
+/-- The single-atom test at every mass, for order four.  `SESSION 210`. -/
+theorem linearBound4_mass (m : ℕ) {a b c : ℝ} (h : LinearBound4 a b c) :
+    a * m + b * (m * m) + c * (m * m * m * m) ≤ if m = 1 then 1 else 0 := by
+  have hm := h (Blindness.config m 0 0)
+  rw [Blindness.config_N, Blindness.config_Nstar_pure,
+    Blindness.config_Nsc_pure, Blindness.config_fourthMoment_pure] at hm
+  by_cases h1 : m = 1
+  · rw [if_pos h1]; rw [if_pos h1] at hm; push_cast at hm; linarith
+  · rw [if_neg h1]; rw [if_neg h1] at hm; push_cast at hm; linarith
+
+/-- `prop1` read as an order-four bound that ignores the fourth moment. -/
+theorem prop1_as_linearBound4 : LinearBound4 2 (-1) 0 := by
+  intro D
+  have h := ZeroData.prop1 D
+  have hcast : (2 * (D.N : ℝ)) - (D.Nstar : ℝ) ≤ (D.Nsc : ℝ) := by exact_mod_cast h
+  simp only [neg_mul, one_mul, zero_mul, add_zero]
+  linarith
+
+/-- **The order-four route cannot beat `2 − C` either.**  `SESSION 210`.
+
+`Blindness.seven_Nstar_le_fourthMoment_add_six_N` gives `C₄ ≥ 7C − 6`, and a
+feasible `c` is non-positive, so the objective is best at `C₄ = 7C − 6`:
+
+    a + b·C + c·(7C − 6)  =  (a − 6c) + (b + 7c)·C
+
+With `A = a − 6c`, `B = b + 7c` the `c` cancels out of the first two mass
+constraints, exactly as at order three:
+
+    mass 1:  a + b + c    = A + B  ≤ 1
+    mass 2:  2a + 4b + 16c ≤ 0  ⟺  A + 2B ≤ 0
+
+The cancellation is not a coincidence of the numbers: the minorant is defined to
+be tight at `m = 1` and `m = 2`, so subtracting it leaves those two constraints
+untouched. -/
+theorem linearBound4_no_gain {a b c C : ℝ} (h : LinearBound4 a b c)
+    (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
+    (a - 6 * c) + (b + 7 * c) * C ≤ 2 - C := by
+  have hm1 := linearBound4_mass 1 h
+  have hm2 := linearBound4_mass 2 h
+  rw [if_pos rfl] at hm1
+  rw [if_neg (by norm_num)] at hm2
+  push_cast at hm1 hm2
+  have h1 : (a - 6 * c) + (b + 7 * c) ≤ 1 := by linarith
+  have h2 : (a - 6 * c) + 2 * (b + 7 * c) ≤ 0 := by linarith
+  rcases le_or_gt (-1 : ℝ) (b + 7 * c) with hcase | hcase
+  · nlinarith [h2, hcase, hC2]
+  · nlinarith [h1, hcase, hC1]
+
+/-- **The order-four LP has the same value, `2 − C`.**  `SESSION 210`. -/
+theorem linearBound4_LP_value {C : ℝ} (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
+    IsGreatest {v : ℝ | ∃ a b c : ℝ, LinearBound4 a b c
+        ∧ v = (a - 6 * c) + (b + 7 * c) * C} (2 - C) := by
+  constructor
+  · exact ⟨2, -1, 0, prop1_as_linearBound4, by ring⟩
+  · rintro v ⟨a, b, c, habc, rfl⟩
+    exact linearBound4_no_gain habc hC1 hC2
+
 
 /-- **And the bound is attained**, so `2 − C` is the exact optimum of the class,
 not merely an upper bound for it. -/

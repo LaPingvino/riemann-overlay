@@ -139,6 +139,15 @@ import Riemann
 #check @Riemann.Optimal.prop1_as_linearBound3
 #check @Riemann.Optimal.linearBound3_no_gain
 #check @Riemann.Optimal.linearBound3_LP_value
+-- SESSION 210: order four repeats it — the pattern is the tight-at-1-and-2 minorant.
+#check @Riemann.Blindness.fourthMoment
+#check @Riemann.Blindness.seven_Nstar_le_fourthMoment_add_six_N
+#check @Riemann.Blindness.config_fourthMoment_pure
+#check @Riemann.Optimal.LinearBound4
+#check @Riemann.Optimal.linearBound4_mass
+#check @Riemann.Optimal.prop1_as_linearBound4
+#check @Riemann.Optimal.linearBound4_no_gain
+#check @Riemann.Optimal.linearBound4_LP_value
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

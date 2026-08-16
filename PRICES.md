@@ -493,9 +493,24 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 > | `StarBound` | multiplicity `H ≤ M` | **yes** (`175`, attained) | empty above `M = 1` |
 > | `StarBound` | narrow box | not asked — the constant is BGST's, imported | Route III, `+15.79` |
 >
-> Every derivation the project owns is now known to be tight. What remains open
-> is entirely **imported**: Route III's `BGSTNarrowBox`, and the hypotheses on
-> the menu.
+> ⚠️ **`SESSION 176` — the sentence that stood here was an unscoped absolute and
+> is withdrawn.** It read *"every derivation the project owns is now known to be
+> tight"*. Counted mechanically: the development has **99** inequality-concluding
+> theorems and about **21** tightness or attainment witnesses. Most of its
+> inequalities have never been shown tight, and nothing here established that
+> they are.
+>
+> **What `169` and `175` actually established** is narrower and is the part that
+> matters: the two **exchange constants** by which every route reaches the ledger
+> are optimal and attained —
+>
+> * off-line channel: `β = 1 − κ` (`offLine_bound_attained`);
+> * `StarBound` channel: `C = M` from `H ≤ M` (`Nstar_bound_attained`).
+>
+> So no route on the board is losing points to a sharpenable exchange rate. That
+> is the claim; "every derivation is tight" is not. What remains open is still
+> entirely **imported** — Route III's `BGSTNarrowBox` and the menu's
+> hypotheses — and that part stands.
 > Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
 > which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
 > with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).

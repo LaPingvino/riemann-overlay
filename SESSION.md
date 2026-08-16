@@ -8143,3 +8143,59 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 
 **Might-mean, unhedged:** the project has finished proving things about its own
 inequalities, and every remaining question is about somebody else's theorem.
+
+# SESSION 176 — my own closing sentence, tested and withdrawn
+
+**Kill condition, stated first:** *if every inequality the project owns has a
+recorded attainment witness, `175`'s claim stands; if any lacks one, it was an
+unscoped absolute and gets corrected at its location.* **It fired, and not
+marginally.**
+
+`175` closed with *"every derivation the project owns is now known to be
+tight"*, and I put a version of it into `PRICES.md`. `174` had just finished
+three whole-register triages and reported that **all four true positives it found
+were unscoped or stale absolutes**. I then wrote one, in the next
+cycle, as a summary sentence.
+
+## Counted, not recalled
+
+| | |
+|---|---|
+| inequality-concluding theorems in `Riemann/*.lean` | **99** |
+| tightness / attainment witnesses | **≈ 21** |
+
+Most of the development's inequalities carry no tightness witness, and neither
+`Blindness.offLine_bound_attained` nor `Blindness.Nstar_bound_attained` speaks to
+them.
+
+## What those two cycles did establish
+
+The narrower claim, which is the one that matters and which I should have
+written: **the two exchange constants by which every route reaches the ledger
+are optimal and attained.**
+
+* off-line channel — `β = 1 − κ`, `Blindness.offLine_bound_attained`;
+* `StarBound` channel — `C = M` from `H ≤ M`, `Blindness.Nstar_bound_attained`.
+
+So no route on the board loses points to a sharpenable exchange rate. That is a
+statement about **two** derivations, and I generalised it to all ninety-nine.
+
+Withdrawn at its location in `PRICES.md`, with the count beside it. The
+"remains open is entirely imported" half stands — Route III's `BGSTNarrowBox`
+and the menu's hypotheses.
+
+## `S82`
+
+The gate did not catch this: my `175` entry passed clean, because the sentence
+names `169` and `175` and the witness regex accepts a declaration name in the
+vicinity. The instrument's own triage (`174`) says its value is catching unscoped
+absolutes; here the absolute carried a citation and sailed through. **A citation
+is not a scope.**
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new Lean this cycle — the finding was
+that a previous cycle's prose outran its theorems.
+
+**Might-mean, unhedged:** I catalogued this error class one cycle, committed it
+the next, and the instrument built to catch it waved it through because I had
+cited a theorem in the same sentence.

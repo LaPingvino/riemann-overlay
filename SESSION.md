@@ -7635,8 +7635,9 @@ agreeing; `162` read conclusions only, and not input types.
 
 **A distinct-zeros lower bound `atomCount ≥ c·Nz` with `c > 0.6725`**, from the
 Cheer–Goldston literature `hauntedDensity_of_distinctZeros`'s own docstring
-names. `hauntedDensity_of_distinctZeros` accepts such a bound directly, and the only
-instantiation in the repo passes it the baseline. That is a
+names. `hauntedDensity_of_distinctZeros` accepts such a bound directly, and
+`certified_haunted_via_distinctZeros` — the one place the repo instantiates it —
+passes it the baseline. That is a
 different want-ad from `144`'s and `161`'s: those two needed supplies that turned
 out entangled with the row they would raise, whereas this one names a quantity
 the literature reportedly studies in its own right.
@@ -7644,6 +7645,14 @@ Labelled `[RECALL, UNVERIFIED]` — I have not read Cheer–Goldston.
 
 Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 2, base hash `cd7a22e688df` unmoved.
+
+**A gate note, and it corrects this entry's own commit message.** The first
+follow-up commit claimed it cleared three flags. Two cleared; the third fix
+introduced a *new* trigger — I replaced an absence claim with a sentence
+containing "the only instantiation". That is `S52`'s masking shape running
+forwards: a repair that satisfies one rule while tripping another. Fixed in a
+second follow-up, and recorded here because the commit message is already pushed
+and wrong.
 
 **Might-mean, unhedged:** I had been reading the toolkit by what its theorems
 conclude, and reading it by what they *require* found two doors I had recorded as

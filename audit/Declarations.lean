@@ -302,5 +302,7 @@ import Riemann
 #check @Riemann.noSmallHaunted_strict
 #check @Riemann.configAt_noSmallHaunted
 #check @Riemann.noSmallHaunted_admits_offline
+#check @Riemann.ZeroData.NscAny
+#check @Riemann.ZeroData.NscStd_le_NscAny
 #check @Riemann.Blindness.configAt_H
 #check @Riemann.Blindness.configAt_offAt

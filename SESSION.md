@@ -7243,3 +7243,57 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the claim I went to overturn survived, and the value of
 the cycle was a theorem three pages away from it that nobody had a reason to
 look for.
+
+# SESSION 160 — the dictionary 159 declined to write, and the third axis dies on it
+
+**Kill condition, stated first:** *if BGST's "simple" maps to our `Nsc`, their
+`61.7%` is a conditional improvement on our `50.88%` row and the third axis is
+live and worth pricing; if it maps to `NscStd`, it is dominated by the `67.25%`
+we already hold and the axis dies.* **It fired in a third way I had not
+allowed for.**
+
+`159` found the axis and explicitly declined the comparison: *"the comparison
+needs a dictionary written first and I have not written it."* This is that
+dictionary.
+
+## `S64` — it maps to neither row
+
+Reading `Basic.lean`'s definitions side by side rather than the prose about them:
+
+    Nsc     := #{p ∈ Z : p.1 = 1/2 ∧ H p.2 = 1}
+    NscStd  := #{p ∈ Z : p.1 = 1/2 ∧ Z.count p = 1}
+
+**Both filter on `p.1 = 1/2`.** arXiv:2306.04799 bounds multiplicity-one zeros
+*anywhere* — its own remark is that the method "neither requires nor provides any
+information on whether any of these zeros are on or not on the critical line".
+So theirs is a **third quantity, weaker than both**, and I had framed the kill
+condition as a choice between two.
+
+Named and certified:
+
+* `ZeroData.NscAny` — simple zeros anywhere in the strip;
+* `ZeroData.NscStd_le_NscAny` — **axiom-free**; an on-line zero of multiplicity
+  one is a zero of multiplicity one.
+
+## And the axis dies on the dictionary, not on its numbers
+
+`NscStd ≤ NscAny` means a certified `NscStd/Nz ≥ 0.6725` **transfers to their
+quantity at the same constant**. So the project already holds `67.25%` on the
+very thing they bound, against their conditional `61.7%`, and without the
+thin-box or zero-density hypothesis.
+
+**The third axis buys nothing the ledger does not already have, and it is aimed
+at a weaker row than the menu operates on.** Recorded in `LEADS.md` above the
+`159` note it supersedes, and in `CLAIMS.md`.
+
+What survives is the observation itself: location hypotheses *are* a distinct
+genre from multiplicity hypotheses, and this instance of the genre is simply too
+weak. A stronger one would still be interesting.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Two names added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** I spent a cycle excited about a third axis and it took
+four lines of Lean to show the project had already passed it, which is the second
+time in three cycles that reading a definition beat reasoning about it.

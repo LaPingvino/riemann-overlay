@@ -20,11 +20,24 @@ hypotheses about **location** — a thin box, and a density bound — and they b
 simple-zero proportion without touching the line question. That is a *third axis*,
 and the project has priced nothing on it.
 
-**Not claimed, and the arithmetic is not done:** that `61.7%` is comparable to any
-row of our menu. Their `simple` is multiplicity-one over all nontrivial zeros;
-our rows are `Nsc` (`H = 1` at an ordinate) against `Nz`. `Blindness` exists
-precisely because these notions come apart, so a numerical comparison needs the
-dictionary written first and is **not** attempted here.
+✅ **Dictionary written, `SESSION 160`, and the axis dies on it.** Their `simple`
+is multiplicity-one over *all* nontrivial zeros — the paper's own remark is that
+the method says nothing about location — whereas **both** our notions demand
+`p.1 = 1/2` (`Basic.lean`: `Nsc` and `NscStd` each filter on it). So theirs is a
+**third, weaker quantity**, now named `ZeroData.NscAny`, and
+`ZeroData.NscStd_le_NscAny` (axiom-free) is the entry that makes the numbers
+comparable.
+
+The consequence: our certified `NscStd/Nz ≥ 0.6725` transfers to *their* quantity
+at the same constant, so the project already holds **67.25% on the very thing
+they bound**, against their conditional `61.7%`, and without the thin-box or
+zero-density hypothesis. **The third axis buys nothing the ledger does not
+already have, and it is aimed at a weaker row than the menu operates on.**
+
+*Original note, superseded above:* that `61.7%` is comparable to any row of our
+menu was **not claimed** until the dictionary existed. Their `simple` is
+multiplicity-one over all nontrivial zeros; our rows are `Nsc` (`H = 1` at an
+ordinate) against `Nz`.
 
 *Also noted, not chased:* the paper attributes to PRZZ "more than **41.7%**"
 simple, where `Assumptions.baseline_przz` records `0.4162`. Either a rounding of

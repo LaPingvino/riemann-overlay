@@ -188,6 +188,38 @@ as though they were the same quantity. -/
 noncomputable def NscStd : ℕ :=
   Multiset.card (D.Z.filter fun p => p.1 = 1 / 2 ∧ D.Z.count p = 1)
 
+/-- **`NscAny`: simple zeros anywhere in the strip** — multiplicity one, with no
+demand that the zero be on the critical line.
+
+`SESSION 160`.  This is a *third* simplicity notion and the registers had only
+two.  It exists because Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh
+(arXiv:2306.04799) bound exactly this: their Theorems 2 and 3 give "at least
+`61.7%` of the nontrivial zeros are simple", and their own remark is that the
+method "neither requires nor provides any information on whether any of these
+zeros are on or not on the critical line".
+
+So it is **weaker than both `Nsc` and `NscStd`**, each of which additionally
+demands `p.1 = 1/2`.  `NscStd_le_NscAny` below is the dictionary entry, and it is
+what makes their `61.7%` comparable to our rows at all. -/
+noncomputable def NscAny : ℕ :=
+  Multiset.card (D.Z.filter fun p => D.Z.count p = 1)
+
+/-- **The dictionary entry: `NscStd ≤ NscAny`.**
+
+An on-line zero of multiplicity one *is* a zero of multiplicity one, so every
+zero our `NscStd` row counts is counted by the literature quantity that
+arXiv:2306.04799 bounds.  Hence a certified `NscStd/Nz ≥ κ` transfers to their
+quantity at the same `κ`, and the two numbers can finally be put side by side.
+
+The consequence is recorded in `PRICES.md`: the project's `67.25%` already
+exceeds their conditional `61.7%` **on the very quantity they bound**, and does
+so without their thin-box or zero-density hypothesis. -/
+theorem NscStd_le_NscAny (D : ZeroData) : D.NscStd ≤ D.NscAny := by
+  classical
+  refine Multiset.card_le_card (Multiset.monotone_filter_right _ ?_)
+  intro p hp
+  exact hp.2
+
 /-- `N_off`: the number of zeros off the critical line — the zeros RH denies. -/
 noncomputable def Noff : ℕ := Multiset.card (D.Z.filter fun p => p.1 ≠ 1 / 2)
 

@@ -271,6 +271,57 @@ theorem prop1_LP_value {C : ℝ} (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
   · rintro v ⟨a, b, hab, rfl⟩
     exact prop1_LP_optimal hab hC1 hC2
 
+/-! ### The three-moment program — `SESSION 208`
+
+`LEADS.md` names `LinearBound3 a b c` over `(N, N⊛, Σm³)` as the extension and
+`ISSUES` `#20` calls the third moment the currency that could improve `prop1`.
+The object had never been defined.  It is defined here, together with the
+question `206` makes askable: does the feasible set again collapse to finitely
+many constraints? -/
+
+/-- A linear bound in the three moments, asserted for every configuration. -/
+def LinearBound3 (a b c : ℝ) : Prop :=
+  ∀ D : ZeroData, a * D.N + b * D.Nstar + c * Blindness.thirdMoment D ≤ D.Nsc
+
+/-- **The single-atom test at every mass, for three moments.**  `SESSION 208`.
+The pure on-line atom `config m 0 a` has `N = m`, `N⊛ = m²`, `Σm³ = m³` and
+`N_sc = [m = 1]`. -/
+theorem linearBound3_mass (m : ℕ) {a b c : ℝ} (h : LinearBound3 a b c) :
+    a * m + b * (m * m) + c * (m * m * m) ≤ if m = 1 then 1 else 0 := by
+  have hm := h (Blindness.config m 0 0)
+  rw [Blindness.config_N, Blindness.config_Nstar_pure,
+    Blindness.config_Nsc_pure, Blindness.config_thirdMoment_pure] at hm
+  by_cases h1 : m = 1
+  · rw [if_pos h1]; rw [if_pos h1] at hm; push_cast at hm; linarith
+  · rw [if_neg h1]; rw [if_neg h1] at hm; push_cast at hm; linarith
+
+/-- **The three-moment feasible set does not collapse to masses `1` and `2`.**
+`SESSION 208`.
+
+`linearBound_iff` reduces the two-moment criterion to three inequalities,
+because with `b ≤ 0` the constraint `m·(a + b·m) ≤ 0` is hardest at `m = 2`.
+That argument has no analogue here: with `c ≤ 0` the mass-`m` constraint is
+`m·(a + b·m + c·m²) ≤ 0`, and `a + b·m + c·m²` is a **concave** function of `m`,
+so its maximum over `m ≥ 2` can sit strictly inside the range.
+
+Witness: `(a, b, c) = (−11, 7, −1)` has `c ≤ 0`, passes the mass-`1` and
+mass-`2` tests, and **fails at mass `3`** — `−33 + 63 − 27 = 3 > 0`.
+
+So `(−11, 7, −1)` is not a `LinearBound3`, by `linearBound3_mass` at `m = 3`,
+even though the two constraints that settle the two-moment program accept it.
+Any characterisation of the three-moment feasible set needs constraints beyond
+mass `2`, and how far beyond depends on `b/c`. -/
+theorem linearBound3_not_reducible_to_mass_two :
+    ((-1 : ℝ) ≤ 0)
+      ∧ ((-11 : ℝ) + 7 + (-1) ≤ 1)
+      ∧ ((-11 : ℝ) * 2 + 7 * (2 * 2) + (-1) * (2 * 2 * 2) ≤ 0)
+      ∧ ¬ ((-11 : ℝ) * 3 + 7 * (3 * 3) + (-1) * (3 * 3 * 3) ≤ 0)
+      ∧ ¬ LinearBound3 (-11) 7 (-1) := by
+  refine ⟨by norm_num, by norm_num, by norm_num, by norm_num, fun h => ?_⟩
+  have := linearBound3_mass 3 h
+  rw [if_neg (by norm_num)] at this
+  norm_num at this
+
 
 /-- **And the bound is attained**, so `2 − C` is the exact optimum of the class,
 not merely an upper bound for it. -/

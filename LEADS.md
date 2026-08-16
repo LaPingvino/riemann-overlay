@@ -1436,6 +1436,17 @@ support.**
 
 Before anyone fetches RS, **the three-moment LP can be solved in-repo exactly as
 the two-moment one was.** `Optimal.lean` already carries `LinearBound a b` and
+> **`SESSION 208`: `LinearBound3` now exists, and the extension is harder than
+> this line suggests.** `Optimal.LinearBound3` is defined, `linearBound3_mass`
+> gives the single-atom test at every mass, and
+> `linearBound3_not_reducible_to_mass_two` shows `206`'s collapse to three
+> inequalities has **no analogue** here: with `c ≤ 0` the mass-`m` constraint is
+> `m·(a + b·m + c·m²)` and that quadratic is concave, so its maximum over
+> `m ≥ 2` can sit strictly inside the range. `(−11, 7, −1)` passes the mass-`1`
+> and mass-`2` tests and fails at mass `3`. How far the binding mass sits
+> depends on `b/c`, so a three-moment characterisation needs more than a fixed
+> finite set of tests.
+
 `prop1_LP_optimal`; extending to `LinearBound3 a b c` over `(N, N⊛, Σm³)` and
 finding its optimum is the same argument with one more coordinate and more test
 configurations.

@@ -130,6 +130,11 @@ import Riemann
 -- SESSION 207: the LP's value, attained at prop1.
 #check @Riemann.Optimal.linearBound_prop1_via_iff
 #check @Riemann.Optimal.prop1_LP_value
+-- SESSION 208: the three-moment program, and why 206's reduction stops at two.
+#check @Riemann.Blindness.config_thirdMoment_pure
+#check @Riemann.Optimal.LinearBound3
+#check @Riemann.Optimal.linearBound3_mass
+#check @Riemann.Optimal.linearBound3_not_reducible_to_mass_two
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

@@ -1165,6 +1165,27 @@ lemma Nstar_eq_sum_H_sq (D : ZeroData) :
   refine Finset.sum_congr rfl fun γ _ => ?_
   rw [← D.H_eq_count γ, smul_eq_mul]
 
+/-- **`Σm³` on a pure on-line atom of mass `m`.**  `SESSION 208`.  One atom, so
+one term. -/
+lemma config_thirdMoment_pure (m : ℕ) (a : ℝ) :
+    thirdMoment (config m 0 a) = m * m * m := by
+  classical
+  have hH : (config m 0 a).H (0:ℝ) = m := by
+    rw [config_eq_configAt, configAt_H]; simp
+  have hord : (config m 0 a).ordinates = Multiset.replicate m ((0:ℝ)) := by
+    show ((config m 0 a).Z.map Prod.snd) = _
+    have hZ : (config m 0 a).Z = Multiset.replicate m ((1/2 : ℝ), (0:ℝ)) := by
+      show Multiset.replicate m ((1/2 : ℝ), (0:ℝ))
+          + (Multiset.replicate 0 (a, (0:ℝ))
+            + Multiset.replicate 0 ((1 - a : ℝ), (0:ℝ))) = _
+      simp
+    rw [hZ, Multiset.map_replicate]
+  rw [thirdMoment, hord]
+  rcases Nat.eq_zero_or_pos m with hm | hm
+  · subst hm; simp
+  · rw [Multiset.toFinset_replicate, if_neg (by omega)]
+    simp [hH]
+
 /-- **`N_sc` as a sum over atoms**, in the same shape as `N_eq_sum_H` and
 `Nstar_eq_sum_H_sq`.  `SESSION 205`.  `N_sc` counts the mass-one atoms — `a₁` in
 `ISSUES` `#20`'s notation — and this is that reading, machine-checked.

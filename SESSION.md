@@ -9635,3 +9635,50 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the reduction this project has carried since session
 one is a three-inequality linear program with a two-point optimum, and it took
 until now to say that as a theorem.
+
+## The third moment's feasible set does not collapse
+
+`LEADS.md:1439` names `LinearBound3 a b c` over `(N, N⊛, Σm³)` as the extension
+and `ISSUES` `#20` calls the third moment the currency that could improve
+`prop1`. A grep for `LinearBound3` across `Riemann/*.lean` returned nothing —
+the name appears only in that `LEADS.md` line. `206` makes the sharp question
+askable: does the feasible set again reduce to finitely many constraints?
+
+**Kill condition, filed first:** *if the mass-`m` constraints reduce uniformly
+to finitely many, the three-moment LP is as tractable as the two-moment one; if
+not, I give the witness where mass `2` fails to dominate and stop there rather
+than hunting for the true reduction.* **It fired.**
+
+* `LinearBound3` — defined, and `config_thirdMoment_pure : thirdMoment (config m
+  0 a) = m³` supplies the missing count.
+* `linearBound3_mass` — the single-atom test at every mass, the three-moment
+  analogue of `204`.
+* `linearBound3_not_reducible_to_mass_two` — and here the analogy stops.
+
+`linearBound_iff` works because with `b ≤ 0` the constraint `m·(a + b·m) ≤ 0` is
+hardest at `m = 2`: a line, so the extreme sits at the endpoint. With three
+moments the constraint is `m·(a + b·m + c·m²) ≤ 0`, and with `c ≤ 0` that
+quadratic is **concave** — its maximum over `m ≥ 2` can sit strictly inside the
+range. `(−11, 7, −1)` has `c ≤ 0`, passes mass `1` and mass `2`, and fails at
+mass `3`: `−33 + 63 − 27 = 3 > 0`. So it is not a `LinearBound3`, by
+`linearBound3_mass` at `m = 3`, even though the two constraints that settle the
+two-moment program accept it.
+
+Where the binding mass sits depends on `b/c`, so a three-moment characterisation
+needs more than a fixed finite set of tests. `LEADS.md`'s line is annotated at
+its location.
+
+This is a second obstruction on that route, independent of the one already
+recorded. `three_Nstar_le_thirdMoment_add_two_N` gives `Σm³ ≥ 3N⊛ − 2N`, which
+is what its docstring reads off as the improvement term's sign; `W35`'s autopsy
+locates a different failure, in the inputs the LP was pricing. This one sits on
+the **constraint side**: writing the feasible set down is not a finite job.
+
+Four declarations, axiom-free, all in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the two-moment program was tractable because its
+constraint was linear in the mass, and every route this project has priced past
+it has been paying for that convenience without noticing it was a loan.

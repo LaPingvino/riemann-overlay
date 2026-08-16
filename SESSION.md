@@ -9071,3 +9071,52 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** I diagnosed a missing instrument one cycle after
 running the instrument itself, which means the loop's real failure mode is not
 forgetting what it built but forgetting what its tools are *for*.
+
+## The document that defends against staleness had no defence of its own
+
+Chasing `QUEUE (1)`: `SESSION 149` triaged `CLAIMS.md`'s flags and its **kill
+condition fired** — *"its flag count should stop driving cycles."* So the prompt
+asks hourly for work a fired kill condition retired. `QUEUE (3)` was settled in
+`075`/`077`; `QUEUE (4)`'s W19 died in `144`.
+
+Then I opened `LOOP.md` and found all of it already there. The `⚠️ READ FIRST`
+banner lists every stale row, queue items 1–5 included. `194` escalated `QUEUE
+(3)` to Joop as a discovery; it had been on disk since `149`. That is `S92`'s
+shape twice running, and `S93`.
+
+**Kill condition, filed first:** *if fewer than half the banner's rows name a
+mechanically checkable witness, the banner is prose by nature, a checker would
+be theatre, and I re-date it by hand instead.*
+
+Six of seven do. So the gap was not the prompt — it was that the banner, which
+the loop leans on to keep the prompt from steering it, was **itself**
+unwitnessed prose, stamped `SESSION 149`, forty-six cycles cold. `149` had
+already learned this on the same block: the `102` version carried the phrase
+`wrong in three ways` above four rows and stayed that way for forty-seven
+cycles.
+
+`forensics/banner_check.py` runs the rows against the disk: the ledger's `Nsc`
+figure and binding field from `proportion.go`, the four cited declarations,
+`provenance_lint`'s `tier GRH` line. **Each check is anchored to the banner's
+own text**, so a row that stops being true fails *and* a row edited away fails —
+the two-way binding is the point, because `S91` was a register going stale in
+the **paid** direction.
+
+Row seven is printed `UNCHECKED`, not green: it cites `148`'s measurement, a
+claim about a past audit rather than current state. Counting it green would
+report a check that did not run, which is the shape `148` found in nine scripts
+here.
+
+**The green light has a witness (R17).** Four injected faults: dropping a row's
+anchor → `FAIL`, exit `1`; the banner stating `Nsc 51.88%` → `FAIL`; the banner
+stating `tier GRH: 0/12` → `FAIL`; `go` absent from `PATH` → exit `5`, the
+harness branch `S40`/`S79` bought. `LOOP.md` restored and `diff`-verified
+identical afterwards.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Six guards green, cones 30/30, banner 6/6.
+R20: hygiene 2 of 3.
+
+**Might-mean, unhedged:** two cycles running I have rediscovered what the disk
+already said, and both times the reason was that the file holding the answer had
+no way to raise its hand.

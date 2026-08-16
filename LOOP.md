@@ -4,9 +4,16 @@
 >
 > The heartbeat prompt is a fixed text fired by cron; it ages while the disk
 > moves (`SURPRISES` S33). **The disk is authoritative.** Last checked
-> `SESSION 149`; the table below counts its own rows rather than asserting a
+> `SESSION 195`; the table below counts its own rows rather than asserting a
 > total, because the `102` version said "wrong in three ways" above four rows
 > and stayed that way for forty-seven cycles:
+>
+> **This block is now itself checked.** `forensics/banner_check.py` runs six of
+> the seven rows against the disk — the ledger, the binding field, the four
+> cited declarations, `provenance_lint`'s `tier GRH` line — and fails if a row
+> stops being true **or** if a row is edited away, since each check is anchored
+> to the banner's own text. The seventh row is reported `UNCHECKED` rather than
+> counted green. The stamp above is a date; that script is the witness.
 >
 > | the prompt says | the truth, with its witness |
 > |---|---|

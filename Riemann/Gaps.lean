@@ -381,56 +381,6 @@ def NoSmallHaunted (F : Family) (m : ℕ) : Prop :=
   ∀ T γ, (F.D T).H γ - Blindness.offAt (F.D T) γ = 1 →
     (F.D T).H γ = 1 ∨ m ≤ (F.D T).H γ
 
-/-- **The ladder, transported: `ProportionStd κ` gives `Proportion ((m·κ−1)/(m−1))`.**
-
-At `m = 3` this is `084`'s `(3κ−1)/2`; each odd rung upward is worth real points,
-and the limit is `κ` itself — excluding *every* small haunted ordinate would
-transfer the literature's row whole. -/
-theorem proportion_of_noSmallHaunted {F : Family} {m : ℕ} {κ : ℝ} (hm : 2 ≤ m)
-    (hh : NoSmallHaunted F m) (hstd : F.ProportionStd κ) :
-    F.toCounts.Proportion (((m : ℝ) * κ - 1) / ((m : ℝ) - 1)) := by
-  have hm1 : (1 : ℝ) < (m : ℝ) := by exact_mod_cast hm
-  intro ε hε
-  filter_upwards [hstd (ε / m) (by positivity), F.toCounts.pos] with T hT hpos
-  have hpos' : 0 < F.Nz T := hpos
-  have hbase : (m : ℝ) * F.NscStd T ≤ F.Nz T + ((m : ℝ) - 1) * F.Nsc T := by
-    have hnat := Blindness.mul_NscStd_le_N_add_pred_mul_Nsc (F.D T) m (by omega)
-      (fun γ => hh T γ)
-    have hcast : ((m - 1 : ℕ) : ℝ) = (m : ℝ) - 1 := by
-      have : (1 : ℕ) ≤ m := by omega
-      push_cast [Nat.cast_sub this]; ring
-    unfold Family.NscStd Family.Nz Family.Nsc
-    have := (Nat.cast_le (α := ℝ)).2 hnat
-    push_cast [hcast] at this
-    linarith [this]
-  show ((m : ℝ) * κ - 1) / ((m : ℝ) - 1) - ε ≤ F.Nsc T / F.Nz T
-  rw [le_div_iff₀ hpos']
-  have hm0 : (0 : ℝ) < (m : ℝ) - 1 := by linarith
-  have hmpos : (0 : ℝ) < (m : ℝ) := by linarith
-  have hTm : ((m : ℝ) * κ - ε) * F.Nz T ≤ (m : ℝ) * F.NscStd T := by
-    have he : (m : ℝ) * (κ - ε / m) = (m : ℝ) * κ - ε := by field_simp
-    calc ((m : ℝ) * κ - ε) * F.Nz T
-        = (m : ℝ) * ((κ - ε / m) * F.Nz T) := by rw [← he]; ring
-      _ ≤ (m : ℝ) * F.NscStd T := by nlinarith [hT, hmpos]
-  have hstep : ((m : ℝ) * κ - 1 - ε) * F.Nz T ≤ ((m : ℝ) - 1) * F.Nsc T := by
-    nlinarith [hTm, hbase, hpos']
-  have hm2 : (2 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm
-  have hfrac : ((m : ℝ) * κ - 1) / ((m : ℝ) - 1) - ε
-      ≤ ((m : ℝ) * κ - 1 - ε) / ((m : ℝ) - 1) := by
-    have hsplit : ((m : ℝ) * κ - 1 - ε) / ((m : ℝ) - 1)
-        = ((m : ℝ) * κ - 1) / ((m : ℝ) - 1) - ε / ((m : ℝ) - 1) := by
-      field_simp
-    rw [hsplit]
-    have hle : ε / ((m : ℝ) - 1) ≤ ε := by
-      rw [div_le_iff₀ hm0]
-      nlinarith [hε.le, hm2]
-    linarith
-  calc (((m : ℝ) * κ - 1) / ((m : ℝ) - 1) - ε) * F.Nz T
-      ≤ (((m : ℝ) * κ - 1 - ε) / ((m : ℝ) - 1)) * F.Nz T :=
-        mul_le_mul_of_nonneg_right hfrac hpos'.le
-    _ ≤ F.Nsc T := by
-        rw [div_mul_eq_mul_div, div_le_iff₀ hm0]
-        linarith [hstep]
 
 /-- **No haunted ordinate anywhere** — the `m → ∞` end of the ladder. -/
 def NoHaunted (F : Family) : Prop :=
@@ -1205,6 +1155,31 @@ theorem hauntedDensity_of_starBound {F : Family} {C : ℝ}
   have hsplit : (C - 1) / 6 + ε = (C - 1 + 6 * ε) / 6 := by ring
   rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ (by norm_num : (0:ℝ) < 6)]
   nlinarith [hbase, hstar, hpos']
+
+/-- **The ladder, transported: `ProportionStd κ` gives `Proportion ((m·κ−1)/(m−1))`.**
+
+At `m = 3` this is `084`'s `(3κ−1)/2`; each odd rung upward is worth real points.
+
+**`290`: this is a composite, and no longer has a proof of its own.**  `263` built
+`hauntedDensity_of_noSmallHaunted` and `proportion_of_hauntedDensity` was already
+there; the rung is the second applied to the first, once
+`κ − (1−κ)/(m−1)` is recognised as `(mκ−1)/(m−1)`.  The fifty-line
+`filter_upwards` argument this replaces was written at `105`, long before either
+piece existed.
+
+Moved here from its old position near `NoSmallHaunted`'s definition, per `R23` —
+it now sits after its dependencies rather than beside its relatives. -/
+theorem proportion_of_noSmallHaunted {F : Family} {m : ℕ} {κ : ℝ} (hm : 2 ≤ m)
+    (hh : NoSmallHaunted F m) (hstd : F.ProportionStd κ) :
+    F.toCounts.Proportion (((m : ℝ) * κ - 1) / ((m : ℝ) - 1)) := by
+  have hm1 : (1 : ℝ) < (m : ℝ) := by exact_mod_cast hm
+  have hne : ((m : ℝ) - 1) ≠ 0 := by intro h; linarith
+  have hc : κ - (1 - κ) / ((m : ℝ) - 1) = ((m : ℝ) * κ - 1) / ((m : ℝ) - 1) := by
+    field_simp
+    ring
+  rw [← hc]
+  exact proportion_of_hauntedDensity (hauntedDensity_of_noSmallHaunted hm hh hstd) hstd
+
 
 /-- The number of **odd-mass** ordinates at height `T`. -/
 noncomputable def Family.oddAtoms (F : Family) (T : ℝ) : ℝ :=

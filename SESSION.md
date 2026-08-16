@@ -13577,3 +13577,49 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** the `onAt` vocabulary arrived at `181` and three of
 this project's load-bearing proofs were written without it, so the cost of a
 missing definition is paid in proof length by everything built before it.
+
+## A fifth collapse, and the seam is not the one `289` named
+
+`289` counted four collapses in seven cycles and attributed them to proofs
+written before a characterisation existed. This tests whether more remain.
+
+**Kill condition, filed first:** *if the longest proofs are long because the
+mathematics is long — if none of them turn on a quantity now characterised —
+then the four were the available ones and I report the seam as exhausted.*
+
+**It half fired, and the half that did is the useful half.** I ranked every proof
+in `Riemann/*.lean` by length and looked at the longest that mention `onAt`,
+`offAt`, `NscStd`, `haunted` or `oddAtoms`. The top candidate,
+`three_mul_NscStd_eq_iff` at sixty lines, **already calls
+`H_eq_onAt_add_offAt` and `even_offAt` in its pointwise step**, and it is long
+because an argument descending from a sum equality to each ordinate is long. That is one candidate of
+the twelve the ranking listed, read properly; the other eleven were not opened,
+so `289`'s seam is *unrefuted on this evidence* rather than shown empty.
+
+**But a different one opened.** `proportion_of_noSmallHaunted` — the ladder's
+transport, `ProportionStd κ ⟹ Proportion ((mκ−1)/(m−1))`, fifty-one lines of
+`filter_upwards` written at `105` — is the composite of
+`proportion_of_hauntedDensity` with `263`'s `hauntedDensity_of_noSmallHaunted`,
+once `κ − (1−κ)/(m−1)` is recognised as `(mκ−1)/(m−1)`. Found by `R25`, not by
+the characterisations. Now nine lines.
+
+Moved below its new dependencies per `R23` — it had sat beside `NoSmallHaunted`'s
+definition since `105`, which is where a relative lives, not a dependency.
+
+**So the count is five, and they have two causes, not one.** `263`, `287`, `289`
+and `256` collapsed because a characterisation arrived late. `290` collapsed
+because an intermediate theorem arrived late. `289`'s snag named the first and
+implied it was the whole story; it is half of it.
+
+**Snag, bin 2.** My length metric measures lines from a declaration to the next
+one, not proof length, so `Basic.refl_ne_self` — a one-liner — ranked second at
+sixty-eight. Anything followed by a long prose block inflates. The ranking was
+still good enough to find the candidate, and saying what it measures is cheaper
+than fixing it for a one-off scan.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green, both indices regenerated.
+
+**Might-mean, unhedged:** this project's proofs age against its own later
+results, so the natural unit of maintenance is not the failing test but the
+theorem that stopped being the shortest route to its own conclusion.

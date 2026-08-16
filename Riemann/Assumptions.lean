@@ -79,6 +79,24 @@ wall-clock unmeasured.  It is `1092s` of build from the state after `270`'s, and
 afterwards `import Zeta23.ThmD.Final` costs about six seconds on top of
 `import Riemann`'s nine.
 
+**`282`: verified end-to-end in scratch.**  With `Zeta23.ThmD.Mult` imported
+(`+2m18s` on top of `ThmD.Final`), this typechecks:
+
+```
+example : Riemann.zetaFamily.ProportionStd 0.6725 := by
+  refine Riemann.baseline_of_cumulative (c := Zeta23.ThmD.HD 1) ?_ ?_
+  . rw [Zeta23.ThmD.HD_one]
+    simpa [one_div, div_eq_mul_inv, mul_comm] using Riemann.baseline_decimal_le_exact
+  . exact Zeta23.ThmD.thmD0_simple_mult_cumulative
+```
+
+**The supplier is `ThmD.Mult`, not `ThmD.Final`, and the difference matters.**
+`Final` proves `HD 1` for `N0star` — on-line zeros counted once, *any*
+multiplicity — and only `2*cStar 1 - 1` (about `0.5066`) for `N0simple`.  `Mult`
+is the refinement that gets `HD 1` for `N0simple`, which is the quantity `274`
+identified with our `NscStd`.  Citing `Final` here would have asserted `0.6725`
+of a count zeta-23 gives `0.5066` for.
+
 **`279`: `baseline_zeta23`'s numeric second cost is gone.**
 `Riemann.baseline_decimal_le_exact` proves `0.6725 ≤ 3/2 − cot(1/√2)/√2`,
 axiom-free — so the decimal this axiom asserts is a proved floor for the exact
@@ -103,7 +121,19 @@ already-reachable simp lemma `Zeta23.zetaZeroConfig_N`, and apply
 `7m32s` is a **one-time** build.  The recurring cost is olean loading, and
 measured over three runs it is `9.0s` against `9.3s` for `import Riemann` alone
 — indistinguishable.  The discharge costs one build of about seven and a half
-minutes and, per cycle afterwards, nothing measurable. -/
+minutes and, per cycle afterwards, nothing measurable.
+
+**`282`: verified end-to-end in scratch.**  With `Zeta23.RvM.Statement` and
+`Zeta23.GammaFacts.Complete` imported, this typechecks:
+
+```
+example : forall-eventually T in atTop, 0 < (Riemann.zetaZeroData T).N := by
+  refine Riemann.zetaNonempty_of_rvm_main ?_
+  obtain <C, T0, h> := (Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts).main
+  exact <C, T0, fun T hT => by simpa using h T hT>
+```
+
+Three lines, and the `simpa` is `zetaZeroConfig_N`. -/
 axiom zetaNonempty : ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N
 
 /-- The zeros of `ζ` as a `Family` — now a **construction**, not an axiom. -/

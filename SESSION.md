@@ -13183,3 +13183,58 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 and carried the error through ten cycles of escalation, which rhymes with
 `268`'s closure mistake: on both occasions the number was right and the quantity
 it named was not.
+
+## Both discharges verified end-to-end, and one near-miss on the supplier
+
+`281` measured both builds, which means both are now on disk. That makes the
+whole thing checkable without touching the project: if the discharges typecheck
+in a scratch file, Joop's ruling carries no technical risk at all.
+
+**Kill condition, filed first:** *if either discharge fails to typecheck — if an
+imported theorem's shape does not match its reduction's hypothesis — then that
+reduction is stated wrongly and I report which one.* It did not fire. All three
+examples typecheck:
+
+* `zetaNonempty` — three lines, from
+  `(Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts).main` through `272`'s
+  reduction, the `simpa` being `zetaZeroConfig_N`.
+* `0.6725 ≤ Zeta23.ThmD.HD 1` — from `HD_one` and `279`'s
+  `baseline_decimal_le_exact`, modulo `one_div`.
+* `baseline_zeta23` — the two together through `280`'s `baseline_of_cumulative`.
+
+Both are written into `Assumptions.lean` at their axioms, so the code is where
+the claim is.
+
+**The near-miss, and it is the cycle's real content.** `281` built
+`ThmD.Final`, and the discharge does **not** come from there. `Final` proves
+`HD 1` for `N0star` — on-line zeros counted once, at *any* multiplicity — and
+gives `N0simple` only `2·cStar 1 − 1 ≈ 0.5066`. Our `NscStd` is `N0simple`
+(`274`). Had I taken `Final`'s `0.6725` row, I would have claimed for a
+multiplicity-one count what zeta-23 proves for a distinct-point count: a factor
+the board would not have survived.
+
+`ThmD.Mult` is the refinement that carries `HD 1` to `N0simple`, and `280`
+happened to cite it correctly. What caught the difference was the build failing
+on a missing olean, which forced me to look at which module actually holds the
+theorem. **A missing file is what made me read the statement.**
+
+`ThmD.Mult` costs `+2m18s` on top of `ThmD.Final`.
+
+**Where the two rulings now stand.** Nothing technical is left in either.
+
+| axiom | one-time build | recurring | remaining work |
+|---|---|---|---|
+| `zetaNonempty` | `7m32s` | none measurable | three lines, typechecked |
+| `baseline_zeta23` | `18m12s` + `2m18s` | `≈ +6s` | four lines, typechecked |
+
+**Snag, bin 3.** The safety classifier timed out mid-cycle and one `Bash` call
+was refused; the retry differed only in that the Lean snippets in the docstring
+use ASCII for `∀ᶠ`, `⟨⟩` and `·`. Worth knowing that a docstring containing a
+Lean proof can be the thing that trips it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, twelve guards green.
+
+**Might-mean, unhedged:** the closest this project has come to a false certified
+row was not a wrong proof but a right proof of a neighbouring quantity, and the
+thing that stopped it was an unbuilt file rather than any of the twelve guards.

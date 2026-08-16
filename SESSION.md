@@ -7061,10 +7061,10 @@ makes the ladder exhaustive rather than merely increasing.
 
 **What this settles.** For three cycles I have handed Joop a menu described as a
 *dial* — a scale on which he chooses how much to assume. That description
-presupposed two things: that the rungs are comparable, and that the top row is
-the same chain's limit rather than a separate item that happens to pay more.
-Neither had a witness — `NoSmallHaunted.mono` and
-`noHaunted_iff_forall_noSmallHaunted` did not exist until this cycle. Both now hold. The ruling is a choice along a certified
+presupposed two things — that the rungs are comparable, and that the top row is a
+limit of that chain rather than a separate item that happens to pay more — and
+neither had a witness before `NoSmallHaunted.mono` and
+`noHaunted_iff_forall_noSmallHaunted` this cycle. Both now hold. The ruling is a choice along a certified
 chain.
 
 **Scope, and I corrected it before committing.** My first docstring said "a

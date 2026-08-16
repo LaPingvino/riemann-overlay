@@ -6001,3 +6001,49 @@ Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
 **Might-mean, unhedged:** the fluctuation of the zero count is at half its
 limiting size a hundred thousand zeros in, so every statement this project makes
 about "the zeros" is a statement about a sequence that has not yet become itself.
+
+
+# SESSION 141 — the flagged constant, discharged from a published formula
+
+`140` ended by flagging its own load-bearing input: Selberg's variance constant
+was `[RECALL]`, textbook, unread, and the number `0.477` rested on it. arXiv is
+reachable, so it was owed.
+
+**Kill condition, filed first:** *if the constant is not `1/(2π²)`, the `0.477`
+is wrong and `140` gets corrected at its location.* **It did not fire.**
+
+arXiv:2403.19803 (*Lower Bounds for the Large Deviations of Selberg's Central
+Limit Theorem*) displays, for `log|ζ(σ+iτ)|`,
+
+> `∫_V^∞ e^{−y²/log log T} / √(π·log log T) dy`
+
+which is exactly the tail of `N(0, ½·log log T)` — matching the general density
+`e^{−y²/2σ²}/√(2πσ²)` at `σ² = ½·log log T`. Since `S(t) = (1/π)·arg ζ(½+it)`
+and `arg ζ` carries the same variance as `log|ζ|` in Selberg's theorem,
+`S` has variance `(1/2π²)·log log T`. **The `π²` I was missing is the `1/π` in
+the definition of `S` itself.**
+
+**Scope, stated:** the `½·log log T` for `log|ζ|` is read off a published
+formula. That `arg ζ` shares it is still `[RECALL]` — Selberg's theorem covers
+both, and I have not read that half. The flag is reduced, not removed.
+
+**And a corroboration I did not expect.** arXiv:2308.09679 gives the rate of
+convergence as `(log log log T)²/√(log log T)` unconditionally. At `T ≈ 7.5×10⁴`:
+`log log T ≈ 2.4`, `log log log T ≈ 0.88`, so the rate is `≈ 0.77/1.55 ≈ 0.50`.
+My observed shortfall — variance `0.477` against `1` — is **the same order as the
+published convergence rate**. That is suggestive rather than a match, since the
+rate is in Dudley distance and mine is a variance, and I am recording it as
+suggestive.
+
+**Two cycles, one number.** `140` measured it and flagged what it rested on;
+`141` went and looked. That is the `[RECALL, UNVERIFIED]` discipline working end
+to end for the first time — previously the label was where a claim went to sit,
+and now it is where a claim goes to wait.
+
+Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the factor I got wrong was not in the mathematics but
+in the definition — `S` is an argument divided by `π`, and every `π²` in this
+subject is that division squared, which is the kind of thing you only stop
+mis-remembering by reading the formula.

@@ -11,8 +11,15 @@ factor is `π² ≈ 9.87`, and `0.0483 × π² = 0.477`.
 **Prediction, registered before the computation ran** (`SESSION 140`): Selberg's
 central limit theorem says
 
-    S(t) / sqrt((1/(2π²))·log log t)  →  standard normal,   [RECALL — textbook,
-    not read here]
+    S(t) / sqrt((1/(2π²))·log log t)  →  standard normal.
+
+✅ **Constant verified (`SESSION 141`)** from arXiv:2403.19803, whose displayed
+density for `log|ζ(σ+iτ)|` is `e^{−y²/log log T}/sqrt(π·log log T)` — i.e.
+`N(0, ½·log log T)`.  `S(t) = (1/π)·arg ζ(½+it)`, and `arg ζ` carries the same
+variance as `log|ζ|` in Selberg's theorem, so `S` has variance
+`(1/2π²)·log log T`.  **The `π²` is the `1/π` in the definition of `S`.**
+*Scope: the `½·log log T` for `log|ζ|` is read off a published formula; that
+`arg ζ` shares it is still `[RECALL]`.*
 
 so the sample should show **mean ≈ 0 and variance ≈ 1**.  Convergence is famously
 slow — `log log t` at `t = 10⁴` is about `2.2`, so the normaliser is near `1` and

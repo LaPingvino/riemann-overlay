@@ -7625,18 +7625,21 @@ the producers by their **input** rather than their output separates them:
 | `hauntedDensity_of_starBound` | `StarBound C` | **no** — `StarBound` has independent producers |
 | `hauntedDensity_of_distinctZeros` | a raw `atomCount ≥ c·Nz` bound | **no** — accepts any distinct-zeros bound |
 
-**Two open channels.** The project has fed neither anything but the baseline,
-which is why both ζ instances land on the same `0.16375` — I had generalised
-`162`'s circularity from the outputs agreeing, and `162` read conclusions only,
-never input types.
+**Two open channels.** Both ζ instances land on `0.16375` because
+`certified_haunted` and `certified_haunted_via_distinctZeros` are each fed the
+baseline — `1 − 0.6725` and `c = 0.6725` respectively — not because the
+machinery forces it. I had generalised `162`'s circularity from the outputs
+agreeing; `162` read conclusions only, and not input types.
 
 ## The want-ad, precisely
 
 **A distinct-zeros lower bound `atomCount ≥ c·Nz` with `c > 0.6725`**, from the
 Cheer–Goldston literature `hauntedDensity_of_distinctZeros`'s own docstring
-names. The machinery accepts it directly and has never been given one. That is a
-different want-ad from `144`'s and `161`'s: those needed a supply that does not
-exist entangled; this one needs a supply the literature reportedly studies.
+names. `hauntedDensity_of_distinctZeros` accepts such a bound directly, and the only
+instantiation in the repo passes it the baseline. That is a
+different want-ad from `144`'s and `161`'s: those two needed supplies that turned
+out entangled with the row they would raise, whereas this one names a quantity
+the literature reportedly studies in its own right.
 Labelled `[RECALL, UNVERIFIED]` — I have not read Cheer–Goldston.
 
 Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms

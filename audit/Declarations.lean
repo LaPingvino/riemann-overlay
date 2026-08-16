@@ -270,6 +270,8 @@ import Riemann
 #check @Riemann.Blindness.onAt_pos_of_odd_H
 -- SESSION 287: NscStd counts onAt = 1; the visibility map has a second level.
 #check @Riemann.Blindness.NscStd_eq_onAt_one
+-- SESSION 288: a haunted ordinate is onAt = 1 with off-line mass beside it.
+#check @Riemann.Blindness.hauntedCount_eq_onAt_one_offAt_pos
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

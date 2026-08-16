@@ -3808,6 +3808,29 @@ off-line pairs. -/
 noncomputable def hauntedCount (D : ZeroData) : ℕ :=
   (D.ordinates.toFinset.filter fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1).card
 
+/-- **A haunted ordinate is a lone on-line zero with off-line mass beside it.**
+`SESSION 288`.
+
+`hauntedCount` filters on `H − offAt = 1 ∧ H ≠ 1`.  By
+`H_eq_onAt_add_offAt` the first clause is `onAt = 1`, and given that, `H` is
+`1 + offAt`, so the second is `offAt ≠ 0`.
+
+**This is the `NscStd`/`N_sc` gap, named.**  `NscStd_eq_Nsc_add_haunted` says the
+two counts differ by exactly `hauntedCount`; `287` placed `NscStd` among the
+quantities that read only the on-line part and `N_sc` among those that read the
+total mass.  The difference between them is therefore precisely the ordinates
+where the on-line part is one and there is off-line mass to see — the gap is not
+a slack in an inequality but the price of looking off the critical line. -/
+theorem hauntedCount_eq_onAt_one_offAt_pos (D : ZeroData) :
+    hauntedCount D
+      = (D.ordinates.toFinset.filter fun γ => onAt D γ = 1 ∧ offAt D γ ≠ 0).card := by
+  classical
+  rw [hauntedCount]
+  congr 1
+  refine Finset.filter_congr fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  omega
+
 /-- **`hauntedCount` is read off the profile too** — `SESSION 181`.
 
 The file carries five `_from_profile` theorems (`N`, `Noff`, `N⊛`, `Nsc`,

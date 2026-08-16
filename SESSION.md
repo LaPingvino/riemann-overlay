@@ -13493,3 +13493,41 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** the two rows this project reports are separated by
 whether the count can see off the critical line, so the gap between `67.25%` and
 `50.88%` is not a gap in strength but the price of looking at the whole strip.
+
+## The `NscStd`/`N_sc` gap, named exactly
+
+`287` put `NscStd` among the quantities that read only the on-line part and
+`N_sc` among those that read the total mass, and closed by calling the gap
+between them the price of looking off the critical line. That is testable.
+
+**Kill condition, filed first:** *if the haunted condition is not equivalent to
+`onAt = 1 ∧ offAt ≠ 0` — if some haunted ordinate has no off-line mass — then the
+gap is not purely off-line and I report what else it contains.* It did not fire.
+
+**`hauntedCount_eq_onAt_one_offAt_pos`** — the filter `H − offAt = 1 ∧ H ≠ 1` is
+`onAt = 1 ∧ offAt ≠ 0`. A haunted ordinate is **a lone on-line zero with
+off-line mass beside it** — the two conditions are equivalent, and the theorem
+is the equivalence. Axiom-free, `3757` jobs unchanged.
+
+With `Blindness.NscStd_eq_Nsc_add_haunted` the picture closes: the two counts
+differ by the ordinates where the on-line reading and the total-mass reading
+disagree, and by no others. `ISSUES` `#13` is not a convention question and not a slack in an
+inequality — it is what off-line mass costs, counted. Annotated at `#13`.
+
+**What that fixes about the ledger's two rows.** `67.25%` is an on-line-only
+count and `50.88%` a total-mass count, and the `16.375` points between them are
+the haunted ordinates. `190` found `0.16375` wearing four hats and `254` made it
+five; this says what the number *is* rather than where else it appears.
+
+**Snag, bin 2.** `simp only [eq_iff_iff]` before `omega` — copied from `287`,
+where `congr 1` had left an equality of `Prop`s — made no progress here, because
+`Finset.filter_congr` hands back an `Iff` directly and `omega` takes the
+propositional structure itself. Two lemmas one cycle apart wanted different
+plumbing for the same-looking step.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green, both indices regenerated.
+
+**Might-mean, unhedged:** three cycles of characterising `onAt` have turned the
+project's central open quantity from a comparison between two definitions into a
+count of one configuration, which is the kind of object a hypothesis can exclude.

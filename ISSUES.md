@@ -313,6 +313,14 @@ being `correlated` is now measured rather than asserted.
 > And the mathematical residue is now named: `Fiber.Nsc_eq_NscStd_iff_noHaunted`
 > proves the two notions coincide **iff** no ordinate is haunted, so `#13` is not
 > a convention question but the project's central open quantity.
+>
+> (**`288`:** and the residue is now named exactly.
+> `Fiber.hauntedCount_eq_onAt_one_offAt_pos` — a haunted ordinate is one with
+> `onAt = 1` and `offAt ≠ 0`, a lone on-line zero with off-line mass beside it.
+> With `287`'s `NscStd_eq_onAt_one` this places the two counts on opposite sides
+> of a line: `NscStd` reads only the on-line part, `N_sc` reads the total mass,
+> and the gap between them is precisely the ordinates where those two readings
+> differ. `#13` is the price of looking off the critical line.)
 
 Found in session 003 while reading `zeta-23-lean/comparator/ChallengeDeps.lean`
 to prepare the import — i.e. *before* the import landed, which is R1 working.

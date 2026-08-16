@@ -7554,7 +7554,7 @@ is wrong or the extractor is — and that difference is the finding.* **It fired
 and the hand board was wrong.**
 
 `163` found the menu missing a row. `164` found it missing two more, one of them
-printed on every ledger line since the project began. In both, **a board assembled by hand lost
+printed on every ledger line since the project began. In both, **a board assembled by hand dropped
 rows silently** — `163` and `164` record the two instances. Purchased twice, so
 the board is assembled mechanically now.
 

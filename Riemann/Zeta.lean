@@ -127,4 +127,62 @@ theorem zetaNonempty_of_dyadic
   rw [zetaZeroData_N]
   omega
 
+/-- `ℓ₁ → ∞`, so eventually `1 ≤ ℓ₁ T`.  `SESSION 272`. -/
+theorem eventually_one_le_ell1 : ∀ᶠ T in Filter.atTop, (1:ℝ) ≤ Zeta23.ell1 T := by
+  have hpi : (0:ℝ) < 2 * Real.pi := by linarith [Real.pi_pos]
+  have heq : (fun T : ℝ => Zeta23.ell1 T)
+      = fun T : ℝ => Real.log (T / (2 * Real.pi)) + (2 * Real.log 2 - 1) := by
+    funext T; unfold Zeta23.ell1 Zeta23.l; ring
+  have h : Filter.Tendsto (fun T : ℝ => Zeta23.ell1 T) Filter.atTop Filter.atTop := by
+    rw [heq]
+    exact Filter.tendsto_atTop_add_const_right _ _
+      (Real.tendsto_log_atTop.comp (Filter.tendsto_id.atTop_div_const hpi))
+  exact h.eventually_ge_atTop 1
+
+/-- `log` is eventually beaten by any multiple of the identity.  `SESSION 272`. -/
+theorem eventually_const_mul_log_lt (c : ℝ) :
+    ∀ᶠ T in Filter.atTop, c * Real.log T < T := by
+  have h2 := (Real.isLittleO_log_id_atTop.const_mul_left c).def (c := 1/2) (by norm_num)
+  filter_upwards [h2, Filter.eventually_gt_atTop 0] with T hT hT0
+  simp only [Real.norm_eq_abs, id_eq] at hT
+  rw [abs_of_pos hT0] at hT
+  calc c * Real.log T ≤ |c * Real.log T| := le_abs_self _
+    _ ≤ (1/2) * T := hT
+    _ < T := by linarith
+
+/-- **`zetaNonempty` reduces to zeta-23's `RiemannVonMangoldt.main`, and nothing
+else.**  `SESSION 272`.
+
+`270` bridged the counts, `271` reduced the axiom to eventual positivity of the
+*dyadic* count.  This closes the last gap on our side: the asymptotic
+`|N(T,2T) − T·ℓ₁/2π| ≤ C·log T` gives positivity, because `ℓ₁ → ∞` bounds the
+main term below by `T/2π` and `log` is eventually beaten by any multiple of the
+identity.
+
+So the hypothesis below is **exactly** what the import buys — it is
+`RiemannVonMangoldt.main` for `zetaZeroConfig`, modulo `zetaZeroConfig_N`, which
+is a simp lemma we already reach.  Everything else in the discharge is proved
+here, unconditionally, at no build cost. -/
+theorem zetaNonempty_of_rvm_main
+    (h : ∃ C T₀ : ℝ, ∀ T : ℝ, T₀ ≤ T →
+      |(Zeta23.Ncount T (2 * T) : ℝ) - T / (2 * Real.pi) * Zeta23.ell1 T|
+        ≤ C * Real.log T) :
+    ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N := by
+  refine zetaNonempty_of_dyadic ?_
+  obtain ⟨C, T₀, hmain⟩ := h
+  have hpi : (0:ℝ) < 2 * Real.pi := by linarith [Real.pi_pos]
+  filter_upwards [Filter.eventually_ge_atTop T₀, eventually_one_le_ell1,
+    Filter.eventually_gt_atTop (0:ℝ),
+    eventually_const_mul_log_lt (2 * Real.pi * C)] with T hT hell hT0 hlog
+  have hb := hmain T hT
+  have hmain_lb : T / (2 * Real.pi) ≤ T / (2 * Real.pi) * Zeta23.ell1 T := by
+    have : (0:ℝ) < T / (2 * Real.pi) := by positivity
+    nlinarith
+  have hCl : C * Real.log T < T / (2 * Real.pi) := by
+    rw [lt_div_iff₀ hpi]; nlinarith
+  have hgap : (0:ℝ) < (Zeta23.Ncount T (2 * T) : ℝ) := by
+    have := abs_le.1 hb
+    linarith [this.1, this.2]
+  exact_mod_cast hgap
+
 end Riemann

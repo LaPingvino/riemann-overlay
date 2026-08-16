@@ -73,11 +73,19 @@ chain is complete and unconditional.  The cost is the import.
   cumulative.  The import alone does not close it; the missing step is
   `Riemann.Ncount_mono_left`, which is ours and needs no import.
 
-`Riemann.zetaNonempty_of_dyadic` now states the residue exactly: given
-`∀ᶠ T, 0 < Zeta23.Ncount T (2·T)`, this axiom follows.  So the remaining work is
-two imports and the derivation of that hypothesis from
-`Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts`.  Standing tax on every
-`lake build` thereafter; Joop's call, not the loop's. -/
+**`272` closes the last gap on our side.**  `Riemann.zetaNonempty_of_rvm_main`
+takes exactly `RiemannVonMangoldt.main`'s statement — the asymptotic
+`|N(T,2T) − T·ℓ₁/2π| ≤ C·log T` — and returns this axiom.  Positivity of the
+dyadic count follows because `ℓ₁ → ∞` bounds the main term below by `T/2π`, and
+`log` is eventually beaten by any multiple of the identity; both are proved
+unconditionally in `Riemann/Zeta.lean` at no build cost.
+
+So the discharge is now **one imported fact and one rewrite**: obtain
+`Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts |>.main`, rewrite with the
+already-reachable simp lemma `Zeta23.zetaZeroConfig_N`, and apply
+`zetaNonempty_of_rvm_main`.  The price is `34` modules and `11,710` lines on
+every `lake build` thereafter, measured at `7m32s`.  Joop's call, not the
+loop's. -/
 axiom zetaNonempty : ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N
 
 /-- The zeros of `ζ` as a `Family` — now a **construction**, not an axiom. -/

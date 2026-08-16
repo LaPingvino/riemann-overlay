@@ -12699,3 +12699,53 @@ price is annotated at the axiom, where `270` wrote the wrong one.
 **Might-mean, unhedged:** every step of this discharge that could be done without
 spending the import has now been done, so the remaining decision is purely
 whether `11,710` lines of build per cycle is worth one axiom.
+
+## `zetaNonempty` reduced to one imported fact
+
+`271` reduced the axiom to eventual positivity of the dyadic count and flagged
+that `RiemannVonMangoldt.main` is an *asymptotic*, not a positivity statement.
+This closes that last step, still without spending the import.
+
+**Kill condition, filed first:** *if deriving positivity from `main` needs a
+growth fact about `ell1` that is not in the reachable tree, then the discharge
+has a third unpriced step and I report it rather than presenting the ruling as
+technically settled.* It did not fire. `Zeta23.ell1 T = l T + 2·log 2 − 1` with
+`l T = log(T/2π)`, and `Zeta23.Defs` is already in our `17`-module closure, so
+the growth is ours to prove and costs nothing.
+
+Three theorems, all axiom-free, build unchanged at `3757` jobs:
+
+* `eventually_one_le_ell1` — `ℓ₁ → ∞`, so eventually `1 ≤ ℓ₁ T`.
+* `eventually_const_mul_log_lt` — for any `c`, eventually `c·log T < T`.
+* `zetaNonempty_of_rvm_main` — from `∃ C T₀, ∀ T ≥ T₀,
+  |N(T,2T) − T·ℓ₁/2π| ≤ C·log T`, the axiom follows. `ℓ₁ ≥ 1` bounds the main
+  term below by `T/2π`, and `2πC·log T < T` eventually, so the error cannot
+  cancel it.
+
+**The discharge is now one imported fact and one rewrite.** Obtain
+`Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts |>.main`, rewrite with
+`Zeta23.zetaZeroConfig_N` — a simp lemma already reachable — and apply
+`zetaNonempty_of_rvm_main`. Everything else is proved, unconditionally, on this
+side of the wall. The price stands at `34` modules and `11,710` lines per build.
+
+**`duplication_floor` fired and the answer was `--update`, graded.**
+`zetaNonempty_of_dyadic` and `zetaNonempty_of_rvm_main` share a conclusion, and
+under `264`'s corrected rule the question is whether either hypothesis implies
+the other. It does: `main` implies dyadic positivity, which is the arrow `272`
+proved. So this is a specialisation along a proved implication rather
+than a second copy: `_of_dyadic` carries the weaker hypothesis and
+`_of_rvm_main` is its composition with the arrow above, adding no reasoning of
+its own beyond that arrow. Floor `20 → 21`.
+
+**Snag, bin 1.** Three failed attempts on two lines of filter arithmetic:
+`Function.atTop_add_const` does not exist, `positivity` would not take
+`0 < 2·π` without `Real.pi_pos` in hand, and `ell1`'s `x + c − 1` needed
+reassociating to `x + (c − 1)` before `tendsto_atTop_add_const_right` applied.
+The mathematics was the easy part; the library names were not.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, eleven guards green, index regenerated.
+
+**Might-mean, unhedged:** an axiom that has stood since base `v2` is now a
+three-line proof waiting on a build-time budget, which means the trusted base of
+this project is bounded below by disk and patience rather than by mathematics.

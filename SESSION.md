@@ -7183,3 +7183,63 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the menu is finished as mathematics — five cycles of
 theorems, with its ordering, strictness, limit and non-vacuity all certified —
 and what it is waiting on now is a person.
+
+# SESSION 159 — the corridor's absence, dated at last, and a third axis
+
+**Kill condition, stated first:** *if the search finds no such bound, the claim
+stands re-checked and dated — a witnessed non-finding rather than an unexamined
+one — and the corridor remains unfuellable.* **That is what happened.**
+
+The menu is finished and waiting on Joop, so this cycle went to the absence
+queue's most checkable standing obligation: `ISSUES` `#26`'s *"the input
+`F(α) ≤ G(α, C_sieve)` on `[1,2)` does not exist in the literature"*. It is the
+one `144` gave fresh motivation — Goldston's second-order term is built from
+`∫₁^∞ F(α)/α² dα`, so the S-moment route and the corridor consume the same
+unavailable input.
+
+## The claim holds, and now has a 2023 primary source
+
+Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh, arXiv:2306.04799, **Theorem 1**,
+read from the displayed statement:
+
+> `F(α) = T^{−2α}(log T + O(1)) + α + O(1/√(log T))`,
+> **uniformly for `0 ≤ α ≤ 1`.**
+
+That is the unconditional form factor's state of the art and it stops at the band
+edge **exactly** — which is what `#26` said in the first place, now confirmed
+against a paper rather than against a survey. Nothing in it reaches `(1, 2)`.
+
+Dated at the location; the absence queue moves **10 → 9** for a witnessed reason.
+
+**`S63`, and the honest part is the method.** I expected this claim to be the
+stale one: arXiv opened at `134`, three years had accumulated, and a paper
+literally titled *An unconditional Montgomery theorem* is where the missing bound
+would live if it lived anywhere. A search snippet suggested a wider range
+(`1 ≤ x ≤ T`), and the `WebFetch` summary of the abstract was too vague to use —
+**I read the pages.** The `x` of that snippet is not the `α` of the claim, and
+guessing the correspondence would have produced a confident wrong answer in
+either direction.
+
+## The unexpected find: a third axis
+
+Filed in `LEADS.md`. The same paper's Theorems 2 and 3 buy a **simple-zero
+proportion from location hypotheses** — a thin box `|β − 1/2| < 1/(2 log T)`, or
+a strong zero-density bound — and its own remark is that the method *"neither
+requires nor provides any information on whether any of these zeros are on or not
+on the critical line"*.
+
+Every rung of `PRICES.md`'s menu is a hypothesis about **multiplicity**. These are
+hypotheses about **location**. That is a third axis and this project has priced
+nothing on it.
+
+**Not claimed:** that their `61.7%` is comparable to any row of our menu. Their
+`simple` is multiplicity-one over nontrivial zeros; our rows are `Nsc` against
+`Nz`. `Blindness` exists because those notions come apart, so the comparison
+needs a dictionary written first and I have not written it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the claim I went to overturn survived, and the value of
+the cycle was a theorem three pages away from it that nobody had a reason to
+look for.

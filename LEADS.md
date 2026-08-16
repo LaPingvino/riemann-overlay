@@ -1,5 +1,36 @@
 # LEADS — the cutting-room floor
 
+
+## `SESSION 159` — a simplicity route that consumes *location* rather than multiplicity
+
+Read from displayed statements in Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh,
+arXiv:2306.04799 (fetched and read, **not** `[RECALL]`):
+
+* **Theorem 2.** If every zero with `T^{3/8} < γ ≤ T` lies in the thin box
+  `|β − 1/2| < 1/(2 log T)`, then for sufficiently large `T` at least **61.7%**
+  of the nontrivial zeros are **simple**.
+* **Theorem 3.** The same `61.7%` from a strong zero-density hypothesis:
+  `N(σ,T) = o(T^{2(1−σ)})` for `1/2 + 1/(2 log T) ≤ σ ≤ 25/32 + η`.
+* The paper's own remark: the method *"neither requires nor provides any
+  information on whether any of these zeros are on or not on the critical line."*
+
+**Why this belongs in the registers.** Every rung of `PRICES.md`'s menu is a
+hypothesis about **multiplicity** (`NoSmallHaunted m`, `H ≤ M`). These two are
+hypotheses about **location** — a thin box, and a density bound — and they buy a
+simple-zero proportion without touching the line question. That is a *third axis*,
+and the project has priced nothing on it.
+
+**Not claimed, and the arithmetic is not done:** that `61.7%` is comparable to any
+row of our menu. Their `simple` is multiplicity-one over all nontrivial zeros;
+our rows are `Nsc` (`H = 1` at an ordinate) against `Nz`. `Blindness` exists
+precisely because these notions come apart, so a numerical comparison needs the
+dictionary written first and is **not** attempted here.
+
+*Also noted, not chased:* the paper attributes to PRZZ "more than **41.7%**"
+simple, where `Assumptions.baseline_przz` records `0.4162`. Either a rounding of
+the same result or a slightly weaker transcription; it carries no weight, since
+`147` established `baseline_przz` is redundant (`przz_of_zeta23`).
+
 From Addendum 2 (Joop, 2026-08-13). Pointers into the space, decoupled from
 the validity of the arguments that surfaced them. Nothing here has been acted
 on yet; promotions into the skeleton get a `SESSION.md` event.

@@ -774,8 +774,22 @@ results. Per Goldston's survey: the **sieve improves one error term**
 (`O(x log x) → O(x)`), extending Montgomery's theorem to `α ≤ 1` **exactly** —
 it *closes the band edge*. What reaches `(1, 2)` is the **full Hardy–Littlewood
 conjecture with power-saving error**, which is what Bolanz's 131 pages prove.
+✅ **RE-CHECKED `SESSION 159`, and it still does not exist** — dated, so the
+absence queue can stop carrying this as unexamined. Primary source: Baluyot,
+Goldston, Suriajaya, Turnage-Butterbaugh, *An unconditional Montgomery theorem
+for pair correlation of zeros of the Riemann zeta function*, arXiv:2306.04799,
+**Theorem 1** (displayed, read here, not recalled):
+
+> `F(α) = T^{−2α}(log T + O(1)) + α + O(1/√(log T))`, **uniformly for `0 ≤ α ≤ 1`.**
+
+That is the state of the art for the *unconditional* form factor and it stops at
+`α = 1` exactly — which is the band edge this entry already identified, now
+confirmed by a 2023 paper rather than by the survey alone. Nothing in it reaches
+`(1, 2)`.
+
 So the input "`F(α) ≤ G(α, C_sieve)` on `[1,2)`" **does not exist in the
-literature** and must be built.
+literature** and must be built — re-checked `SESSION 159` against
+arXiv:2306.04799 Theorem 1, whose range is `0 ≤ α ≤ 1`.
 
 **The dictionary is now confirmed**, from the survey's own exercise: HL for
 `h ≤ X^{θ}` gives `α ≤ 1/(1−θ)`. Two points fix the curve — `θ = 1/2 → α ≤ 2`

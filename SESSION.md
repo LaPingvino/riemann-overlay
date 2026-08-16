@@ -8755,3 +8755,51 @@ Build green, sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
 **Might-mean, unhedged:** the cycle's only real defect was introduced by my
 attempt to document a defect tidily, which is the third time an instrument has
 caught me in the act of improving it.
+
+# SESSION 188 — the dictionary sandwich is sharp on both sides
+
+**R20 bound this cycle** — `185`, `186`, `187` were doctrine, verification and
+hygiene, three consecutive. Mathematics or nothing.
+
+**Kill condition, stated first:** *if either dictionary bound is unattained, it
+has slack and the dictionary understates what the profile determines.* **It did
+not fire: both are equalities.**
+
+`167`/`168` sandwich the literature's `N_d` between two profile-side quantities,
+
+    atomCount ≤ distinctZeros ≤ atomCount + Noff
+
+and `184` proved `distinctZeros` is not itself a profile functional, so the
+sandwich is the most the profile can say. The project checked tightness for every
+other bound it owns (`169`, `175`, `178`–`180`); **these two had no attainment
+witness until now.**
+
+`Blindness.dictionary_bounds_attained` (**axiom-free**):
+
+* **lower** — a single simple zero: one ordinate, one point, `1 = 1`;
+* **upper** — the **mass-`3` haunted atom**, whose three zeros are three
+  *distinct* points, one on the line and two off it: `3 = 1 + 2`.
+
+So the sandwich is sharp on both sides. **The profile determines `N_d` to within
+exactly `Noff`, and no better** — which by
+`Blindness.distinctZeros_not_profile_functional` is the precise form of why
+`167`'s dictionary is an inequality.
+
+The upper witness is `configAt 0 1 1 a` again: the same configuration that
+attains all six route bounds (`178`) and scales through the chain (`179`/`180`).
+That is now **eight** distinct bounds sharp at one object.
+
+## Snag, bin 2
+
+The two membership side-goals failed because `simp` normalises `1/2` to `2⁻¹`,
+so `ha : a ≠ 1/2` did not match syntactically. Fixed by restating the hypotheses
+in the normalised form. Found by printing the goals rather than guessing —
+`S51`'s lesson, applied first rather than after two attempts.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` checks **27**.
+
+**Might-mean, unhedged:** the haunted mass-`3` atom is now the extremal witness
+for eight separate bounds across three different vocabularies, which stops
+looking like a coincidence and starts looking like the definition of what this
+ledger measures.

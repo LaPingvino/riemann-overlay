@@ -3239,6 +3239,68 @@ theorem distinctZeros_not_profile_functional {a b : ℝ}
       · exact hab.symm h.1
       · exact hba h.1
 
+/-- **Both dictionary bounds are attained** — `SESSION 188`.
+
+`167` and `168` sandwich the literature's `N_d` between two profile-side
+quantities:
+
+    atomCount ≤ distinctZeros ≤ atomCount + Noff
+
+and `184` showed `distinctZeros` is not itself a profile functional, so the
+sandwich is the most the profile can say.  The project checked tightness for
+every other bound it owns (`169`, `175`, `178`–`180`); these two were never
+asked.
+
+**Both are equalities, and the upper one at the mass-`3` haunted atom** — the
+same configuration that attains all six route bounds (`178`).  Its three zeros
+are three *distinct* points, one on the line and two off it, so
+`distinctZeros = 3 = atomCount + Noff = 1 + 2`.
+
+The lower bound is attained by a single simple zero, where the ordinate carries
+exactly one point.  So the sandwich is sharp on both sides and there is no slack
+to recover: the profile determines `N_d` to within exactly `Noff`, and no
+better. -/
+theorem dictionary_bounds_attained {a : ℝ} (ha : a ≠ 1/2) :
+    atomCount (configAt 0 1 0 a) = distinctZeros (configAt 0 1 0 a)
+      ∧ distinctZeros (configAt 0 1 1 a)
+          = atomCount (configAt 0 1 1 a) + (configAt 0 1 1 a).Noff := by
+  classical
+  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+  have hane : a ≠ 1 - a := fun h => ha (by linarith [h])
+  constructor
+  · -- one simple zero: one ordinate, one point
+    have h1 : atomCount (configAt 0 1 0 a) = 1 := by
+      rw [atomCount, configAt_ordinates]
+      rw [show Multiset.replicate (1 + 2 * 0) (0:ℝ) = Multiset.replicate 1 (0:ℝ)
+        by norm_num, Multiset.toFinset_replicate, if_neg (by norm_num : ¬(1 = 0))]
+      simp
+    have h2 : distinctZeros (configAt 0 1 0 a) = 1 := by
+      show (Multiset.toFinset (Multiset.replicate 1 ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 0 (a, (0:ℝ))
+          + Multiset.replicate 0 ((1 - a : ℝ), (0:ℝ))))).card = 1
+      simp
+    rw [h1, h2]
+  · -- the mass-3 haunted atom: three distinct points, one ordinate, two off-line
+    have hA : atomCount (configAt 0 1 1 a) = 1 := by
+      rw [atomCount, configAt_ordinates]
+      rw [show Multiset.replicate (1 + 2 * 1) (0:ℝ) = Multiset.replicate 3 (0:ℝ)
+        by norm_num, Multiset.toFinset_replicate, if_neg (by norm_num : ¬(3 = 0))]
+      simp
+    have hO : (configAt 0 1 1 a).Noff = 2 := by rw [configAt_Noff ha]
+    have hD : distinctZeros (configAt 0 1 1 a) = 3 := by
+      show (Multiset.toFinset (Multiset.replicate 1 ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 1 (a, (0:ℝ))
+          + Multiset.replicate 1 ((1 - a : ℝ), (0:ℝ))))).card = 3
+      rw [Multiset.toFinset_add, Multiset.toFinset_add, Multiset.toFinset_replicate,
+        Multiset.toFinset_replicate, Multiset.toFinset_replicate]
+      norm_num
+      have hh : a ≠ (2:ℝ)⁻¹ := by intro h; apply ha; rw [h]; norm_num
+      have hh2 : ((2:ℝ)⁻¹) ≠ 1 - a := by intro h; apply ha'; rw [← h]; norm_num
+      rw [Finset.card_insert_of_notMem (by simp [Prod.ext_iff, hh, hane]),
+        Finset.card_insert_of_notMem (by simp [Prod.ext_iff, hh2])]
+      simp
+    rw [hA, hO, hD]
+
 /-- **`NscStd = Nsc + hauntedCount`** — an identity, not a bound.
 
 Every standard-simple ordinate is either simple or haunted, and the two cases are

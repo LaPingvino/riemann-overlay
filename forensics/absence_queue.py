@@ -48,8 +48,14 @@ ABSENCE = [
 ]
 
 # Already carrying a dated re-check, or explicitly a counterfactual.
+#
+# ⚠️ SESSION 146: `⚠️` was removed from this list.  It marks **escalations** as
+# well as corrections — `LEADS`'s "Odlyzko's tables and LMFDB are unreachable"
+# sits under `**⚠️ ESCALATION**`, and a claim announcing itself as an open
+# problem was being read as a claim already settled.  A settlement must cite a
+# session; a warning sign is not a date.
 SETTLED = re.compile(
-    r"SESSION \d|kill condition|⚠️|superseded|corrected|RETRACTED|\bwas graded\b",
+    r"SESSION \d|kill condition|superseded|corrected|RETRACTED|\bwas graded\b",
     re.I)
 
 
@@ -75,7 +81,16 @@ def scan(path):
     paras = text.split("\n\n")
     out = []
     for i, para in enumerate(paras):
-        context = para + " " + (paras[i + 1] if i + 1 < len(paras) else "")
+        nxt = paras[i + 1] if i + 1 < len(paras) else ""
+        # SESSION 146: a following HEADING is not a correction.  The Odlyzko
+        # escalation was settled by `## The slow-convergence recall, tested
+        # (SESSION 139)` — the next block, about something else entirely.
+        # Adjacency is not aboutness, and the two defects masked each other:
+        # neither fix alone surfaces the claim, because `⚠️` in the paragraph
+        # and `SESSION` in the heading were each sufficient on their own.
+        if nxt.lstrip().startswith("#"):
+            nxt = ""
+        context = para + " " + nxt
         if SETTLED.search(context):
             continue
         flat = " ".join(para.split())

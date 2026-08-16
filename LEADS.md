@@ -1874,7 +1874,14 @@ inequalities bounding that quantity, and they consume three different inputs:
 > ⚠️ **"Exactly three" was wrong (`SESSION 124`).** There are four, and the
 > fourth is the third-factorial-moment bound above. Its ledger value is nil —
 > nothing certified bounds `factMoment 3`, and `Optimal.moment_route_walled`
-> shows no moment inequality of order `≥ 3` can be made to bind — which is why
+> shows no moment inequality of order `≥ 3` can be made to bind
+> [**corrected `SESSION 146`: `moment_route_walled` does NOT wall this bound.**
+> Its two witnesses have masses `≤ 2`, so their `factMoment 3` and
+> `hauntedCount` are both zero; it walls prop1's LP, not this inequality. The
+> real obstruction is the scale separation priced in `forensics/w19_price.py`
+> and the RH-vacuity that killed W19 in `144`. `Fiber.lean` was corrected at
+> `144`; this copy was not, and that is the `142` shape again — one sentence,
+> two documents, fixed in one] — which is why
 > the enumeration missed it: I was listing bounds that *pay*, and wrote the
 > sentence as if I had listed bounds that *exist*.
 
@@ -1978,6 +1985,17 @@ literature supplies. The skeleton is load-tested; the flesh phase is due. Items:
 | `W36` function-field laboratory — `offAt ≡ 0` a theorem, ground truth attached | briefed, unbuilt |
 | `T2`-of-`W27` log log signature on real zeros | briefed, unbuilt |
 | **the haunted census, empirically** — near-hauntings, minimal vertical gaps | **new, cheapest, and nobody has looked** |
+
+> ✅ **DISCHARGED (`SESSION 146`, and it had been discharged since `134`).**
+> Joop widened the allowlist; `data/zeros1` carries 100 000 Odlyzko ordinates
+> and sessions `138`–`143` all ran on it. The escalation below is answered and
+> is retained as the record of the ask.
+>
+> **Why it stayed visible as an open escalation for twelve sessions:** the
+> absence queue never listed it. Two independent settle-rules each hid it — the
+> `⚠️` in its own banner, and `SESSION 139` appearing in the *unrelated heading*
+> that follows it. Neither fix alone surfaces it; they masked each other. Both
+> repaired in `forensics/absence_queue.py` this cycle.
 
 **⚠️ ESCALATION — the data column cannot start on this VPS as configured.**
 `find` over the repo returns **no numeric data of any kind**, and the sandbox's

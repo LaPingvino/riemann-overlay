@@ -6367,3 +6367,88 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the register had already answered the question two
 cycles before I asked it, which means the project's failure mode has quietly
 moved from not knowing things to not finding the things it knows.
+
+# SESSION 146 — two settle-rules that masked each other, and a twelve-session escalation
+
+**Kill condition, stated first, and narrowed before running.** As first drafted
+it read "if no absence claim is already answered on disk, `S27`/`S33`/`S45` were
+a coincidence and there is no retrieval debt." That is the `S37` quantifier
+drift, in a kill condition: this pass touches **one** surface, and those three
+surprises span three. Narrowed before use to: *if the pass finds no absence
+claim already answered elsewhere in the registers, there is no retrieval debt
+**on this surface***. **It did not fire.**
+
+**Wildcard, kill condition first:** *measure `absence_queue`'s own precision;
+if fewer than half of its 13 are genuine absence claims, its counts cannot be
+quoted until it gains the filters `claims_gate` already has.* **It fired.**
+
+## The piece: an escalation that had been answered for twelve sessions
+
+`LEADS.md` still carried **"Odlyzko's tables and LMFDB are unreachable"** under
+`⚠️ ESCALATION`, asking Joop to widen the allowlist or drop the tables in the
+repo. Joop widened it at `134`. `data/zeros1` holds 100 000 ordinates and
+sessions `138`–`143` every one of them ran on it. The ask was answered; the
+escalation stood.
+
+**Why the queue never listed it — and this is the cycle's actual finding.** Two
+independent settle-rules each hid it, and **neither fix alone surfaces it**
+(measured, not argued: 13 → 13, 13 → 14, 13 → 15 over
+`forensics/absence_queue.py`):
+
+1. `⚠️` was in `SETTLED`. But `⚠️` marks **escalations** as well as corrections,
+   so a claim announcing itself as an *open problem* read as one already closed.
+2. The "next paragraph counts as the settlement" rule matched
+   `## The slow-convergence recall, tested (SESSION 139)` — the following
+   **heading**, about something else entirely.
+
+I tested fix 1 alone: 13 → 13, no change. I tested fix 2 alone: 13 → 14, and the
+Odlyzko claim was still not among them. Only together: 13 → 15, and it appears.
+**Two defects, each individually invisible because the other was also firing.**
+My first hypothesis (the `⚠️` overloading) was right about the mechanism and
+wrong that it was sufficient, and one command showed that rather than an
+argument.
+
+Both repaired in `forensics/absence_queue.py`: a settlement must cite a session
+— a warning sign is not a date — and a following heading is not a correction.
+**Adjacency is not aboutness.**
+
+## Two more corrections the pass turned up, both at location
+
+* **`LEADS`'s copy of the `factMoment 3` note** still said
+  `Optimal.moment_route_walled` walls that bound. `144` established it does not
+  — its witnesses have masses `≤ 2`, so their `factMoment 3` and `hauntedCount`
+  are both zero — and corrected `Fiber.lean`. The `LEADS` copy was not touched.
+  The `142` shape exactly: one sentence, two documents, fixed in one.
+* **`CLAIMS.md`'s Selberg row** quoted variance `0.443 → 0.496` with no caveat.
+  `143` established those are a **midpoint** statistic against a time-average of
+  `0.179`, differing by the sawtooth's `E[d³]/12`. `selberg_S.py` was corrected
+  at `143`; `CLAIMS` was not. Same shape again.
+
+## The wildcard: the queue's precision, measured
+
+Of the 13, **7 are not absence claims at all** — a directive (*"Never as a
+bound"*), a past-tense record of an action since done, a **quoted** sentence
+being retracted, a rhetorical question, a schema description, and two ordinary
+statements. Six are genuine, of which one (**"the GRH tier is empty"**) already
+carries a standing mechanical witness: `provenance_lint` prints `tier GRH: 0/11`
+on every run.
+
+**FP rate 7/13 = 54%**, so the kill condition fires: **`absence_queue`'s counts
+must not be quoted as a defect rate** until it gains the `DIRECTIVE` and quote
+filters `claims_gate` has carried since its own triage. I have deliberately
+**not** added them this cycle — `S39`'s lesson is that a filter designed during
+the measurement it is meant to inform is a filter fitted to its own test set.
+Filed as the next cheap instrument task.
+
+Count is now **15**, up from 13: two newly visible, three corrected, and the
+number went up. That is the right direction for a queue whose failure mode is
+invisibility.
+
+R20: this is hygiene cycle **2** of 3 (`145` was tooling, `143`/`144` were not).
+
+Build green (3757 jobs), sorries 0, all 15 guards green, ledger
+`NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the instrument that exists to make absent things
+visible was itself hiding one, and it hid it with two independent rules that each
+looked reasonable and were only harmless because the other one was also wrong.

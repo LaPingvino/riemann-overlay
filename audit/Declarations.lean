@@ -208,6 +208,9 @@ import Riemann
 -- SESSION 240: both currencies saturate at kappa.
 #check @Riemann.ladder_lt_kappa
 #check @Riemann.currencies_saturate_at_kappa
+-- SESSION 241: the third currency's ceiling is 1, which is why two rows sit above kappa.
+#check @Riemann.Counts.starBound_ceiling
+#check @Riemann.Counts.starBound_ceiling_iff
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

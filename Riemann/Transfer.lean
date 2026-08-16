@@ -71,6 +71,26 @@ theorem one_le_of_starBound {C : ℝ} (h : K.StarBound C) : 1 ≤ C := by
     nlinarith
   exact hfalse.exists.elim fun _ h => h
 
+/-- **The star-bound currency's ceiling is `1`, not `κ`.**  `SESSION 241`.
+
+`240` priced the project's other two exchanges — off-line control and the
+multiplicity ladder — and found both saturating at the certified `NscStd` row
+`κ`.  This one does not.
+
+`proportion_of_starBound` pays `2 − C`, and `one_le_of_starBound` above is the
+floor `C ≥ 1`, so the payout is at most `1`, reached exactly at `C = 1`.
+
+That is why `RULING.md`'s two rows above `κ` — Route I and `[OPEN D]` — are the
+ones reaching the ledger through `(★)`: theirs is the currency whose ceiling is
+a proportion of `1` rather than the baseline the project was handed. -/
+theorem starBound_ceiling {C : ℝ} (h : K.StarBound C) : 2 - C ≤ 1 := by
+  have := one_le_of_starBound h
+  linarith
+
+/-- …and the ceiling is reached exactly at the floor `C = 1`.  `SESSION 241`. -/
+theorem starBound_ceiling_iff {C : ℝ} : 2 - C = 1 ↔ C = 1 := by
+  constructor <;> intro hc <;> linarith
+
 end Counts
 
 end Riemann

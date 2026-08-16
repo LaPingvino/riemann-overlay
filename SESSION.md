@@ -11055,3 +11055,52 @@ green.
 **Might-mean, unhedged:** both of this project's exchanges convert into the same
 ceiling, and that ceiling is the number it was handed, so every route it owns is
 spending the baseline rather than adding to it.
+
+## The third currency, and why two rows sit above `κ`
+
+`240` found both of the project's priced exchanges saturating at `κ`, and left
+the rows above `κ` — Route I, `[OPEN D]` — as "buying a third thing". Naming it
+finishes the picture.
+
+**Kill condition, filed first:** *if the star-bound currency's ceiling is not
+`1` — if some constraint caps it lower — I report the actual ceiling rather than
+completing a tidy picture.* It did not fire.
+
+`starBound_ceiling`: `proportion_of_starBound` pays `2 − C`, and
+`one_le_of_starBound` — already in the development, proved by contradiction from
+the floor `N ≤ N⊛` — gives `C ≥ 1`. So the payout is at most `1`, and
+`starBound_ceiling_iff` puts equality exactly at `C = 1`.
+
+**Three currencies, and they do not have the same ceiling:**
+
+| currency | ceiling | rows |
+|---|---|---|
+| off-line control | `κ`, at `β = 0` | certified row, `ξ'`, Route III |
+| multiplicity ladder | `κ`, in the limit | the ladder, `NoHaunted` |
+| star bound `(★)` | **`1`**, at `C = 1` | Route I, `[OPEN D]` |
+
+Two of the three cannot pass the number the project was handed; the third can,
+and its ceiling is a proportion of `1` because `2 − C` is bounded by the trivial
+floor rather than by the baseline. That is the structural reason the one-axiom
+rows can promise more than `κ`, and it also says what they promise *against*:
+`C → 1`, not a better baseline.
+
+`RULING.md` gains the three-currency table at its location, so the board reads as
+three exchanges with two ceilings rather than eight unrelated rows.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+**Snag, bin 1.** My first insert anchored on the next `/--` after
+`one_le_of_starBound` — there is none, the theorem is the last in its namespace —
+so the edit script raised `ValueError` and wrote nothing. The build stayed green
+because the file was untouched, which is the failure mode worth naming: a
+scripted edit that does nothing leaves every check passing. Anchored on
+`end Counts` instead.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** the currency that can carry this project past its own
+baseline is also the one whose rows depend on an analytic input nobody has
+supplied, which is the shape `232` found at rung 0.

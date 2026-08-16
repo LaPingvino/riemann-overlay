@@ -145,6 +145,20 @@ Both saturate at `κ = 0.6725`, the certified `NscStd` row:
 than `κ` on the `Nsc` line — Route I, `[OPEN D]` — is buying a third thing**, and
 that is a fact about the two exchanges rather than a gap in the search.
 
+**And the third thing is the star bound, whose ceiling is `1` (`SESSION 241`).**
+`proportion_of_starBound` pays `2 − C` and `one_le_of_starBound` floors `C` at
+`1`, so that currency buys at most `1`, exactly at `C = 1`
+(`Counts.starBound_ceiling`). The three currencies therefore split cleanly:
+
+| currency | ceiling | rows |
+|---|---|---|
+| off-line control | `κ = 0.6725`, at `β = 0` | the certified row, `ξ'`, Route III |
+| multiplicity ladder | `κ`, in the `NoHaunted` limit | the ladder, `NoHaunted` |
+| star bound `(★)` | **`1`**, at `C = 1` | Route I, `[OPEN D]` |
+
+Two of the three cannot pass the number the project was handed. The one that can
+is the one whose rows carry a single axiom and an unsupplied analytic input.
+
 ## What the decision actually is
 
 Not "how many points". **Which currency of assumption, and how much of it.**

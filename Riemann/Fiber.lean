@@ -1206,7 +1206,15 @@ lemma Nsc_eq_sum_mass_one (D : ZeroData) :
 
 Hence `C₃ ≥ 3C − 2` always, the three-moment LP's improvement term is never
 positive, and the optimum stays at `prop1`'s `2 − C`.  No level-3 supplier can
-move this route. -/
+move this route.
+
+**`SESSION 209`: that last sentence is now a theorem.**
+`Optimal.linearBound3_LP_value` is `IsGreatest` at `2 − C` for the three-moment
+program evaluated at the extreme `C₃ = 3C − 2` this inequality permits; the
+ceiling is `Optimal.linearBound3_no_gain` and `prop1` attains it with `c = 0`.
+The substitution `A = a − 2c`, `B = b + 3c` sends the mass-`1` and mass-`2`
+constraints onto the two-moment feasible set exactly, which is why the value is
+unchanged. -/
 theorem three_Nstar_le_thirdMoment_add_two_N (D : ZeroData) :
     3 * D.Nstar ≤ thirdMoment D + 2 * D.N := by
   classical

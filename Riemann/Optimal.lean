@@ -322,6 +322,71 @@ theorem linearBound3_not_reducible_to_mass_two :
   rw [if_neg (by norm_num)] at this
   norm_num at this
 
+/-- **The three-moment route cannot beat `2 − C`.**  `SESSION 209`.
+
+`Blindness.three_Nstar_le_thirdMoment_add_two_N` gives `Σm³ ≥ 3N⊛ − 2N` for
+every configuration, so `C₃ ≥ 3C − 2`; its docstring reads off that the optimum
+stays at `prop1`'s `2 − C`.  That was prose.  Here it is.
+
+Since a feasible `c` is non-positive, the objective is best at the smallest
+admissible `C₃`, namely `3C − 2`.  Write the objective there:
+
+    a + b·C + c·(3C − 2)  =  (a − 2c) + (b + 3c)·C
+
+and put `A = a − 2c`, `B = b + 3c`.  The substitution is chosen because `c`
+cancels out of the first two mass constraints:
+
+    mass 1:  a + b + c  =  A + B  ≤ 1
+    mass 2:  2a + 4b + 8c ≤ 0  ⟺  A + 2B ≤ 0
+
+which are exactly the two constraints that settle the two-moment program
+(`206`).  So the same case split closes it, and no third-moment supplier moves
+this route however good its `C₃` — the constraint `C₃ ≥ 3C − 2` is what makes
+the substitution land on the two-moment feasible set.
+
+Note what this does **not** need: `208` showed the mass-`1` and mass-`2`
+constraints do not settle the three-moment feasible set, and no description of
+that set is used here.  Only those two constraints are consumed, and the higher
+ones can only shrink the set further. -/
+theorem linearBound3_no_gain {a b c C : ℝ} (h : LinearBound3 a b c)
+    (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
+    (a - 2 * c) + (b + 3 * c) * C ≤ 2 - C := by
+  have hm1 := linearBound3_mass 1 h
+  have hm2 := linearBound3_mass 2 h
+  rw [if_pos rfl] at hm1
+  rw [if_neg (by norm_num)] at hm2
+  push_cast at hm1 hm2
+  -- `A + B ≤ 1` and `A + 2B ≤ 0`, with `A = a − 2c`, `B = b + 3c`
+  have h1 : (a - 2 * c) + (b + 3 * c) ≤ 1 := by linarith
+  have h2 : (a - 2 * c) + 2 * (b + 3 * c) ≤ 0 := by linarith
+  rcases le_or_gt (-1 : ℝ) (b + 3 * c) with hcase | hcase
+  · nlinarith [h2, hcase, hC2]
+  · nlinarith [h1, hcase, hC1]
+
+/-- `prop1` read as a three-moment bound that ignores the third moment.
+`SESSION 209`. -/
+theorem prop1_as_linearBound3 : LinearBound3 2 (-1) 0 := by
+  intro D
+  have h := ZeroData.prop1 D
+  have hcast : (2 * (D.N : ℝ)) - (D.Nstar : ℝ) ≤ (D.Nsc : ℝ) := by exact_mod_cast h
+  simp only [neg_mul, one_mul, zero_mul, add_zero]
+  linarith
+
+/-- **The three-moment LP has the same value as the two-moment one.**
+`SESSION 209`.
+
+`IsGreatest` at `2 − C`: `linearBound3_no_gain` is the ceiling and
+`prop1_as_linearBound3` attains it with `c = 0`.  So the third moment buys
+nothing on this route, and that is now a value statement rather than a bound —
+the same upgrade `207` made for two moments. -/
+theorem linearBound3_LP_value {C : ℝ} (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
+    IsGreatest {v : ℝ | ∃ a b c : ℝ, LinearBound3 a b c
+        ∧ v = (a - 2 * c) + (b + 3 * c) * C} (2 - C) := by
+  constructor
+  · exact ⟨2, -1, 0, prop1_as_linearBound3, by ring⟩
+  · rintro v ⟨a, b, c, habc, rfl⟩
+    exact linearBound3_no_gain habc hC1 hC2
+
 
 /-- **And the bound is attained**, so `2 − C` is the exact optimum of the class,
 not merely an upper bound for it. -/

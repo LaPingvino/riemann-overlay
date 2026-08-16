@@ -135,6 +135,10 @@ import Riemann
 #check @Riemann.Optimal.LinearBound3
 #check @Riemann.Optimal.linearBound3_mass
 #check @Riemann.Optimal.linearBound3_not_reducible_to_mass_two
+-- SESSION 209: and the three-moment LP has the same value, 2 - C.
+#check @Riemann.Optimal.prop1_as_linearBound3
+#check @Riemann.Optimal.linearBound3_no_gain
+#check @Riemann.Optimal.linearBound3_LP_value
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

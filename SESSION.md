@@ -9682,3 +9682,51 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the two-moment program was tractable because its
 constraint was linear in the mass, and every route this project has priced past
 it has been paying for that convenience without noticing it was a loan.
+
+## The third moment buys nothing, and now that is a theorem
+
+`three_Nstar_le_thirdMoment_add_two_N`'s docstring has said for many cycles that
+`Σm³ ≥ 3N⊛ − 2N` forces `C₃ ≥ 3C − 2`, so *"the optimum stays at `prop1`'s
+`2 − C`. No level-3 supplier can move this route."* `208` gave the object the
+sentence is about; this makes the sentence a statement.
+
+**Kill condition, filed first:** *if the mass-`1` and mass-`2` constraints do
+not map onto the two-moment ones under the substitution, the claim needs the
+higher-mass constraints too and I report which rather than asserting the value.*
+It did not fire, and the reason is the whole content.
+
+A feasible `c` is non-positive, so the objective is best at the smallest
+admissible `C₃`, namely `3C − 2`. There
+
+    a + b·C + c·(3C − 2) = (a − 2c) + (b + 3c)·C
+
+and with `A = a − 2c`, `B = b + 3c` the `c` cancels out of the first two mass
+constraints exactly:
+
+    mass 1:  a + b + c   = A + B  ≤ 1
+    mass 2:  2a + 4b + 8c ≤ 0  ⟺  A + 2B ≤ 0
+
+which are the two constraints that settle the two-moment program. So the same
+case split closes it.
+
+* `linearBound3_no_gain` — the ceiling.
+* `prop1_as_linearBound3` — `prop1` read as a three-moment bound with `c = 0`,
+  straight from `ZeroData.prop1`.
+* `linearBound3_LP_value` — `IsGreatest` at `2 − C`, the same upgrade `207` made
+  for two moments.
+
+**What this does not need, and it is worth saying.** `208` showed the
+three-moment feasible set is not settled by the mass-`1` and mass-`2`
+constraints. No description of it is used here. The proof runs on those two
+constraints, and the higher-mass ones can only shrink the set further. The route
+dies on two constraints even though describing its feasible set is open.
+
+Three theorems, axiom-free, all in `audit/Declarations.lean`. The docstring is
+annotated at its location.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** `ISSUES` `#20` named the third moment as the currency
+that could improve the reduction, and at the exchange rate the combinatorics
+force it buys nothing.

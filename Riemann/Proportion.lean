@@ -450,7 +450,17 @@ theorem certified_nsc_ladder {m : ℕ} (hm : 2 ≤ m)
 /-- **The `m = 7` rung: `0.617917`, `+10.917` points — and it dominates the ξ′
 route in both currencies.**
 
-`(7·0.6725 − 1)/6 = 0.6179166…`.  Against `certified_nsc_via_xiPrime`'s
+`(7·0.6725 − 1)/6 = 0.6179166…`.
+
+*Precision, stated (`SESSION 153`):* the exact ladder value is `7415/12000`, a
+repeating decimal, and the constant asserted here is the terminating `0.6179166`
+— **`1/1500000` below it**.  The theorem is therefore very slightly weaker than
+`certified_nsc_ladder` at `m = 7`, deliberately, so the statement carries a
+readable numeral.  Anything needing the exact value should use the ladder
+directly.  The `+10.917` quoted in `PRICES.md` is the same to three decimals
+either way.
+
+Against `certified_nsc_via_xiPrime`'s
 `0.60169` at **four** axioms, this is *more* proportion at **two**.  `150`
 compared ξ′ against the `m = 5` rung and read the trade-off as "1.106 points for
 two axioms"; at `m = 7` there is no trade-off left in either currency, and the

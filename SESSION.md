@@ -6837,3 +6837,67 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** two ladders that looked alike from their statements
 turned out to run in opposite directions, and what showed me was writing down the
 parameter and reading the sign.
+
+# SESSION 153 — the menu audited in exact rationals, and it holds
+
+**Kill condition, stated first:** *if all five menu numbers reproduce exactly
+from the theorem statements, the menu is arithmetically sound, this dies in one
+run, and the three corrections across `150`–`152` were about framing rather than
+arithmetic.* **It fired.**
+
+`152` called the menu final. So did `151`, and `150` before it — each cycle
+corrected the previous one's comparison. Rather than extend the menu a fourth
+time, this cycle checked the numbers I had been quoting.
+
+**In exact rationals, no floating point:**
+
+| route | proportion | gain | quoted |
+|---|---|---|---|
+| `m = 5` | `0.5906250` | `8.1875` | 8.188 ✅ |
+| ξ′ | `0.6016900` | `9.2940` | 9.294 ✅ |
+| `m = 7` | `0.6179167` | `10.9167` | 10.917 ✅ |
+| `NoHaunted` / `H ≤ 2` | `0.6725000` | `16.3750` | 16.375 ✅ |
+
+The supporting identities too: `(3κ−1)/2 = 0.50875` reproduces the certified row,
+`1 − κ = 0.3275` reproduces `certified_offline`, and `κ − 0.3275/2 = 0.50875`
+closes the off-line route back onto the same number. Both ordering claims hold —
+`m = 7` above ξ′, `m = 5` below it.
+
+**So the three corrections were framing, never arithmetic.** `150` compared the
+right numbers against the wrong rung; `151` fixed the rung; `152` found the second
+ladder ran backwards. At no point was a figure wrong — which is worth knowing,
+because it says the failure mode across those cycles was *which* number I chose
+to compare, not the number.
+
+**One precision detail, recorded at its location.** The exact `m = 7` ladder
+value is `7415/12000`, a repeating decimal; `certified_nsc_via_noSmallHaunted_seven`
+asserts the terminating `0.6179166`, which is `1/1500000` **below** it. The
+theorem is deliberately, very slightly weaker than the ladder so its statement
+carries a readable numeral. Noted in the docstring; anything needing the exact
+value should use `certified_nsc_ladder` directly.
+
+A short cycle, and the heartbeat allows one: the audit passed and there was
+nothing further to do with it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. The ruling from `152` stands unchanged and
+is now arithmetically witnessed.
+
+**The gate on this entry: 4 flagged, 4 false positives, and they are all one
+shape.** Every flag is the *numeric-precision* sense of "exact" — "in exact
+rationals", "the exact value", "the exact `m = 7` ladder value is `7415/12000`" —
+not the completeness sense the gate was built to hunt (`S26`/`S27`: a claim that
+nothing more is needed). This is the first homogeneous FP class the gate has
+produced, and it is mechanically distinguishable: "exact" adjacent to a numeral,
+a fraction, or "rationals" is arithmetic, not a residue claim.
+
+**Deliberately not patched this cycle.** `S39` is the standing lesson: a filter
+designed during the measurement it is meant to inform is fitted to its own test
+set. Filed as the next cheap instrument task, alongside `146`'s `DIRECTIVE` and
+quote filters for `absence_queue`, which are still outstanding for the same
+reason. The four sentences ship as written; the gate is advisory and the triage
+is the record.
+
+**Might-mean, unhedged:** three cycles of correcting myself and not one of them
+was a wrong number, which means the register's arithmetic has been sound the
+whole time and my reading of it has been the moving part.

@@ -709,6 +709,8 @@ realizability from above" jaw **does not exist**.
 
 *`252`:* `boundedMult_two_iff_oddAtom_exact` — the odd-atom equality cuts out the same class as the simple-atom one, so the "cheap jaw" is not a weaker instrument, it is the same instrument. E11's pincer needs a hypothesis that is not a multiplicity cap in disguise.
 
+*`254`:* the multiplicity ladder is dense below `κ` — `ladder_approaches_kappa` for the approach, `ladder_lt_kappa` for the strictness. A pincer aimed at `κ` from below therefore approaches without closing, and the first rung within `0.001` needs a hypothesis about mass `328`.
+
 > **`SESSION 243` — sharpened, not discharged, for one family.** Within
 > multiplicity caps the claim is now a theorem.
 > `Optimal.mult_cap_excluding_pairOnly`: `Gauge.pairOnly` has `H = 2`, so a cap

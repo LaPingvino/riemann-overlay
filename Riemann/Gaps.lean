@@ -694,6 +694,37 @@ theorem ladder_lt_kappa {κ m : ℝ} (hκ : κ < 1) (hm : 1 < m) :
   rw [div_lt_iff₀ (by linarith : (0:ℝ) < m - 1)]
   nlinarith
 
+/-- **The ladder's supremum *is* `κ`, over the rungs that actually exist.**
+`SESSION 254`.
+
+`239` proved every rung is `< κ`.  That alone leaves open how much `NoHaunted`
+buys over the whole ladder: strictly-less-than is compatible with stopping at
+`0.62`.  It does not — the rungs come arbitrarily close.
+
+The quantifier runs over the rungs the hypotheses admit, which is the point of
+stating it this way.  `235` showed the even rungs are the same hypothesis as the
+odd one below, so the realisable rungs are the odd integers `m ≥ 3`; here they
+are written `2n + 3`.  Nothing appeals to a real `m`.
+
+Together with `ladder_lt_kappa`: `κ` is the least upper bound of the ladder and
+no rung attains it.  So `NoHaunted` buys exactly one point over the entire
+multiplicity ladder — the limit — and every finite approximation to it is
+already available at some `NoSmallHaunted (2n+3)`. -/
+theorem ladder_approaches_kappa {κ ε : ℝ} (hκ : κ < 1) (hε : 0 < ε) :
+    ∃ n : ℕ, κ - ε < ((2 * n + 3) * κ - 1) / ((2 * n + 3) - 1) := by
+  obtain ⟨n, hn⟩ := exists_nat_gt ((1 - κ) / ε)
+  refine ⟨n, ?_⟩
+  have hn0 : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg n
+  have hm1 : (2 * (n : ℝ) + 3) ≠ 1 := by intro h; linarith
+  have hgap := ladder_gap (κ := κ) (m := 2 * (n : ℝ) + 3) hm1
+  have hden : (0 : ℝ) < 2 * (n : ℝ) + 3 - 1 := by linarith
+  have hlt : (1 - κ) / (2 * (n : ℝ) + 3 - 1) < ε := by
+    rw [div_lt_iff₀ hden]
+    have hnε : (1 - κ) < ε * n := by
+      rw [div_lt_iff₀ hε] at hn; linarith
+    nlinarith [Nat.cast_nonneg (α := ℝ) n]
+  linarith [hgap]
+
 /-- **Both currencies saturate at `κ`.**  `SESSION 240`.
 
 Put `239` and the line above together.  Off-line control buys at most `κ`, and

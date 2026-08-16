@@ -227,6 +227,8 @@ import Riemann
 #check @Riemann.Blindness.Nstar_add_oddAtoms_eq_two_mul_N
 -- SESSION 252: the odd-atom equality characterises the class too.
 #check @Riemann.Blindness.boundedMult_two_iff_oddAtom_exact
+-- SESSION 254: the ladder's supremum is kappa, over the rungs that exist.
+#check @Riemann.ladder_approaches_kappa
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

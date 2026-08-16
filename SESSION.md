@@ -11728,3 +11728,50 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 sentence as hard as the dishonest one trains the author to delete rather than to
 qualify, so the flag counts this project has been collecting were pushing in the
 opposite direction from the discipline they were meant to serve.
+
+## The ladder's supremum is `κ`, and the last thousandth costs mass 328
+
+`239` proved every multiplicity rung is `< κ`. That leaves the size of what
+`NoHaunted` buys over the whole ladder open: strictly-less-than is compatible
+with the rungs stopping at `0.62`. They do not.
+
+**Kill condition, filed first:** *if reaching within `ε` needs an `m` outside the
+rungs the project's hypotheses actually admit — odd integers `≥ 3`, per `235` —
+then the statement is about the algebra and not about the board, and I report it
+that way.* It did not fire, and I checked rather than assumed: the board's rungs
+are `m = 3` (`certified_nsc_unconditional`, `0.50875`), `m = 5`
+(`0.590625`), `m = 7` (`0.6179166`), and `235` collapsed the even rungs onto the
+odd one below. The theorem quantifies over `n : ℕ` with rung `2n + 3`, which is
+that set exactly. No real `m` is appealed to.
+
+`ladder_approaches_kappa` — for `κ < 1` and `ε > 0` there is `n : ℕ` with
+`κ − ε < ((2n+3)κ − 1)/((2n+3) − 1)`. Axiom-free. With `ladder_lt_kappa` this
+makes `κ` the least upper bound of the ladder, attained by no rung — so
+`NoHaunted` buys exactly one point over the entire ladder, the limit, and every
+finite approximation to it already sits at some `NoSmallHaunted (2n+3)`.
+
+**And the formula is the board's, checked in exact rationals rather than
+recognised.** `m = 3, 5, 7` give `407/800`, `189/320`, `1483/2400` — the three
+board rows to the digit. The gap is `131/(400(m−1))` at every rung, the `131`
+being `1 − κ = 131/400`, which is `190`'s number wearing another hat.
+
+**The price of the density, which is the part worth reading.** The first rung
+within `0.001` of `κ` is `m = 329`. Dense is not the same as cheap: the ladder
+reaches any neighbourhood of `κ`, and the hypothesis at that rung asserts
+something about crowding up to mass `328`, which no one is going to certify. So
+carrying `NoHaunted` as the displayed conditional row (`234`, Joop's ruling 2)
+rather than a high rung reads as the right call: the limit's hypothesis stays one
+line while the rungs' hypotheses grow with `m`.
+
+**Snag, bin 2.** `positivity` failed on `0 < 2*n + 3 - 1`, reporting it "would
+be possible to prove nonzeroness if desired" — it does not use the `0 ≤ (n:ℝ)`
+already in context. `linarith` with that hypothesis closes it. The extension is
+that `positivity` is syntactic about the expression and does not read the
+context, so a subtraction defeats it however obvious the bound.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, eight guards green, 30/30 cones.
+
+**Might-mean, unhedged:** the multiplicity ladder is dense below `κ` but its
+hypotheses grow without bound along it, so the ladder is a way of paying for
+`κ` in unbounded instalments rather than a family of cheaper routes to it.

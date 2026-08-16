@@ -12417,3 +12417,74 @@ vendored tree was read and not touched.
 **Might-mean, unhedged:** the certified numeric input this whole board is
 denominated in reduces, at the point where it is actually load-bearing, to a
 single number that nobody outside its authors can currently recompute.
+
+## Measuring this overlay against its dependency — and my characterisation was backwards
+
+Joop asked for statistics comparing zeta-23 with this overlay, to test the
+"narrow and deep against wide and shallow" reading I gave him at `265` and to
+decide whether depth is a direction available to us.
+
+**Kill condition, filed first:** *if the two trees differ only in scale — if the
+per-declaration texture is the same and no metric separates them beyond size —
+then "deep against shallow" is not a distinction the code supports and I report
+that the difference is quantity, not kind.* It half fired, and the half that
+fired is the useful half.
+
+**Texture is close.** Theorems per definition `6.11` against `5.09`; lines per
+theorem `22.3` against `23.0`; median proof `9` lines against `11`. On these
+three the trees are within a fifth of each other, against a size ratio of `9`.
+Whatever separates them, it is not how a typical declaration is written.
+
+**Depth is real and it is numeric.** Proofs over `50` lines: `353` against `7`.
+Integer literals above `10^12`: `528` against **zero**; their largest literal has
+`45` digits, ours has `7`. Their tactic mix is `linarith 4619 / nlinarith 1161 /
+ring 2210 / field_simp 611` — real-number inequality chasing. Ours is `omega 202
+/ decide 47` — decidable finite combinatorics. On this measure the overlay
+carries no certified interval arithmetic at all: not one literal above `10^12`
+in `11,244` lines.
+
+**But my characterisation was backwards.** They are `44` subject directories and
+`66` namespaces; we are **zero** subdirectories and `8` namespaces. *They* are
+the wide one. We are narrow *and* shallow — deliberately, because the whole
+overlay is one subject: what the ledger's five counts can and cannot say.
+
+**The number that decides the strategy question: we reach `3.0%` of it.**
+`17` of `329` modules, `244` of `5380` declarations, `3,127` of `103,067` lines,
+through three entry points. The unreached mass is `XiPrime 31,705` lines,
+`ThmE 12,434`, `FromPNTPlus 11,098`, `ThmD 6,489`, `PrimeSideA 6,162`,
+`WeilEF 4,494`.
+
+**And that mass is not idle — we are axiomatising into it.** `zeta23_xiPrime`
+asserts `xiPrimeFamily.toCounts.Proportion 0.85838`, and its own docstring names
+the source: `Zeta23/XiPrime/Final.lean`. That theorem is there,
+`xiDeriv_simple_on_line`, unconditional and sorry-free, in the `31,705` lines we
+do not import. What stops it being a proof rather than an axiom is not the
+mathematics — it is that `xiPrimeFamily` is an opaque `Family` of ours with no
+map to their `Ncount` / `N0simple` on ξ′ zeros.
+
+**Snag, bin 1, and it nearly went into the answer.** My first reachability walk
+started from `Riemann/*.lean` and reported `2.1%` with `PairCeiling` unreachable.
+`#check @Zeta23.PairCeiling.ceiling_law256` resolves under `import Riemann`, so
+the walk was wrong: the root module `Riemann.lean` imports
+`Zeta23.PairCeiling.CeilingLaw256` and the directory does not. I had grepped the
+root file and truncated the output at ten lines; the import is on line `14`. A
+reachability figure that disagrees with the kernel is wrong, and the kernel is
+the check — recorded in `forensics/dependency_profile.py`'s docstring so the next
+run of it does not repeat the walk.
+
+**Snag, bin 2.** I also nearly reported `33 sorry` in the dependency. They are in
+`comparator/Challenge/*`, which says of itself *"the `sorry`s are deliberate
+(challenge side)"*, plus three in prose. Their library is sorry-free. A grep
+count is not a finding.
+
+`forensics/dependency_profile.py` regenerates all of the above; it is an
+instrument and always exits `0`, because it asserts nothing about whether the
+numbers are good.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone, ten guards green.
+
+**Might-mean, unhedged:** the ξ′ row is axiomatised at `0.85838` while a
+sorry-free proof of that constant sits in the dependency we already vendor, so at
+least one of our assumptions is an unwritten bridge rather than an unavailable
+theorem.

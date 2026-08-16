@@ -10049,3 +10049,50 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the ledger looks like five numbers and behaves like
 five numbers, and the two the project cares most about are the two now known to
 carry information the others do not.
+
+## The ledger has no redundancy
+
+`216` closed two of the five entries and named what the other three needed: a
+three-atom builder, since with two atoms `Σm` and `Σm²` already pin the mass
+multiset.
+
+**Kill condition, filed first:** *if a three-atom profile needs machinery beyond
+what `twoAtom_profile` already uses, I close the two that need only two atoms
+and leave `N_sc` named.* It did not fire — the same `superpose`,
+`offAt_superpose`, `H_eq_count` machinery carries a third ordinate.
+
+Two of the three needed no new builder at all:
+
+* `N_not_determined_by_ledger` — one atom of mass `5` against masses `3, 4`, all
+  on the line. `N⊛ = 25`, `N_sc = 0`, `NscStd = 0`, `N_off = 0` on both; `N` is
+  `5` against `7`.
+* `Nstar_not_determined_by_ledger` — masses `2, 4` against `3, 3`. `N = 6` and
+  the other three agree; `N⊛` is `20` against `18`.
+
+`N_sc` did need the third, so `threeAtom` and `threeAtom_profile` exist now:
+
+* `Nsc_not_determined_by_ledger` — masses `1, 1, 4` with the off-line mass all
+  on the `4`, against two mass-`3` atoms each carrying one off-line pair.
+  `N = 6`, `N⊛ = 18`, `N_off = 4`, `NscStd = 2` on both — the on-line parts are
+  `1, 1, 0` against `1, 1` — and `N_sc` is `2` against `0`.
+
+With `216`'s two, **no ledger entry is recoverable from the other four.** The
+ledger is a five-dimensional statistic with no slack in it, and `NIGHT.md`'s
+standing line is updated at its location.
+
+**R23, and it is the fourth invoice.** *Anchor new work after its dependencies,
+not beside its relatives.* The natural place to add a theorem is next to the
+material it is about; the place it must go is after everything it cites, and in
+`Optimal.lean` and `Fiber.lean` those differ. `S61`, `S62`, `201`, `207` and now
+`217` all paid a rebuild for it. In each of those five the build reported the
+forward reference immediately and the fix was a move rather than a re-proof —
+which is why it keeps recurring, and why it is now a rule instead of a snag.
+
+Five declarations, axiom-free, all in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the project spent a hundred cycles hunting the residue
+below its ledger, and the ledger it has been keeping the whole time carries no
+entry that the rest of it could supply.

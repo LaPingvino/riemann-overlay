@@ -1664,6 +1664,123 @@ theorem NscStd_not_determined_by_ledger {γ a : ℝ} (hγ : γ ≠ 0) (ha : a �
       rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
     exact_mod_cast this
 
+/-- Three atoms, at ordinates `0`, `γ` and `δ`.  `SESSION 217`.  `216` recorded
+that `N_sc` independence needs three: with two atoms `Σm` and `Σm²` already pin
+the mass multiset, so a pair matching in `N` and `N⊛` matches in `N_sc` too. -/
+noncomputable def threeAtom (γ δ a : ℝ) (k₁ j₁ k₂ j₂ k₃ j₃ : ℕ) : ZeroData :=
+  superpose (twoAtom γ a k₁ j₁ k₂ j₂) (configAt δ k₃ j₃ a)
+
+lemma threeAtom_ordinates (γ δ a : ℝ) (k₁ j₁ k₂ j₂ k₃ j₃ : ℕ) :
+    (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃).ordinates
+      = Multiset.replicate (k₁ + 2 * j₁) (0:ℝ)
+        + Multiset.replicate (k₂ + 2 * j₂) γ
+        + Multiset.replicate (k₃ + 2 * j₃) δ := by
+  rw [threeAtom, add_ordinates, twoAtom_ordinates, configAt_ordinates]
+
+lemma threeAtom_profile {γ δ a : ℝ} (hγ : γ ≠ 0) (hδ : δ ≠ 0) (hγδ : γ ≠ δ)
+    (ha : a ≠ 1/2) {k₁ j₁ k₂ j₂ k₃ j₃ : ℕ}
+    (h1 : k₁ + 2 * j₁ ≠ 0) (h2 : k₂ + 2 * j₂ ≠ 0) (h3 : k₃ + 2 * j₃ ≠ 0) :
+    profile (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃)
+      = {(k₁ + 2 * j₁, 2 * j₁), (k₂ + 2 * j₂, 2 * j₂), (k₃ + 2 * j₃, 2 * j₃)} := by
+  classical
+  have hord := threeAtom_ordinates γ δ a k₁ j₁ k₂ j₂ k₃ j₃
+  have e1 : ¬(k₁ = 0 ∧ j₁ = 0) := fun h => h1 (by omega)
+  have e2 : ¬(k₂ = 0 ∧ j₂ = 0) := fun h => h2 (by omega)
+  have e3 : ¬(k₃ = 0 ∧ j₃ = 0) := fun h => h3 (by omega)
+  have hfin : (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃).ordinates.toFinset = {0, γ, δ} := by
+    rw [hord]
+    simp [Multiset.toFinset_add, Multiset.toFinset_replicate, e1, e2, e3]
+  have hH0 : (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃).H 0 = k₁ + 2 * j₁ := by
+    rw [ZeroData.H_eq_count, hord]
+    simp [Multiset.count_replicate, hγ, hδ, Ne.symm hγ, Ne.symm hδ]
+  have hHg : (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃).H γ = k₂ + 2 * j₂ := by
+    rw [ZeroData.H_eq_count, hord]
+    simp [Multiset.count_replicate, hγ, hγδ, Ne.symm hγ, Ne.symm hγδ]
+  have hHd : (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃).H δ = k₃ + 2 * j₃ := by
+    rw [ZeroData.H_eq_count, hord]
+    simp [Multiset.count_replicate, hδ, hγδ, Ne.symm hδ, Ne.symm hγδ]
+  have hO0 : offAt (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃) 0 = 2 * j₁ := by
+    rw [threeAtom, offAt_superpose,
+      offAt_configAt_other (a := a) (Ne.symm hδ) k₃ j₃, twoAtom,
+      offAt_superpose, offAt_configAt_self ha,
+      offAt_configAt_other (a := a) (Ne.symm hγ) k₂ j₂]
+    omega
+  have hOg : offAt (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃) γ = 2 * j₂ := by
+    rw [threeAtom, offAt_superpose,
+      offAt_configAt_other (a := a) hγδ k₃ j₃, twoAtom,
+      offAt_superpose, offAt_configAt_self ha,
+      offAt_configAt_other (a := a) hγ k₁ j₁]
+    omega
+  have hOd : offAt (threeAtom γ δ a k₁ j₁ k₂ j₂ k₃ j₃) δ = 2 * j₃ := by
+    rw [threeAtom, offAt_superpose, offAt_configAt_self ha, twoAtom,
+      offAt_superpose, offAt_configAt_other (a := a) hδ k₁ j₁,
+      offAt_configAt_other (a := a) (Ne.symm hγδ) k₂ j₂]
+    omega
+  rw [profile, hfin]
+  rw [show ({0, γ, δ} : Finset ℝ).val = (0 : ℝ) ::ₘ γ ::ₘ {δ} by
+    rw [Finset.insert_val_of_notMem (by simp [Ne.symm hγ, Ne.symm hδ]),
+      Finset.insert_val_of_notMem (by simpa using hγδ)]
+    rfl]
+  simp [hH0, hHg, hHd, hO0, hOg, hOd]
+
+/-- **`N_sc` is not determined by the other four ledger entries.**  `SESSION 217`.
+
+Three atoms of masses `1, 1, 4` with the off-line mass all on the `4`, against
+two atoms of mass `3` each carrying one off-line pair.  `N = 6`, `N⊛ = 18`,
+`N_off = 4`, `NscStd = 2` on both — the on-line parts are `1, 1, 0` and `1, 1` —
+while `N_sc` is `2` against `0`, because only the first has atoms of mass one. -/
+theorem Nsc_not_determined_by_ledger {γ δ a : ℝ} (hγ : γ ≠ 0) (hδ : δ ≠ 0)
+    (hγδ : γ ≠ δ) (ha : a ≠ 1/2) :
+    (threeAtom γ δ a 1 0 1 0 0 2).N = (twoAtom γ a 1 1 1 1).N
+      ∧ (threeAtom γ δ a 1 0 1 0 0 2).Nstar = (twoAtom γ a 1 1 1 1).Nstar
+      ∧ (threeAtom γ δ a 1 0 1 0 0 2).NscStd = (twoAtom γ a 1 1 1 1).NscStd
+      ∧ (threeAtom γ δ a 1 0 1 0 0 2).Noff = (twoAtom γ a 1 1 1 1).Noff
+      ∧ (threeAtom γ δ a 1 0 1 0 0 2).Nsc ≠ (twoAtom γ a 1 1 1 1).Nsc := by
+  have pA := threeAtom_profile hγ hδ hγδ ha (k₁ := 1) (j₁ := 0) (k₂ := 1)
+    (j₂ := 0) (k₃ := 0) (j₃ := 2) (by norm_num) (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 1) (j₁ := 1) (k₂ := 1) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+  · have : ((threeAtom γ δ a 1 0 1 0 0 2).NscStd : ℤ)
+        = ((twoAtom γ a 1 1 1 1).NscStd : ℤ) := by
+      rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+  · have : ((threeAtom γ δ a 1 0 1 0 0 2).Nsc : ℤ)
+        ≠ ((twoAtom γ a 1 1 1 1).Nsc : ℤ) := by
+      rw [Nsc_from_profile, Nsc_from_profile, pA, pB]; decide
+    exact_mod_cast this
+
+/-- **`N⊛` is not determined by the other four ledger entries.**  `SESSION 217`.
+
+Masses `2, 4` against `3, 3`, all on the line.  `N = 6`, `N_sc = 0`,
+`NscStd = 0`, `N_off = 0` both; `N⊛` is `20` against `18`. -/
+theorem Nstar_not_determined_by_ledger {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (twoAtom γ a 2 0 4 0).N = (twoAtom γ a 3 0 3 0).N
+      ∧ (twoAtom γ a 2 0 4 0).Nsc = (twoAtom γ a 3 0 3 0).Nsc
+      ∧ (twoAtom γ a 2 0 4 0).NscStd = (twoAtom γ a 3 0 3 0).NscStd
+      ∧ (twoAtom γ a 2 0 4 0).Noff = (twoAtom γ a 3 0 3 0).Noff
+      ∧ (twoAtom γ a 2 0 4 0).Nstar ≠ (twoAtom γ a 3 0 3 0).Nstar := by
+  have pA := twoAtom_profile hγ ha (k₁ := 2) (j₁ := 0) (k₂ := 4) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 3) (j₁ := 0) (k₂ := 3) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
+  · have : ((twoAtom γ a 2 0 4 0).Nsc : ℤ) = ((twoAtom γ a 3 0 3 0).Nsc : ℤ) := by
+      rw [Nsc_from_profile, Nsc_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · have : ((twoAtom γ a 2 0 4 0).NscStd : ℤ)
+        = ((twoAtom γ a 3 0 3 0).NscStd : ℤ) := by
+      rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+
 /-- The profile of a single atom. -/
 lemma configAt_profile {γ a : ℝ} (ha : a ≠ 1/2) {k j : ℕ} (h : k + 2 * j ≠ 0) :
     profile (configAt γ k j a) = {(k + 2 * j, 2 * j)} := by
@@ -1676,6 +1793,34 @@ lemma configAt_profile {γ a : ℝ} (ha : a ≠ 1/2) {k j : ℕ} (h : k + 2 * j 
     simp
   rw [profile, hfin]
   simp [hH, offAt_configAt_self ha]
+
+
+/-- **`N` is not determined by the other four ledger entries.**  `SESSION 217`.
+
+One atom of mass `5` against two atoms of masses `3` and `4`, all on the line.
+`N⊛ = 25` both, `N_sc = 0`, `NscStd = 0`, `N_off = 0` both; `N` is `5` against
+`7`. -/
+theorem N_not_determined_by_ledger {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (configAt 0 5 0 a).Nstar = (twoAtom γ a 3 0 4 0).Nstar
+      ∧ (configAt 0 5 0 a).Nsc = (twoAtom γ a 3 0 4 0).Nsc
+      ∧ (configAt 0 5 0 a).NscStd = (twoAtom γ a 3 0 4 0).NscStd
+      ∧ (configAt 0 5 0 a).Noff = (twoAtom γ a 3 0 4 0).Noff
+      ∧ (configAt 0 5 0 a).N ≠ (twoAtom γ a 3 0 4 0).N := by
+  have pA := configAt_profile (γ := (0:ℝ)) ha (k := 5) (j := 0) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 3) (j₁ := 0) (k₂ := 4) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+  · have : ((configAt 0 5 0 a).Nsc : ℤ) = ((twoAtom γ a 3 0 4 0).Nsc : ℤ) := by
+      rw [Nsc_from_profile, Nsc_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · have : ((configAt 0 5 0 a).NscStd : ℤ)
+        = ((twoAtom γ a 3 0 4 0).NscStd : ℤ) := by
+      rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
 
 /-- **The profile *is* minimal among ordinate-local statistics.**
 

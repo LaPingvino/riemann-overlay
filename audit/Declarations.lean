@@ -169,6 +169,12 @@ import Riemann
 -- SESSION 216: two ledger entries are not recoverable from the other four.
 #check @Riemann.Blindness.Noff_not_determined_by_ledger
 #check @Riemann.Blindness.NscStd_not_determined_by_ledger
+-- SESSION 217: the remaining three, so no ledger entry is redundant.
+#check @Riemann.Blindness.threeAtom
+#check @Riemann.Blindness.threeAtom_profile
+#check @Riemann.Blindness.N_not_determined_by_ledger
+#check @Riemann.Blindness.Nstar_not_determined_by_ledger
+#check @Riemann.Blindness.Nsc_not_determined_by_ledger
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

@@ -82,10 +82,16 @@ stops.
 > is recoverable from the other four entries, so the ledger has no redundancy
 > those two could be dropped through.
 >
-> **Not addressed:** the same question for `N`, `N⊛` and `N_sc`. A witness would
-> need three atoms — for two atoms, `Σm` and `Σm²` already pin the mass
-> multiset — and `twoAtom` builds two. Named rather than left as an implied
-> completeness.
+> **`SESSION 217`: addressed.** All five entries are independent.
+> `N_not_determined_by_ledger` (one atom of mass `5` against masses `3, 4`) and
+> `Nstar_not_determined_by_ledger` (masses `2, 4` against `3, 3`) need only two
+> atoms. `N_sc` needed the third, so `threeAtom` and `threeAtom_profile` were
+> built: masses `1, 1, 4` with the off-line mass on the `4`, against two mass-`3`
+> atoms each carrying one off-line pair — `N = 6`, `N⊛ = 18`, `N_off = 4`,
+> `NscStd = 2` on both, `N_sc` is `2` against `0`.
+>
+> So the ledger has no redundancy at all: no entry is recoverable from the other
+> four.
 
 Minimal residue still unidentified; now known to sit below `(μ_T, offAt)`, to
 be relabelling-invariant, and to be strictly coarser than the profile.

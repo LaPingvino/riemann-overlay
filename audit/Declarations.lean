@@ -161,6 +161,11 @@ import Riemann
 -- SESSION 212: a feasible c is non-positive, so any realizable C_k is no better.
 #check @Riemann.Optimal.linearBoundK_c_nonpos
 #check @Riemann.Optimal.linearBoundK_no_gain_at_any_moment
+-- SESSION 214: the NscAny genre wall at family level, which 197 declined.
+#check @Riemann.Family.NscAny
+#check @Riemann.Family.ProportionAny
+#check @Riemann.Family.proportionAny_le_one
+#check @Riemann.Family.proportionStd_of_proportionAny
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

@@ -159,6 +159,63 @@ theorem proportion_of_offLineImport {F : Family} {κ β : ℝ}
   rw [le_div_iff₀ hpos']
   nlinarith [hT, hO, hbase, hpos']
 
+/-! ### The `NscAny` genre at family level — `SESSION 214`
+
+`197` proved the arXiv:2306.04799 genre wall at a single `ZeroData` and declined
+the family version, because `Transfer.Counts` has fields `Nz`, `Ns`, `Nsc` and a
+family-level `NscAny` looked like widening the structure every route theorem is
+stated over.
+
+That was the wrong place to look. `Family`'s counts are **derived definitions,
+not fields** — `Family.Nz`, `Family.Nsc`, `Family.Noff` are all `def`s over
+`F.D T`. Adding one more changes no existing declaration. -/
+
+/-- Simple zeros anywhere in the strip, at family level.  `SESSION 214`. -/
+noncomputable def Family.NscAny (F : Family) (T : ℝ) : ℝ := (((F.D T).NscAny : ℕ) : ℝ)
+
+/-- **The literature's simple-zero row**, with no location demand — the quantity
+arXiv:2306.04799 bounds.  `SESSION 214`. -/
+def Family.ProportionAny (F : Family) (κ : ℝ) : Prop :=
+  ∀ ε > 0, ∀ᶠ T in atTop, (κ - ε) * F.Nz T ≤ F.NscAny T
+
+/-- **The genre's constant can never exceed `1`.**  `SESSION 214`.
+`NscAny ≤ N`, so a `ProportionAny κ` with the window eventually nonempty forces
+`κ ≤ 1`: more simple zeros than zeros is not on offer. -/
+theorem Family.proportionAny_le_one {F : Family} {κ : ℝ}
+    (h : F.ProportionAny κ) : κ ≤ 1 := by
+  by_contra hκ
+  push_neg at hκ
+  have hε : (0 : ℝ) < (κ - 1) / 2 := by linarith
+  have hev := h _ hε
+  obtain ⟨T, hT, hpos⟩ := (hev.and F.nonempty).exists
+  have hle : F.NscAny T ≤ F.Nz T := by
+    unfold Family.NscAny Family.Nz
+    exact_mod_cast ZeroData.NscAny_le_N (F.D T)
+  have hNz : (0 : ℝ) < F.Nz T := by
+    unfold Family.Nz; exact_mod_cast hpos
+  nlinarith [hT, hle, hNz]
+
+/-- **The genre wall, at family level.**  `SESSION 214`.
+
+A `ProportionAny κ` together with an off-line import at `β` delivers
+`ProportionStd (κ − β)`, and `κ ≤ 1`, so what reaches the ledger's own row is at
+most `1 − β`.
+
+At the baseline's own off-line bound `β = 0.3275` that ceiling is `0.6725` —
+the row the genre would have to beat.  `197` proved this pointwise; this is the
+statement about a family, which is the level the ledger's rows live at. -/
+theorem Family.proportionStd_of_proportionAny {F : Family} {κ β : ℝ}
+    (h : F.ProportionAny κ) (hoff : OffLineImport F β) :
+    F.ProportionStd (κ - β) ∧ κ - β ≤ 1 - β := by
+  refine ⟨?_, by have := F.proportionAny_le_one h; linarith⟩
+  intro ε hε
+  have hε2 : (0 : ℝ) < ε / 2 := by linarith
+  filter_upwards [h _ hε2, hoff _ hε2] with T hT hO
+  have hsplit : F.NscAny T ≤ F.NscStd T + F.Noff T := by
+    unfold Family.NscAny Family.NscStd Family.Noff
+    exact_mod_cast ZeroData.NscAny_le_NscStd_add_Noff (F.D T)
+  linarith
+
 /-- **The literature's row is already a zero-density statement, with no `(★)`.**
 
 `offline_le` above extracts `N_off ≤ (C−1)·N` from a star bound.  None is

@@ -309,14 +309,27 @@ theorem nscAny_import_ceiling (D : ZeroData) {κ c : ℝ}
 theorem nscAny_ceiling_is_the_certified_row : (1 : ℝ) - 0.3275 = 0.6725 := by
   norm_num
 
--- **What a family-level version would cost, stated rather than attempted**
--- (`SESSION 197`).  `Transfer.Counts` carries `Nz`, `Ns`, `Nsc` and nothing
--- else; a family-level `NscAnyProportion` would need two further fields
--- (`NscAny` and `Noff`) on the structure every route theorem in the development
--- is stated over.  The wall above is therefore proved pointwise, at a single
--- `ZeroData`, and the passage to a family is not claimed.  This is a comment
--- and not a `theorem … : True`, which is the vacuity shape `provenance_lint`
--- exists to catch — a scope note is documentation, not a result.
+-- **SUPERSEDED, `SESSION 214`.**  The family version exists:
+-- `Gaps.Family.proportionStd_of_proportionAny`, with
+-- `Gaps.Family.proportionAny_le_one` for the `κ ≤ 1` half.  Both axiom-free.
+--
+-- `197`'s note below looked at the wrong structure.  `Transfer.Counts` does
+-- carry only `Nz`, `Ns`, `Nsc` — but `Family`'s counts are **derived
+-- definitions over `F.D T`, not fields**, so `Family.NscAny` is one more `def`
+-- and changes nothing that exists.  The cycle that added it was 57 inserted
+-- lines and no deleted ones.
+--
+-- The original note, kept because the reasoning is the thing that was wrong:
+--
+-- > **What a family-level version would cost, stated rather than attempted**
+-- > (`SESSION 197`).  `Transfer.Counts` carries `Nz`, `Ns`, `Nsc` and nothing
+-- > else; a family-level `NscAnyProportion` would need two further fields
+-- > (`NscAny` and `Noff`) on the structure every route theorem in the
+-- > development is stated over.  The wall above is therefore proved pointwise,
+-- > at a single `ZeroData`, and the passage to a family is not claimed.  This
+-- > is a comment and not a `theorem … : True`, which is the vacuity shape
+-- > `provenance_lint` exists to catch — a scope note is documentation, not a
+-- > result.
 
 
 /-- The total count of `ofMult` is the sum of the multiplicities — the

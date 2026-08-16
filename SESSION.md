@@ -9915,3 +9915,49 @@ Build green (3757 jobs), sorries 0, axioms 2 in the certified cone, base
 
 **Might-mean, unhedged:** twenty cycles of work moved no row on the board, which
 is what it looks like when a project is done with the part it can do alone.
+
+## The refusal was priced against the wrong structure
+
+`197` proved the arXiv:2306.04799 genre wall at a single `ZeroData` and declined
+the family version. Its stated reason: `Transfer.Counts` has fields `Nz`, `Ns`,
+`Nsc`, so a family-level `NscAny` means widening the structure every route
+theorem in the development is stated over.
+
+**Kill condition, filed first:** *if a family-level `NscAny` needs any change to
+an existing declaration, I stop and keep the pointwise statement — the reason I
+declined at `197` was the blast radius, not the difficulty.* It did not fire,
+and the witness is mechanical: `git diff --stat` reports **57 insertions, 0
+deletions**.
+
+The family level does not go through `Counts`. `Family.Nz`, `Family.Nsc`,
+`Family.Noff` are derived `def`s over `F.D T`, not fields, so `Family.NscAny` is
+one more `def`.
+
+* `Family.ProportionAny` — the literature's simple-zero row, no location demand.
+* `Family.proportionAny_le_one` — `NscAny ≤ N` and an eventually nonempty window
+  force `κ ≤ 1`.
+* `Family.proportionStd_of_proportionAny` — a `ProportionAny κ` with an off-line
+  import at `β` delivers `ProportionStd (κ − β)`, and `κ − β ≤ 1 − β`.
+
+At the baseline's own off-line bound `β = 0.3275` the ceiling is `0.6725`, the
+row the genre would have to beat. `197` had this pointwise; this is the
+statement about a family, which is the level the ledger's rows live at.
+
+`197`'s note is superseded at its location, and the original text kept in full
+underneath — the reasoning is the thing that was wrong, and deleting it would
+delete the lesson. `S99`.
+
+**Snag, bin 2, caught by the guard it was about.** I first filed the row as
+`S98b`, to sit beside `S98`. `surprises.py` matches `S\d+` and reported the
+total as `98` rather than `99` — the row was in the table and **not in the
+tally**, which is a silent undercount in the register whose whole job is to
+count honestly. Renumbered to `S99`. The suffix idea was mine and the guard
+refused it without being asked to.
+
+Four declarations, axiom-free, all in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** a refusal recorded with its reason looks like a finding
+for as long as nobody re-reads the reason, and this one sat for seventeen cycles.

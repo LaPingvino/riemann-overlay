@@ -325,6 +325,19 @@ continuum, not a `Finset` sum. **These are not the same class**, and the ladder
 audit's criterion demands a machine-checked statement about the class actually
 named.
 
+> **DISCHARGED, `SESSION 193` (2026-08-16).** The "partial" verdict below is
+> stale. `Riemann.Capacity.value_eq_pinned_unit_interval` states the collapse
+> for `α = ℝ`, `A = Set.Icc 0 1`, `μ = volume` — the class `#10` actually
+> names — and is axiom-free (`propext, Classical.choice, Quot.sound`). It is a
+> specialisation of `value_eq_pinned_integral`, which was already stated over an
+> arbitrary measure space, so nothing new was proved today; what was missing was
+> the *instantiation*, and that is exactly what this register said was owed.
+>
+> Scope of the discharge, stated narrowly: the theorem covers the pinning-and-
+> nonnegativity structure of `#10`'s class. The other half of the "what is
+> still owed" paragraph — the map from a bandwidth-one certificate into this
+> program — is **not** discharged and remains prose.
+
 **Honest verdict: rung 0 is `partial`, not `certified`.** The skeleton is
 proved; the instantiation — the map from a bandwidth-one certificate to this
 program, and the passage from `Finset` to integral — remains prose. Recorded as

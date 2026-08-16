@@ -39,6 +39,7 @@ import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Algebra.BigOperators.Ring.Finset
 import Mathlib.Order.Bounds.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Set
+import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.Tactic
 
 namespace Riemann
@@ -409,6 +410,31 @@ theorem weighted_sum_le_mass_mul (S : Finset ι) (w e : ι → ℝ) (E : ℝ)
     mul_le_mul_of_nonneg_left (he i hi) (hw i hi)
 
 end Reweighting
+
+
+/-! ### Rung 0 at the class `#10` actually names — `SESSION 193`
+
+`FAILURES.md` recorded rung 0 as **partial**: the `Finset` skeleton was proved
+while `#10`'s class is `{F on [0,1], F ≥ 0}`, an integral program over a
+continuum.  The integral theorems above discharge that — they quantify over *any*
+measure space and *any* measurable set, so `#10`'s class is an instance.
+
+But "is an instance" is an inference the register was being asked to make.  Here
+it is written out: `α = ℝ`, `A = [0,1]`, `μ = volume`.  Nothing new is proved;
+the specialisation just removes the step. -/
+
+/-- **Rung 0, at `{F pinned on `[0,1]`, `F ≥ 0` outside}`.**  The optimum over
+the class is the pinned value, and it is the greatest such bound. -/
+theorem value_eq_pinned_unit_interval (K F₀ : ℝ → ℝ)
+    (hK : ∀ x ∈ (Set.Icc (0:ℝ) 1)ᶜ, 0 ≤ K x)
+    (hint0 : MeasureTheory.Integrable
+      (fun x => K x * (Set.Icc (0:ℝ) 1).indicator F₀ x) MeasureTheory.volume) :
+    IsGreatest {v : ℝ | ∀ F, AdmissibleOn (Set.Icc (0:ℝ) 1) F₀ F →
+        MeasureTheory.Integrable (fun x => K x * F x) MeasureTheory.volume →
+        v ≤ ∫ x, K x * F x ∂MeasureTheory.volume}
+      (∫ x in Set.Icc (0:ℝ) 1, K x * F₀ x ∂MeasureTheory.volume) :=
+  value_eq_pinned_integral MeasureTheory.volume (Set.Icc (0:ℝ) 1)
+    measurableSet_Icc K F₀ hK hint0
 
 end Capacity
 end Riemann

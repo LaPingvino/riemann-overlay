@@ -8982,3 +8982,38 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the board has exactly one decision in it that is not
 forced, and three cycles of looking for more found only the same circle drawn in
 different notations.
+
+## A debt that had gone stale in the paid direction
+
+`FAILURES.md:320`, "What is still owed, by this audit's own criterion", has said
+for many cycles that rung 0 is **partial**: the `Finset` skeleton is proved, but
+`#10` names `{F on [0,1], F ≥ 0}` — a continuum — and the audit's criterion
+demands a machine-checked statement about the class actually named.
+
+**Kill condition, stated first:** if the integral theorems cover the class `#10`
+names, the `partial` verdict is stale and must be corrected at its location; if
+they cover something narrower, the verdict stands and I record its scope.
+
+They cover it, and by more than was needed. `value_eq_pinned_integral` and
+`pinned_value_is_floor_integral` are stated over an **arbitrary** measure space,
+an arbitrary measurable `A`, an arbitrary kernel — `#10`'s class is an instance.
+But no instantiation was written anywhere in `Riemann/*.lean`: a grep for
+`Set.Icc (0 : ℝ) 1` returned nothing, so the register was being asked to take
+"is an instance" on inference. So I wrote it out rather than argue it:
+
+`Capacity.value_eq_pinned_unit_interval` — `α = ℝ`, `A = Set.Icc 0 1`,
+`μ = volume`, axiom-free. Nothing new is proved; the specialisation removes the
+step. Needed one import (`Mathlib.MeasureTheory.Measure.Lebesgue.Basic`) to get
+the `MeasureSpace ℝ` instance.
+
+The correction sits **above** the stale verdict, and it is deliberately narrow:
+what is discharged is the pinning-and-nonnegativity structure over the named
+class. The other half of that paragraph — the map from a bandwidth-one
+certificate into this program — is untouched and still prose. `S91`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Six guards green, `board.py --cones` 30.
+
+**Might-mean, unhedged:** this register can carry a debt that was paid without
+noticing, and the loop has three guards that check whether a claim outran its
+evidence and none that check whether the evidence outran the claim.

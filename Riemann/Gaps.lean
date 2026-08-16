@@ -572,6 +572,42 @@ theorem noHaunted_iff_forall_noSmallHaunted (F : Family) :
     · exact h1
     · omega
 
+/-- **A multiplicity cap collapses the ladder to its limit one rung above it.**
+`SESSION 261`.
+
+`noHaunted_iff_forall_noSmallHaunted` reaches `NoHaunted` by taking *every* rung.
+Under a cap it takes one.  A haunted ordinate satisfies the rung's disjunction as
+`m ≤ H`, and the cap says `H ≤ M`; if `M < m` the two cannot both hold, so the
+disjunction's other branch fires and `H = 1`.
+
+**What this is worth, and it is not small.**  At `M = 3` the cap alone is nearly
+empty — `259` re-verified `LEADS`'s table: `M ≤ 3` carries a star constant of
+`1.9825` and a `prop1` image of `7/400 = 0.0175`.  The `m = 5` rung alone is
+`certified_nsc_via_noSmallHaunted`'s `0.590625`.  Together they are `NoHaunted`,
+which is `κ = 0.6725` — more than either, and `254` showed no rung of the ladder
+ever reaches `κ` on its own.
+
+So the two axes `260` separated are not independent purchases: bounded
+multiplicity is a threshold hypothesis worth almost nothing by itself on the
+`Nsc` row, and its value is entirely in what it does to the crowding axis. -/
+theorem noHaunted_of_boundedMult_of_noSmallHaunted {F : Family} {M m : ℕ}
+    (hcap : ∀ T γ, (F.D T).H γ ≤ M) (hlt : M < m) (h : NoSmallHaunted F m) :
+    NoHaunted F := by
+  intro T γ hγ
+  rcases h T γ hγ with h1 | h2
+  · exact h1
+  · have := le_trans h2 (hcap T γ)
+    omega
+
+/-- **The cheapest instance: cap at three, rung at five.**  `SESSION 261`.
+
+`260` showed `BoundedMult 2` is the last cap that gives `NoHaunted` unaided.
+This is the next one along, bought with the ladder's second rung — and `235`'s
+collapse of the even rungs means `m = 5` is the adjacent one, not `m = 4`. -/
+theorem noHaunted_of_mult_three_rung_five {F : Family}
+    (hcap : ∀ T γ, (F.D T).H γ ≤ 3) (h : NoSmallHaunted F 5) : NoHaunted F :=
+  noHaunted_of_boundedMult_of_noSmallHaunted hcap (by omega) h
+
 /-- **The ladder's limit, attained: `NoHaunted` transfers the literature's row
 whole.**  Weaker than `097`'s `H ≤ 2` — which forbids unhaunted crowding too —
 and it yields the same proportion, though not the same star bound. -/

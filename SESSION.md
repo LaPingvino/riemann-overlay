@@ -12097,3 +12097,54 @@ coherent request.
 project has priced has a sharp threshold. `254` is a counterexample I proved
 eleven cycles ago and `claims_gate` passed the sentence, because "every
 hypothesis" carries no exactness word for it to see.)*
+
+## A multiplicity cap collapses the ladder to its limit, one rung above it
+
+`260` separated two axes — multiplicity is a threshold, crowding is a continuum.
+This asks whether they are independent purchases. They are not.
+
+**Kill condition, filed first:** *if the collapse needs `m` strictly greater than
+`M + 1` — if the arithmetic does not close at the adjacent rung — then it is not
+a one-rung effect and I report where it actually closes.* It did not fire;
+`M < m` is exactly the hypothesis, so the adjacent rung suffices.
+
+`noHaunted_of_boundedMult_of_noSmallHaunted` — with `H ≤ M` in hand, rung
+`m > M` **is** `NoHaunted`: a haunted ordinate would need `m ≤ H ≤ M`. Two lines,
+axiom-free. `noHaunted_of_mult_three_rung_five` names the cheapest instance, and
+`235`'s collapse of the even rungs is why the adjacent rung above `3` is `5`.
+
+**The arithmetic of the pairing is the finding.** On the `Nsc` row the cap alone
+carries `7/400 = 0.0175` (`259`'s re-verified `LEADS` table), the `m = 5` rung
+alone `0.590625` (`certified_nsc_via_noSmallHaunted`), and together they are
+`NoHaunted`, which is `κ = 0.6725`. Neither is near the sum, and `254` proved no
+rung reaches `κ` alone at any `m`. So bounded multiplicity is worth almost
+nothing directly on this row and nearly everything through what it does to the
+ladder.
+
+**Deliberately not added: a ζ-level row.** The instance would be a mechanical
+`zetaFamily.toCounts.Proportion 0.6725`, a third declaration of a number the
+board already carries twice — and `255` proved those two are one row. It would
+grow the board and the duplication count for no new number. The `Family`-level
+theorem is the content; recorded in `RULING.md` beside the ladder table instead.
+
+**`duplication_floor` fired, and the answer was `--update`.** Three theorems now
+conclude `NoHaunted F`. Graded per the guard's own instruction: different
+hypotheses, not a second proof — the shape `256` already graded deliberate at
+the `ZeroData` level, where `Blindness.noHaunted_of_mult_le_two`,
+`Blindness.noHaunted_of_allDistinct` and `Blindness.noHaunted_of_Noff_zero`
+share a conclusion for the same reason. The specialisation is two lines over the general
+theorem and repeats no reasoning. Floor `19 → 20`, with the grading written
+here, which is what `--update` is for.
+
+That is the guard working as designed on consecutive cycles in opposite
+directions: `260` it said *fix this* and I fixed it; here it said *grade this*
+and the grading is a paragraph.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green, board unchanged at 13, warnings
+at `54`.
+
+**Might-mean, unhedged:** the hypotheses on this board are priced as if they were
+bought separately, and at least one pair is worth far more together than apart,
+so the board's column of individual payouts is the wrong shape for deciding what
+to prove next.

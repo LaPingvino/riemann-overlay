@@ -99,6 +99,16 @@ Every rung is `Optimal`-free arithmetic on one theorem,
 | ⋯ | ⋯ | ⋯ | ⋯ |
 | `→ ∞` | `NoHaunted` | — | `0.6725000` |
 
+**A multiplicity cap jumps straight to the bottom row (`SESSION 261`).**
+`Gaps.noHaunted_of_boundedMult_of_noSmallHaunted`: with `H ≤ M` in hand, rung
+`m > M` *is* `NoHaunted`, because a haunted ordinate would need `m ≤ H ≤ M`. The
+cheapest instance is `M = 3` with rung `5`
+(`Gaps.noHaunted_of_mult_three_rung_five`), and the arithmetic of that pairing is
+worth reading: the cap alone carries `7/400 = 0.0175` on this row (`259`'s
+re-verified table), the rung alone `0.590625`, and the two together `0.6725`.
+Neither is close to the sum. The cap's value on the `Nsc` row is almost entirely
+what it does to the ladder, not what it proves directly.
+
 **What a rung buys, in closed form (`SESSION 236`).** The distance from rung `m`
 to `NoHaunted` is `(1 − κ)/(m − 1)` (`Gaps.ladder_gap`), and climbing two rungs
 buys `2(1 − κ)/(m² − 1)` (`Gaps.ladder_step`). At the certified `κ` the

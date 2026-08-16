@@ -236,6 +236,9 @@ import Riemann
 -- SESSION 260: the threshold is exactly two; H <= 3 already admits a haunted atom.
 #check @Riemann.Blindness.noHaunted_fails_at_mult_three
 #check @Riemann.Family.noHaunted_sharp_at_two
+-- SESSION 261: a cap collapses the ladder to its limit one rung above it.
+#check @Riemann.noHaunted_of_boundedMult_of_noSmallHaunted
+#check @Riemann.noHaunted_of_mult_three_rung_five
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

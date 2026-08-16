@@ -10709,3 +10709,44 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** this project has spent many cycles proving that its
 own claims carry their witnesses, and the input it was told to reach for carries
 its witness in a file nobody in this repository has ever seen.
+
+## `baseline_przz` deleted, with the ceremony the metric insists on
+
+Ruling 3 of Joop's slate: delete `baseline_przz`, with full ceremony — base
+version bump, content hash logged, a paragraph here.
+
+**Kill condition, filed first:** *if deleting it moves any certified number or
+breaks any cone, I restore it and report what depends on it — "redundant" has to
+be checked against actual usage, not against the existence of
+`przz_of_zeta23`.* It did not fire. A repo-wide search found the name in its own
+declaration and two docstrings, and in no proof term.
+
+**The ceremony was not mine to invent; the metric already had it.** Deleting the
+axiom moved the base statement hash `cd7a22e688df → c3b240548ad8`, and
+`tools/proportion.go` refused to write a log line:
+
+    ESCALATION: the trusted base's statement hash moved (cd7a22e688df ->
+    c3b240548ad8) but base.version did not.  8 axiom statements fingerprinted.
+    Either bump base.version in tools/metric.json (an approved meaning-change)
+    or revert the edit.  Not writing the log line.
+
+Exit `3`. That is `R5`'s garbage-height accounting made mechanical: the trusted
+base cannot change quietly. Bumped `v2 → v3` with a note naming the reason, and
+the line writes again.
+
+**Result.** Declared axioms `9 → 8`. Certified cone still `2`
+(`baseline_zeta23`, `zetaNonempty`). Ledger `NscStd 67.25% / Nsc 50.88%`
+unmoved, cones `30/30`, eight guards green.
+
+**What the deletion does not do**, recorded at `przz_of_zeta23`'s own docstring
+because that is where the claim now lives: PRZZ remains a real and independent
+result, and this theorem does not re-prove it. It says only that *given*
+zeta-23's `0.6725`, this project need not additionally assume `0.4162`. If the
+zeta-23 baseline were retracted, the theorem would go with it and PRZZ would
+have to return as an axiom. The old docstring's ruling request is answered and
+removed; `RULING.md`'s state table and parked-items list are updated at their
+locations.
+
+**Might-mean, unhedged:** the trusted base shrank by a line no proof consumed,
+and what made it safe to do at speed was a tool that refused to let it happen
+silently.

@@ -107,9 +107,20 @@ axiom levinson_montgomery : LevinsonMontgomery zetaFamily xiPrimeFamily
 The records this project must beat.  Axioms *about the zeta family*, counted
 as such in `PROPORTION.log`. -/
 
-/-- Pratt–Robles–Zaharescu–Zeindler (2019): `41.62%` of the zeros are on the
-critical line.  Stated on the **standard** count (ISSUES #13). -/
-axiom baseline_przz : zetaFamily.ProportionStd 0.4162
+/-! **`baseline_przz` was deleted here, `SESSION 233`, on Joop's ruling.**
+
+Pratt–Robles–Zaharescu–Zeindler (2019) — `41.62%` of the zeros on the critical
+line, on the standard count — used to be an axiom at this position.  It is a
+*consequence* of the axiom below: `ProportionStd` is monotone in its constant
+(`Family.ProportionStd.mono`) and `0.4162 ≤ 0.6725`, so
+`Riemann.przz_of_zeta23` derives it in one line.
+
+Keeping both meant the trusted base asserted a fact it could prove.  The
+literature record still stands and is still citable; what changed is that this
+project no longer *assumes* it.  Declared axioms `9 → 8`; base `v2 → v3`; no
+certified number moves, because nothing ever consumed the axiom — a repo-wide
+search before deleting found it only in its own declaration and two docstrings.
+-/
 
 /-- zeta-23 (Anthropic, Aug 2026) Theorem D, formalised sorry-free in
 `zeta-23-lean`: `67.25%` of the zeros are simple and on the critical line.

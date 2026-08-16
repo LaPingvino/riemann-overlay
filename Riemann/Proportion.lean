@@ -78,20 +78,21 @@ theorem certified_nsc_unconditional : zetaFamily.toCounts.Proportion 0.50875 := 
   have e : (3 * (0.6725 : ℝ) - 1) / 2 = 0.50875 := by norm_num
   rwa [e] at h
 
-/-- **`baseline_przz` is redundant.**  `ProportionStd` is monotone in its
+/-- **The PRZZ baseline, as a theorem.**  `ProportionStd` is monotone in its
 constant (`Family.ProportionStd.mono`), and `0.4162 ≤ 0.6725`, so the
-Pratt–Robles–Zaharescu–Zeindler baseline is a *theorem* given the zeta-23
-baseline — not an independent assumption.
+Pratt–Robles–Zaharescu–Zeindler record follows from the zeta-23 one.
 
-The two are recorded as separate axioms because they are separate results in the
-literature, but the trusted base does not need both: `baseline_przz` can be
-replaced by this proof wherever it is consumed (today: nowhere).
+**`SESSION 233`: the axiom it replaces is gone.**  `baseline_przz` was deleted
+from `Assumptions.lean` on Joop's ruling; declared axioms `9 → 8`, base
+`v2/cd7a22e688df → v3/c3b240548ad8`.  The paragraph this docstring used to carry
+— a ruling request weighing deletion against keeping the axiom as a record of an
+independent literature result — is answered and removed.
 
-**Ruling for Joop**, not taken unilaterally: whether to delete the axiom and keep
-this theorem, or keep the axiom as a record of an independent literature result.
-Deleting shrinks the declared axiom surface from 9 to 8; keeping documents that
-PRZZ is independently established, which matters if the zeta-23 baseline is ever
-retracted. -/
+What the deletion does **not** do: PRZZ remains a real and independent result in
+the literature, and this theorem does not re-prove it.  It says only that *given*
+zeta-23's `0.6725`, this project need not additionally assume `0.4162`.  If the
+zeta-23 baseline were ever retracted, this theorem would go with it and PRZZ
+would have to come back as an axiom. -/
 theorem przz_of_zeta23 : zetaFamily.ProportionStd 0.4162 :=
   Family.ProportionStd.mono (by norm_num) baseline_zeta23
 

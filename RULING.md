@@ -41,7 +41,7 @@ Nothing here is new. It is one page instead of twenty.
 | certified `NscStd` | **67.25%** (`baseline_zeta23`) |
 | certified `Nsc` | **50.88%** (`certified_nsc_unconditional`) |
 | axioms in the certified cone | **2** |
-| axioms declared | 9 |
+| axioms declared | **8** (`SESSION 233`: `baseline_przz` deleted on ruling 3) |
 | sorries | 0 |
 | build | green, 3757 jobs |
 
@@ -97,9 +97,12 @@ it is, which is a fully certified `50.88%` with all its derivations proved tight
 
 ## The other two parked items
 
-* **`baseline_przz` is redundant** — `przz_of_zeta23` derives it from
-  `baseline_zeta23` via `ProportionStd.mono`. Deleting it drops the declared
-  surface `9 → 8` and changes no number. Your call.
+* ~~**`baseline_przz` is redundant**~~ — **DONE, `SESSION 233`, ruling 3.**
+  Deleted with the ceremony the metric requires: the base statement hash moved
+  `cd7a22e688df → c3b240548ad8`, `tools/proportion.go` escalated and refused to
+  write a log line until `base.version` was bumped `2 → 3`, and the note records
+  why. Declared axioms `9 → 8`; the certified cone is still `2`; no number
+  moved. `przz_of_zeta23` keeps the literature record as a theorem.
 * **The cron prompt's `STATE`/`QUEUE` lines** are stale on the ledger, the
   binding constraint, and queue items 1–4. `LOOP.md`'s `⚠️ READ FIRST` banner
   corrects them on disk — and since `195` that banner is itself machine-checked

@@ -13447,3 +13447,49 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 mathematics — `μ_T`-visible covers both quantities that read the total mass and
 quantities that cannot see off the line at all, and the board has been treating
 those as one class.
+
+## The visibility map has a second level, and `286` was not a special case
+
+`286` found `oddAtoms` blind to off-line mass and closed by suggesting `224`'s
+`μ_T`-visible class is coarser than the mathematics. This tests that.
+
+**Kill condition, filed first:** *if more than one `μ_T`-visible quantity is
+off-line-insensitive, the refinement is a genuine second level; if `oddAtoms` is
+alone, it is a special case and I report it as that rather than as a new level.*
+**It fired.** `oddAtoms` is not alone.
+
+**`NscStd_eq_onAt_one`** — `H − offAt` *is* `onAt`, so `NscStd`'s filter is a
+condition on the on-line count alone: it counts ordinates carrying exactly one
+on-line zero. Axiom-free, `3757` jobs unchanged.
+
+So `224`'s single label covers two classes:
+
+| reads the total mass at an ordinate | reads only its on-line part |
+|---|---|
+| `N`, `N⊛`, `N_sc`, `atomCount` | `NscStd`, `oddAtoms` |
+
+**And the bracket crosses the line exactly once.** `N_sc ≤ NscStd ≤ oddAtoms`
+(`NscStd_bracketed`): the right inequality is between two on-line quantities,
+the left one crosses from mixed to on-line-only. That is why `ISSUES` `#13` is a
+real question and not a convention — `N_sc` and `NscStd` are not two conventions
+for one thing, they sit on opposite sides of a line the map did not draw.
+
+**A proof collapsed as a consequence.** `NscStd_le_oddAtoms` was a twenty-line
+summation written before either characterisation existed. With both, it is
+`Finset.card_le_card` on a filter subset — `onAt = 1` implies `onAt` odd — in
+four lines. `263`'s shape again: the older proof was not wrong, it was written
+without a fact that makes it unnecessary.
+
+**Snag, bin 2.** `NscStd`'s *definition* in `Basic.lean` filters on
+`p.1 = 1/2 ∧ Z.count p = 1` — a condition on a zero — while
+`NscStd_from_profile` filters on `H γ − offAt γ = 1`, a condition on an ordinate.
+Both are `NscStd`, and only the second makes the on-line reading visible. The
+quantity had an on-line characterisation available since `181` and it was one
+`H_eq_onAt_add_offAt` away the whole time.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green, `LEADS` annotated at `E11`.
+
+**Might-mean, unhedged:** the two rows this project reports are separated by
+whether the count can see off the critical line, so the gap between `67.25%` and
+`50.88%` is not a gap in strength but the price of looking at the whole strip.

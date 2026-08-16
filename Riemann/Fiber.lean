@@ -1986,37 +1986,46 @@ theorem onAt_pos_of_odd_H (D : ZeroData) (γ : ℝ) (h : ¬ Even (D.H γ)) :
   · exact absurd (by rw [Nat.even_iff]; omega) h
   · exact hp
 
-/-- **`NscStd ≤ #{odd atoms}`, and the right-hand side is `μ_T`-visible.**
-An atom contributes to `NscStd` only if its on-line part is `1`; with the
-off-line part even, its mass is then odd.  So the invisible row is bracketed
-above by a quantity the certificate class can read. -/
+/-- **`NscStd` counts ordinates with exactly one on-line zero.**  `SESSION 287`.
+
+`H − offAt` *is* `onAt` (`H_eq_onAt_add_offAt`), so the `NscStd` filter is a
+condition on the on-line count alone.  Like `oddAtoms` (`286`), this quantity
+cannot see the off-line mass at all.
+
+**So `286`'s finding was not a special case.**  There is a second level inside
+`224`'s `μ_T`-visible class: quantities that read the total mass at an ordinate
+(`N`, `N⊛`, `N_sc`, `atomCount`) and quantities that read only its on-line part
+(`NscStd`, `oddAtoms`).  The map had one label where the mathematics has two. -/
+theorem NscStd_eq_onAt_one (D : ZeroData) :
+    D.NscStd = (D.ordinates.toFinset.filter fun γ => onAt D γ = 1).card := by
+  classical
+  have key : (D.NscStd : ℤ)
+      = ∑ γ ∈ D.ordinates.toFinset, (if onAt D γ = 1 then (1:ℤ) else 0) := by
+    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
+      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
+    rw [hA]
+    refine Finset.sum_congr rfl fun γ _ => ?_
+    have h := H_eq_onAt_add_offAt D γ
+    congr 1
+    simp only [eq_iff_iff]
+    omega
+  have hc : ((D.ordinates.toFinset.filter fun γ => onAt D γ = 1).card : ℤ)
+      = ∑ γ ∈ D.ordinates.toFinset, (if onAt D γ = 1 then (1:ℤ) else 0) := by
+    rw [Finset.card_filter]; push_cast; rfl
+  exact_mod_cast key.trans hc.symm
+
+/-- **The bracket's upper half, as a subset.**  `SESSION 287`.
+
+With `NscStd_eq_onAt_one` and `286`'s `oddAtoms_eq_odd_onAt` both sides count
+ordinates by a condition on `onAt`, and `onAt = 1` implies `onAt` odd.  The
+summation this replaces was written before either characterisation existed. -/
 theorem NscStd_le_oddAtoms (D : ZeroData) : D.NscStd ≤ oddAtoms D := by
   classical
-  have key : (D.NscStd : ℤ) ≤ (oddAtoms D : ℤ) := by
-    rw [NscStd_from_profile]
-    have h1 : ((profile D).map fun q => if q.1 - q.2 = 1 then (1 : ℤ) else 0).sum
-        = ∑ γ ∈ D.ordinates.toFinset,
-            (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
-      rw [profile, Multiset.map_map]
-      rfl
-    have h2 : (oddAtoms D : ℤ)
-        = ∑ γ ∈ D.ordinates.toFinset,
-            (if ¬ Even (D.H γ) then (1 : ℤ) else 0) := by
-      rw [oddAtoms, Finset.card_filter]
-      push_cast
-      rfl
-    rw [h1, h2]
-    refine Finset.sum_le_sum fun γ _ => ?_
-    by_cases h : D.H γ - offAt D γ = 1
-    · rw [if_pos h, if_pos]
-      intro hev
-      obtain ⟨r, hr⟩ := even_offAt D γ
-      obtain ⟨t, ht⟩ := hev
-      have := H_eq_onAt_add_offAt D γ
-      omega
-    · rw [if_neg h]
-      split <;> norm_num
-  exact_mod_cast key
+  rw [NscStd_eq_onAt_one, oddAtoms_eq_odd_onAt]
+  refine Finset.card_le_card fun γ hγ => ?_
+  rw [Finset.mem_filter] at hγ ⊢
+  exact ⟨hγ.1, by rw [hγ.2]; decide⟩
 
 /-- **Both endpoints of the bracket are `μ_T` functionals.**  `Nsc` by
 `Nsc_eq_ordinate_functional`; `oddAtoms` because `H` is the ordinate count.

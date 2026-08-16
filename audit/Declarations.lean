@@ -268,6 +268,8 @@ import Riemann
 -- SESSION 286: oddAtoms counts odd ON-LINE multiplicity.
 #check @Riemann.Blindness.oddAtoms_eq_odd_onAt
 #check @Riemann.Blindness.onAt_pos_of_odd_H
+-- SESSION 287: NscStd counts onAt = 1; the visibility map has a second level.
+#check @Riemann.Blindness.NscStd_eq_onAt_one
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

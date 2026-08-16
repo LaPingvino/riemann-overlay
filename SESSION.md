@@ -8199,3 +8199,56 @@ that a previous cycle's prose outran its theorems.
 **Might-mean, unhedged:** I catalogued this error class one cycle, committed it
 the next, and the instrument built to catch it waved it through because I had
 cited a theorem in the same sentence.
+
+# SESSION 177 — the retired instrument, re-tested and still retired
+
+**Kill condition, stated first:** *if `scope_gate.py` flags `175`'s sentence, the
+instrument retired at `113` works on the case that has now cost a cycle and its
+retirement was premature; if it does not, the class stays undetectable and I
+record that rather than building a replacement.* **It does not. No fourth
+instrument was built.**
+
+`176` found that a citation is not a scope, and the natural reflex was to build
+something. `S27` says check the register first: `forensics/scope_gate.py` was
+built at `113` for precisely this class — prose one quantifier ahead of its
+theorem — failed `0/2`, and its docstring says do not rebuild.
+
+**My hypothesis was that `S82` is a different shape.** `S37`/`S38` drift by
+*dropping* the citation, which the `113` autopsy identifies as what makes them
+unlintable; `175`'s sentence appeared to cite. So the gate might work on it.
+
+**It does not, for two independent reasons, and I diagnosed rather than guessed:**
+
+1. `CITE.findall` on the offending sentence returns `[]`. The declaration names
+   sit in the **next** sentence. `S82` drifts the way the autopsy describes,
+   which `forensics/scope_gate.py` now records as confirmed on a third instance
+   rather than argued from two. My hypothesis
+   was wrong and one command showed it.
+2. Even in-sentence it would stay silent: `existential(stmt)` tests for `∃`,
+   while `Nstar_bound_attained` reads `∀ M, 1 ≤ M → …` about a **named**
+   configuration. Particular without being syntactically existential — so the
+   criterion is too narrow for the witnesses this project actually writes.
+
+The second reason is new, and it is a defect in the gate's criterion rather than
+in the prose. Both are now recorded at the location, so a fourth attempt is not
+made on either ground.
+
+## `S83`, and what the control actually is
+
+The `113` residue stands: **the control is re-reading the previous cycle before
+starting the next.** That is what caught `S37`, `S38`, and `S82` — the last of
+which I found by testing my own closing sentence instead of building on it.
+
+Three instruments now exist for prose defects: `claims_gate` (works, `97.4%`
+noise on `ISSUES`, catches stale and unscoped absolutes **when they carry their
+own trigger**), `absence_queue` (works, filters repaired at `154`), and
+`scope_gate` (does not work, twice-autopsied, retained as a record). The gap
+between the first and the third is where `S82` lives, and it is currently
+covered by discipline rather than by tooling.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new Lean, no new instrument.
+
+**Might-mean, unhedged:** the useful outcome of the cycle was not building the
+thing I came in wanting to build, and the register that stopped me was one I
+wrote to stop exactly this.

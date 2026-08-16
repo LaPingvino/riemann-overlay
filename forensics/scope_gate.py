@@ -13,9 +13,27 @@ theorem and stops naming it, leaving the name in an adjacent paragraph.  Widenin
 the match to paragraph or section scope over-fires immediately, because every
 session entry contains both universal prose and existential witnesses by design.
 
+**Re-tested `SESSION 177` against `S82`, and the retirement holds.**  `S82`
+(`175`'s *"every derivation the project owns is now known to be tight"*) looked
+like the shape this gate was designed for — a universal claim that **did** cite,
+unlike S37/S38.  It is not.  Run on the original paragraph, the gate returns
+`0`, for **two independent reasons**:
+
+* the universal sentence carries **no citation of its own** — the declaration
+  names sit in the *next* sentence.  That is exactly the drift the autopsy above
+  predicts, now confirmed on a third instance rather than argued from two;
+* and even in-sentence it would not fire: `existential(stmt)` tests for `∃`, and
+  the attainment theorems are stated as `∀ M, 1 ≤ M → …` about a *named*
+  configuration.  They are particular without being syntactically existential,
+  so the `∃` test is too narrow for the witnesses this project actually writes.
+
+The second reason is new and is a defect in the gate's criterion, not in the
+prose.  Both are recorded so a fourth attempt is not made on either ground.
+
 **The residue.**  The defect class may not be lintable at all; the control
 remains re-reading the previous cycle before starting the next, which is what
-caught S37 and S38 both.  Kept, unregistered as a guard, so a future cycle
+caught S37 and S38 both — and `S82`, which I found by testing my own closing
+sentence rather than building on it.  Kept, unregistered as a guard, so a future cycle
 recognises the idea and its cost rather than paying it again.
 
 --- original intent, preserved ---

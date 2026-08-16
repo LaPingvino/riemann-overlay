@@ -55,16 +55,41 @@ sharpen. **Every remaining gain requires assuming something.**
 
 Gains are on the `Nsc` row over the certified `0.50875`.
 
+**One conditional row is displayed, per Joop's ruling 2 of the slate of `228`.**
+
 | route | `Nsc` | gain | axioms | hypothesis |
 |---|---|---|---|---|
-| `m = 5` rung | `0.590625` | `+8.188` | 2 | no haunted ordinate of mass `3` |
-| ~~ξ′~~ | `0.601690` | `+9.294` | **4** | two analytic `Prop`s, Conrey 1983, unread |
-| `m = 7` rung | `0.617917` | `+10.917` | 2 | none of mass `3` or `5` |
+| **`NoHaunted`** | `0.672500` | `+16.375` | 2 | no haunted ordinate at all |
 | **Route III** | `2/3 − ε` | `+15.792` | **1** | narrow box (BGST) |
-| `NoHaunted` | `0.672500` | `+16.375` | 2 | no haunted ordinate at all |
-| ~~`H ≤ 2`~~ | `0.672500` | `+16.375` | 2 | multiplicity `≤ 2` |
 | **Route I** | `> 0.6725` | `> +16.375` | **1** | effective Fujii `c₀ ≤ 0.33` |
 | **[OPEN D]** | `1 − ε` | `+49.125` | **1** | extended support |
+
+### The multiplicity ladder, generated rather than listed
+
+Every rung is `Optimal`-free arithmetic on one theorem,
+`Proportion.certified_nsc_ladder`: assuming `NoSmallHaunted m`,
+
+    Nsc  ≥  (m·κ − 1) / (m − 1),      κ = 0.6725 the certified `NscStd` row.
+
+| `m` | hypothesis | `Nsc`, exact | decimal |
+|---|---|---|---|
+| 3 | **none — see below** | `407/800` | `0.5087500` |
+| 5 | no haunted ordinate of mass `3` | `189/320` | `0.5906250` |
+| 7 | none of mass `3` or `5` | `1483/2400` | `0.6179167` |
+| ⋯ | ⋯ | ⋯ | ⋯ |
+| `→ ∞` | `NoHaunted` | — | `0.6725000` |
+
+**The first rung is free, and that is a theorem as of `SESSION 234`.**
+`Gaps.noSmallHaunted_three` proves `NoSmallHaunted F 3` outright: a haunted
+ordinate carries at least three zeros, because the functional equation pairs its
+off-line ghosts. So `m = 3` demands nothing, and the ladder's first rung returns
+`407/800 = 0.50875` — which is `certified_nsc_unconditional`. **The certified row
+is the ladder's bottom rung**, not a separate result that happens to agree.
+
+`NoHaunted` is displayed because it is the ladder's limit and the genre's
+weakest member: every rung is implied by it (`NoSmallHaunted.mono`), and it is
+the row a buyer of this currency should price. The rungs between are for someone
+who can prove less than `NoHaunted` and more than nothing.
 
 **Two rows are struck on the mathematics, not on taste:**
 

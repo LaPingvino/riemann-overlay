@@ -10750,3 +10750,49 @@ locations.
 **Might-mean, unhedged:** the trusted base shrank by a line no proof consumed,
 and what made it safe to do at speed was a tool that refused to let it happen
 silently.
+
+## One displayed row, and the rung nobody had evaluated
+
+Ruling 2 of Joop's slate: `NoHaunted` becomes the single displayed conditional
+row; the other conditional instances retire to a table generated from the normal
+form, cited once.
+
+**Kill condition, filed first:** *if any row's number cannot be regenerated from
+the normal-form identity, I display that row too and name it — I will not retire
+a row into a generated table I cannot actually generate.* It did not fire for the
+ladder, and it **did** fire for three rows, which stay displayed.
+
+The generator is `certified_nsc_ladder`: `Nsc ≥ (m·κ − 1)/(m − 1)` at
+`κ = 0.6725`. In exact rationals: `m = 5 → 189/320 = 0.590625`,
+`m = 7 → 1483/2400 = 0.6179167`, `m → ∞ → 0.6725`. Both board numbers reproduce
+to the digit.
+
+**Routes I and III and [OPEN D] do not regenerate and are not instances.** They
+buy location and arithmetic input, not multiplicity; the ruling's "other
+conditional instances" is the ladder, and those three stay on the board as rows.
+
+### The rung nobody had evaluated
+
+Computing every `m` rather than the two the board displayed turned up
+`m = 3 → 407/800 = 0.50875`, which is `certified_nsc_unconditional` exactly.
+It has a proof behind it: `NoSmallHaunted F 3` is **provable outright**, because
+a haunted ordinate carries at least three zeros — the functional equation pairs
+its off-line ghosts. `Gaps.noSmallHaunted_three`, axiom-free.
+
+So **the certified row is the ladder's bottom rung**, free because rung `3`
+demands nothing, and the ladder climbs from the number the project already
+holds. I found no earlier cycle that evaluated the formula at its own first
+admissible `m`. `S105`.
+
+The board now shows four rows and a generated ladder table, with the first rung
+marked free and cited to the theorem.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone, 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** the project's unconditional row and its conditional
+ladder were the same construction all along, and displaying fewer rows is what
+made that visible.

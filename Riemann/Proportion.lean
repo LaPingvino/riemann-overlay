@@ -142,7 +142,24 @@ loose: at `M = 2` the star constant is *exact*, `C = 2 − Nsc/N`, and
 constant and is false of the sharp one. The value is not the proportion — it is that
 `(★)` itself, which Routes I and III exist to obtain, drops out of a hypothesis
 about multiplicities alone. `(★)` feeds `offline_le` and the narrow box, and
-those are not reachable from the `Nsc` row directly. -/
+those are not reachable from the `Nsc` row directly.
+
+**Dominated twice over, `SESSION 264`, and kept only as a record.**  This
+declaration asks `H ≤ 2` and returns `1.9825`.
+
+* `starBound_of_mult_le_two_zeta` asks the *same* hypothesis and returns
+  `1.3275`, because it routes through `starBound_of_mult_le_two`'s exact
+  constant rather than `starBound_of_multiplicity_and_proportion`'s, which
+  `starBound_of_mult_le`'s docstring already records as loose by exactly `1 − κ`.
+* `starBound_of_mult_le_three` asks the *weaker* `H ≤ 3` and returns the same
+  `1.9825`.  The composite
+  `starBound_of_mult_le_three (fun T γ => le_trans (hM T γ) (by norm_num))`
+  typechecks against this signature, which is the whole proof that nothing is
+  lost by never citing this row again.
+
+`256` graded the shared conclusion `StarBound 1.9825` as two deliberate routes.
+That grading was too generous: they are not two routes to one number, they are
+one route and a strictly worse instance of it. -/
 theorem starBound_of_multiplicity_two
     (hM : ∀ T γ, (zetaFamily.D T).H γ ≤ 2) :
     zetaFamily.toCounts.StarBound 1.9825 := by

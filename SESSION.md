@@ -12255,3 +12255,50 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 they are written in different vocabularies, and a composite that typechecks
 against the existing signature settles it in one command — cheaper than the
 cycle I spent believing these two were different.
+
+## `263`'s cheap move, run over the `StarBound` genre — and one of `256`'s gradings was wrong
+
+`263` found that asking *"are these two routes the same theorem?"* costs one
+typecheck of a composite. `StarBound` is the largest genre on the board at eight
+declarations, and `duplication_floor` cannot see inside it because the constants
+differ. So run the move by hand.
+
+**Kill condition, filed first:** *if the candidates differ in hypotheses or
+constants in a way no instantiation bridges, they are distinct routes and I
+report the enumeration as irredundant.* It did not fire on the first pair.
+
+**`starBound_of_multiplicity_two` is dominated twice over.** It asks `H ≤ 2` and
+returns `1.9825`.
+
+* `starBound_of_mult_le_two_zeta` asks the same hypothesis and returns `1.3275`
+  — the sharp constant, because under `H ≤ 2` the star bound is an *equality*
+  (`250`) and `N_sc = NscStd` lets the standard baseline in.
+* `starBound_of_mult_le_three` asks the weaker `H ≤ 3` for the same `1.9825`.
+  `starBound_of_mult_le_three (fun T γ => le_trans (hM T γ) (by norm_num))`
+  typechecks against its signature.
+
+Annotated at its location, kept rather than deleted — `LEADS`'s
+"superseded, and why kept", and it stays in the board's enumeration so the count
+does not silently move.
+
+**And `256` graded this pair wrong.** The shared conclusion
+`zetaFamily.toCounts.StarBound 1.9825` was on `256`'s list and I marked it two
+deliberate routes. It is one route and a strictly worse instance of it. The
+grading rule I used was *different hypotheses ⇒ deliberate*, and the rule needs
+to be *neither hypothesis implies the other* — which is a check rather than a
+glance. `duplication_floor`'s docstring is corrected at its own location.
+
+**The rest of the genre is irredundant, and one domination was already known.**
+`starBound_of_mult_le` beats `starBound_of_multiplicity_and_proportion` by
+exactly `1 − κ`, which that theorem's own docstring has recorded all along —
+the `264` finding is only that a ζ-level row was still being built through the
+loose one. `starBound_of_multiplicity_le` needs no proportion and is not
+comparable; the two Route III rows are a different hypothesis class.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green, board unchanged at 13,
+`StarBound` still 8.
+
+**Might-mean, unhedged:** `256` built a guard that asks a person to grade, and
+the guard has been right every time while the person was wrong once, so the
+grading step is now the weakest link in the instrument rather than the detection.

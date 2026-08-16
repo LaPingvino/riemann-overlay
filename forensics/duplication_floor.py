@@ -24,6 +24,16 @@ the cycle that caused it is the one that can tell in a minute whether it is a
 fourth route or a second copy.  `--update` records the new floor once that
 judgement is written down.
 
+**`264` revisited one of `256`'s gradings and found it too generous.**  The pair
+sharing `zetaFamily.toCounts.StarBound 1.9825` was graded "two deliberate
+routes".  It is not: `starBound_of_multiplicity_two` asks `H ≤ 2` and
+`starBound_of_mult_le_three` asks `H ≤ 3` for the same constant, so the first is
+a strictly worse instance of the second, and a two-line composite proves it.
+The lesson for this grading is that *different hypotheses* is not enough — the
+question is whether one hypothesis **implies** the other, and that is a check,
+not a glance.  Annotated at the declaration rather than removed; the row stays
+in the board's enumeration.
+
 The two real duplicates `256` found — `configAt_offAt` against
 `offAt_configAt_self` (identical statement *and* identical proof, since `157`),
 and `Nsc_eq_NscStd_of_mult_le_two` carrying its own copy of

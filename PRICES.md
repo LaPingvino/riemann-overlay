@@ -367,6 +367,29 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 
 **a gain of 9.29 points, from results the project already holds.**
 
+> ### `SESSION 162` — the off-line genre has one shape, and it loses
+>
+> Enumerated mechanically: **four** declarations in the development conclude in
+> `OffLineImport`, and every one of them carries `β = 1 − κ`:
+>
+> | declaration | `β` |
+> |---|---|
+> | `offLineImport_of_proportionStd` | `1 − κ` |
+> | `offLineImport_of_derivative` | `1 − κ'` |
+> | `certified_offline` | `1 − 0.6725 = 0.3275` |
+> | `offline_via_xiPrime` | `1 − 0.85838 = 0.14162` |
+>
+> So `161`'s circularity is **structural, not incidental**: the machinery has no
+> way to make an off-line bound that is not one minus somebody's proportion.
+> Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
+> which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
+> with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).
+>
+> **And `084`'s number is this loop.** `(3·0.6725 − 1)/2 = 0.50875` is the
+> baseline having gone once around it — which is why `111`/`112` find the row
+> unimprovable from the baseline alone. The two facts were filed separately and
+> are one.
+
 > ⚠️ **`SESSION 147` — the arithmetic above is now a theorem, and the price was
 > understated.** `Riemann.certified_nsc_via_xiPrime` proves
 > `Proportion 0.60169` from the two hypotheses, so nothing here is a

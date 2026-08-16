@@ -438,6 +438,30 @@ theorem proportion_of_noHaunted {F : Family} {κ : ℝ}
   rw [le_div_iff₀ hpos', heq]
   linarith [hT]
 
+/-- **The off-line exchange, fed the only `β` the machinery makes, strictly
+loses** — `SESSION 162`.
+
+`161` found the `NscAny` route tying at `κ = 1` because the only unconditional
+off-line bound available is `β = 1 − κ`, minted from the row being improved.
+That is not an accident of one instance: the development has exactly **two**
+producers of `OffLineImport`, `offLineImport_of_proportionStd` and
+`offLineImport_of_derivative`, and **both** yield `1 − κ` by construction.
+
+Feed that back through `proportion_of_offLineImport` and the return is
+`κ − (1 − κ)/2 = (3κ − 1)/2`, which is `< κ` for every `κ < 1`.  So the canonical
+off-line round trip is a **strict loss** at every constant below `1`, closing at
+equality only in the world where every zero is simple.
+
+This is also the identity behind `084`: `(3·0.6725 − 1)/2 = 0.50875` is not a
+separate route's number, it is the baseline having gone once around this loop —
+which is why `111`/`112` find the row unimprovable from the baseline alone. -/
+theorem offline_roundtrip_loses {κ : ℝ} (hκ : κ < 1) : (3 * κ - 1) / 2 < κ := by
+  linarith
+
+/-- …and it is an equality exactly at `κ = 1`. -/
+theorem offline_roundtrip_eq_iff {κ : ℝ} : (3 * κ - 1) / 2 = κ ↔ κ = 1 := by
+  constructor <;> intro h <;> linarith
+
 /-- The constant family on one configuration.  `Proportion` and `ProportionStd`
 are asymptotic predicates on families, so a `ZeroData` witness only refutes a
 `Family`-level claim once it is placed in a family — which is what this is for. -/

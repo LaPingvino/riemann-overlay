@@ -306,5 +306,7 @@ import Riemann
 #check @Riemann.ZeroData.NscStd_le_NscAny
 #check @Riemann.ZeroData.NscAny_le_NscStd_add_Noff
 #check @Riemann.ZeroData.NscAny_le_N
+#check @Riemann.offline_roundtrip_loses
+#check @Riemann.offline_roundtrip_eq_iff
 #check @Riemann.Blindness.configAt_H
 #check @Riemann.Blindness.configAt_offAt

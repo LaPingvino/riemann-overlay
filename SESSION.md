@@ -7356,3 +7356,61 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the third axis is not blocked by being weak, it is
 blocked because every exchange rate we can pay it with is minted from the number
 it is trying to raise.
+
+# SESSION 162 — the off-line genre has one shape, and 084 is that shape's loop
+
+**Kill condition, stated first:** *if any `OffLineImport` producer in the repo
+yields a `β` not of the form `1 − κ` for some family's proportion, the
+circularity `161` found is an accident of two instances and not a property of the
+machinery.* **It did not fire.**
+
+**Wildcard, kill condition first:** *if `(3κ − 1)/2 ≥ κ` for some `κ < 1`, the
+canonical off-line exchange is not a strict loss and no ceiling follows.* **Also
+did not fire.**
+
+## The enumeration, done mechanically rather than by memory
+
+Four declarations in the development conclude in `OffLineImport`, and every one
+carries `β = 1 − κ`:
+
+| declaration | `β` |
+|---|---|
+| `offLineImport_of_proportionStd` | `1 − κ` |
+| `offLineImport_of_derivative` | `1 − κ'` |
+| `certified_offline` | `1 − 0.6725 = 0.3275` |
+| `offline_via_xiPrime` | `1 − 0.85838 = 0.14162` |
+
+Two general producers, two ζ instances of them. **As the development stands, no declaration produces an off-line bound that is
+not one minus somebody's proportion** — the enumeration above is the witness, and
+it is over the current sources, not over what is possible. So `161`'s
+circularity is a property of the toolkit rather than of its two instances.
+
+## `S66` — and `084` is this loop
+
+Fed back through `proportion_of_offLineImport`, `β = 1 − κ` returns
+`κ − (1 − κ)/2 = (3κ − 1)/2`. Two axiom-free theorems: `offline_roundtrip_loses`
+(`< κ` for every `κ < 1`) and `offline_roundtrip_eq_iff` (equality exactly at
+`κ = 1`).
+
+**That formula is `084`'s.** `(3·0.6725 − 1)/2 = 0.50875` is not a separate
+route's number — it is the baseline having gone once around the off-line loop.
+And `111`/`112`'s "unimprovable from the baseline alone" is that loop's fixed
+loss, stated in different words. Two register entries, eighty cycles apart,
+describing one circle; I found it by enumerating the producers instead of
+re-reading the two instances I already knew.
+
+## Snag, bin 2
+
+The `audit/Declarations.lean` edit refused: I anchored on
+`#check @Riemann.ZeroData.NscAny_le_N`, which is a **substring** of
+`…NscAny_le_NscStd_add_Noff`, so the uniqueness assert saw two matches and wrote
+nothing. Correct behaviour — the `S127` repair catching a genuine ambiguity
+rather than a wrap. Fixed by anchoring on the line including its newline.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Two names added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** the project's own headline improvement and the wall I
+found blocking a new route both rest on `β = 1 − κ`, and neither entry knew about
+the other until I counted the ways one predicate can be introduced.

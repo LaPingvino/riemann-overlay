@@ -7482,3 +7482,66 @@ existed.
 **Might-mean, unhedged:** I spent six cycles building a menu and one command
 found a better row than any I had put on it, sitting in a section of the same
 file I had read many times.
+
+# SESSION 164 — finishing the sweep, and the menu was the cheap end of a longer board
+
+**Kill condition, stated first:** *if every remaining ζ-level `Proportion`
+producer is either already on the menu or delivers no more than the certified
+row, the menu is complete after `163`'s addition.* **It fired — twice.**
+
+## `S69` — I stopped the sweep early, inside the fix for stopping early
+
+`163` ran an enumeration that listed **28** declarations concluding in
+`Proportion`, examined the one that surprised me, and stopped. Finishing it found
+two more that beat the certified row, both at **one** axiom:
+
+* `conjectural_routeI` — `∃ κ, 0.6725 < κ ∧ Proportion κ`, from
+  `EffectiveFujii zetaFamily.toCounts c₀` with `c₀ ≤ 0.33`;
+* `conjectural_full` — `∀ ε > 0, Proportion (1 − ε)`, from `ExtendedSupport`.
+
+## The complete board, in exact rationals
+
+| route | `Nsc` row | gain | axioms | hypothesis |
+|---|---|---|---|---|
+| `m = 5` | `0.590625` | `+8.188` | 2 | multiplicity |
+| ξ′ | `0.601690` | `+9.294` | 4 | analytic, unread |
+| `m = 7` | `0.617917` | `+10.917` | 2 | multiplicity |
+| **Route III** | `0.666667` | `+15.792` | **1** | location (narrow box) |
+| `NoHaunted` / `H ≤ 2` | `0.672500` | `+16.375` | 2 | multiplicity |
+| **Route I** | `> 0.6725` | `> +16.375` | **1** | effective Fujii `c₀ ≤ 0.33` |
+| **[OPEN D]** | `1 − ε` | `+49.125` | **1** | extended support |
+
+## `S70` — and the last row is printed on every line I have ever quoted
+
+`conjectural_full` is the `conjectural: 100.00% (OPEN D)` field of
+`PROPORTION.log`. It has been on **every ledger line since the project began**,
+and I have quoted that line in every session summary I have written. I built a
+menu for six cycles beside a number I recite every cycle, without once asking
+what theorem it names.
+
+## What this does and does not say about the ladder
+
+The `m`-rungs are real work. `147`–`158` built them and certified their ordering,
+strictness, limit and non-vacuity — none of which existed before, and all of it
+axiom-free. **What was wrong was calling that collection *the board*.** It is the
+cheap-hypothesis end of a board whose expensive end the project's own metric has
+tracked the entire time, in the field next to the one I kept reporting.
+
+## For Joop
+
+The ruling, stated correctly at last: **the board is a trade between hypothesis
+strength and payout, across three currencies** — multiplicity (the ladder),
+location (Route III), and arithmetic input (Route I, [OPEN D]). The ladder is the
+cheap end; Routes III and I are cheaper in *axioms* and pay more, at the cost of
+hypotheses the project has not been able to supply — Route I wants an effective
+Fujii constant, which is exactly what `Assumptions.fujii_ineffective` records as
+unextractable, and `[OPEN D]` is an open problem by name. Nothing is asserted
+anywhere on it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new Lean; every theorem here already
+existed.
+
+**Might-mean, unhedged:** two cycles in a row the finding was that I had not
+finished reading something I had already run, and this time the thing I had not
+read was a field of my own ledger line.

@@ -605,6 +605,33 @@ quite different.
 > through the baseline. So it is the **cheapest row on the board in trusted
 > base**, and second-highest in payout.
 >
+> ### ⚠️ `SESSION 164` — completing the sweep, and the menu was the cheap end of a longer board
+>
+> `163` added one row and stopped. The same sweep listed **28** declarations
+> concluding in `Proportion`; finishing the enumeration found **two more** that
+> beat the certified row, both at **one** axiom:
+>
+> | route | `Nsc` row | gain | axioms | hypothesis |
+> |---|---|---|---|---|
+> | `m = 5` | `0.590625` | `+8.188` | 2 | multiplicity |
+> | ξ′ | `0.601690` | `+9.294` | 4 | analytic, unread |
+> | `m = 7` | `0.617917` | `+10.917` | 2 | multiplicity |
+> | **Route III** | `0.666667` | `+15.792` | **1** | location (narrow box) |
+> | `NoHaunted` / `H ≤ 2` | `0.672500` | `+16.375` | 2 | multiplicity |
+> | **Route I** | `> 0.6725` | `> +16.375` | **1** | effective Fujii `c₀ ≤ 0.33` |
+> | **[OPEN D]** | `1 − ε` | `+49.125` | **1** | extended support |
+>
+> **The last row has been on every ledger line since the project began** — it is
+> the `conjectural: 100.00% (OPEN D)` field. Nothing was hidden and nothing is
+> new here except the comparison.
+>
+> **What this does and does not say about the ladder.** The `m`-rungs are real
+> work: `147`–`158` built them and certified their ordering, strictness, limit
+> and non-vacuity, none of which existed before. What was wrong was calling that
+> collection *the board*. It is the **cheap-hypothesis end** of a board whose
+> expensive end the project has tracked in a different field of its own metric
+> the entire time.
+>
 > **Why it was missed:** it lives in `Proportion.lean`'s `Conjectural` section,
 > filed as a *route* in the program's original sense, while the menu was built
 > from the `HauntedDensity`/`OffLineImport` layer. Nothing was wrong with it; it

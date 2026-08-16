@@ -11981,3 +11981,64 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** a claim stays honest when it is written next to the
 thing that checks it, so the habit of putting a sentence and its theorem in the
 same place is doing more work here than any of the nine guards.
+
+## Two absence claims re-checked; the queue the prompt carries is empty
+
+The heartbeat's queue named W32 as item 2. `FAILURES.md` has W32's table since
+`065` (tally `M=2 / S=1 / neither=8`, kill condition recorded), item 1 closed at
+`253`, item 3 at `075`/`077`, and `S33` recorded in `078` that this prompt ages
+while the disk moves — `LOOP.md`'s banner says so and `banner_check` enforces
+it. So no queue item is live, and rather than invent one I went to the
+project's own register of open obligations: `absence_queue`, which listed nine
+claims of absence carrying no dated re-check.
+
+**Kill condition, filed first:** *if the `0.00875` margin does not reproduce
+from the project's own constants in exact rationals, that `LEADS` line is
+quoting a number nobody can rederive and I mark it `[UNVERIFIED]` rather than
+dating it.* It did not fire — every entry reproduced.
+
+**The `M ≤ M₀` table, verified.** The criterion `C < 2` restated as
+`κ > 1 − 1/(M−1)` comes from `Nstar_add_pred_mul_Nsc_le`'s constant
+`C = M − (M−1)κ`, which is on disk with its sharpness. At `M = 3`
+the margin is `407/800 − 1/2 = 7/800 = 0.00875` exactly; the star constant is
+`3 − 2κ = 793/400 = 1.9825` and its `prop1` image `7/400 = 0.0175`; `M = 4`
+gives `1979/800 = 2.47375 ≥ 2` and carries nothing; and at the pre-`084` row
+`κ = 0` the criterion needs `M < 2`, so it is empty for every `M ≥ 2` as
+written. Dated at its location.
+
+**E11's jaw: the absence is half refuted, and the refutation was already in a
+docstring.** `LEADS` has carried *"a 'cheap realizability from above' jaw does
+not exist"* since it was filed. A jaw does exist — `247`'s `oddAtoms ≥ c·N`
+excludes `Gauge.pairOnly` and is `μ_T`-visible by construction. What survives is
+the word *cheap*: the instances the project holds are bought from the baseline
+at `c = κ`, and `252` showed that inside multiplicity two the odd-atom and
+simple-atom currencies are the same number
+(`Blindness.oddAtoms_eq_Nsc_of_mult_le_two`). `oddAtoms_bound_excludes_pairOnly`'s
+docstring has said exactly this since `247`; the register was the copy still
+carrying the older form.
+
+That is `258`'s finding again from the other side. `258` found the docstrings
+better-witnessed than the registers; here the docstring holds the corrected
+statement and the register holds the superseded one, twelve cycles apart.
+
+`absence_queue` now lists `7`, down from `9`.
+
+**Snag, bin 2.** I nearly spent the cycle re-running W32. `S33` records the same
+mistake at `078` and `S111` records it at `255` in the Lean sources; what
+stopped it this time was checking `FAILURES.md` before starting rather than
+after. The prompt's queue is a fixed text; the
+banner is the disk's answer to it, and reading the banner is cheaper than
+reading the prompt.
+
+**Snag, bin 2.** `claims_gate` reads a converse witness as a *qualified* name —
+its pattern wants a capital and a dot — so citing `oddAtoms_eq_Nsc_of_mult_le_two`
+did not clear a flag that `Blindness.oddAtoms_eq_Nsc_of_mult_le_two` cleared
+immediately. Unqualified lemma names do not count as witnesses to it, which is
+worth knowing before concluding a citation is missing.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green.
+
+**Might-mean, unhedged:** the registers are the slowest-moving surface in this
+project and the Lean docstrings the fastest, so when the two disagree the
+register is the one to suspect.

@@ -701,6 +701,19 @@ extremal configuration is already modest in *every* cheap invariant. Filed
 against E11's pincer: the "ceilings from below" jaw works; a "cheap
 realizability from above" jaw **does not exist**.
 
+**Re-checked, `SESSION 259`, and the absence is half refuted.** A jaw *does*
+exist: `247`'s `oddAtoms ≥ c·N` excludes `Gauge.pairOnly`
+(`Optimal.oddAtoms_bound_excludes_pairOnly`) and is `μ_T`-visible by
+construction (`229`). What survives is the word *cheap* — every instance of
+that bound the project holds is bought from the baseline at `c = κ`, and
+`252` showed that inside multiplicity two the odd-atom currency and the
+simple-atom currency are the same number
+(`Blindness.oddAtoms_eq_Nsc_of_mult_le_two`), so the jaw is not a second
+instrument there. The theorem's own docstring has said this since `247` —
+*"neither 'the jaw does not exist' nor 'E11 is refuted': the jaw exists, is
+`μ_T`-visible, and every instance the project holds is priced in `κ`"* — and
+this line was the register still carrying the older form.
+
 *`249`:* and the one class known to exclude `prop1`'s tight witness (`247`, `oddAtoms ≥ c·N`) turns at exactly `2 − c` — `oddAtom_class_ratio`. So the pincer's upper jaw does not close below the star-bound break-even; the two jaws meet at the same number rather than crossing.
 
 *`250`:* and the reason is now an iff — `boundedMult_two_iff_star_exact`. Multiplicity `≤ 2` is not a class on which `C ≤ 2 − κ` is provable; it is the class on which `C = 2 − N_sc/N` is an equality. A pincer that wants to close below `2 − κ` has to leave the class, not sharpen inside it.
@@ -1948,6 +1961,13 @@ project's `0.50875`, and it is the whole reason `M ≤ 2` is so much stronger th
 `C < 2` iff `κ > 1 − 1/(M−1)`. The `M = 3` line clears by `0.00875` and exists
 only because of `084`; at the pre-`084` row of `0` the criterion is empty for
 every `M ≥ 2`.
+
+*Re-checked in exact rationals, `SESSION 259`.* Every entry of the table above
+reproduces: the `M = 3` margin is `407/800 − 1/2 = 7/800 = 0.00875`, its star
+constant `3 − 2κ = 793/400 = 1.9825` and `prop1` image `7/400 = 0.0175`; `M = 4`
+gives `1979/800 = 2.47375`, which is `≥ 2` and so carries nothing; and at `κ = 0`
+the criterion `0 > 1 − 1/(M−1)` needs `M < 2`, so it is empty for every `M ≥ 2`
+as stated.
 
 ## Superseded, and why kept
 

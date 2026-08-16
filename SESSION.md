@@ -13623,3 +13623,55 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** this project's proofs age against its own later
 results, so the natural unit of maintenance is not the failing test but the
 theorem that stopped being the shortest route to its own conclusion.
+
+## The collapse seam is empty, and the reason is a shape
+
+`290` opened one candidate of twelve and said so, leaving the seam *unrefuted
+rather than shown empty*. This discharges that.
+
+**Kill condition, filed first:** *if the metric's inflation means the ranking
+listed the wrong theorems, I fix the metric before concluding anything; and if
+the corrected ranking yields no collapse, I report the seam as empty rather than
+unrefuted.* Both halves bit.
+
+**The metric was wrong and the ranking changed.** `290` measured lines from a
+declaration to the next one, which counts prose. Counting only indented non-blank
+lines — proof bodies are indented — moves `Basic.refl_ne_self` from `68` to
+`31` and drops `proportion_of_proportionStd` off the list entirely. The
+corrected top ten is a different set.
+
+**And the corrected set yields nothing, for a reason worth naming.** Classifying
+the ten mechanically by whether a proof sums over ordinates or builds a
+configuration:
+
+| shape | count | examples |
+|---|---|---|
+| witness construction | `6` | `NscAny_not_fiber_functional` (49 config references), `distinctZeros_not_profile_functional`, `mass_three_atom_attains_all` |
+| sum-to-pointwise | `4` | `three_mul_NscStd_eq_iff`, `two_mul_atomCount_add_oddAtoms_le` |
+| translation between vocabularies | **`0`** | — |
+
+**Translation is the shape that collapsed.** `289`'s old `noSmallHaunted_three`
+rebuilt a *zero* — membership, `count`, `2 ≤ H` — in order to reach a lemma
+phrased about zeros from a hypothesis phrased about ordinates. `287`'s
+`NscStd_le_oddAtoms` summed indicators because neither side had an `onAt` reading
+yet. Both were carrying something between two vocabularies. A witness
+construction has nothing to translate, and a sum-to-pointwise proof already
+reaches the pointwise step where a characterisation would help — `290` found
+`three_mul_NscStd_eq_iff` calling `H_eq_onAt_add_offAt` there itself.
+
+So the answer to `289` is that the collapses were not a general debt of ageing
+proofs; they were the residue of `onAt` and `offAt` arriving at `181` after
+`Basic.lean` had already fixed its vocabulary.
+
+**Snag, bin 2.** I nearly reported this from shape-reading — glancing at names
+and calling the `_not_..._functional` ones constructive. The mechanical count is
+four lines of Python and gives `49` config references in one of them against
+zero sums, which is evidence; the glance was a guess that happened to agree.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green. No Lean added: the deliverable
+is a negative result with its classification.
+
+**Might-mean, unhedged:** a proof gets long for one of three reasons here, and
+only one of them is fixable by later work, so the length of a proof says less
+about its age than about whether it was written across a vocabulary boundary.

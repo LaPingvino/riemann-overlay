@@ -122,6 +122,9 @@ import Riemann
 #check @Riemann.Blindness.config_Nstar_pure
 #check @Riemann.Blindness.config_Nsc_pure
 #check @Riemann.Optimal.linearBound_mass
+-- SESSION 205: and the converse, so #20's characterisation is checked both ways.
+#check @Riemann.Blindness.Nsc_eq_sum_mass_one
+#check @Riemann.Optimal.linearBound_of_mass_test
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

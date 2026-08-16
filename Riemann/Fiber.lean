@@ -1165,6 +1165,22 @@ lemma Nstar_eq_sum_H_sq (D : ZeroData) :
   refine Finset.sum_congr rfl fun γ _ => ?_
   rw [← D.H_eq_count γ, smul_eq_mul]
 
+/-- **`N_sc` as a sum over atoms**, in the same shape as `N_eq_sum_H` and
+`Nstar_eq_sum_H_sq`.  `SESSION 205`.  `N_sc` counts the mass-one atoms — `a₁` in
+`ISSUES` `#20`'s notation — and this is that reading, machine-checked.
+
+Built on `Basic.card_filter_eq_sum`, which was already in the repo; `205`'s
+first attempt rebuilt it privately and shadowed it, breaking two proofs
+downstream. -/
+lemma Nsc_eq_sum_mass_one (D : ZeroData) :
+    (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then (1:ℤ) else 0) := by
+  classical
+  rw [ZeroData.Nsc_eq_ordinate_functional, card_filter_eq_sum,
+    Finset.sum_multiset_map_count]
+  refine Finset.sum_congr rfl fun γ _ => ?_
+  rw [← D.H_eq_count γ]
+  by_cases h : D.H γ = 1 <;> simp [h]
+
 /-- **The exact obstruction: `Σm³ ≥ 3N⊛ − 2N`, for every configuration.**
 
 Hence `C₃ ≥ 3C − 2` always, the three-moment LP's improvement term is never

@@ -9507,3 +9507,40 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the load-bearing step of this project's optimality
 argument spent eighty cycles as a phrase in a register entry, and it took four
 cycles of asking what a class was to notice.
+
+## The other direction, and a lemma I wrote twice
+
+`204` proved `ISSUES` `#20`'s criterion in the direction running from a valid
+bound to `a·m + b·m² ≤ [m = 1]`, and left the converse as the entry's hand
+derivation.
+
+**Kill condition, filed first:** *if `N_sc` cannot be expressed as the count of
+mass-one atoms from lemmas already present, I prove the converse under that
+identity as an explicit hypothesis and name it rather than building the identity
+from scratch.* It did not fire — but only just.
+
+`Nsc_eq_sum_mass_one` puts `N_sc` in the shape `N_eq_sum_H` and
+`Nstar_eq_sum_H_sq` already use: a sum over `D.ordinates.toFinset`. Then
+`linearBound_of_mass_test` is the grouping `#20` describes — all three counts
+are sums over atoms, so the bound holds termwise at `m = H γ`, and every atom in
+the support has `m ≥ 1`.
+
+With `204`, `#20`'s LP characterisation is machine-checked in both directions
+and the entry's derivation is no longer carried by hand. Noted at its location.
+
+**Snag, bin 1, and it is `S27` wearing new clothes.** The counting step I needed
+— card of a filtered multiset as an indicator sum — is `Basic.card_filter_eq_sum`
+and was already used in six places. I wrote a `private` copy in `Fiber.lean`
+under the same name; it shadowed the original and broke two unrelated proofs.
+The build reported failures inside *those* theorems, so my first reading was
+that I had broken something distant. `S98`: a name collision is how the repo
+says you have already written this.
+
+Three theorems, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the LP that this project's central reduction rests on
+is now checked in both directions, and what made it take two cycles was working
+out which parts of it had only ever been sentences.

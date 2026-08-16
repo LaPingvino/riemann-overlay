@@ -578,7 +578,14 @@ every configuration built from atoms of mass `1` and `2`, and
 > `m = 1` and `m = 2` were formalised. `Optimal.linearBound_mass` supplies the
 > direction running from a valid bound to the criterion, at every `m`, tested on
 > the pure on-line atom `config m 0 a` where `N = m`, `N⊛ = m²`,
-> `N_sc = [m = 1]`. The converse direction remains this entry's hand derivation.
+> `N_sc = [m = 1]`.
+>
+> **`SESSION 205`: the converse is now proved too.**
+> `Optimal.linearBound_of_mass_test` runs the grouping this entry describes —
+> `N`, `N⊛` and `N_sc` are sums over atoms (`N_eq_sum_H`, `Nstar_eq_sum_H_sq`,
+> `Nsc_eq_sum_mass_one`), so the bound holds termwise at `m = H γ`. With `204`
+> the characterisation is machine-checked in both directions, and this entry's
+> LP derivation is no longer carried by hand.
 >
 > **(b) The consequence below carries that quantifier and should say so.**
 > "Improving Proposition 1 requires a third moment" holds for a bound asserted

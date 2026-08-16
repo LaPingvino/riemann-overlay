@@ -128,6 +128,47 @@ theorem linearBound_mass (m : ℕ) {a b : ℝ} (h : LinearBound a b) :
     push_cast at hm
     linarith
 
+/-- **The converse: the single-atom criterion is sufficient.**  `SESSION 205`.
+
+`204` supplied the direction from a valid bound to the criterion.  This is the
+other one, and with it `ISSUES` `#20`'s LP characterisation is machine-checked
+in both directions: `a·m + b·m² ≤ [m = 1]` for every `m ≥ 1` **iff**
+`LinearBound a b`.
+
+The proof is the grouping `#20` describes.  `N`, `N⊛` and `N_sc` are all sums
+over the atoms — `N_eq_sum_H`, `Nstar_eq_sum_H_sq` and `Nsc_eq_sum_mass_one` —
+so the bound holds termwise, at `m = H γ`, and every atom in the support has
+`m ≥ 1`. -/
+theorem linearBound_of_mass_test {a b : ℝ}
+    (h : ∀ m : ℕ, 1 ≤ m → a * m + b * (m * m) ≤ if m = 1 then 1 else 0) :
+    LinearBound a b := by
+  classical
+  intro D
+  have hN : (D.N : ℝ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℝ) := by
+    rw [Blindness.N_eq_sum_H]; push_cast; rfl
+  have hS : (D.Nstar : ℝ) = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℝ) * D.H γ) := by
+    rw [Blindness.Nstar_eq_sum_H_sq]; push_cast; rfl
+  have hC : (D.Nsc : ℝ)
+      = ∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then (1:ℝ) else 0) := by
+    have := Blindness.Nsc_eq_sum_mass_one D
+    have h2 : ((D.Nsc : ℤ) : ℝ)
+        = ((∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then (1:ℤ) else 0) : ℤ) : ℝ) := by
+      exact_mod_cast congrArg (fun z : ℤ => (z : ℝ)) this
+    rw [Int.cast_natCast] at h2
+    rw [h2]
+    push_cast
+    exact Finset.sum_congr rfl fun γ _ => by by_cases hg : D.H γ = 1 <;> simp [hg]
+  rw [hN, hS, hC, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 1 ≤ D.H γ := by
+    have : γ ∈ D.ordinates := Multiset.mem_toFinset.1 hγ
+    have hcount : 0 < D.ordinates.count γ := Multiset.count_pos.2 this
+    rw [D.H_eq_count γ]
+    omega
+  have := h (D.H γ) hpos
+  by_cases hg : D.H γ = 1 <;> simp only [hg, if_pos, if_neg] at this ⊢ <;>
+    [skip; skip] <;> push_cast at this ⊢ <;> linarith
+
 /-! ### Optimality -/
 
 /-- **Proposition 1 is LP-optimal in `(N, N⊛)`.**  Under a star bound `C` in the

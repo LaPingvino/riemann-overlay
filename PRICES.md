@@ -475,6 +475,27 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 > proportion-free *statements* — they instantiate with the certified row inside
 > their proofs. **So the second channel is genuinely unwalled and genuinely
 > empty of anything the menu does not already list.**
+>
+> ✅ **`SESSION 175` — and the multiplicity producer has no slack either.**
+> `Blindness.Nstar_bound_attained` (axiom-free): a single ordinate of mass `M`
+> gives `Nstar = M² = M·N`, so `StarBound M` is **optimal** given `H ≤ M`, just
+> as `169` showed `β = 1 − κ` optimal on the off-line channel. Combined with
+> `171`'s arithmetic — `Proportion (2 − M)` beats the certified row only at
+> `M = 1` — the multiplicity producer on this channel is now closed on both
+> sides: **its constant cannot be improved and its payout is empty above
+> `M = 1`.**
+>
+> **Tightness map, both channels complete:**
+>
+> | channel | producer | constant optimal? | payout |
+> |---|---|---|---|
+> | off-line / haunted | `ProportionStd κ` | **yes** (`169`, attained) | walled — needs input exceeding 1 |
+> | `StarBound` | multiplicity `H ≤ M` | **yes** (`175`, attained) | empty above `M = 1` |
+> | `StarBound` | narrow box | not asked — the constant is BGST's, imported | Route III, `+15.79` |
+>
+> Every derivation the project owns is now known to be tight. What remains open
+> is entirely **imported**: Route III's `BGSTNarrowBox`, and the hypotheses on
+> the menu.
 > Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
 > which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
 > with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).

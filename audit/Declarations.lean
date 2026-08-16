@@ -313,5 +313,6 @@ import Riemann
 #check @Riemann.Blindness.distinctZeros_le_atomCount_add_Noff
 #check @Riemann.Blindness.offLine_bound_attained
 #check @Riemann.Blindness.offLine_count_not_bounded_by_proximity
+#check @Riemann.Blindness.Nstar_bound_attained
 #check @Riemann.Blindness.configAt_H
 #check @Riemann.Blindness.configAt_offAt

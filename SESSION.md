@@ -8096,3 +8096,50 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** an instrument that is 97% noise on a register can still
 be worth running, because the 3% it catches is a class of error I have committed
 in eleven separate cycles and cannot see by reading.
+
+# SESSION 175 — the second channel's bound is tight too, and the tightness map closes
+
+**R20 bound this cycle.** `172` was instrument work, `173` and `174` triage —
+three consecutive. Mathematics or nothing.
+
+**Kill condition, stated first:** *if `Nstar = M·N` is unattainable under
+`H ≤ M`, there is slack in `starBound_of_multiplicity_le` and a better
+`StarBound` is derivable from a multiplicity bound alone.* **It fired: attained.**
+
+`169` proved `β = 1 − κ` optimal on the off-line channel. `170` found a **second**
+channel the off-line wall does not touch and `171` enumerated its producers. The
+symmetric question — is *its* constant forced? — went unasked until now.
+
+**`Blindness.Nstar_bound_attained`** (axiom-free, built first try): a single
+ordinate of mass `M` has every one of its `M` zeros seeing `H = M`, so
+`Nstar = M² = M·N`. **No better `StarBound` follows from a multiplicity bound
+alone.**
+
+## The tightness map, both channels complete
+
+| channel | producer | constant optimal? | payout |
+|---|---|---|---|
+| off-line / haunted | `ProportionStd κ` | **yes** (`169`, attained) | walled — needs an input exceeding 1 |
+| `StarBound` | multiplicity `H ≤ M` | **yes** (`175`, attained) | empty above `M = 1` |
+| `StarBound` | narrow box | not asked — the constant is BGST's, imported | Route III, `+15.79` |
+
+The multiplicity producer is now closed on **both** sides: `171` showed
+`Proportion (2 − M)` beats the certified row only at `M = 1` (which is *every
+zero simple*, the target), and `Blindness.Nstar_bound_attained` shows its
+constant is already optimal, so no sharpening makes a lower `M` pay.
+
+## What is left
+
+**Every derivation the project owns is now known to be tight.** What remains open
+is entirely *imported*: Route III's `BGSTNarrowBox`, and the hypotheses on the
+menu. There is no constant left in this development that a cleverer argument
+could sharpen — `169` and `175` are the two halves of that statement, and both
+are attained.
+
+`board.py --cones` now checks **21** declarations, all as recorded.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the project has finished proving things about its own
+inequalities, and every remaining question is about somebody else's theorem.

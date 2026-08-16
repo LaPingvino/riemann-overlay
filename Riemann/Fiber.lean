@@ -3806,6 +3806,48 @@ route table is missing an entry.*  **It fired**: the constant it delivers is `M`
 itself, and `M < 2` over the naturals means `M ≤ 1` — every zero simple, which is
 the conclusion, not a hypothesis. -/
 
+/-- **And `Nstar ≤ M·N` is attained, so the multiplicity bound has no slack** —
+`SESSION 175`.
+
+`169` proved `β = 1 − κ` optimal on the off-line channel, closing the question of
+whether that constant was forced or habitual.  `170` then found a **second**
+channel (`StarBound → Proportion (2 − C)`) that the off-line wall does not touch,
+and `171` enumerated its producers.  The symmetric question was never asked of it.
+
+`Nstar_le_of_multiplicity_le` below turns `H ≤ M` into `StarBound M`.  Equality
+holds at a single ordinate of mass exactly `M`: every one of its `M` zeros sees
+`H = M`, so `Nstar = M² = M·N`.  **No better `StarBound` follows from a
+multiplicity bound alone.**
+
+Combined with `171`'s arithmetic — `Proportion (2 − M)` beats the certified row
+only at `M = 1` — this closes the multiplicity producer on the second channel:
+its constant is optimal *and* its payout is empty above `M = 1`. -/
+theorem Nstar_bound_attained (M : ℕ) (hM : 1 ≤ M) {a : ℝ} :
+    (∀ γ, (configAt 0 M 0 a).H γ ≤ M)
+      ∧ (configAt 0 M 0 a).Nstar = M * (configAt 0 M 0 a).N := by
+  classical
+  constructor
+  · intro γ
+    rw [configAt_H]
+    split <;> omega
+  · have hN : (configAt 0 M 0 a).N = M := by rw [configAt_N]; omega
+    have hsum : (configAt 0 M 0 a).Nstar
+        = ((configAt 0 M 0 a).Z.map fun _ : ℝ × ℝ => M).sum := by
+      show ((configAt 0 M 0 a).Z.map fun p => (configAt 0 M 0 a).H p.2).sum = _
+      congr 1
+      refine Multiset.map_congr rfl ?_
+      intro p hp
+      have hp2 : p.2 = 0 := by
+        have hmem : p.2 ∈ (configAt 0 M 0 a).ordinates :=
+          Multiset.mem_map_of_mem _ hp
+        rw [configAt_ordinates] at hmem
+        exact Multiset.eq_of_mem_replicate hmem
+      rw [hp2, configAt_H]
+      simp
+    rw [hsum, Multiset.map_const', Multiset.sum_replicate, smul_eq_mul,
+      Nat.mul_comm]
+    rw [show Multiset.card (configAt 0 M 0 a).Z = (configAt 0 M 0 a).N from rfl, hN]
+
 /-- **A supremum bound on multiplicity gives a star bound, at constant `M`.**
 `N⊛ = Σ_ρ H(γ_ρ)`, so capping every `H` caps the sum term by term. -/
 theorem Nstar_le_of_multiplicity_le (D : ZeroData) (M : ℕ)

@@ -9343,3 +9343,47 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 leans on a configuration whose existence this project is trying to rule out,
 so proving `ζ`'s zeros simple would remove the very witness that says you cannot
 do better in two moments.
+
+## The closing sentence of the last cycle, made into a theorem
+
+`200` ended on an observation: `prop1_LP_optimal`'s second witness,
+`Gauge.pairOnly`, is a multiple zero, so an argument ruling multiple zeros out
+would take that witness with it. A might-mean is not a result.
+
+**Kill condition, filed first:** *if the multiplicity-one class still supports
+`prop1`'s LP conclusion, the missing witness costs nothing and `200`'s closing
+sentence is decoration — I withdraw it; if the conclusion fails there, the
+sentence is a theorem and should be one.*
+
+It fails, and completely.
+
+* `Nsc_eq_N_of_boundedMult_one` — on `BoundedMult 1`, `N ≤ N_sc`. The route is
+  `N⊛ ≤ N` from the cap, `N ≤ N⊛` from the floor, so `N⊛ = N`, and `prop1`
+  closes it. The reason it is not merely arithmetic: an off-line zero arrives
+  with its mirror at the **same ordinate**, raising `H` to at least two, so
+  capping multiplicity at one excludes off-line zeros outright.
+* `prop1_LP_optimal_fails_on_simple_class` — hence `(a, b) = (1, 0)` is a valid
+  linear bound on that class, and `a + b·C = 1 > 2 − C` for every `C > 1`. On
+  the multiplicity-one class the LP conclusion survives only at `C = 1`.
+
+So the two-moment optimality is not a fact about two moments. It is a fact about
+a class that contains a doubled zero, and the strength it reports is the
+strength of that configuration.
+
+**What this does not say**, stated because the distance is short. It does not
+exhibit a better bound for `ζ`: `ζ` is not known to lie in `BoundedMult 1`, and
+if it did the conclusion `N_sc = N` would be RH-strength and the LP question
+would be moot. The content is about the argument, not about `ζ`.
+
+**Snag, bin 2.** Anchored the insert on `200`'s docstring and landed *above*
+`LinearBoundCheap`'s definition — a forward reference, a shape `S61` and `S62`
+also record. The build named it immediately. Moved after `prop1_LP_optimal_cheap`.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** this project's optimality result and its target pull
+against each other — the closer anyone gets to showing `ζ`'s zeros are simple,
+the less the two-moment exhaustion argument says.

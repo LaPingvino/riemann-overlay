@@ -235,6 +235,47 @@ theorem prop1_LP_optimal_cheap {M : ℕ} (hM : 2 ≤ M) {a b : ℝ}
   · nlinarith [h2, hcase, hC2]
   · nlinarith [h1, hcase, hC1]
 
+/-- **In the multiplicity-one class every zero is simple and critical.**
+`SESSION 201`.
+
+`BoundedMult 1` caps `H` at one, so `N⊛ ≤ N`; with the floor `N ≤ N⊛` that
+forces `N⊛ = N`, and `prop1` then gives `N ≤ N_sc`.
+
+The reason this is not merely arithmetic: an off-line zero arrives with its
+mirror at the *same ordinate*, so it raises `H` to at least two.  Capping
+multiplicity at one therefore excludes off-line zeros outright. -/
+theorem Nsc_eq_N_of_boundedMult_one (D : ZeroData) (h : BoundedMult 1 D) :
+    D.N ≤ D.Nsc := by
+  have h1 : D.Nstar ≤ D.N := by
+    simpa using Blindness.Nstar_le_of_multiplicity_le D 1 h
+  have h2 : (D.N : ℤ) ≤ (D.Nstar : ℤ) := ZeroData.N_le_Nstar D
+  have h3 := ZeroData.prop1 D
+  omega
+
+/-- **`prop1`'s LP conclusion fails on the multiplicity-one class.**
+`SESSION 201`.
+
+`200` closed with the observation that `prop1_LP_optimal`'s second witness,
+`Gauge.pairOnly`, is a *multiple* zero — so restricting to configurations `ζ`
+would have if its zeros were simple drops that witness.  This is that
+observation as a theorem rather than a sentence.
+
+`(a, b) = (1, 0)` is a valid linear bound on `BoundedMult 1` — that is
+`Nsc_eq_N_of_boundedMult_one` — and `a + b·C = 1 > 2 − C` for every `C > 1`.
+So on the multiplicity-one class the LP conclusion holds only at `C = 1`.
+
+What this does and does not say: it does **not** exhibit a better bound for `ζ`,
+because `ζ` is not known to lie in this class.  It says the argument that the
+two-moment world is exhausted uses a configuration with a multiple zero, and an
+argument that ruled multiple zeros out would take that witness with it. -/
+theorem prop1_LP_optimal_fails_on_simple_class {C : ℝ} (hC : 1 < C) :
+    LinearBoundCheap 1 1 0 ∧ ¬ ((1 : ℝ) + 0 * C ≤ 2 - C) := by
+  refine ⟨fun D hD => ?_, fun h => by linarith⟩
+  have := Nsc_eq_N_of_boundedMult_one D hD
+  have hcast : (D.N : ℝ) ≤ (D.Nsc : ℝ) := by exact_mod_cast this
+  simpa using hcast
+
+
 
 /-! ### The moment route is walled at every order
 

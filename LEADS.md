@@ -1943,3 +1943,27 @@ unreachable. The cheapest item on the board — *"how close do heights ever come
 sharing?"* — is one afternoon's arithmetic and zero of it can begin until the
 files are on the machine. **Joop: either widen the allowlist or drop the tables
 in the repo.**
+
+
+## The slow-convergence recall, tested (SESSION 139)
+
+`135` measured the small-gap constant at `0.71×` GUE and marked slow convergence
+`[RECALL, UNVERIFIED]`. Tested across twenty orders of magnitude in height:
+
+| height | `obs/GUE` | gaps below `δ = 0.3` |
+|---|---|---|
+| `t ~ 10⁴` (`zeros1`) | `0.712 ± 0.016` | 2109 |
+| `t ~ 2.7×10¹¹` (`zeros3`) | `0.885 ± 0.055` | 262 |
+| `t ~ 1.4×10²⁰` (`zeros4`) | `0.868 ± 0.054` | 257 |
+
+**The rise is real between `10⁴` and `10¹¹` (`3.0σ`)** and **unresolved between
+`10¹¹` and `10²⁰` (`0.2σ`)**. So convergence toward GUE is visible in the data and
+has largely happened by `t ~ 10¹¹`. Claiming monotonicity across all three would
+be reading noise as signal, and the script says so in its own output.
+
+`mean δ = 0.999986 / 1.000109 / 0.999970` in the three regimes — the
+normalisation validates itself at each height, which is what makes the constants
+comparable.
+
+**The recall is now supported by measurement**, not discharged: I have confirmed
+the *behaviour* the literature is said to report, not read the literature.

@@ -5906,3 +5906,48 @@ Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
 **Might-mean, unhedged:** the certified floor and the observed reality differ by
 half the zeros, and almost none of that gap is ours to close — which is a
 precise statement of how much of this problem is unproved rather than unknown.
+
+
+# SESSION 139 — the convergence is real, and float64 nearly sold me a fake
+
+`135` marked slow convergence to GUE as `[RECALL, UNVERIFIED]`. Odlyzko's higher
+tables make it testable.
+
+**Kill condition, filed first:** *if the constant does not move toward GUE at
+greater height, either the slow-convergence recall is wrong or the normalisation
+is.* It did not fire.
+
+| height | `obs/GUE` |
+|---|---|
+| `t ~ 10⁴` | `0.712 ± 0.016` |
+| `t ~ 2.7×10¹¹` | `0.885 ± 0.055` |
+| `t ~ 1.4×10²⁰` | `0.868 ± 0.054` |
+
+**Real at `3.0σ` between `10⁴` and `10¹¹`; `0.2σ` between `10¹¹` and `10²⁰`** —
+unresolved at `10⁴` zeros. The honest reading, which the script prints itself:
+convergence is visible and has largely happened by `t ~ 10¹¹`, and asserting
+monotonicity across all three would be reading noise as signal.
+
+**And the first run reported `obs/GUE = 33.8` at `10²⁰`.** `zeros4` lists offsets
+from a base of `1.44×10²⁰` — 21 significant digits, against float64's ~16. I
+formed `base + offset`, every entry rounded to the base, every gap became `0`,
+and the ratio was a division by nothing. **The `mean δ ≈ 1` check caught it**: a
+mean of `0.000000` is not a subtle symptom.
+
+The fix is to never add. Gaps are differences, so the base cancels exactly; the
+normalisation needs only `log(γ/2π)`, for which the base alone is ample. All
+three regimes now report `mean δ` within `1.1×10⁻⁴` of `1`.
+
+**That is twice in six cycles** — `134`'s point-at-infinity, now this — that the
+data layer produced a confident wrong number, and both times a
+self-validating quantity caught it rather than a guard. The lesson is worth its
+place: **in the data phase, every computation carries a quantity whose correct
+value is known in advance**, and that quantity is the whole of the review.
+
+Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the zeros look more like random matrices the higher you
+go, and by the time they are twenty orders up they already do — so whatever makes
+the low zeros exceptional is a feature of the beginning of the sequence, not of
+the sequence.

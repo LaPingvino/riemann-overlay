@@ -80,4 +80,51 @@ theorem zetaZeroData_N (T : ℝ) : (zetaZeroData T).N = Zeta23.Ncount 0 T := by
   rw [Zeta23.Ncount,
     finsum_mem_eq_finite_toFinset_sum _ (Zeta23.zerosIn_finite 0 T)]
 
+/-- **Widening the window can only add zeros.**  `SESSION 271`. -/
+theorem Ncount_mono_left {a b T : ℝ} (hab : a ≤ b) :
+    Zeta23.Ncount b T ≤ Zeta23.Ncount a T := by
+  classical
+  have hsub : Zeta23.zerosIn b T ⊆ Zeta23.zerosIn a T := by
+    rintro ρ ⟨hz, h1, h2⟩; exact ⟨hz, lt_of_le_of_lt hab h1, h2⟩
+  rw [Zeta23.Ncount, Zeta23.Ncount,
+    finsum_mem_eq_finite_toFinset_sum _ (Zeta23.zerosIn_finite b T),
+    finsum_mem_eq_finite_toFinset_sum _ (Zeta23.zerosIn_finite a T)]
+  refine Finset.sum_le_sum_of_subset ?_
+  intro ρ hρ
+  simp only [Set.Finite.mem_toFinset] at *
+  exact hsub hρ
+
+/-- **What is left of `zetaNonempty`, stated exactly.**  `SESSION 271`.
+
+`270` bridged the counts (`zetaZeroData_N`).  This reduces the axiom to a single
+statement *about the dependency*: eventual positivity of the **dyadic** count.
+
+The distinction matters and cost `271` a look.  `Zeta23.RiemannVonMangoldt.main`
+is dyadic — `|Z.N T (2·T) − T/(2π)·ell1 T| ≤ C·log T` — while the axiom asks
+about the **cumulative** window `(0, T]`.  Importing `RvM.Statement` therefore
+does *not* finish the job on its own; the step from dyadic to cumulative is
+`Ncount_mono_left`, which is ours and needs no import.
+
+With this, discharging `zetaNonempty` is `import Zeta23.RvM.Statement` plus
+`import Zeta23.GammaFacts.Complete` (`Zeta23.gammaFacts` is not in the former's
+closure — checked, `271`), and then deriving the hypothesis below from
+`Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts`.  The price of those imports is
+`270`'s measurement and Joop's ruling. -/
+theorem zetaNonempty_of_dyadic
+    (h : ∀ᶠ T in Filter.atTop, 0 < Zeta23.Ncount T (2 * T)) :
+    ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N := by
+  obtain ⟨T₀, hT₀⟩ := Filter.eventually_atTop.1 h
+  refine Filter.eventually_atTop.2 ⟨2 * max T₀ 0, fun S hS => ?_⟩
+  have h0 : (0 : ℝ) ≤ max T₀ 0 := le_max_right _ _
+  have hhalf : T₀ ≤ S / 2 := by
+    have := le_trans (le_max_left T₀ 0) (by linarith : max T₀ 0 ≤ S / 2)
+    exact this
+  have hpos := hT₀ (S / 2) hhalf
+  have hSeq : 2 * (S / 2) = S := by ring
+  rw [hSeq] at hpos
+  have hmono : Zeta23.Ncount (S / 2) S ≤ Zeta23.Ncount 0 S :=
+    Ncount_mono_left (by linarith : (0:ℝ) ≤ S / 2)
+  rw [zetaZeroData_N]
+  omega
+
 end Riemann

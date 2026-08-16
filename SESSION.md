@@ -12650,3 +12650,52 @@ green, index regenerated.
 **Might-mean, unhedged:** the last two axioms in the certified cone are priced in
 build minutes rather than in mathematics, which makes the trusted base a
 resourcing decision now instead of a research one.
+
+## The residue of `zetaNonempty`, stated exactly — and `268`'s price was 28% low
+
+`270` escalated the import decision and it is unanswered, so this cycle does not
+spend it. What it does instead is turn the ruling from a plan into a
+demonstration, using the fact that `270`'s measurement left `RvM.Statement`
+**built** — so its contents can be probed in scratch at no cost to the project.
+
+**Kill condition, filed first:** *if the chain cannot be completed in scratch —
+if positivity of `Ncount 0 T` does not follow from what `RvM.Statement` provides
+— then the import would not finish the job and I report the escalation as
+premature.* It did not fire, but it came closer than expected, and two
+corrections fell out.
+
+**Correction 1: `RiemannVonMangoldt` is dyadic.** Its `main` field bounds
+`Z.N T (2·T)` — the count in `(T, 2T]` — while `zetaNonempty` is about the
+cumulative window `(0, T]`. **The import alone does not discharge the axiom.**
+The missing step is monotonicity in the lower endpoint, and that step is ours:
+`Ncount_mono_left`, proved here with no new import, by pushing both `finsum`s
+through `finsum_mem_eq_finite_toFinset_sum` and applying
+`Finset.sum_le_sum_of_subset`.
+
+**Correction 2: the price is `34` modules and `11,710` lines, not `27` and
+`9,148`.** `Zeta23.gammaFacts` is not in `RvM.Statement`'s closure —
+`#check` under `import Zeta23.RvM.Statement` reports it unknown — so
+`Zeta23.GammaFacts.Complete` is needed too, adding `7` modules and `2,562`
+lines. `268`'s figure was `28%` low because it priced the theorem I had named
+rather than the theorem plus what it needs to be applied.
+
+**`zetaNonempty_of_dyadic`** states the residue with nothing left implicit: given
+`∀ᶠ T, 0 < Zeta23.Ncount T (2·T)`, the axiom follows. Axiom-free, `3757` jobs
+unchanged. What remains for the ruling is two imports and the derivation of that
+one hypothesis from `Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts`.
+
+Also on disk and already reachable: `zetaZeroConfig_N : zetaZeroConfig.N T₁ T₂ =
+Ncount T₁ T₂`, a simp lemma in `SeamClosed`. With `270`'s `zetaZeroData_N` the
+count side is bridged end to end, today, at zero build cost.
+
+**Snag, bin 1.** I priced the bridge at `270` from one theorem's import closure
+without checking that the theorem's *hypothesis* was in it. A price for "import
+X" is not a price for "use X", and the gap was a whole module tree.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, eleven guards green, index regenerated. The corrected
+price is annotated at the axiom, where `270` wrote the wrong one.
+
+**Might-mean, unhedged:** every step of this discharge that could be done without
+spending the import has now been done, so the remaining decision is purely
+whether `11,710` lines of build per cycle is worth one axiom.

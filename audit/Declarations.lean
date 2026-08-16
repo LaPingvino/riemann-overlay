@@ -244,6 +244,9 @@ import Riemann
 #check @Riemann.hauntedDensity_of_offLineImport_at_rung
 -- SESSION 270: our N is zeta-23's Ncount — half of discharging zetaNonempty.
 #check @Riemann.zetaZeroData_N
+-- SESSION 271: the residue of zetaNonempty, stated exactly.
+#check @Riemann.Ncount_mono_left
+#check @Riemann.zetaNonempty_of_dyadic
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

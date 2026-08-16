@@ -62,10 +62,22 @@ What remains is eventual positivity, and it has a price rather than a
 difficulty.  `Zeta23.RvM.Statement.riemannVonMangoldt` needs `GammaFacts`, which
 `Zeta23.gammaFacts` proves unconditionally, and `Assembly.tendsto_N_atTop` turns
 `RiemannVonMangoldt zetaZeroConfig` into the divergence this axiom asserts.  The
-chain is complete and unconditional.  The cost is `import Zeta23.RvM.Statement`:
-`27` extra modules, `9,148` lines, measured at **7m32s** of build in `270` — paid
-once here, and on every `lake build` afterwards.  That is a standing tax on every
-future cycle and it is Joop's call, not the loop's. -/
+chain is complete and unconditional.  The cost is the import.
+
+**`271` corrects the price and the shape of what is left.**
+
+* `Zeta23.gammaFacts` is **not** in `RvM.Statement`'s closure, so the discharge
+  needs `Zeta23.GammaFacts.Complete` as well: **`34` modules, `11,710` lines**,
+  not `270`'s `27`/`9,148`.
+* `RiemannVonMangoldt.main` is **dyadic** — `Z.N T (2·T)` — where this axiom is
+  cumulative.  The import alone does not close it; the missing step is
+  `Riemann.Ncount_mono_left`, which is ours and needs no import.
+
+`Riemann.zetaNonempty_of_dyadic` now states the residue exactly: given
+`∀ᶠ T, 0 < Zeta23.Ncount T (2·T)`, this axiom follows.  So the remaining work is
+two imports and the derivation of that hypothesis from
+`Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts`.  Standing tax on every
+`lake build` thereafter; Joop's call, not the loop's. -/
 axiom zetaNonempty : ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N
 
 /-- The zeros of `ζ` as a `Family` — now a **construction**, not an axiom. -/

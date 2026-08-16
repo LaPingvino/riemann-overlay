@@ -584,6 +584,33 @@ quite different.
 >
 > Nothing is asserted; every row is conditional and the ledger stays `50.88%`.
 >
+> ### ⚠️ `SESSION 163` — the menu was missing a row, and it is the cheapest one
+>
+> Enumerating every declaration concluding in a transfer predicate turned up a
+> producer whose constant is **not** minted from a ledger row:
+> `Program.routeIII_with_narrowBox` takes a narrow-box hypothesis to
+> `StarBound (4/3 + ε)`, and `conjectural_routeIII` carries that to the `Nsc`
+> row. In exact rationals:
+>
+> | route | `Nsc` row | gain | axiom cone | hypothesis |
+> |---|---|---|---|---|
+> | `m = 5` | `0.590625` | `+8.188` | 2 | multiplicity |
+> | ξ′ | `0.60169` | `+9.294` | 4 | analytic, unread |
+> | `m = 7` | `0.617917` | `+10.917` | 2 | multiplicity |
+> | **Route III** | **`2/3 − ε`** | **`+15.79`** | **1** | **location (narrow box)** |
+> | `NoHaunted` | `0.6725` | `+16.375` | 2 | multiplicity |
+>
+> Its cone is `zetaNonempty` **alone** — it does not even consume
+> `baseline_zeta23`, because it reaches the row through `StarBound` rather than
+> through the baseline. So it is the **cheapest row on the board in trusted
+> base**, and second-highest in payout.
+>
+> **Why it was missed:** it lives in `Proportion.lean`'s `Conjectural` section,
+> filed as a *route* in the program's original sense, while the menu was built
+> from the `HauntedDensity`/`OffLineImport` layer. Nothing was wrong with it; it
+> was in a different drawer. Nothing here is asserted — `BGSTNarrowBox` and
+> `NarrowBox` are hypotheses, exactly like the ladder rungs.
+>
 > ✅ **`SESSION 156` — the dial is certified to be a dial.** The menu presents
 > `m = 5, 7, → ∞` as a scale, which needs the hypotheses to be comparable and
 > the top row to be the chain's limit. Both are now theorems, **axiom-free**:

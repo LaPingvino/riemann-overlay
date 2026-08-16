@@ -7414,3 +7414,71 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the project's own headline improvement and the wall I
 found blocking a new route both rest on `β = 1 − κ`, and neither entry knew about
 the other until I counted the ways one predicate can be introduced.
+
+# SESSION 163 — the menu was missing its cheapest row, and it was never hidden
+
+**Kill condition, stated first:** *if any transfer predicate has producers of
+genuinely independent provenance — a constant not minted from another row of the
+same ledger — then the toolkit is not a single circle and that producer is the
+live route.* **It fired.**
+
+`162` enumerated the producers of one predicate. This cycle did all of them, in
+one command: every declaration in `Riemann/*.lean` whose conclusion mentions
+`OffLineImport`, `HauntedDensity`, `StarBound`, `Proportion`, `ProportionStd`,
+`NoHaunted`, `NoSmallHaunted`.
+
+## `S67` — the sweep found a row I had not put on the menu
+
+`Program.routeIII_with_narrowBox` takes a **narrow-box** hypothesis — about
+*where* zeros are, not about any ledger row — to `StarBound (4/3 + ε)`, and
+`conjectural_routeIII` carries that to the `Nsc` row. In exact rationals:
+
+| route | `Nsc` row | gain | axiom cone | hypothesis |
+|---|---|---|---|---|
+| `m = 5` | `0.590625` | `+8.188` | 2 | multiplicity |
+| ξ′ | `0.60169` | `+9.294` | 4 | analytic, unread |
+| `m = 7` | `0.617917` | `+10.917` | 2 | multiplicity |
+| **Route III** | **`2/3 − ε`** | **`+15.79`** | **1** | **location (narrow box)** |
+| `NoHaunted` | `0.6725` | `+16.375` | 2 | multiplicity |
+
+**`#print axioms Riemann.conjectural_routeIII` returns `zetaNonempty` and
+nothing else from the project's base** — `baseline_zeta23` does not appear,
+because the route reaches the row through `StarBound` rather than the baseline —
+so it is the **cheapest row on the board in trusted base** and second-highest in
+payout.
+
+It was not hidden. It has been in `Proportion.lean`'s `Conjectural` section since
+long before the menu existed. I built the menu out of the
+`HauntedDensity`/`OffLineImport` layer, and the question of what *else* concludes
+in `Proportion` went unasked until this cycle's sweep. `152` called the menu complete; `157` called it finished as
+mathematics. Both were wrong, and one mechanical sweep says so.
+
+## `S68` — and it corrects three cycles of my own prose
+
+`159`–`161` concluded that "the third axis buys nothing the ledger does not
+already have". That is true of **arXiv:2306.04799's simple-zero theorems**, which
+is what I had actually analysed. I wrote it about *the axis*. The narrow-box
+route is also a hypothesis about zero location, and it is worth `+15.79` at one
+axiom (`conjectural_routeIII`).
+
+Three cycles of correct reasoning about a specific paper, generalised one
+quantifier too far in the sentence that recorded the result. That is `S37`/`S38`'s
+shape, fourth occurrence. Corrected at the location in `LEADS.md` rather than
+here.
+
+## For Joop
+
+The ruling I have been putting to you was: *how strong a multiplicity hypothesis
+will you carry?* It should have been: **multiplicity or location?** Route III is
+cheaper in axioms than every multiplicity rung and pays more than all but the
+top one. Nothing on the menu is asserted — `BGSTNarrowBox` and `NarrowBox` are
+hypotheses exactly as the ladder rungs are — but the comparison you were given
+was missing its best-value entry.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new Lean this cycle; the theorem already
+existed.
+
+**Might-mean, unhedged:** I spent six cycles building a menu and one command
+found a better row than any I had put on it, sitting in a section of the same
+file I had read many times.

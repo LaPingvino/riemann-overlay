@@ -31,7 +31,15 @@ comparable.
 The consequence: our certified `NscStd/Nz ≥ 0.6725` transfers to *their* quantity
 at the same constant, so the project already holds **67.25% on the very thing
 they bound**, against their conditional `61.7%`, and without the thin-box or
-zero-density hypothesis. **The third axis buys nothing the ledger does not
+zero-density hypothesis. ⚠️ **OVERCLAIMED — corrected `SESSION 163`.** What follows is true of
+**arXiv:2306.04799's simple-zero theorems**, and I wrote it about *the location
+axis*. The axis is wider than that instance. `Program.routeIII_with_narrowBox`
+consumes a **narrow-box** hypothesis — location, not a ledger row — and
+`conjectural_routeIII` delivers the `Nsc` row at `2/3 − ε`, i.e. **+15.79
+points**, at a cone of **one** axiom. It was in the repo the whole time, in the
+`Conjectural` section, and I never put it on the menu. See `PRICES.md`.
+
+**That instance of the third axis buys nothing the ledger does not
 already have, and it is aimed at a weaker row than the menu operates on.**
 
 ✅ **`SESSION 161` — and the reverse direction is walled, at every strength.**

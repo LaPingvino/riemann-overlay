@@ -138,11 +138,29 @@ grade A.**
 | Extension past the known range is useless, and fatal if the multiplier dips negative | `{F pinned on A, F ≥ 0 off A}`, `A` measurable | `Capacity.no_gain_past_known_integral`, `unbounded_below_of_neg_outside_integral` | **A** |
 | `offline_le`'s `(C−1)` cannot be improved to `(C−1)/2` | the inequality itself | `Gauge.offline_le_tight` (saturating witness) | **A** |
 | Route I cannot do better than `c₀ ≈ 0.16` | any effective Fujii constant | `Fujii.c0_lower_bound` | **A** |
-| The bandwidth-one ceiling is `≤ 0.6818287` | bandwidth-one certificates | `Zeta23.PairCeiling.ceiling_law256` — **imported**, and *not reachable from `import Riemann`* | **A**, with a caveat parked for Joop |
+| The bandwidth-one ceiling is `≤ 0.6818287` | bandwidth-one certificates, **and `EnclOK`** | `Zeta23.PairCeiling.ceiling_law256` — imported, vendored at `231`, and **reachable** from `import Riemann` (`#check` verified `244`) | **A**, conditional — see the note below |
 | "Multiplicity bounds cannot tighten `C`" (W7, precise part) | `BoundedMult M` — `H γ ≤ M`, pure counting, no Euler product | `Optimal.prop1_LP_optimal_cheap` | **A** |
 | "No free classical invariant *of any kind* will tighten `C`" (W7, general) | *"classical invariant"* — still informal | — | **C** |
 | "Post-1974 extremal technology cannot buy anything through the `v` slot" | the `v` slot of the rank–trace container at `λ = 1` — **well defined** | a quadrature optimisation (`N = 160` midpoint, `0.6725126` vs M–T's `0.6725007`), reproducible via `forensics/window_opt.py` | **N** |
 | E20's plane: the cleavage is the one thing no single-natured instrument can certify | *"single-natured instrument"* — informal | — | **C**, and already marked statistically unsupported in `FAILURES.md` |
+
+> **`SESSION 244` — two corrections to the bandwidth-one row above.**
+>
+> **Reachability.** The row read *"not reachable from `import Riemann`"* with a
+> caveat parked for Joop. That was fixed long ago — the heartbeat's own
+> `DISCHARGED` block records `PairCeiling` as imported and reachable — and
+> `244` re-verified it: `#check @Zeta23.PairCeiling.ceiling_law256` resolves
+> under `import Riemann`. `231` additionally vendored it, so the theorem now
+> lives on our disk.
+>
+> **The hypothesis, which the row did not name.** `ceiling_law256` is
+> conditional on `EnclOK LawN256.K S 0 LawN256.encl`, which `LawN256.lean` calls
+> a *"DISPLAYED HYPOTHESIS downstream … verified outside Lean by interval
+> arithmetic"* and which is discharged nowhere in zeta-23 (`232`). Its
+> certificate, `cert_N256_blk_b128m.json`, is not in this repository. The row's
+> grade **A** is correct — the theorem is machine-checked — but the ceiling it
+> certifies is available to us only if that hypothesis is granted, which is the
+> open ruling `232` raised.
 
 ## The sweep's verdict (night cycle 8)
 

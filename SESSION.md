@@ -11182,3 +11182,53 @@ green.
 **Might-mean, unhedged:** the register's oldest standing claims are the ones
 most likely to have quietly acquired proofs, because the work that proves them
 is filed under other names.
+
+## The C rows are blocked on a definition; the row above them was stale
+
+`243` found an old standing claim had quietly acquired a proof. The same
+question applies to `CLAIMS.md`'s grade-`C` and grade-`N` rows — the ones
+recorded as unproved.
+
+**Kill condition, filed first:** *if every grade-C/N claim's status is unchanged
+since it was graded, the pattern doesn't extend and I report the count rather
+than hunting for a promotion.* **It fired**, and the reason is worth more than
+the count.
+
+Two `C` rows, seven `N`. Both `C`s cite **no theorem at all** and name an
+informal notion as their blocker: *"classical invariant"* (W7-general) and
+*"single-natured instrument"* (E20's plane). They are not waiting on a proof;
+they are waiting on a **definition**, and no amount of theorem-finding promotes
+them. The seven `N`s are numerical by construction. So `243`'s pattern does not
+extend here, and could not.
+
+### What the sweep did turn up
+
+The row *above* the `C`s, at grade **A**:
+
+> The bandwidth-one ceiling is `≤ 0.6818287` … `ceiling_law256` — **imported**,
+> and *not reachable from `import Riemann`* … **A**, with a caveat parked for
+> Joop
+
+Both halves were wrong or incomplete.
+
+* **Reachability.** Fixed long ago — the heartbeat's own `DISCHARGED` block says
+  so — and re-verified this cycle: `#check @Zeta23.PairCeiling.ceiling_law256`
+  resolves under `import Riemann`. `231` additionally vendored it.
+* **The hypothesis the row did not name.** `ceiling_law256` is conditional on
+  `EnclOK`, a displayed hypothesis discharged nowhere in zeta-23, whose
+  certificate is not in this repository (`232`). Grade **A** is right — the
+  theorem is machine-checked — but the ceiling is available to us only if that
+  hypothesis is granted.
+
+Both corrected at the row's location, with the grade kept and qualified rather
+than moved.
+
+No Lean this cycle. The `#check` is the witness for the first correction and
+`232` is the citation for the second.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** the claims this register marks as weak are honest
+about being weak, and the one that drifted was a row marked strong.

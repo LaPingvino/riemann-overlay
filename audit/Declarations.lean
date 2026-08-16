@@ -173,6 +173,8 @@ import Riemann
 -- SESSION 220: the three genres wall at one configuration but not at one layer.
 #check @Riemann.Blindness.atomCount_ordinate_functional
 #check @Riemann.Blindness.NscAny_not_ordinate_functional
+-- SESSION 221: and not a functional of (mu_T, offAt) either.
+#check @Riemann.Blindness.NscAny_not_fiber_functional
 -- SESSION 216: two ledger entries are not recoverable from the other four.
 #check @Riemann.Blindness.Noff_not_determined_by_ledger
 #check @Riemann.Blindness.NscStd_not_determined_by_ledger

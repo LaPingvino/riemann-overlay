@@ -4904,6 +4904,70 @@ lemma config_Nsc_pure (m : ℕ) (a : ℝ) :
       intro h; exact hm (by rw [← hH]; exact h.2)), if_neg hm]
     simp
 
+/-- **`NscAny` is not a functional of `(μ_T, offAt)` either.**  `SESSION 221`.
+
+`220` put `NscAny` outside `μ_T`'s reach.  This puts it outside the *fiber*
+coordinate's reach as well — the pair `(μ_T, offAt)` that `ledger_determined`
+shows is enough to compute the entire ledger.
+
+Two configurations at one ordinate, both with four off-line zeros and nothing on
+the line, so `μ_T` and `offAt` agree everywhere: one doubled mirror pair, versus
+two distinct mirror pairs.  The first has every point of multiplicity two, so
+`NscAny = 0`; the second has a point of multiplicity one, so `NscAny > 0`.
+
+The consequence for the simple-zero genre: no bound on `NscAny` follows from the
+data that determines the ledger.  `197`/`214`/`218` had to route through the
+off-line import, and this says that was not a choice of convenience. -/
+theorem NscAny_not_fiber_functional {a b : ℝ} (ha : a ≠ 1/2) (hb : b ≠ 1/2)
+    (hab : a ≠ b) (hab' : a ≠ 1 - b) :
+    (config 0 2 a).ordinates = (superpose (config 0 1 a) (config 0 1 b)).ordinates
+      ∧ (∀ γ : ℝ, offAt (config 0 2 a) γ
+          = offAt (superpose (config 0 1 a) (config 0 1 b)) γ)
+      ∧ (config 0 2 a).NscAny
+          ≠ (superpose (config 0 1 a) (config 0 1 b)).NscAny := by
+  classical
+  have hord : (config 0 2 a).ordinates
+      = (superpose (config 0 1 a) (config 0 1 b)).ordinates := by
+    rw [add_ordinates, config_ordinates, config_ordinates, config_ordinates]
+    rw [show (0 + 2 * 2 : ℕ) = 4 by norm_num,
+      show (0 + 2 * 1 : ℕ) = 2 by norm_num, ← Multiset.replicate_add]
+  have hoff : ∀ γ : ℝ, offAt (config 0 2 a) γ
+      = offAt (superpose (config 0 1 a) (config 0 1 b)) γ := by
+    intro γ
+    rw [offAt_superpose]
+    by_cases hγ : γ = 0
+    · subst hγ
+      rw [config_eq_configAt, config_eq_configAt, config_eq_configAt,
+        offAt_configAt_self ha, offAt_configAt_self ha, offAt_configAt_self hb]
+    · rw [config_eq_configAt, config_eq_configAt, config_eq_configAt,
+        offAt_configAt_other (a := a) hγ 0 2,
+        offAt_configAt_other (a := a) hγ 0 1,
+        offAt_configAt_other (a := b) hγ 0 1]
+  refine ⟨hord, hoff, ?_⟩
+  have hA : (config 0 2 a).NscAny = 0 := by
+    rw [config_NscAny 0 2 ha]; norm_num
+  -- the second configuration has a point of multiplicity one
+  have hcount : (superpose (config 0 1 a) (config 0 1 b)).Z.count (a, (0:ℝ)) = 1 := by
+    show Multiset.count (a, (0:ℝ))
+        ((Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+            + (Multiset.replicate 1 (a, (0:ℝ))
+              + Multiset.replicate 1 ((1 - a : ℝ), (0:ℝ))))
+          + (Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+            + (Multiset.replicate 1 (b, (0:ℝ))
+              + Multiset.replicate 1 ((1 - b : ℝ), (0:ℝ))))) = 1
+    have h1 : (a : ℝ) ≠ 1 - a := fun h => ha (by linarith)
+    have h2 : (a : ℝ) ≠ 1 - b := hab'
+    simp [Multiset.count_replicate, h1, h2, hab]
+  have hmem : (a, (0:ℝ)) ∈ (superpose (config 0 1 a) (config 0 1 b)).Z :=
+    Multiset.count_pos.1 (by rw [hcount]; norm_num)
+  have hB : 0 < (superpose (config 0 1 a) (config 0 1 b)).NscAny := by
+    show 0 < Multiset.card (Multiset.filter
+      (fun p => (superpose (config 0 1 a) (config 0 1 b)).Z.count p = 1)
+      (superpose (config 0 1 a) (config 0 1 b)).Z)
+    rw [Multiset.card_pos_iff_exists_mem]
+    exact ⟨(a, (0:ℝ)), Multiset.mem_filter.2 ⟨hmem, hcount⟩⟩
+  omega
+
 /-- **`atomCount` *is* an ordinate functional**, and by definition rather than by
 argument.  `SESSION 220`.  Stated so the contrast with
 `NscAny_not_ordinate_functional` is a pair of theorems rather than a sentence. -/

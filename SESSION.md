@@ -10214,3 +10214,42 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the literature's three genres meet the same obstacle
 from two different sides of this project's visibility boundary, so the boundary
 is not what stops them.
+
+## The simple-zero genre is invisible to the coordinate that fixes the ledger
+
+`220` put `NscAny` outside `μ_T`'s reach. The sharper question is whether it is
+outside the *fiber* coordinate's — the pair `(μ_T, offAt)` that
+`ledger_determined` shows suffices for the whole ledger.
+
+**Kill condition, filed first:** *if showing `NscAny > 0` on the second
+configuration needs the full four-point count rather than one point's, I state
+the result under explicit distinctness hypotheses and say so rather than
+deriving them.* It did not fire in the form I feared — one point's count was
+enough — though the distinctness hypotheses are explicit regardless, which is
+the same shape `distinctZeros_not_profile_functional` uses.
+
+`NscAny_not_fiber_functional`: two configurations at one ordinate, both with
+four off-line zeros and nothing on the line, so `μ_T` and `offAt` agree
+everywhere. One doubled mirror pair against two distinct mirror pairs. The first
+has every point of multiplicity two, so `NscAny = 0`; the second has a point of
+multiplicity one, so `NscAny > 0`.
+
+**What this says about the genre.** No bound on `NscAny` follows from the data
+that determines the ledger. `197`, `214` and `218` all routed the wall through
+the off-line import rather than through the ledger's own machinery, and this
+says that was forced rather than convenient.
+
+Read with `220`: the moment routes and distinct-zero counts bound `μ_T`
+functionals; the simple-zero counts bound something not even `(μ_T, offAt)`
+computes. So the split `220` found is two layers, and this cycle shows the far
+side of it is further out than `220` established — not `μ_T`-invisible but
+fiber-invisible.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the literature quantity this project compares its own
+row against is one its coordinates cannot compute, so the comparison rests on an
+inequality rather than on a shared quantity.

@@ -567,7 +567,7 @@ All nine declared axioms, each with its ledger value and the reason:
 | `fujii_closePair_bookkeeping` | conditional on `EffectiveFujii` **and** `ClosePairLowerBound` | nil until both |
 | `zeta23_xiPrime` `0.85838` | **9.29 points**, blocked on `OffTransfer` + `NzComparable` | ⚠️ **`SESSION 150`: no longer "the one live item"** — see the axiom-cost comparison below (`087`) |
 | `levinson_montgomery` | an input to that route | realised in `087`'s pricing |
-| `baseline_przz` `0.4162` | **none — it is a theorem** (`przz_of_zeta23`) | **REDUNDANT, see below** |
+| ~~`baseline_przz`~~ `0.4162` | **none — it is a theorem** (`przz_of_zeta23`) | **DELETED, `SESSION 233`** on Joop's ruling 3; declared surface `9 → 8` |
 | `baseline_zeta23` `0.6725` | the `NscStd` row, and via `084` the `Nsc` row | **realised twice** |
 
 **Kill condition, filed first:** *if every axiom's ledger value is already
@@ -587,6 +587,13 @@ a *simple*-zero proportion or an on-line proportion is a literature question
 **[RECALL, UNVERIFIED]** — and the redundancy makes it moot for the ledger,
 because nothing rests on the axiom either way. Recorded so a future cycle does
 not spend a literature probe on a question that cannot change a number.
+
+> **ANSWERED, `SESSION 233`.** Joop ruled *delete*, and it was done with the
+> ceremony the metric requires: the base statement hash moved
+> `cd7a22e688df → c3b240548ad8`, `tools/proportion.go` refused a log line until
+> `base.version` was bumped `2 → 3`, and declared axioms went `9 → 8`. No
+> certified number moved. `Riemann.przz_of_zeta23` keeps the literature record
+> as a theorem. The request below is closed.
 
 *Ruling for Joop: delete `baseline_przz` (declared surface 9 → 8) or keep it as
 the record of an independent literature result, which matters only if the

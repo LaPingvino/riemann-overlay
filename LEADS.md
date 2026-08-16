@@ -150,9 +150,14 @@ multiplicity-one over all nontrivial zeros; our rows are `Nsc` (`H = 1` at an
 ordinate) against `Nz`.
 
 *Also noted, not chased:* the paper attributes to PRZZ "more than **41.7%**"
-simple, where `Assumptions.baseline_przz` records `0.4162`. Either a rounding of
-the same result or a slightly weaker transcription; it carries no weight, since
-`147` established `baseline_przz` is redundant (`przz_of_zeta23`).
+simple, where this project records `0.4162`. Either a rounding of the same
+result or a slightly weaker transcription; it carries no weight, since `147`
+established the figure is redundant and `233` deleted the axiom that carried it.
+
+> **`SESSION 246`.** This paragraph cited `Assumptions.baseline_przz`, which
+> `233` removed on Joop's ruling. The `0.4162` figure survives as the theorem
+> `Riemann.przz_of_zeta23`, derived from `baseline_zeta23` by
+> `Family.ProportionStd.mono`; the axiom does not.
 
 From Addendum 2 (Joop, 2026-08-13). Pointers into the space, decoupled from
 the validity of the arguments that surfaced them. Nothing here has been acted
@@ -1012,7 +1017,7 @@ the blindness" dies.** It fired, and hard — three do:
 | `fujii_closePair_bookkeeping` | `N⊛` + a free function of `(λ,T)` | μ-invariant |
 | `zeta23_xiPrime` | `Nsc` (via `Proportion`) | μ-invariant |
 | `levinson_montgomery` | **`N_off`** | **not** μ-invariant |
-| `baseline_przz` | **`NscStd`** (via `ProportionStd`) | **not** μ-invariant |
+| ~~`baseline_przz`~~ → `przz_of_zeta23` (`233`: axiom deleted, theorem kept) | **`NscStd`** (via `ProportionStd`) | **not** μ-invariant |
 | `baseline_zeta23` | **`NscStd`** | **not** μ-invariant |
 | `xiPrimeFamily`, `closePairsZeta` | objects, not predicates | n/a |
 

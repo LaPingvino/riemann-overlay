@@ -11286,3 +11286,54 @@ standing corruption. One instance; recorded, not made a rule (`S39`).
 **Might-mean, unhedged:** this project's strongest guarantee applied to a list
 somebody maintained by hand, and the list had drifted four names behind the
 claims it was supposed to protect.
+
+## The deletion that outlived its own cleanup
+
+`245` guarded `CLAIMS.md`'s grade-A citations. The other registers cite
+declaration names too, and `ISSUES` `#17` exists because session `013` filed an
+entry for three theorems that did not exist.
+
+**Kill condition, filed first:** *if every declaration name cited across the
+other registers resolves, there is no ghost-citation drift and I report the
+count; I will not read prose for defects once the mechanical check comes back
+clean.* **It did not fire.**
+
+148 declaration-shaped citations across nine registers. Nineteen did not resolve
+against `Riemann/` or the vendored `Zeta23/`, and eighteen are the checker's
+blind spots rather than defects: Lean core (`Classical.choice`, `Quot.sound`),
+Mathlib (`Finset.card_lt_card` and four more), module paths, file names, and
+structure **fields** — `Family.nonempty`, `ZeroData.Z`, zeta-23's
+`FamilyHyps.lam_const`, and the namespace `Zeta23.ZeroSide.TightMult`, all
+confirmed present.
+
+The nineteenth is mine. **`Assumptions.baseline_przz`, deleted at `233`.**
+
+### What `233` missed
+
+`233` updated `Assumptions.lean`, `Proportion.lean` and `RULING.md`. It left
+four sites reading as though the axiom still exists:
+
+* `PRICES.md` — a pricing row calling it `REDUNDANT, see below`, and a
+  ***Ruling for Joop*** request to delete or keep it. **Joop had already
+  answered that request; `233` executed it.**
+* `ISSUES.md` — "both stated on `ProportionStd` … **today**".
+* `CLAIMS.md` — a claim row in the present tense.
+* `LEADS.md` — a prose citation and a μ-invariance table row.
+
+All corrected at their locations, with the deletion's ceremony cited so the
+records point at `przz_of_zeta23` rather than at a name that is gone.
+
+`S107`: **a deletion propagates to every register that ever named the thing, and
+the cycle that deletes is the one least able to see them.** `233` had a
+checklist and the checklist was the problem — it covered what the deletion
+touched, not what mentioned it.
+
+No Lean this cycle; the sweep is the instrument and four register corrections
+are the output.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** this project can delete an axiom correctly and still
+leave four registers asking a question its owner has already answered.

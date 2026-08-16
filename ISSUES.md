@@ -295,6 +295,8 @@ being `correlated` is now measured rather than asserted.
 > ⚠️ **Header corrected `SESSION 122`.** It read *"only the axiom restatement is
 > still Joop's"* long after the restatement landed: `baseline_zeta23` and
 > `baseline_przz` are both stated on `ProportionStd` (the `NscStd` count) today.
+> (**`246`:** `baseline_przz` was deleted at `233`; `baseline_zeta23` remains,
+> still on `ProportionStd`, and `przz_of_zeta23` carries the `0.4162` figure.)
 > And the mathematical residue is now named: `Fiber.Nsc_eq_NscStd_iff_noHaunted`
 > proves the two notions coincide **iff** no ordinate is haunted, so `#13` is not
 > a convention question but the project's central open quantity.

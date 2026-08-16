@@ -519,6 +519,24 @@ quite different.
 > one live item"; in points that is right, and in *garbage height* (`R5`: every
 > axiom raises the stack without being clearable) it is the more expensive of
 > the two. Neither is asserted and the ledger stays at `50.88%`.
+>
+> ⚠️ **`SESSION 151` — I compared the wrong rung, and there is no trade-off at
+> all.** The table above uses `m = 5` because `150` inherited the register's
+> phrase "the `m = 5` rung is the cheap one". The ladder's own table two blocks
+> up also lists **`m = 7` at `0.617917`**, now a theorem
+> (`certified_nsc_via_noSmallHaunted_seven`, cone **2** axioms):
+>
+> | route | gain | axiom cone |
+> |---|---|---|
+> | ξ′ | `+9.294` | 4 |
+> | `m = 5` | `+8.188` | 2 |
+> | **`m = 7`** | **`+10.917`** | **2** |
+>
+> So ξ′ is **dominated in both currencies** — more proportion is available at
+> fewer axioms. The only axis on which ξ′ can still win is **hypothesis
+> strength**, and that is the axis a ruling should actually turn on. Two cycles
+> priced this as a trade because both read "the cheap one" and neither looked one
+> row further down the register's own table.
 
 
 ## The ξ′ route's blocker has a citation (SESSION 115, from claude.ai)

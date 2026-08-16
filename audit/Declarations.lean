@@ -292,3 +292,5 @@ import Riemann
 #check @Riemann.offline_via_xiPrime
 #check @Riemann.certified_nsc_via_xiPrime
 #check @Riemann.certified_nsc_via_noSmallHaunted
+#check @Riemann.certified_nsc_ladder
+#check @Riemann.certified_nsc_via_noSmallHaunted_seven

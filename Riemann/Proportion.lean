@@ -397,6 +397,38 @@ theorem certified_nsc_via_noSmallHaunted
     norm_num
   rwa [e] at h
 
+/-- **The whole ladder at the ζ level, every rung at once.**
+
+`SESSION 151`.  `150` stated the `m = 5` rung because `PRICES.md` called it "the
+cheap one"; the register's own table also lists `m = 7`, and nothing had been
+said about it.  One line gives every rung, and the corollaries below read values
+off it. -/
+theorem certified_nsc_ladder {m : ℕ} (hm : 2 ≤ m)
+    (hh : NoSmallHaunted zetaFamily m) :
+    zetaFamily.toCounts.Proportion (((m : ℝ) * 0.6725 - 1) / ((m : ℝ) - 1)) :=
+  proportion_of_noSmallHaunted hm hh certified_std
+
+/-- **The `m = 7` rung: `0.617917`, `+10.917` points — and it dominates the ξ′
+route in both currencies.**
+
+`(7·0.6725 − 1)/6 = 0.6179166…`.  Against `certified_nsc_via_xiPrime`'s
+`0.60169` at **four** axioms, this is *more* proportion at **two**.  `150`
+compared ξ′ against the `m = 5` rung and read the trade-off as "1.106 points for
+two axioms"; at `m = 7` there is no trade-off left in either currency, and the
+only axis on which ξ′ can still win is **hypothesis strength** — which is a real
+axis, and the one a ruling should turn on. -/
+theorem certified_nsc_via_noSmallHaunted_seven
+    (hh : NoSmallHaunted zetaFamily 7) :
+    zetaFamily.toCounts.Proportion 0.6179166 := by
+  have h := certified_nsc_ladder (m := 7) (by norm_num) hh
+  intro ε hε
+  filter_upwards [h ε hε] with T hT
+  have e : (((7 : ℕ) : ℝ) * 0.6725 - 1) / (((7 : ℕ) : ℝ) - 1) = 3.7075 / 6 := by
+    norm_num
+  rw [e] at hT
+  have hnum : (0.6179166 : ℝ) ≤ 3.7075 / 6 := by norm_num
+  linarith
+
 /-! ### Route II at the ζ level, conditional and axiom-free in its own step
 
 `Gaps.offLineImport_of_derivative` is general; `Assumptions.zeta23_xiPrime`

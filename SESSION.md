@@ -6713,3 +6713,69 @@ theorem, and `metric.json` points no row at either. Name added to
 **Might-mean, unhedged:** I spent a cycle telling Joop the project was blocked,
 and the thing that unblocked the question was reading my own register instead of
 repeating my own sentence.
+
+# SESSION 151 — the ladder stated whole, and the trade-off I reported was not one
+
+**Kill condition, stated first:** *if every remaining priced route in the
+registers is already a theorem at the ζ level, the `147`/`150` pattern was
+confined to those two and this dies having confirmed the gap is closed.* **It did
+not fire.** `PRICES.md`'s ladder table lists `m = 3, 5, 7, →∞`; `150` stated
+`m = 5` and left `m = 7` unstated.
+
+## The piece: state the ladder, not a rung
+
+`certified_nsc_ladder {m} (hm : 2 ≤ m) (hh : NoSmallHaunted zetaFamily m) :
+Proportion ((m·0.6725 − 1)/(m − 1))` — one line, every rung at once, cone **2**
+axioms. Then `certified_nsc_via_noSmallHaunted_seven : Proportion 0.6179166`.
+
+Stating it generally is what made the next rung unavoidable. Had `150` done that
+instead of instantiating the rung the register named, the correction below would
+not have been needed.
+
+## `S54` — the trade-off I reported to Joop does not exist
+
+`150` gave you a choice: `+9.294` at four axioms, or `+8.188` at two. Both cones
+verified, the arithmetic right, the framing wrong. The ladder's **`m = 7`** rung:
+
+| route | gain | axiom cone |
+|---|---|---|
+| ξ′ | `+9.294` | 4 |
+| `m = 5` | `+8.188` | 2 |
+| **`m = 7`** | **`+10.917`** | **2** |
+
+**ξ′ is dominated in both currencies** — more proportion at fewer axioms. On the
+two axes `certified_nsc_via_noSmallHaunted_seven` lets me compare (points and
+cone size) it loses both; where it can still win is **hypothesis strength**, and
+that is the axis a ruling should turn on.
+
+The rung was one row below the one I quoted, in the same table. I inherited the
+register's phrase *"the `m = 5` rung is the cheap one"* — true, it is the
+cheapest *hypothesis* — and read it as "the best rung", then priced against it
+for two cycles. `S53` was about not reading my own register; I did it again
+inside the fix for `S53`.
+
+## What the ruling actually is, Joop — third revision, and this one is honest
+
+Not "9.29 points for two axioms". Not "9.29 at four versus 8.19 at two". It is:
+
+> **How strong a hypothesis about ζ's own zeros are you willing to carry?**
+
+Every rung costs the same two axioms already in the base. The dial:
+
+* `m = 5` — no haunted ordinate of mass exactly `3` → `+8.188`
+* `m = 7` — none of mass `3` or `5` → `+10.917`
+* `m → ∞` — no haunted ordinate at all → `+16.375`, the whole baseline
+
+ξ′ is a *different* kind of ask — two analytic hypotheses from an unread 1983
+paper, plus two axioms — and it now buys less than `m = 7`. **Nothing is
+asserted; all of these are conditional and the ledger stays at `50.88%`.** What
+changed across `147`, `150` and `151` is only that the options are theorems and
+can be compared.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Both names added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** three cycles running I have priced a route against the
+rung a register sentence happened to name, and the fix each time was to state the
+general theorem and let the parameter show me what I had not looked at.

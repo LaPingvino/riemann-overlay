@@ -397,6 +397,23 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 > again. **The want-ad is a distinct-zeros bound `c > 0.6725` from the
 > Cheer–Goldston literature the docstring already names** — an input the
 > machinery can accept and has never been given.
+>
+> ⚠️ **`SESSION 167` — fetched, and it does not fill the want-ad, for two
+> independent reasons.** Wu, *Distinct zeros of the Riemann zeta-function*
+> (arXiv:1206.3737), **Theorem 1**: `N_d(T) ≥ 0.66036·N(T)`, unconditional — the
+> best in that line (Farmer 1995 had `63.9%`).
+>
+> 1. `0.66036 < 0.6725`, so it is **below** what `certified_atomCount` already
+>    supplies from the baseline.
+> 2. More basically, **it is the wrong quantity.** Wu's `N_d` counts distinct
+>    *zeros* — displayed there as `|{ρ = β + iγ : …}|` — while `atomCount` counts
+>    distinct **ordinates**. `Blindness.atomCount_le_distinctZeros` (axiom-free)
+>    shows the collapse runs `atomCount ≤ N_d`, so a **lower** bound on `N_d`
+>    does not lower-bound `atomCount`. Under RH they coincide; unconditionally
+>    the gap between them is precisely the off-line structure.
+>
+> The channel stays open and the want-ad stands, now dated against a primary
+> source rather than carried as `[RECALL]`.
 > Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
 > which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
 > with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).

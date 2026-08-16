@@ -7657,3 +7657,57 @@ and wrong.
 **Might-mean, unhedged:** I had been reading the toolkit by what its theorems
 conclude, and reading it by what they *require* found two doors I had recorded as
 walls.
+
+# SESSION 167 — the want-ad fetched, and the constant was the lesser problem
+
+**Kill condition, stated first:** *if the literature's distinct-zeros bounds are
+at or below `0.6725`, the channel is open but unfed — the want-ad stands, dated
+rather than unexamined, and no route opens.* **It fired, and then a second
+reason fired underneath it.**
+
+`166` produced a precise want-ad with a named literature and a `[RECALL,
+UNVERIFIED]` label. arXiv is reachable, so it was owed.
+
+**Primary source, read from the displayed statement.** Xiaosheng Wu, *Distinct
+zeros of the Riemann zeta-function*, arXiv:1206.3737, **Theorem 1**:
+
+> For `T` sufficiently large, `N_d(T) ≥ 0.66036 N(T)`.
+
+Unconditional; the best in that line, with Farmer's `63.9%` (1995) as the prior
+mark. `0.66036 < 0.6725`, so it is below what `certified_atomCount` already
+supplies from the baseline. **Kill condition fired.**
+
+## `S73` — and the constant was the second reason, not the first
+
+Wu's `N_d` is displayed as `|{ρ = β + iγ : 0 < γ ≤ T, ζ(ρ) = 0}|` — distinct
+**zeros**, as points of the plane. `atomCount` is `ordinates.toFinset.card` —
+distinct **ordinates**. Two zeros sharing an ordinate at different `β` contribute
+`1` to `atomCount` and `2` to `distinctZeros`.
+
+`Blindness.atomCount_le_distinctZeros` (axiom-free) certifies the collapse:
+`atomCount ≤ N_d`. So a **lower** bound on `N_d` does not lower-bound
+`atomCount`, which is what `hauntedDensity_of_distinctZeros` consumes. Even a
+literature value above `0.6725` would not have transferred.
+
+I wrote `166`'s want-ad as "a distinct-zeros bound `c > 0.6725`" without checking
+that the literature's `N_d` is the quantity the machinery takes. That is `160`'s
+lesson — read the definitions before comparing numbers — repeated **one cycle
+after I recorded it**. What saved it was `159`'s lesson: I read the displayed
+definition instead of the search summary, and the summary would not have shown
+the distinction.
+
+Under RH the two quantities coincide. Unconditionally the gap between them is
+precisely the off-line structure this project exists to measure, which is a
+pleasing place for the dictionary to fail.
+
+The channel stays open; the want-ad stands, now dated against a primary source
+rather than carried as `[RECALL]`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Two names added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** two cycles running, the literature I fetched was about
+a quantity one definition away from the one I needed, and both times the
+difference was exactly whether zeros are counted where they are or only how high
+they are.

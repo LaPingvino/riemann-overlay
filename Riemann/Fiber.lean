@@ -2052,6 +2052,34 @@ with no gain, it does not improve the row and I say so.*  **It fired.** -/
 /-- The number of atoms — the count of distinct ordinates.  A `μ_T` functional. -/
 noncomputable def atomCount (D : ZeroData) : ℕ := D.ordinates.toFinset.card
 
+/-- **`distinctZeros`: the literature's `N_d`** — distinct zeros as *points* of
+the plane, not distinct ordinates.  `SESSION 167`.
+
+Wu, *Distinct zeros of the Riemann zeta-function* (arXiv:1206.3737), Theorem 1
+proves `N_d(T) ≥ 0.66036·N(T)` unconditionally, with `N_d` defined there as
+`|{ρ = β + iγ : 0 < γ ≤ T, ζ(ρ) = 0}|`.  That is this quantity, and it is **not**
+`atomCount`. -/
+noncomputable def distinctZeros (D : ZeroData) : ℕ := D.Z.toFinset.card
+
+/-- **The dictionary, and it runs the wrong way for us: `atomCount ≤
+distinctZeros`.**
+
+Two zeros sharing an ordinate but sitting at different `β` are one *ordinate* and
+two *distinct zeros*, so collapsing to ordinates can only lose count.  Hence a
+**lower** bound on `N_d` — which is what the literature proves — does not
+lower-bound `atomCount`, the quantity `hauntedDensity_of_distinctZeros` consumes.
+
+Under RH the two coincide, every zero being on the line; unconditionally the gap
+between them is exactly the off-line structure this project exists to measure.
+So `166`'s want-ad is not filled by Wu's theorem even setting its constant aside,
+and its constant `0.66036` is in any case below the `0.6725` the baseline already
+supplies through `certified_atomCount`. -/
+theorem atomCount_le_distinctZeros (D : ZeroData) :
+    atomCount D ≤ distinctZeros D := by
+  classical
+  rw [atomCount, distinctZeros, ZeroData.ordinates, Multiset.toFinset_map]
+  exact Finset.card_image_le
+
 /-- **The four-quantity bridge:** `2·A + #{odd atoms} ≤ N + 2·Nsc`.  Per atom
 this is `2 + [odd] ≤ mass + 2·[mass = 1]`, tight at masses `1`, `2` and `3`. -/
 theorem two_mul_atomCount_add_oddAtoms_le (D : ZeroData) :

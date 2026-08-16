@@ -308,5 +308,7 @@ import Riemann
 #check @Riemann.ZeroData.NscAny_le_N
 #check @Riemann.offline_roundtrip_loses
 #check @Riemann.offline_roundtrip_eq_iff
+#check @Riemann.Blindness.distinctZeros
+#check @Riemann.Blindness.atomCount_le_distinctZeros
 #check @Riemann.Blindness.configAt_H
 #check @Riemann.Blindness.configAt_offAt

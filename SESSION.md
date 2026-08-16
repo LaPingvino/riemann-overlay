@@ -6688,8 +6688,8 @@ Corrected at the location of both phrases.
 ## What this does to the ruling, Joop
 
 `147` handed you a question sized as *"double the trusted base for 9.29 points."*
-That was the only option on the table because the alternative was not a theorem,
-its absence from `audit/Declarations.lean` until this cycle being the witness.
+That was the only option on the table because the alternative was not a theorem:
+`Riemann.certified_nsc_via_noSmallHaunted` did not exist until this cycle.
 It is now, and the question is better posed as a choice:
 
 * **ξ′** — `+9.294`, two analytic hypotheses from a 1983 paper nobody here has

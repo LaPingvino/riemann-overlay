@@ -11882,3 +11882,43 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 routes and its failure mode of proving one thing twice produce the same
 signature, so the guard's job here is not to decide which one it is looking at
 but to make sure a person is asked.
+
+## `NoHaunted` buys no star bound — `181`'s docstring, seventy-six cycles later
+
+`255` proved multiplicity `≤ 2` implies `NoHaunted`, strictly. That raises the
+obvious question of what the extra strength is spent on, and `Fiber.lean` has
+carried the answer as prose since `181`: *"what `H ≤ 2` buys beyond the row is
+the star bound `C ≤ 1.3275`, which hauntedness alone does not give."*
+
+**Kill condition, filed first:** *if the witness family stops being unhaunted as
+its multiplicity grows — if large mass forces a haunted ordinate — then
+`NoHaunted` does bound the star constant, `181`'s clause is false, and it gets
+corrected at its location rather than witnessed.* It did not fire.
+`configAt 0 (m+1) 0 a` has **no off-line zeros at all**, which is the strongest
+form of unhauntedness available, at every `m`.
+
+`noHaunted_no_starBound` — for every real `C` there is a `ZeroData` with
+`Noff = 0`, no haunted ordinate, and `C·N < N⊛`. Axiom-free. So the star ratio is
+unbounded inside the unhaunted class and no `StarBound C` survives it.
+
+**Nothing here is a new proof.** It composes `noHaunted_of_Noff_zero` (`4454`)
+with `Nstar_bound_attained` (`4776`), both of which were already on disk and
+both of which I checked for before writing, which is `S111`'s bill arriving.
+The theorem is thirty-three inserted lines and no deletions.
+
+So `255`'s two hypotheses agree on the `Nsc` row and part company on the star
+row, and that is the whole of the difference between them.
+
+**What this cost, as a fact about the project.** The clause was true, was
+load-bearing (it is the reason `RULING.md` keeps `H ≤ 2` in the discussion at
+all after striking its row), and sat unwitnessed from `181` to `257`. `229` made
+exactly this move for `oddAtoms` and wrote down the reason: an assertion in a
+docstring is still an assertion. The reason did not generalise itself to the
+next docstring.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green, 30/30 cones, board unchanged.
+
+**Might-mean, unhedged:** the docstrings are where this project keeps the claims
+no instrument reads, so the next audit worth running is not over the registers
+but over the prose attached to theorems.

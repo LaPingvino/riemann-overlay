@@ -231,6 +231,8 @@ import Riemann
 #check @Riemann.ladder_approaches_kappa
 -- SESSION 255: the domination of the two kappa rows, lifted to Family.
 #check @Riemann.Family.noHaunted_of_boundedMult_two
+-- SESSION 257: NoHaunted buys no star bound; 181's docstring, witnessed.
+#check @Riemann.Blindness.noHaunted_no_starBound
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

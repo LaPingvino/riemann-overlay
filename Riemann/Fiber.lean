@@ -3618,7 +3618,9 @@ line is unhaunted and violates `H ≤ 2`.
 
 So `097`'s `Proportion 0.6725` needed less than it assumed.  What `H ≤ 2` buys
 *beyond* the row is the star bound `C ≤ 1.3275`, which hauntedness alone does not
-give. -/
+give.  *(`257`: that last clause was an assertion in a docstring for seventy-six
+cycles; it is now `noHaunted_no_starBound`, which exhibits an unhaunted
+configuration of star ratio `m` for every `m`.)* -/
 theorem noHaunted_of_mult_le_two (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
     ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 := by
   intro γ hsc
@@ -4798,6 +4800,39 @@ theorem Nstar_bound_attained (M : ℕ) (hM : 1 ≤ M) {a : ℝ} :
     rw [hsum, Multiset.map_const', Multiset.sum_replicate, smul_eq_mul,
       Nat.mul_comm]
     rw [show Multiset.card (configAt 0 M 0 a).Z = (configAt 0 M 0 a).N from rfl, hN]
+
+/-- **`NoHaunted` buys no star bound at all.**  `SESSION 257`.
+
+`181` put this in a docstring — *"what `H ≤ 2` buys beyond the row is the star
+bound `C ≤ 1.3275`, which hauntedness alone does not give"* — and left it there.
+`229` made the same move on `oddAtoms` and the answer was that an assertion in a
+docstring is still an assertion.  This is the witness.
+
+`configAt 0 (m+1) 0 a` has no off-line zeros whatever, which is the strongest
+form of unhauntedness available, and `Nstar_bound_attained` gives
+`N⊛ = (m+1)·N`.  So the star ratio runs to infinity inside the class, and no
+`StarBound C` survives it for any real `C`.
+
+Read against `255`: multiplicity `≤ 2` implies `NoHaunted` and the implication
+is strict, so `H ≤ 2` is the stronger hypothesis — and this is what the extra
+strength is spent on.  The two hypotheses agree on the `Nsc` row and part
+company on the star row. -/
+theorem noHaunted_no_starBound (C : ℝ) {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData, D.Noff = 0
+      ∧ (∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1)
+      ∧ 0 < D.N ∧ C * (D.N : ℝ) < (D.Nstar : ℝ) := by
+  obtain ⟨m, hm⟩ := exists_nat_gt C
+  have hoff : (configAt 0 (m + 1) 0 a).Noff = 0 := by
+    rw [configAt_Noff ha]
+  have hN : (configAt 0 (m + 1) 0 a).N = m + 1 := by
+    rw [configAt_N]
+  obtain ⟨-, hstar⟩ := Nstar_bound_attained (M := m + 1) (a := a) (by omega)
+  refine ⟨configAt 0 (m + 1) 0 a, hoff, noHaunted_of_Noff_zero _ hoff, ?_, ?_⟩
+  · rw [hN]; omega
+  · rw [hstar, hN]
+    push_cast
+    have hm1 : C < (m : ℝ) + 1 := by linarith
+    nlinarith
 
 /-- **A supremum bound on multiplicity gives a star bound, at constant `M`.**
 `N⊛ = Σ_ρ H(γ_ρ)`, so capping every `H` caps the sum term by term. -/

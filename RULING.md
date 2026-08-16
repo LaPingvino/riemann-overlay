@@ -132,7 +132,11 @@ who can prove less than `NoHaunted` and more than nothing.
   (`noHaunted_not_mult_le_two`), identical payout. *(`255`: this is now a term
   at the level the board works at — `Family.noHaunted_of_boundedMult_two`. Until
   then the domination was stated here and witnessed only one `ZeroData` at a
-  time.)*
+  time.)* *(`257`: and the strictness is not idle — `H ≤ 2` also buys the
+  star bound, which `NoHaunted` does not: `noHaunted_no_starBound` exhibits an
+  unhaunted configuration of star ratio `m` for every `m`. The two hypotheses
+  agree on the `Nsc` row and part company on the star row, so striking the row
+  is right and dropping the hypothesis from the discussion would not be.)*
 * **ξ′** is dominated by the `m = 7` rung — fewer points *and* two more axioms.
 
 ### Where the two currencies stop (`SESSION 240`)

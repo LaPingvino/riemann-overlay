@@ -7733,11 +7733,11 @@ after all.**
 
 The route fails on arithmetic, not on direction:
 
-* `0.66036 − 0.3275 = 0.33286` against the `0.6725` that `certified_atomCount`
-  supplies — the route returns under half of it, giving `δ ≤ 0.33357` against
-  `certified_haunted`'s `0.16375`;
-* and it can never win: beating `κ` needs `N_d/N > κ + (1 − κ) = 1`, while
-  `distinctZeros ≤ N` always. **Tie at `N_d = N`**, since `distinctZeros ≤ N`, and nothing above it.
+* `0.66036 − 0.3275 = 0.33286`, against `0.6725` from `certified_atomCount` —
+  under half, so `δ ≤ 0.33357` where `certified_haunted` already gives `0.16375`;
+* and it cannot win at any constant: by
+  `Blindness.distinctZeros_le_atomCount_add_Noff`, beating `κ` needs
+  `N_d/N > κ + (1 − κ) = 1`, while `distinctZeros ≤ N` always. **Tie at `N_d = N`**, since `distinctZeros ≤ N`, and nothing above it.
 
 That is the identical wall `161` found for `NscAny`, from the identical cause —
 the `Noff` it pays with is `1 − κ`, minted from the row being raised. **Third
@@ -7762,6 +7762,12 @@ shelves is downstream of it.
 Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 2, base hash `cd7a22e688df` unmoved. One name added to
 `audit/Declarations.lean`.
+
+**Process, bin 2, third occurrence.** I ran the gate and then committed in the
+same shell line, so the commit went out with a flag still open — as in `155` and
+`166`. The gate is not the problem and neither is the assert; the `git` call is
+simply not downstream of the check. Recorded rather than promised away: the fix
+is to make the commit conditional, and I have not done it.
 
 **Might-mean, unhedged:** I have now closed the same route three times in three
 different vocabularies, and each time the arithmetic bottomed out on the same

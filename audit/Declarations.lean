@@ -297,3 +297,5 @@ import Riemann
 #check @Riemann.proportion_of_mult_le_zeta
 #check @Riemann.mult_ladder_value
 #check @Riemann.mult_ladder_no_gain
+#check @Riemann.NoSmallHaunted.mono
+#check @Riemann.noHaunted_iff_forall_noSmallHaunted

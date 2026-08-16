@@ -560,6 +560,14 @@ quite different.
 > | `H ≤ 2` | `+16.375` | 2 | **strictly stronger than `NoHaunted`, same payout — dominated** |
 >
 > Nothing is asserted; every row is conditional and the ledger stays `50.88%`.
+>
+> ✅ **`SESSION 156` — the dial is certified to be a dial.** The menu presents
+> `m = 5, 7, → ∞` as a scale, which needs the hypotheses to be comparable and
+> the top row to be the chain's limit. Both are now theorems, **axiom-free**:
+> `NoSmallHaunted.mono` (rung `m+1` implies rung `m`, so the rungs are nested)
+> and `noHaunted_iff_forall_noSmallHaunted` (`NoHaunted ↔ ∀ m, NoSmallHaunted m`,
+> so the top row is the chain's limit and not a separate item that happens to pay
+> more). *Scope: nesting is `≤`, not `<` — general strictness is not claimed.*
 
 
 ## The ξ′ route's blocker has a citation (SESSION 115, from claude.ai)

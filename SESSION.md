@@ -7029,3 +7029,58 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** two cycles running I have shipped an instrument change
 with no way to detect if it broke the instrument, in a project whose entire
 apparatus exists to detect exactly that.
+
+# SESSION 156 — the dial is certified to be a dial
+
+**R20 binds.** `153`, `154` and `155` were audit and instrument work — three
+consecutive. This cycle is mathematics or nothing.
+
+**Kill condition, stated first:** *if the relation between `NoHaunted` and
+`∀ m, NoSmallHaunted m` is already stated, this dies as a duplicate.* **It did
+not fire.** `Gaps.lean` has called `NoHaunted` "the ladder's limit" since `105`
+and `PRICES.md` lists `m → ∞` as the top rung, but the two definitions were
+introduced separately and **only the proportions they deliver had ever been
+compared**.
+
+**Wildcard, kill condition first:** *if the rungs are not nested — if
+`NoSmallHaunted (m+1)` does not imply `NoSmallHaunted m` — the menu's "dial"
+framing is wrong and the rungs are incomparable hypotheses rather than a scale.*
+**It did not fire either.**
+
+Two theorems, both **axiom-free** (`propext`, `Classical.choice`, `Quot.sound`
+only):
+
+* `NoSmallHaunted.mono` — rung `m+1` implies rung `m`. The rungs are **nested**.
+* `noHaunted_iff_forall_noSmallHaunted` — `NoHaunted ↔ ∀ m, NoSmallHaunted m`.
+  The top row is the chain's **limit**.
+
+The backward direction is the line worth having: instantiate the family at
+`m = H γ + 1`, and the rung's own disjunction `H = 1 ∨ m ≤ H` collapses because
+`H + 1 ≤ H` is false. **No ordinate can hide above every rung** — which is what
+makes the ladder exhaustive rather than merely increasing.
+
+**What this settles.** For three cycles I have handed Joop a menu described as a
+*dial* — a scale on which he chooses how much to assume. That description
+presupposed two things: that the rungs are comparable, and that the top row is
+the same chain's limit rather than a separate item that happens to pay more.
+Neither had a witness — `NoSmallHaunted.mono` and
+`noHaunted_iff_forall_noSmallHaunted` did not exist until this cycle. Both now hold. The ruling is a choice along a certified
+chain.
+
+**Scope, and I corrected it before committing.** My first docstring said "a
+higher rung is a **strictly** larger demand". I proved `≤`, not `<`. General
+strictness would need, for each `m`, a configuration satisfying rung `m` and
+failing rung `m+1`; `Blindness.configAt 0 1 1 a` is such a witness at `m = 3`, so
+the chain is not constant, but no general statement is claimed. Fixed at the
+location rather than shipped and retracted.
+
+One snag, bin 2: my first insertion placed the new docstring *between* an
+existing docstring and its theorem, which Lean rejected as `unexpected token
+'/--'`. Caught by the build, not by me.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Both names in `audit/Declarations.lean`.
+
+**Might-mean, unhedged:** I described a structure as a dial for three cycles
+before checking it was ordered, and the check took four lines of Lean and no
+axioms.

@@ -379,6 +379,49 @@ theorem proportion_of_noSmallHaunted {F : Family} {m : ℕ} {κ : ℝ} (hm : 2 �
 def NoHaunted (F : Family) : Prop :=
   ∀ T γ, (F.D T).H γ - Blindness.offAt (F.D T) γ = 1 → (F.D T).H γ = 1
 
+/-- **The rungs are nested: a higher rung is at least as large a demand.**
+
+`PRICES.md`'s menu presents `m = 5, 7, → ∞` as a *dial* — a scale on which you
+choose how much to assume.  That framing needs the hypotheses to be comparable,
+and nothing had said they were.  They are: `m ≤ H` follows from `m + 1 ≤ H`, so
+`NoSmallHaunted F (m+1) → NoSmallHaunted F m`.
+
+Together with `noHaunted_iff_forall_noSmallHaunted` this makes the menu's top row
+the top of a *chain* rather than a separate item that happens to pay more.
+
+*Scope, stated:* this is `≤`, not `<`.  **Strictness is not proved here** — that
+would need, for each `m`, a configuration satisfying rung `m` and failing rung
+`m + 1`.  `Blindness.configAt 0 1 1 a` (mass `3`, haunted) is such a witness at
+`m = 3`, so the chain is not constant; a general strictness statement is not
+claimed. -/
+theorem NoSmallHaunted.mono {F : Family} {m : ℕ}
+    (hh : NoSmallHaunted F (m + 1)) : NoSmallHaunted F m := by
+  intro T γ hg
+  rcases hh T γ hg with h1 | h2
+  · exact Or.inl h1
+  · exact Or.inr (by omega)
+
+/-- **`NoHaunted` really is the ladder's limit** — `SESSION 156`.
+
+The docstring below has called it that since `105`, and `PRICES.md`'s menu lists
+`m → ∞` as the top rung, but nothing connected the two definitions: `NoHaunted`
+and `NoSmallHaunted` were introduced separately and only the *proportions* they
+deliver were compared.  They are related exactly as the word "limit" claims.
+
+Forward is immediate.  Backward is the one line worth having: instantiate the
+family at `m = H γ + 1`, and the rung's own disjunction `H = 1 ∨ m ≤ H` collapses,
+because `H + 1 ≤ H` is false.  So no ordinate can hide above every rung — which is
+what makes the ladder exhaustive rather than merely increasing. -/
+theorem noHaunted_iff_forall_noSmallHaunted (F : Family) :
+    NoHaunted F ↔ ∀ m, NoSmallHaunted F m := by
+  constructor
+  · intro h m T γ hg
+    exact Or.inl (h T γ hg)
+  · intro h T γ hg
+    rcases h ((F.D T).H γ + 1) T γ hg with h1 | h2
+    · exact h1
+    · omega
+
 /-- **The ladder's limit, attained: `NoHaunted` transfers the literature's row
 whole.**  Weaker than `097`'s `H ≤ 2` — which forbids unhaunted crowding too —
 and it yields the same proportion, though not the same star bound. -/

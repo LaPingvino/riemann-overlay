@@ -361,6 +361,37 @@ program, and the passage from `Finset` to integral — remains prose. Recorded a
 `SURPRISES` S20: I expected formalising the collapse would discharge the rung,
 and it discharged its skeleton.
 
+> **`SESSION 232` — what the vendoring did and did not hand rung 0.**
+>
+> Joop's ruling of the slate of `228` unblocked rung 0 on the premise that its
+> named analytic input *is* zeta-23's `PairCeiling`. Checked, and the premise
+> holds in substance: `PairCeiling` is *"the bandwidth-1 pair-correlation
+> ceiling"*, it carries a grid form factor `S : ℕ → ℝ`, and `ceiling_law256` is
+> exactly a **grid-to-continuum transfer with explicit error terms** —
+> `c₀ + Σ_{j≤256} massOf S · r(j/256) ≤ p` gives
+> `c₀ + ∫₀¹ r(x)·x ≤ p + 0.82395317·|r 1| + …`. That is the passage `198` said
+> was missing, and `231` put it on our own disk.
+>
+> **What it costs to use, which the ruling did not price.** `ceiling_law256`
+> takes `EnclOK LawN256.K S 0 LawN256.encl` as a hypothesis, and `LawN256.lean`
+> calls it in its own words a *"DISPLAYED HYPOTHESIS downstream … verified
+> outside Lean by interval arithmetic"*. It is discharged nowhere in zeta-23 —
+> `EnclOK` appears only in hypothesis position. The theorem is axiom-free
+> because the assumption is displayed, not because it is proved.
+>
+> The artifact behind it, `cert_N256_blk_b128m.json`
+> (`sha256 cc3de9917db4d14d…`), is described in the source as *"available from
+> the authors"*. It is **not in the vendored copy and not anywhere in this
+> repo** — a repo-wide search finds the hash in two comments and no file. So
+> `231` vendored the Lean sources of the machinery while the numeric input the
+> machinery consumes was never here to vendor.
+>
+> **So rung 0 is live work at a price, not free work.** Using `ceiling_law256`
+> means either adopting `EnclOK` into `Assumptions.lean` — `R5` counts that as
+> garbage height, and it would be the project's third baseline-tier assumption —
+> or obtaining the certificate and redoing its interval arithmetic. Raised to
+> Joop rather than chosen here.
+
 > **CORRECTED, `SESSION 198`.** The sentence below is wrong about what is left.
 > The `Finset`-to-integral passage it had in mind was indeed bookkeeping and was
 > done in `193`. The *other* half — the map from a bandwidth-one certificate

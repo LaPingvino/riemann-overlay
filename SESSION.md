@@ -10659,3 +10659,53 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the pin guaranteed which bytes arrived while leaving
 them to arrive from elsewhere, and what exposed the gap was a directory
 reappearing rather than a check this project had built.
+
+## Rung 0's machine arrived; its fuel was never in the box
+
+Joop's ruling made rung 0 the vendoring's first customer, on the premise that
+its named analytic input **is** zeta-23's `PairCeiling`.
+
+**Kill condition, filed first:** *if `PairCeiling` supplies no Fourier-support
+notion and no pair-correlation form factor, rung 0 stays blocked and I report
+exactly what it does supply, rather than reading the ruling as having settled a
+mathematical question.* It did not fire. The premise holds in substance.
+
+`PairCeiling` is, in its own header, *"the bandwidth-1 pair-correlation
+ceiling"*. It carries a grid form factor `S : ℕ → ℝ`, and `ceiling_law256` is a
+**grid-to-continuum transfer with explicit error terms**: from
+`c₀ + Σ_{j≤256} massOf S · r(j/256) ≤ p` to
+`c₀ + ∫₀¹ r(x)·x ≤ p + 0.82395317·|r 1| + 2.54…e-6·|g 1| + 2.54…e-6·∫₀¹|h|`.
+That is the passage `198` named as missing, and `231` put it on our disk.
+
+**What the ruling did not price.** `ceiling_law256` takes
+`EnclOK LawN256.K S 0 LawN256.encl` as a hypothesis, and `LawN256.lean` calls it
+in its own words a *"DISPLAYED HYPOTHESIS downstream … verified outside Lean by
+interval arithmetic"*. `EnclOK` appears only ever in hypothesis position across
+zeta-23; it is discharged nowhere. The theorem is axiom-free because the
+assumption is displayed, not because it is proved.
+
+And the artifact behind it — `cert_N256_blk_b128m.json`,
+`sha256 cc3de9917db4d14d…` — is described in the source as *"available from the
+authors"*. A repo-wide search finds the hash in two comments and no file. It is
+in neither the vendored copy nor this repository.
+
+So `231` vendored the sources of a machine whose fuel was not in the box.
+`S104`. `231` did what it claimed and `vendor_check.py` still shows it; what
+this adds is a second dependency of a different kind, on a file this repository
+has not held.
+
+**Rung 0 is live work at a price.** Using `ceiling_law256` means either adopting
+`EnclOK` into `Assumptions.lean`, which `R5` counts as garbage height and which
+would be a third baseline-tier assumption, or obtaining the certificate and
+redoing its interval arithmetic. Recorded at the rung-0 location in
+`FAILURES.md` and raised to Joop rather than chosen here.
+
+No Lean this cycle; the finding is the deliverable and it is a fact about what
+we now hold.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Eight guards green.
+
+**Might-mean, unhedged:** this project has spent many cycles proving that its
+own claims carry their witnesses, and the input it was told to reach for carries
+its witness in a file nobody in this repository has ever seen.

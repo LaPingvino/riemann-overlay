@@ -265,6 +265,9 @@ import Riemann
 #check @Riemann.baseline_of_cumulative
 -- SESSION 283: ISSUES #7's split — what zeta23_xiPrime absorbs, named.
 #check @Riemann.xiPrime_proportion_of_std_and_noHaunted
+-- SESSION 286: oddAtoms counts odd ON-LINE multiplicity.
+#check @Riemann.Blindness.oddAtoms_eq_odd_onAt
+#check @Riemann.Blindness.onAt_pos_of_odd_H
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

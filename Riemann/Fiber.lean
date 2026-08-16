@@ -1934,6 +1934,10 @@ predicate in `H`, and `H` is `ordinates.count`.  `220` did this for `atomCount`
 and the reason is the same: an assertion in a docstring is still an assertion,
 and this one carries the whole point of the bracket.
 
+*(`286`: and it is `μ_T`-visible for a sharper reason than the filter's syntax —
+`oddAtoms_eq_odd_onAt` shows the off-line mass cannot affect it at all, by
+parity at each ordinate.)*
+
 With `224`'s map: `NscStd` sits at the middle level and is bracketed above by a
 quantity at the top level.  That is what makes the bracket useful to a
 certificate class rather than merely true. -/
@@ -1944,6 +1948,43 @@ theorem oddAtoms_ordinate_functional :
     rw [oddAtoms]
     congr 1
     exact Finset.filter_congr fun γ _ => by rw [D.H_eq_count γ]⟩
+
+/-- **`oddAtoms` counts odd *on-line* multiplicity.**  `SESSION 286`.
+
+`H = onAt + offAt` and `offAt` is always even (`even_offAt`), so `H` and `onAt`
+have the same parity at every ordinate.  The definition filters on `¬ Even (H γ)`
+and could equally filter on `¬ Even (onAt γ)`.
+
+**So `oddAtoms` is an on-line quantity, not a mixed one.**  `229` established it
+is `μ_T`-visible — a functional of the ordinate multiset — and that reading made
+it look like a statistic about total mass.  It is not: the off-line part
+contributes nothing to it, by parity, at every ordinate separately. -/
+theorem oddAtoms_eq_odd_onAt (D : ZeroData) :
+    oddAtoms D = (D.ordinates.toFinset.filter fun γ => ¬ Even (onAt D γ)).card := by
+  classical
+  rw [oddAtoms]
+  congr 1
+  refine Finset.filter_congr fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  constructor
+  · intro hodd hev
+    exact hodd (by rw [Nat.even_iff] at *; omega)
+  · intro hodd hev
+    exact hodd (by rw [Nat.even_iff] at *; omega)
+
+/-- **An odd atom carries an on-line zero.**  `SESSION 286`.
+
+Immediate from `oddAtoms_eq_odd_onAt`: odd means nonzero.  This is why
+`NscStd_le_oddAtoms` can hold at all — both sides are counting ordinates that
+have something on the critical line. -/
+theorem onAt_pos_of_odd_H (D : ZeroData) (γ : ℝ) (h : ¬ Even (D.H γ)) :
+    0 < onAt D γ := by
+  have he := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  rcases Nat.eq_zero_or_pos (onAt D γ) with h0 | hp
+  · exact absurd (by rw [Nat.even_iff]; omega) h
+  · exact hp
 
 /-- **`NscStd ≤ #{odd atoms}`, and the right-hand side is `μ_T`-visible.**
 An atom contributes to `NscStd` only if its on-line part is `1`; with the

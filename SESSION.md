@@ -13399,3 +13399,51 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** an index of scar tissue only reaches the scars whose
 description you can guess, so the registers' wording is now part of their
 function rather than only their style.
+
+## `oddAtoms` is an on-line quantity
+
+`229` proved `oddAtoms` is `μ_T`-visible — a functional of the ordinate multiset
+— and that reading leaves it looking like a statistic about total mass at each
+ordinate. It is not.
+
+**Kill condition, filed first:** *if `H` odd is not equivalent to `onAt` odd —
+if the parity does not transfer — then `oddAtoms` is genuinely mixed and I report
+it as such.* It did not fire. `H = onAt + offAt` and `offAt` is always even
+(`even_offAt`), so the two have the same parity at every ordinate separately.
+
+* `oddAtoms_eq_odd_onAt` — the definition's filter `¬ Even (H γ)` may be replaced
+  by `¬ Even (onAt γ)`. **The off-line mass contributes nothing to `oddAtoms`.**
+* `onAt_pos_of_odd_H` — an odd atom therefore carries an on-line zero, which is
+  why `NscStd_le_oddAtoms` can hold: both sides count ordinates with something on
+  the critical line.
+
+Both axiom-free, `3757` jobs unchanged. `R26` first: the index had sixteen
+`oddAtoms` results and none of them this.
+
+**What it sharpens.** `229`'s `μ_T`-visibility is a statement about the filter's
+syntax — `H` is `ordinates.count`, so anything filtering on `H` is visible.
+This is stronger and different: the quantity is *insensitive to the off-line
+part*, ordinate by ordinate, which no syntactic argument gives. Annotated at
+`229`'s docstring.
+
+**Why it matters to the board.** `247` bought the odd-atom jaw at `c = κ` from
+the baseline, and `252` showed `oddAtoms = N_sc` inside multiplicity two. The
+missing piece was what `oddAtoms` measures when the multiplicity cap is absent,
+and the answer is: the parity of the on-line count, alone. That is a smaller
+object than the `μ_T` reading suggested, and it fits `252`'s result that inside
+multiplicity two the jaw and the simple-atom row are one number
+(`Blindness.oddAtoms_eq_Nsc_of_mult_le_two`).
+
+**Snag, bin 2.** The scratch file wrote `(D : ZeroData)` and Lean resolved
+`ZeroData` to a different constant than `Riemann.ZeroData` — three errors about
+field projection on a type "not of the form `C ...`". Under `open
+Riemann.Blindness` alone the bare name is ambiguous; the fix is to qualify, and
+the error message never names the clash.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green, both indices regenerated.
+
+**Might-mean, unhedged:** the project's visibility map is coarser than the
+mathematics — `μ_T`-visible covers both quantities that read the total mass and
+quantities that cannot see off the line at all, and the board has been treating
+those as one class.

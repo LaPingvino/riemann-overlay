@@ -193,6 +193,45 @@ theorem starBound_of_mult_le_three
   have e : ((3 : ℕ) : ℝ) - (((3 : ℕ) : ℝ) - 1) * 0.50875 = 1.9825 := by norm_num
   rwa [e] at h
 
+/-! ### Is the multiplicity hypothesis a dial too?  No — it is a single point.
+
+`SESSION 152`.  `151` found the *haunted* ladder improves with its parameter
+(`m = 5 → 7 → ∞` buys `+8.188 → +10.917 → +16.375`).  The multiplicity ladder
+looks like a second dial — `starBound_of_mult_le` is parameterised in `M`, and
+this file states it at `M = 2` and `M = 3` — so the same question is owed.
+
+**The answer is no, and it is the opposite shape.** Stating it generally makes it
+one line of arithmetic: feeding `Proportion κ` through
+`starBound_of_mult_le` and back through `proportion_of_starBound` returns
+
+> `2 − (M − (M−1)·κ)  =  (M−1)·(κ − 1) + 1`
+
+which for `κ < 1` is **strictly decreasing in `M`**, equals `κ` at `M = 2`, and
+loses from there. So the multiplicity ladder has exactly one live rung, and the
+`M = 3` statement below is valuable for its **star bound**, not for any
+proportion it returns. -/
+
+/-- **The multiplicity ladder at ζ, every rung at once.** -/
+theorem proportion_of_mult_le_zeta {M : ℕ} (hM1 : 1 ≤ M)
+    (hM : ∀ T γ, (zetaFamily.D T).H γ ≤ M) :
+    zetaFamily.toCounts.Proportion
+      (2 - ((M : ℝ) - ((M : ℝ) - 1) * 0.50875)) :=
+  Counts.proportion_of_starBound
+    (starBound_of_mult_le hM1 hM certified_nsc_unconditional)
+
+/-- **The ladder's identity: the returned proportion is `(M−1)(κ−1) + 1`.** -/
+theorem mult_ladder_value (M κ : ℝ) :
+    2 - (M - (M - 1) * κ) = (M - 1) * (κ - 1) + 1 := by ring
+
+/-- **And so it peaks at `M = 2` and strictly loses above it.**  With the
+certified `κ = 0.50875`, every rung `M ≥ 3` returns *less* than the row it was
+fed.  This is the exact opposite of `certified_nsc_ladder`, whose rungs climb —
+and it is why nobody had stated the general form: there was nothing up there. -/
+theorem mult_ladder_no_gain {M : ℕ} (hM : 3 ≤ M) :
+    2 - ((M : ℝ) - ((M : ℝ) - 1) * 0.50875) < 0.50875 := by
+  have h3 : (3 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM
+  nlinarith [h3]
+
 /-- **The whole baseline, from a hypothesis about one pattern.**  If no ordinate
 of `ζ` carries a lone critical zero shadowed by off-line pairs, the literature's
 `0.6725` transfers to the project's stronger notion intact.

@@ -294,3 +294,6 @@ import Riemann
 #check @Riemann.certified_nsc_via_noSmallHaunted
 #check @Riemann.certified_nsc_ladder
 #check @Riemann.certified_nsc_via_noSmallHaunted_seven
+#check @Riemann.proportion_of_mult_le_zeta
+#check @Riemann.mult_ladder_value
+#check @Riemann.mult_ladder_no_gain

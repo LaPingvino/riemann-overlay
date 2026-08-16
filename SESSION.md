@@ -6779,3 +6779,61 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** three cycles running I have priced a route against the
 rung a register sentence happened to name, and the fix each time was to state the
 general theorem and let the parameter show me what I had not looked at.
+
+# SESSION 152 — the second ladder runs backwards, and the menu is complete
+
+**Kill condition, stated first:** *if every parameterised route in
+`Proportion.lean` is already stated in general form at the ζ level, the
+`150`/`151` pattern was confined to the haunted ladder and this dies.* **It did
+not fire.** `starBound_of_mult_le` is parameterised in `M`; this file stated it
+at `M = 2` and `M = 3` and never generally.
+
+## The piece: ask the second ladder `151`'s question
+
+`151`'s lesson was to state the general theorem and let the parameter show what I
+had not looked at. The multiplicity hypothesis is the obvious next candidate — a
+second dial, apparently parallel. Three theorems, all built first try:
+
+* `proportion_of_mult_le_zeta` — every rung at once, cone **2** axioms;
+* `mult_ladder_value` — the identity `2 − (M − (M−1)κ) = (M−1)(κ−1) + 1`;
+* `mult_ladder_no_gain` — for `M ≥ 3` the rung returns **less** than `0.50875`.
+  **Axiom-free** (only `propext`, `Classical.choice`, `Quot.sound`).
+
+## `S55` — it is not a dial, it is a single point, and it runs the other way
+
+`(M−1)(κ−1) + 1` is **strictly decreasing in `M`** whenever `κ < 1`. It equals
+`κ` at `M = 2` and loses from there. So where the haunted ladder climbs
+(`+8.188 → +10.917 → +16.375`), the multiplicity ladder peaks immediately. That
+is why nobody had stated the general form — **there was nothing up there**, and
+the `M = 3` statement earns its place through its *star bound*, not through any
+proportion it returns.
+
+**And the one live rung is dominated as well.** `H ≤ 2 ⟹ NoHaunted`
+(`Blindness.noHaunted_of_mult_le_two`); `NoHaunted` is *strictly* weaker
+(`noHaunted_not_mult_le_two`); both return `0.6725`. So `noHaunted_of_mult_le_two` and
+`noHaunted_not_mult_le_two` together make this a strictly stronger hypothesis
+buying the same number — dominated on the mathematics, not on taste.
+
+## The menu, complete — and this is the last revision I expect to need
+
+| route | gain | axioms | hypothesis |
+|---|---|---|---|
+| `m = 5` haunted rung | `+8.188` | 2 | no haunted ordinate of mass `3` |
+| ξ′ | `+9.294` | **4** | two analytic `Prop`s, Conrey 1983, unread |
+| `m = 7` haunted rung | `+10.917` | 2 | none of mass `3` or `5` |
+| **`NoHaunted`** (`m → ∞`) | **`+16.375`** | 2 | no haunted ordinate at all |
+| `H ≤ 2` | `+16.375` | 2 | strictly stronger than `NoHaunted`, same payout — **dominated** |
+
+Joop: the ruling is one question — **how strong a hypothesis about ζ's own zeros
+will you carry?** — and the answer picks a row. Two rows can be struck
+immediately on the mathematics rather than on taste: `H ≤ 2` is dominated by
+`NoHaunted`, and ξ′ is dominated by `m = 7` in both points and axioms. What
+remains is a genuine dial with a genuine cost, and nothing on it is asserted.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Three names added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** two ladders that looked alike from their statements
+turned out to run in opposite directions, and what showed me was writing down the
+parameter and reading the sign.

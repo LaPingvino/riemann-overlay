@@ -537,6 +537,29 @@ quite different.
 > strength**, and that is the axis a ruling should actually turn on. Two cycles
 > priced this as a trade because both read "the cheap one" and neither looked one
 > row further down the register's own table.
+>
+> ### `SESSION 152` — the complete menu, and the multiplicity route is dominated
+>
+> The multiplicity hypothesis looked like a second dial (`starBound_of_mult_le`
+> is parameterised in `M`). It is not: stating it generally
+> (`proportion_of_mult_le_zeta`) gives `2 − (M − (M−1)κ) = (M−1)(κ−1) + 1`,
+> **strictly decreasing in `M`** for `κ < 1` (`mult_ladder_no_gain`, axiom-free).
+> One live rung, at `M = 2`.
+>
+> And that rung is **dominated too**: `H ≤ 2 ⟹ NoHaunted`
+> (`Blindness.noHaunted_of_mult_le_two`) and `NoHaunted` is *strictly weaker*
+> (`noHaunted_not_mult_le_two`), while both return `0.6725`. So a stronger
+> hypothesis buys the same number.
+>
+> | route | gain | axioms | hypothesis |
+> |---|---|---|---|
+> | `m = 5` haunted rung | `+8.188` | 2 | no haunted ordinate of mass `3` |
+> | ξ′ | `+9.294` | **4** | two analytic `Prop`s, Conrey 1983, unread |
+> | `m = 7` haunted rung | `+10.917` | 2 | none of mass `3` or `5` |
+> | **`NoHaunted`** (`m → ∞`) | **`+16.375`** | 2 | no haunted ordinate at all |
+> | `H ≤ 2` | `+16.375` | 2 | **strictly stronger than `NoHaunted`, same payout — dominated** |
+>
+> Nothing is asserted; every row is conditional and the ledger stays `50.88%`.
 
 
 ## The ξ′ route's blocker has a citation (SESSION 115, from claude.ai)

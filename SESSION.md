@@ -12891,3 +12891,48 @@ Lean added this cycle: the deliverable is a priced route and it is in `PRICES.md
 **Might-mean, unhedged:** the reason this looked like a capability gap for two
 cycles is that nobody had computed the required precision, and once computed it
 turned out to sit four orders inside what a library lemma already gives.
+
+## `cos` to order ten, proved
+
+`275` established that `Complex.exp_bound` is the route and `n = 10` the order.
+This walks it.
+
+**Kill condition, filed first:** *if the `n = 10` instantiation of `exp_bound`
+does not evaluate in reasonable time — if the ten-term complex partial sums
+defeat `norm_num` — then the route is priced but not affordable and I report the
+wall rather than the theorem.* It did not fire, and both risky steps were tested
+separately before the theorem was attempted: the `exp_bound` instantiation at
+`n = 10` is immediate, and combining the two ten-term sums into the real cosine
+polynomial takes `19s`.
+
+**`cos_bound10`** — for `|x| ≤ 1`,
+
+    |cos x − (1 − x²/2 + x⁴/24 − x⁶/720 + x⁸/40320)| ≤ |x|¹⁰ · 11/36288000
+
+axiom-free, `3757` jobs unchanged. It is `Complex.exp_bound` at `range 10`
+assembled the way Mathlib's own `Complex.cos_bound` assembles its `range 4`, so
+the proof is the library's pattern with a bigger index and the arithmetic that
+implies.
+
+At `x = 1/√2` the error is `≈9.5·10⁻⁹` against the `2.98·10⁻⁷` the `cot` bound
+needs — an order and a half of margin — and `274` showed the polynomial
+evaluates in `ℚ` there because `x² = 1/2`.
+
+**What is left of the numeric step.** The `sin` analogue at the same order, then
+the quotient: `cot(x)/√2 = C/S` with the `√2` already cancelled, so the finish is
+rational arithmetic against `0.6725`. Two named steps, both at a pattern now
+demonstrated in this repo rather than only in Mathlib.
+
+**Snag, bin 2.** The theorem was written and checked in a scratch file with
+`open Complex Finset`, and dropped into `Riemann/Zeta.lean` where neither is
+open — six `Unknown identifier I` errors at once. Lifting a proof out of a
+scratch file moves it out of its `open` scope, which nothing warns about because
+the scratch file was correct.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, eleven guards green, index regenerated.
+
+**Might-mean, unhedged:** the numeric capability this project was said to lack
+turned out to be one Mathlib lemma used at a larger index, which suggests the
+gap between "we do combinatorics" and "they do certified numerics" is narrower
+than either side's file listing implies.

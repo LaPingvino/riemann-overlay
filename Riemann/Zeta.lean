@@ -231,4 +231,60 @@ theorem zetaZeroData_NscStd (T : ℝ) : (zetaZeroData T).NscStd = Zeta23.N0simpl
   ext ρ
   simp [Set.Finite.mem_toFinset, and_assoc]
 
+/-- **`cos` to order ten.**  `SESSION 276`.
+
+`275` priced `baseline_zeta23`'s numeric step and found Mathlib's shipped
+`Complex.cos_bound` `43,711×` too coarse for it — it is `Complex.exp_bound`'s
+`range 4` instance, and the bound needed here wants `range 10`. This is that
+instance, assembled the way `cos_bound` assembles its own.
+
+At `x = 1/√2` the error is `≈9.5·10⁻⁹` against the `2.98·10⁻⁷` the `cot` bound
+requires, and `274` showed the polynomial evaluates in `ℚ` there because
+`x² = 1/2`. The `sin` analogue and the final quotient are the remaining steps.
+
+It lives here rather than in `Basic.lean` because it exists for the
+`baseline_zeta23` bridge; it mentions no `ZeroData` and depends only on
+Mathlib. -/
+theorem cos_bound10 {x : ℝ} (hx : |x| ≤ 1) :
+    |Real.cos x - (1 - x^2/2 + x^4/24 - x^6/720 + x^8/40320)|
+      ≤ |x| ^ 10 * (11 / (3628800 * 10)) := by
+  have hI : ‖(x:ℂ) * Complex.I‖ ≤ 1 := by
+    rw [norm_mul, Complex.norm_I, mul_one, Complex.norm_real]; simpa using hx
+  have hI' : ‖-(x:ℂ) * Complex.I‖ ≤ 1 := by
+    rw [norm_mul, Complex.norm_I, mul_one]; simpa using hx
+  have e1 := Complex.exp_bound hI (n := 10) (by norm_num)
+  have e2 := Complex.exp_bound hI' (n := 10) (by norm_num)
+  have hnorm : ‖(x:ℂ) * Complex.I‖ = |x| := by
+    rw [norm_mul, Complex.norm_I, mul_one, Complex.norm_real]; rfl
+  have hnorm' : ‖-(x:ℂ) * Complex.I‖ = |x| := by
+    rw [norm_mul, Complex.norm_I, mul_one]; simp
+  have key : ‖Complex.cos (x:ℂ) - (1 - (x:ℂ)^2/2 + (x:ℂ)^4/24 - (x:ℂ)^6/720 + (x:ℂ)^8/40320)‖
+      ≤ |x| ^ 10 * (11 / (3628800 * 10)) := by
+    have hcos : Complex.cos (x:ℂ)
+        = (Complex.exp ((x:ℂ) * Complex.I) + Complex.exp (-(x:ℂ) * Complex.I)) / 2 := by
+      rw [Complex.cos]
+    have hsum : (∑ m ∈ Finset.range 10, ((x:ℂ) * Complex.I) ^ m / m.factorial
+        + ∑ m ∈ Finset.range 10, (-(x:ℂ) * Complex.I) ^ m / m.factorial) / 2
+        = ((1 : ℂ) - (x:ℂ)^2/2 + (x:ℂ)^4/24 - (x:ℂ)^6/720 + (x:ℂ)^8/40320) := by
+      simp [Finset.sum_range_succ, Nat.factorial]
+      ring_nf
+      simp [Complex.I_sq]
+      ring
+    rw [hcos, ← hsum, ← sub_div, ← sub_add_sub_comm]
+    rw [norm_div, Complex.norm_ofNat]
+    have := norm_add_le
+      (Complex.exp ((x:ℂ) * Complex.I) - ∑ m ∈ Finset.range 10, ((x:ℂ) * Complex.I) ^ m / m.factorial)
+      (Complex.exp (-(x:ℂ) * Complex.I) - ∑ m ∈ Finset.range 10, (-(x:ℂ) * Complex.I) ^ m / m.factorial)
+    rw [hnorm] at e1; rw [hnorm'] at e2
+    have hf : ((10 : ℕ).factorial : ℝ) = 3628800 := by norm_num [Nat.factorial]
+    rw [hf] at e1 e2
+    simp only [Nat.succ_eq_add_one] at e1 e2
+    nlinarith [norm_nonneg (Complex.exp ((x:ℂ) * Complex.I) - ∑ m ∈ Finset.range 10, ((x:ℂ) * Complex.I) ^ m / m.factorial)]
+  have hre : Real.cos x = (Complex.cos (x:ℂ)).re := by
+    rw [← Complex.ofReal_cos]; rfl
+  calc |Real.cos x - (1 - x^2/2 + x^4/24 - x^6/720 + x^8/40320)|
+      = ‖((Real.cos x - (1 - x^2/2 + x^4/24 - x^6/720 + x^8/40320) : ℝ) : ℂ)‖ := by
+        rw [Complex.norm_real]; rfl
+    _ ≤ _ := by push_cast [Complex.ofReal_cos]; exact key
+
 end Riemann

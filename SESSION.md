@@ -10253,3 +10253,37 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the literature quantity this project compares its own
 row against is one its coordinates cannot compute, so the comparison rests on an
 inequality rather than on a shared quantity.
+
+## Why the dictionary entries are inequalities
+
+`221` put `NscAny` outside `(μ_T, offAt)`. The profile is built from exactly
+those two, so the corollary was sitting there.
+
+**Kill condition, filed first:** *if `profile` is not literally built from
+ordinates and `offAt`, the general lemma fails and I state the corollary only
+for the specific witnesses.* It did not fire —
+`profile D = D.ordinates.toFinset.val.map fun γ => (D.H γ, offAt D γ)`.
+
+* `profile_eq_of_ordinates_offAt` — equal ordinates and equal `offAt` give
+  equal profiles. Bookkeeping, but naming it turns `221`'s witnesses into a
+  profile-level statement for free.
+* `NscAny_not_profile_functional` — `221`'s two configurations share a profile
+  and differ in `NscAny`.
+* `no_profile_function_computes_NscAny` — the unconditional form.
+
+**And that answers a question `196` left implicit.** `Basic.lean` carries three
+dictionary entries relating `NscAny` to the ledger, all inequalities. `196`
+proved each attained and each strict somewhere, which shows the bounds are the
+best of their kind but not why they must be bounds. Now: the profile determines
+every ledger entry, and no function of the profile computes `NscAny`, so no
+ledger quantity determines it. There is no identity to sharpen toward. Recorded
+at the entries' own location in `Basic.lean`.
+
+Three theorems, axiom-free, all in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** four cycles of asking what this project's coordinates
+can see ended by explaining a design decision made twenty-six cycles earlier,
+which suggests the dictionary was built right before anyone could say why.

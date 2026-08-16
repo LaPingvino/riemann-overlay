@@ -4968,6 +4968,46 @@ theorem NscAny_not_fiber_functional {a b : ℝ} (ha : a ≠ 1/2) (hb : b ≠ 1/2
     exact ⟨(a, (0:ℝ)), Multiset.mem_filter.2 ⟨hmem, hcount⟩⟩
   omega
 
+/-- **Equal ordinates and equal `offAt` give equal profiles.**  `SESSION 222`.
+The profile is built from exactly those two, so this is bookkeeping — but naming
+it turns `221`'s witnesses into a profile-level statement for free. -/
+theorem profile_eq_of_ordinates_offAt {D D' : ZeroData}
+    (hord : D.ordinates = D'.ordinates) (hoff : ∀ γ, offAt D γ = offAt D' γ) :
+    profile D = profile D' := by
+  classical
+  have hH : ∀ γ, D.H γ = D'.H γ := fun γ => by
+    rw [D.H_eq_count, D'.H_eq_count, hord]
+  rw [profile, profile, hord]
+  exact Multiset.map_congr rfl fun γ _ => by rw [hH, hoff]
+
+/-- **`NscAny` is not a functional of the profile.**  `SESSION 222`.
+
+`221`'s two configurations agree in ordinates and in `offAt`, so by
+`profile_eq_of_ordinates_offAt` they share a profile, and their `NscAny` differ.
+
+This is why `196`'s dictionary entries are **inequalities**.  `NscStd ≤ NscAny`
+and `NscAny ≤ NscStd + Noff` bound the literature's quantity from the project's
+own, and no sharpening to an identity is available: the profile determines every
+ledger entry (`N_from_profile` and its four companions) and does not determine
+`NscAny`.  `196` proved the three bounds attained and each strict somewhere;
+this says the strictness is structural rather than a gap in the witnesses. -/
+theorem NscAny_not_profile_functional {a b : ℝ} (ha : a ≠ 1/2) (hb : b ≠ 1/2)
+    (hab : a ≠ b) (hab' : a ≠ 1 - b) :
+    profile (config 0 2 a) = profile (superpose (config 0 1 a) (config 0 1 b))
+      ∧ (config 0 2 a).NscAny
+          ≠ (superpose (config 0 1 a) (config 0 1 b)).NscAny := by
+  obtain ⟨hord, hoff, hne⟩ := NscAny_not_fiber_functional ha hb hab hab'
+  exact ⟨profile_eq_of_ordinates_offAt hord hoff, hne⟩
+
+/-- The unconditional form: no function of the profile computes `NscAny`.
+`SESSION 222`. -/
+theorem no_profile_function_computes_NscAny :
+    ¬ ∃ f : Multiset (ℕ × ℕ) → ℕ, ∀ D : ZeroData, D.NscAny = f (profile D) := by
+  rintro ⟨f, hf⟩
+  obtain ⟨hp, hne⟩ := NscAny_not_profile_functional (a := 0) (b := 1/3)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+  exact hne (by rw [hf, hf, hp])
+
 /-- **`atomCount` *is* an ordinate functional**, and by definition rather than by
 argument.  `SESSION 220`.  Stated so the contrast with
 `NscAny_not_ordinate_functional` is a pair of theorems rather than a sentence. -/

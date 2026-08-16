@@ -175,6 +175,10 @@ import Riemann
 #check @Riemann.Blindness.NscAny_not_ordinate_functional
 -- SESSION 221: and not a functional of (mu_T, offAt) either.
 #check @Riemann.Blindness.NscAny_not_fiber_functional
+-- SESSION 222: hence not a profile functional, which is why 196's entries are inequalities.
+#check @Riemann.Blindness.profile_eq_of_ordinates_offAt
+#check @Riemann.Blindness.NscAny_not_profile_functional
+#check @Riemann.Blindness.no_profile_function_computes_NscAny
 -- SESSION 216: two ledger entries are not recoverable from the other four.
 #check @Riemann.Blindness.Noff_not_determined_by_ledger
 #check @Riemann.Blindness.NscStd_not_determined_by_ledger

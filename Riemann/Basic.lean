@@ -204,6 +204,15 @@ what makes their `61.7%` comparable to our rows at all. -/
 noncomputable def NscAny : ℕ :=
   Multiset.card (D.Z.filter fun p => D.Z.count p = 1)
 
+/-! **Why these entries are inequalities and stay that way** — `SESSION 222`.
+
+`Blindness.no_profile_function_computes_NscAny`: no function of the profile
+computes `NscAny`.  The profile determines every ledger entry
+(`Blindness.N_from_profile` and its four companions), so no ledger quantity
+determines `NscAny` either.  The three bounds below are therefore not a first
+approximation to an identity — there is no identity to reach.  `196` proved each
+attained and each strict somewhere; `222` says the strictness is structural. -/
+
 /-- **The dictionary entry: `NscStd ≤ NscAny`.**
 
 An on-line zero of multiplicity one *is* a zero of multiplicity one, so every

@@ -445,6 +445,46 @@ noncomputable def constFamily (D : ZeroData) (h : 0 < D.N) : Family where
   D := fun _ => D
   nonempty := Filter.Eventually.of_forall fun _ => h
 
+/-- The single-ordinate witness clears rung `1 + 2j`.  Extracted in `SESSION 158`
+so that strictness and non-vacuity rest on one construction rather than two
+copies of it. -/
+lemma configAt_noSmallHaunted {a : ℝ} (_ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j)
+    (hN : 0 < (Blindness.configAt 0 1 j a).N) :
+    NoSmallHaunted (constFamily (Blindness.configAt 0 1 j a) hN) (1 + 2 * j) := by
+  classical
+  intro T γ hg
+  by_cases hγ : γ = 0
+  · subst hγ
+    right
+    show (1 + 2 * j) ≤ (Blindness.configAt 0 1 j a).H 0
+    rw [Blindness.configAt_H]
+    simp
+  · exfalso
+    have hH : (Blindness.configAt 0 1 j a).H γ = 0 := by
+      rw [Blindness.configAt_H]; simp [hγ]
+    have hsplit := Blindness.H_eq_onAt_add_offAt (Blindness.configAt 0 1 j a) γ
+    have : (Blindness.configAt 0 1 j a).H γ
+        - Blindness.offAt (Blindness.configAt 0 1 j a) γ = 1 := hg
+    omega
+
+/-- **No rung of the menu is secretly RH** — `SESSION 158`.
+
+`108`/`116` proved the *top* rung strictly weaker than RH-in-window
+(`Blindness.noHaunted_strictly_weaker_than_RH`).  The intermediate rungs had no
+such check, and `144` is the reason one is owed: a hypothesis can be precise
+enough to look valuable and still empty the thing it would buy.  If some rung
+forced `Noff = 0`, that row would be RH in disguise and worthless as a route.
+
+None does.  The same witness that makes the chain strict carries `2j` off-line
+zeros, so every rung admits off-line mass. -/
+theorem noSmallHaunted_admits_offline {a : ℝ} (ha : a ≠ 1/2) {j : ℕ}
+    (hj : 1 ≤ j) (hN : 0 < (Blindness.configAt 0 1 j a).N) :
+    NoSmallHaunted (constFamily (Blindness.configAt 0 1 j a) hN) (1 + 2 * j)
+      ∧ (Blindness.configAt 0 1 j a).Noff ≠ 0 := by
+  refine ⟨configAt_noSmallHaunted ha hj hN, ?_⟩
+  rw [Blindness.configAt_Noff ha]
+  omega
+
 /-- **And the chain is strict at every rung** — `SESSION 157`, closing the scope
 note `156` left open.
 
@@ -464,21 +504,8 @@ theorem noSmallHaunted_strict {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j
   classical
   have hN : 0 < (Blindness.configAt 0 1 j a).N := by
     rw [Blindness.configAt_N]; omega
-  refine ⟨constFamily (Blindness.configAt 0 1 j a) hN, ?_, ?_⟩
-  · intro T γ hg
-    by_cases hγ : γ = 0
-    · subst hγ
-      right
-      show (1 + 2 * j) ≤ (Blindness.configAt 0 1 j a).H 0
-      rw [Blindness.configAt_H]
-      simp
-    · exfalso
-      have hH : (Blindness.configAt 0 1 j a).H γ = 0 := by
-        rw [Blindness.configAt_H]; simp [hγ]
-      have hsplit := Blindness.H_eq_onAt_add_offAt (Blindness.configAt 0 1 j a) γ
-      have : (Blindness.configAt 0 1 j a).H γ
-          - Blindness.offAt (Blindness.configAt 0 1 j a) γ = 1 := hg
-      omega
+  refine ⟨constFamily (Blindness.configAt 0 1 j a) hN,
+    configAt_noSmallHaunted ha hj hN, ?_⟩
   · intro hcon
     have hg : (Blindness.configAt 0 1 j a).H 0
         - Blindness.offAt (Blindness.configAt 0 1 j a) 0 = 1 := by

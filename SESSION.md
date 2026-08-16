@@ -7133,3 +7133,53 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the menu I have been handing Joop for four cycles is
 now a certified strictly-increasing chain with a limit, and what remains in it
 that is not a theorem is the decision.
+
+# SESSION 158 — no row of the menu is secretly RH, and the anchor lesson failed a third time
+
+**Kill condition, stated first:** *if some rung forces `Noff = 0` — i.e. is
+secretly RH-in-window — then that row is vacuous as a route and must be struck
+from the menu.* **It did not fire. None does.**
+
+`144` is why the check was owed: a hypothesis can be precise enough to look
+valuable and still empty the thing it would buy. `108`/`116` ran it on the **top**
+rung (`noHaunted_strictly_weaker_than_RH`); for the intermediate rungs there was
+no counterpart until `noSmallHaunted_admits_offline` this cycle.
+
+**Two theorems, axiom-free:**
+
+* `configAt_noSmallHaunted` — the single-ordinate witness clears rung `1 + 2j`.
+  Extracted so strictness and non-vacuity rest on **one** construction rather
+  than two copies of it; `noSmallHaunted_strict` now consumes it.
+* `noSmallHaunted_admits_offline` — that same witness carries `2j` off-line
+  zeros, so **no rung forces `Noff = 0`**.
+
+Every row of the menu is now a hypothesis strictly weaker than the row above,
+strictly stronger than the row below, and compatible with off-line mass. That is
+the whole structural question closed; `PRICES.md` and `CLAIMS.md` carry it.
+
+## `S62` — the anchor lesson, third failure
+
+`157` recorded `S61`: *anchor an insertion on the docstring's opening line, not
+on `theorem <name>`, because the latter puts text between a theorem and its
+docstring.* One cycle later I anchored on `theorem noSmallHaunted_strict` and
+split its docstring again — same file, same edit shape, third occurrence.
+
+`S61` diagnosed the mechanism correctly and recorded the fix, and none of that
+reached the next edit I made. **A lesson written into a register is not a lesson
+applied.** The anchor choice happens inside a heredoc where nothing consults
+`SURPRISES.md`, and on all three occasions what caught it was the parser — which
+catches it instantly and for free, which is presumably why it keeps not costing
+enough to learn.
+
+I am not building an instrument for this. The honest note is that three
+identical, immediately-caught, zero-damage failures are what a *cheap* error
+looks like, and the register's job here is to record that the cost is low rather
+than to pretend the lesson took.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Two names added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** the menu is finished as mathematics — five cycles of
+theorems, with its ordering, strictness, limit and non-vacuity all certified —
+and what it is waiting on now is a person.

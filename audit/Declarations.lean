@@ -300,5 +300,7 @@ import Riemann
 #check @Riemann.NoSmallHaunted.mono
 #check @Riemann.noHaunted_iff_forall_noSmallHaunted
 #check @Riemann.noSmallHaunted_strict
+#check @Riemann.configAt_noSmallHaunted
+#check @Riemann.noSmallHaunted_admits_offline
 #check @Riemann.Blindness.configAt_H
 #check @Riemann.Blindness.configAt_offAt

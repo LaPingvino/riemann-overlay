@@ -574,6 +574,16 @@ quite different.
 > one critical zero and `j` off-line pairs, haunted of mass exactly `1 + 2j`. So
 > **no two rows of this menu are the same hypothesis**, and the dial has a
 > distinct detent at every odd mass. Axiom-free.
+>
+> ✅ **`SESSION 158`: and no row is secretly RH.** `144`'s lesson is that a
+> hypothesis can be precise enough to look valuable and still empty what it would
+> buy. The *top* row was checked at `108`/`116`
+> (`noHaunted_strictly_weaker_than_RH`); the intermediate rows never were. They
+> pass: `noSmallHaunted_admits_offline` shows every rung is satisfied by a
+> configuration carrying `2j` off-line zeros, so **no rung forces `Noff = 0`**.
+> Axiom-free. Every row of this menu is now a hypothesis that is strictly weaker
+> than the previous one, strictly stronger than the next, and compatible with
+> off-line mass.
 
 
 ## The ξ′ route's blocker has a citation (SESSION 115, from claude.ai)

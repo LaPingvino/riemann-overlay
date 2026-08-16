@@ -8507,3 +8507,49 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the mathematics took four lines and the bookkeeping
 defeated me, which is the usual ratio in this project and the reason the registers
 are larger than the theory.
+
+# SESSION 183 — half the obligation closes, and the kill condition stops the rest
+
+**Kill condition, stated first:** *if the `Finset` cardinality still doesn't close
+once I have the correct lemma names, I leave it and record a second honest failure
+rather than a third attempt.* **It fired. I stopped.**
+
+`182` identified the witness pair and named `Finset` bookkeeping as the hard half.
+It also guessed a lemma name wrong — the correct one is
+**`Finset.card_insert_of_notMem`** (capital `M`), confirmed against Mathlib rather
+than guessed a second time.
+
+## `S85` — the wrong name was real, and fixing it was not sufficient
+
+With the right name the **two-point side compiles**:
+
+    distinctZeros (configAt 0 0 2 a) = 2
+
+The working proof is now recorded verbatim in `LEADS.md`, so a third attempt
+starts from it rather than rediscovering it.
+
+**The four-point side still fails**, and on a goal whose own hypothesis is in
+scope: `simp` leaves `¬b = 1 − b` with `hbne : b ≠ 1 − b` passed to it. Forcing it
+with a structured `refine`/`simp_all` hits `maximum recursion depth`.
+
+I had attributed the whole of `182`'s failure to the part I could see — the bad
+lemma name. That was one defect of two, and probing the halves **separately** is
+what showed it; re-running the whole theorem would have shown only that it still
+failed.
+
+## Where the obligation stands
+
+Unchanged in substance and sharper in form. Everything in the argument is in hand
+except one statement:
+
+    distinctZeros (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)) = 4
+
+Two attempts, each stopped by a kill condition set before it began. Nothing
+half-built was committed; the tree carries only register text.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new declarations.
+
+**Might-mean, unhedged:** I diagnosed a failure from its visible cause, fixed
+that, and found the invisible one still standing — which is why the kill
+condition was written to count attempts rather than to judge progress.

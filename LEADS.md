@@ -43,6 +43,32 @@ as the shape of an explanation for why `167`/`168`'s dictionary had to be an
 >
 > So the claim is **still unproved**, but it is now a specified obligation with a
 > named witness pair and a known hard half, rather than an argument.
+>
+> **`SESSION 183` — second attempt; half closes, and the working proof is
+> recorded here so a third does not rediscover it.** The lemma name `182` guessed
+> wrong is `Finset.card_insert_of_notMem` (capital `M`). With it, the *easy* side
+> compiles:
+>
+> ```lean
+> example {a : ℝ} (ha : a ≠ 1/2) : distinctZeros (configAt 0 0 2 a) = 2 := by
+>   classical
+>   have hane : a ≠ 1 - a := fun h => ha (by linarith [h])
+>   show (Multiset.toFinset (Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+>       + (Multiset.replicate 2 (a, (0:ℝ))
+>         + Multiset.replicate 2 ((1 - a : ℝ), (0:ℝ))))).card = 2
+>   rw [Multiset.toFinset_add, Multiset.toFinset_add, Multiset.toFinset_replicate,
+>     Multiset.toFinset_replicate, Multiset.toFinset_replicate]
+>   norm_num
+>   rw [Finset.card_insert_of_notMem (by simp [Prod.ext_iff, hane])]
+>   simp
+> ```
+>
+> **The four-point side still does not.** `simp` leaves one membership goal
+> (`¬b = 1 − b`) that its own hypothesis should discharge, and forcing it with a
+> structured `refine`/`simp_all` hits `maximum recursion depth`. Two attempts,
+> stopped by a kill condition set before the second began. The obligation is
+> unchanged: **`distinctZeros (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)) = 4`**,
+> everything else in the argument being in hand.
 
 
 ## `SESSION 159` — a simplicity route that consumes *location* rather than multiplicity

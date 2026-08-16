@@ -6645,3 +6645,71 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the register that records what the project got wrong is
 now the fastest-growing thing in it, and that is either the apparatus working or
 the apparatus becoming the work.
+
+# SESSION 150 — two routes on the board, and the cheaper one costs no axioms
+
+**Kill condition, stated first:** *if the survey finds any route in the registers
+that would move the `Nsc` row and has never been priced, then `149`'s "the
+registers list none" was wrong, the project is not blocked on Joop, and the
+escalation weakens.* **It did not fire as stated** — no *unpriced* route exists.
+What the survey found instead is a comparison nobody had made, and it changes the
+parked ruling.
+
+`149` said six of seven cycles had been instrument work and asked for a ruling.
+Another instrument cycle would have confirmed the drift rather than tested it, so
+this cycle tested `149`'s own load-bearing sentence.
+
+## The `m = 5` rung was priced at `8.2` points and had never been stated
+
+`PRICES.md` has carried it since `105`. `Gaps.proportion_of_noSmallHaunted` is
+general; nothing instantiated it at ζ. **The same gap `147` found for Route II**
+(`certified_nsc_via_xiPrime`), in the adjacent paragraph of the same register.
+
+`certified_nsc_via_noSmallHaunted : NoSmallHaunted zetaFamily 5 →
+zetaFamily.toCounts.Proportion 0.590625`, from `(5·0.6725 − 1)/4`. Built first
+try.
+
+## The comparison, in the currency `R5` says to count
+
+| route | gain | hypotheses | **axiom cone** |
+|---|---|---|---|
+| ξ′ (`certified_nsc_via_xiPrime`) | **+9.294** | `OffTransfer`, `NzComparable` — analytic, Conrey 1983, unread | **4** |
+| `m = 5` (`certified_nsc_via_noSmallHaunted`) | **+8.188** | `NoSmallHaunted zetaFamily 5` — combinatorial, about ζ's own zeros | **2 — no increase** |
+
+Both cones verified with `#print axioms`, not read off the statements — the
+`S48` lesson from three cycles ago, applied on purpose this time.
+
+**The cheaper route costs `1.106` points and buys back two axioms.** `PRICES.md`
+called the ξ′ route "the one live item" and "the cheapest nine points on the
+board". In points that is right. In `R5`'s garbage-height currency — *every axiom
+raises the stack without being clearable* — it is the **dearer** of the two.
+Corrected at the location of both phrases.
+
+## What this does to the ruling, Joop
+
+`147` handed you a question sized as *"double the trusted base for 9.29 points."*
+That was the only option on the table because the alternative was not a theorem,
+its absence from `audit/Declarations.lean` until this cycle being the witness.
+It is now, and the question is better posed as a choice:
+
+* **ξ′** — `+9.294`, two analytic hypotheses from a 1983 paper nobody here has
+  read, and the ledger's `axioms:` field goes `2 → 4`;
+* **`m = 5`** — `+8.188`, one combinatorial hypothesis about ζ's own zeros, and
+  the `axioms:` field **does not move**.
+
+I am not recommending either; both hypotheses are unproved and neither is
+asserted. But `R5` exists precisely to make the second look better than it did,
+and `PRICES.md` carried no comparison of the two: its route table listed the ξ′
+row as "the one live item", which is the sentence corrected above.
+
+`S53`: I wrote `149`'s "the registers list none" myself, one cycle ago, and it
+was half right in the half that mattered.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved — the ledger must not move on a conditional
+theorem, and `metric.json` points no row at either. Name added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** I spent a cycle telling Joop the project was blocked,
+and the thing that unblocked the question was reading my own register instead of
+repeating my own sentence.

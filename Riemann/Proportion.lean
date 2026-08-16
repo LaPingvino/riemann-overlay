@@ -375,6 +375,28 @@ theorem nsc_row_opens {C : ℝ} (hstar : zetaFamily.toCounts.StarBound C)
       (0.6725 - (C - 1) / 6 - ε) * zetaFamily.Nz T ≤ zetaFamily.Nsc T :=
   nsc_of_nscStd zetaFamily hstar baseline_zeta23
 
+/-- **The `m = 5` ladder rung at the ζ level: `0.590625`, `+8.2` points.**
+
+`PRICES.md` has carried this route at `8.2 points` since `105`, and — exactly as
+with Route II before `147` — it existed only as arithmetic.  `SESSION 150` states
+it.
+
+`(5·0.6725 − 1)/4 = 0.590625`.
+
+**The hypothesis is combinatorial, not analytic.**  `NoSmallHaunted zetaFamily 5`
+says no standard-simple ordinate is crowded to mass exactly `3` — off-line pairs
+are permitted anywhere *except* shadowing a lone critical zero at the cheapest
+haunted mass.  It is not RH-conditional, so `provenance_lint`'s Rule 4 does not
+touch it, and unlike `NoHaunted` it is not vacuous under any hypothesis the
+project holds. -/
+theorem certified_nsc_via_noSmallHaunted
+    (hh : NoSmallHaunted zetaFamily 5) :
+    zetaFamily.toCounts.Proportion 0.590625 := by
+  have h := proportion_of_noSmallHaunted (m := 5) (by norm_num) hh certified_std
+  have e : (((5 : ℕ) : ℝ) * 0.6725 - 1) / (((5 : ℕ) : ℝ) - 1) = 0.590625 := by
+    norm_num
+  rwa [e] at h
+
 /-! ### Route II at the ζ level, conditional and axiom-free in its own step
 
 `Gaps.offLineImport_of_derivative` is general; `Assumptions.zeta23_xiPrime`

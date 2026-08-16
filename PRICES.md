@@ -412,7 +412,7 @@ All nine declared axioms, each with its ledger value and the reason:
 | `closePairsZeta` | an opaque function constant | nil alone |
 | `fujii_ineffective` | `∃ c₀, ∀ λ, StarBound (Cbound c₀ λ)`. `Cbound c₀ λ = λ + log(2+λ)/(π²λ) + c₀√(log(2+λ))/λ` grows with `c₀` and has no `c₀`-uniform minimum over `λ`, so **no numerical `C` is extractable** | nil until `c₀` is effective — checked by reading `Cbound`, not by trusting the note |
 | `fujii_closePair_bookkeeping` | conditional on `EffectiveFujii` **and** `ClosePairLowerBound` | nil until both |
-| `zeta23_xiPrime` `0.85838` | **9.29 points**, blocked on `OffTransfer` + `NzComparable` | **the one live item** (`087`) |
+| `zeta23_xiPrime` `0.85838` | **9.29 points**, blocked on `OffTransfer` + `NzComparable` | ⚠️ **`SESSION 150`: no longer "the one live item"** — see the axiom-cost comparison below (`087`) |
 | `levinson_montgomery` | an input to that route | realised in `087`'s pricing |
 | `baseline_przz` `0.4162` | **none — it is a theorem** (`przz_of_zeta23`) | **REDUNDANT, see below** |
 | `baseline_zeta23` `0.6725` | the `NscStd` row, and via `084` the `Nsc` row | **realised twice** |
@@ -502,6 +502,23 @@ mass exactly `3`. That is a statement about one configuration, and it is worth
 quite different.
 
 *Both remain hypotheses. Neither is asserted, and the ledger stays at `50.88%`.*
+
+> ## ⚠️ `SESSION 150` — the two routes were never compared in the currency that matters
+>
+> Both are now **theorems** at the ζ level (`147` closed the first, `150` the
+> second), so `#print axioms` can price them in trusted base rather than in
+> prose:
+>
+> | route | gain | hypotheses | **axiom cone** |
+> |---|---|---|---|
+> | ξ′ (`certified_nsc_via_xiPrime`) | **+9.294** → `0.60169` | `OffTransfer`, `NzComparable` — analytic, Conrey 1983, unread | **4** — adds `xiPrimeFamily`, `zeta23_xiPrime` |
+> | `m = 5` ladder (`certified_nsc_via_noSmallHaunted`) | **+8.188** → `0.590625` | `NoSmallHaunted zetaFamily 5` — combinatorial, about ζ's own zeros | **2** — `baseline_zeta23`, `zetaNonempty`, i.e. **no increase at all** |
+>
+> **The cheaper route costs `1.106` points and buys back two axioms.** The
+> register called the ξ′ route "the cheapest nine points on the board" and "the
+> one live item"; in points that is right, and in *garbage height* (`R5`: every
+> axiom raises the stack without being clearable) it is the more expensive of
+> the two. Neither is asserted and the ledger stays at `50.88%`.
 
 
 ## The ξ′ route's blocker has a citation (SESSION 115, from claude.ai)

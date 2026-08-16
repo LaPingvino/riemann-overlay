@@ -291,3 +291,4 @@ import Riemann
 #check @Riemann.Blindness.landau_ge_N_mul_sqrt
 #check @Riemann.offline_via_xiPrime
 #check @Riemann.certified_nsc_via_xiPrime
+#check @Riemann.certified_nsc_via_noSmallHaunted

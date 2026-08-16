@@ -600,5 +600,31 @@ theorem baseline_of_cumulative {c : ℝ} (hc : (0.6725:ℝ) ≤ c)
   have hn : (0:ℝ) ≤ (Zeta23.Ncount 0 T : ℝ) := Nat.cast_nonneg _
   nlinarith [hb, hn, hc]
 
+/-- **`ISSUES` `#7`'s split, made explicit.**  `SESSION 283`.
+
+`#7` has stood since `SESSION 003` as *"bin 1, fixed in the docstring; still an
+over-strong axiom"*: `zeta23_xiPrime` asserts `Proportion 0.85838`, which is a
+statement about `N_sc` (`H = 1`), while `Zeta23.XiPrime.xiDeriv_simple_on_line`
+proves `0.85838` for `N0simple` — on-line zeros of multiplicity one, the
+`NscStd` quantity.  `#7` records that the conversion between them *"is not a
+theorem"* for `ξ′` and *"should be split into (i) the cited zeta-23 statement
+and (ii) the conversion lemma"*.
+
+This is that split, and the conversion lemma already existed —
+`proportion_of_noHaunted`.  So the exact content the axiom absorbs is
+`NoHaunted xiPrimeFamily`, and `Blindness.Nsc_eq_NscStd_iff_noHaunted` says
+that is not a technicality but the difference between the two counts.
+
+**This does not weaken the axiom**; `Assumptions.lean` still asserts the strong
+form and the trusted base is unchanged.  What it does is name the gap in a
+machine-checked way, so that replacing the axiom by its honest half is a
+one-line edit whenever that is ruled on. -/
+theorem xiPrime_proportion_of_std_and_noHaunted
+    (hstd : xiPrimeFamily.ProportionStd 0.85838)
+    (hh : NoHaunted xiPrimeFamily) :
+    xiPrimeFamily.toCounts.Proportion 0.85838 :=
+  proportion_of_noHaunted hh hstd
+
+
 
 end Riemann

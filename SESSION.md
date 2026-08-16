@@ -13238,3 +13238,60 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** the closest this project has come to a false certified
 row was not a wrong proof but a right proof of a neighbouring quantity, and the
 thing that stopped it was an unbuilt file rather than any of the twelve guards.
+
+## `ISSUES` `#7` gets a machine-checked split
+
+`S114` named a shape no guard watches — two neighbouring quantities sharing a
+headline number — and that risk is not confined to the axiom where it turned up.
+This audits the board's other imported constants for it.
+
+**Kill condition, filed first:** *if the board's citations do not name which
+zeta-23 quantity they consume — if the mapping cannot be checked without
+re-deriving each route — then I report the citations as unauditable rather than
+clearing them.* It did not fire. Every citation names its quantity, and the
+audit found the one real mismatch **already on the books**.
+
+**`zeta23_xiPrime` is the case, and `ISSUES` `#7` has recorded it since
+`SESSION 003`.** The axiom asserts `Proportion 0.85838`, a statement about
+`N_sc` (`H = 1`); `Zeta23.XiPrime.xiDeriv_simple_on_line` proves `0.85838` for
+`N0simple`, on-line zeros of multiplicity one — the `NscStd` quantity. `#7` is
+labelled *"bin 1, fixed in the docstring; still an over-strong axiom"* and says
+the conversion *"is not a theorem"* for `ξ′`, to be *"split into (i) the cited
+zeta-23 statement and (ii) the conversion lemma"*.
+
+So this is not a discovery. `R26` and `S111` say check the register first; I did,
+and the register had it. What was missing was the split itself.
+
+**`xiPrime_proportion_of_std_and_noHaunted`** — `ProportionStd 0.85838` together
+with `NoHaunted xiPrimeFamily` give `Proportion 0.85838`, through
+`proportion_of_noHaunted`, which already existed. So the content the axiom
+absorbs now has a name: **`NoHaunted xiPrimeFamily`**. And
+`Nsc_eq_NscStd_iff_noHaunted` says that is the entire difference between the two
+counts, not a technicality.
+
+`#print axioms` reports only `xiPrimeFamily`, the opaque carrier — **not**
+`zeta23_xiPrime`. The decomposition is independent of the axiom it decomposes.
+
+**The axiom is unchanged and the trusted base is unmoved.** `#7` stays open. What
+changed is that swapping `zeta23_xiPrime` for its honest half is a one-line edit
+whenever it is ruled on, and the cost of not doing it is written down as a `Prop`
+instead of a paragraph. Annotated at `#7`.
+
+**`duplication_floor` fired; graded, then `--update`.** `routeII_xiPrime` — the
+axiom restated, no hypotheses — and this decomposition share the conclusion.
+Under `264`'s rule neither hypothesis implies the other, and the relation is
+`280`'s again: the row as it stands, and the row as it would stand once the
+axiom is replaced by its honest half. Floor `22 → 23`.
+
+**Snag, bin 2.** `Counts.Proportion` is `Nsc`-based and `Family.ProportionStd`
+is `NscStd`-based, and the names do not say so — `Proportion` reads like the
+general one and is in fact the strong one. That naming is why `#7` needed
+finding twice, and why `280`'s `baseline_of_cumulative` had to be read carefully
+to confirm it targets `ProportionStd`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, twelve guards green, `ISSUES` at baseline `40`.
+
+**Might-mean, unhedged:** the project's oldest open defect was a missing one-line
+theorem the whole time, which suggests some of what the registers carry as
+*open* is carried there because nobody asked what it would take to close.

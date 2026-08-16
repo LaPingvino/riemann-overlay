@@ -149,6 +149,19 @@ into `(★)` for `ξ′` with `C' = 1.14162`. That is Proposition 1 read
 this needs its own argument. Currently absorbed into the axiom; should be
 split into (i) the cited zeta-23 statement and (ii) the conversion lemma.
 
+**`283`: the split is now machine-checked.**
+`Proportion.xiPrime_proportion_of_std_and_noHaunted` states it —
+`xiPrimeFamily.ProportionStd 0.85838` together with `NoHaunted xiPrimeFamily`
+give `Proportion 0.85838`, via `Gaps.proportion_of_noHaunted`, which already
+existed. So the content the axiom absorbs has a name: `NoHaunted xiPrimeFamily`.
+`Blindness.Nsc_eq_NscStd_iff_noHaunted` shows that is the whole difference
+between the two counts rather than a technicality.
+
+The axiom is **unchanged** and the trusted base is unmoved; `#7` stays open.
+What changed is that replacing `zeta23_xiPrime` by its honest half is now a
+one-line edit whenever it is ruled on, and the cost of not doing so is written
+down as a `Prop` rather than as prose.
+
 
 ## #8 — [bin 3] Axiomatising a literature theorem over an *abstract* family asserts too much
 

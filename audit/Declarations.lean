@@ -114,6 +114,8 @@ import Riemann
 -- SESSION 201: and it fails outright on the multiplicity-one class.
 #check @Riemann.Optimal.Nsc_eq_N_of_boundedMult_one
 #check @Riemann.Optimal.prop1_LP_optimal_fails_on_simple_class
+-- SESSION 202: and the threshold between them is exactly M = 2.
+#check @Riemann.Optimal.prop1_LP_threshold_at_two
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

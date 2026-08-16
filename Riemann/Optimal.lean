@@ -275,6 +275,33 @@ theorem prop1_LP_optimal_fails_on_simple_class {C : ℝ} (hC : 1 < C) :
   have hcast : (D.N : ℝ) ≤ (D.Nsc : ℝ) := by exact_mod_cast this
   simpa using hcast
 
+/-- **The threshold is exactly `M = 2`.**  `SESSION 202`.
+
+Putting `prop1_LP_optimal_cheap` and `prop1_LP_optimal_fails_on_simple_class`
+together as one statement, because the pair is the interesting object and two
+lemmas in different places are not.
+
+For every `C ∈ (1, 2]`: the LP conclusion holds for *every* bound asserted on
+`BoundedMult M` with `M ≥ 2`, and fails for `M ≤ 1`.
+
+`M = 0` is covered by the same half rather than being a separate case, and by
+the route the proof actually takes: `BoundedMult 0` implies `BoundedMult 1` by
+monotonicity, so `Nsc_eq_N_of_boundedMult_one` applies and `(1, 0)` breaks the
+conclusion there too.  So the split is clean, and the threshold is the mass-two
+atom itself: the conclusion is available when the class is large enough to
+contain a doubled zero. -/
+theorem prop1_LP_threshold_at_two {C : ℝ} (hC1 : 1 < C) (hC2 : C ≤ 2) :
+    (∀ M : ℕ, 2 ≤ M → ∀ a b : ℝ, LinearBoundCheap M a b → a + b * C ≤ 2 - C)
+      ∧ (∀ M : ℕ, M ≤ 1 →
+          ∃ a b : ℝ, LinearBoundCheap M a b ∧ ¬ (a + b * C ≤ 2 - C)) := by
+  refine ⟨fun M hM a b h => prop1_LP_optimal_cheap hM h (le_of_lt hC1) hC2, ?_⟩
+  intro M hM
+  refine ⟨1, 0, fun D hD => ?_, fun h => by linarith⟩
+  have hD1 : BoundedMult 1 D := fun γ => le_trans (hD γ) hM
+  have hcast : (D.N : ℝ) ≤ (D.Nsc : ℝ) := by
+    exact_mod_cast Nsc_eq_N_of_boundedMult_one D hD1
+  simpa using hcast
+
 
 
 /-! ### The moment route is walled at every order

@@ -9387,3 +9387,43 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** this project's optimality result and its target pull
 against each other — the closer anyone gets to showing `ζ`'s zeros are simple,
 the less the two-moment exhaustion argument says.
+
+## Where the threshold sits, as one statement
+
+`prop1_LP_optimal_cheap` needs `M ≥ 2`; `201` broke `M = 1`. Two lemmas in
+different places are not the interesting object — the threshold is.
+
+**Kill condition, filed first:** *if `M = 0` behaves differently from `M = 1` —
+say the conclusion holds vacuously there — the dichotomy is not clean and I
+state the threshold with the exception named rather than as a split.* It did not
+fire.
+
+`prop1_LP_threshold_at_two`, for every `C ∈ (1, 2]`:
+
+* for every `M ≥ 2`, every bound asserted on `BoundedMult M` satisfies
+  `a + b·C ≤ 2 − C`;
+* for every `M ≤ 1`, some bound on `BoundedMult M` violates it.
+
+`M = 0` falls to the second half by the route the proof takes: `BoundedMult 0`
+implies `BoundedMult 1` by monotonicity, so `201`'s lemma applies and `(1, 0)`
+breaks the conclusion there too.
+
+So the threshold is the mass-two atom itself. The two-moment optimality is
+available when the class is large enough to contain a doubled zero, and not
+before — which is a sharper way of saying what `200` and `201` found in pieces.
+
+**Snag, bin 3, caught before commit.** The first docstring explained `M = 0` by
+asserting that `BoundedMult 0` forces `Z = 0`. That is a claim about the
+development I had not checked, and it is not the route the proof takes: the
+proof goes through monotonicity to `201`'s lemma. Rewritten to describe what
+the proof does. R17 applies to prose about one's own proof, not only to
+build output.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the strength of every bound this project certifies is
+set by the worst configuration its class admits, so the ledger is a statement
+about what has not been ruled out rather than about `ζ`.

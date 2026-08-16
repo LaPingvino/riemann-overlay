@@ -9877,3 +9877,41 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 
 **Might-mean, unhedged:** `W35` looked open because its failure was diagnosed as
 missing information, and the missing information turns out not to matter.
+
+## The board is unmoved; what moved is around it
+
+`RULING.md` consolidates the parked decision for Joop and was verified at `186`.
+Twenty cycles have run since. The question a heartbeat should ask before adding
+more mathematics is whether the decision he is being asked to make is still
+about the current state.
+
+**Kill condition, filed first:** *if `RULING.md`'s rows are unaffected by
+`193`–`212`, the board is current and I say so in one line rather than rewriting
+it.* **It fired.**
+
+`forensics/board.py` re-run: every route declaration unchanged, `30/30` cones as
+recorded, `9` axioms declared, ledger `NscStd 67.25% / Nsc 50.88%`. No row moved.
+
+So the file keeps its board and gains a dated note recording two things that
+changed **around** it, both decision-relevant:
+
+* **Moments are not a currency.** `#20` had left a standing hope that some
+  higher-moment supplier could improve the reduction. `211` closes it at every
+  order and `212` at any admissible `C_k`. The three currencies the file
+  names — multiplicity, location, arithmetic input — are the three, with no
+  fourth waiting.
+* **Rung 0 is not on this board, and it got worse.** `198`/`199` moved it from
+  "one instantiation short" to "blocked on a named analytic input". Flagged so
+  the ladder's picture and the board's are not read as one thing.
+
+Also updated: the parked cron-prompt item now records that `LOOP.md`'s banner is
+machine-checked since `195`, so "the disk corrects the prompt" is a claim with a
+guard behind it rather than a habit.
+
+Nothing asserted, nothing adopted, no number touched.
+
+Build green (3757 jobs), sorries 0, axioms 2 in the certified cone, base
+`cd7a22e688df` unmoved. Seven guards green, banner 6/6.
+
+**Might-mean, unhedged:** twenty cycles of work moved no row on the board, which
+is what it looks like when a project is done with the part it can do alone.

@@ -1,7 +1,32 @@
 # RULING — the one decision the ledger waits on
 
-**For Joop. Verified `SESSION 186`; every number below is reproduced in exact
-rationals and every cone by `#print axioms`.**
+**For Joop. Verified `SESSION 186`, re-verified `SESSION 213`; every number
+below is reproduced in exact rationals and every cone by `#print axioms`.**
+
+> **Still current as of `213`.** `forensics/board.py` re-run this cycle: every
+> route declaration unchanged, `30/30` cones as recorded, `9` axioms declared,
+> ledger `NscStd 67.25% / Nsc 50.88%`. **No row below moved in `193`–`212`.**
+> Two things changed *around* the board, and both belong in a decision you are
+> being asked to make:
+>
+> **1. Moments are not a currency.** `ISSUES` `#20` had said a third moment was
+> the input that could improve the reduction, which left a standing hope that
+> some higher-moment supplier might appear. `211` closes that at **every** order
+> `k ≥ 2` (`Optimal.linearBoundK_LP_value`, value `2 − C`), and `212` closes it
+> at any admissible `C_k`, not merely the extreme
+> (`linearBoundK_no_gain_at_any_moment`). `W35` is dead and its named next step
+> — mapping the realizable `(C, C₃)` region — is not work worth doing. So the
+> three currencies below are the three, with no fourth waiting.
+>
+> **2. Rung 0 is not on this board, and it got worse.** The ladder brief's
+> rung 0 (`#10`'s LP-duality collapse) was believed one instantiation short of
+> certified. `198` and `199` show the capacity theorems bound a bandwidth-one
+> program **from below** rather than computing it — a bandwidth class is a
+> *subclass*, an infimum over a smaller class can be larger, and `#10`'s no-gain
+> conclusion does not transfer to a subclass. The debt is now blocked on a named
+> analytic input the repo does not have (Fourier support, a pair-correlation
+> form factor). This changes no row here; it is flagged so the ladder's picture
+> and this board's are not read as one thing.
 
 This file exists because the decision has been parked since `147` and its
 materials are spread across `PRICES.md`, `CLAIMS.md` and twenty session entries.
@@ -77,4 +102,7 @@ it is, which is a fully certified `50.88%` with all its derivations proved tight
   surface `9 → 8` and changes no number. Your call.
 * **The cron prompt's `STATE`/`QUEUE` lines** are stale on the ledger, the
   binding constraint, and queue items 1–4. `LOOP.md`'s `⚠️ READ FIRST` banner
-  corrects them on disk; the prompt text itself is yours to edit.
+  corrects them on disk — and since `195` that banner is itself machine-checked
+  (`forensics/banner_check.py`, six rows against the disk, one reported
+  `UNCHECKED` rather than counted green). The prompt text itself is yours to
+  edit.

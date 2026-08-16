@@ -490,6 +490,38 @@ from a different instrument — not from re-reading the signature form.
 
 # X — the characterization, and basket III (dispatch, 2026-08-13)
 
+## The visibility map, as of `SESSION 224`
+
+Sessions `220`–`223` asked, for each quantity the project or the literature
+counts, which coordinate can compute it.  Every row below was `#check`ed this
+cycle rather than recalled.
+
+| quantity | `μ_T` alone | `(μ_T, offAt)` | witness |
+|---|---|---|---|
+| `N`, `N⊛` | **yes** | yes | `ZeroData.N_Nstar_ordinate_functional` |
+| `N_sc` | **yes** | yes | `ZeroData.Nsc_eq_ordinate_functional` |
+| `Σm^k` | **yes** | yes | `Blindness.thirdMoment_determined` |
+| `atomCount` (distinct **ordinates**) | **yes**, by definition | yes | `Blindness.atomCount_ordinate_functional` (`220`) |
+| `NscStd` | **no** | **yes** | `NscStd_not_ordinate_functional` · `NscStd_determined` |
+| `N_off` | **no** | **yes** | `no_muInvariant_bundle_computes_Noff` · `Noff_determined` |
+| `NscAny` | no | **no** | `NscAny_not_ordinate_functional` (`220`) · `NscAny_not_fiber_functional` (`221`) |
+| `distinctZeros` = `N_d` (distinct **points**) | no | **no** | `distinctZeros_not_profile_functional` · `distinctZeros_not_fiber_functional` (`223`) |
+
+Three levels, and the boundaries are where the project's difficulties sit.
+
+* `N_sc` is `μ_T`-visible and `NscStd` is not. `ISSUES` `#13` is the entry that keeps the two
+  apart; this row gives a coordinate-level difference between them.
+* The ledger occupies the middle level exactly: `ledger_determined` computes all
+  five entries from `(μ_T, offAt)`, and `216`/`217` show none of the five is
+  recoverable from the other four.
+* **Both** quantities the literature offers are on the far side. `NscAny` and
+  `N_d` are invisible even to the fiber coordinate, and `222` draws the
+  consequence: no function of the profile computes `NscAny`, so `Basic.lean`'s
+  three dictionary entries are inequalities with no identity to sharpen toward.
+* `atomCount` against `distinctZeros` is the sharp pair — distinct ordinates are
+  visible, distinct points are not — and the distinct-zero route reaches the
+  ledger through the former, which is why it functions at all.
+
 ## X, proposed and **partially proved in-repo the same day**
 
 > **X.** The certificate class factors through **bandwidth-≤1 functionals of

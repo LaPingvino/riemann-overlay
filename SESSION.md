@@ -10327,3 +10327,43 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** this project's coordinates were built to see what its
 own ledger needs, and both quantities the literature offers it are outside them,
 so every comparison it can make is a bracket rather than a translation.
+
+## The visibility map, written down
+
+`220`–`223` each answered one question about what this project's coordinates can
+compute. No register holds the result, and the arc's value is the map rather
+than any single row of it.
+
+**Kill condition, filed first:** *if any level of the map lacks a theorem in the
+development, I record that level as unproved rather than filling the table.* It
+did not fire. Every row was `#check`ed this cycle rather than recalled.
+
+Three levels:
+
+* **`μ_T` alone** — `N`, `N⊛` (`N_Nstar_ordinate_functional`), `N_sc`
+  (`Nsc_eq_ordinate_functional`), the moments (`thirdMoment_determined`),
+  `atomCount` (`atomCount_ordinate_functional`, `220`).
+* **`(μ_T, offAt)` but not `μ_T`** — `NscStd` and `N_off`, each with both halves
+  proved (`NscStd_not_ordinate_functional` / `NscStd_determined`;
+  `no_muInvariant_bundle_computes_Noff` / `Noff_determined`).
+* **Neither** — `NscAny` (`220`, `221`) and `distinctZeros` (`223`).
+
+Filed in `LEADS.md`'s X section, where the characterization lives.
+
+Four observations the table makes visible, and the first was a surprise to me:
+`N_sc` is `μ_T`-visible while `NscStd` is not, so the project's own stronger
+notion is the cheaper one to see. The ledger occupies the middle level exactly,
+and `216`/`217` showed none of its five entries is recoverable from the other
+four. Both quantities the literature offers sit on the far side. And the sharp
+pair is `atomCount` against `distinctZeros` — distinct ordinates visible,
+distinct points not — which is how the distinct-zero route functions at all.
+
+No Lean added; the cycle is a register consolidation backed by eight existing
+theorems, each re-checked.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, banner 6/6.
+
+**Might-mean, unhedged:** the coordinate this project chose sees its own ledger
+and nothing the literature counts, which explains both why its rows are
+certifiable and why they are hard to trade.

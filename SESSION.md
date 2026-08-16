@@ -10524,3 +10524,49 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** this project writes rules when a mistake recurs and
 lemmas when the mistake has a shape, and it took four instances to notice this
 one had both.
+
+## A gate pattern measured and left alone; and what makes the bracket useful
+
+Two things, and the first is a decision not to change anything.
+
+### The wildcard: `\blost\b`, measured
+
+`228`'s entry was refused four times, three of them because `\blost\b` sits in
+the gate's `NEGATIVE` list and "paid a rebuild" had been written "lost a
+rebuild". That reads like a false-positive class worth narrowing.
+
+**Kill condition, filed first:** *if `\blost\b` has even one true positive in
+the corpus, I leave the pattern alone and record the false-positive class as
+known — `S39` forbids fitting a filter to a single instance.* **It fired.**
+
+The pattern matches exactly one sentence across eleven registers, at
+`ISSUES.md:982`: *"concluded the computation was lost"*. That is the `S27` shape
+the pattern exists for — a claim that something is unavailable, made without
+checking. One hit, one true positive. The pattern stays; my wording was the
+thing that needed changing, and it was.
+
+### The piece: `oddAtoms` is visible, and that is the point of the bracket
+
+`NscStd_le_oddAtoms`'s docstring says the right-hand side is `μ_T`-visible. It
+was an assertion. `220` fixed the same shape for `atomCount`, and the reason
+repeats: an assertion in a docstring is still an assertion, and this one carries
+the whole point of the bracket.
+
+`oddAtoms_ordinate_functional`, axiom-free, witness by definition.
+
+Read with `224`'s map: `NscStd` is at the middle level, `Nsc ≤ NscStd` bounds it
+below by a top-level quantity and `NscStd ≤ oddAtoms` bounds it above by
+another. **A certificate class can evaluate both ends of the bracket and neither
+the thing bracketed.** That is what makes `NscStd_bracketed` useful rather than
+merely true, and the map is what makes that sentence checkable.
+
+`LEADS.md`'s table gains the row and the reading, at its location.
+
+One theorem in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** this project's central quantity is fenced above and
+below by things the literature can compute, which is why the bracket transfers
+and why closing it needs an input from outside the fence.

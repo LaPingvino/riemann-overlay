@@ -502,6 +502,7 @@ cycle rather than recalled.
 | `N_sc` | **yes** | yes | `ZeroData.Nsc_eq_ordinate_functional` |
 | `Σm^k` | **yes** | yes | `Blindness.thirdMoment_determined` |
 | `atomCount` (distinct **ordinates**) | **yes**, by definition | yes | `Blindness.atomCount_ordinate_functional` (`220`) |
+| `oddAtoms` | **yes**, by definition | yes | `Blindness.oddAtoms_ordinate_functional` (`229`) |
 | `NscStd` | **no** | **yes** | `NscStd_not_ordinate_functional` · `NscStd_determined` |
 | `N_off` | **no** | **yes** | `no_muInvariant_bundle_computes_Noff` · `Noff_determined` |
 | `hauntedSet.card` = `hauntedCount` | **no** | **yes** | `hauntedSet_card_not_ordinate_functional` · `hauntedSet_card_determined` (`225`); carried to `hauntedCount` by `hauntedCount_eq_hauntedSet_card` (`226`) |
@@ -527,6 +528,10 @@ Three levels, and the boundaries are where the project's difficulties sit.
   `N_d` are invisible even to the fiber coordinate, and `222` draws the
   consequence: no function of the profile computes `NscAny`, so `Basic.lean`'s
   three dictionary entries are inequalities with no identity to sharpen toward.
+* **`229`:** `NscStd` sits at the middle level and `NscStd_le_oddAtoms` brackets
+  it above by a top-level quantity. That is what makes the bracket useful to a
+  certificate class rather than merely true — the same reading applies to
+  `Nsc ≤ NscStd` from below, since `N_sc` is also top-level.
 * `atomCount` against `distinctZeros` is the sharp pair — distinct ordinates are
   visible, distinct points are not — and the distinct-zero route reaches the
   ledger through the former, which is why it functions at all.

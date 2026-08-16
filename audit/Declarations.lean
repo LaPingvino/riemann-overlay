@@ -172,6 +172,8 @@ import Riemann
 #check @Riemann.hauntedDensity_distinctZeros_attained
 -- SESSION 220: the three genres wall at one configuration but not at one layer.
 #check @Riemann.Blindness.atomCount_ordinate_functional
+-- SESSION 229: and oddAtoms likewise, which is what makes NscStd's bracket useful.
+#check @Riemann.Blindness.oddAtoms_ordinate_functional
 #check @Riemann.Blindness.NscAny_not_ordinate_functional
 -- SESSION 221: and not a functional of (mu_T, offAt) either.
 #check @Riemann.Blindness.NscAny_not_fiber_functional

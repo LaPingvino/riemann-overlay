@@ -1946,6 +1946,25 @@ lemma even_offAt (D : ZeroData) (γ : ℝ) : Even (offAt D γ) := by
 noncomputable def oddAtoms (D : ZeroData) : ℕ :=
   (D.ordinates.toFinset.filter fun γ => ¬ Even (D.H γ)).card
 
+/-- **`oddAtoms` *is* an ordinate functional**, by definition.  `SESSION 229`.
+
+The docstring below asserts that the right-hand side of `NscStd_le_oddAtoms` is
+`μ_T`-visible, and it is — `oddAtoms` filters `ordinates.toFinset` on a
+predicate in `H`, and `H` is `ordinates.count`.  `220` did this for `atomCount`
+and the reason is the same: an assertion in a docstring is still an assertion,
+and this one carries the whole point of the bracket.
+
+With `224`'s map: `NscStd` sits at the middle level and is bracketed above by a
+quantity at the top level.  That is what makes the bracket useful to a
+certificate class rather than merely true. -/
+theorem oddAtoms_ordinate_functional :
+    ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, oddAtoms D = f D.ordinates :=
+  ⟨fun m => (m.toFinset.filter fun γ => ¬ Even (m.count γ)).card, fun D => by
+    classical
+    rw [oddAtoms]
+    congr 1
+    exact Finset.filter_congr fun γ _ => by rw [D.H_eq_count γ]⟩
+
 /-- **`NscStd ≤ #{odd atoms}`, and the right-hand side is `μ_T`-visible.**
 An atom contributes to `NscStd` only if its on-line part is `1`; with the
 off-line part even, its mass is then odd.  So the invisible row is bracketed

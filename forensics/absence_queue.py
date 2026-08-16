@@ -55,6 +55,26 @@ ABSENCE = [
     r"\bnothing (?:certified|proved|exists|bounds)\b",
     r"\bnever been (?:run|done|proved|measured|triaged)\b",
     r"\bnot been (?:run|done|proved|measured|triaged)\b",
+    # SESSION 194.  `S91`: `FAILURES.md` carried "the instantiation ... remains
+    # prose" for many cycles and this queue never listed it, because the
+    # patterns above are all ABSENCE-shaped ("X does not exist", "not proved")
+    # and that sentence is DEBT-shaped — the project's own vocabulary for an
+    # artifact it has not built.  A debt is an absence claim wearing a different
+    # coat, and it carries the same standing obligation to re-check.
+    #
+    # Added against a recorded case one cycle later, per `154`'s discipline and
+    # not against a measurement taken this cycle (`S39`).  Measured before
+    # adding: `remains prose` 2 hits, `still owed` 2, the built/written shape 0.
+    #
+    # `\bremains open\b` was MEASURED (1 hit, `PRICES.md`) and deliberately NOT
+    # added.  That hit is an open *question* — what the project has yet to
+    # decide — not an artifact asserted missing.  Adding it would widen what
+    # this queue means rather than fix a miss, and those are different
+    # decisions.  The negative control below asserts that choice so it cannot
+    # drift in unnoticed.
+    r"\bremains? prose\b",
+    r"\bstill owed\b",
+    r"\bhas not been (?:written|built|formalised|formalized|instantiated)\b",
 ]
 
 # Already carrying a dated re-check, or explicitly a counterfactual.
@@ -116,6 +136,17 @@ CALIBRATION = [
     # guard would sit permanently red.  A known FP that is left alone belongs in
     # a comment, not in a test that fails.
     # Negative controls: shapes that must NOT be read as claims of absence.
+    # SESSION 194 — the debt shape, from `S91`'s own text as it stood before
+    # `193` discharged it.  Corpus-independent for the same reason as the four
+    # above: the register has since been corrected, so this cannot be recovered
+    # from the live files.
+    ("The instantiation \u2014 the map from a bandwidth-one certificate to this "
+     "program, and the passage from `Finset` to integral \u2014 remains prose.", True),
+    ("### What is still owed, by this audit's own criterion", True),
+    # Negative control asserting `194`'s SCOPE decision, not just its patterns:
+    # an open question is not an absent artifact, and this queue does not claim
+    # to list the former.
+    ("What remains open is still entirely imported.", False),
     ("**Never as a bound.**  Do not cite a grade-N entry as one.", False),
     ("The ledger reads `Nsc 50.88%` and the row is carried by one axiom.", False),
 ]

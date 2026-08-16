@@ -9017,3 +9017,57 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** this register can carry a debt that was paid without
 noticing, and the loop has three guards that check whether a claim outran its
 evidence and none that check whether the evidence outran the claim.
+
+## The instrument was already there; it was looking for the wrong coat
+
+`193` closed with: *"the loop has three guards that check whether a claim
+outran its evidence and none that check whether the evidence outran the claim."*
+That sentence was wrong, and `METHOD.md:445` says so — `absence_queue.py` is
+precisely that check, filed in `133` after expiry was tested and rejected.
+
+**Kill condition, filed first:** *if the queue lists the rung-0 debt, the
+instrument worked and `187`'s triage is what failed — I fix the triage, not the
+code; if it does not list it, the extraction misses debt phrased as "remains
+prose" and that is a code defect with a named calibration case.*
+
+It does not list it. The witness is the run itself, not a property I claim of
+the pattern list: `S91`'s sentence is in a scanned file and the queue does not
+print it. Reading `ABSENCE` afterwards shows why: it matches the
+vocabulary of **absence** (`does not exist`, `not proved`, `unreachable`),
+and `S91`'s sentence uses the vocabulary of **debt** (`remains prose`,
+`still owed`). Same standing obligation, different coat.
+
+Measured before adding, not after: `remains prose` 2 hits, `still owed` 2, the
+`has not been written/built` shape 0. All three added, against a case recorded
+last cycle rather than a measurement taken this one (`154`'s discipline, `S39`'s
+rule). `remains open` was measured (1 hit, `PRICES.md`) and **deliberately not
+added** — that hit is an open *question*, not an artifact asserted missing, and
+widening what the queue means is a different decision from fixing a miss. A
+negative control now asserts that scope choice so it cannot drift in unnoticed.
+
+Calibration **9/9**. The queue goes 8 → 9. The two `remains prose` sentences
+correctly do *not* flag: `193`'s correction cites a session, so the settle logic
+clears them, and what flags is the heading over the half that is genuinely still
+owed.
+
+**Second finding, for Joop rather than for a file.** `CLAIMS.md:522` and
+`METHOD.md:445` both record *"profile minimality is not proved"* as a stale
+claim settled in `075` (`Fiber.profile_not_minimal`) and `077`
+(`Fiber.profile_minimal_among_local`) — both verified present today.
+`LEADS.md:1266` already carries the correction. The one live carrier left is the
+**cron prompt**: `RECENT` says minimality "must not be claimed" and `QUEUE (3)`
+asks the question. It was answered both ways 119 cycles ago.
+
+**Cost, recorded because it is repeating.** `claims_gate` refused this entry
+three times. Once correctly — I had written a completeness claim over the
+pattern list that my own edit had just falsified. Twice on `089`'s quotation
+shape: the gate was matching the pattern *text I was quoting as an example*.
+Backticking the quoted phrasings cleared it. Third instance of that shape; it is
+a nuisance rather than a defect, and the two are not mechanically separable.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Five guards green, cones 30/30. `S92`.
+
+**Might-mean, unhedged:** I diagnosed a missing instrument one cycle after
+running the instrument itself, which means the loop's real failure mode is not
+forgetting what it built but forgetting what its tools are *for*.

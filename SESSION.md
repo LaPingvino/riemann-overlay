@@ -5951,3 +5951,53 @@ Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
 go, and by the time they are twenty orders up they already do — so whatever makes
 the low zeros exceptional is a feature of the beginning of the sequence, not of
 the sequence.
+
+
+# SESSION 140 — a pre-registered prediction, and it caught my own constant
+
+`T2`-of-`W27`, never run: Selberg's central limit theorem for `S(t)`.
+
+**Registered before computing:** `S(t)/√((1/2π²)·log log t)` is standard normal,
+so **mean ≈ 0, variance below 1 and rising with height** — convergence is
+famously slow and at `t = 7.5×10⁴` there is barely any `log log` to work with.
+
+**Kill condition, filed first:** *if the variance is not near 1, either the
+normalisation is misapplied or the counting function is wrong — and the counting
+function is checked first.*
+
+**It fired.** The first run gave variance `0.048`. The self-check passed —
+`max |S(t)| = 0.795`, so `N(t)` recovered from the Riemann–Siegel `θ` matches the
+table's own index — which left the other branch. I had written the normaliser as
+`√(½ log log t)`; Selberg's variance is `(1/2π²)·log log t`. A factor of `π²`,
+and `0.0483 × π² = 0.477`.
+
+Corrected:
+
+| band | `t` | mean | variance |
+|---|---|---|---|
+| first ¼ | `17.6 … 21 942` | `−0.0000` | `0.4431` |
+| second ¼ | `… 40 432` | `0.0000` | `0.4786` |
+| third ¼ | `… 57 962` | `0.0000` | `0.4890` |
+| last ¼ | `… 74 921` | `0.0001` | `0.4958` |
+
+**Mean is zero to four places in every band; variance is below `1` and rises
+monotonically.** Both halves of the registered prediction hold, and the shortfall
+to `1` is the slow convergence the prediction anticipated.
+
+**Three data slips in seven cycles, none caught by a guard** — `134`'s points at
+infinity, `139`'s float64 base, and now a constant off by `π²`. `METHOD.md` gains
+the rule they earned: **every data computation carries a quantity whose correct
+value is known before the run**, and **the kill condition must name which side it
+blames first**. `140`'s did, which is why the diagnosis took one step instead of
+a cycle.
+
+The Selberg variance constant is `[RECALL]` — textbook, not read here, and now
+load-bearing for the number `0.477`. Worth one arXiv or textbook check before it
+is quoted outward.
+
+Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the fluctuation of the zero count is at half its
+limiting size a hundred thousand zeros in, so every statement this project makes
+about "the zeros" is a statement about a sequence that has not yet become itself.

@@ -469,3 +469,27 @@ sentence.
 Precedent from our own record — *"one voice per pitch"*, *"the primes keep the
 ledger"*, *"nobody shares"*. The `E`-file's plain phrasings repeatedly preceded
 the theorems; the register was doing this before it was named.
+
+
+## The data phase's review rule (SESSIONS 134, 139, 140 — three instances)
+
+Three times in seven cycles a data computation produced a confident wrong number,
+and **not once did a guard catch it**:
+
+| cycle | slip | what caught it |
+|---|---|---|
+| `134` | two points at infinity where an odd-degree model has one | a hand-check of one curve |
+| `139` | `base + offset` in float64 destroyed a `10²⁰` table | `mean δ = 0.000000` |
+| `140` | Selberg's variance constant off by `π²` | variance `0.048` against a **pre-registered** `≈ 1` |
+
+**The rule, earned:** every data computation must carry a quantity whose correct
+value is known *before* the run — a normalisation that must come out `1`, a count
+that must match an index, a prediction registered in advance. That quantity is
+the whole of the review, because the build is green either way and no linter
+reads arithmetic.
+
+And **the kill condition must name which side it blames first.** `140`'s said
+*"either the normalisation is misapplied or the counting function is wrong — and
+the counting function is checked first."* It fired, the counting check passed,
+and the remaining branch was the answer. A kill condition that only says
+"something is wrong" would have cost a cycle of searching.

@@ -11651,3 +11651,80 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** this project's guards all grew out of a cycle being
 wrong in a way nothing looked at, so the useful question each cycle is not "did
 the checks pass" but "what did no check look at".
+
+## Queue item 1, done: 5 true positives in 28 — and the gate flagged the repairs
+
+`252` produced the flag counts; this grades them. Seven registers taken
+exhaustively (`CLAIMS` `4`, `LOOP` `6`, `SURPRISES` `5`, `S` `6`, `FRAMING` `4`,
+`A` `3`, `STATEMENTS` `2` = `28`), at `086`'s standard: hand-graded, one line of
+verdict each, no rate quoted beyond what was graded.
+
+**Kill condition, filed first:** *if grading a flag requires re-deciding the
+mathematics it refers to, then the count measures my prose style rather than the
+register's health, and I report it as a style meter, not a defect rate.* It did
+not fire — a flag asks "is a witness cited", not "is the claim true", and that is
+decidable by reading. The kill condition's *conclusion* turned out true anyway,
+for a different reason, found by measurement. That is below.
+
+**5 true positives in 28 (18%).** Against `086`'s `1 in 14` (7%) on Lean
+docstrings — the prose registers overclaim more than the docstrings do, which is
+the direction I'd expect and had not measured.
+
+| register | flag | verdict |
+|---|---|---|
+| `CLAIMS` ×4 | past-measurement records, scoped | false — factual and checkable |
+| `LOOP` | `252`'s own warning bullet: "none a wrong proof, none ever read" | **TRUE** — I inspected `3` of `54` by hand and classified the rest by kind |
+| `LOOP` ×5 | directives, and `#17`'s green-build line | false — directives and a cited issue |
+| `STATEMENTS` ×2 | "all three are false", "exact optima … not certified" | false — regression file; scoped in the sentence |
+| `FRAMING` ×4 | design statements, hedged with "we suspect" | false — `086`'s precedent |
+| `A` | "the left-hand side **is** a cluster census" | **TRUE** — an identification carrying `[OPEN 0′] ≡ A2`, no declaration behind it |
+| `A` | "one register's item and another's … the same object" | **TRUE** — inherits the above |
+| `A` | "discarding the `𝒩` term (`𝒩 ≥ 0`)" | false — justification inline |
+| `SURPRISES` ×5 | directives, self-limiting statements | false |
+| `S` | "**Every** successful S-solution … is the same move" | **TRUE** — three instances, not a survey |
+| `S` | "**Every** witness in this domain costs excess" | **TRUE** — the project has no such theorem |
+| `S` ×4 | definitions, a converse in the next sentence | false |
+
+All five are corrected at their own locations.
+
+**Then the counts did not move.** `A` stayed `3`, `S` stayed `6`, `LOOP` stayed
+`6`. The gate was flagging my repairs: *"no declaration in the repo witnesses
+this"* reads to a lexical instrument exactly like an unwitnessed absolute. On the three
+registers I corrected, the count fell by deleting a discussion and not by
+correcting one — measured, not a general theorem — which is enough to make it
+useless as the health metric this queue item asked for. Logged as `S110`.
+
+Fixed by admitting explicit self-disclaimers (`not a theorem`, `no theorem`,
+`as a reading`, `not certified`, `not formalised`, `not a survey`) as converse
+witnesses — the same move that already admitted `minimality open` and
+`not known to be minimal`, so this is calibration inside the file's own design,
+not a redesign. `A` `3→2`, `S` `6→4`, `STATEMENTS` `2→1`; calibration `6/6`. `LOOP` stayed at
+`6`: my corrected bullet still trips, now on the vocabulary item `lost` as it
+appears in `251 lost a deprecation warning`, which is a plain record of a past
+event. Writing that sentence tripped the gate on the very word it names, until
+the word was backticked — which is `245`'s lesson about quoted vocabulary
+arriving from the opposite direction. Five of `LOOP`'s
+six are graded false positives above and the sixth is now a sixth.
+
+**Snag, bin 1, and it is mine.** `LOOP.md` went from `3` flags to `6` in `252` —
+the three new ones are the bullet `252` wrote describing `warning_floor.py`. I
+gated that cycle's `SESSION.md` entry and not the register text it also wrote.
+`251d` was the same shape one cycle earlier: the gate applied to the wrong
+artifact. The rule that follows is that the gate belongs on every file a cycle
+touches, not on the dispatch text.
+
+**And the exposure, measured rather than assumed.** Appending *"and it is not a
+theorem"* to *"this is the only route that survives"* now clears the flag. That
+was already true of `upper bound` and `converse open`, so it is not a regression
+— it is what a wordlist is. Recorded in the script's own docstring: the gate
+catches prose written without thinking about its warrant; it cannot catch prose
+written to get past the gate, and the author it guards is the author who could
+type the phrase.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, eight guards green.
+
+**Might-mean, unhedged:** an instrument that punishes the honest form of a
+sentence as hard as the dishonest one trains the author to delete rather than to
+qualify, so the flag counts this project has been collecting were pushing in the
+opposite direction from the discipline they were meant to serve.

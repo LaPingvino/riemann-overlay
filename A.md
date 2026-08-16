@@ -56,14 +56,16 @@ and the evidence was already in Proposition 2:
 
 > `N⊛ + (2/λ)∫₀^λ 𝒩(α)dα = TL(λ + log(2+λ)/(π²λ) + O(√log(2+λ)/λ))`
 
-The left-hand side **is** a cluster census at scale `λ/L`: `N⊛` counts exact
-coincidences, `𝒩` counts near-coincidences weighted by proximity. Our exact
+The left-hand side reads as a cluster census at scale `λ/L`: `N⊛` counts exact
+coincidences, `𝒩` counts near-coincidences weighted by proximity. *(`253`: this
+identification is a reading of Proposition 2, not a theorem — no declaration in
+the repo witnesses it, and the equivalence below inherits that status.)* Our exact
 theory is what you get by *discarding* the `𝒩` term (`𝒩 ≥ 0`). So the
 Gallagher–Mueller identity natively speaks the fattened language, and
 
 > **A2's fattened theory ≡ [OPEN 0′].**
 
 Keeping `𝒩` instead of throwing it away *is* working at finite resolution.
-That is one register's item and another's open problem turning out to be the
-same object — and it means [OPEN 0′] is not an optional bonus subtraction but
-the natural formulation, with the exact theory as its lossy `ε → 0` shadow.
+On that reading — and only on it — one register's item and another's open
+problem are the same object, which would make [OPEN 0′] not an optional bonus
+subtraction but the natural formulation, with the exact theory as its lossy `ε → 0` shadow.

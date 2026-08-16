@@ -37,7 +37,8 @@ depending on a human remembering to run it.
 
 ## The move
 
-Every successful S-solution on both sides of the seam is the same move:
+Each S-solution this project has recorded on either side of the seam is the
+same move — three instances, below, not a survey:
 
 > **Replace "nothing is there" with "something is conserved."**
 
@@ -95,10 +96,13 @@ concept: cheap to establish, conclusion nobody had.
 
 The diagonal is where silence is free. Montgomery–Vaughan gives every mean value
 up to total length `T` at no cost, so a null result below the diagonal certifies
-nothing — it is the instrument's own floor, not a fact about the world. **Every
-witness in this domain costs excess past the diagonal**, and the excess is
-exactly what the two traditions have been buying since 1989 (`T^{4/7}`, value
-side) and never buying at all (position side).
+nothing — it is the instrument's own floor, not a fact about the world. **A
+witness in this domain has to cost excess past the diagonal**, and that excess
+is what the two traditions have been buying since 1989 (`T^{4/7}`, value side)
+and not buying at all (position side). *(`253`: stated as the register's
+working principle. Nothing here quantifies over every possible witness — the
+project has no theorem that a below-diagonal witness cannot exist, only the
+observation that none of the recorded ones is.)*
 
 ### The taxonomy's third member: disclosure-impersonating-transparency
 

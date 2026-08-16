@@ -134,8 +134,10 @@ degradations, not less.
 * **Warnings are checked, because `grep "^error"` cannot see them.**
   `forensics/warning_floor.py` counts `lake build` warnings in `Riemann/*.lean`
   against a recorded floor and fails if the count grows. `251` lost a
-  deprecation warning inside its own proof; `252` found `54` standing, none of
-  them a wrong proof, and none of them ever read. Vendored `Zeta23/*` warnings
+  deprecation warning inside its own proof; `252` found `54` standing and
+  hand-inspected the three whose kind could indicate a wrong proof — a
+  `<;> norm_num` after a closing `simp`, twice, and a no-op `push_cast`. The
+  other `51` were classified by kind, not read individually. Vendored `Zeta23/*` warnings
   are reported and never fail — editing them would break `vendor_check.py`.
   The floor is a ratchet, not a target: `--update` is for a cycle that fixed
   warnings, never for one that added them.

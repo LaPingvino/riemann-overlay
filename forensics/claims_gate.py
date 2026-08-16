@@ -30,6 +30,15 @@ direction: "exact" becomes "sufficient", "the" becomes "a", "cannot" becomes
 
 Run over a file or stdin:  `python3 forensics/claims_gate.py FILE...`
 Exit 1 if any flagged sentence lacks a converse witness.
+
+**What this instrument is not.**  It is lexical, so a phrase satisfies it.
+`253` measured the exposure directly: appending *"and it is not a theorem"* to
+*"this is the only route that survives"* clears the flag.  That was already true
+of the older markers (`upper bound`, `converse open`) and is not a regression —
+it is what a wordlist is.  The gate catches prose written without thinking about
+its own warrant; it cannot catch prose written to get past the gate, and the
+author it guards is the same author who could type the phrase.  Its value is
+that the cheapest way past it is usually to say the true thing.
 """
 
 import re
@@ -79,7 +88,22 @@ _EXT = r"(?:md|lean|py|toml|json|jsonl|go|txt|sh|yml|yaml)\b"
 WITNESS = re.compile(r"forensics/[a-z_0-9]+\.py"
                      r"|[A-Z][A-Za-z0-9]*\.(?!" + _EXT + r")[A-Za-z_][A-Za-z0-9_']*"
                      r"|\bminimality open\b|\bconverse open\b"
-                     r"|\bnot known to be minimal\b|\bupper bound\b")
+                     r"|\bnot known to be minimal\b|\bupper bound\b"
+                     # `253`: a sentence that names its own lack of a witness IS
+                     # supplying the converse — that is what the downgraded form
+                     # the gate asks for looks like.  Before this, the gate
+                     # flagged its own repairs: `253` rewrote five true
+                     # positives into explicitly-scoped form and the count did
+                     # not move, because "no declaration witnesses this" reads
+                     # as an unwitnessed absolute.  A register's flag count
+                     # could then only fall by deleting the discussion, never by
+                     # correcting it.  The markers are deliberately specific —
+                     # `S27`'s "not in the repo and cannot be repaired" is an
+                     # unwitnessed absence and must keep flagging.
+                     r"|\bnot a theorem\b|\bnot proved here\b"
+                     r"|\bas a reading\b|\bis a reading\b"
+                     r"|\bno theorem\b|\bnot certified\b"
+                     r"|\bnot formalised\b|\bnot a survey\b")
 
 # Quoted material is not the author's claim.  Two of the three unwitnessed flags
 # in the 2026-08-15 triage triggered on text the sentence was *quoting to

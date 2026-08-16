@@ -5031,6 +5031,80 @@ theorem distinctZeros_not_fiber_functional {a b : ℝ} (ha : a ≠ 1/2) (hb : b 
     · exact hab' (by have := congrArg Prod.fst h1; simp at this; linarith)
   exact Finset.card_lt_card ((Finset.ssubset_iff_of_subset hsub).2 ⟨_, hin, hout⟩)
 
+/-- **`NscAny ≤ distinctZeros`** — the two literature quantities, related.
+`SESSION 227`.
+
+`224`'s map puts both on the bottom level: neither is a functional of
+`(μ_T, offAt)`.  They are still related to each other, and the relation is the
+obvious one — a zero of multiplicity one is in particular a distinct point, so
+the simple-zero count never exceeds `N_d`.
+
+The proof is that the multiplicity-one zeros form a duplicate-free sub-multiset:
+each has count `1` in `Z`, hence count `1` in the filter, so its card is the card
+of its `toFinset`, which sits inside `Z.toFinset`.
+
+Consequence for the two genres: any lower bound on `NscAny` is a lower bound on
+`N_d`.  Both sit outside this project's coordinates, and the inequality between
+them holds anyway. -/
+theorem NscAny_le_distinctZeros (D : ZeroData) : D.NscAny ≤ distinctZeros D := by
+  classical
+  have hcount : ∀ p ∈ D.Z.filter (fun p => D.Z.count p = 1),
+      (D.Z.filter (fun p => D.Z.count p = 1)).count p = 1 := by
+    intro p hp
+    have hq : D.Z.count p = 1 := (Multiset.mem_filter.1 hp).2
+    rw [Multiset.count_filter, if_pos hq, hq]
+  have hnodup : (D.Z.filter (fun p => D.Z.count p = 1)).Nodup :=
+    Multiset.nodup_iff_count_le_one.2 fun p => by
+      by_cases hp : p ∈ D.Z.filter (fun p => D.Z.count p = 1)
+      · exact le_of_eq (hcount p hp)
+      · exact le_of_eq_of_le (Multiset.count_eq_zero.2 hp) (by norm_num)
+  have hcard : (D.Z.filter (fun p => D.Z.count p = 1)).card
+      = (D.Z.filter (fun p => D.Z.count p = 1)).toFinset.card :=
+    (Multiset.toFinset_card_of_nodup hnodup).symm
+  have hsub : (D.Z.filter (fun p => D.Z.count p = 1)).toFinset ⊆ D.Z.toFinset := by
+    intro x hx
+    rw [Multiset.mem_toFinset] at hx ⊢
+    exact Multiset.mem_of_mem_filter hx
+  show Multiset.card (D.Z.filter (fun p => D.Z.count p = 1)) ≤ D.Z.toFinset.card
+  rw [hcard]
+  exact Finset.card_le_card hsub
+
+/-- **…and the bound is attained, and strict somewhere.**  `SESSION 227`.
+`config 1 1 a` has three distinct zeros, all simple; `config 0 2 a` has two
+distinct zeros and none simple. -/
+theorem NscAny_le_distinctZeros_attained_and_strict {a : ℝ} (ha : a ≠ 1/2) :
+    (config 1 1 a).NscAny = distinctZeros (config 1 1 a)
+      ∧ (config 0 2 a).NscAny < distinctZeros (config 0 2 a) := by
+  classical
+  have hA : distinctZeros (config 1 1 a) = 3 := by
+    show (config 1 1 a).Z.toFinset.card = 3
+    have hZ : (config 1 1 a).Z = Multiset.replicate 1 ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 1 (a, (0:ℝ))
+          + Multiset.replicate 1 ((1 - a : ℝ), (0:ℝ))) := rfl
+    have h1 : ((1/2 : ℝ), (0:ℝ)) ≠ (a, (0:ℝ)) := by
+      intro h; exact ha (congrArg Prod.fst h).symm
+    have h2 : ((1/2 : ℝ), (0:ℝ)) ≠ ((1 - a : ℝ), (0:ℝ)) := by
+      intro h; exact ha (by have := congrArg Prod.fst h; simp at this; linarith)
+    have h3 : (a, (0:ℝ)) ≠ ((1 - a : ℝ), (0:ℝ)) := by
+      intro h; exact ha (by have := congrArg Prod.fst h; simp at this; linarith)
+    have ha2 : a ≠ (2⁻¹ : ℝ) := fun h => ha (by rw [h]; norm_num)
+    have ha3 : (a : ℝ) ≠ 1 - a := fun h => ha (by linarith)
+    have ha4 : (2⁻¹ : ℝ) ≠ 1 - a := fun h => ha2 (by linarith)
+    rw [hZ]
+    simp [Multiset.toFinset_add, ha2, ha3, ha4, Ne.symm ha2, Ne.symm ha3,
+      Ne.symm ha4, Finset.card_insert_of_notMem]
+  have hB : distinctZeros (config 0 2 a) = 2 := by
+    show (config 0 2 a).Z.toFinset.card = 2
+    have hZ : (config 0 2 a).Z = Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 2 (a, (0:ℝ))
+          + Multiset.replicate 2 ((1 - a : ℝ), (0:ℝ))) := rfl
+    have h3 : (a, (0:ℝ)) ≠ ((1 - a : ℝ), (0:ℝ)) := by
+      intro h; exact ha (by have := congrArg Prod.fst h; simp at this; linarith)
+    rw [hZ]; simp [Multiset.toFinset_add, h3]
+  constructor
+  · rw [hA, config_NscAny 1 1 ha]; norm_num
+  · rw [hB, config_NscAny 0 2 ha]; norm_num
+
 /-- **Equal ordinates and equal `offAt` give equal profiles.**  `SESSION 222`.
 The profile is built from exactly those two, so this is bookkeeping — but naming
 it turns `221`'s witnesses into a profile-level statement for free. -/

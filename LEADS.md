@@ -519,7 +519,11 @@ Three levels, and the boundaries are where the project's difficulties sit.
   first row against the fifth — `N_sc` is `μ_T`-visible, so the whole of
   `NscStd`'s invisibility sits in the haunted count. The quantity this project
   coined is the coordinate the certificate class cannot see.
-* **Both** quantities the literature offers are on the far side. `NscAny` and
+* **Both** quantities the literature offers are on the far side — and `227`
+  relates them to each other: `NscAny ≤ distinctZeros`
+  (`NscAny_le_distinctZeros`), attained at `config 1 1 a` and strict at
+  `config 0 2 a`. A relation between two quantities this project's coordinates
+  cannot compute, holding regardless. `NscAny` and
   `N_d` are invisible even to the fiber coordinate, and `222` draws the
   consequence: no function of the profile computes `NscAny`, so `Basic.lean`'s
   three dictionary entries are inequalities with no identity to sharpen toward.

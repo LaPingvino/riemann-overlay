@@ -10449,3 +10449,46 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** carrying a quantity in two coordinate systems guards
 this project against error while hiding equations from it, and one pair of names
 produced both effects.
+
+## The two invisible quantities, related to each other
+
+`224`'s map puts `NscAny` and `distinctZeros` together on the bottom level:
+neither is a functional of `(μ_T, offAt)`. No relation between them was
+recorded — the project relates each to its own ledger and stops.
+
+**Kill condition, filed first:** *if `NscAny ≤ distinctZeros` needs a
+hypothesis, I state it with the hypothesis named rather than dropping the
+entry.* It did not fire — the inequality is unconditional.
+
+* `NscAny_le_distinctZeros` — a zero of multiplicity one is in particular a
+  distinct point. The proof is that the multiplicity-one zeros form a
+  duplicate-free sub-multiset: each has count `1` in `Z`, hence count `1` in the
+  filter, so the filter's card is its `toFinset`'s, which sits inside
+  `Z.toFinset`.
+* `NscAny_le_distinctZeros_attained_and_strict` — equality at `config 1 1 a`
+  (three distinct zeros, all simple), strict at `config 0 2 a` (two distinct
+  zeros, none simple). The project's idiom for a bound worth having.
+
+So any lower bound on the simple-zero count is a lower bound on `N_d`. Both
+quantities sit outside this project's coordinates and the inequality between
+them holds anyway — which is the first relation the visibility map has produced
+that lives entirely on its far side. `LEADS.md`'s table annotated at its
+location.
+
+**Snag, bin 1, and it is the third time.** `simp` normalised the goal's `1/2` to
+`2⁻¹` while the pair-disequalities I had proved stayed in `1/2` form, so a
+three-element card would not close. `188` and `196` record the same mismatch.
+Restating the disequalities in `2⁻¹` form fixed it. I also wrote one of them
+with `rw [← h] at *`, which rewrote the hypothesis into `2⁻¹ = 2⁻¹` and left
+`linarith` nothing to work with; deriving it from the normalised form directly
+was two characters shorter and correct.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** invisible to the coordinates is not the same as
+uncomputable — both counts are read straight off any explicit `Z`, and this
+cycle read them off two — so what the map measures is what a *certificate class*
+can see, not what the project can calculate.

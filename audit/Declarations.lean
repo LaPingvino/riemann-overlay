@@ -188,6 +188,9 @@ import Riemann
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card
 #check @Riemann.Blindness.hauntedCount_not_ordinate_functional
 #check @Riemann.Blindness.hauntedCount_determined
+-- SESSION 227: the two literature quantities, related to each other.
+#check @Riemann.Blindness.NscAny_le_distinctZeros
+#check @Riemann.Blindness.NscAny_le_distinctZeros_attained_and_strict
 -- SESSION 216: two ledger entries are not recoverable from the other four.
 #check @Riemann.Blindness.Noff_not_determined_by_ledger
 #check @Riemann.Blindness.NscStd_not_determined_by_ledger

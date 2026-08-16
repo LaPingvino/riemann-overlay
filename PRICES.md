@@ -1077,3 +1077,39 @@ larger cost.
 
 *Stated as a paper computation in `ℚ`; the bound is **not formalised** here and
 this entry does not claim a Lean proof of it.*
+
+## The `cot(1/√2)` step: route confirmed, order computed (`SESSION 275`)
+
+`274` reduced the bound to rational arithmetic. This prices the Lean side.
+
+**Kill condition, filed first:** *if Mathlib cannot deliver an alternating-series
+bound for `cos`/`sin` at a specific point without new infrastructure, the
+rational reduction stays a paper result and I report the Lean cost separately.*
+It did not fire. `Complex.exp_bound` is exactly that infrastructure and it is
+general in the order:
+
+    ‖exp x − Σ_{m<n} xᵐ/m!‖ ≤ ‖x‖ⁿ · (n+1)/(n!·n)      for ‖x‖ ≤ 1
+
+and Mathlib's own `Complex.cos_bound` is nothing but its `range 4` instance.
+
+**The shipped bounds are far too coarse, measured rather than assumed.**
+
+| bound | value at `x = 1/√2` | factor too coarse |
+|---|---|---|
+| `cos_bound`: `‖x‖⁴·5/96` | `1.302·10⁻²` | `43,711×` |
+| `sin_bound`: `‖x‖⁵/100` | `1.768·10⁻³` | `5,934×` |
+
+The requirement is `2.979·10⁻⁷` per function: from `cot = C/S`, an error `e` in
+each moves `cot` by about `e·(1+cot)/S`, and the margin on `cot` is
+`9.952·10⁻⁷`.
+
+**`Complex.exp_bound` at `n = 9` suffices** (`1.353·10⁻⁷`); `n = 10` gives
+`9.473·10⁻⁹`, an order of margin, and is the sensible target.
+
+So the Lean work is: instantiate `exp_bound` at `n = 10` for `±x·I`, assemble
+`cos` and `sin` bounds the way `Complex.cos_bound` assembles its own, and finish
+in `ℚ` — `274` showed the `√2` cancels, so nothing irrational survives to the
+arithmetic. **A page of Lean at a known pattern, not a new capability.**
+
+*Route and order established by computation; no Lean proof of the bound exists
+yet and this entry does not claim one.*

@@ -12845,3 +12845,49 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 be cheaper than their first pricing, and in both cases the saving came from
 looking at what the constant actually is rather than at what class of problem it
 belongs to.
+
+## `cot(1/√2)`: the route is Mathlib's own, and the order is `10`
+
+`274` reduced `baseline_zeta23`'s numeric step to rational arithmetic. This
+prices the Lean side of it, which is the half `274` deliberately left open.
+
+**Kill condition, filed first:** *if Mathlib cannot deliver an alternating-series
+bound for `cos`/`sin` at a specific point without new infrastructure, then the
+rational reduction stays a paper result and I report the Lean cost separately
+rather than claiming the step is done.* It did not fire.
+
+`Complex.exp_bound` is the infrastructure, general in the order:
+`‖exp x − Σ_{m<n} xᵐ/m!‖ ≤ ‖x‖ⁿ·(n+1)/(n!·n)` for `‖x‖ ≤ 1`. Mathlib's own
+`Complex.cos_bound` is its `range 4` instance and `sin_bound` its `range 5` — so
+the pattern to follow is in the library, twenty lines long, already written.
+
+**The shipped bounds are useless here, and by how much is the useful number.**
+At `x = 1/√2` the requirement is `2.979·10⁻⁷` per function, from
+`cot = C/S` moving by `e·(1+cot)/S` against a margin of `9.952·10⁻⁷`.
+`cos_bound` delivers `1.302·10⁻²` — **43,711× too coarse**; `sin_bound`
+`1.768·10⁻³`, **5,934×**. `exp_bound` at `n = 9` gives `1.353·10⁻⁷` and clears
+it; `n = 10` gives `9.473·10⁻⁹` and is the sensible target.
+
+So the remaining work is a page of Lean at a pattern the library already
+demonstrates: instantiate `exp_bound` at `n = 10` for `±x·I`, assemble `cos` and
+`sin` as `cos_bound` does, and finish in `ℚ` — `274` showed the `√2` cancels, so
+nothing irrational survives into the arithmetic.
+
+**What this does to the two axioms.** Neither is blocked on mathematics or on a
+missing capability. `zetaNonempty` waits on a build budget and three lines;
+`baseline_zeta23` waits on a `44,441`-line build and a page of Taylor
+bookkeeping. Both prices are known and neither is a research question.
+
+**Snag, bin 2.** I looked for `cos_eq_tsum` / `hasSum_cos` and found neither,
+and nearly concluded the series route was unavailable. The bound does not go
+through a series representation at all — it goes through `exp_bound`, which is
+about a *partial sum*, and `cos_bound`'s proof was the pointer. Searching for
+the object I expected rather than the one the library uses cost the detour.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, eleven guards green, `PRICES` at baseline `24`. No
+Lean added this cycle: the deliverable is a priced route and it is in `PRICES.md`.
+
+**Might-mean, unhedged:** the reason this looked like a capability gap for two
+cycles is that nobody had computed the required precision, and once computed it
+turned out to sit four orders inside what a library lemma already gives.

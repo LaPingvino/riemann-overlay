@@ -116,6 +116,27 @@ theorem NscStd_not_ordinate_functional :
   exact no_muInvariant_bundle_computes_NscStd (fun _ => True)
     (fun _ _ _ => Iff.rfl) (Or.inl trivial) ⟨f, fun D _ => hf D⟩
 
+/-- **The haunted count is exactly the invisible part.**  `SESSION 225`.
+
+`224`'s visibility map put `N_sc` inside `μ_T`'s reach
+(`ZeroData.Nsc_eq_ordinate_functional`) and `NscStd` outside it
+(`NscStd_not_ordinate_functional`).  The master identity
+`NscStd = N_sc + hauntedSet.card` then forces the whole difference onto the
+haunted count: if `μ_T` could compute it, adding the `N_sc` formula would
+compute `NscStd`.
+
+So the quantity this project coined is precisely the coordinate the certificate
+class cannot see.  The blindness results are usually stated about `NscStd`; this
+says where in `NscStd` the blindness lives. -/
+theorem hauntedSet_card_not_ordinate_functional :
+    ¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, D.hauntedSet.card = f D.ordinates := by
+  classical
+  rintro ⟨f, hf⟩
+  refine NscStd_not_ordinate_functional
+    ⟨fun m => (Multiset.filter (fun γ => Multiset.count γ m = 1) m).card + f m,
+      fun D => ?_⟩
+  rw [ZeroData.NscStd_eq_Nsc_add_haunted, ZeroData.Nsc_eq_ordinate_functional, hf]
+
 /-- **The positive form — what a bundle's work actually is.**  If a hypothesis
 `B` does determine `NscStd` from `μ_T`, then `B` must *exclude* one of the two
 legitimate reflection-symmetric configurations.  A useful atom bundle does not

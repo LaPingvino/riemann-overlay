@@ -10367,3 +10367,42 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the coordinate this project chose sees its own ledger
 and nothing the literature counts, which explains both why its rows are
 certifiable and why they are hard to trade.
+
+## Where the blindness actually lives
+
+`224`'s map had `N_sc` inside `μ_T`'s reach and `NscStd` outside it. The master
+identity `NscStd = N_sc + hauntedSet.card` says the difference has to go
+somewhere.
+
+**Kill condition, filed first:** *if the master identity is stated in a form
+whose casts do not compose with the two visibility results, I state the
+corollary under the cast that works and name the mismatch rather than forcing
+it.* It did not fire — everything is in `ℕ`.
+
+* `hauntedSet_card_not_ordinate_functional` — if `μ_T` computed the haunted
+  count, adding `Nsc_eq_ordinate_functional`'s formula would compute `NscStd`,
+  which `NscStd_not_ordinate_functional` forbids.
+* `hauntedSet_card_determined` — but `ledger_determined` gives both `N_sc` and
+  `NscStd` from `(μ_T, offAt)`, so the identity pins the haunted count too.
+
+So the haunted count joins the middle level of the map, beside `NscStd` and
+`N_off`, and it is where the whole of `NscStd`'s invisibility sits. The
+blindness results are usually stated about `NscStd`; this says which part of
+`NscStd` they are about. `LEADS.md`'s table updated at its location.
+
+**`S101`, and it corrects an assumption I had been carrying.** I expected the
+project's *stronger* notion to be the harder one to see, since it is the harder
+one to bound. It is the reverse: `N_sc` demands that no other zero shares the
+ordinate, which is a condition on `μ_T` alone, while `NscStd`'s multiplicity-one
+condition is about the point and needs the fiber. Both halves have been in the
+development for many cycles, and I found no register entry stating the contrast
+before `224` put them in adjacent rows.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the quantity this project invented to name what the
+literature cannot bound is now proved invisible to the certificate class, so the
+coinage was tracking the obstruction rather than describing it.

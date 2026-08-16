@@ -504,6 +504,7 @@ cycle rather than recalled.
 | `atomCount` (distinct **ordinates**) | **yes**, by definition | yes | `Blindness.atomCount_ordinate_functional` (`220`) |
 | `NscStd` | **no** | **yes** | `NscStd_not_ordinate_functional` · `NscStd_determined` |
 | `N_off` | **no** | **yes** | `no_muInvariant_bundle_computes_Noff` · `Noff_determined` |
+| `hauntedSet.card` | **no** | **yes** | `hauntedSet_card_not_ordinate_functional` · `hauntedSet_card_determined` (`225`) |
 | `NscAny` | no | **no** | `NscAny_not_ordinate_functional` (`220`) · `NscAny_not_fiber_functional` (`221`) |
 | `distinctZeros` = `N_d` (distinct **points**) | no | **no** | `distinctZeros_not_profile_functional` · `distinctZeros_not_fiber_functional` (`223`) |
 
@@ -514,6 +515,10 @@ Three levels, and the boundaries are where the project's difficulties sit.
 * The ledger occupies the middle level exactly: `ledger_determined` computes all
   five entries from `(μ_T, offAt)`, and `216`/`217` show none of the five is
   recoverable from the other four.
+* **`225`:** the master identity `NscStd = N_sc + hauntedSet.card` splits the
+  first row against the fifth — `N_sc` is `μ_T`-visible, so the whole of
+  `NscStd`'s invisibility sits in the haunted count. The quantity this project
+  coined is the coordinate the certificate class cannot see.
 * **Both** quantities the literature offers are on the far side. `NscAny` and
   `N_d` are invisible even to the fiber coordinate, and `222` draws the
   consequence: no function of the profile computes `NscAny`, so `Basic.lean`'s

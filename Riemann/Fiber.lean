@@ -5071,6 +5071,22 @@ theorem no_profile_function_computes_NscAny :
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
   exact hne (by rw [hf, hf, hp])
 
+/-- **…but the fiber coordinate does see it.**  `SESSION 225`.
+
+`ledger_determined` computes `N_sc` and `NscStd` from `(μ_T, offAt)`, so the
+master identity pins `hauntedSet.card` too.  With
+`Blindness.hauntedSet_card_not_ordinate_functional` this places the haunted
+count in the middle level of `224`'s map, beside `NscStd` and `N_off`: invisible
+to `μ_T`, visible to the fiber. -/
+theorem hauntedSet_card_determined {D D' : ZeroData}
+    (hord : D.ordinates = D'.ordinates)
+    (hoff : ∀ γ, offAt D γ = offAt D' γ) :
+    D.hauntedSet.card = D'.hauntedSet.card := by
+  obtain ⟨-, -, hsc, hstd, -⟩ := ledger_determined hord hoff
+  have h1 := ZeroData.NscStd_eq_Nsc_add_haunted D
+  have h2 := ZeroData.NscStd_eq_Nsc_add_haunted D'
+  omega
+
 /-- **`atomCount` *is* an ordinate functional**, and by definition rather than by
 argument.  `SESSION 220`.  Stated so the contrast with
 `NscAny_not_ordinate_functional` is a pair of theorems rather than a sentence. -/

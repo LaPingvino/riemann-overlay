@@ -181,6 +181,9 @@ import Riemann
 #check @Riemann.Blindness.no_profile_function_computes_NscAny
 -- SESSION 223: and the same pair hides N_d from the fiber coordinate too.
 #check @Riemann.Blindness.distinctZeros_not_fiber_functional
+-- SESSION 225: the haunted count is exactly the mu_T-invisible part of NscStd.
+#check @Riemann.Blindness.hauntedSet_card_not_ordinate_functional
+#check @Riemann.Blindness.hauntedSet_card_determined
 -- SESSION 216: two ledger entries are not recoverable from the other four.
 #check @Riemann.Blindness.Noff_not_determined_by_ledger
 #check @Riemann.Blindness.NscStd_not_determined_by_ledger

@@ -49,6 +49,25 @@ Last cycle's swap pair is one instance of this, not a lucky example.
 
 **Ordinate names are provably not part of the residue.**
 
+> **RE-READ, `SESSION 215`. The decline stands; its reason does not.**
+>
+> The reason given below is that invariance is weaker than determination. That
+> gap has since been closed: `Blindness.N_from_profile`,
+> `Nstar_from_profile`, `Nsc_from_profile`, `NscStd_from_profile` and
+> `Noff_from_profile` prove the ledger **is** a functional of the profile. So
+> the stated obstruction to writing "the residue is the profile" no longer
+> exists.
+>
+> The verdict survives anyway, and for a stronger reason.
+> `Blindness.profile_not_minimal` exhibits two configurations with **different
+> profiles and the same ledger** — so the residue is strictly coarser than the
+> profile, and "the residue is the profile" is not merely unproved but false.
+>
+> Recorded because the shape is new: a refusal whose *reason* went stale while
+> its *verdict* held. `S99` was a refusal whose reason was wrong when written;
+> this one was right when written and was overtaken. Both read the same way from
+> outside, which is the difficulty.
+
 **What I declined to write:** "therefore the residue is the profile". It does not
 follow — invariance is weaker than determination, since two configurations can
 share a profile without any relabelling relating them. `SURPRISES` S26 is one

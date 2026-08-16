@@ -9961,3 +9961,52 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 
 **Might-mean, unhedged:** a refusal recorded with its reason looks like a finding
 for as long as nobody re-reads the reason, and this one sat for seventeen cycles.
+
+## Sweeping the refusals, and a third shape
+
+`214` closed on the observation that a refusal recorded with its reason reads
+like a finding until someone re-reads the reason. That is a class, not an
+instance.
+
+**Kill condition, filed first:** *if the corpus holds more recorded refusals
+than I can triage by hand in one cycle, I report the count and triage the
+load-bearing ones rather than pretending to a full sweep.* It did not fire.
+
+Twenty-one hits across the corpus, eleven of them in `SESSION.md` — an
+append-only log, so historical records rather than live claims. Ten live, all
+triaged:
+
+| refusal | verdict |
+|---|---|
+| `METHOD.md` expiry design "filed, not built" | settled below it — `133` tested and rejected expiry |
+| `absence_queue.py` "filters deliberately not added" | settled in place — added at `154`, one cycle later, as the comment says |
+| `Gaps.lean:618` — `156` declined `<` for the rung chain | settled in place — `157` closed it and the docstring says so |
+| `Fiber.lean:2985` — `103` declined to extend the mass-`3` saturation | still scoped as written |
+| `LEADS.md:2099` — a `1/3` attribution declined | still declined, correctly: the attribution is unverified |
+| `NIGHT.md:52` — night-`17` declined "the residue is the profile" | **the reason is stale; the verdict holds for a different one** |
+
+That last one is a **third shape**. Its stated reason is that invariance is
+weaker than determination — and determination has since been proved
+(`N_from_profile`, `Nstar_from_profile`, `Nsc_from_profile`,
+`NscStd_from_profile`, `Noff_from_profile`). So the obstruction it names is
+gone.
+
+The verdict survives, and is now stronger than a decline.
+`Blindness.profile_not_minimal` exhibits two configurations with different
+profiles and the same ledger, so the residue is strictly coarser than the
+profile: "the residue is the profile" is **false**, not merely unproved. Both
+facts checked by `#check` this cycle rather than recalled.
+
+So: `S99` was a refusal whose reason was wrong when written. `S100` is a refusal
+whose reason was right when written and was overtaken, while its verdict got
+stronger. From outside the register the two read identically, which is what
+makes the class hard. Annotated at the location.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+No Lean added this cycle; the finding is a register correction backed by
+existing theorems.
+
+**Might-mean, unhedged:** this project's refusals age in two directions and its
+registers record only the moment of refusal, so the honest reading of any
+"declined" entry requires re-deriving both its reason and its verdict.

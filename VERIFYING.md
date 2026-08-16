@@ -307,13 +307,19 @@ table is built, per the operational rules in `LOOP.md`.
 
 ---
 
-## 5. The current ledger line
+## 5. Anatomy of a ledger line
 
-The last line of `PROPORTION.log`:
+> ⚠️ **SESSION 142.** This section is *field-by-field instruction*, and it was
+> teaching off a line whose `Nsc` figure expired in `084`. The quoted line
+> below is now dated explicitly and its `Nsc` field corrected in place. **The
+> last line of `PROPORTION.log` is whatever the tool prints today** — never
+> what a document says it is. That is §1's rule applied to this document.
+
+A line of `PROPORTION.log`, as of 2026-08-16:
 
 ```
-2026-08-14 | base: v2/cd7a22e688df (zetaNonempty) | context: v2 (compacted) |
-certified[NscStd: 67.25%, Nsc: 0.00%] | conjectural: 100.00% (OPEN D) |
+2026-08-16 | base: v2/cd7a22e688df (zetaNonempty) | context: v2 (compacted) |
+certified[NscStd: 67.25%, Nsc: 50.88%] | conjectural: 100.00% (OPEN D) |
 axioms: 2 (Riemann.baseline_zeta23, Riemann.zetaNonempty) | sorries: 0 |
 binding: Riemann.baseline_zeta23
 ```
@@ -323,10 +329,11 @@ binding: Riemann.baseline_zeta23
 * `base: v2/cd7a22e688df` — trusted-base meaning-version 2, and the hash of the
   normalised axiom statements. Recompute it by running the tool; a mismatch
   against `tools/metric.json` exits `3`.
-* `certified[NscStd: 67.25%, Nsc: 0.00%]` — the two-row ledger (see
+* `certified[NscStd: 67.25%, Nsc: 50.88%]` — the two-row ledger (see
   `METHOD.md` §4). `NscStd` is the literature's notion, carried by the
-  `baseline_zeta23` axiom; `Nsc` is the project's stronger notion and is
-  honestly zero.
+  `baseline_zeta23` axiom; `Nsc` is the project's stronger notion, carried by
+  the *same* axiom via an axiom-free transfer (`certified_nsc_unconditional`),
+  which is why both rows report the same `binding` declaration.
 * `conjectural: 100.00% (OPEN D)` — what would follow from the open problems.
 * `axioms: 2 (…)` — the cone of the best certified row, not the base size
   (§3.2).

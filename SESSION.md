@@ -6047,3 +6047,87 @@ Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
 in the definition — `S` is an argument divided by `π`, and every `π²` in this
 subject is that division squared, which is the kind of thing you only stop
 mis-remembering by reading the formula.
+
+# SESSION 142 — the empty-row principle outlived its row, in five documents
+
+**Kill condition, stated first** (the wildcard): *sweep every current-state
+document for every ledger figure and cross-check against `proportion.go`'s live
+output; if the only stale numbers are the `Nsc 0.00%` family already found by
+grep, the sweep found nothing new and dies in one run.* **It did not fire** —
+see below.
+
+**The cycle opened on a false alarm, and the false alarm was the better find.**
+`go run tools/proportion.go` exited 4 with `ESCALATION: audit/Declarations.lean
+failed — a claimed name does not exist`. I went looking for the missing name.
+There was none: `lake` was not on `PATH` (my omission), the audit had never run,
+and the branch reported the **verdict of a check it had been unable to perform**.
+`audit/Declarations.lean` compiles clean under `lake env lean` — that
+disagreement between two instruments is what made me look.
+
+Fixed at the location: the branch now separates *could not run* (exit **5**,
+"harness failure, NOT a verdict on any declaration") from *ran and found a
+missing name* (exit 4, unchanged). **Both branches verified with witnesses** —
+injecting `#check @Riemann.this_name_does_not_exist_S142` produced exit 4 with
+the correct message; an unexported `PATH` produced exit 5. File restored.
+Recorded as `S40`: R17's "no witness, no belief" had only ever been pointed at
+good news, and an instrument that cannot tell "the check failed" from "the check
+found something" manufactures **false bad news**.
+
+**And it had happened before.** `S17`, session **032**, records the same
+failure mode — same `PATH`, same exit 4, same empty body. It was classed `process` ("the audit
+worked, the operator did not"), which located the fault in the operator and left
+the tool untouched, so it recurred verbatim 110 sessions later. Classing an
+instrument's misreport as operator error is how a fixable defect buys immunity.
+Two register-schema repairs fell out of looking: `S40` had been filed with
+`tooling` in the *class* column (a `corrected by` value), and `S34` had been
+carrying a comment there since `084`. Both now use the declared vocabulary, and
+`forensics/surprises.py` reports three classes over 41 rows.
+
+**The piece.** The absence queue's standing obligation on `LEADS.md` — *"Row
+`Nsc` reads `0.00%`"* — is false and has been since `084`. Live ground truth,
+from the tool this cycle: `certified[NscStd: 67.25%, Nsc: 50.88%]`, axioms 2,
+sorries 0, base `cd7a22e688df`, binding `Riemann.baseline_zeta23` **for both
+rows**.
+
+The same expired sentence had propagated into **five** documents. Corrections
+placed *above* the stale text in every case (the `S36` rule):
+
+* **`LOOP.md` §"Current state (end of session 004)"** — **this is the root
+  cause of the cron prompt's stale STATE line.** The heartbeat reads back
+  `ledger NscStd 67.25% / Nsc 0.00%, binding constraint = Fujii's implied
+  constant` because those are these two bullets, verbatim, 138 sessions old.
+  Retitled a dated snapshot and marked *not current state*.
+* **`LOOP.md` §"The empty-row principle"** and **`METHOD.md` §same** — the
+  *because* clause survives (no unconditional `(★)` exists at any constant); the
+  *reads `0.00%`* does not. The principle now has **no live example** in the
+  ledger and is stated on its merits.
+* **`README.md`** — a correction existed but sat *below* what it retracted, and
+  a dated log block was captioned "the current line". Both fixed.
+* **`VERIFYING.md` §5** — found by the wildcard, **not** by grep. This is the
+  field-by-field *instruction* for reading a ledger line, and it was teaching off
+  a line whose `Nsc` figure expired 58 sessions earlier. Recorded as `S41`: I
+  found four sites by searching for the number and the fifth by searching for the
+  *role*, and a stale figure inside a worked example is worse than one inside a
+  claim, because the reader is being taught to trust the format.
+
+**`LEADS.md` was not a number swap.** Its paragraph argued the ledger
+*contingently* realises the visibility split, and named a breakage condition:
+"the day OPEN 0 lands, a μ-invariant axiom feeds both rows." **The breakage
+happened, by a route not on the list.** `OPEN 0` has not landed and no
+μ-invariant axiom feeds either row — `084` opened the row from
+`3·NscStd ≤ N + 2·Nsc`, axiom-free, on the *same* two axioms. The diagnosis was
+right (a **supply** shortage, not a visibility one); the enumeration of ways to
+end it was short by one. That shape — correct contingency, under-imagined
+discharge list — is the entry worth keeping.
+
+Every other figure in the sweep checks out against live output: `67.25%`,
+`axioms: 2` (cone) against `9` (declared), `sorries: 0`, `C = 1.655`, base hash.
+
+Build green (3757 jobs), sorries 0 (the four `grep` hits are prose —
+"sorry-free", "no `sorry`"), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base
+hash `cd7a22e688df` unmoved. Absence-queue obligations discharged: 1 of 14.
+
+**Might-mean, unhedged:** the cron has been reading me a stale number every
+cycle for fifty-eight sessions because a document titled "Current state" was
+written once and never re-titled, and the fix was not to correct the number but
+to correct the **tense** of the heading.

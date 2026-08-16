@@ -152,8 +152,15 @@ escalation must not (A8).
 
 ## The empty-row principle
 
+> ⚠️ **SESSION 084 — the example below expired; the principle did not.** The
+> `Nsc` row is **50.88%**, not `0.00%` (`certified_nsc_unconditional`). The
+> *because* clause still holds: no unconditional `(★)` exists at any constant.
+> The row opened without one, via `3·NscStd ≤ N + 2·Nsc` transported to the
+> proportion layer. So this principle no longer has a live example in the
+> ledger — it is stated here on its merits, not on this row.
+
 A row of the ledger that is honestly zero is more useful than a row that is
-quietly redefined until it is non-zero. The `Nsc` row reads `0.00%` because no
+quietly redefined until it is non-zero. The `Nsc` row *read* `0.00%` because no
 unconditional `(★)` exists at any constant — and the *distance* between that
 row and the `NscStd` row is a certified function of `C` that closes exactly
 when the program succeeds. Two instruments with a crossover (`C = 1.655`),
@@ -171,7 +178,20 @@ not a score with a caveat.
   statement got silently weakened. Audit before celebrating;
 * anything warranting outside eyes. Drafting is in scope; sending is Joop's.
 
-## Current state (end of session 004)
+## State as of session 004 — A DATED SNAPSHOT, NOT CURRENT STATE
+
+> ⚠️ **SESSION 142: this block is the source of the cron prompt's stale STATE
+> line.** The heartbeat reads `ledger NscStd 67.25% / Nsc 0.00%, binding
+> constraint = Fujii's implied constant` — which is the two bullets below,
+> verbatim, 138 sessions out of date. Live values, from
+> `go run tools/proportion.go` on 2026-08-16:
+>
+> * ledger **`NscStd 67.25% / Nsc 50.88%`** — the `Nsc` row opened in `084`.
+> * binding **`Riemann.baseline_zeta23`**, for *both* rows. `fujii_ineffective`
+>   binds nothing; the `Nsc` row opened without ever pricing Fujii's constant.
+> * axioms **2** in the certified cone, **9** declared; sorries **0**.
+>
+> Retained below as the session-004 record. Do not read it as state.
 
 * Stack: Lean `v4.33.0-rc2`, Mathlib inherited from zeta-23, **zeta-23 imported
   live** (`audit/Zeta23Link.lean`; both headline theorems sorry-free, `jWin`,

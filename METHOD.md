@@ -183,17 +183,22 @@ program's `(★)` succeeds.
 
 **"Two numbers, always together."** Every ledger line carries both the
 certified figure and the conjectural one, and the certified figure is itself
-split across the two rows. The current line reads
-`certified[NscStd: 67.25%, Nsc: 0.00%]` and `conjectural: 100.00% (OPEN D)`.
+split across the two rows. The line reads
+`certified[NscStd: 67.25%, Nsc: 50.88%]` and `conjectural: 100.00% (OPEN D)`.
 
 ### The empty-row principle
+
+> ⚠️ **SESSION 084 — this section's example expired.** The `Nsc` row is
+> **50.88%**, not `0.00%`. It opened *without* an unconditional `(★)`, via
+> `3·NscStd ≤ N + 2·Nsc`, so the "why it is empty" reading below no longer
+> describes any row of the ledger. The principle is kept on its merits.
 
 `LOOP.md`:
 
 > A row of the ledger that is honestly zero is more useful than a row that is
 > quietly redefined until it is non-zero.
 
-`Nsc` reads `0.00%` because no unconditional `(★)` exists at any constant. Its
+`Nsc` *read* `0.00%` because no unconditional `(★)` exists at any constant. Its
 `binding` field says why and what would open it. Two instruments with a
 crossover at `C = 1.655`, not a score with a caveat.
 

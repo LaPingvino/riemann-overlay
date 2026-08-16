@@ -785,11 +785,22 @@ the blindness" dies.** It fired, and hard — three do:
 | `baseline_zeta23` | **`NscStd`** | **not** μ-invariant |
 | `xiPrimeFamily`, `closePairsZeta` | objects, not predicates | n/a |
 
-**The ledger currently realises the split — contingently, not structurally.**
+> ⚠️ **SESSION 084 — the breakage happened, by a route this note did not
+> list.** Row `Nsc` is **50.88%**, not `0.00%`, so the correspondence below has
+> already ended. It did *not* end the predicted way: `OPEN 0` has not landed and
+> no μ-invariant axiom feeds either row. The row opened from
+> `3·NscStd ≤ N + 2·Nsc`, **axiom-free**, on the *same* two axioms as `NscStd`.
+> The still-true half is the diagnosis — `Nsc` was empty for a **supply**
+> reason, not a visibility one — and supply arrived as a combinatorial transfer
+> rather than as an effective `C`. The stated breakage condition was sufficient
+> and not necessary, which is the general shape of the error: a correctly
+> identified contingency, with an under-imagined list of ways to discharge it.
+
+**The ledger *used to* realise the split — contingently, not structurally.**
 Row `NscStd` reads `67.25%` and every bit of it is carried by the three
-non-μ-invariant imported axioms. Row `Nsc` reads `0.00%` — but **not** for a
+non-μ-invariant imported axioms. Row `Nsc` *read* `0.00%` — but **not** for a
 visibility reason: `Nsc` is the μ-*visible* quantity
-(`Nsc_eq_ordinate_functional`), and its row is empty for a **supply** reason,
+(`Nsc_eq_ordinate_functional`), and its row was empty for a **supply** reason,
 no effective `C`. So the correspondence has a stated breakage condition: **the
 day OPEN 0 lands, a μ-invariant axiom feeds both rows and the accounting
 coincidence ends** — happily, and without touching the theorem. Anyone reading

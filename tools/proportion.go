@@ -165,6 +165,18 @@ func main() {
 		c.Dir = root
 		return c.CombinedOutput()
 	}(); err != nil {
+		// SESSION 142: this branch used to report "a claimed name does not
+		// exist" for EVERY failure — including the case where `lake` was not on
+		// PATH at all, which is the common one when the Lean env is unexported.
+		// A tool that cannot run its own check must not report the check's
+		// verdict.  R17: no witness, no belief, and that applies to bad news
+		// exactly as much as to good.
+		if _, ran := err.(*exec.ExitError); !ran {
+			fmt.Fprintf(os.Stderr, "ESCALATION: could not RUN audit/Declarations.lean "+
+				"(%v) — this is a harness failure, NOT a verdict on any declaration. "+
+				"Is `lake` on PATH?\n%s\n", err, out)
+			os.Exit(5)
+		}
 		fmt.Fprintf(os.Stderr, "ESCALATION: audit/Declarations.lean failed — a claimed name does not exist.\n%s\n", out)
 		os.Exit(4)
 	}

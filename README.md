@@ -86,7 +86,13 @@ literature's notion (multiplicity one, on the line — zeta-23's `N0simple`) and
 `Nsc` is this project's stronger notion (`H = 1`: the ordinate carries nothing
 else). They are linked by `ZeroData.two_NscStd_le` at a cost of `(C−1)/2`, so
 the gap between them is a certified function of `C` that closes exactly when
-`(★)` succeeds. The current line of `PROPORTION.log`:
+`(★)` succeeds.
+
+> ⚠️ **The block below is a dated quote (2026-08-14), not the current line.**
+> The `Nsc` row is **50.88%** as of `SESSION 084`; everything else in it still
+> holds. Run `go run tools/proportion.go` for the live line and believe that.
+
+A line of `PROPORTION.log`, as of 2026-08-14:
 
 ```
 2026-08-14 | base: v2/cd7a22e688df (zetaNonempty) | context: v2 (compacted)
@@ -99,13 +105,15 @@ the gap between them is a certified function of `C` that closes exactly when
 `Assumptions.lean` permitted and listed by name). The `NscStd` row is today
 carried entirely by an axiom — the imported zeta-23 Theorem D, whose discharge
 is blocked only on constructing `zetaFamily` from zeta-23's
-`zerosIn`/`zeroMult`. The `Nsc` row reads `0.00%` because no unconditional
-`(★)` exists at any constant, and `LOOP.md`'s empty-row principle says a row
-that is honestly zero beats a row quietly redefined until it is not.
+`zerosIn`/`zeroMult`.
 
 > ⚠️ **SESSION 084:** the `Nsc` row is no longer zero — it is **50.875%**, from
 > `3·NscStd ≤ N + 2·Nsc` (axiom-free) transported to the proportion layer with
 > no star bound. The principle stands; the example no longer applies to this row.
+
+The `Nsc` row *read* `0.00%` because no unconditional
+`(★)` exists at any constant, and `LOOP.md`'s empty-row principle says a row
+that is honestly zero beats a row quietly redefined until it is not.
 
 The `axioms: 2` field is the axiom **cone of the best certified row**, not the
 size of the trusted base (which is 9); see `VERIFYING.md` §3.2.

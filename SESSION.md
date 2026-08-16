@@ -8651,3 +8651,51 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 and mis-specified what its own test needed, which is either the strongest possible
 evidence that the rule was worth writing or the clearest possible evidence that
 writing it will not be enough.
+
+# SESSION 186 — full verification, and one page for Joop
+
+**Kill condition, stated first:** *if the verification pass finds any discrepancy
+between what the registers claim and what the tools report, that discrepancy is
+the finding and the consolidation waits.* **It did not fire.**
+
+Everything green, checked rather than recalled:
+
+| check | result |
+|---|---|
+| `lake build` | 3757 jobs |
+| `audit/Declarations.lean` | exit 0 — every claimed name exists |
+| ledger | `NscStd 67.25% / Nsc 50.88%`, axioms 2, base `cd7a22e688df` |
+| sorries | 0 — the one grep hit is `sorry-free` at a wrapped line start |
+| guards | 15/15 |
+| `board.py` | 13 board rows, transfer enumerations unchanged |
+| `board.py --cones` | **26/26** as recorded |
+
+## `RULING.md`
+
+The decision has been parked since `147` and its materials are spread across
+`PRICES.md`, `CLAIMS.md` and twenty session entries. That is my fault, not
+Joop's: I have been handing him a revised comparison most cycles instead of one
+statement. `RULING.md` is that statement — the state, the eight-row board with
+verified gains and cones, the two rows struck on mathematics (`H ≤ 2` dominated
+by `NoHaunted`, ξ′ dominated by `m = 7`), what the choice actually is (which
+currency of assumption), and — said plainly — that **declining every row is a
+coherent answer**.
+
+Nothing in it is new. It is one page instead of twenty.
+
+## `S88` — and the gate caught an error in it
+
+I wrote that Route III is *"the only row that reaches the ledger without touching
+`baseline_zeta23`"*. **Route I and [OPEN D] have the same cone** — `zetaNonempty`
+alone — which `172`'s cone check recorded and I had read.
+
+Summarising already-verified material introduced a claim **none of the sources
+made**. That is the sharpest case yet for running the gate over anything leaving
+the project: the one document here whose audience is not me is the one where a
+fabricated superlative would have done real damage.
+
+Build green (3757 jobs), sorries 0, ledger unmoved, guards green.
+
+**Might-mean, unhedged:** the error appeared in the act of compression, in a
+sentence I wrote to be helpful, about facts I had personally verified fourteen
+cycles earlier.

@@ -3133,7 +3133,9 @@ simple atom `1` and *also* keeps a spare `H`.  The tight linear-in-`H` estimate 
 > per atom, `H² + (M − 1)·[H = 1] ≤ M·H`,
 
 with **equality at `H = 1` and at `H = M`** — so the bound cannot be improved
-within this shape.  Dividing by `N`: `C ≤ M − (M − 1)·κ`, which is `< 2` exactly
+within this shape.  *(`258`: both equality cases are on disk and this docstring
+did not say where — `Nstar_bound_attained` for the `H = M` side,
+`haunted_atom_saturates` for a certified instance at `M = 3`.)*  Dividing by `N`: `C ≤ M − (M − 1)·κ`, which is `< 2` exactly
 when `κ > 1 − 1/(M − 1)`.
 
 At the unconditional `κ = 0.50875` that threshold is met for `M ≤ 3`, so the

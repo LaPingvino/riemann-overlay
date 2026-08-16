@@ -11921,4 +11921,63 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 
 **Might-mean, unhedged:** the docstrings are where this project keeps the claims
 no instrument reads, so the next audit worth running is not over the registers
-but over the prose attached to theorems.
+but over the prose attached to theorems. *(`258` ran that audit and the
+might-mean was wrong: `27` separation claims, all witnessed. See `258`.)*
+
+## The docstring audit came back negative, and `257`'s might-mean was wrong
+
+`257` ended by pointing at the docstrings as the place this project keeps claims
+no instrument reads. That is a testable statement, so this tests it.
+
+**Kill condition, filed first:** *if the sweep cannot distinguish "asserts a
+mathematical fact needing a witness" from "explains why a proof works", it
+measures docstring prose style rather than unwitnessed claims, and I report the
+raw list rather than a rate.* It did not fire, but not for the reason I expected
+— a sharper discriminator turned up during the grading and is below.
+
+**The sweep.** The `/-- … -/` blocks across `Riemann/*.lean`, matched against
+separation language — `does not give`, `is not enough`, `cannot be improved`,
+`buys nothing`, `no better`, `does not imply`. These are plain negatives rather than
+the exactness and uniqueness words `claims_gate` scans for, which is why `181`'s
+clause survived `086`'s run of that gate over these same files.
+`27` distinct claims. All twenty-seven listed and hand-graded.
+
+**All 27 are witnessed. The result is a negative.** The pattern is that a
+separation claim in this repo is attached to the declaration that *is* its
+witness: `mass_only_not_sufficient`, `off_only_not_sufficient`,
+`starBound_allows_any_multiplicity`, `noHaunted_not_imp_Noff_zero`,
+`no_starBound_from_proportionStd`, `linearBound3_no_gain`, `linearBound4_no_gain`,
+`ladder_sharp_at_odd`, and so on — the docstring says what the theorem under it
+proves.
+
+**Which is the actual discriminator, and it is not the one I filed.** `181`'s
+clause was not unwitnessed because docstrings go unread; it was unwitnessed
+because it was a *side remark about a different theorem*, sitting on
+`noHaunted_of_mult_le_two` while talking about the star bound. Detached, not
+unread. That shape occurs exactly once in the current corpus and `257` closed it.
+
+Two docstrings assert something true without naming where it is checked —
+`Nstar_add_pred_mul_Nsc_le`'s "cannot be improved within this shape" (the
+equality cases are `Nstar_bound_attained` and `haunted_atom_saturates`) and
+`mult_cap_excluding_pairOnly`, which quotes `LEADS.md` and then scopes itself
+explicitly: *"This does not settle E11 for every classical invariant, only for
+caps on multiplicity. Named rather than generalised."* The first got its
+citations; the second needed nothing and is the standard the rest meet.
+
+**So `257`'s might-mean is retracted at its location.** The prose attached to
+theorems is in better shape than the prose in the registers, where `253` found
+`5` true positives in `28`. The registers are where claims drift, because a
+register entry has no theorem sitting underneath it to be checked against.
+
+**Snag, bin 2.** My sweep matched *"the kill condition fired"* and other
+historical records as separation claims — three of the `27` are a cycle's own
+account of its kill condition, not an assertion at all. A wordlist over prose
+cannot tell a claim from a report of a claim, which is `S110` in a second
+instrument.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green.
+
+**Might-mean, unhedged:** a claim stays honest when it is written next to the
+thing that checks it, so the habit of putting a sentence and its theorem in the
+same place is doing more work here than any of the nine guards.

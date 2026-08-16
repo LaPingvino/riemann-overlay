@@ -1165,6 +1165,56 @@ lemma Nstar_eq_sum_H_sq (D : ZeroData) :
   refine Finset.sum_congr rfl fun γ _ => ?_
   rw [← D.H_eq_count γ, smul_eq_mul]
 
+/-- `2^(j+1) ≤ 3^j + 1`.  `SESSION 211`.  The step that makes the general
+moment minorant work: it says the coefficient `2^(k−1) − 1` never outruns
+`3^(k−2)`, which is the smallest `m^(k−2)` available once `m ≥ 3`. -/
+private lemma two_pow_le_three_pow_add_one (j : ℕ) : 2 ^ (j + 1) ≤ 3 ^ j + 1 := by
+  induction j with
+  | zero => norm_num
+  | succ n ih =>
+      have h3 : 1 ≤ 3 ^ n := Nat.one_le_pow _ _ (by norm_num)
+      have h2 : 2 ^ (n + 2) = 2 * 2 ^ (n + 1) := by ring
+      have h4 : 3 ^ (n + 1) = 3 * 3 ^ n := by ring
+      omega
+
+/-- **The moment minorant at every order.**  `SESSION 211`.
+
+For `A + 1 = 2^(k−1)` and `k ≥ 2`,
+
+    A·m² + m  ≤  m^k + A·m      for every natural `m`.
+
+`A` is chosen so the inequality is an **equality at `m = 1` and `m = 2`** — at
+`m = 2` because `2A + 2 = 2^k` exactly — and those are the two masses whose
+constraints settle the two-moment program (`206`).  `k = 2` gives `A = 1` and an
+identity; `k = 3` gives `A = 3`, which is `three_sq_le_cube_add_two`; `k = 4`
+gives `A = 7`, which is `seven_sq_le_fourth_add_six`.
+
+For `m ≥ 3` the work is `A ≤ 3^(k−2) ≤ m^(k−2)`. -/
+theorem moment_minorant {k A : ℕ} (hk : 2 ≤ k) (hA : A + 1 = 2 ^ (k - 1))
+    (m : ℕ) : A * (m * m) + m ≤ m ^ k + A * m := by
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 2 := ⟨k - 2, by omega⟩
+  have hA' : A + 1 = 2 ^ (j + 1) := by simpa using hA
+  rcases Nat.lt_or_ge m 3 with hlt | hge
+  · interval_cases m
+    · simp
+    · simp [pow_succ]
+    · have h2 : (2 : ℕ) ^ (j + 2) = 2 * 2 ^ (j + 1) := by ring
+      omega
+  · have hAle : A ≤ 3 ^ j := by
+      have := two_pow_le_three_pow_add_one j
+      omega
+    have hpow : (3 : ℕ) ^ j ≤ m ^ j := Nat.pow_le_pow_left hge j
+    have hsplit : m ^ (j + 2) = m ^ j * (m * m) := by ring
+    have hkey : A * (m * m) ≤ m ^ (j + 2) := by
+      rw [hsplit]
+      exact Nat.mul_le_mul_right _ (le_trans hAle hpow)
+    have hm : 1 ≤ A := by
+      have h2 : (2:ℕ) ^ 1 ≤ 2 ^ (j + 1) :=
+        Nat.pow_le_pow_right (by norm_num) (by omega)
+      simp only [pow_one] at h2
+      omega
+    nlinarith [hkey, hm, hge]
+
 /-- `7h² ≤ h⁴ + 6h` for every natural `h` — the pointwise form of
 `h(h−1)(h−2)(h+3) ≥ 0`.  `SESSION 210`.  The companion of
 `three_sq_le_cube_add_two`, and chosen the same way: the linear-in-`(h², h)`
@@ -1193,6 +1243,48 @@ theorem seven_Nstar_le_fourthMoment_add_six_N (D : ZeroData) :
   rw [N_eq_sum_H, Nstar_eq_sum_H_sq, fourthMoment, Finset.mul_sum, Finset.mul_sum,
     ← Finset.sum_add_distrib]
   exact Finset.sum_le_sum fun γ _ => seven_sq_le_fourth_add_six (D.H γ)
+
+/-- `Σm^k`, the `k`-th moment of the multiplicity distribution.  `SESSION 211`.
+`thirdMoment` and `fourthMoment` are the `k = 3` and `k = 4` cases in content. -/
+noncomputable def momentK (D : ZeroData) (k : ℕ) : ℕ :=
+  ∑ γ ∈ D.ordinates.toFinset, D.H γ ^ k
+
+/-- **The moment obstruction at every order.**  `SESSION 211`.
+
+With `A + 1 = 2^(k−1)` and `k ≥ 2`,
+
+    A·N⊛ + N  ≤  Σm^k + A·N
+
+so `C_k ≥ A·C − (A−1)` for every configuration.  `k = 3` (`A = 3`) is
+`three_Nstar_le_thirdMoment_add_two_N`; `k = 4` (`A = 7`) is
+`seven_Nstar_le_fourthMoment_add_six_N`. -/
+theorem moment_obstruction (D : ZeroData) {k A : ℕ} (hk : 2 ≤ k)
+    (hA : A + 1 = 2 ^ (k - 1)) :
+    A * D.Nstar + D.N ≤ momentK D k + A * D.N := by
+  classical
+  rw [N_eq_sum_H, Nstar_eq_sum_H_sq, momentK, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  exact Finset.sum_le_sum fun γ _ => moment_minorant hk hA (D.H γ)
+
+/-- **`Σm^k` on a pure on-line atom of mass `m`.**  `SESSION 211`. -/
+lemma config_momentK_pure (m : ℕ) {k : ℕ} (hk : 1 ≤ k) (a : ℝ) :
+    momentK (config m 0 a) k = m ^ k := by
+  classical
+  have hH : (config m 0 a).H (0:ℝ) = m := by
+    rw [config_eq_configAt, configAt_H]; simp
+  have hord : (config m 0 a).ordinates = Multiset.replicate m ((0:ℝ)) := by
+    show ((config m 0 a).Z.map Prod.snd) = _
+    have hZ : (config m 0 a).Z = Multiset.replicate m ((1/2 : ℝ), (0:ℝ)) := by
+      show Multiset.replicate m ((1/2 : ℝ), (0:ℝ))
+          + (Multiset.replicate 0 (a, (0:ℝ))
+            + Multiset.replicate 0 ((1 - a : ℝ), (0:ℝ))) = _
+      simp
+    rw [hZ, Multiset.map_replicate]
+  rw [momentK, hord]
+  rcases Nat.eq_zero_or_pos m with hm | hm
+  · subst hm; simp [Nat.zero_pow (show 0 < k by omega)]
+  · rw [Multiset.toFinset_replicate, if_neg (by omega)]
+    simp [hH]
 
 /-- **`Σm⁴` on a pure on-line atom of mass `m`.**  `SESSION 210`. -/
 lemma config_fourthMoment_pure (m : ℕ) (a : ℝ) :

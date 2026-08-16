@@ -587,6 +587,14 @@ every configuration built from atoms of mass `1` and `2`, and
 > the pure on-line atom `config m 0 a` where `N = m`, `N⊛ = m²`,
 > `N_sc = [m = 1]`.
 >
+> **`SESSION 211`: and the consequence is now settled at every order.**
+> `Optimal.linearBoundK_LP_value` is `IsGreatest` at `2 − C` for the order-`k`
+> program, every `k ≥ 2`, from `Blindness.moment_minorant`
+> (`A·m² + m ≤ m^k + A·m` with `A + 1 = 2^{k−1}`, tight at `m = 1` and `m = 2`).
+> So the answer to "improving `prop1` requires a third moment" is that no moment
+> improves it: each is priced against a minorant tight exactly where the
+> two-moment program binds. `209`/`210` are the `k = 3` and `k = 4` cases.
+
 > **`SESSION 205`: the converse is now proved too.**
 > `Optimal.linearBound_of_mass_test` runs the grouping this entry describes —
 > `N`, `N⊛` and `N_sc` are sums over atoms (`N_eq_sum_H`, `Nstar_eq_sum_H_sq`,

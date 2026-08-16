@@ -148,6 +148,16 @@ import Riemann
 #check @Riemann.Optimal.prop1_as_linearBound4
 #check @Riemann.Optimal.linearBound4_no_gain
 #check @Riemann.Optimal.linearBound4_LP_value
+-- SESSION 211: and every order at once — the moment route is walled for all k >= 2.
+#check @Riemann.Blindness.moment_minorant
+#check @Riemann.Blindness.momentK
+#check @Riemann.Blindness.moment_obstruction
+#check @Riemann.Blindness.config_momentK_pure
+#check @Riemann.Optimal.LinearBoundK
+#check @Riemann.Optimal.linearBoundK_mass
+#check @Riemann.Optimal.prop1_as_linearBoundK
+#check @Riemann.Optimal.linearBoundK_no_gain
+#check @Riemann.Optimal.linearBoundK_LP_value
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

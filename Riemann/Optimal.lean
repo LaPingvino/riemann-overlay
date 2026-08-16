@@ -457,6 +457,86 @@ theorem linearBound4_LP_value {C : ℝ} (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
   · rintro v ⟨a, b, c, habc, rfl⟩
     exact linearBound4_no_gain habc hC1 hC2
 
+/-! ### Every order — `SESSION 211`
+
+`209` and `210` did orders three and four by hand and made the mechanism
+visible: the minorant is tight at `m = 1` and `m = 2`, the two masses `206`'s
+characterisation constrains, so subtracting it leaves those constraints alone.
+`Blindness.moment_minorant` supplies that minorant at every order.  Here is the
+LP consequence, once. -/
+
+/-- A linear bound in `(N, N⊛, Σm^k)`. -/
+def LinearBoundK (k : ℕ) (a b c : ℝ) : Prop :=
+  ∀ D : ZeroData, a * D.N + b * D.Nstar + c * Blindness.momentK D k ≤ D.Nsc
+
+/-- The single-atom test at every mass, for order `k`.  `SESSION 211`. -/
+theorem linearBoundK_mass {k : ℕ} (hk : 1 ≤ k) (m : ℕ) {a b c : ℝ}
+    (h : LinearBoundK k a b c) :
+    a * m + b * (m * m) + c * (m ^ k) ≤ if m = 1 then 1 else 0 := by
+  have hm := h (Blindness.config m 0 0)
+  rw [Blindness.config_N, Blindness.config_Nstar_pure, Blindness.config_Nsc_pure,
+    Blindness.config_momentK_pure m hk] at hm
+  by_cases h1 : m = 1
+  · rw [if_pos h1]; rw [if_pos h1] at hm; push_cast at hm; linarith
+  · rw [if_neg h1]; rw [if_neg h1] at hm; push_cast at hm; linarith
+
+/-- `prop1` read as an order-`k` bound that ignores the `k`-th moment. -/
+theorem prop1_as_linearBoundK (k : ℕ) : LinearBoundK k 2 (-1) 0 := by
+  intro D
+  have h := ZeroData.prop1 D
+  have hcast : (2 * (D.N : ℝ)) - (D.Nstar : ℝ) ≤ (D.Nsc : ℝ) := by exact_mod_cast h
+  simp only [neg_mul, one_mul, zero_mul, add_zero]
+  linarith
+
+/-- **No moment, at any order, beats `2 − C`.**  `SESSION 211`.
+
+With `A + 1 = 2^(k−1)`, `Blindness.moment_obstruction` gives
+`C_k ≥ A·C − (A−1)`.  A feasible `c` is non-positive, so the objective is best
+there, and
+
+    a + b·C + c·(A·C − (A−1))  =  (a + (A−1)·(−c)) + (b + A·c)·C
+
+Writing `P = a − (A−1)c` and `Q = b + Ac`, the `c` cancels out of the mass-`1`
+and mass-`2` constraints for the same reason at every order:
+
+    mass 1:  a + b + c        = P + Q  ≤ 1
+    mass 2:  2a + 4b + 2^k·c ≤ 0  ⟺  P + 2Q ≤ 0
+
+because `A + 1 = 2^(k−1)`.  `209` and `210` are the `k = 3` and `k = 4` cases. -/
+theorem linearBoundK_no_gain {k A : ℕ} (hk : 2 ≤ k) (hA : A + 1 = 2 ^ (k - 1))
+    {a b c C : ℝ} (h : LinearBoundK k a b c) (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
+    (a - ((A : ℝ) - 1) * c) + (b + (A : ℝ) * c) * C ≤ 2 - C := by
+  have hm1 := linearBoundK_mass (by omega) 1 h
+  have hm2 := linearBoundK_mass (by omega) 2 h
+  rw [if_pos rfl] at hm1
+  rw [if_neg (by norm_num)] at hm2
+  push_cast at hm1 hm2
+  simp only [one_pow, one_mul, mul_one] at hm1
+  have hpow : ((2 : ℝ) ^ k) = 2 * (A + 1) := by
+    have : ((A : ℕ) + 1 : ℕ) = 2 ^ (k - 1) := hA
+    have hk' : k - 1 + 1 = k := by omega
+    have : ((2 : ℝ)) ^ (k - 1) = ((A : ℝ) + 1) := by
+      exact_mod_cast congrArg (fun n : ℕ => (n : ℝ)) hA.symm
+    calc ((2 : ℝ) ^ k) = 2 ^ (k - 1 + 1) := by rw [hk']
+      _ = 2 ^ (k - 1) * 2 := by ring
+      _ = 2 * ((A : ℝ) + 1) := by rw [this]; ring
+  rw [hpow] at hm2
+  have h1 : (a - ((A : ℝ) - 1) * c) + (b + (A : ℝ) * c) ≤ 1 := by nlinarith [hm1]
+  have h2 : (a - ((A : ℝ) - 1) * c) + 2 * (b + (A : ℝ) * c) ≤ 0 := by nlinarith [hm2]
+  rcases le_or_gt (-1 : ℝ) (b + (A : ℝ) * c) with hcase | hcase
+  · nlinarith [h2, hcase, hC2]
+  · nlinarith [h1, hcase, hC1]
+
+/-- **The order-`k` LP has value `2 − C`, for every `k ≥ 2`.**  `SESSION 211`. -/
+theorem linearBoundK_LP_value {k A : ℕ} (hk : 2 ≤ k) (hA : A + 1 = 2 ^ (k - 1))
+    {C : ℝ} (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
+    IsGreatest {v : ℝ | ∃ a b c : ℝ, LinearBoundK k a b c
+        ∧ v = (a - ((A : ℝ) - 1) * c) + (b + (A : ℝ) * c) * C} (2 - C) := by
+  constructor
+  · exact ⟨2, -1, 0, prop1_as_linearBoundK k, by ring⟩
+  · rintro v ⟨a, b, c, habc, rfl⟩
+    exact linearBoundK_no_gain hk hA habc hC1 hC2
+
 
 /-- **And the bound is attained**, so `2 − C` is the exact optimum of the class,
 not merely an upper bound for it. -/

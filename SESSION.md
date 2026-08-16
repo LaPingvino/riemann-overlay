@@ -9783,3 +9783,54 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** every higher moment this project could buy is priced
 against a minorant that is tight exactly where the two-moment program already
 binds, so the moments are not independent currencies at all.
+
+## Every order at once
+
+`210` closed with a named gap: the general `k` needs the minorant
+`m^k ≥ (2^{k−1}−1)m² + (2−2^{k−1})m` for every `m`, and that was not in the
+development.
+
+**Kill condition, filed first:** *if the general-`k` minorant needs arithmetic
+beyond what one cycle can carry, I prove it as far as it goes and name where it
+stops rather than leaving a half-general statement.* It did not fire.
+
+`Blindness.moment_minorant` — for `A + 1 = 2^{k−1}` and `k ≥ 2`,
+
+    A·m² + m  ≤  m^k + A·m      for every natural `m`.
+
+Written with `A` rather than `2^{k−1}−1` so no truncated subtraction appears.
+Equality holds at `m = 1` and at `m = 2`, the second because `2A + 2 = 2^k`
+exactly. For `m ≥ 3` the work is `A ≤ 3^{k−2} ≤ m^{k−2}`, and the first of those
+is `2^{j+1} ≤ 3^j + 1`, a three-line induction.
+
+Then the chain repeats itself once instead of per order:
+
+* `momentK D k = Σ H γ^k`, and `moment_obstruction : A·N⊛ + N ≤ Σm^k + A·N`,
+  so `C_k ≥ A·C − (A−1)` at every order.
+* `LinearBoundK`, `linearBoundK_mass`, `prop1_as_linearBoundK`.
+* `linearBoundK_no_gain` — with `P = a − (A−1)c`, `Q = b + Ac`, the mass-`1` and
+  mass-`2` constraints become `P + Q ≤ 1` and `P + 2Q ≤ 0`, which are `206`'s
+  two, because `A + 1 = 2^{k−1}`.
+* `linearBoundK_LP_value` — `IsGreatest` at `2 − C` for every `k ≥ 2`.
+
+`209` and `210` are the `k = 3` and `k = 4` cases, and they stay: they were how
+the mechanism became visible, and they are cheaper to read.
+
+So the moment route is walled at every order as an LP statement, alongside
+`moment_route_walled`'s different argument from vanishing factorial moments.
+`ISSUES` `#20`'s "improving `prop1` requires a third moment" now has its full
+answer: no moment improves it, and the reason is that each one is priced against
+a minorant tight exactly where the two-moment program binds.
+
+**Snag, bin 1, twice.** `Nat.zero_pow` wants `0 < k`, not `k ≠ 0`; and `1 ^ k`
+survived `push_cast`, so `hm1` did not reduce until `simp only [one_pow]` was
+added. Both named by the build immediately.
+
+Thirteen declarations, axiom-free, all in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the project spent many cycles treating higher moments
+as a ladder of possible suppliers, and every rung is closed by the same
+inequality for the same reason.

@@ -18,6 +18,11 @@ grade A.**
 * **B — certifiable, but prose.** The class is well defined and a theorem could
   be stated; none exists yet. **This is the disease.** Cite only with the word
   "unformalised" attached.
+
+  > ✅ **Grade B is empty — counted `SESSION 187`, and unchecked since `S22`
+  > (session `044`) said so.** 89 rows at grade `A` (83 plain, 6 qualified), 6 at
+  > `N` (computation or measurement), 1 at `C`, **0 at `B`**. The disease has not
+  > recurred across ~140 cycles of additions.
 * **C — class undefined.** The claim quantifies over something informal ("cheap
   invariants", "classical invariant"). Defining the class is the *prerequisite*
   for promotion — and per S23 that can be cheap, so C is **not** a life

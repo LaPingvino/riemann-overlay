@@ -8699,3 +8699,59 @@ Build green (3757 jobs), sorries 0, ledger unmoved, guards green.
 **Might-mean, unhedged:** the error appeared in the act of compression, in a
 sentence I wrote to be helpful, about facts I had personally verified fourteen
 cycles earlier.
+
+# SESSION 187 — grade B is still empty, and a calibration entry that would have lied
+
+**Kill condition, stated first:** *if none of the standing absence claims is both
+checkable now and load-bearing, this is a quiet cycle and I say so in one line
+rather than manufacturing work.* **It fired — but the check it prompted was worth
+running, and is reported as what it is: a clean bill, not a finding.**
+
+Triaging the queue's 9: one past-tense record, one rhetorical question, one
+schema description, two factual statements that verify, one with a standing
+mechanical witness (`provenance_lint` prints `tier GRH: 0/11` every run), one
+literature claim not cheaply checkable, one not an absence claim at all — and one
+that looked live.
+
+## The live one was a false positive, and its check came back clean
+
+`CLAIMS.md`'s **grade B** — *"the class is well defined and a theorem could be
+stated; none exists yet"* — is a **grade definition**, not a claim about the
+repo. The queue reads "none exists yet" and flags it.
+
+But it prompted a question nobody had asked since `S22` at session `044`: **is
+grade B still empty?** `CLAIMS.md` calls it *the disease*. Counted:
+
+| grade | rows |
+|---|---|
+| `A` | **89** (83 plain, 6 qualified) |
+| `N` | 6 (computation or measurement) |
+| `C` | 1 |
+| **`B`** | **0** |
+
+Empty across ~140 cycles of additions. Recorded at the grade's definition.
+
+**A near-miss on the count itself:** my first parser required the grade cell to
+match `A|B|C|N` exactly and reported `1` `N` row against the true `6`, because
+`**N** (computation)` did not match. The `B = 0` result was unaffected, but I
+re-counted before believing a number I had generated seconds earlier.
+
+## `S89` — and the tidy way to record the FP would have broken the guard
+
+I added the grade-definition sentence to `absence_queue`'s `CALIBRATION` with
+`want=clear`. `CALIBRATION` asserts what the instrument *should* do — and I had
+just decided, per `S39`'s one-instance rule, **not** to filter this shape. So the
+entry claimed behaviour the file does not implement, and the guard went red:
+`6/7 as designed`, one command after writing it.
+
+**A known false positive that is deliberately left alone belongs in a comment,
+not in a test that fails.** Moved there; `6/6`, exit 0.
+
+R20: this is hygiene cycle **3 of 3**. The next must be substantive or quiet.
+
+Build green, sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the cycle's only real defect was introduced by my
+attempt to document a defect tidily, which is the third time an instrument has
+caught me in the act of improving it.

@@ -103,6 +103,18 @@ CALIBRATION = [
     ("`PairCeiling.ceiling_law256` is unreachable from our root.", True),
     ("The only capacity certificate we can run came in with zeta-23.", True),
     ("Whether the profile is minimal is not proved.", True),
+    # KNOWN FALSE POSITIVE, documented and NOT calibrated against — `SESSION 187`.
+    # A GRADE DEFINITION is not a claim of absence.  The queue
+    # flags `CLAIMS.md`'s description of grade `B` ("a theorem could be stated;
+    # none exists yet") as though it asserted something missing.  It defines a
+    # category.  A new false-positive class, distinct from the directive and
+    # quotation shapes `154` filtered, and left unfiltered on purpose: it is one
+    # row, and `S39`'s rule says do not fit a filter to a single instance.
+    #
+    # It is deliberately absent from `CALIBRATION` below: putting it there with
+    # `want=False` would assert behaviour this file does not implement, and the
+    # guard would sit permanently red.  A known FP that is left alone belongs in
+    # a comment, not in a test that fails.
     # Negative controls: shapes that must NOT be read as claims of absence.
     ("**Never as a bound.**  Do not cite a grade-N entry as one.", False),
     ("The ledger reads `Nsc 50.88%` and the row is carried by one axiom.", False),

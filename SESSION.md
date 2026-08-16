@@ -7823,3 +7823,58 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the wall three literature genres have died against is
 one inequality with an attained equality case, and the equality case is a single
 critical zero standing between two ghosts.
+
+# SESSION 170 — proximity is not membership, and the shelf has two open problems
+
+**Kill condition, stated first:** *if the narrow-box hypothesis does not yield an
+off-line bound `β < 1 − κ`, then Route III and `168`'s want-ad are different asks
+and the shelf has two open problems, not one.* **It fired.**
+
+`168` reduced three literature genres to one missing number; `169` proved that
+number is not extractable from `ProportionStd κ`. The remaining hope on the shelf
+was the narrow box — `Gaps.NarrowBox`, the hypothesis Route III consumes.
+
+**It supplies nothing here.** `NarrowBox` bounds how *far* a zero sits from the
+critical line. `Noff` counts how *many* sit off it, and a zero at
+`β = 1/2 + 10⁻⁶/log T` is off-line exactly as much as one at `β = 0.9`.
+`Blindness.offLine_count_not_bounded_by_proximity` (**axiom-free**, built first
+try): for every `ε > 0` there is a configuration whose zeros all lie within `ε`
+of the line and whose off-line count is **all of them**.
+
+## `S76` — and this corrects `168`'s unification
+
+`168` wrote "the want-ad is one thing, not three". That unification was **one
+channel wide**. There are two channels into the `Nsc` row and only one carries
+the wall:
+
+| channel | routes on it | walled by `β = 1 − κ`? |
+|---|---|---|
+| `ProportionStd` → off-line / haunted exchange | the ladder, ξ′, `NscAny`, distinct-zeros | **yes** |
+| `StarBound` → `Proportion (2 − C)` | **Route III**, `starBound_of_mult_le` | **no** |
+
+**Route III has been in the unwalled channel since `163`**, and I recorded its
+one-axiom cone as a curiosity without asking *why* it was smaller. The answer is
+in its cone: `Riemann.conjectural_routeIII` does not depend on `baseline_zeta23`, because
+it reaches the row through `StarBound`, so the `β = 1 − κ` arithmetic that killed
+three other routes has no purchase on it.
+
+## Where this leaves the board
+
+Two open problems, on different channels:
+
+1. **Off-line channel:** a bound `Noff ≤ β·N` with `β < 1 − κ`, from information
+   outside the proportion. Nothing on the board supplies it, and `169` shows no
+   rearrangement will.
+2. **StarBound channel:** Route III's `BGSTNarrowBox` implication — an imported
+   theorem-shaped hypothesis, not derivable from `NarrowBox` by our machinery.
+
+They are genuinely separate, and conflating them would have made the first look
+tractable via the second.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. One name added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** the distinction that had been doing silent work all
+along is between a zero being *near* the line and being *on* it, which is the
+distinction the whole project is named after.

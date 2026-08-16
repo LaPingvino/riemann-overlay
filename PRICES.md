@@ -442,6 +442,24 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 > So the want-ad below is for **new arithmetic information**, not for a cleverer
 > derivation: any `β < 1 − κ` must consume something `ProportionStd κ` does not
 > contain.
+>
+> ⚠️ **`SESSION 170` — and the narrow box does not supply it either, so the shelf
+> has TWO open problems, not one.** `Gaps.NarrowBox` — Route III's hypothesis —
+> bounds how *far* a zero sits from the line. `Noff` counts how *many* sit off
+> it, and `Blindness.offLine_count_not_bounded_by_proximity` (axiom-free) shows
+> the two are unrelated: for every `ε > 0` there is a configuration whose zeros
+> all lie within `ε` of the line and whose off-line count is **all of them**.
+>
+> **This corrects `168`'s "one thing, not three".** There are two channels into
+> the `Nsc` row and only one is walled:
+>
+> | channel | route | walled by `β = 1 − κ`? |
+> |---|---|---|
+> | `ProportionStd` → off-line / haunted exchange | the ladder, ξ′, `NscAny`, distinct-zeros | **yes** |
+> | `StarBound` → `Proportion (2 − C)` | **Route III**, `starBound_of_mult_le` | **no** |
+>
+> That is why Route III's cone is `1` axiom and why it was never subject to the
+> wall — it does not pass through the off-line exchange at all.
 > Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
 > which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
 > with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).

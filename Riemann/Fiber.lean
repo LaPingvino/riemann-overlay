@@ -3214,6 +3214,50 @@ theorem offLine_bound_attained {a : ℝ} (ha : a ≠ 1/2) :
   have := NscStd_eq_Nsc_add_haunted (configAt 0 1 1 a)
   omega
 
+/-- **Proximity to the line places no bound on the off-line count** — `SESSION
+170`.
+
+`168` reduced the off-line, simple-zero and distinct-zero shelves to one missing
+number: a bound `Noff ≤ β·N` with `β < 1 − κ`.  `169` showed it cannot come from
+`ProportionStd κ`.  The natural next hope is the narrow box — `Gaps.NarrowBox`,
+the hypothesis Route III consumes, asserting every zero lies within `b/log T` of
+the critical line.
+
+**It supplies nothing here.**  `NarrowBox` constrains how *far* a zero sits from
+the line; `Noff` counts how *many* sit off it, and a zero at
+`β = 1/2 + 10⁻⁶/log T` is off-line exactly as much as one at `β = 0.9`.  For
+every `ε > 0` there is a configuration whose zeros all lie within `ε` of the line
+and whose off-line count is **all of them**.
+
+So Route III's hypothesis and `168`'s want-ad are different asks, and Route III
+does not pay through the off-line exchange at all — it reaches the row through
+`StarBound`, which is why its axiom cone is `1` and why the `β = 1 − κ` wall does
+not touch it. -/
+theorem offLine_count_not_bounded_by_proximity {ε : ℝ} (hε : 0 < ε) :
+    ∃ D : ZeroData, 0 < D.N ∧ D.Noff = D.N
+      ∧ ∀ p ∈ D.Z, |p.1 - 1/2| ≤ ε := by
+  classical
+  set a : ℝ := 1/2 + min ε 1 / 2 with ha_def
+  have hmin : 0 < min ε 1 := lt_min hε one_pos
+  have ha : a ≠ 1/2 := by
+    rw [ha_def]; intro h; nlinarith [hmin]
+  have hdist : |a - 1/2| ≤ ε := by
+    rw [ha_def, abs_of_nonneg (by nlinarith [hmin] : (0:ℝ) ≤ 1/2 + min ε 1 / 2 - 1/2)]
+    nlinarith [min_le_left ε 1, min_le_right ε 1, hmin]
+  have hdist' : |(1 - a) - 1/2| ≤ ε := by
+    have : (1 - a) - 1/2 = -(a - 1/2) := by ring
+    rw [this, abs_neg]; exact hdist
+  refine ⟨configAt 0 0 1 a, ?_, ?_, ?_⟩
+  · rw [configAt_N]; norm_num
+  · rw [configAt_N, configAt_Noff ha]
+  · intro p hp
+    have : p ∈ Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 1 (a, (0:ℝ))
+          + Multiset.replicate 1 ((1 - a : ℝ), (0:ℝ))) := hp
+    simp only [Multiset.replicate_zero, zero_add, Multiset.mem_add,
+      Multiset.mem_replicate] at this
+    rcases this with ⟨_, h⟩ | ⟨_, h⟩ <;> rw [h] <;> assumption
+
 /-- **The mass accounting: `Nsc + 3·hauntedCount ≤ N`.**  A simple ordinate
 carries one zero, a haunted one at least three, and they are disjoint. -/
 theorem Nsc_add_three_mul_haunted_le_N (D : ZeroData) :

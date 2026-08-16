@@ -235,9 +235,12 @@ Every computed figure in the registers, traced:
 **The new defect: retraction ordering.** `PRICES.md` carried its retracted
 `c`-table at lines 165–176 with the retraction banner at line 183 — *below* the
 numbers. A reader scanning the tables would meet `c ≤ 7.995` before meeting the
-sentence that voids it. Nothing false was written; it was **badly ordered**,
-which for a register meant to be quoted from is the same hazard by a different
-route. **Fixed this cycle:** a warning now sits immediately above the tables.
+sentence that voids it. No false statement was *found* in it — which is a
+search result, not a property of the text, and `SESSION 149` downgraded the
+original "nothing false was written" to what the triage actually witnessed. It
+was **badly ordered**, which for a register meant to be quoted from carries a
+comparable hazard by a different route — comparable, not identical: no false
+quotation from it has been recorded, whereas a false sentence would be one. **Fixed this cycle:** a warning now sits immediately above the tables.
 
 **Standing rule added:** a retraction must appear *above* the material it
 retracts, not merely somewhere in the same file.

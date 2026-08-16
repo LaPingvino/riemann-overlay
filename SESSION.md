@@ -6579,3 +6579,69 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** I have been reading exit codes as verdicts for the
 whole project, and for nine of sixteen scripts the exit code was a statement that
 the interpreter reached the end of the file.
+
+# SESSION 149 — the queue's own staleness, and a flag that was hiding a second flag
+
+**Kill condition, stated first:** *if fewer than 2 of `CLAIMS.md`'s 5 flags are
+true positives, the gate's precision on this register is below the 50% it showed
+on 2026-08-15, and its flag count should stop driving cycles.* **It fired: 1 of
+5 on the first pass, 2 of 6 once the masked trigger surfaced — 33%.**
+
+## The triage
+
+| # | flag | verdict |
+|---|---|---|
+| 1 | "Two were found living as prose in three cycles (`FAILURES.md` #10, `Gauge.lean`)" | **FP** — a record of a past finding, with citations; not a completeness claim |
+| 2 | "**Nothing false was written**; it was badly ordered" | **TRUE** — a negative-completeness claim about our own record, unwitnessed. Exactly `S27`'s shape, which is what the gate was built for |
+| 3 | "`S34`'s defect … lived on a surface the instrument had not been pointed at" | **FP** — historical, cites `S34`/`S35` |
+| 4 | "1 true positive in 14 — but it is the one being hunted" | **FP** — a measured statistic with its witness in `S35` |
+| 5 | "The route table had never been triaged" | **FP** — past tense, and the next line reports the triage |
+
+`#2` corrected at location: **"no false statement was *found* in it"** — a search
+result, not a property of the text. That is what the triage actually witnessed.
+
+## `S52` — the fix did not move the count, and that was the finding
+
+I expected 5 → 4. It stayed at **5**. The sentence carried *two* triggers — the
+negative-completeness claim **and** an identity claim ("is the same hazard by a
+different route") — and the gate reports the first match per sentence, so
+repairing one **exposed** the other. Downgraded as well (comparable, not
+identical: no false quotation from that register has been recorded, whereas a
+false sentence would be one). Now **4**.
+
+This is `S47`'s masking shape on a different instrument. **A count that does not
+move after a real fix is evidence of a second defect, not of a failed fix** — and
+my first instinct was to check whether my edit had applied.
+
+## The piece: `LOOP.md`'s banner had gone stale about staleness
+
+The `⚠️ READ FIRST` block is the disk's defence against the cron's fixed text.
+It was stamped `SESSION 102`, **said "wrong in three ways" above four rows**, and
+had stayed that way for forty-seven cycles. Refreshed, and it no longer asserts a
+total — it lets the table count itself. Three rows added:
+
+* **queue item 4** — W19 is dead (`144`), and the empty GRH tier has a standing
+  mechanical witness (`provenance_lint` prints `tier GRH: 0/11`);
+* **queue item 5** — "re-run all guards" proves less than it looks, since `148`
+  found 9 of 16 scripts cannot return a failing exit code;
+* **`RECENT`'s profile clause** — pointed at the row that already settles it.
+
+## A drift worth raising, Joop
+
+**Six of the last seven cycles have been instrument work** (`143` measurement,
+`145`–`146`, `148`–`149` tooling and hygiene; `144` literature; only `147` added
+theorems). Each found a real defect, so none was idle — but R20 caps *consecutive
+hygiene* and these kept qualifying as substantive by finding things. The ledger
+has not moved since `084`, and `111`/`112` prove it cannot move from the baseline
+alone. **The routes I can currently name that would move it are the ones parked
+with you** (`certified_nsc_via_xiPrime`'s two hypotheses; `baseline_przz`) — I am
+not claiming no other route exists, only that the registers list none. So the
+instrument work is partly what a blocked project does with its hands. That is my
+read, offered as a ruling rather than acted on.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. R20: hygiene 2 of 3.
+
+**Might-mean, unhedged:** the register that records what the project got wrong is
+now the fastest-growing thing in it, and that is either the apparatus working or
+the apparatus becoming the work.

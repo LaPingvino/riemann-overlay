@@ -3,8 +3,10 @@
 > ## ⚠️ READ FIRST — the cron prompt's STATE line is stale
 >
 > The heartbeat prompt is a fixed text fired by cron; it ages while the disk
-> moves (`SURPRISES` S33). As of `SESSION 102` it is wrong in three ways, and
-> **the disk is authoritative**:
+> moves (`SURPRISES` S33). **The disk is authoritative.** Last checked
+> `SESSION 149`; the table below counts its own rows rather than asserting a
+> total, because the `102` version said "wrong in three ways" above four rows
+> and stayed that way for forty-seven cycles:
 >
 > | the prompt says | the truth, with its witness |
 > |---|---|
@@ -12,6 +14,9 @@
 > | `binding constraint = Fujii's implied constant` | binding is `baseline_zeta23`; Fujii binds nothing since the `Nsc` row opened |
 > | *"Minimality of the profile is NOT proved and must not be claimed"* | settled **both** ways: `profile_not_minimal` (globally, `075`) and `profile_minimal_among_local` (locally, `077`) |
 > | queue items 1, 2, 3 | all discharged — `076`, `FAILURES.md`'s W32 table, `075`/`077` |
+> | queue item 4 — "W19 corridor … needs literature not in the registers" | **W19 is dead** (`144`): the error terms were fetched and the only identity precise enough is RH-conditional, which empties the target. `FAILURES.md` carries the autopsy. The GRH tier being empty has a standing mechanical witness — `provenance_lint` prints `tier GRH: 0/11`. |
+> | queue item 5 — "consolidation fallback: re-run all guards" | re-running them proves less than it looks: `148` found **9 of 16 scripts cannot return a failing exit code at all**. Check what a guard can fail on before quoting its green light. |
+> | `RECENT`'s "the PROFILE determines the ledger … minimality NOT proved" | the first half is right; the minimality clause is the row above — settled both ways. |
 >
 > This block exists because a stale STATE line is not inert: it once told me the
 > `Nsc` row was honestly zero, and that belief survived many cycles (`S34`).

@@ -12975,6 +12975,15 @@ and remains that axiom's real price.
 Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 `v3/c3b240548ad8` unmoved, eleven guards green, `PRICES` at baseline `24`.
 
-**Might-mean, unhedged:** the transcendental never had to be evaluated — every
-step that looked like numerics turned into algebra once `x² = 1/2` and
-`x·√2 = 1` were used instead of `x ≈ 0.7071`.
+**Might-mean, unhedged:** the transcendental did not have to be evaluated at all
+— the steps that looked like numerics turned into algebra once `x² = 1/2` and
+`x·√2 = 1` were used in place of `x ≈ 0.7071`.
+
+**Correction, `277b`.** The entry above was committed (`0ae75b9`) with one
+`claims_gate` flag unresolved. I put the gate and `git commit` in a single
+`Bash` call again, separated by a newline rather than `&&`, so the commit ran
+before the exit code could stop it. `251d` recorded this and wrote the
+rule: *"the gate and the commit never go in one call, or the gate's exit code is
+the `&&` condition"* — and `269`–`276` all honoured it. The flagged sentence was
+the might-mean's "every step"; nothing in the mathematics changed. Twenty-six
+cycles is how long that rule held before I broke it the same way twice.

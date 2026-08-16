@@ -157,6 +157,11 @@ import Riemann
 #check @Riemann.Blindness.gauge_orbit_size
 #check @Riemann.Blindness.config_onAt
 #check @Riemann.Blindness.config_NscStd
+-- SESSION 196: the `NscAny` dictionary bounds, attained and strict.
+#check @Riemann.Blindness.config_NscAny
+#check @Riemann.Blindness.nscAny_bounds_attained
+#check @Riemann.Blindness.nscStd_le_nscAny_attained
+#check @Riemann.Blindness.nscAny_bounds_strict
 #check @Riemann.Blindness.odd_mass_NscStd_ambiguous
 #check @Riemann.Blindness.even_mass_NscStd_zero
 #check @Riemann.Blindness.twoAtom

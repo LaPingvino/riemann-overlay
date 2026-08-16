@@ -9120,3 +9120,56 @@ R20: hygiene 2 of 3.
 **Might-mean, unhedged:** two cycles running I have rediscovered what the disk
 already said, and both times the reason was that the file holding the answer had
 no way to raise its hand.
+
+## Three inequalities that had never been made to bite
+
+`Basic.lean` relates `NscAny` — arXiv:2306.04799's quantity, simplicity with no
+location demand — to the ledger by three inequalities: `NscStd ≤ NscAny`,
+`NscAny ≤ NscStd + Noff`, `NscAny ≤ N`. All three were proved and **none had a
+witness**. In this development a bound without an attainment witness is a bound
+nobody has checked is the right one.
+
+**Kill condition, filed first:** *if one of the three cannot be attained —
+strict for every `ZeroData` — I record which and why rather than hunting for a
+witness; a bound that cannot be met is a finding about the dictionary, not a
+failed cycle.* It did not fire: all three are attained.
+
+`config_NscAny` computes the quantity on a fiber state:
+
+    (config k j a).NscAny = (if k = 1 then 1 else 0) + 2 * (if j = 1 then 1 else 0)
+
+The `2 *` is the reflection: an off-line atom arrives with its mirror, and both
+are simple exactly when `j = 1`. Then
+
+* `nscAny_bounds_attained` — at `config 1 1 a`, **both** `NscAny = NscStd + Noff`
+  and `NscAny = N` hold, with `0 < Noff`. Not attained only on the empty or
+  all-on-line state, which is the degenerate way an inequality can look tight.
+* `nscStd_le_nscAny_attained` — at `config 1 0 a` the two simplicity notions
+  agree.
+* `nscAny_bounds_strict` — and each is strict somewhere: `config 0 1 a` gives
+  `NscStd < NscAny` (two simple zeros, none on the line), `config 0 2 a` gives
+  `NscAny` strictly under both `NscStd + Noff` and `N` (nothing simple at all).
+
+So none of the three is an identity wearing an inequality sign, and each is the
+best of its kind. That matters for the wall in `NscAny_le_NscStd_add_Noff`'s
+docstring: the argument that no result of that genre can improve the ledger
+leans on `NscAny ≤ NscStd + Noff`, and a bound that were slack everywhere would
+have left room the wall does not have.
+
+Four theorems, all axiom-free (`propext, Classical.choice, Quot.sound`), all
+four added to `audit/Declarations.lean`.
+
+**Snag, bin 2.** Three goals came back as `(a = 2⁻¹ → j = 0) ∧ …` with
+`ha : a ≠ 1/2` sitting in context and passed to `simp`, which did not close
+them: `simp` had normalised the goal's `1/2` to `2⁻¹` while the hypothesis
+stayed in `1/2` form. Restating `ha` as `a ≠ (2⁻¹ : ℝ)` closed all three.
+`188` recorded a `1/2`-versus-`2⁻¹` mismatch too. Now written in the proof as a
+comment where the next reader will trip.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+R20: hygiene counter reset — this cycle is mathematics.
+
+**Might-mean, unhedged:** the genre wall this project built against
+simple-zero-count imports rests on an inequality that is now known to be sharp,
+which means the wall is not an artefact of a lazy bound.

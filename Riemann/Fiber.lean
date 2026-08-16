@@ -4344,6 +4344,108 @@ theorem config_NscStd (k j : ℕ) {a : ℝ} (ha : a ≠ 1/2) :
         exact hk (by rw [← config_onAt k j ha]; exact h.2)), if_neg hk]
     simp
 
+/-- **`NscAny` on a single fiber state.**  `SESSION 196`.
+
+`config k j a` has three distinct points when `a ≠ 1/2`: the on-line atom with
+`k` copies and the two off-line atoms with `j` each.  A point is counted by
+`NscAny` exactly when its own copy-count is one, so the on-line atom contributes
+when `k = 1` and *each* off-line atom when `j = 1` — hence the `2 *`. -/
+theorem config_NscAny (k j : ℕ) {a : ℝ} (ha : a ≠ 1/2) :
+    (config k j a).NscAny
+      = (if k = 1 then 1 else 0) + 2 * (if j = 1 then 1 else 0) := by
+  classical
+  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+  have hC : (a : ℝ) ≠ 1 - a := by intro h; exact ha (by linarith [h])
+  -- `simp` normalises `1/2` to `2⁻¹` and does NOT normalise a `1/2`-shaped
+  -- hypothesis handed to it, so the disequalities are restated in `2⁻¹` form
+  -- before use.  `SESSION 188` learned this; `196` learned it again.
+  have ha2 : a ≠ (2⁻¹ : ℝ) := fun h => ha (by rw [h]; norm_num)
+  have ha2' : (1 - a : ℝ) ≠ (2⁻¹ : ℝ) := fun h => ha' (by rw [h]; norm_num)
+  have hc0 : (config k j a).Z.count ((1/2 : ℝ), (0:ℝ)) = k := by
+    show Multiset.count _ (Multiset.replicate k ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate j (a, (0:ℝ))
+          + Multiset.replicate j ((1 - a : ℝ), (0:ℝ)))) = k
+    simp [Multiset.count_replicate, ha2, ha2']
+  have hca : (config k j a).Z.count (a, (0:ℝ)) = j := by
+    show Multiset.count _ (Multiset.replicate k ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate j (a, (0:ℝ))
+          + Multiset.replicate j ((1 - a : ℝ), (0:ℝ)))) = j
+    simp [Multiset.count_replicate, Ne.symm ha2, Ne.symm hC]
+  have hcb : (config k j a).Z.count ((1 - a : ℝ), (0:ℝ)) = j := by
+    show Multiset.count _ (Multiset.replicate k ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate j (a, (0:ℝ))
+          + Multiset.replicate j ((1 - a : ℝ), (0:ℝ)))) = j
+    simp [Multiset.count_replicate, Ne.symm ha2', hC]
+  show Multiset.card (Multiset.filter (fun p => (config k j a).Z.count p = 1)
+      (Multiset.replicate k ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate j (a, (0:ℝ))
+          + Multiset.replicate j ((1 - a : ℝ), (0:ℝ))))) = _
+  rw [Multiset.filter_add, Multiset.filter_add]
+  by_cases hk : k = 1
+  · rw [filter_replicate_pos (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+      k ((1/2 : ℝ), (0:ℝ)) (hc0.trans hk), if_pos hk]
+    by_cases hj : j = 1
+    · rw [filter_replicate_pos (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+        j (a, (0:ℝ)) (hca.trans hj),
+        filter_replicate_pos (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+        j ((1 - a : ℝ), (0:ℝ)) (hcb.trans hj), if_pos hj]
+      simp [hk, hj]
+    · rw [filter_replicate_neg (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+        j (a, (0:ℝ)) (fun h => hj (hca.symm.trans h)),
+        filter_replicate_neg (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+        j ((1 - a : ℝ), (0:ℝ)) (fun h => hj (hcb.symm.trans h)), if_neg hj]
+      simp [hk]
+  · rw [filter_replicate_neg (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+      k ((1/2 : ℝ), (0:ℝ)) (fun h => hk (hc0.symm.trans h)), if_neg hk]
+    by_cases hj : j = 1
+    · rw [filter_replicate_pos (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+        j (a, (0:ℝ)) (hca.trans hj),
+        filter_replicate_pos (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+        j ((1 - a : ℝ), (0:ℝ)) (hcb.trans hj), if_pos hj]
+      simp [hj]
+    · rw [filter_replicate_neg (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+        j (a, (0:ℝ)) (fun h => hj (hca.symm.trans h)),
+        filter_replicate_neg (fun p : ℝ × ℝ => (config k j a).Z.count p = 1)
+        j ((1 - a : ℝ), (0:ℝ)) (fun h => hj (hcb.symm.trans h)), if_neg hj]
+      simp
+
+/-- **Both `NscAny` dictionary bounds are attained, and not degenerately.**
+`SESSION 196`.
+
+`Basic.lean` carries three inequalities relating `NscAny` to the ledger and none
+of them had a witness.  At `config 1 1 a` — one on-line zero and one off-line
+pair — `NscAny ≤ NscStd + Noff` and `NscAny ≤ N` are both *equalities*, with
+`Noff` genuinely positive, so neither is attained only on the empty or all-on-
+line configuration. -/
+theorem nscAny_bounds_attained {a : ℝ} (ha : a ≠ 1/2) :
+    (config 1 1 a).NscAny = (config 1 1 a).NscStd + (config 1 1 a).Noff
+      ∧ (config 1 1 a).NscAny = (config 1 1 a).N
+      ∧ 0 < (config 1 1 a).Noff := by
+  rw [config_NscAny 1 1 ha, config_NscStd 1 1 ha, config_Noff ha, config_N]
+  norm_num
+
+/-- **`NscStd ≤ NscAny` is attained.**  `SESSION 196`.  On an all-on-line state
+the two simplicity notions agree, so the forward dictionary entry is tight. -/
+theorem nscStd_le_nscAny_attained {a : ℝ} (ha : a ≠ 1/2) :
+    (config 1 0 a).NscStd = (config 1 0 a).NscAny := by
+  rw [config_NscAny 1 0 ha, config_NscStd 1 0 ha]
+  norm_num
+
+/-- **…and all three are strict somewhere**, so none is an identity wearing an
+inequality sign.  `SESSION 196`.
+
+`config 0 1 a` is a lone off-line pair: two simple zeros, none on the line, so
+`NscStd < NscAny`.  `config 0 2 a` is a doubled off-line pair: nothing is simple
+at all, so `NscAny` falls strictly below both `NscStd + Noff` and `N`. -/
+theorem nscAny_bounds_strict {a : ℝ} (ha : a ≠ 1/2) :
+    (config 0 1 a).NscStd < (config 0 1 a).NscAny
+      ∧ (config 0 2 a).NscAny < (config 0 2 a).NscStd + (config 0 2 a).Noff
+      ∧ (config 0 2 a).NscAny < (config 0 2 a).N := by
+  refine ⟨?_, ?_, ?_⟩
+  · rw [config_NscAny 0 1 ha, config_NscStd 0 1 ha]; norm_num
+  · rw [config_NscAny 0 2 ha, config_NscStd 0 2 ha, config_Noff ha]; norm_num
+  · rw [config_NscAny 0 2 ha, config_N]; norm_num
+
 /-- **…and on odd atoms of mass `≥ 3` it really is ambiguous** — the converse
 half, so the localisation is witnessed in both directions.  Two states of the
 same odd mass `m ≥ 3` share their ordinates and disagree on `NscStd`. -/

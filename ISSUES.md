@@ -29,7 +29,14 @@ whole point of the flow argument is that some zeros survive.
 What typechecks (`Program.routeIII_partial`, proved): `DensityNearLine F M`
 ⟹ `NarrowBoxExc F δ (M δ)`, the narrow box *with* an exceptional set of
 relative size `M δ`. The arrow from there into `narrowBox_starBound` is
-missing and cannot be manufactured.
+missing and cannot be manufactured **from `DensityNearLine` alone**.
+
+> ⚠️ **Scoped, `SESSION 173`.** As first written this said "cannot be
+> manufactured", full stop, and `Program.routeIII_via_A''` manufactures it —
+> from `NarrowBoxTolerant` plus an explicit fitting condition. The intent was
+> always "not without a further hypothesis", which is what the *next* paragraph
+> then supplies; the sentence just did not say so. `S34`'s shape: an unscoped
+> absolute in load-bearing prose, correct in intent and wrong as written.
 
 **Minimal strengthening needed.** Either
 (a) an [OPEN A″]: the BGST proof re-run with an exceptional set of `≤ η·N(T)`

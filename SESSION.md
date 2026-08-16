@@ -7986,3 +7986,58 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the project's independence claims are all correct and
 the tool I built to confirm that was wrong in the one way I had written a comment
 warning myself about.
+
+# SESSION 173 — one true positive, and a rate I refused to report
+
+**Kill condition, stated first:** *if fewer than 2 of the 39 flags are true
+positives — below `LEADS`'s 3.6% rate — the gate's flags on `ISSUES.md` should
+stop driving cycles.* **It is not evaluable on what I did, and saying so is the
+cycle's main content.**
+
+`ISSUES.md` is the largest untriaged surface: `127` did `LEADS` (2 true in 56)
+and `149` did `CLAIMS` (1 in 5), while `ISSUES`'s 39 carry no triage record in
+`SESSION.md`.
+
+## What I actually did
+
+I selected the **five highest-prior candidates** — the "only / cannot / never"
+absolutes, since `127`'s two true positives were both stale claims rather than
+overclaims — and triaged those:
+
+| flag | verdict |
+|---|---|
+| "the arrow … **cannot be manufactured**" | **TRUE** |
+| "the **only** input class that has ever been able to move this number" | FP — a survey judgement with named support (GM 1987) |
+| "the unbuilt span is the **only** gap" | FP by evidence — right shape, chain displayed above it, no contradiction found |
+| "`N⊛ ≥ N` is the **only** free input" | FP — enumeration over a displayed LP |
+| "the **only** escape … is cancellation between shifts" | FP — `F4`'s recorded remnant, already scoped there |
+
+## The true positive, corrected at its location
+
+`ISSUES` `#1` said the arrow from `NarrowBoxExc` into `narrowBox_starBound`
+"is missing and cannot be manufactured". **`Program.routeIII_via_A''` manufactures
+it** — from `NarrowBoxTolerant` plus an explicit fitting condition. The intent was
+"not without a further hypothesis", which the *next paragraph* then supplies; the
+sentence just did not say so. Scoped in place: `S34`'s shape, an unscoped
+absolute in load-bearing prose, correct in intent and wrong as written.
+
+## `S80` — and I will not report a rate
+
+One true positive in five **chosen** flags is not a rate over the register. `127`
+and `149` triaged theirs **whole**, which is why `2/56` and `1/5` mean something;
+quoting `1/5` here, or extrapolating it to 39, is the
+flag-count-as-finding error `R17` forbids — with the extra twist that I picked
+the five most likely to be true, so any extrapolation would be biased upward.
+
+The kill condition asked for a count over 39. I hold one over 5. **The remaining
+34 are untriaged and `ISSUES.md`'s flag count still must not be quoted as a
+defect rate.**
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. The gate still reports 39 on `ISSUES.md` —
+the scoping added a witness-free sentence of its own, which is honest bookkeeping
+rather than a regression.
+
+**Might-mean, unhedged:** the cheapest way to produce a number nobody can trust is
+to measure the part of a register you expect to be interesting and call the answer
+a rate.

@@ -10796,3 +10796,38 @@ green.
 **Might-mean, unhedged:** the project's unconditional row and its conditional
 ladder were the same construction all along, and displaying fewer rows is what
 made that visible.
+
+## The ladder has only odd rungs
+
+`234` put the ladder on the board as a generated table and showed its first rung
+is free. The next question the generator raises: which rungs are distinct
+hypotheses?
+
+**Kill condition, filed first:** *if haunted ordinates are not provably
+odd-massed, the collapse fails and I record which rungs are genuinely distinct
+rather than asserting a pattern.* It did not fire — `Blindness.haunted_odd` is
+in the development: an off-line part is even and a haunted on-line part is one,
+so the mass is odd.
+
+* `noSmallHaunted_even_step` — for even `m ≥ 2`, `NoSmallHaunted m` implies
+  `NoSmallHaunted (m+1)`. No haunted ordinate can sit at an even mass to be
+  excluded, so the extra demand is empty.
+* `noSmallHaunted_even_iff` — with `NoSmallHaunted.mono` supplying the converse,
+  the two rungs are the **same hypothesis**.
+
+**And this is a pricing fact, not a tidiness one.** `(m·κ − 1)/(m − 1)` is
+strictly increasing in `m`. At `m = 4` it returns `169/300 = 0.5633…`; the
+identical demand read at `m = 5` returns `189/320 = 0.590625`. **Reading an even
+rung off the ladder understates what the hypothesis buys** by nearly three
+points. `RULING.md`'s table now says odd `m` only, and says why, with the
+theorem cited.
+
+Both theorems axiom-free, both in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** the ladder is indexed by a number that can take values
+the mathematics forbids, and a buyer reading it naively would have paid full
+price for a rung and collected the one below.

@@ -76,8 +76,16 @@ Every rung is `Optimal`-free arithmetic on one theorem,
 | 3 | **none — see below** | `407/800` | `0.5087500` |
 | 5 | no haunted ordinate of mass `3` | `189/320` | `0.5906250` |
 | 7 | none of mass `3` or `5` | `1483/2400` | `0.6179167` |
+| 9 | none of mass `3`, `5` or `7` | `2021/3200` | `0.6315625` |
 | ⋯ | ⋯ | ⋯ | ⋯ |
 | `→ ∞` | `NoHaunted` | — | `0.6725000` |
+
+**Odd `m` only, and that is a theorem as of `SESSION 235`.** A haunted ordinate
+carries an odd number of zeros, so `NoSmallHaunted m` for even `m` is the same
+hypothesis as for `m + 1` (`Gaps.noSmallHaunted_even_iff`). Since the value
+`(m·κ − 1)/(m − 1)` is strictly increasing in `m`, reading an even rung off the
+ladder **understates what the hypothesis buys** — at `m = 4` it returns
+`0.5633…` where the identical demand, read at `m = 5`, returns `0.590625`.
 
 **The first rung is free, and that is a theorem as of `SESSION 234`.**
 `Gaps.noSmallHaunted_three` proves `NoSmallHaunted F 3` outright: a haunted

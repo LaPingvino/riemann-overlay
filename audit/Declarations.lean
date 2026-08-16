@@ -190,6 +190,9 @@ import Riemann
 -- SESSION 230: NoHaunted is a separating bundle — it makes NscStd mu_T-computable.
 -- SESSION 234: the multiplicity ladder's first rung is free.
 #check @Riemann.noSmallHaunted_three
+-- SESSION 235: the ladder has only odd rungs; even m is the same hypothesis as m+1.
+#check @Riemann.noSmallHaunted_even_step
+#check @Riemann.noSmallHaunted_even_iff
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

@@ -488,6 +488,44 @@ theorem NoSmallHaunted.mono {F : Family} {m : ℕ}
   · exact Or.inl h1
   · exact Or.inr (by omega)
 
+
+/-- **The ladder has only odd rungs.**  `SESSION 235`.
+
+A haunted ordinate carries an odd number of zeros (`Blindness.haunted_odd`: its
+off-line part is even and its on-line part is one).  So demanding *"every
+haunted mass is at least `m`"* for an **even** `m` is the same demand as for
+`m + 1` — no haunted ordinate can sit at an even mass to be excluded.
+
+With `NoSmallHaunted.mono` the two are equivalent, so the rungs at even `m` are
+not separate hypotheses.
+
+**And that matters for pricing, not just for tidiness.**
+`certified_nsc_ladder` evaluates to `(m·κ − 1)/(m − 1)`, which is strictly
+increasing in `m`; at `m = 4` it returns `169/300 = 0.5633…` while the very same
+hypothesis, read at `m = 5`, returns `189/320 = 0.590625`.  Reading an even rung
+off the ladder **understates what the hypothesis buys**.  `RULING.md`'s table
+lists odd `m` for this reason. -/
+theorem noSmallHaunted_even_step {F : Family} {m : ℕ} (hm : 2 ≤ m) (he : Even m)
+    (h : NoSmallHaunted F m) : NoSmallHaunted F (m + 1) := by
+  intro T γ hg
+  rcases h T γ hg with h1 | h2
+  · exact Or.inl h1
+  · refine Or.inr ?_
+    have hpos : 0 < (F.D T).H γ := by omega
+    have hodd := Blindness.haunted_odd (F.D T) hg hpos
+    rcases Nat.even_or_odd ((F.D T).H γ) with hev | _
+    · exact absurd hev hodd
+    · -- `m` even, `H` odd, `m ≤ H`, so `m ≠ H`
+      have hne : m ≠ (F.D T).H γ := by
+        intro hEq
+        exact hodd (hEq ▸ he)
+      omega
+
+/-- The two rungs are the same hypothesis.  `SESSION 235`. -/
+theorem noSmallHaunted_even_iff {F : Family} {m : ℕ} (hm : 2 ≤ m) (he : Even m) :
+    NoSmallHaunted F m ↔ NoSmallHaunted F (m + 1) :=
+  ⟨noSmallHaunted_even_step hm he, NoSmallHaunted.mono⟩
+
 /-- **`NoHaunted` really is the ladder's limit** — `SESSION 156`.
 
 The docstring below has called it that since `105`, and `PRICES.md`'s menu lists

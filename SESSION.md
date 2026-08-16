@@ -11337,3 +11337,48 @@ green.
 
 **Might-mean, unhedged:** this project can delete an axiom correctly and still
 leave four registers asking a question its owner has already answered.
+
+## E11's jaw exists — and is priced in `κ`
+
+`243` settled E11's pincer for multiplicity caps: excluding the extremal
+configuration there costs the ledger's own target. The obvious next question is
+whether other invariant families behave the same way.
+
+**Kill condition, filed first:** *if the `oddAtoms` constraint that excludes
+`pairOnly` is itself derived from `κ`, the exclusion is circular and cannot beat
+`κ` — I record that rather than claiming a refutation of E11.* **It fired**, and
+the shape of the firing is the finding.
+
+* `pairOnly_oddAtoms` — the extremal configuration has **no odd atoms**: one
+  mirror pair at a single ordinate, mass `2`, even.
+* `oddAtoms_bound_excludes_pairOnly` — so *any* bound `oddAtoms ≥ c·N` with
+  `c > 0` excludes it.
+
+And `oddAtoms` is a `μ_T` functional **by definition** (`229`). So a cheap
+realizability constraint from above does exist, which is what `LEADS.md` records
+as not existing.
+
+**Why the entry is not simply wrong.** The development's own such bound,
+`certified_oddAtoms`, is literally `oddAtoms_ge_of_proportionStd certified_std`
+— a consequence of `ProportionStd κ`. The invariant that excludes the extremal
+configuration is derived from the baseline, so spending it to beat the baseline
+is `162`'s circularity.
+
+The claim survives under the reading **"no *free* invariant"**, and that word is
+not in it. Annotated at its location with both halves: the jaw exists, is
+`μ_T`-visible, and every instance the project holds is priced in `κ`. `S108`.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+**Snag, bin 1.** `decide +kernel` failed on `({0,0} : Multiset ℝ).toFinset =
+{0}`, reporting that the `Decidable` instance did not reduce — real-number
+equality does not compute in the kernel. Proved the filter empty pointwise
+instead, which needed no decidability.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** the barrier this project files against itself is not
+that no invariant sees the extremal configuration, but that the ones which do
+were bought with the number they would be spent to improve.

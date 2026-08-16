@@ -213,6 +213,9 @@ import Riemann
 #check @Riemann.Counts.starBound_ceiling_iff
 -- SESSION 243: E11's pincer, sharpened for the multiplicity family.
 #check @Riemann.Optimal.mult_cap_excluding_pairOnly
+-- SESSION 247: E11's jaw exists and is mu_T-visible, but every instance is priced in kappa.
+#check @Riemann.Optimal.pairOnly_oddAtoms
+#check @Riemann.Optimal.oddAtoms_bound_excludes_pairOnly
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

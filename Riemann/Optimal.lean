@@ -785,6 +785,44 @@ theorem prop1_LP_threshold_at_two {C : ℝ} (hC1 : 1 < C) (hC2 : C ≤ 2) :
     exact_mod_cast Nsc_eq_N_of_boundedMult_one D hD1
   simpa using hcast
 
+/-- **The extremal configuration has no odd atoms.**  `SESSION 247`.
+`Gauge.pairOnly` is one mirror pair at a single ordinate, so its only atom has
+mass `2`. -/
+theorem pairOnly_oddAtoms : Blindness.oddAtoms Gauge.pairOnly = 0 := by
+  classical
+  rw [Blindness.oddAtoms, Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro γ hγ
+  have hmem : γ ∈ Gauge.pairOnly.ordinates := Multiset.mem_toFinset.1 hγ
+  have hγ0 : γ = 0 := by
+    have : γ ∈ ({(0:ℝ), (0:ℝ)} : Multiset ℝ) := hmem
+    simpa using this
+  subst hγ0
+  simp [Gauge.pairOnly_H]
+
+/-- **E11's pincer: the jaw exists, and it is not free.**  `SESSION 247`.
+
+`243` settled E11 for multiplicity caps — excluding `Gauge.pairOnly` there costs
+the ledger's own target.  A `μ_T`-visible invariant does better: `pairOnly` has
+**no odd atoms**, so *any* bound `oddAtoms ≥ c·N` with `c > 0` excludes it, and
+`oddAtoms` is a functional of `μ_T` by definition (`229`).  That is the "cheap
+realizability from above" jaw `LEADS.md` records as not existing.
+
+**But it is bought, not free.**  The development's own such bound,
+`certified_oddAtoms`, is literally `oddAtoms_ge_of_proportionStd certified_std`
+— a consequence of `ProportionStd κ`.  So the invariant that excludes the
+extremal configuration is derived from the baseline, and using it to beat the
+baseline is `162`'s circularity.
+
+The honest statement is therefore neither "the jaw does not exist" nor "E11 is
+refuted": **the jaw exists, is `μ_T`-visible, and every instance the project
+holds is priced in `κ`.** -/
+theorem oddAtoms_bound_excludes_pairOnly {c : ℝ} (hc : 0 < c) :
+    ¬ (c * (Gauge.pairOnly.N : ℝ) ≤ (Blindness.oddAtoms Gauge.pairOnly : ℝ)) := by
+  rw [pairOnly_oddAtoms, Gauge.pairOnly_N]
+  push_cast
+  intro h
+  linarith
+
 /-- **The class the LP conclusion fails on is the `RH`-and-simple class.**
 `SESSION 203`.
 

@@ -712,6 +712,24 @@ realizability from above" jaw **does not exist**.
 >
 > This settles the multiplicity family only. Other classical invariants are
 > untouched, and the claim above stands for them.
+>
+> **`SESSION 247` — and for one of those others, the jaw does exist.**
+> `Optimal.pairOnly_oddAtoms`: the extremal configuration has **no odd atoms**,
+> so any bound `oddAtoms ≥ c·N` with `c > 0` excludes it
+> (`oddAtoms_bound_excludes_pairOnly`), and `oddAtoms` is a `μ_T` functional by
+> definition (`229`). That is a cheap realizability constraint from above, and
+> it is exactly what this entry says does not exist.
+>
+> **It is not free, which is why the entry is not simply wrong.** The
+> development's own such bound, `certified_oddAtoms`, is literally
+> `oddAtoms_ge_of_proportionStd certified_std` — a consequence of
+> `ProportionStd κ`. The invariant that excludes the extremal configuration is
+> derived from the baseline, so spending it to beat the baseline is `162`'s
+> circularity.
+>
+> The claim should be read as **"no *free* invariant"**, and with that reading it
+> survives: the jaw exists, is `μ_T`-visible, and every instance the project
+> holds is priced in `κ`.
 
 
 ## W25 (new, future basket) — is there a natural-proofs barrier for zeta-witnesses?

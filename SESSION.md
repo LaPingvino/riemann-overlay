@@ -10874,3 +10874,58 @@ green.
 **Might-mean, unhedged:** this project's recurring constants are values of
 formulas it already owns, and it has been meeting them as coincidences because
 nobody asked the formulas for their general shape.
+
+## Twelve of fourteen constants are formulas
+
+`236` closed by claiming this project meets its own formulas as coincidences.
+That is testable.
+
+**Kill condition, filed first:** *if fewer than half the recurring constants
+turn out to be values of formulas the project already owns, `236`'s might-mean
+is not a pattern and I record the count instead of the story.* It did not fire.
+
+Every decimal appearing three or more times across `Riemann/*.lean`, fourteen of
+them, against `κ = 0.6725` and `κ' = 0.85838`:
+
+| constant | is | 
+|---|---|
+| `0.6725` | **primitive** — `baseline_zeta23` |
+| `0.85838` | **primitive** — `zeta23_xiPrime` |
+| `0.4162` | `ProportionStd.mono` from `κ` (`przz_of_zeta23`, `233`) |
+| `0.50875` | `(3κ − 1)/2`, and the ladder at `m = 3` (`234`) |
+| `0.3275` | `1 − κ` |
+| `0.14162` | `1 − κ'` — **the same formula at the other family** |
+| `0.16375` | `(1 − κ)/2`, the ladder gap at `m = 3` (`236`) |
+| `1.3275` | `2 − κ` |
+| `1.9825` | `4 − 3κ`, i.e. `1 + 2(1 − (3κ−1)/2)` |
+| `0.590625` | ladder at `m = 5` |
+| `0.6179166` | ladder at `m = 7` |
+| `0.60169` | the `ξ'` route's value |
+| `1.393` | the exchange crossover, solved for |
+| `0.50944` | `0.50875 + 0.00069`, the tightness margin of `111`/`112` |
+
+**Twelve of fourteen are derived; the two primitives are the two axioms.** That
+is the pattern `236` guessed at, measured.
+
+**The sharp one is `0.3275` against `0.14162`.** They are `1 − κ` at the two
+baselines — `offLineImport_of_proportionStd` proves that formula for any
+family — and the development names them as two constants in two files.
+`offLine_bound_at_both_baselines` records the pair, axiom-free, so the identity
+is checked rather than noticed.
+
+**Snag, bin 1 — `R24a` added.** Inserted the new block between an existing
+docstring and its theorem: `unexpected token '/--'`. That is `S61`, `S62`, `220`
+and now `237`, and the last two happened *after* `R23`, which orders by
+dependency and says nothing about attachment. `R24a` states the docstring rule
+separately: anchor on the docstring's opening line rather than on the `theorem`
+keyword.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** the project's numeric surface is two axioms and a
+handful of one-line formulas, and the reason it has felt richer is that the
+formulas were evaluated in different files by different cycles.

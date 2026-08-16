@@ -618,6 +618,16 @@ theorem ladder_step {κ m : ℝ} (h1 : m ≠ 1) (h2 : m + 1 ≠ 0) :
   field_simp
   ring
 
+/-- **The off-line bound `β = 1 − κ`, at both baselines.**  `SESSION 237`.
+
+`offLineImport_of_proportionStd` gives `β = 1 − κ` for any family, and the
+development carries the two instances as separate named constants: `0.3275` at
+zeta-23's `κ = 0.6725`, and `0.14162` at `ξ'`'s `κ' = 0.85838`.  They are one
+formula read at two families. -/
+theorem offLine_bound_at_both_baselines :
+    (1 : ℝ) - 0.6725 = 0.3275 ∧ (1 : ℝ) - 0.85838 = 0.14162 := by
+  constructor <;> norm_num
+
 /-- **One constant governs the whole ladder.**  `SESSION 236`.
 
 At the certified `κ = 0.6725` the numerator `1 − κ` is `131/400 = 0.3275` — the

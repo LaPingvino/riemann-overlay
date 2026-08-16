@@ -259,6 +259,8 @@ import Riemann
 -- SESSION 276: cos to order ten, for the cot(1/sqrt2) bound.
 #check @Riemann.cos_bound10
 #check @Riemann.sin_bound10
+-- SESSION 279: the decimal 0.6725 is a proved floor for 3/2 - cot(1/sqrt2)/sqrt2.
+#check @Riemann.baseline_decimal_le_exact
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

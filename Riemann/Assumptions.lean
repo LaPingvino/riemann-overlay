@@ -73,6 +73,13 @@ chain is complete and unconditional.  The cost is the import.
   cumulative.  The import alone does not close it; the missing step is
   `Riemann.Ncount_mono_left`, which is ours and needs no import.
 
+**`279`: `baseline_zeta23`'s numeric second cost is gone.**
+`Riemann.baseline_decimal_le_exact` proves `0.6725 ≤ 3/2 − cot(1/√2)/√2`,
+axiom-free — so the decimal this axiom asserts is a proved floor for the exact
+constant `ThmD` establishes, and the two no longer differ by an unbridged
+rounding. `ThmD`'s `44,441`-line build remains that axiom's price; the numerics
+do not.
+
 **`272` closes the last gap on our side.**  `Riemann.zetaNonempty_of_rvm_main`
 takes exactly `RiemannVonMangoldt.main`'s statement — the asymptotic
 `|N(T,2T) − T·ℓ₁/2π| ≤ C·log T` — and returns this axiom.  Positivity of the

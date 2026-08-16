@@ -343,4 +343,68 @@ theorem sin_bound10 {x : ℝ} (hx : |x| ≤ 1) :
         rw [Complex.norm_real]; rfl
     _ ≤ _ := by push_cast [Complex.ofReal_sin]; exact key
 
+/-- **Our decimal is a valid floor for zeta-23's exact constant.**  `SESSION 279`.
+
+`ThmD` proves `2 − 1/c₁* = 3/2 − cot(1/√2)/√2` and states in as many words that
+*"decimals are not formalized; the constant is exact"*.  `Assumptions.lean`
+asserts the decimal `0.6725`.  `268` recorded that gap as an unpriced second cost
+of discharging `baseline_zeta23`, on the reading that it needed certified
+numerics this project has none of.
+
+It needed none.  `274`: at `x = 1/√2` both `x² = 1/2` and `x·√2 = 1` hold with no
+approximation, so the Taylor polynomials are rational and the `√2` cancels out of
+the quotient.  `276`/`277`: `cos_bound10` and `sin_bound10` supply the error at
+order ten, `≈9.5·10⁻⁹` against the `2.98·10⁻⁷` needed.  What is left, and what
+this proves, is one comparison of explicit rationals with slack
+`191159/309657600000`.
+
+**This does not discharge `baseline_zeta23`.**  That still needs `ThmD`'s
+`44,441`-line build to obtain the exact constant in the first place.  What is
+gone is the *second* cost: the decimal no longer stands between their theorem and
+our row. -/
+theorem baseline_decimal_le_exact :
+    (0.6725 : ℝ) ≤ 3/2 - Real.cos (1/Real.sqrt 2) / Real.sin (1/Real.sqrt 2) / Real.sqrt 2 := by
+  have hs0 : (0:ℝ) < Real.sqrt 2 := Real.sqrt_pos.2 (by norm_num)
+  have hs : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
+  set x := 1 / Real.sqrt 2 with hxdef
+  have hxpos : 0 < x := by rw [hxdef]; positivity
+  have hx2 : x ^ 2 = 1/2 := by rw [hxdef, div_pow, one_pow, hs]
+  have hxs : x * Real.sqrt 2 = 1 := by rw [hxdef]; field_simp
+  have hx1 : |x| ≤ 1 := by
+    rw [abs_of_pos hxpos, hxdef, div_le_one hs0]; nlinarith [hs, hs0]
+  have hsle : Real.sqrt 2 ≤ 3/2 := by nlinarith [hs, hs0]
+  have hsinpos : 0 < Real.sin x := by
+    apply Real.sin_pos_of_pos_of_lt_pi hxpos
+    nlinarith [Real.pi_gt_three, hs, hs0, hxdef]
+  -- powers of x collapse
+  have h4 : x^4 = 1/4 := by rw [show x^4 = (x^2)^2 by ring, hx2]; norm_num
+  have h6 : x^6 = 1/8 := by rw [show x^6 = (x^2)^3 by ring, hx2]; norm_num
+  have h8 : x^8 = 1/16 := by rw [show x^8 = (x^2)^4 by ring, hx2]; norm_num
+  have h10 : |x|^10 = 1/32 := by
+    rw [abs_of_pos hxpos, show x^10 = (x^2)^5 by ring, hx2]; norm_num
+  have h3 : x^3 = x * (1/2) := by rw [show x^3 = x * x^2 by ring, hx2]
+  have h5 : x^5 = x * (1/4) := by rw [show x^5 = x * (x^2)^2 by ring, hx2]; norm_num
+  have h7 : x^7 = x * (1/8) := by rw [show x^7 = x * (x^2)^3 by ring, hx2]; norm_num
+  have h9 : x^9 = x * (1/16) := by rw [show x^9 = x * (x^2)^4 by ring, hx2]; norm_num
+  -- the two bounds, evaluated
+  have hc := cos_bound10 hx1
+  have hsn := sin_bound10 hx1
+  rw [hx2, h4, h6, h8, h10] at hc
+  rw [h3, h5, h7, h9, h10] at hsn
+  have hcos : Real.cos x ≤ 163483/215040 + 11/1161216000 := by
+    have := abs_le.1 hc; linarith [this.2]
+  have hsin : x * (5334193/5806080) - 11/1161216000 ≤ Real.sin x := by
+    have := abs_le.1 hsn; linarith [this.1]
+  -- assemble
+  have key : Real.cos x / Real.sin x / Real.sqrt 2 ≤ 8275/10000 := by
+    rw [div_le_iff₀ hs0, div_le_iff₀ hsinpos]
+    have hlow : (8275/10000 : ℝ) * Real.sqrt 2 * Real.sin x
+        ≥ 8275/10000 * (5334193/5806080 - (3/2) * (11/1161216000)) := by
+      have hxR : Real.sqrt 2 * (x * (5334193/5806080)) = 5334193/5806080 := by
+        rw [show Real.sqrt 2 * (x * (5334193/5806080))
+          = (x * Real.sqrt 2) * (5334193/5806080) by ring, hxs, one_mul]
+      nlinarith [hsin, hs0, hsle, hxR, hxpos]
+    nlinarith [hcos, hlow]
+  linarith [key]
+
 end Riemann

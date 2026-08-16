@@ -13035,3 +13035,44 @@ cycle that built it — as `warning_floor` did at `260`.
 **Might-mean, unhedged:** this project's rules survive right up until the cycle
 that has internalised them, and the ones that last are the ones an instrument
 holds rather than an author.
+
+## The decimal is proved: `0.6725 ≤ 3/2 − cot(1/√2)/√2`
+
+`277` specified this completely; `279` assembles it.
+
+**Kill condition, filed first:** *if the assembly needs a fact about
+`Real.sqrt 2` that Mathlib does not give cheaply — if `x² = 1/2` and `x·√2 = 1`
+cannot be established without fighting — then I report the sqrt handling as the
+remaining obstacle rather than the theorem.* It did not fire; every sqrt fact
+went in one line (`Real.sq_sqrt`, `field_simp`, `nlinarith`), including
+`sin x > 0` from `Real.sin_pos_of_pos_of_lt_pi` with `π > 3`.
+
+**`baseline_decimal_le_exact`** — axiom-free, `3757` jobs unchanged. `ThmD`
+proves `2 − 1/c₁* = 3/2 − cot(1/√2)/√2` and says in as many words that
+*"decimals are not formalized; the constant is exact"*. `Assumptions.lean`
+asserts `0.6725`. That gap is now closed in Lean.
+
+**The arc, and what it cost.** `268` filed this as a second cost of discharging
+`baseline_zeta23`, reading it as certified numerics the project has none of.
+`274` found the `√2` cancels because `x·√2 = 1`, making the target rational.
+`275` measured Mathlib's shipped `cos_bound` as `43,711×` too coarse and
+identified `Complex.exp_bound` at order ten. `276` and `277` proved the two
+bounds. `279` is the comparison, with slack `191159/309657600000`.
+
+**It does not discharge the axiom, and the entry at the axiom says so.**
+`baseline_zeta23` still needs `ThmD`'s `44,441`-line build to obtain
+`2 − 1/c₁*` in the first place. What is gone is the second cost: the decimal no
+longer stands between their theorem and our row.
+
+**Snag, bin 2.** The powers had to be collapsed by hand — `x^4 = (x^2)^2` and so
+on through `x^10`, nine `rw [show … by ring]` lines — because `nlinarith` with
+`hx2` in scope will not find `x^8 = 1/16` on its own. Cheap once written, and
+invisible from the statement.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, twelve guards green, index regenerated.
+
+**Might-mean, unhedged:** the project has now proved, from Mathlib alone, a
+numeric fact about the constant its whole board is denominated in — which makes
+`0.6725` the first of this project's inherited numbers that it can defend
+without citing anyone.

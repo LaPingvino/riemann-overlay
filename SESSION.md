@@ -9173,3 +9173,43 @@ R20: hygiene counter reset — this cycle is mathematics.
 **Might-mean, unhedged:** the genre wall this project built against
 simple-zero-count imports rests on an inequality that is now known to be sharp,
 which means the wall is not an artefact of a lazy bound.
+
+## The wall was a paragraph; now it is five theorems
+
+`NscAny_le_NscStd_add_Noff`'s docstring has argued in prose that no result of
+the arXiv:2306.04799 genre — a lower bound on simple zeros with no location
+claim — can improve the certified `NscStd` row. `196` showed the inequality that
+argument leans on is sharp. The argument itself was still prose.
+
+**Kill condition, filed first:** *if `Transfer.Counts` lacks the fields a
+family-level wall needs, I state the wall pointwise and name what a family
+version would cost, rather than widening the base structure to make a paragraph
+checkable.* It fired. The fields of `Counts` are `Nz`, `Ns`, `Nsc` (`Transfer.lean:22`),
+so a family-level `NscAnyProportion` means adding `NscAny` and `Noff` to the
+structure every route theorem in the development is stated over. So the wall is proved at a
+single `ZeroData`, and the scope is recorded in `Basic.lean` as a comment —
+deliberately not as a `theorem … : True`, which is the vacuity shape
+`provenance_lint` exists to catch.
+
+* `nscAny_import_transfer` — an import `NscAny ≥ κ·N` with `Noff ≤ c·N` yields
+  `(κ − c)·N ≤ NscStd`. That is what the import buys.
+* `nscAny_import_kappa_le_one` — `NscAny ≤ N` forces `κ ≤ 1`. This is the half
+  that makes it a wall rather than a discouraging estimate: the genre cannot
+  supply a larger `κ`, because `κ > 1` asserts more simple zeros than zeros.
+* `nscAny_import_ceiling` — so the genre's ceiling is `1 − c`.
+* `nscAny_ceiling_is_the_certified_row` — `1 − 0.3275 = 0.6725`. With the
+  certified off-line bound, the ceiling **is** the row the genre would have to
+  beat. At best it ties.
+* `nscAny_import_transfer_attained` — and the transfer is not slack: at
+  `config 1 1 a` the hypotheses hold with `κ = 1`, `c = 2/3`, and the conclusion
+  is an equality, `(1 − 2/3)·3 = 1 = NscStd`. What the transfer gives up is
+  the off-line mass `c·N` itself.
+
+Five theorems, axiom-free, all five in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the reason this project keeps meeting the same wall
+from different literatures is that every route out of the baseline pays the
+off-line mass exactly once, and `0.6725` is what is left after paying it.

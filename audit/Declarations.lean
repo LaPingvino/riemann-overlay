@@ -158,6 +158,12 @@ import Riemann
 #check @Riemann.Blindness.config_onAt
 #check @Riemann.Blindness.config_NscStd
 -- SESSION 196: the `NscAny` dictionary bounds, attained and strict.
+-- SESSION 197: the genre wall those bounds carry.
+#check @Riemann.ZeroData.nscAny_import_transfer
+#check @Riemann.ZeroData.nscAny_import_kappa_le_one
+#check @Riemann.ZeroData.nscAny_import_ceiling
+#check @Riemann.ZeroData.nscAny_ceiling_is_the_certified_row
+#check @Riemann.Blindness.nscAny_import_transfer_attained
 #check @Riemann.Blindness.config_NscAny
 #check @Riemann.Blindness.nscAny_bounds_attained
 #check @Riemann.Blindness.nscStd_le_nscAny_attained

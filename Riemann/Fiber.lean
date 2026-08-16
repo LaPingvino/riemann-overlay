@@ -4446,6 +4446,22 @@ theorem nscAny_bounds_strict {a : ℝ} (ha : a ≠ 1/2) :
   · rw [config_NscAny 0 2 ha, config_NscStd 0 2 ha, config_Noff ha]; norm_num
   · rw [config_NscAny 0 2 ha, config_N]; norm_num
 
+/-- **The genre wall's arithmetic is tight, not lossy.**  `SESSION 197`.
+
+`Basic.nscAny_import_transfer` says an import `NscAny ≥ κ·N` with `Noff ≤ c·N`
+delivers `(κ − c)·N` to `NscStd`.  At `config 1 1 a` — one on-line zero, one
+off-line pair — both hypotheses hold with `κ = 1` and `c = 2/3`, and the
+conclusion is an **equality**: `(1 − 2/3)·3 = 1 = NscStd`.
+
+So the loss in that transfer is the off-line mass itself and nothing else.  The
+wall is not an artefact of a slack step. -/
+theorem nscAny_import_transfer_attained {a : ℝ} (ha : a ≠ 1/2) :
+    (1 : ℝ) * (config 1 1 a).N ≤ (config 1 1 a).NscAny
+      ∧ ((config 1 1 a).Noff : ℝ) ≤ (2/3 : ℝ) * (config 1 1 a).N
+      ∧ ((1 : ℝ) - 2/3) * (config 1 1 a).N = (config 1 1 a).NscStd := by
+  rw [config_N, config_NscAny 1 1 ha, config_NscStd 1 1 ha, config_Noff ha]
+  norm_num
+
 /-- **…and on odd atoms of mass `≥ 3` it really is ambiguous** — the converse
 half, so the localisation is witnessed in both directions.  Two states of the
 same odd mass `m ≥ 3` share their ordinates and disagree on `NscStd`. -/

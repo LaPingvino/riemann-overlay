@@ -264,6 +264,60 @@ theorem NscAny_le_NscStd_add_Noff (D : ZeroData) :
 theorem NscAny_le_N (D : ZeroData) : D.NscAny ≤ D.N :=
   Multiset.card_le_card (Multiset.filter_le _ _)
 
+/-- **The genre wall, as arithmetic rather than as a paragraph.**  `SESSION 197`.
+
+`NscAny_le_NscStd_add_Noff`'s docstring argues in prose that no lower bound on
+`NscAny` — the arXiv:2306.04799 genre — can improve the certified `NscStd` row.
+This is that argument, machine-checked at the level of a single `ZeroData`.
+
+Given an import `NscAny ≥ κ·N` and an off-line bound `Noff ≤ c·N`, all that
+reaches `NscStd` is `κ − c`. -/
+theorem nscAny_import_transfer (D : ZeroData) {κ c : ℝ}
+    (hκ : κ * D.N ≤ D.NscAny) (hoff : (D.Noff : ℝ) ≤ c * D.N) :
+    (κ - c) * D.N ≤ D.NscStd := by
+  have h : (D.NscAny : ℝ) ≤ (D.NscStd : ℝ) + (D.Noff : ℝ) := by
+    exact_mod_cast Nat.cast_le.2 (NscAny_le_NscStd_add_Noff D)
+  nlinarith [hκ, hoff, h]
+
+/-- **…and the import's own constant can never exceed `1`.**  `SESSION 197`.
+
+`NscAny ≤ N`, so a hypothesis `NscAny ≥ κ·N` with `N > 0` forces `κ ≤ 1`.  This
+is the half that makes the wall a wall rather than a discouraging estimate: the
+genre cannot supply a `κ` large enough, because `κ > 1` would assert more simple
+zeros than zeros. -/
+theorem nscAny_import_kappa_le_one (D : ZeroData) {κ : ℝ}
+    (hN : 0 < (D.N : ℝ)) (hκ : κ * D.N ≤ D.NscAny) : κ ≤ 1 := by
+  have h : (D.NscAny : ℝ) ≤ (D.N : ℝ) := by
+    exact_mod_cast Nat.cast_le.2 (NscAny_le_N D)
+  nlinarith [hκ, h]
+
+/-- **The ceiling of the whole genre.**  `SESSION 197`.
+
+Combining the two: whatever the import, what reaches `NscStd` is at most
+`1 − c`.  With the certified off-line bound `c = 0.3275` that ceiling is
+`0.6725` — **numerically the row the ledger already carries**
+(`nscAny_ceiling_is_the_certified_row` below).  So the genre's best possible
+outcome is the row it would have to beat. -/
+theorem nscAny_import_ceiling (D : ZeroData) {κ c : ℝ}
+    (hN : 0 < (D.N : ℝ)) (hκ : κ * D.N ≤ D.NscAny)
+    (hoff : (D.Noff : ℝ) ≤ c * D.N) :
+    (κ - c) * D.N ≤ D.NscStd ∧ κ - c ≤ 1 - c :=
+  ⟨nscAny_import_transfer D hκ hoff,
+   by have := nscAny_import_kappa_le_one D hN hκ; linarith⟩
+
+/-- The ceiling and the certified row are the same number.  `SESSION 197`. -/
+theorem nscAny_ceiling_is_the_certified_row : (1 : ℝ) - 0.3275 = 0.6725 := by
+  norm_num
+
+-- **What a family-level version would cost, stated rather than attempted**
+-- (`SESSION 197`).  `Transfer.Counts` carries `Nz`, `Ns`, `Nsc` and nothing
+-- else; a family-level `NscAnyProportion` would need two further fields
+-- (`NscAny` and `Noff`) on the structure every route theorem in the development
+-- is stated over.  The wall above is therefore proved pointwise, at a single
+-- `ZeroData`, and the passage to a family is not claimed.  This is a comment
+-- and not a `theorem … : True`, which is the vacuity shape `provenance_lint`
+-- exists to catch — a scope note is documentation, not a result.
+
 
 /-- The total count of `ofMult` is the sum of the multiplicities — the
 Riemann–von Mangoldt side of the interface. -/

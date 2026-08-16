@@ -11826,3 +11826,59 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** this project's registers are now large enough that the
 expensive failure mode has shifted from proving something false to proving
 something twice, and the guards all watch the first one.
+
+## Nine guards: the repo had been carrying a duplicate since `157`
+
+`255` ended saying the expensive failure is now proving something twice, and
+that every guard watches for proving something false. Before building a guard
+for that, measure whether `255` was a pattern or a near-miss.
+
+**Kill condition, filed first:** *if the normalisation cannot separate a genuine
+duplicate from a deliberate restatement — an iff and its forward direction, a
+specialisation — then the count is not a duplication rate, and I report the raw
+pairs for hand-grading rather than a number.* **It fired.** Of `20` conclusions
+shared by more than one theorem (out of `483`), `16` are deliberate: three
+sufficient conditions for `NoHaunted`, four routes to `0.50875`, the two `κ`
+rows of `255`, a bound and its `except`-generalisation. Sharing a conclusion is
+what this project's method *does*. So no rate is quoted, and all twenty are
+listed and graded rather than counted.
+
+**Two were real, and one of them was not mine.**
+
+* `configAt_offAt` and `offAt_configAt_self` — identical statement *and*
+  byte-identical proof, the first written at `157`. Five call sites against ten.
+  Collapsed onto `offAt_configAt_self`, which sits beside its sibling
+  `offAt_configAt_other`.
+* `Nsc_eq_NscStd_of_mult_le_two` carried its own twenty-line copy of
+  `Nsc_eq_NscStd_of_noHaunted`'s summation argument. With `255`'s
+  `noHaunted_of_mult_le_two` it is a one-line composite, and now reads as one —
+  moved below its dependencies per `R23`.
+
+So `255` was not a near-miss: the repo had been carrying a duplicated proof for
+a hundred cycles, and the thing that found it was a script rather than a reading.
+
+**`forensics/duplication_floor.py`, the ninth guard.** A ratchet, like
+`warning_floor.py` — the count must not grow, and a new one gets graded before
+`--update`. All three exit paths exercised: `0` at the floor, `1` with the floor
+lowered, `5` with `Riemann/` absent.
+
+**Snag, bin 2.** Two of the nineteen entries are `let D` and `let C` — my
+conclusion extractor takes the text after the last top-level `:`, which for a
+statement opening with `let` yields the binder. They are counted rather than
+special-cased and the limitation is in the script's docstring: a parser
+exception is a place for a defect to hide, and the ratchet works either way.
+
+**Snag, bin 1.** I ran the nine guards in a shell without the Lean environment
+exported and read `banner_check 5 / warning_floor 5` as a result. Exit `5` is
+the harness code `S40`/`S79` put there precisely so this is not mistakable for a
+finding — and I still had to re-run to be sure. `banner_check` and
+`warning_floor` shell out to `go` and `lake`, so a bare shell gets `5` from them
+and `0` from the other seven, which reads like a partial failure.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green, 30/30 cones, board unchanged.
+
+**Might-mean, unhedged:** the project's method of reaching one row by several
+routes and its failure mode of proving one thing twice produce the same
+signature, so the guard's job here is not to decide which one it is looking at
+but to make sure a person is asked.

@@ -484,7 +484,7 @@ import Riemann
 #check @Riemann.Blindness.minimal_haunted_configuration
 #check @Riemann.Blindness.minimal_haunted_attained
 #check @Riemann.Blindness.configAt_H
-#check @Riemann.Blindness.configAt_offAt
+#check @Riemann.Blindness.offAt_configAt_self
 
 -- SESSION 245: the four grade-A citations in CLAIMS.md that this file did not
 -- guard.  All 96 cited names resolve today; these four were outside the audit

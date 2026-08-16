@@ -141,6 +141,13 @@ degradations, not less.
   are reported and never fail — editing them would break `vendor_check.py`.
   The floor is a ratchet, not a target: `--update` is for a cycle that fixed
   warnings, never for one that added them.
+* **Duplication is checked, because nothing else here watches for it.**
+  `forensics/duplication_floor.py` counts theorems sharing a conclusion and
+  ratchets. `255` reproved two theorems the repo had carried since `181`; `S98`
+  did it with a `private` copy that shadowed a real lemma. Sharing a conclusion
+  is normal — the method is reaching one row by several routes — so the guard
+  cannot fail on sharing, only on the count *growing*. Grade the new one before
+  `--update`: a fourth route is fine, a second copy of a proof is not.
 * **S-witness — form-factor models must pass Lemma 1.**
   `forensics/lemma1_guard.py` checks any candidate `D` against
   `∫_B^{B+1} F ≤ 3` (RH) before a table is built. Retroactively it kills every

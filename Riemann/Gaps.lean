@@ -976,7 +976,7 @@ theorem noSmallHaunted_strict {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j
   · intro hcon
     have hg : (Blindness.configAt 0 1 j a).H 0
         - Blindness.offAt (Blindness.configAt 0 1 j a) 0 = 1 := by
-      rw [Blindness.configAt_H, Blindness.configAt_offAt ha]
+      rw [Blindness.configAt_H, Blindness.offAt_configAt_self ha]
       simp
     rcases hcon 0 0 hg with h1 | h2
     · have h1' : (Blindness.configAt 0 1 j a).H 0 = 1 := h1

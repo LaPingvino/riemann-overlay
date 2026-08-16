@@ -478,26 +478,6 @@ noncomputable def offAt (D : ZeroData) (γ : ℝ) : ℕ :=
   rw [(configAt γ k j a).H_eq_count γ', configAt_ordinates]
   simp [Multiset.count_replicate, eq_comm]
 
-/-- `offAt` of a single-ordinate configuration — `SESSION 157`.  All the
-off-line mass sits at `γ`, so this is `configAt_Noff` localised. -/
-lemma configAt_offAt {a : ℝ} (ha : a ≠ 1/2) (γ : ℝ) (k j : ℕ) :
-    offAt (configAt γ k j a) γ = 2 * j := by
-  classical
-  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
-  show Multiset.card (Multiset.filter (fun p => p.2 = γ ∧ p.1 ≠ 1/2)
-      (Multiset.replicate k ((1/2 : ℝ), γ)
-        + (Multiset.replicate j (a, γ)
-          + Multiset.replicate j ((1 - a : ℝ), γ)))) = _
-  rw [Multiset.filter_add, Multiset.filter_add,
-    filter_replicate_neg (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) k
-      ((1/2 : ℝ), γ) (fun h => h.2 rfl),
-    filter_replicate_pos (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) j
-      (a, γ) ⟨rfl, ha⟩,
-    filter_replicate_pos (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) j
-      ((1 - a : ℝ), γ) ⟨rfl, ha'⟩]
-  simp [Multiset.card_add]
-  ring
-
 /-- **The fiber decomposition, pointwise:** `H = onAt + offAt`. -/
 theorem H_eq_onAt_add_offAt (D : ZeroData) (γ : ℝ) :
     D.H γ = onAt D γ + offAt D γ := by
@@ -2930,33 +2910,6 @@ every atom has `H ∈ {1, 2}` and `H² + [H = 1] = 2H` **exactly**.
 `096`'s constant, the loose bound was already tight and there is nothing here.*
 **It did not fire — the constant drops from `1.9825` to `2 − κ`.** -/
 
-/-- **Under multiplicity `≤ 2`, standard-simple *is* simple.**  A standard-simple
-atom has `onAt = 1` and even off-line part; with `H ≤ 2` that forces `off = 0`,
-so `H = 1`.  The two notions the project keeps carefully apart coincide exactly
-where this hypothesis holds — and the literature's row is stated on the *standard*
-notion. -/
-theorem Nsc_eq_NscStd_of_mult_le_two (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
-    D.Nsc = D.NscStd := by
-  classical
-  have key : (D.Nsc : ℤ) = (D.NscStd : ℤ) := by
-    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
-        (if D.H γ = 1 then (1 : ℤ) else 0) := by
-      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
-    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
-        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
-      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
-    rw [hB, hA]
-    refine Finset.sum_congr rfl fun γ _ => ?_
-    have h1 := H_eq_onAt_add_offAt D γ
-    obtain ⟨r, hr⟩ := even_offAt D γ
-    have h2 := h γ
-    by_cases hone : D.H γ = 1
-    · rw [if_pos hone]
-      rw [if_pos (by omega)]
-    · rw [if_neg hone]
-      rw [if_neg (by omega)]
-  exact_mod_cast key
-
 /-- **Under multiplicity `≤ 2` the star constant is exact:** `N⊛ + Nsc = 2·N`.
 Per atom, `H² + [H = 1] = 2H` with `H ∈ {1, 2}` — an identity, not an estimate.
 So `C = 2 − Nsc/N`, and `prop1`'s output `2 − C` is exactly `Nsc/N`.
@@ -3674,6 +3627,16 @@ theorem noHaunted_of_mult_le_two (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
   have := h γ
   omega
 
+/-- **`H ≤ 2` gives `N_sc = NscStd`, as a corollary rather than a second proof.**
+
+`SESSION 256`.  This carried its own twenty-line copy of
+`Nsc_eq_NscStd_of_noHaunted`'s summation argument from `097` until a duplication
+sweep found the two conclusions identical.  It is the composite of that theorem
+with `noHaunted_of_mult_le_two`, and reads as one now. -/
+theorem Nsc_eq_NscStd_of_mult_le_two (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
+    D.Nsc = D.NscStd :=
+  Nsc_eq_NscStd_of_noHaunted D (noHaunted_of_mult_le_two D h)
+
 /-- The converse fails: `configAt 0 4 0 a` has no haunted ordinate and mass `4`. -/
 theorem noHaunted_not_mult_le_two {a : ℝ} (ha : a ≠ 1/2) :
     (∀ γ, (configAt 0 4 0 a).H γ - offAt (configAt 0 4 0 a) γ = 1 →
@@ -3826,9 +3789,9 @@ theorem distinctZeros_not_profile_functional {a b : ℝ}
     have h1 : (configAt 0 0 2 a).H 0 = 4 := by rw [configAt_H]; norm_num
     have h2 : (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)).H 0 = 4 := by
       rw [H_superpose, configAt_H, configAt_H]; norm_num
-    have h3 : offAt (configAt 0 0 2 a) 0 = 4 := by rw [configAt_offAt ha]
+    have h3 : offAt (configAt 0 0 2 a) 0 = 4 := by rw [offAt_configAt_self ha]
     have h4 : offAt (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)) 0 = 4 := by
-      rw [offAt_superpose, configAt_offAt ha, configAt_offAt hb]
+      rw [offAt_superpose, offAt_configAt_self ha, offAt_configAt_self hb]
     rw [profile, profile, hA, hB, Multiset.toFinset_replicate,
       if_neg (by norm_num : ¬(4 = 0))]
     simp only [Finset.singleton_val, Multiset.map_singleton]
@@ -4012,7 +3975,7 @@ theorem offLine_bound_attained {a : ℝ} (ha : a ≠ 1/2) :
     rw [if_pos]
     · simp
     · constructor
-      · rw [configAt_H, configAt_offAt ha]; simp
+      · rw [configAt_H, offAt_configAt_self ha]; simp
       · rw [configAt_H]; simp
   have := NscStd_eq_Nsc_add_haunted (configAt 0 1 1 a)
   omega

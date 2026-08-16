@@ -189,6 +189,10 @@ import Riemann
 #check @Riemann.Blindness.hauntedCount_not_ordinate_functional
 #check @Riemann.Blindness.hauntedCount_determined
 -- SESSION 227: the two literature quantities, related to each other.
+-- SESSION 228: the 1/2-vs-2^-1 normalisation helpers (R24).
+#check @Riemann.Blindness.offLine_ne_half
+#check @Riemann.Blindness.offLine_ne_refl
+#check @Riemann.Blindness.offLine_mirror_ne_half
 #check @Riemann.Blindness.NscAny_le_distinctZeros
 #check @Riemann.Blindness.NscAny_le_distinctZeros_attained_and_strict
 -- SESSION 216: two ledger entries are not recoverable from the other four.

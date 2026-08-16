@@ -1140,6 +1140,30 @@ Note what the obstruction is made of.  `m(m−1)(m−2)` vanishes at `m ≤ 2` a
 information about atoms of mass `≥ 3` and nothing else, and it carries it in the
 direction that costs. -/
 
+/-! ### The `1/2`-versus-`2⁻¹` normalisation — `SESSION 228`
+
+`simp` normalises the literal `1/2` to `2⁻¹` in goals and does **not** normalise
+a `1/2`-shaped hypothesis handed to it, so `ha : a ≠ 1/2` silently fails to fire.
+`188`, `196` and `227` each lost a rebuild to this and each re-derived the same
+two lines inline.
+
+These are those lines, once. `offLine_ne_half` is the hypothesis in the form
+`simp` will match; `offLine_ne_refl` is the companion every witness needs, since
+an off-line abscissa differs from its own mirror. -/
+
+/-- `a ≠ 1/2` restated in the form `simp` normalises to.  `SESSION 228`. -/
+lemma offLine_ne_half {a : ℝ} (ha : a ≠ 1/2) : a ≠ (2⁻¹ : ℝ) :=
+  fun h => ha (by rw [h]; norm_num)
+
+/-- An off-line abscissa differs from its mirror.  `SESSION 228`. -/
+lemma offLine_ne_refl {a : ℝ} (ha : a ≠ 1/2) : (a : ℝ) ≠ 1 - a :=
+  fun h => ha (by linarith)
+
+/-- The mirror of an off-line abscissa is off-line, in normalised form.
+`SESSION 228`. -/
+lemma offLine_mirror_ne_half {a : ℝ} (ha : a ≠ 1/2) : (1 - a : ℝ) ≠ (2⁻¹ : ℝ) :=
+  fun h => ha (by rw [show a = 1 - (1 - a) by ring, h]; norm_num)
+
 /-- `3h² ≤ h³ + 2h` for every natural `h` — the pointwise form of
 `m(m−1)(m−2) ≥ 0`. -/
 private lemma three_sq_le_cube_add_two (h : ℕ) : 3 * h * h ≤ h * h * h + 2 * h := by
@@ -4760,8 +4784,8 @@ theorem config_NscAny (k j : ℕ) {a : ℝ} (ha : a ≠ 1/2) :
   -- `simp` normalises `1/2` to `2⁻¹` and does NOT normalise a `1/2`-shaped
   -- hypothesis handed to it, so the disequalities are restated in `2⁻¹` form
   -- before use.  `SESSION 188` learned this; `196` learned it again.
-  have ha2 : a ≠ (2⁻¹ : ℝ) := fun h => ha (by rw [h]; norm_num)
-  have ha2' : (1 - a : ℝ) ≠ (2⁻¹ : ℝ) := fun h => ha' (by rw [h]; norm_num)
+  have ha2 := offLine_ne_half ha
+  have ha2' := offLine_mirror_ne_half ha
   have hc0 : (config k j a).Z.count ((1/2 : ℝ), (0:ℝ)) = k := by
     show Multiset.count _ (Multiset.replicate k ((1/2 : ℝ), (0:ℝ))
         + (Multiset.replicate j (a, (0:ℝ))
@@ -5087,9 +5111,9 @@ theorem NscAny_le_distinctZeros_attained_and_strict {a : ℝ} (ha : a ≠ 1/2) :
       intro h; exact ha (by have := congrArg Prod.fst h; simp at this; linarith)
     have h3 : (a, (0:ℝ)) ≠ ((1 - a : ℝ), (0:ℝ)) := by
       intro h; exact ha (by have := congrArg Prod.fst h; simp at this; linarith)
-    have ha2 : a ≠ (2⁻¹ : ℝ) := fun h => ha (by rw [h]; norm_num)
-    have ha3 : (a : ℝ) ≠ 1 - a := fun h => ha (by linarith)
-    have ha4 : (2⁻¹ : ℝ) ≠ 1 - a := fun h => ha2 (by linarith)
+    have ha2 := offLine_ne_half ha
+    have ha3 := offLine_ne_refl ha
+    have ha4 : (2⁻¹ : ℝ) ≠ 1 - a := Ne.symm (offLine_mirror_ne_half ha)
     rw [hZ]
     simp [Multiset.toFinset_add, ha2, ha3, ha4, Ne.symm ha2, Ne.symm ha3,
       Ne.symm ha4, Finset.card_insert_of_notMem]

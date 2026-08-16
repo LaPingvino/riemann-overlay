@@ -10492,3 +10492,35 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 uncomputable — both counts are read straight off any explicit `Z`, and this
 cycle read them off two — so what the map measures is what a *certificate class*
 can see, not what the project can calculate.
+
+## The normalisation tax, paid off
+
+`188`, `196` and `227` each paid a rebuild here. The goal came back with `2⁻¹` where
+the hypothesis said `1/2`, `ha : a ≠ 1/2` did not close it, and the fix was two
+inline lines re-derived every time.
+
+**Kill condition, filed first:** *if a shared helper cannot actually discharge
+the site that just cost me a rebuild, it is decoration — I record the convention
+as a rule and add no lemma.* It did not fire.
+
+`offLine_ne_half`, `offLine_ne_refl`, `offLine_mirror_ne_half`: the hypothesis in
+the form `simp` matches, the fact that an off-line abscissa differs from its own
+mirror, and the mirror's own normalised form.
+
+**Both existing sites converted**, and that is the point: a helper nobody uses is
+not evidence that it helps. `git diff --stat` shows 29 insertions against 5
+deletions, the build stays green, and no warning appears at either site.
+
+`R24` records it, with the rule stated so it generalises past this one literal:
+when a tactic normalises a literal, restate the hypothesis in the normalised
+form — and put the restatement in a lemma the first time it costs a second
+cycle.
+
+Three lemmas, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** this project writes rules when a mistake recurs and
+lemmas when the mistake has a shape, and it took four instances to notice this
+one had both.

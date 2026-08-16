@@ -10970,3 +10970,51 @@ green.
 **Might-mean, unhedged:** both off-line-import rows price at `κ − β/2` and differ
 only in which `β` can be bought, so the rows that genuinely differ — Routes I and
 III, `[OPEN D]` — are those buying a currency other than off-line mass.
+
+## The board priced in one currency
+
+`238` showed the two off-line-import rows are `κ − β/2` at different `β`. The
+board's question is the inverse: what would each target *cost*?
+
+**Kill condition, filed first:** *if the inverse is not well-defined — if `β` has
+a floor the formula ignores — I state the floor and price only the targets above
+it, rather than presenting an unbounded exchange.* It did not fire, and the
+floor turned out to be the interesting part.
+
+* `offLineImport_inverse` — reaching `T` costs `β = 2(κ − T)`, and nothing about
+  `T` matters beyond that.
+* `offLineImport_range` — `β` is a proportion bound, so `0 ≤ β ≤ 1 − κ`, and the
+  currency buys exactly `[(3κ−1)/2, κ]`. At the certified `κ`:
+  **`[0.50875, 0.6725]`**, from the free row to the `NoHaunted` row and no
+  further.
+* `offLineImport_board_prices` — the four prices, checked.
+
+| target | `β` it costs | vs the free `0.3275` |
+|---|---|---|
+| `0.50875` | `0.3275` | free |
+| `0.60169` (`ξ'`) | `0.14162` | `2.3×` better |
+| `2/3` (Route III) | `7/600 ≈ 0.01167` | `28×` better |
+| `0.6725` (`NoHaunted`) | **`0`** | no off-line zeros at all |
+
+**The last row is the finding.** Reaching `NoHaunted`'s number *through off-line
+control* costs `β = 0` — ruling out off-line zeros outright. That is why the
+board buys that row as a **multiplicity** hypothesis and not an off-line one:
+the same payout, and the multiplicity route does not require RH-strength control
+of `N_off` to get there.
+
+It also explains the shape of the whole board. The off-line currency saturates
+at `κ`; every row above `κ` — Route I, `[OPEN D]` — must therefore buy something
+else, which is what `238`'s correction said and this makes quantitative.
+
+`RULING.md` gains the priced table at its location, so the currencies can be
+compared on one axis.
+
+Three theorems, axiom-free, all in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** the off-line currency's ceiling is the certified
+`NscStd` row itself, so no amount of off-line control moves the `Nsc` row past
+the number the project already holds on the other one.

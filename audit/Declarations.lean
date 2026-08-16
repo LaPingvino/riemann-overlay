@@ -201,6 +201,10 @@ import Riemann
 #check @Riemann.offLine_bound_at_both_baselines
 -- SESSION 238: the unconditional row and the xi' route are one formula.
 #check @Riemann.exchange_at_both_imports
+-- SESSION 239: the off-line currency's range, its inverse, and the board in beta.
+#check @Riemann.offLineImport_range
+#check @Riemann.offLineImport_inverse
+#check @Riemann.offLineImport_board_prices
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

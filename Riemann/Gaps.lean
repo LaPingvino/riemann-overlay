@@ -646,6 +646,43 @@ theorem exchange_at_both_imports :
       ∧ (0.6725 : ℝ) - (1 - 0.85838) / 2 = 0.60169 := by
   constructor <;> norm_num
 
+/-- **The off-line currency's whole range.**  `SESSION 239`.
+
+`proportion_of_offLineImport` pays `κ − β/2`, and `β` is a proportion bound, so
+`0 ≤ β`.  The best import a `ProportionStd κ` gives about its own family is
+`β = 1 − κ` (`offLineImport_of_proportionStd`).  Between those two ends the
+currency buys exactly
+
+    (3κ − 1)/2   ≤   κ − β/2   ≤   κ.
+
+At the certified `κ` that is `[0.50875, 0.6725]`: from the free row to the
+`NoHaunted` row and no further.  The floor `β ≥ 0` is what pins the top. -/
+theorem offLineImport_range {κ β : ℝ} (h0 : 0 ≤ β) (h1 : β ≤ 1 - κ) :
+    (3 * κ - 1) / 2 ≤ κ - β / 2 ∧ κ - β / 2 ≤ κ := by
+  constructor <;> linarith
+
+/-- **What a target costs, in off-line control.**  `SESSION 239`.  Inverting the
+exchange: reaching `T` through this currency needs `β = 2(κ − T)`, and nothing
+else about `T` matters. -/
+theorem offLineImport_inverse {κ β T : ℝ} : κ - β / 2 = T ↔ β = 2 * (κ - T) := by
+  constructor <;> intro h <;> linarith
+
+/-- **The board's rows, priced in `β`.**  `SESSION 239`.
+
+The free row costs the free import; `ξ'` costs `1 − κ'`; Route III's `2/3` costs
+`7/600`, a twenty-eight-fold improvement on the free bound; and `NoHaunted`'s
+`0.6725` costs `β = 0` — **no off-line zeros at all**.
+
+That last is the sharp one.  Reaching the `NoHaunted` row *through this currency*
+is exactly as expensive as ruling out off-line zeros outright, which is why the
+board buys it as a multiplicity hypothesis instead. -/
+theorem offLineImport_board_prices :
+    (2 : ℝ) * (0.6725 - 0.50875) = 0.3275
+      ∧ (2 : ℝ) * (0.6725 - 0.60169) = 0.14162
+      ∧ (2 : ℝ) * (0.6725 - 2/3) = 7/600
+      ∧ (2 : ℝ) * (0.6725 - 0.6725) = 0 := by
+  refine ⟨by norm_num, by norm_num, by norm_num, by norm_num⟩
+
 /-- **One constant governs the whole ladder.**  `SESSION 236`.
 
 At the certified `κ = 0.6725` the numerator `1 − κ` is `131/400 = 0.3275` — the

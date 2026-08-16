@@ -64,6 +64,25 @@ Gains are on the `Nsc` row over the certified `0.50875`.
 | **Route I** | `> 0.6725` | `> +16.375` | **1** | effective Fujii `c₀ ≤ 0.33` |
 | **[OPEN D]** | `1 − ε` | `+49.125` | **1** | extended support |
 
+### The same board, priced in off-line control (`SESSION 239`)
+
+`proportion_of_offLineImport` pays `κ − β/2`, so any target `T` reachable
+*through off-line control* costs `β = 2(κ − T)` and nothing about `T` matters
+beyond that (`Gaps.offLineImport_inverse`). Since `β ≥ 0` is a proportion bound,
+the currency's entire range is `[0.50875, 0.6725]` (`Gaps.offLineImport_range`).
+
+| target | `β` it would cost | against the free `β = 0.3275` |
+|---|---|---|
+| `0.50875` — the certified row | `0.3275` | free |
+| `0.60169` — `ξ'` | `0.14162` | `2.3×` better |
+| `2/3` — Route III's payout | `7/600 ≈ 0.01167` | `28×` better |
+| `0.6725` — `NoHaunted`'s payout | **`0`** | no off-line zeros at all |
+
+The last row is why `NoHaunted` is bought as a *multiplicity* hypothesis and not
+an off-line one: reaching its number through this currency is exactly as
+expensive as ruling out off-line zeros outright. Prices checked in
+`Gaps.offLineImport_board_prices`.
+
 ### The multiplicity ladder, generated rather than listed
 
 Every rung is `Optimal`-free arithmetic on one theorem,

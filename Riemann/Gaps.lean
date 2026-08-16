@@ -1123,6 +1123,50 @@ theorem hauntedDensity_of_offLineImport {F : Family} {β : ℝ}
   have hnn := F.Nz_nonneg T
   nlinarith [hO, hcoup, hnn, hε.le]
 
+/-- **The off-line currency sharpens with the rung: `δ = β/(m − 1)`.**
+`SESSION 262`.
+
+`hauntedDensity_of_offLineImport` charges each haunted ordinate two off-line
+zeros, which is the free rung `m = 3`.  Under `NoSmallHaunted m` it carries
+`m − 1` of them (`Blindness.pred_mul_haunted_le_Noff`), so the same import buys
+`(m − 1)/2` times as much density.
+
+**This is a third route, not a restatement of the second.**
+`hauntedDensity_of_noSmallHaunted` reaches `(1 − κ)/(m − 1)` by charging the rung
+against `N` and needs `ProportionStd κ` to cap it; this charges it against
+`N_off` and needs no proportion at all.  At the project's certified constants the
+two agree — `237` puts the off-line bound at `β = 1 − κ` — so the numbers on the
+board do not move, and what changes is the hypothesis you must hold to get them.
+
+At `m = 3` it is `β/2` and the older theorem is recovered. -/
+theorem hauntedDensity_of_offLineImport_at_rung {F : Family} {β : ℝ} {m : ℕ}
+    (hm : 2 ≤ m) (ho : OffLineImport F β) (hh : NoSmallHaunted F m) :
+    HauntedDensity F (β / ((m : ℝ) - 1)) := by
+  have hm1 : (1 : ℝ) < (m : ℝ) := by exact_mod_cast hm
+  have hm0 : (0 : ℝ) < (m : ℝ) - 1 := by linarith
+  intro ε hε
+  filter_upwards [ho (ε * ((m : ℝ) - 1)) (by positivity), F.toCounts.pos]
+    with T hO hpos
+  have hnat := Blindness.pred_mul_haunted_le_Noff (F.D T) m (fun γ => hh T γ)
+  have hcoup : ((m : ℝ) - 1) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      ≤ F.Noff T := by
+    have : (((m - 1) * Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+        ≤ ((F.D T).Noff : ℝ) := by exact_mod_cast hnat
+    unfold Family.Noff
+    push_cast [Nat.cast_sub (by omega : 1 ≤ m)] at this
+    linarith
+  have key : ((m : ℝ) - 1) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      ≤ (β + ε * ((m : ℝ) - 1)) * F.Nz T := le_trans hcoup hO
+  rw [← sub_nonneg]
+  have hsplit : (β / ((m : ℝ) - 1) + ε) * F.Nz T
+        - ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      = ((β + ε * ((m : ℝ) - 1)) * F.Nz T
+          - ((m : ℝ) - 1) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ))
+        / ((m : ℝ) - 1) := by
+    field_simp
+  rw [hsplit]
+  exact div_nonneg (by linarith) hm0.le
+
 /-- **`105`'s ladder is the density instrument at `δ = (1 − κ)/(m − 1)`.**
 
 `Blindness.pred_mul_haunted_add_NscStd_le_N` gives

@@ -11470,7 +11470,10 @@ Two theorems, axiom-free, both in `audit/Declarations.lean`.
 **Snag, bin 1.** `field_simp` left `c + (1 - c) = 1` standing on one of the two
 sub-identities and closed the other outright; `ring` after it fixed the first.
 The asymmetry is the useful part — `field_simp` normalises denominators without
-finishing the numerator, so it is not a closing tactic.
+finishing the numerator, so it is not a closing tactic. *(`262`: "not a closing
+tactic" is too strong — it closed `262`'s split identity outright and the
+trailing `ring` then failed with *no goals*. It is sometimes a closing tactic and
+the goal does not say when.)*
 
 Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 `v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
@@ -12148,3 +12151,56 @@ at `54`.
 bought separately, and at least one pair is worth far more together than apart,
 so the board's column of individual payouts is the wrong shape for deciding what
 to prove next.
+
+## The off-line currency sharpens along the ladder, and the board does not move
+
+`261` ended saying the board prices hypotheses as if bought separately. This is
+the pairwise pass it asked for, over the combinatorial genres the project owns:
+`ProportionStd`, `OffLineImport`, `NoSmallHaunted`, `NoHaunted`,
+`HauntedDensity`, `BoundedMult`, `StarBound`.
+
+**Most cells were already filled.** `OffLineImport × HauntedDensity` is
+`hauntedDensity_of_offLineImport` (`δ = β/2`); `NoSmallHaunted × ProportionStd`
+is `hauntedDensity_of_noSmallHaunted` (`δ = (1−κ)/(m−1)`); `BoundedMult ×
+NoSmallHaunted` was `261`. The empty cell was `OffLineImport × NoSmallHaunted`.
+
+**Kill condition, filed first:** *if a haunted ordinate under rung `m` can carry
+fewer than `m − 1` off-line zeros, the off-line resource does not sharpen with
+the rung and I report `β/2` as final.* It did not fire — a haunted ordinate has
+`offAt = H − 1` and the rung forces `H ≥ m`.
+
+* `Blindness.pred_mul_haunted_le_Noff` — `(m−1)·hauntedCount ≤ N_off`. The
+  existing ladder lemma `pred_mul_haunted_add_NscStd_le_N` charges the rung
+  against `N`; this charges it against the off-line count, which is a different
+  resource.
+* `hauntedDensity_of_offLineImport_at_rung` — so an import at `β` is a haunted
+  density at `β/(m−1)`, recovering the older `β/2` at the free rung `m = 3`.
+
+**No number on the board moves, and that is the honest result.** At the certified
+`β = 1 − κ` (`237`) the new route returns the rungs to the digit: `131/800`,
+`131/1600`, `131/2400`, `131/3200`, checked in exact rationals against
+`RULING.md`'s table. What changes is the hypothesis — this route needs no
+`ProportionStd` to state the density, where the `N`-resource ladder does. The two
+part company as soon as `β < 1 − κ`: at `β = 1/4`, `m = 5` the off-line route
+gives `0.61` against the ladder's `0.590625`.
+
+So `261`'s might-mean is half right. The pairs are not independent, but the one
+unpriced pair turns out to give the numbers the board already has by another
+road — a spare route rather than a gain. Recorded in `RULING.md` beside `261`'s
+paragraph.
+
+**Snag, bin 1.** `field_simp` closed the split identity outright and my trailing
+`ring` drew *no goals to be solved*. `249` filed the same asymmetry as a
+bin-1 snag and concluded `field_simp` is not a closing tactic. That conclusion is
+wrong in the direction that costs a build: here it closed the goal and the `ring`
+after it failed. Whether it closes depends on the goal in a way I cannot read off
+in advance. The `249` entry is annotated at its location.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green, board unchanged at 13,
+duplication floor at `20`, warnings at `54`.
+
+**Might-mean, unhedged:** the board's numbers are over-determined — three
+independent resources deliver the same four rungs — so the constants are
+properties of the combinatorics rather than of any one hypothesis, and improving
+a route means improving an input, not finding a better argument.

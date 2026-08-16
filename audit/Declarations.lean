@@ -239,6 +239,9 @@ import Riemann
 -- SESSION 261: a cap collapses the ladder to its limit one rung above it.
 #check @Riemann.noHaunted_of_boundedMult_of_noSmallHaunted
 #check @Riemann.noHaunted_of_mult_three_rung_five
+-- SESSION 262: the off-line currency sharpens with the rung.
+#check @Riemann.Blindness.pred_mul_haunted_le_Noff
+#check @Riemann.hauntedDensity_of_offLineImport_at_rung
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

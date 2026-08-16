@@ -109,6 +109,17 @@ re-verified table), the rung alone `0.590625`, and the two together `0.6725`.
 Neither is close to the sum. The cap's value on the `Nsc` row is almost entirely
 what it does to the ladder, not what it proves directly.
 
+**And the off-line currency sharpens along the same ladder (`SESSION 262`).**
+`Gaps.hauntedDensity_of_offLineImport_at_rung`: under rung `m` a haunted ordinate
+costs `m − 1` off-line zeros rather than `2`, so an import at `β` is a haunted
+density at `β/(m − 1)`. At the certified `β = 1 − κ` this returns the rungs above
+to the digit — `131/800`, `131/1600`, `131/2400`, `131/3200` — so no number on
+this board moves. What moves is the hypothesis: this route charges the rung
+against `N_off` and needs no `ProportionStd` to state the density, where
+`Gaps.hauntedDensity_of_noSmallHaunted` charges it against `N` and does. The two
+part company as soon as `β < 1 − κ`: at `β = 1/4` and `m = 5` the off-line route
+gives `0.61` against the ladder's `0.590625`.
+
 **What a rung buys, in closed form (`SESSION 236`).** The distance from rung `m`
 to `NoHaunted` is `(1 − κ)/(m − 1)` (`Gaps.ladder_gap`), and climbing two rungs
 buys `2(1 − κ)/(m² − 1)` (`Gaps.ladder_step`). At the certified `κ` the

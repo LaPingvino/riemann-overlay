@@ -4543,6 +4543,41 @@ theorem pred_mul_haunted_add_NscStd_le_N (D : ZeroData) (m : ℕ) (hm : 1 ≤ m)
   generalize k * hauntedCount D = B at h105 ⊢
   omega
 
+
+/-- **The same ladder, paid for out of `N_off` instead of `N`.**  `SESSION 262`.
+
+`pred_mul_haunted_add_NscStd_le_N` charges the rung against `N`.  This charges it
+against the off-line count, which is a different resource and buys a different
+hypothesis at the family level: a haunted ordinate has `offAt = H − 1`, and the
+rung forces `H ≥ m`, so each one costs `m − 1` off-line zeros and they sit at
+distinct ordinates.
+
+At `m = 3` this is the `2·haunted ≤ N_off` that
+`hauntedDensity_of_offLineImport` reaches indirectly through the coupling; above
+`m = 3` it is sharper, and unlike the `N`-resource ladder it needs no
+`ProportionStd`. -/
+theorem pred_mul_haunted_le_Noff (D : ZeroData) (m : ℕ)
+    (h : ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 ∨ m ≤ D.H γ) :
+    (m - 1) * hauntedCount D ≤ D.Noff := by
+  classical
+  have hN : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  set S := D.ordinates.toFinset.filter
+    (fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1) with hS
+  have hlow : ∀ γ ∈ S, m - 1 ≤ offAt D γ := by
+    intro γ hγ
+    rw [hS, Finset.mem_filter] at hγ
+    obtain ⟨-, h1, h2⟩ := hγ
+    rcases h γ h1 with hone | hbig
+    · exact absurd hone h2
+    · omega
+  calc (m - 1) * hauntedCount D = ∑ _γ ∈ S, (m - 1) := by
+        rw [hauntedCount, ← hS, Finset.sum_const, smul_eq_mul, mul_comm]
+    _ ≤ ∑ γ ∈ S, offAt D γ := Finset.sum_le_sum hlow
+    _ ≤ ∑ γ ∈ D.ordinates.toFinset, offAt D γ :=
+        Finset.sum_le_sum_of_subset (Finset.filter_subset _ _)
+    _ = D.Noff := hN.symm
+
 /-- **The `N⊛` bound on the haunted count: `6·hauntedCount + N ≤ N⊛`.**
 
 `Basic.six_mul_NscStd_le` read through `109`'s identity.  A haunted ordinate has

@@ -5859,3 +5859,50 @@ Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
 the toll goes to zero as it approaches the line, so the horizontal coordinate is
 not one hypothesis among several — it is the only direction in which this
 instrument can be made to see.
+
+
+# SESSION 138 — the certified floors, measured against real zeros
+
+**Eight identical heartbeats arrived at once.** One cycle run, not eight;
+recorded rather than glossed, because a burst of cron fires is exactly the kind
+of live-state fact `R17` says not to narrate from memory. Whether the job is
+double-scheduled is Joop's to check — I can see the prompts, not the crontab.
+
+`135` put `100 000` real zeros on the machine; `129`/`130` certified six bounds on
+precisely the quantities that data measures. Nobody had compared them.
+
+**Kill condition, filed first:** *if any certified bound is violated by the data,
+either the bound or my reading of the table is wrong, and that is the finding.*
+**It did not fire — zero violations.**
+
+| quantity | certified | observed |
+|---|---|---|
+| `Nsc/N` | `≥ 0.50875` | `1.00000` |
+| `NscStd/N` | `≥ 0.67250` | `1.00000` |
+| `atomCount/N` | `≥ 0.67250` | `1.00000` |
+| `oddAtoms/N` | `≥ 0.67250` | `1.00000` |
+| `N_off/N` | `≤ 0.32750` | `0.00000` *(RH-verified range)* |
+| `hauntedCount/N` | `≤ 0.16375` | `0.00000` *(RH-verified range)* |
+
+**All 100 000 ordinates are distinct at nine decimals** — checked, not assumed —
+so `atomCount = N` is measured rather than inferred.
+
+**What the table licenses and what it does not.** `zeros1` lists ordinates of
+zeros **on the line**. From the file I can check distinctness. That no *further*,
+off-line zeros exist in the range is the **RH verification** — a separate
+literature fact, marked `[RECALL, UNVERIFIED]` — and it is what licenses reading
+`N_off = 0`. Both such rows carry the label in the output, not just here.
+
+**The gap is the price of universality, not evidence of weakness.** `Nsc` is
+certified `0.50875` against an observed `1.0`, a slack of `0.49125` — and `111`
+proves `0.50875` is within `0.00069` of the best **any** baseline-only argument
+can reach. So the distance between our floor and the observed truth is almost
+entirely the cost of proving something for all heights from one literature input,
+not looseness we could tighten.
+
+Build green (3757 jobs), sorries 0, ledger unchanged, axioms 2, base hash
+`cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** the certified floor and the observed reality differ by
+half the zeros, and almost none of that gap is ours to close — which is a
+precise statement of how much of this problem is unproved rather than unknown.

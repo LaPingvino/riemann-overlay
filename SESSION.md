@@ -6518,3 +6518,64 @@ fail is not a witness, and I had been counting one for at least two cycles.
 **Might-mean, unhedged:** a route's price is not what its statement asks for but
 what its proof reaches for, and those differed here by a factor of two in the
 currency the ledger reports on every line.
+
+# SESSION 148 — the guards audited for whether they can fail, and nine cannot
+
+**Kill condition, stated first:** *if every script in `forensics/` can be made to
+fail by injecting a fault into what it checks, then `S49` was isolated, the guard
+sweep is a real witness, and this dies having confirmed it.* **It fired, hard.**
+
+`147` found one guard that could not fail. The obvious question was whether it
+was alone. It is not.
+
+## The audit
+
+| class | scripts |
+|---|---|
+| **can fail on a substantive verdict** | `claims_gate`, `window_opt`, `surprises`, `scope_gate`, and `provenance_lint` **only as of this cycle** |
+| fail only on a **self-check** (their own arithmetic's sanity, not a verdict) | `selberg_S`, `w19_price` |
+| **cannot return a failing exit code at all** | `provenance_lint` (before today), `lemma1_guard`, `quarry`, `three_moment_lp`, `w16_price`, `calibration`, `function_field`, `gap_scaling`, `near_haunting`, `absence_queue` |
+
+**Nine of sixteen cannot fail.** Most of those are *analyses* — pricing and
+measurement scripts — and calling them "guards" in a sweep was my error, not
+theirs; `absence_queue` is documented as always-`0` by design. But one is not an
+analysis.
+
+## The flagship printed BLOCKED five times and exited 0
+
+`provenance_lint` is the contamination detector, the file carrying Rules 1–4 and
+the `#27` gate. `lint()` computes `ok`, prints **"BLOCKED — do not build the
+table"**, and the entry point **discarded the value**. Every run printed BLOCKED
+five times and exited `0`. I added Rule 4 to that file in `145` and reported it
+green in two sessions. `S50`.
+
+**The fix is not "exit 1 whenever something blocks"** — those replays are
+historical and are *supposed* to block. The check is that each replay still
+returns **the verdict the record says it returned**, so a replay that silently
+starts passing is caught. A **control** that must PASS is included: without one,
+"everything blocks" would itself satisfy the self-test, and the guard would be
+vacuous a second way.
+
+**Verified by fault injection, in both directions — 3/3 caught:** defeating
+Rule 3 (MRT supplies `power`), defeating Rule 4 (`hauntedCount` no longer
+RH-vacuous), and breaking the control (a PASS that starts blocking). `window_opt`
+and `surprises` were injected too — a perturbed register digit and an unparseable
+table — both exit `1` and both restored byte-identical.
+
+## `S51` — the first fault injection failed to trip it, and the guard was right
+
+I widened `CMR_1.3208`'s validity range expecting the scale rule to stop firing.
+The replay blocked anyway: that chain's ancestry hits `EP1`, so Rule 1 catches it
+on circularity regardless of scale. **A negative result from a fault injection is
+ambiguous** between "the guard is vacuous" and "the fault was insufficient", and
+only re-testing separates them. Had I stopped at the first negative I would have
+recorded the repaired guard as still broken.
+
+R20: hygiene cycle 1 of 3 (`147` was substantive).
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** I have been reading exit codes as verdicts for the
+whole project, and for nine of sixteen scripts the exit code was a statement that
+the interpreter reached the end of the file.

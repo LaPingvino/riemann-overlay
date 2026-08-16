@@ -226,21 +226,52 @@ def t3b_report():
         print(f"  tier {DEPTH_NAME[t]:14s}: {len(tiers.get(t, []))}/11  {tiers.get(t, [])}")
     return changers
 
+# ---------------------------------------------------------------------------
+# SESSION 148.  This block used to print its replays and exit 0 unconditionally —
+# including the five times it printed "BLOCKED — do not build the table".  A
+# guard whose whole purpose is to block cannot report success while blocking,
+# and `S49` had just found the same defect in `claims_gate`.  The fix is not to
+# exit 1 whenever something blocks: these replays are HISTORICAL, and they are
+# *supposed* to block.  The check is that each replay still returns the verdict
+# the record says it returned.  A replay that silently starts passing is the
+# regression this file exists to catch.
+REPLAYS = [
+    ("day cycle 6 — CMR's averaged constant at window scale 0.3",
+     [("CMR_1.3208", 0.3)], (1.0, 1.32), "N*_bound", False),
+    ("day cycle 9 — class walls past support 1",
+     [("Lemma1_cap3", 1.5)], (1.0, 2.0), "N*_bound", False),
+    ("#27 — the gate: MRT's error quality does not cross the bridge",
+     [("MRT_corr", 1.32), ("GM_bridge", 1.32)], (1.0, 1.32), "N*_bound", False),
+    ("144 / W19 — the route that died of its own hypothesis",
+     [("Selberg_1946", 1.0), ("Goldston_1987_RH", 1.0)], (0.0, 9.9),
+     "hauntedCount", False),
+    # The control.  Without a chain that must PASS, "everything blocks" would
+    # itself pass this self-test, and the guard would be vacuous a second way.
+    ("control — unconditional arithmetic, in scale, no quality demand",
+     [("sieve_twin", 1.5)], (1.0, 2.0), "N*_bound", True),
+]
+
+
+def replay_selftest():
+    print("=== replaying the recorded verdicts — a changed one is a regression ===")
+    bad = 0
+    for label, inputs, window, target, expected in REPLAYS:
+        print(f"\n[{label}]")
+        got = lint(inputs, window, target=target)
+        if got != expected:
+            bad += 1
+            print(f"  ⚠️ REGRESSION: recorded {'PASS' if expected else 'BLOCKED'},"
+                  f" got {'PASS' if got else 'BLOCKED'}")
+    print(f"\n  {len(REPLAYS) - bad}/{len(REPLAYS)} replays match the record.")
+    return bad
+
+
 if __name__ == "__main__":
     t3b_report()
     print()
     _r4 = vacuity_calibration()
     print()
-    print("=== replaying the two corrections that cost headlines ===\n")
-    print("[day cycle 6] feeding CMR's averaged constant at window scale 0.3:")
-    lint([("CMR_1.3208", 0.3)], (1.0, 1.32))
-    print("\n[day cycle 9] class walls past support 1:")
-    lint([("Lemma1_cap3", 1.5)], (1.0, 2.0))
-    print("\n[day cycle 10-11] the priced chain (arithmetic fuel):")
-    lint([("MRT_corr", 1.32), ("GM_bridge", 1.32)], (1.0, 1.32))
-    print("\n[#27] the same chain, with Rule 3 active — this is the gate:")
-    lint([("MRT_corr", 1.32), ("GM_bridge", 1.32)], (1.0, 1.32))
-    print("\n[144 / W19] Rule 4 live: the route that died of its own hypothesis.")
-    print("  Had this been run before the fetch, it would have said so first.")
-    lint([("Selberg_1946", 1.0), ("Goldston_1987_RH", 1.0)], (0.0, 9.9),
-         target="hauntedCount")
+    _bad = replay_selftest()
+    if not _r4:
+        print("\n  ⚠️ Rule 4 calibration did not behave as designed.")
+    raise SystemExit(1 if (_bad or not _r4) else 0)

@@ -205,6 +205,9 @@ import Riemann
 #check @Riemann.offLineImport_range
 #check @Riemann.offLineImport_inverse
 #check @Riemann.offLineImport_board_prices
+-- SESSION 240: both currencies saturate at kappa.
+#check @Riemann.ladder_lt_kappa
+#check @Riemann.currencies_saturate_at_kappa
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

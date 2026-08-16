@@ -11018,3 +11018,40 @@ green.
 **Might-mean, unhedged:** the off-line currency's ceiling is the certified
 `NscStd` row itself, so no amount of off-line control moves the `Nsc` row past
 the number the project already holds on the other one.
+
+## Both currencies stop at the same number
+
+`239` found the off-line currency saturates at `κ`. The multiplicity ladder is
+the project's other currency, and `236` gave its gap as `(1 − κ)/(m − 1)` — a
+quantity that shrinks. Whether it closes is the question.
+
+**Kill condition, filed first:** *if the ladder can exceed `κ` at some finite
+`m`, the two ceilings differ and I report the ladder's actual supremum rather
+than asserting a shared one.* It did not fire.
+
+`ladder_lt_kappa`: `(m·κ − 1)/(m − 1) < κ` clears to `κ < 1` — **the `m` cancels
+entirely**. So no finite rung reaches `κ`, at any `m`, and the gap shrinks
+without closing. `NoHaunted`, the limit, is what reaches it.
+
+`currencies_saturate_at_kappa` puts the pair together: off-line control buys at
+most `κ` and only at `β = 0`; the ladder buys strictly less at every finite rung.
+**Neither currency the project owns passes the certified `NscStd` row.**
+
+That fixes the board's shape as a theorem rather than an observation: any row
+promising more than `κ` on the `Nsc` line — Route I, `[OPEN D]` — is buying a
+third thing. `RULING.md` says so at its location.
+
+Note what the cancellation means. The ladder's ceiling does not depend on how
+much multiplicity you exclude; it is `κ < 1`, a fact about the baseline being a
+proportion. Excluding more haunted masses moves you along a curve whose limit
+was set by the axiom, not by the exclusions.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** both of this project's exchanges convert into the same
+ceiling, and that ceiling is the number it was handed, so every route it owns is
+spending the baseline rather than adding to it.

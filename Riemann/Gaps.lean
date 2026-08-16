@@ -683,6 +683,32 @@ theorem offLineImport_board_prices :
       ∧ (2 : ℝ) * (0.6725 - 0.6725) = 0 := by
   refine ⟨by norm_num, by norm_num, by norm_num, by norm_num⟩
 
+/-- **Every finite rung is strictly below `κ`.**  `SESSION 240`.
+
+`(m·κ − 1)/(m − 1) < κ` reduces to `κ < 1` after clearing the denominator — the
+`m` cancels entirely.  So no rung of the multiplicity ladder reaches the
+certified `NscStd` row, at any `m`; `236`'s gap `(1 − κ)/(m − 1)` shrinks without
+closing.  `NoHaunted`, the limit, is what reaches `κ`. -/
+theorem ladder_lt_kappa {κ m : ℝ} (hκ : κ < 1) (hm : 1 < m) :
+    (m * κ - 1) / (m - 1) < κ := by
+  rw [div_lt_iff₀ (by linarith : (0:ℝ) < m - 1)]
+  nlinarith
+
+/-- **Both currencies saturate at `κ`.**  `SESSION 240`.
+
+Put `239` and the line above together.  Off-line control buys at most `κ`, and
+only at `β = 0`; the multiplicity ladder buys strictly less than `κ` at every
+finite rung, and exactly `κ` in the `NoHaunted` limit.  Neither currency the
+project owns passes the certified `NscStd` row.
+
+The board's shape follows: any row promising more than `κ` on the `Nsc` line —
+Route I, `[OPEN D]` — is buying a third thing, and that is a fact about the two
+exchanges rather than a gap in the search. -/
+theorem currencies_saturate_at_kappa {κ β m : ℝ} (hκ : κ < 1) (hm : 1 < m)
+    (h0 : 0 ≤ β) :
+    κ - β / 2 ≤ κ ∧ (m * κ - 1) / (m - 1) < κ :=
+  ⟨by linarith, ladder_lt_kappa hκ hm⟩
+
 /-- **One constant governs the whole ladder.**  `SESSION 236`.
 
 At the certified `κ = 0.6725` the numerator `1 − κ` is `131/400 = 0.3275` — the

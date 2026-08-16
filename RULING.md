@@ -132,6 +132,19 @@ who can prove less than `NoHaunted` and more than nothing.
   (`noHaunted_not_mult_le_two`), identical payout.
 * **ξ′** is dominated by the `m = 7` rung — fewer points *and* two more axioms.
 
+### Where the two currencies stop (`SESSION 240`)
+
+Both saturate at `κ = 0.6725`, the certified `NscStd` row:
+
+* off-line control buys at most `κ`, and only at `β = 0` (`239`);
+* the multiplicity ladder buys **strictly** less than `κ` at every finite rung
+  (`Gaps.ladder_lt_kappa` — the `m` cancels and it reduces to `κ < 1`), with
+  `NoHaunted` the limit that reaches it.
+
+`Gaps.currencies_saturate_at_kappa` states the pair. So **any row promising more
+than `κ` on the `Nsc` line — Route I, `[OPEN D]` — is buying a third thing**, and
+that is a fact about the two exchanges rather than a gap in the search.
+
 ## What the decision actually is
 
 Not "how many points". **Which currency of assumption, and how much of it.**

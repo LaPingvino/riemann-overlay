@@ -1289,6 +1289,18 @@ Then `Σ_γ H(γ)³` is the count of **coincident triples**: the same diagonal o
 level up. The level-2 half is witnessed; the level-3 statement is a definition
 here, not yet a theorem.
 
+> **SCOPED, `SESSION 200`.** "Requires leaving the two-moment world" holds for
+> a bound asserted over **every** configuration, which is what `LinearBound`
+> says. `prop1_LP_optimal` uses that hypothesis at two configurations, `single`
+> and `Gauge.pairOnly`, and `Optimal.prop1_LP_optimal_needs_the_witnesses` shows
+> the conclusion is false over a class omitting them.
+>
+> The second witness is a mass-two atom — a multiple zero. Whether `ζ` has one
+> is not known, so a two-moment bound asserted only where `ζ`'s own
+> configuration lives is not covered by `prop1_LP_optimal`. This does **not**
+> say such a bound exists or would be better; it says the optimality theorem
+> does not rule one out, and the register should not read as though it did.
+
 **Why it is on the critical path.** `Optimal.prop1_LP_optimal` says improving
 Proposition 1 requires leaving the two-moment world, and `ISSUES` #20 names the
 missing object as `Σ m³`. If that object is the level-3 diagonal, then the

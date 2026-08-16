@@ -9295,3 +9295,51 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** three cycles ago this project believed rung 0 was one
 instantiation away from certified, and what moved it was asking which way an
 inclusion pointed.
+
+## Sweeping for the defect, and finding it had already been answered once
+
+`198` and `199` found a scoping error of a definite shape: optimising over a
+class wider than the conclusion needs. The obvious next question is whether it
+recurs.
+
+**Kill condition, filed first:** *if every optimality claim in the development
+quantifies over the class its conclusion actually needs, the defect is confined
+to rung 0 and I record that; if one optimises over a wider class than its claim,
+it carries the same error and must be scoped at its location.*
+
+The main candidate is `prop1_LP_optimal`, which quantifies over **every**
+configuration. And the answer is that the project already met this and answered
+it correctly, many cycles ago: `prop1_LP_optimal_cheap` derives the same
+conclusion from a bound asserted only on `BoundedMult M`, `M ≥ 2` — a subclass —
+because both witnesses live there. Re-proving from the weaker hypothesis is
+a sound response to a shrinking class. At rung 0 that response is unavailable
+for a reason `199` made precise: there the conclusion itself changes under
+restriction.
+
+So I made the underlying fact checkable rather than implicit.
+`Optimal.prop1_LP_optimal_needs_the_witnesses`: over configurations with no
+zeros at all, every `(a, b)` is a valid linear bound, and `(3, 0)` breaks
+`a + b·C ≤ 2 − C` at `C = 1`. The optimality is a fact about **which
+configurations the class admits**, not about the inequality.
+
+**And that surfaced something sharper.** The second witness, `Gauge.pairOnly`,
+is a mass-two atom — a multiple zero. Whether `ζ` has one is not known. So a
+two-moment bound asserted only where `ζ`'s own configuration lives is not
+covered by `prop1_LP_optimal`, and `LEADS.md:1292` — *"improving Proposition 1
+requires leaving the two-moment world"* — read as though it were. Scoped at the
+location, carefully: this does not say such a bound exists or would be better,
+only that the optimality theorem does not rule one out. `S96`.
+
+The register's word "realizable" at `LEADS.md:1476` was checked and is correct
+in its own sense — realizable by *some* configuration, as against `C = 3/2`
+which is realizable by none. It was not claiming `ζ`-realizability.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the argument that the two-moment world is exhausted
+leans on a configuration whose existence this project is trying to rule out,
+so proving `ζ`'s zeros simple would remove the very witness that says you cannot
+do better in two moments.

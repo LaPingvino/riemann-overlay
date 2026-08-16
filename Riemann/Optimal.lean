@@ -163,6 +163,42 @@ the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, an
 it involves no multiplicative information whatever. -/
 def BoundedMult (M : ℕ) (D : ZeroData) : Prop := ∀ γ : ℝ, D.H γ ≤ M
 
+/-- **The optimality is a fact about the class, not about the inequality.**
+`SESSION 200`.
+
+`prop1_LP_optimal` derives `a + b·C ≤ 2 − C` from `LinearBound a b`, and it uses
+that hypothesis at exactly two configurations: `single` and `Gauge.pairOnly`.
+`prop1_LP_optimal_cheap` makes the point constructively — the same conclusion
+follows from a bound asserted only on `BoundedMult M` with `M ≥ 2`, because both
+witnesses live there.
+
+This is the converse, and it is what `198`/`199` taught to check.  Restrict to a
+class that omits the witnesses and the conclusion is **false**: over
+configurations with no zeros at all, every `(a, b)` is a valid linear bound, and
+`(3, 0)` breaks `a + b·C ≤ 2 − C` at `C = 1`.
+
+So the strength of `prop1`'s optimality comes from the class containing the two
+witnesses.  A bound asserted only where `ζ`'s own configuration lives is not
+covered by either theorem, since neither witness is claimed to be a `ζ`
+configuration.  That gap is named here rather than left to be inferred. -/
+theorem prop1_LP_optimal_needs_the_witnesses :
+    ∃ (P : ZeroData → Prop) (a b C : ℝ),
+      1 ≤ C ∧ C ≤ 2
+      ∧ (∀ D : ZeroData, P D → a * D.N + b * D.Nstar ≤ D.Nsc)
+      ∧ ¬ (a + b * C ≤ 2 - C) := by
+  classical
+  refine ⟨fun D => D.N = 0, 3, 0, 1, le_refl 1, by norm_num, ?_, by norm_num⟩
+  intro D hD
+  have hZ : D.Z = 0 := Multiset.card_eq_zero.1 hD
+  have hstar : D.Nstar = 0 := by
+    show ((D.Z.map fun p => D.H p.2).sum) = 0
+    rw [hZ]; simp
+  have hsc : D.Nsc = 0 := by
+    show Multiset.card (D.Z.filter fun p => p.1 = 1 / 2 ∧ D.H p.2 = 1) = 0
+    rw [hZ]; simp
+  rw [hD, hstar, hsc]
+  norm_num
+
 /-- A linear bound asserted only where multiplicity is bounded by `M` — i.e. a
 bound entitled to use the cheap invariants. -/
 def LinearBoundCheap (M : ℕ) (a b : ℝ) : Prop :=

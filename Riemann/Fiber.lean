@@ -3160,6 +3160,60 @@ theorem NscStd_eq_Nsc_add_haunted (D : ZeroData) :
       · rw [if_neg hsc, if_neg (by tauto)]; norm_num
   exact_mod_cast key
 
+/-- **`β = 1 − κ` is not a limitation of the producers — it is optimal.**
+`SESSION 169`.
+
+`162` found every `OffLineImport` in the development carrying `β = 1 − κ`, and
+`161`/`168` found three routes dying because of it.  That left a question those
+cycles did not ask: is `1 − κ` merely what our two producers happen to emit, or
+the best any derivation from `ProportionStd κ` could give?
+
+**The best.**  `Noff_add_NscStd_le_N` gives `Noff ≤ N − NscStd ≤ (1 − κ)·N`
+directly, so no rearrangement of the same information does better — and the
+bound is *attained*, so there is no slack to recover.
+
+The witness is one ordinate carrying a single critical zero and one off-line
+pair: `N = 3`, `Noff = 2`, `NscStd = 1`, and `2 + 1 = 3`.  Via
+`NscStd_eq_Nsc_add_haunted` its `NscStd` is `0 + 1`, the atom being haunted
+rather than simple.
+
+**So `168`'s want-ad is for new arithmetic information, not for a cleverer
+derivation.**  Any `β < 1 − κ` must consume something the proportion does not
+contain. -/
+theorem offLine_bound_attained {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 1 1 a).Noff + (configAt 0 1 1 a).NscStd = (configAt 0 1 1 a).N
+      ∧ 0 < (configAt 0 1 1 a).N := by
+  classical
+  have hN : (configAt 0 1 1 a).N = 3 := by rw [configAt_N]
+  have hOff : (configAt 0 1 1 a).Noff = 2 := by rw [configAt_Noff ha]
+  have hNsc : (configAt 0 1 1 a).Nsc = 0 := by
+    rw [ZeroData.Nsc, Multiset.card_eq_zero, Multiset.filter_eq_nil]
+    intro p hp hcon
+    have hH : (configAt 0 1 1 a).H p.2 = 3 := by
+      have : p.2 = 0 := by
+        have := congrArg (fun m => Multiset.count p.2 m)
+          (configAt_ordinates (0:ℝ) 1 1 a)
+        by_contra hne
+        have hmem : p.2 ∈ (configAt 0 1 1 a).ordinates :=
+          Multiset.mem_map_of_mem _ hp
+        rw [configAt_ordinates] at hmem
+        exact hne (Multiset.eq_of_mem_replicate hmem)
+      rw [this, configAt_H]; simp
+    omega
+  have hHnt : hauntedCount (configAt 0 1 1 a) = 1 := by
+    rw [hauntedCount, configAt_ordinates]
+    rw [show Multiset.replicate (1 + 2 * 1) (0:ℝ) = Multiset.replicate 3 (0:ℝ) by norm_num]
+    rw [Multiset.toFinset_replicate]
+    rw [if_neg (by norm_num : ¬(3 = 0))]
+    rw [Finset.filter_singleton]
+    rw [if_pos]
+    · simp
+    · constructor
+      · rw [configAt_H, configAt_offAt ha]; simp
+      · rw [configAt_H]; simp
+  have := NscStd_eq_Nsc_add_haunted (configAt 0 1 1 a)
+  omega
+
 /-- **The mass accounting: `Nsc + 3·hauntedCount ≤ N`.**  A simple ordinate
 carries one zero, a haunted one at least three, and they are disjoint. -/
 theorem Nsc_add_three_mul_haunted_le_N (D : ZeroData) :

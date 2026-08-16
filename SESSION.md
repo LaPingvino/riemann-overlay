@@ -7773,3 +7773,53 @@ is to make the commit conditional, and I have not done it.
 different vocabularies, and each time the arithmetic bottomed out on the same
 missing number, which suggests the project has one open problem on this shelf and
 not a family of them.
+
+# SESSION 169 — `β = 1 − κ` is forced, not habitual
+
+**Kill condition, stated first:** *if `Noff = (1−κ)·N` is unattainable, there is
+slack and a better `β` is derivable from `ProportionStd κ` alone; if attainable,
+`β = 1 − κ` is optimal and `168`'s want-ad is genuinely for new arithmetic
+input.* **It fired: the bound is attained.**
+
+`162` found every `OffLineImport` in the development carrying `β = 1 − κ`, and
+`161`/`168` watched three routes die because of it. None of those cycles asked
+whether `1 − κ` is what our two producers *happen* to emit or the best obtainable
+from the information they consume.
+
+**It is the best.** `Noff_add_NscStd_le_N` gives `Noff ≤ N − NscStd ≤ (1 − κ)·N`
+in one step, so no rearrangement improves it — and
+`Blindness.offLine_bound_attained` (**axiom-free**) exhibits equality:
+
+    one ordinate, one critical zero, one off-line pair
+    N = 3,  Noff = 2,  NscStd = 1,  2 + 1 = 3
+
+Its `NscStd` is `0 + 1` via `NscStd_eq_Nsc_add_haunted` — the atom is haunted,
+not simple, which is why the same mass-`3` configuration keeps turning up as this
+project's tightness witness.
+
+## `S75` — seven cycles on a constant I never asked about
+
+Routes have been dying on `β = 1 − κ` since `161`, and I recorded the shared
+output as a curiosity of the producers (`162`) without checking whether it was
+forced. It is forced. **So `168`'s want-ad is for new arithmetic information, not
+a cleverer derivation:** any `β < 1 − κ` must consume something
+`ProportionStd κ` does not contain.
+
+That is the sharpest form the standing obstruction has taken. The off-line,
+simple-zero and distinct-zero shelves are all downstream of one missing number,
+and that number is provably not extractable from the row we already hold.
+
+## Snags, bin 2
+
+Two, both mechanical and both caught by the build. The theorem was first placed
+~900 lines above `hauntedCount`'s definition — a forward reference, the ordering
+cousin of `S61`/`S62`'s anchor defect. And a `simp only [Finset.filter_congr_decidable]`
+made no progress where an explicit `if_neg` was wanted.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. One name added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** the wall three literature genres have died against is
+one inequality with an attained equality case, and the equality case is a single
+critical zero standing between two ghosts.

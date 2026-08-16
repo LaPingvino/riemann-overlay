@@ -431,6 +431,17 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 > instance.** The distinct-zeros channel is open in form and closed in
 > arithmetic, exactly like the other two, until an independent off-line bound
 > exists.
+>
+> ✅ **`SESSION 169` — and `β = 1 − κ` is optimal, not just what our producers
+> emit.** `Noff_add_NscStd_le_N` gives `Noff ≤ N − NscStd ≤ (1 − κ)·N` directly,
+> so no rearrangement of the same information does better; and
+> `Blindness.offLine_bound_attained` (axiom-free) exhibits equality — one
+> ordinate with a single critical zero and one off-line pair, `N = 3`,
+> `Noff = 2`, `NscStd = 1`. **There is no slack to recover.**
+>
+> So the want-ad below is for **new arithmetic information**, not for a cleverer
+> derivation: any `β < 1 − κ` must consume something `ProportionStd κ` does not
+> contain.
 > Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
 > which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
 > with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).

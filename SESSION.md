@@ -10900,7 +10900,7 @@ them, against `κ = 0.6725` and `κ' = 0.85838`:
 | `1.9825` | `4 − 3κ`, i.e. `1 + 2(1 − (3κ−1)/2)` |
 | `0.590625` | ladder at `m = 5` |
 | `0.6179166` | ladder at `m = 7` |
-| `0.60169` | the `ξ'` route's value |
+| `0.60169` | `κ − (1 − κ')/2` — **corrected `238`**; `237` gave a label, not a formula |
 | `1.393` | the exchange crossover, solved for |
 | `0.50944` | `0.50875 + 0.00069`, the tightness margin of `111`/`112` |
 
@@ -10929,3 +10929,44 @@ green.
 **Might-mean, unhedged:** the project's numeric surface is two axioms and a
 handful of one-line formulas, and the reason it has felt richer is that the
 formulas were evaluated in different files by different cycles.
+
+## The `ξ′` route is the unconditional route with a better `β`
+
+`237` classified fourteen constants and gave `0.60169` a **label** — "the `ξ'`
+route's value" — where every other row got a formula. That is the weakest cell
+in the table and it was mine.
+
+**Kill condition, filed first:** *if `0.60169` is not a closed-form function of
+`κ'` and the exchange constants, I correct `237`'s table to call it unclassified
+rather than derived.* It did not fire. The formula is in the source, one line
+into `certified_nsc_via_xiPrime`:
+
+    (0.6725 : ℝ) - 0.14162 / 2 = 0.60169
+
+and `237` had already identified `0.14162 = 1 − κ'`. So
+
+    0.60169  =  κ − (1 − κ') / 2.
+
+**And that is the unconditional row's formula.** `certified_nsc_unconditional`
+is `κ − (1 − κ)/2 = 0.50875`. Both are `proportion_of_offLineImport` priced at
+`κ − β/2`; they differ only in which off-line import `β` you can buy — your own
+family's `1 − κ`, or `ξ'`'s `1 − κ'` at the cost of two more axioms.
+
+`exchange_at_both_imports` records the pair, axiom-free, so the two rows are
+visibly one theorem evaluated twice.
+
+`237`'s reading of `0.3275` against `0.14162` repeats one level up: those two
+numbers **are** the two `β`s, and `0.50875` against `0.60169` is what they buy.
+
+`237`'s table corrected at its location — the row now carries the formula and
+says the earlier entry was a label.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** both off-line-import rows price at `κ − β/2` and differ
+only in which `β` can be bought, so the rows that genuinely differ — Routes I and
+III, `[OPEN D]` — are those buying a currency other than off-line mass.

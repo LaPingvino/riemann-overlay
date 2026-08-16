@@ -314,6 +314,23 @@ not a theorem about a program.
 * `no_gain_past_known` — two multipliers agreeing on `known` guarantee **the
   same value**, however wildly they differ beyond it.
 
+> **SCOPED, `SESSION 199`.** The sentence below is true **of the full
+> admissible class** and is not true of a subclass.
+> `Capacity.no_gain_past_known_fails_on_subclass` exhibits `K`, `K'` satisfying
+> every hypothesis of `no_gain_past_known` — agreeing on `known`, both
+> nonnegative outside — whose guaranteed values over the subclass "`F ≥ 1` off
+> `known`" are `2` and `3`.
+>
+> The mechanism is the one `198` found from the other side: once `F` is
+> constrained off `known`, the multiplier's values off `known` stop being free
+> to be zeroed out, so they reach the guaranteed value. A bandwidth-one class
+> carries exactly such a constraint.
+>
+> So what is machine-checked is the full-class statement. `#10`'s claim about
+> bandwidth-one certificates is still believed and is still not proved, and the
+> gap is now named twice over: `198` (the floor rises) and `199` (the no-gain
+> conclusion does not transfer).
+
 So the extension is *worthless* when nonnegative and *fatal* when not. Never
 profitable. That is `#10`'s content, and it is now machine-checked.
 

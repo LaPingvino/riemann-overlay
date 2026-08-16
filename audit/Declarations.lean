@@ -97,6 +97,8 @@ import Riemann
 #check @Riemann.Capacity.no_gain_past_known_integral
 -- SESSION 198: why the bandwidth-one half of rung 0 is not bookkeeping.
 #check @Riemann.Capacity.subclass_floor_strictly_above_pinned
+-- SESSION 199: and #10's no-gain conclusion does not transfer to a subclass.
+#check @Riemann.Capacity.no_gain_past_known_fails_on_subclass
 #check @Riemann.Capacity.unbounded_below_of_neg_outside_integral
 -- prop1's optimality in the two moments, certified (was a docstring claim)
 #check @Riemann.Optimal.LinearBound

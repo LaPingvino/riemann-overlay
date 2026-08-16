@@ -9254,3 +9254,44 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** I discharged half of this debt five cycles ago while
 repeating the register's own word for the other half, which means the fastest way
 to inherit a wrong belief here is to fix something next to it.
+
+## The theorem was fine; the sentence about what it establishes was not
+
+`198` showed a subclass can raise the capacity floor. That is quantitative — a
+slack the real argument might absorb. So the question this cycle is whether the
+*conclusion* survives.
+
+**Kill condition, filed first:** *if `no_gain_past_known`'s conclusion survives
+restriction to a subclass, `198`'s floor observation is a curiosity and `#10`'s
+content transfers anyway; if it fails, the register's "that is `#10`'s content,
+and it is now machine-checked" is scoped to the full class and must say so at
+its location.*
+
+It fails. `Capacity.no_gain_past_known_fails_on_subclass` exhibits `K = (1,1)`
+and `K' = (1,2)` meeting every hypothesis of `no_gain_past_known` — agreeing on
+`known = {0}`, both nonnegative outside — whose guaranteed values over the
+subclass "`F ≥ 1` off `known`" are `2` and `3`.
+
+The mechanism is `198`'s, read from the other end. `no_gain_past_known` works
+because the adversary can zero out `F` off `known`, which makes the multiplier's
+values there unreachable. Constrain `F` off `known` and they are reachable
+again. A bandwidth-one class carries exactly such a constraint.
+
+`no_gain_past_known` remains true as stated; this cycle does not touch it.
+What changes is the register's sentence about it: what is machine-checked is the **full-class**
+statement, and `#10`'s claim about bandwidth-one certificates is still believed
+and still not proved. Scoped at the location; `S95`.
+
+The gap is now named from both sides — `198` the floor rises, `199` the
+conclusion does not transfer — and both are witnessed in two indices, which is
+the cheapest possible demonstration that the obstruction is not an artefact of
+size.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** three cycles ago this project believed rung 0 was one
+instantiation away from certified, and what moved it was asking which way an
+inclusion pointed.

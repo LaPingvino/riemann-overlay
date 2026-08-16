@@ -453,6 +453,64 @@ theorem subclass_floor_strictly_above_pinned :
     norm_num [h0]
     linarith
 
+/-- **And `#10`'s content itself does not survive restriction.**  `SESSION 199`.
+
+`198` showed a subclass can raise the floor.  This is the sharper consequence.
+`FAILURES.md` calls `no_gain_past_known` *"`#10`'s content, and it is now
+machine-checked"*: two multipliers agreeing on `known` guarantee the **same**
+value, however wildly they differ beyond it.  That theorem is true, and it is
+true **about the full admissible class**.
+
+On a subclass it is false, and for the reason that makes the whole difficulty:
+once `F` is constrained off `known`, the multiplier's values off `known` stop
+being free to be zeroed out, so they reach the guaranteed value.
+
+Same hypotheses as `no_gain_past_known` — `known ⊆ S`, `K` and `K'` agreeing on
+`known`, both nonnegative outside — and the two guaranteed values over the
+subclass are `2` and `3`.
+
+The consequence for the ladder: a bandwidth-one class carries a Fourier-support
+constraint off the known region, so `no_gain_past_known` does not transfer to it
+by itself.  What `#10` claims is still believed; what is machine-checked is the
+full-class statement. -/
+theorem no_gain_past_known_fails_on_subclass :
+    ∃ (known S : Finset (Fin 2)) (K K' F₀ : Fin 2 → ℝ),
+      known ⊆ S
+      ∧ (∀ i ∈ known, K i = K' i)
+      ∧ (∀ i ∈ S, i ∉ known → 0 ≤ K i)
+      ∧ (∀ i ∈ S, i ∉ known → 0 ≤ K' i)
+      ∧ IsGreatest {v : ℝ | ∀ F, (Admissible known F₀ F ∧ ∀ i ∉ known, 1 ≤ F i) →
+            v ≤ ∑ i ∈ S, K i * F i} 2
+      ∧ IsGreatest {v : ℝ | ∀ F, (Admissible known F₀ F ∧ ∀ i ∉ known, 1 ≤ F i) →
+            v ≤ ∑ i ∈ S, K' i * F i} 3 := by
+  classical
+  refine ⟨{0}, Finset.univ, fun _ => 1, fun i => if i = 0 then 1 else 2,
+    fun i => if i = 0 then 1 else 0, Finset.subset_univ _,
+    fun i hi => by simp [Finset.mem_singleton.1 hi],
+    fun _ _ _ => zero_le_one, fun i _ _ => by by_cases h : i = 0 <;> simp [h] <;> norm_num,
+    ⟨?_, ?_⟩, ⟨?_, ?_⟩⟩
+  · intro F hF
+    have h0 : F 0 = 1 := by simpa using hF.1.1 0 (Finset.mem_singleton_self 0)
+    have h1 : (1 : ℝ) ≤ F 1 := hF.2 1 (by simp)
+    simp only [Fin.sum_univ_two, one_mul]
+    linarith
+  · intro v hv
+    have := hv (fun _ => 1) ⟨⟨fun i hi => by simp [Finset.mem_singleton.1 hi],
+      fun _ _ => zero_le_one⟩, fun _ _ => le_refl 1⟩
+    simpa [Fin.sum_univ_two] using this
+  · intro F hF
+    have h0 : F 0 = 1 := by simpa using hF.1.1 0 (Finset.mem_singleton_self 0)
+    have h1 : (1 : ℝ) ≤ F 1 := hF.2 1 (by simp)
+    simp only [Fin.sum_univ_two]
+    norm_num [h0]
+    linarith
+  · intro v hv
+    have := hv (fun _ => 1) ⟨⟨fun i hi => by simp [Finset.mem_singleton.1 hi],
+      fun _ _ => zero_le_one⟩, fun _ _ => le_refl 1⟩
+    simp only [Fin.sum_univ_two] at this
+    norm_num at this
+    linarith
+
 /-! ### Rung 0 at the class `#10` actually names — `SESSION 193`
 
 `FAILURES.md` recorded rung 0 as **partial**: the `Finset` skeleton was proved

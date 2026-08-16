@@ -13164,7 +13164,13 @@ So the standing escalation should be re-read: `zetaNonempty` costs one build of
 seven and a half minutes and nothing measurable per cycle. Corrected at both
 locations — the axiom's docstring and `PRICES.md`.
 
-**Snag, bin 1.** I first launched the build with `( … ) &` inside a `Bash` call
+**Snag, bin 1, and `284` found it is `ISSUES` `#14` recurring — not new.**
+`#14`, from session `003`, is *"detached long builds do not survive; and
+`| tail -N` hides the death"*, with the prescribed fix being a harness-tracked
+`Monitor`. I did not use one. What follows was written as a discovery and is a
+repeat.
+
+I first launched the build with `( … ) &` inside a `Bash` call
 and then polled it across later calls. It was dead: `pgrep` found no `lake` and
 no `lean`, the log frozen at the thirty-second mark. A backgrounded process does
 not survive the call that spawned it here, so I spent nineteen minutes polling a
@@ -13295,3 +13301,48 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** the project's oldest open defect was a missing one-line
 theorem the whole time, which suggests some of what the registers carry as
 *open* is carried there because nobody asked what it would take to close.
+*(`284` tested that and it does not generalise: `#1`, `#3` and `#19` are blocked
+on analytic input, not on nobody asking. `#7` was the exception.)*
+
+## The register's *closed* entries are the ones that bite
+
+`283` ended by suggesting some open items are open only because nobody asked
+what it would take to close them. That is testable.
+
+**Kill condition, filed first:** *if every open item turns out blocked on a
+ruling or on literature the loop cannot fetch, then the might-mean is wrong and
+I report them as genuinely blocked rather than merely unexamined.* **It fired.**
+`#1` wants a strengthened `δ₀` interface, `#3` a `λ`-uniform close-pair lower
+bound, `#19` a non-circular route through the discarded `𝒩` term — analytic
+input, not one-line closes. `#6` and `#8` are largely discharged already. `#7`
+was the exception, and `283`'s might-mean is corrected at its location.
+
+**But the sweep found something better, in the other direction.**
+`ISSUES` `#14`, from session `003`, reads *"detached long builds do not survive;
+and `| tail -N` hides the death"* — the sandbox does not keep detached
+grandchildren alive past the spawning call. It prescribes running long jobs as a
+harness-tracked `Monitor`.
+
+**`281` hit exactly that, three days and 278 cycles later, and wrote it up as a
+discovery.** An 18-minute build launched with `( … ) &`, dead inside the first
+call, nineteen minutes spent polling a corpse. The prescribed fix was available
+and unused. Corrected at `281`'s snag, and the recurrence recorded at `#14`.
+
+**Why it did not reach me, which is the finding.** `#14` is marked **fixed**.
+Being marked fixed is precisely why nothing surfaced it: a closed entry is one
+no instrument reads again. `R26`'s index covers `5,118` theorem statements and
+zero process rules, and `S111`, `S113`, `S114` and this are all the same shape —
+the knowledge existed, on disk, and the cost of finding it exceeded the cost of
+rediscovering it the hard way.
+
+That is four recurrences of one pattern in thirty cycles. I am not proposing a
+thirteenth guard for it in the same breath as naming it; `278` built one on a
+single recurrence and `S113` was right that a rule needing to be remembered is
+not a rule, but an index of process rules is a different object from a guard and
+wants its own cycle to design honestly.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, twelve guards green, `ISSUES` at baseline `40`.
+
+**Might-mean, unhedged:** this project indexes what it has proved and not what it
+has learned, so its theorems are searchable and its scar tissue is not.

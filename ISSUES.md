@@ -414,6 +414,17 @@ and a death is visible immediately.
 buffering converts a crash into silence, which is the failure mode the Monitor
 guidance warns about ("silence is not success"). Echo `rc=$?` after every step.
 
+**Recurred at `SESSION 281`, and the fix was available.** `281` launched an
+18-minute `lake build` with `( … ) &` inside a `Bash` call and polled it across
+later calls; it was dead within the first call, and nineteen minutes went into
+polling a corpse. The `Monitor` this entry prescribes was available and was not
+used. `284` found the recurrence by reading this register.
+
+**What that says about the register.** This entry is marked `fixed`, and being
+marked fixed is exactly why it did not reach the cycle that needed it — a closed
+item is one nothing surfaces again. `R26`'s statement index covers theorems; no
+instrument here indexes process rules.
+
 
 ## #15 — [session 003 wildcard] AH-oracle run on CGG98: the first **AH-sensitive** mechanism, and a conditional partial AH refutation
 

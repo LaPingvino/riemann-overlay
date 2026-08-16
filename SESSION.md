@@ -6127,6 +6127,13 @@ Build green (3757 jobs), sorries 0 (the four `grep` hits are prose —
 "sorry-free", "no `sorry`"), ledger `NscStd 67.25% / Nsc 50.88%`, axioms 2, base
 hash `cd7a22e688df` unmoved. Absence-queue obligations discharged: 1 of 14.
 
+**The gate on this entry: 4 flagged, 2 real.** *"the only reason I looked"* was
+an unfalsifiable claim about my own motive, and *"is the same event"* was the
+`S30` identity shape — `S17` and `S40` are two events sharing a failure mode,
+which is what I now say. The other two are absence claims I hold witnesses for
+(the exit-5 reproduction; the heading's own date), so they ship as written. That
+is 2 true positives in 4 on my own prose, in line with the 2026-08-15 triage.
+
 **Might-mean, unhedged:** the cron has been reading me a stale number every
 cycle for fifty-eight sessions because a document titled "Current state" was
 written once and never re-titled, and the fix was not to correct the number but

@@ -367,6 +367,16 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 
 **a gain of 9.29 points, from results the project already holds.**
 
+> ⚠️ **`SESSION 147` — the arithmetic above is now a theorem, and the price was
+> understated.** `Riemann.certified_nsc_via_xiPrime` proves
+> `Proportion 0.60169` from the two hypotheses, so nothing here is a
+> docstring calculation any more. But `#print axioms` on it returns **four**
+> project axioms — `baseline_zeta23, xiPrimeFamily, zeta23_xiPrime,
+> zetaNonempty` — against the certified row's **two**. So the route costs *two
+> hypotheses **and** two extra axioms*, and adopting it would move the ledger's
+> `axioms:` field from 2 to 4. Every entry below that prices this route as "two
+> `Prop`s" is pricing half of it.
+
 **Why it is not claimed.** Two hypotheses, both carried as `Prop`s and neither
 an axiom, per `Assumptions.lean`'s own rule:
 

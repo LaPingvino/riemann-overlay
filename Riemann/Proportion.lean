@@ -375,6 +375,63 @@ theorem nsc_row_opens {C : ℝ} (hstar : zetaFamily.toCounts.StarBound C)
       (0.6725 - (C - 1) / 6 - ε) * zetaFamily.Nz T ≤ zetaFamily.Nsc T :=
   nsc_of_nscStd zetaFamily hstar baseline_zeta23
 
+/-! ### Route II at the ζ level, conditional and axiom-free in its own step
+
+`Gaps.offLineImport_of_derivative` is general; `Assumptions.zeta23_xiPrime`
+supplies `κ' = 0.85838` for `ξ'`.  Until now the two were never composed at the
+ζ level, so the `+9.29`-point route existed as a **docstring arithmetic** and
+not as a theorem.  `SESSION 147` closes that gap.
+
+**The two hypotheses stay hypotheses.**  `OffTransfer` needs Riemann–von
+Mangoldt (`log T = o(N(T))`), which is not in the registers; `NzComparable`
+needs a relation between `xiPrimeFamily` and `zetaFamily`, and `xiPrimeFamily`
+is an *opaque* axiom with no stated connection to `zetaFamily`.  Both are
+Conrey 1983, unread.  Discharging either by axiom would raise the certified
+proportion **by assumption**, which is what `Assumptions.lean` exists to forbid.
+
+So the ledger does **not** move: `tools/metric.json` points no row here.  What
+changes is that the mathematics is now done, and the parked ruling is reduced to
+a pure doctrine question — *may these two be assumed?* — with no derivation left
+inside it. -/
+
+/-- **The `ξ'` off-line import, conditional on the two transfer hypotheses.**
+`1 − 0.85838 = 0.14162`. -/
+theorem offline_via_xiPrime
+    (htr : OffTransfer zetaFamily xiPrimeFamily)
+    (hcmp : NzComparable zetaFamily xiPrimeFamily) :
+    OffLineImport zetaFamily 0.14162 := by
+  have h := offLineImport_of_derivative (κ' := (0.85838 : ℝ))
+    (by norm_num) (by norm_num) zeta23_xiPrime htr hcmp
+  have e : (1 : ℝ) - 0.85838 = 0.14162 := by norm_num
+  rwa [e] at h
+
+/-- **Route II priced, as a theorem rather than a docstring: `0.60169`.**
+
+`0.6725 − 0.14162/2 = 0.60169`, i.e. **`+9.294` points** on the `Nsc` row over
+the unconditional `0.50875` — the largest single movement available on the
+board.
+
+**What it costs, stated exactly** (`#print axioms`, `SESSION 147`): the two
+hypotheses in the signature **and two more axioms than the certified row**.  The
+cone here is `baseline_zeta23, xiPrimeFamily, zeta23_xiPrime, zetaNonempty`;
+`certified_nsc_unconditional`'s is `baseline_zeta23, zetaNonempty`.  So the route
+is deeper in the trusted base as well as conditional, and a ruling to adopt it
+would raise the ledger's axiom count from 2 to 4 — not merely discharge two
+`Prop`s.  That is a materially bigger ask than the registers had recorded.
+
+Compare `certified_nsc_via_offline`, which is the same exchange rate
+(`proportion_of_offLineImport`) fed the *unconditional* import `0.3275` and
+lands on `0.50875`.  The entire gain is the difference between importing
+off-line mass from the baseline itself and importing it from `ξ'`. -/
+theorem certified_nsc_via_xiPrime
+    (htr : OffTransfer zetaFamily xiPrimeFamily)
+    (hcmp : NzComparable zetaFamily xiPrimeFamily) :
+    zetaFamily.toCounts.Proportion 0.60169 := by
+  have h := proportion_of_offLineImport certified_std
+    (offline_via_xiPrime htr hcmp)
+  have e : (0.6725 : ℝ) - 0.14162 / 2 = 0.60169 := by norm_num
+  rwa [e] at h
+
 /-! ### The binding constraint
 
 Today the binding constraint is `Assumptions.baseline_zeta23`: the number is

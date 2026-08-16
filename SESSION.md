@@ -6452,3 +6452,69 @@ Build green (3757 jobs), sorries 0, all 15 guards green, ledger
 **Might-mean, unhedged:** the instrument that exists to make absent things
 visible was itself hiding one, and it hid it with two independent rules that each
 looked reasonable and were only harmless because the other one was also wrong.
+
+# SESSION 147 — the +9.29 route becomes a theorem, and the price was understated
+
+**Kill condition, stated first:** *if the chain needs anything beyond the two
+named hypotheses plus what is already certified, say so and leave the route open
+— do not add hypotheses until it closes.* **It did not fire:** the chain closes
+on exactly `zeta23_xiPrime`, `OffTransfer`, `NzComparable` and the existing
+`certified_std`.
+
+**What was missing.** `Gaps.offLineImport_of_derivative` is general and
+`Assumptions.zeta23_xiPrime` supplies `κ' = 0.85838`, but the two had **never
+been composed at the ζ level**. The largest single movement on the board — the
+one `PRICES.md` has carried since `087` — existed only as arithmetic inside a
+docstring. Two theorems now close it:
+
+* `offline_via_xiPrime` — `OffLineImport zetaFamily 0.14162` (`1 − 0.85838`);
+* `certified_nsc_via_xiPrime` — `Proportion 0.60169` (`0.6725 − 0.14162/2`),
+  i.e. **`+9.294` points** over the unconditional `0.50875`.
+
+Both built first try. **The ledger does not move and must not**: `metric.json`
+points no row here, and `proportion.go` still reports `Nsc 50.88%` at `axioms: 2`.
+
+**And the price was understated — `S48`.** I wrote *"it costs exactly the two
+hypotheses named in the signature"* into the new docstring, then ran
+`#print axioms` because R17 says verify a cone rather than read it off a
+statement. It returns **four** project axioms:
+
+    certified_nsc_via_xiPrime : baseline_zeta23, xiPrimeFamily,
+                                zeta23_xiPrime, zetaNonempty
+    certified_nsc_unconditional : baseline_zeta23, zetaNonempty
+
+So Route II costs *two hypotheses **and** two extra axioms*, and adopting it
+would move the ledger's `axioms:` field from **2 to 4**. Every entry in
+`PRICES.md` that prices this route as "two `Prop`s" is pricing half of it —
+corrected at the location of the `9.29` figure. The docstring was fixed before
+committing rather than shipped and retracted.
+
+**What this changes about the parked ruling, and it is why the cycle was worth
+spending.** The ruling was *"may `OffTransfer` and `NzComparable` be assumed?"*
+It is now two separable questions: the **derivation** is done and needs no
+further decision, and the **doctrine** question is strictly larger than recorded
+— it is a proposal to double the trusted base for 9.29 points. Joop, that is the
+form I would like the ruling in.
+
+R20: this is a substantive cycle, so the hygiene run (`146` at 2 of 3) resets.
+
+Build green (3757 jobs), sorries 0 (the four `grep` hits are prose), ledger
+`NscStd 67.25% / Nsc 50.88%`, axioms 2, base hash `cd7a22e688df` unmoved. Both
+new names added to `audit/Declarations.lean`. Guards: **14 green**, plus
+`claims_gate` run against files rather than stdin — see below.
+
+**A green light that was not green — `S49`.** Running the guard sweep this cycle
+hung, because `claims_gate.py` with no file arguments lints **stdin**. In a sweep
+loop stdin is empty, so it printed `0 flagged` and exited `0` **having scanned
+nothing**. So `145`'s and `146`'s "all 15 guards green" were fourteen real passes
+and one no-op wearing a green light. Those entries are dated records and stand as
+written; the correction is here, and the sweep now names a file. `CLAIMS.md`
+actually carries **5** flags, and the Route II row added this cycle is not among
+them.
+
+R17 says no witness, no belief, including about live state. A guard that cannot
+fail is not a witness, and I had been counting one for at least two cycles.
+
+**Might-mean, unhedged:** a route's price is not what its statement asks for but
+what its proof reaches for, and those differed here by a factor of two in the
+currency the ledger reports on every line.

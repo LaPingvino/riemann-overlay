@@ -289,3 +289,5 @@ import Riemann
 #check @Riemann.hauntedDensity_of_distinctZeros
 #check @Riemann.certified_haunted_via_distinctZeros
 #check @Riemann.Blindness.landau_ge_N_mul_sqrt
+#check @Riemann.offline_via_xiPrime
+#check @Riemann.certified_nsc_via_xiPrime

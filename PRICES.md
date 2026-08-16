@@ -621,6 +621,12 @@ quite different.
 > | **Route I** | `> 0.6725` | `> +16.375` | **1** | effective Fujii `c₀ ≤ 0.33` |
 > | **[OPEN D]** | `1 − ε` | `+49.125` | **1** | extended support |
 >
+> ✅ **`SESSION 165`: the board is now extracted, not recalled.**
+> `forensics/board.py` lists every declaration concluding in a `zetaFamily`
+> proportion and **exits 1 if that set changes**, so a row cannot appear or
+> vanish unnoticed again. It found 13, and corrected the hand list on its first
+> run. Fault-injected both directions.
+>
 > **The last row has been on every ledger line since the project began** — it is
 > the `conjectural: 100.00% (OPEN D)` field. Nothing was hidden and nothing is
 > new here except the comparison.

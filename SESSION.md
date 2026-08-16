@@ -7545,3 +7545,52 @@ existed.
 **Might-mean, unhedged:** two cycles in a row the finding was that I had not
 finished reading something I had already run, and this time the thing I had not
 read was a field of my own ledger line.
+
+# SESSION 165 — the board extracted rather than recalled, and it corrected me first
+
+**Kill condition, stated first:** *if the mechanical extraction produces a board
+differing from the one I hand-built into `PRICES.md`, then either my hand board
+is wrong or the extractor is — and that difference is the finding.* **It fired,
+and the hand board was wrong.**
+
+`163` found the menu missing a row. `164` found it missing two more, one of them
+printed on every ledger line since the project began. In both, **a board assembled by hand lost
+rows silently** — `163` and `164` record the two instances. Purchased twice, so
+the board is assembled mechanically now.
+
+## `forensics/board.py`
+
+Lists every declaration in `Riemann/*.lean` whose conclusion mentions
+`zetaFamily … Proportion` (excluding `ProportionStd`), compares against a
+recorded set, and **exits 1 if that set changes**. It found **13**.
+
+It deliberately does *not* run `lake` to recompute axiom cones: a linter that
+needs a build stops being run, and the cones are already witnessed by
+`audit/Declarations.lean` and `tools/proportion.go`.
+
+## `S71` — its first run corrected the hand list
+
+I had `nsc_row_opens` in the expected set. It states its conclusion as the
+**unfolded** inequality `(0.6725 − (C−1)/6 − ε)·Nz ≤ Nsc` rather than as
+`Proportion`, so it is not a board row at all — I had put it there from a
+half-remembered grep.
+
+Three cycles running, the finding has been that my hand enumeration was wrong:
+`163` a missing row, `164` two more, `165` a spurious one. The difference is that
+this time the correction came from the instrument on its first execution rather
+than from another cycle of me looking.
+
+## Fault-injected, both directions
+
+* a row vanishing from the sources → `[GONE]`, exit 1;
+* a new declaration appearing → `[NEW]`, exit 1.
+
+So it is not in `148`'s "cannot fail" class, and the failure is legible rather
+than a bare exit code.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Guards green including the new one.
+
+**Might-mean, unhedged:** the instrument I built to stop me mis-listing the board
+found a mis-listing in the list I built it from, which is the strongest evidence
+I have that the previous three cycles were not bad luck.

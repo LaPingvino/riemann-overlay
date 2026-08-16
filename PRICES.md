@@ -567,7 +567,13 @@ quite different.
 > `NoSmallHaunted.mono` (rung `m+1` implies rung `m`, so the rungs are nested)
 > and `noHaunted_iff_forall_noSmallHaunted` (`NoHaunted ↔ ∀ m, NoSmallHaunted m`,
 > so the top row is the chain's limit and not a separate item that happens to pay
-> more). *Scope: nesting is `≤`, not `<` — general strictness is not claimed.*
+> more).
+>
+> ✅ **`SESSION 157`: and the chain is strict.** `noSmallHaunted_strict` gives, at
+> every rung, a configuration clearing it and failing the next — one ordinate with
+> one critical zero and `j` off-line pairs, haunted of mass exactly `1 + 2j`. So
+> **no two rows of this menu are the same hypothesis**, and the dial has a
+> distinct detent at every odd mass. Axiom-free.
 
 
 ## The ξ′ route's blocker has a citation (SESSION 115, from claude.ai)

@@ -389,11 +389,11 @@ and nothing had said they were.  They are: `m ≤ H` follows from `m + 1 ≤ H`,
 Together with `noHaunted_iff_forall_noSmallHaunted` this makes the menu's top row
 the top of a *chain* rather than a separate item that happens to pay more.
 
-*Scope, stated:* this is `≤`, not `<`.  **Strictness is not proved here** — that
-would need, for each `m`, a configuration satisfying rung `m` and failing rung
-`m + 1`.  `Blindness.configAt 0 1 1 a` (mass `3`, haunted) is such a witness at
-`m = 3`, so the chain is not constant; a general strictness statement is not
-claimed. -/
+*Scope, as first stated:* this is `≤`, not `<`.
+
+✅ **Strictness proved in `SESSION 157`** — `noSmallHaunted_strict` supplies the
+witness at every rung, so the chain is strictly increasing and no two rungs of
+the menu are the same hypothesis. -/
 theorem NoSmallHaunted.mono {F : Family} {m : ℕ}
     (hh : NoSmallHaunted F (m + 1)) : NoSmallHaunted F m := by
   intro T γ hg
@@ -444,6 +444,54 @@ are asymptotic predicates on families, so a `ZeroData` witness only refutes a
 noncomputable def constFamily (D : ZeroData) (h : 0 < D.N) : Family where
   D := fun _ => D
   nonempty := Filter.Eventually.of_forall fun _ => h
+
+/-- **And the chain is strict at every rung** — `SESSION 157`, closing the scope
+note `156` left open.
+
+`156` proved the rungs nested (`≤`) and explicitly declined `<`, which needs, for
+each `m`, a configuration satisfying rung `m` and failing rung `m + 1`.  The
+witness is the obvious one and it exists at every level: a single ordinate
+carrying one critical zero and `j` off-line pairs has `H = 1 + 2j`,
+`offAt = 2j`, hence `H − offAt = 1` — haunted, of mass exactly `1 + 2j`.  It
+clears rung `1 + 2j` by `le_refl` and fails rung `2 + 2j` because `H` is one
+short.
+
+So no two rungs of `PRICES.md`'s menu are the same hypothesis, and the dial has a
+distinct detent at every odd mass. -/
+theorem noSmallHaunted_strict {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j) :
+    ∃ F : Family, NoSmallHaunted F (1 + 2 * j)
+      ∧ ¬ NoSmallHaunted F (2 + 2 * j) := by
+  classical
+  have hN : 0 < (Blindness.configAt 0 1 j a).N := by
+    rw [Blindness.configAt_N]; omega
+  refine ⟨constFamily (Blindness.configAt 0 1 j a) hN, ?_, ?_⟩
+  · intro T γ hg
+    by_cases hγ : γ = 0
+    · subst hγ
+      right
+      show (1 + 2 * j) ≤ (Blindness.configAt 0 1 j a).H 0
+      rw [Blindness.configAt_H]
+      simp
+    · exfalso
+      have hH : (Blindness.configAt 0 1 j a).H γ = 0 := by
+        rw [Blindness.configAt_H]; simp [hγ]
+      have hsplit := Blindness.H_eq_onAt_add_offAt (Blindness.configAt 0 1 j a) γ
+      have : (Blindness.configAt 0 1 j a).H γ
+          - Blindness.offAt (Blindness.configAt 0 1 j a) γ = 1 := hg
+      omega
+  · intro hcon
+    have hg : (Blindness.configAt 0 1 j a).H 0
+        - Blindness.offAt (Blindness.configAt 0 1 j a) 0 = 1 := by
+      rw [Blindness.configAt_H, Blindness.configAt_offAt ha]
+      simp
+    rcases hcon 0 0 hg with h1 | h2
+    · have h1' : (Blindness.configAt 0 1 j a).H 0 = 1 := h1
+      rw [Blindness.configAt_H] at h1'
+      simp at h1'
+      omega
+    · have h2' : 2 + 2 * j ≤ (Blindness.configAt 0 1 j a).H 0 := h2
+      rw [Blindness.configAt_H] at h2'
+      simp at h2'
 
 /-- **`111`'s witness, upgraded from `ZeroData` to `Family`.**
 

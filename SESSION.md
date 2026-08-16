@@ -7084,3 +7084,52 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** I described a structure as a dial for three cycles
 before checking it was ordered, and the check took four lines of Lean and no
 axioms.
+
+# SESSION 157 — the chain is strict, and the same parse error twice
+
+**Kill condition, stated first:** *if strictness fails at some rung — if a rung's
+hypothesis is equivalent to the next — the menu lists more distinct options than
+the dial actually has, and the detents must be recounted.* **It did not fire.**
+
+`156` proved the rungs nested and explicitly declined `<`, naming what strictness
+would need: for each `m`, a configuration clearing rung `m` and failing rung
+`m + 1`. That is this cycle.
+
+**Three theorems, all axiom-free** (`propext`, `Classical.choice`, `Quot.sound`):
+
+* `Blindness.configAt_H` — `H γ' = if γ' = γ then k + 2j else 0`;
+* `Blindness.configAt_offAt` — `offAt γ = 2j`, `configAt_Noff` localised;
+* `noSmallHaunted_strict` — the witness at every rung.
+
+The witness is the obvious one and it exists at every level: **one ordinate
+carrying one critical zero and `j` off-line pairs** has `H = 1 + 2j`,
+`offAt = 2j`, so `H − offAt = 1` — haunted, of mass exactly `1 + 2j`. It clears
+rung `1 + 2j` by `le_refl` and fails rung `2 + 2j` because `H` is one short.
+
+**So consecutive rungs are different hypotheses** (`noSmallHaunted_strict`), and
+with `NoSmallHaunted.mono` the dial has a distinct detent at every odd mass. `156`'s scope note is corrected at its
+location, and `PRICES.md` and `CLAIMS.md` carry the upgrade.
+
+The two `configAt` lemmas are worth having independently: the existing proofs
+(`noHaunted_not_imp_Noff_zero` and friends) inline these computations at length,
+and nothing had factored them out.
+
+## `S61` — the same parse error, one cycle later, in the same file
+
+`156` logged a bin-2 snag: a new `/-- … -/` inserted **between** an existing
+docstring and its theorem, rejected as `unexpected token '/--'`. I hit it again
+here, plus a forward reference to `constFamily` in the same edit.
+
+The defect is the **anchor**, and it is mechanical: anchoring an insertion on
+`theorem <name>` places text *below* that theorem's docstring, in the gap between
+them. Anchoring on the docstring's opening line instead is correct. Caught by the
+build both times — which is the right outcome and also the reason I did not learn
+it the first time.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Three names added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** the menu I have been handing Joop for four cycles is
+now a certified strictly-increasing chain with a limit, and what remains in it
+that is not a theorem is the decision.

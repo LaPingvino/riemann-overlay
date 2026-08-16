@@ -299,3 +299,6 @@ import Riemann
 #check @Riemann.mult_ladder_no_gain
 #check @Riemann.NoSmallHaunted.mono
 #check @Riemann.noHaunted_iff_forall_noSmallHaunted
+#check @Riemann.noSmallHaunted_strict
+#check @Riemann.Blindness.configAt_H
+#check @Riemann.Blindness.configAt_offAt

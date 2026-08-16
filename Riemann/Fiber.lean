@@ -471,6 +471,33 @@ noncomputable def onAt (D : ZeroData) (γ : ℝ) : ℕ :=
 noncomputable def offAt (D : ZeroData) (γ : ℝ) : ℕ :=
   Multiset.card (D.Z.filter fun p => p.2 = γ ∧ p.1 ≠ 1/2)
 
+/-- `H` of a single-ordinate configuration — `SESSION 157`. -/
+@[simp] lemma configAt_H (γ γ' : ℝ) (k j : ℕ) (a : ℝ) :
+    (configAt γ k j a).H γ' = if γ' = γ then k + 2 * j else 0 := by
+  classical
+  rw [(configAt γ k j a).H_eq_count γ', configAt_ordinates]
+  simp [Multiset.count_replicate, eq_comm]
+
+/-- `offAt` of a single-ordinate configuration — `SESSION 157`.  All the
+off-line mass sits at `γ`, so this is `configAt_Noff` localised. -/
+lemma configAt_offAt {a : ℝ} (ha : a ≠ 1/2) (γ : ℝ) (k j : ℕ) :
+    offAt (configAt γ k j a) γ = 2 * j := by
+  classical
+  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+  show Multiset.card (Multiset.filter (fun p => p.2 = γ ∧ p.1 ≠ 1/2)
+      (Multiset.replicate k ((1/2 : ℝ), γ)
+        + (Multiset.replicate j (a, γ)
+          + Multiset.replicate j ((1 - a : ℝ), γ)))) = _
+  rw [Multiset.filter_add, Multiset.filter_add,
+    filter_replicate_neg (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) k
+      ((1/2 : ℝ), γ) (fun h => h.2 rfl),
+    filter_replicate_pos (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) j
+      (a, γ) ⟨rfl, ha⟩,
+    filter_replicate_pos (fun p : ℝ × ℝ => p.2 = γ ∧ p.1 ≠ 1/2) j
+      ((1 - a : ℝ), γ) ⟨rfl, ha'⟩]
+  simp [Multiset.card_add]
+  ring
+
 /-- **The fiber decomposition, pointwise:** `H = onAt + offAt`. -/
 theorem H_eq_onAt_add_offAt (D : ZeroData) (γ : ℝ) :
     D.H γ = onAt D γ + offAt D γ := by

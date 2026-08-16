@@ -7297,3 +7297,62 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** I spent a cycle excited about a third axis and it took
 four lines of Lean to show the project had already passed it, which is the second
 time in three cycles that reading a definition beat reasoning about it.
+
+# SESSION 161 — the exchange rate the other way, and it ties exactly
+
+**Kill condition, stated first:** *if `NscAny ≤ NscStd + Noff` fails — if a simple
+off-line zero can escape `Noff`'s count — the exchange rate is wrong and no wall
+follows.* **It did not fire.** Split the simple zeros by whether they lie on the
+line: those that do are counted by `NscStd`, those that do not by `Noff`.
+
+`160` gave the forward entry (`NscStd ≤ NscAny`), which lets our row be read as a
+statement about theirs. This is the direction that matters for *improving* the
+ledger: could any location-hypothesis result about `NscAny` feed our rows?
+
+**Two theorems, axiom-free:** `ZeroData.NscAny_le_NscStd_add_Noff` and
+`ZeroData.NscAny_le_N`.
+
+## The wall, in exact rationals
+
+`NscStd ≥ NscAny − Noff`, with `Noff ≤ 0.3275·N`:
+
+| `NscAny/N ≥` | gives `NscStd/N ≥` | beats `0.6725`? |
+|---|---|---|
+| `0.617` (their theorem) | `0.28950` | no |
+| `0.900` | `0.57250` | no |
+| `1.000` (**every zero simple**) | `0.67250` | **exact tie** |
+
+Even the strongest conceivable input — every nontrivial zero simple — returns the
+certified value to the digit and does not exceed it.
+
+## `S65` — and the tie is circularity, not a margin
+
+I expected a wall with a numerical gap. It ties. The reason is structural: the only
+**unconditional** off-line bound the project holds is `Riemann.certified_offline`,
+and that is `offLineImport_of_proportionStd certified_std` — **`β = 1 − κ`,
+derived from the very row the route would improve**. So the exchange returns
+precisely what it consumed.
+
+**The conditional exception, and it is worth naming:**
+`Riemann.offline_via_xiPrime` gives `β = 0.14162`, which is *below* `1 − κ`. With
+it the route reads `NscStd/N ≥ κ − 0.14162`, so `κ = 1` would give `0.85838` and
+the wall would not hold. But that is `1 − 0.85838` — the same `β = 1 − κ'` shape,
+now minted from the ξ′ row, carrying ξ′'s two hypotheses and two extra axioms.
+The circularity moves; it does not go away.
+
+That is `provenance_lint`'s **Rule 1** (CIRCULAR: an input whose ancestry passes
+through the target) appearing on a chain nobody had drawn, and found by computing
+the `κ = 1` endpoint rather than stopping at their `0.617`.
+
+**What would break it** is an *independent* off-line bound — some `β < 1 − κ`
+from a source other than the baseline. That is now a precisely stated want-ad,
+of the shape `144` produced for W19: the route is fine and the supply is
+entangled with the thing it would improve.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Two names added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** the third axis is not blocked by being weak, it is
+blocked because every exchange rate we can pay it with is minted from the number
+it is trying to raise.

@@ -34,6 +34,31 @@ they bound**, against their conditional `61.7%`, and without the thin-box or
 zero-density hypothesis. **The third axis buys nothing the ledger does not
 already have, and it is aimed at a weaker row than the menu operates on.**
 
+✅ **`SESSION 161` — and the reverse direction is walled, at every strength.**
+`ZeroData.NscAny_le_NscStd_add_Noff` (axiom-free) is the exchange rate the other
+way: `NscStd ≥ NscAny − Noff`. So a lower bound `NscAny ≥ κ·N` yields
+`NscStd/N ≥ κ − 0.3275`, and beating `0.6725` needs `κ > 1` while
+`NscAny ≤ N` (`NscAny_le_N`) caps `κ` at `1`. In exact rationals:
+
+| `NscAny/N ≥` | gives `NscStd/N ≥` | beats `0.6725`? |
+|---|---|---|
+| `0.617` (their theorem) | `0.28950` | no |
+| `0.900` | `0.57250` | no |
+| `1.000` (every zero simple) | `0.67250` | **exact tie** |
+
+**And the tie is not a coincidence — it is circularity.** The only off-line bound
+we hold is `certified_offline`, which is `offLineImport_of_proportionStd
+certified_std`, i.e. `β = 1 − κ` derived from the row being improved. The route
+returns exactly what it consumed. `provenance_lint`'s **Rule 1** shape, on a
+chain nobody had drawn.
+
+**So no result of this genre can move the ledger through this route at any
+strength, on the unconditional off-line bound.** What would break the wall is an
+*independent* `β < 1 − κ`. `offline_via_xiPrime` **is** such a bound
+(`β = 0.14162`, giving `0.85838` at `κ = 1`) — but it is `1 − κ'` minted from the
+ξ′ row instead, and carries ξ′'s two hypotheses and two extra axioms. The
+circularity moves rather than disappearing.
+
 *Original note, superseded above:* that `61.7%` is comparable to any row of our
 menu was **not claimed** until the dictionary existed. Their `simple` is
 multiplicity-one over all nontrivial zeros; our rows are `Nsc` (`H = 1` at an

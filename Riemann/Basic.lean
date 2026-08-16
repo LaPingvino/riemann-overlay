@@ -223,6 +223,48 @@ theorem NscStd_le_NscAny (D : ZeroData) : D.NscStd ≤ D.NscAny := by
 /-- `N_off`: the number of zeros off the critical line — the zeros RH denies. -/
 noncomputable def Noff : ℕ := Multiset.card (D.Z.filter fun p => p.1 ≠ 1 / 2)
 
+/-- **The reverse dictionary entry: `NscAny ≤ NscStd + Noff`.**
+
+`SESSION 161`.  `160` gave the forward direction (`NscStd ≤ NscAny`), which lets
+*our* row be read as a statement about *their* quantity.  This is the exchange
+rate in the other direction — the mechanism by which any location-hypothesis
+result about `NscAny` could feed the ledger's own rows.
+
+Split the simple zeros by whether they lie on the line: those that do are counted
+by `NscStd`, those that do not are counted by `Noff`.
+
+**And it walls the whole genre.**  Rearranged, `NscStd ≥ NscAny − Noff`.  With
+`Noff ≤ 0.3275·N` (`certified_offline`) and `NscAny ≤ N` (`NscAny_le_N`), any
+lower bound `NscAny ≥ κ·N` yields only `NscStd/N ≥ κ − 0.3275`, so beating the
+certified `0.6725` through this route needs `κ > 1` — **more simple zeros than
+there are zeros.**  No result of the arXiv:2306.04799 genre can improve the
+ledger this way, at any strength, unconditionally. -/
+theorem NscAny_le_NscStd_add_Noff (D : ZeroData) :
+    D.NscAny ≤ D.NscStd + D.Noff := by
+  classical
+  have hsplit :
+      Multiset.card ((D.Z.filter fun p => D.Z.count p = 1).filter
+          fun p => p.1 = 1/2)
+        + Multiset.card ((D.Z.filter fun p => D.Z.count p = 1).filter
+          fun p => ¬ (p.1 = 1/2)) = D.NscAny := by
+    rw [← Multiset.card_add, Multiset.filter_add_not]; rfl
+  have h1 : Multiset.card ((D.Z.filter fun p => D.Z.count p = 1).filter
+      fun p => p.1 = 1/2) ≤ D.NscStd := by
+    rw [Multiset.filter_filter]
+    exact Multiset.card_le_card (Multiset.monotone_filter_right _
+      (by intro p hp; tauto))
+  have h2 : Multiset.card ((D.Z.filter fun p => D.Z.count p = 1).filter
+      fun p => ¬ (p.1 = 1/2)) ≤ D.Noff := by
+    rw [Multiset.filter_filter]
+    exact Multiset.card_le_card (Multiset.monotone_filter_right _
+      (by intro p hp; tauto))
+  omega
+
+/-- `NscAny` counts a sub-multiset of the zeros, so it never exceeds `N`. -/
+theorem NscAny_le_N (D : ZeroData) : D.NscAny ≤ D.N :=
+  Multiset.card_le_card (Multiset.filter_le _ _)
+
+
 /-- The total count of `ofMult` is the sum of the multiplicities — the
 Riemann–von Mangoldt side of the interface. -/
 lemma ofMult_N (s : Finset (ℝ × ℝ)) (m : ℝ × ℝ → ℕ)

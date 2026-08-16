@@ -168,6 +168,8 @@ import Riemann
 #check @Riemann.Family.proportionStd_of_proportionAny
 -- SESSION 218: and that family-level wall is attained.
 #check @Riemann.proportionAny_wall_attained
+-- SESSION 219: and the distinct-zeros conversion rate is attained too.
+#check @Riemann.hauntedDensity_distinctZeros_attained
 -- SESSION 216: two ledger entries are not recoverable from the other four.
 #check @Riemann.Blindness.Noff_not_determined_by_ledger
 #check @Riemann.Blindness.NscStd_not_determined_by_ledger

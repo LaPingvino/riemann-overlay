@@ -872,6 +872,43 @@ theorem hauntedDensity_of_distinctZeros {F : Family} {c : ℝ}
   rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ (by norm_num : (0:ℝ) < 2)]
   nlinarith [hT, hbase, hpos']
 
+/-- **The distinct-zeros rate `(1−c)/2` is attained.**  `SESSION 219`.
+
+`hauntedDensity_of_distinctZeros` converts a distinct-zeros proportion `c` into
+`HauntedDensity ((1−c)/2)`, at rate one half.  A conversion rate matters only if
+something reaches it.
+
+The mass-three haunted atom does.  `2·hauntedCount + atomCount ≤ N` is equality
+exactly when every haunted ordinate has `H = 3` and every other has `H = 1`, and
+`configAt 0 1 1 a` — one on-line zero, one off-line pair, at a single
+ordinate — is that configuration: `N = 3`, `atomCount = 1`, `hauntedCount = 1`
+(`Blindness.mass_three_atom_attains_all`).
+
+So `c = 1/3` holds, the theorem predicts `HauntedDensity (1/3)`, and the actual
+haunted density is `1/3`.  This is the third of the three literature genres to
+be shown walled by a bound that is met, after the moment routes (`211`) and the
+simple-zero counts (`218`). -/
+theorem hauntedDensity_distinctZeros_attained {a : ℝ} (ha : a ≠ 1/2)
+    (hpos : 0 < (Blindness.configAt 0 1 1 a).N) :
+    (∀ ε > 0, ∀ᶠ T in atTop,
+        ((1:ℝ)/3 - ε) * (constFamily (Blindness.configAt 0 1 1 a) hpos).Nz T
+          ≤ (constFamily (Blindness.configAt 0 1 1 a) hpos).atomCount T)
+      ∧ HauntedDensity (constFamily (Blindness.configAt 0 1 1 a) hpos)
+          ((1 - (1:ℝ)/3) / 2)
+      ∧ ((Blindness.hauntedCount (Blindness.configAt 0 1 1 a) : ℝ)
+          / ((Blindness.configAt 0 1 1 a).N : ℝ)) = (1 - (1:ℝ)/3) / 2 := by
+  obtain ⟨hN, -, -, -, -, hHnt, hAtom⟩ := Blindness.mass_three_atom_attains_all ha
+  have hc : ∀ ε > 0, ∀ᶠ T in atTop,
+      ((1:ℝ)/3 - ε) * (constFamily (Blindness.configAt 0 1 1 a) hpos).Nz T
+        ≤ (constFamily (Blindness.configAt 0 1 1 a) hpos).atomCount T := by
+    intro ε hε
+    refine Filter.Eventually.of_forall fun T => ?_
+    show ((1:ℝ)/3 - ε) * ((Blindness.configAt 0 1 1 a).N : ℝ)
+        ≤ ((Blindness.atomCount (Blindness.configAt 0 1 1 a) : ℕ) : ℝ)
+    rw [hN, hAtom]; push_cast; linarith
+  refine ⟨hc, hauntedDensity_of_distinctZeros hc, ?_⟩
+  rw [hHnt, hN]; norm_num
+
 /-- **Levinson–Montgomery, with the `O(log T)` absorbed into `o(N)`.**  The
 axiom `levinson_montgomery` gives `|N_off' − N_off| ≤ c·log T`; turning that
 into this `Prop` needs `log T = o(N(T))`, which is Riemann–von Mangoldt and is

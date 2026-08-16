@@ -10134,3 +10134,39 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 every order, the pointwise genre wall, and now the family one — are each stated
 as an attained optimum rather than a bound, so what stops these routes is the
 mathematics and not a step nobody tested.
+
+## The third genre, and its rate is met too
+
+The registers record three literature genres dying at the same wall: the moment
+routes, the simple-zero counts, and the distinct-zero counts. `211` and `218`
+left the first two stated as attained optima. The third had a family-level
+conversion — `hauntedDensity_of_distinctZeros`, rate `(1−c)/2` — and no witness.
+
+**Kill condition, filed first:** *if the distinct-zero route already has a
+family-level wall with an attainment witness, I say so in one line and stop
+rather than re-deriving it.* The wall was there; the witness was not.
+
+`2·hauntedCount + atomCount ≤ N` is equality exactly when every haunted ordinate
+has `H = 3` and every other has `H = 1`. `configAt 0 1 1 a` is that
+configuration, and `Blindness.mass_three_atom_attains_all` already records
+`N = 3`, `atomCount = 1`, `hauntedCount = 1` — found rather than recomputed.
+
+`hauntedDensity_distinctZeros_attained`: on that constant family `c = 1/3`
+holds, the conversion predicts `HauntedDensity (1/3)`, and the actual haunted
+density is `1/3`. Axiom-free.
+
+So all three genres are now walled by bounds that are met rather than merely
+proved. What stops them is not slack in a step.
+
+Placed after `hauntedDensity_of_distinctZeros`, per `R23`. Second consecutive
+cycle where the rule was applied rather than paid.
+
+One theorem in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the same three-zero configuration — one on the line,
+one mirror pair — is the witness for the genre wall, the distinct-zeros rate and
+the off-line bound, so the object that blocks the literature is a single
+arrangement of three zeros.

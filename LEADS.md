@@ -705,6 +705,8 @@ realizability from above" jaw **does not exist**.
 
 *`250`:* and the reason is now an iff — `boundedMult_two_iff_star_exact`. Multiplicity `≤ 2` is not a class on which `C ≤ 2 − κ` is provable; it is the class on which `C = 2 − N_sc/N` is an equality. A pincer that wants to close below `2 − κ` has to leave the class, not sharpen inside it.
 
+*`251`:* `oddAtoms_eq_Nsc_of_mult_le_two` — inside the class the odd-atom currency and the simple-atom currency are the same number, so `247`'s "cheap jaw" buys nothing the star bound did not already have there. It can only differ outside multiplicity two.
+
 > **`SESSION 243` — sharpened, not discharged, for one family.** Within
 > multiplicity caps the claim is now a theorem.
 > `Optimal.mult_cap_excluding_pairOnly`: `Gauge.pairOnly` has `H = 2`, so a cap

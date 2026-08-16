@@ -222,6 +222,9 @@ import Riemann
 -- SESSION 250: multiplicity <= 2 IS the equality class of the star bound.
 #check @Riemann.Blindness.two_mul_N_le_Nstar_add_Nsc
 #check @Riemann.Blindness.boundedMult_two_iff_star_exact
+-- SESSION 251: odd atoms are the simple ones at multiplicity two.
+#check @Riemann.Blindness.oddAtoms_eq_Nsc_of_mult_le_two
+#check @Riemann.Blindness.Nstar_add_oddAtoms_eq_two_mul_N
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

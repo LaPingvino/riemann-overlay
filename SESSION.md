@@ -11510,7 +11510,9 @@ class **is** the set where `C = 2 − N_sc/N` is an equality. That settles two o
 The third, `249`'s odd-atom turning point, sits on the mass-`{1,2}` family,
 where `N⊛ = 2N − N_sc` holds and `oddAtoms = N_sc`; I checked that by hand and
 did **not** formalise it, so the collapse of the third appearance is a reading,
-not a theorem. The forward pointer sits on `097`'s docstring where the
+not a theorem. *(`251`: formalised — `oddAtoms_eq_Nsc_of_mult_le_two` and
+`Nstar_add_oddAtoms_eq_two_mul_N`. It is a theorem now, and this paragraph's
+"reading, not a theorem" is stale from `251` on.)* The forward pointer sits on `097`'s docstring where the
 hypothesis is stated.
 
 **Snag, bin 3.** `lake build` reported the same `3757 jobs` before and after two
@@ -11525,3 +11527,41 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** a route that wants `C > 2 − κ` is asking to leave
 multiplicity two, not asking for a better estimate inside it — the constant is
 pinned by an equality there, so there is no slack to sharpen.
+
+## The odd atoms are the simple ones, at multiplicity two
+
+`250` shipped its third-appearance claim as a reading rather than a theorem:
+that `249`'s odd-atom turning point is the same `2 − c` as the star bound's. `claims_gate`
+was right to force that downgrade; this closes it properly.
+
+**Kill condition, filed first:** *if `oddAtoms = N_sc` under `H ≤ 2` needs
+anything beyond the parity of `H` — an off-line hypothesis, a different mass
+notion — then the odd-atom class and the simple-atom class are genuinely
+different currencies and `249`'s collapse stays a reading.* It did not fire.
+
+* `oddAtoms_eq_Nsc_of_mult_le_two` — every atom has `H ≥ 1`, so `H ≤ 2` leaves
+  `H ∈ {1,2}`, where `¬ Even H ↔ H = 1`. Pure parity, no side condition. The
+  on-line clause in `Nsc`'s definition costs nothing: `refl_inv` makes a lone
+  zero its own mirror, which is why `Nsc_from_profile` drops it.
+* `Nstar_add_oddAtoms_eq_two_mul_N` — two lines on top of `250`'s equality. On
+  the multiplicity-two class `N⊛ = 2·N − oddAtoms`, so `oddAtoms ≥ c·N` gives
+  `N⊛ ≤ (2 − c)·N` with nothing left over.
+
+The `250` entry's "reading, not a theorem" is annotated at its own location.
+
+Both `oddAtoms` and `N_sc` are `μ_T`-visible (`229`, `224`), so this is not a
+move between levels of the visibility map — it is one currency under two names
+on this class. That is `S102`'s shape a second time: two names for one number,
+provably equal, with no lemma saying so until something needed it.
+
+**Snag, bin 2.** `push_neg` is deprecated in this Mathlib in favour of
+`push Not`; `250`'s proof used it and drew a warning I did not read, because I
+grep for `^error`. Removed; `omega` consumes `¬ (H γ₀ ≤ 2)` directly and the build
+is green without the line. Warnings are invisible to the way I check builds.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, seven guards green.
+
+**Might-mean, unhedged:** the multiplicity-two class has exactly one number to
+sell — the count of simple atoms — and `oddAtoms`, `N_sc` and `2 − C` are three
+names for that one number rather than three separate handles on the problem.

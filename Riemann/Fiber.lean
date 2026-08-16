@@ -2989,6 +2989,35 @@ theorem Nstar_add_Nsc_eq_two_mul_N (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
       rw [if_neg hone, he]; norm_num
   exact_mod_cast key
 
+/-- **Under multiplicity `≤ 2` the odd atoms are exactly the simple ones.**
+`SESSION 251`.  Pure parity: every atom has `H ≥ 1`, so `H ≤ 2` leaves
+`H ∈ {1, 2}`, and there `¬ Even H ↔ H = 1`.  No off-line hypothesis enters —
+`Nsc`'s on-line clause is free, because `refl_inv` makes a lone zero its own
+mirror. -/
+theorem oddAtoms_eq_Nsc_of_mult_le_two (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
+    oddAtoms D = D.Nsc := by
+  classical
+  have key : (oddAtoms D : ℤ) = (D.Nsc : ℤ) := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hO : (oddAtoms D : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if ¬ Even (D.H γ) then (1 : ℤ) else 0) := by
+      rw [oddAtoms, Finset.card_filter, Nat.cast_sum]
+      exact Finset.sum_congr rfl fun γ _ => by split <;> simp_all
+    rw [hO, hB]
+    refine Finset.sum_congr rfl fun γ hγ => ?_
+    have hpos : 0 < D.H γ := by
+      rw [ZeroData.H_eq_count, Multiset.count_pos]
+      exact Multiset.mem_toFinset.1 hγ
+    have h2 := h γ
+    have hpar : ¬ Even (D.H γ) ↔ D.H γ = 1 := by
+      rw [Nat.even_iff]; omega
+    by_cases hone : D.H γ = 1
+    · rw [if_pos (hpar.2 hone), if_pos hone]
+    · rw [if_neg (fun hc => hone (hpar.1 hc)), if_neg hone]
+  exact_mod_cast key
+
 /-- **`2·N ≤ N⊛ + N_sc`, with no hypothesis at all.**  `SESSION 250`.
 
 Per atom `2H ≤ H² + [H = 1]`: at `H = 1` both sides are `2`, at `H = 2` both are
@@ -3040,7 +3069,6 @@ theorem boundedMult_two_iff_star_exact (D : ZeroData) :
   classical
   refine ⟨Nstar_add_Nsc_eq_two_mul_N D, fun heq γ₀ => ?_⟩
   by_contra hbig
-  push_neg at hbig
   have hmem : γ₀ ∈ D.ordinates.toFinset := by
     rw [Multiset.mem_toFinset, ← Multiset.count_pos, ← ZeroData.H_eq_count]
     omega
@@ -3075,6 +3103,22 @@ theorem boundedMult_two_iff_star_exact (D : ZeroData) :
       nlinarith
   have : 2 * (D.N : ℤ) = (D.Nstar : ℤ) + D.Nsc := by exact_mod_cast heq.symm
   omega
+
+/-- **`249`'s third appearance, as a theorem.**  `SESSION 251`.
+
+`249` observed that the odd-atom class `oddAtoms ≥ c·N` turns at `2 − c`, and
+`250` shipped that as a reading because the step from `oddAtoms` to `N_sc` was
+checked by hand.  `oddAtoms_eq_Nsc_of_mult_le_two` supplies it, so on the
+multiplicity-two class the star count is *exactly* `2·N − oddAtoms`, and a
+hypothesis `oddAtoms ≥ c·N` gives `N⊛ ≤ (2 − c)·N` with nothing left over.
+
+`oddAtoms` is `μ_T`-visible (`229`) and `N_sc` is too, so this is not a change
+of level — it is the same currency under two names, which is `S102`'s shape a
+second time. -/
+theorem Nstar_add_oddAtoms_eq_two_mul_N (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
+    D.Nstar + oddAtoms D = 2 * D.N := by
+  rw [oddAtoms_eq_Nsc_of_mult_le_two D h]
+  exact Nstar_add_Nsc_eq_two_mul_N D h
 
 /-- **The sharp form at every `M`: `N⊛ + (M−1)·Nsc ≤ M·N`.**
 

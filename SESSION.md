@@ -10896,7 +10896,7 @@ them, against `κ = 0.6725` and `κ' = 0.85838`:
 | `0.3275` | `1 − κ` |
 | `0.14162` | `1 − κ'` — **the same formula at the other family** |
 | `0.16375` | `(1 − κ)/2`, the ladder gap at `m = 3` (`236`) |
-| `1.3275` | `2 − κ` |
+| `1.3275` | `2 − κ` — **role added `242`**: the star bound `H ≤ 2` yields (`Gaps.starBound_of_mult_le_two`), and the break-even where `2 − C` returns `κ` |
 | `1.9825` | `4 − 3κ`, i.e. `1 + 2(1 − (3κ−1)/2)` |
 | `0.590625` | ladder at `m = 5` |
 | `0.6179166` | ladder at `m = 7` |
@@ -11104,3 +11104,34 @@ green.
 **Might-mean, unhedged:** the currency that can carry this project past its own
 baseline is also the one whose rows depend on an analytic input nobody has
 supplied, which is the shape `232` found at rung 0.
+
+## A quiet cycle: the threshold was already proved
+
+`237` classified `1.3275` as `2 − κ` and left it there — a formula with no stated
+role. `241` finished the currency picture and made the role guessable: it should
+be the star bound's break-even against the certified row.
+
+**Kill condition, filed first:** *if the break-even threshold is already a
+theorem, I say so in one line and stop rather than restating a docstring as a
+lemma.* **It fired**, on both halves:
+
+* `Gaps.starBound_of_mult_le_two` — `H ≤ 2` with `ProportionStd κ` gives
+  `StarBound (2 − κ)`, stated generally in `κ`, not just at `0.6725`.
+* `Proportion.proportion_of_mult_le_two` — the composition back through
+  `proportion_of_starBound`, returning `Proportion κ`, with the docstring already
+  spelling out `2 − 1.3275 = 0.6725`.
+
+So `1.3275` carries two jobs — the value `H ≤ 2` achieves, and the point where
+`2 − C` returns the certified row — and the development had proved both. `237`'s table row is annotated at its location with the role and the
+citations; no Lean was added, because none was missing.
+
+This is why the struck `H ≤ 2` row pays exactly `NoHaunted`'s number: both land
+on `κ`, one through `2 − (2 − κ)` and one as the ladder's limit.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** four cycles of pricing the board have found no
+constant the development had not already derived, which is what a closed
+combinatorial layer looks like from inside.

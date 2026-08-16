@@ -127,6 +127,9 @@ import Riemann
 #check @Riemann.Optimal.linearBound_of_mass_test
 -- SESSION 206: and the feasible set is three inequalities; only masses 1 and 2 bind.
 #check @Riemann.Optimal.linearBound_iff
+-- SESSION 207: the LP's value, attained at prop1.
+#check @Riemann.Optimal.linearBound_prop1_via_iff
+#check @Riemann.Optimal.prop1_LP_value
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

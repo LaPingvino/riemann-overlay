@@ -9597,3 +9597,41 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the whole two-moment reduction rests on two
 configurations and three inequalities, and every cycle since `200` has been
 finding out how small its real content is.
+
+## The LP has a value, not just a ceiling
+
+`206` gave the feasible set as three inequalities. That makes the objective
+answerable rather than merely boundable.
+
+**Kill condition, filed first:** *if `(2, −1)` is not feasible under
+`linearBound_iff`'s three inequalities, the LP value is not `2 − C` and I report
+the actual optimum instead of asserting `prop1` attains it.* It did not fire:
+`−1 ≤ 0`, `2 + (−1) ≤ 1`, `2 + 2(−1) ≤ 0`.
+
+* `linearBound_prop1_via_iff` — the characterisation returns `prop1`.
+  `linearBound_prop1` already proves this straight from `ZeroData.prop1`; having
+  both is the check that `206`'s three inequalities are the right three.
+* `prop1_LP_value` — for `C ∈ [1, 2]`, `IsGreatest` for
+  `{a + b·C : LinearBound a b}` at `2 − C`. The upper half is
+  `prop1_LP_optimal`; the attainment is the witness above.
+
+So the two-moment LP has value **exactly** `2 − C`, and `prop1` is an optimal
+point of the program rather than an unbeaten one. `ISSUES` `#20` asserted this
+in words — *"`(α, β) = (2, −1)` is optimal at every `C ≤ 2`"* — and it is now
+one statement. Noted at its location.
+
+**Snag, bin 2, third instance.** Inserted `prop1_LP_value` beside the other new
+material and landed above `prop1_LP_optimal`, which it cites. `S61`, `S62` and
+`201` record the same shape. The build named it in one line; the cost is a move,
+not a re-proof. Worth saying plainly: I keep anchoring new work next to *related*
+material rather than after its *dependencies*, and those differ in this file
+because the LP lemmas come before the optimality section that uses them.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the reduction this project has carried since session
+one is a three-inequality linear program with a two-point optimum, and it took
+until now to say that as a theorem.

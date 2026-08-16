@@ -564,6 +564,13 @@ mass turns it into a two-variable LP: with `a_m` the number of ordinates of mass
 `m`, `N = Σ m·a_m`, `N⊛ = Σ m²·a_m`, `N_sc = a_1`, and a linear bound
 `a_1 ≥ αN + βN⊛` is valid iff `αm + βm² ≤ [m = 1]` for every `m ≥ 1`.
 
+> **`SESSION 207`: this result is now one machine-checked statement.**
+> `Optimal.prop1_LP_value` is `IsGreatest` for the two-moment LP on `C ∈ [1,2]`:
+> its value is **exactly** `2 − C`, and `(2, −1)` attains it. The upper half is
+> `prop1_LP_optimal`; the attainment comes from `206`'s characterisation, which
+> also reproduces `prop1` itself (`linearBound_prop1_via_iff`). So `prop1` is an
+> optimal point of the program, not only an unbeaten one.
+
 **Result: `(α, β) = (2, −1)` — Proposition 1 — is optimal at every `C ≤ 2`**,
 i.e. throughout the regime where the bound is non-trivial. (Past `C = 2` the
 trivial `a_1 ≥ 0` wins, which is the empty row restated.) Equality holds for

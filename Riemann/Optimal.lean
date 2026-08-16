@@ -229,6 +229,15 @@ theorem linearBound_iff (a b : ℝ) :
       simp only [mul_zero] at hprod
       nlinarith [hprod]
 
+/-- **`prop1` reproduced from the characterisation.**  `SESSION 207`.  `(2, −1)`
+satisfies the three inequalities of `linearBound_iff`, so the characterisation
+returns the bound the project started from.  `linearBound_prop1` proves the same
+thing directly from `ZeroData.prop1`; this is the LP route to it, and having
+both is the check that `206`'s three inequalities are the right three. -/
+theorem linearBound_prop1_via_iff : LinearBound 2 (-1) :=
+  (linearBound_iff 2 (-1)).2 ⟨by norm_num, by norm_num, by norm_num⟩
+
+
 /-- **Proposition 1 is LP-optimal in `(N, N⊛)`.**  Under a star bound `C` in the
 useful regime `1 ≤ C ≤ 2`, no linear bound in the two moments yields a
 proportion exceeding `2 − C`, which is exactly what `prop1` yields.
@@ -245,6 +254,23 @@ theorem prop1_LP_optimal {a b : ℝ} (h : LinearBound a b)
     nlinarith [h2, hcase, hC2]
   · -- `b < −1`: the simple-zero constraint binds
     nlinarith [h1, hcase, hC1]
+
+/-- **The LP's value, not merely a bound on it.**  `SESSION 207`.
+
+`prop1_LP_optimal` says every feasible `(a, b)` has `a + b·C ≤ 2 − C`.  With
+`206`'s characterisation the other half is available too: `(2, −1)` is feasible
+and attains it.  So for `C ∈ [1, 2]` the two-moment LP has value **exactly**
+`2 − C`, and `prop1` is an optimal point rather than merely an unbeaten one.
+
+This is what `ISSUES` `#20`'s "`(α, β) = (2, −1)` is optimal at every `C ≤ 2`"
+asserts, now as a single machine-checked statement. -/
+theorem prop1_LP_value {C : ℝ} (hC1 : 1 ≤ C) (hC2 : C ≤ 2) :
+    IsGreatest {v : ℝ | ∃ a b : ℝ, LinearBound a b ∧ v = a + b * C} (2 - C) := by
+  constructor
+  · exact ⟨2, -1, linearBound_prop1_via_iff, by ring⟩
+  · rintro v ⟨a, b, hab, rfl⟩
+    exact prop1_LP_optimal hab hC1 hC2
+
 
 /-- **And the bound is attained**, so `2 − C` is the exact optimum of the class,
 not merely an upper bound for it. -/

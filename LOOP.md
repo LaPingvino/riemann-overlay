@@ -141,6 +141,16 @@ degradations, not less.
   are reported and never fail — editing them would break `vendor_check.py`.
   The floor is a ratchet, not a target: `--update` is for a cycle that fixed
   warnings, never for one that added them.
+* **R25 — attempt the composite before believing two routes differ.**
+  `263` spent a cycle believing the `N`-resource and `N_off`-resource ladders
+  were different theorems; one typecheck of the composite against the existing
+  signature proved they were one and deleted twenty lines. `264` and `265` ran
+  it over `StarBound` and over `256`'s whole shared-conclusion list and found
+  five more. It costs minutes and it is the kernel doing `duplication_floor`'s
+  job in the regime that guard is blind to — same shape, different constants.
+  **The grading rule it replaces:** *different hypotheses* does not mean
+  different route. The question is whether either hypothesis **implies** the
+  other, and that is a composite, not a glance.
 * **Duplication is checked, because nothing else here watches for it.**
   `forensics/duplication_floor.py` counts theorems sharing a conclusion and
   ratchets. `255` reproved two theorems the repo had carried since `181`; `S98`

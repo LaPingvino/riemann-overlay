@@ -4418,7 +4418,12 @@ is RH-in-window and worthless as a conditional hypothesis.*  It did not fire —
 and the middle member of the chain **does** imply it. -/
 
 /-- **Distinct ordinates ⟹ no haunting.**  A haunted ordinate carries mass
-`≥ 3`. -/
+`≥ 3`. 
+
+**Dominated, `SESSION 265`.**  `H ≤ 1` reaches this conclusion through
+`Noff_eq_zero_of_allDistinct` into `noHaunted_of_Noff_zero`, and also through
+`le_trans` into `noHaunted_of_mult_le_two`; both composites typecheck against
+this signature.  Kept as the statement in the vocabulary of distinctness. -/
 theorem noHaunted_of_allDistinct (D : ZeroData) (h : ∀ γ, D.H γ ≤ 1) :
     ∀ γ, D.H γ - offAt D γ = 1 → D.H γ = 1 := by
   intro γ hsc

@@ -486,7 +486,12 @@ now a term and not a sentence.
 
 *(`260`: and the cap cannot be relaxed — `Family.noHaunted_sharp_at_two`
 exhibits a family at `H ≤ 3` that is haunted, so `2` is the threshold and not
-merely a convenient value.)* -/
+merely a convenient value.)*
+
+*(`265`: and this theorem is now an instance of
+`noHaunted_of_boundedMult_of_noSmallHaunted` — take `M = 2`, `m = 3`, and the
+rung is free by `noSmallHaunted_three`. Kept: it is the statement `RULING.md`
+cites and the one with no rung in its signature.)* -/
 theorem Family.noHaunted_of_boundedMult_two (F : Family)
     (h : ∀ T γ, (F.D T).H γ ≤ 2) : NoHaunted F :=
   fun T γ hγ => Blindness.noHaunted_of_mult_le_two (F.D T) (h T) γ hγ

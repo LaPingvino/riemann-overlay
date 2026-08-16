@@ -921,3 +921,32 @@ off-line route. Two shelves, one price, and `111` caps both.
 proportion exists post-BGST. If none does, the repo's `δ = 0.16375` may be the
 best haunting bound in existence — a packaging sentence, and one I will not write
 until the search is done.
+
+## Rung 0 — supplier 1 checked and exhausted (`SESSION 265`)
+
+The open ruling asks how to pay for `ceiling_law256`: adopt `EnclOK` as a third
+baseline-tier axiom, or obtain `cert_N256_blk_b128m.json`
+(`sha256 cc3de9917db4d14d844630a4e97dda8387fd6e257e52b6967f430b8914584eb8`) and
+redo its interval arithmetic. `claude.ai` proposed walking three suppliers before
+touching the axiom. Supplier 1 — *the artifact may simply be published* — is now
+checked and it fails.
+
+* **At the pinned commit** (`3635e74`, vendored byte-identical at
+  `vendor/zeta23`), the string occurs **once**, in a docstring in
+  `Zeta23/PairCeiling/LawN256.lean`, citing the filename and its `sha256`. The
+  file is not in the tree.
+* **At upstream HEAD** (`github.com/anthropics/zeta-23-lean`), four plausible
+  paths return `404` and the releases page carries no asset of that name.
+
+**Scope of that check, stated so it is not over-read.** One commit, four guessed
+paths, one releases page. `api.github.com` is outside this sandbox's allowlist,
+so no exhaustive tree walk was possible and no claim of absence from the
+repository is made — only that it is not where it would be if it were meant to
+be re-verified by a reader.
+
+So the live options are supplier 2 (price the regeneration from the paper's
+stated parameters — one cycle, and the artifact would be ours hash-and-all) and
+supplier 3 (ask the authors — Joop's call, and the request is small enough to be
+a good first contact). Adopting `EnclOK` remains the option of last resort: the
+base has gone `9 → 8 → 2` by discipline and it does not go back up for
+convenience.

@@ -12302,3 +12302,59 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** `256` built a guard that asks a person to grade, and
 the guard has been right every time while the person was wrong once, so the
 grading step is now the weakest link in the instrument rather than the detection.
+
+## Re-grading `256`'s list under `264`'s corrected rule: five dominations, not one
+
+`264` corrected the grading rule — *different hypotheses* is not enough, the
+question is whether either hypothesis **implies** the other — and then tested
+exactly one pair. This runs it over the rest.
+
+**Kill condition, filed first:** *if the corrected rule cannot be applied without
+inventing a bridging lemma for each pair — if "implies" is not settled by a
+two-line composite — then the re-grade is speculation and I report the pairs
+unregraded.* It did not fire. Every bridge was already on disk:
+`noSmallHaunted_three`, `Family.noHaunted_of_boundedMult_two`,
+`Noff_eq_zero_of_allDistinct`, `le_trans`.
+
+**Four more dominations, on top of `264`'s.**
+
+* `NoHaunted F` — `261`'s `noHaunted_of_boundedMult_of_noSmallHaunted` at
+  `M = 2`, `m = 3` **is** `255`'s `Family.noHaunted_of_boundedMult_two`, because
+  rung `3` is free. I graded that trio deliberate four cycles ago, having written
+  both theorems myself.
+* `zetaFamily.toCounts.Proportion 0.6725` — `proportion_of_mult_le_two` is
+  `proportion_of_noHaunted_zeta` composed with `255`. `RULING.md` has said the
+  row is struck since `234`, and `Family.noHaunted_of_boundedMult_two` made it a
+  term at `255`; `256`'s grading read the two rows as separate anyway.
+* `∀ γ, H − offAt = 1 → H = 1` — `noHaunted_of_allDistinct` (`H ≤ 1`) is reached
+  both through `noHaunted_of_Noff_zero` and through `noHaunted_of_mult_le_two`.
+* `D.Noff = 0` — `Noff_eq_zero_of_simple` and `_of_allDistinct` differ only in
+  writing `count = 1` against `H ≤ 1`, and `H` **is** the count.
+
+All annotated at their declarations and kept, none deleted, so
+`duplication_floor` does not move. **Domination is a third category** — not a
+deliberate route, not a duplicated proof — and on this list it is the most
+common of the three.
+
+**`R25` adopted.** Attempt the composite before believing two routes differ. It
+is what `263` cost a cycle for and what `264` and `265` have now recovered five
+times.
+
+**`S112` corrected at its location.** "The grader was wrong once" is wrong: five
+in sixteen.
+
+**Rung 0: supplier 1 checked and exhausted, recorded in `PRICES.md`.** The
+certificate `cert_N256_blk_b128m.json` occurs once in the pinned commit — a
+docstring in `LawN256.lean` citing name and `sha256` — and the file is not in the
+tree; four plausible paths at upstream `HEAD` return `404` and no release asset
+carries the name. The check covers one commit, four guessed paths and one
+releases page, `api.github.com` being outside this sandbox, so no claim of
+absence from the repository is made. Suppliers 2 and 3 remain; adopting `EnclOK`
+stays last-resort.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green, board unchanged at 13.
+
+**Might-mean, unhedged:** I graded my own theorems as independent routes four
+cycles after writing both of them, so the failure this project should expect from
+its operator is not misreading the mathematics but forgetting what it already did.

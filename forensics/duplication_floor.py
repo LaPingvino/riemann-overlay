@@ -31,7 +31,16 @@ routes".  It is not: `starBound_of_multiplicity_two` asks `H ≤ 2` and
 a strictly worse instance of the second, and a two-line composite proves it.
 The lesson for this grading is that *different hypotheses* is not enough — the
 question is whether one hypothesis **implies** the other, and that is a check,
-not a glance.  Annotated at the declaration rather than removed; the row stays
+not a glance (now `R25`).
+
+**`265` re-graded the whole list under that rule and found four more.**  Of the
+sixteen graded deliberate at `256`, five are dominations: the `1.9825` pair
+above, the two `Proportion 0.6725` rows (`255`: `H ≤ 2 → NoHaunted`), the
+`NoHaunted F` trio (`261`'s general theorem subsumes `255`'s at `M = 2` with the
+free rung), and `noHaunted_of_allDistinct`, which is reachable two ways.  All are
+annotated at their declarations and kept; none was deleted, so this count does
+not move.  **Domination is a third category** — not a deliberate route and not a
+duplicated proof — and it is the most common of the three.  Annotated at the declaration rather than removed; the row stays
 in the board's enumeration.
 
 The two real duplicates `256` found — `configAt_offAt` against

@@ -950,3 +950,41 @@ supplier 3 (ask the authors — Joop's call, and the request is small enough to 
 a good first contact). Adopting `EnclOK` remains the option of last resort: the
 base has gone `9 → 8 → 2` by discipline and it does not go back up for
 convenience.
+
+## Rung 0 — supplier 2 is blocked too, and the ask for supplier 3 is now small (`SESSION 266`)
+
+Supplier 2 was *price regenerating the certificate from the paper's stated
+parameters*. The header of `Zeta23/PairCeiling/LawN256.lean` states them
+generously — `70`-digit interval arithmetic at scale `K = 2^140`, the form factor
+`S(j) = (Σ_c w_c |Σ_i m_{c,i} e^{2πi j x_{c,i}/256}|²)/256`, weights `w_c ≥ 0`
+summing to `1`, rational positions `x_{c,i} ∈ [0,256)`, marks `m_{c,i} ∈ {1,2}`
+with `Σ_i m_{c,i} = 256`, `τ = 3/10^40`, `|D(1)| ≤ 82395317/10^8`, and `p₀` as an
+exact rational.
+
+**Kill condition, filed first:** *if the certificate's parameters are not
+recoverable from the vendored source — if regeneration needs a number only the
+missing file carries — then supplier 2 is blocked for the same reason as
+supplier 1.* **It fired.** The header states the *shape* of the law; the law
+itself — which weights, which positions, which marks — is in the JSON; a grep of
+the vendored tree finds the filename and `sha256` in one docstring and no law.
+Interval arithmetic wants its input, and that is the part that was not
+published.
+
+**But the table says how small the missing thing is**
+(`forensics/lawN256_shape.py`, which checks this and fails if it stops being
+true):
+
+* `K = 2^140`, `256` enclosures, every interval exactly `1` ulp wide.
+* For `j = 1 … 255`, `(lo_j, hi_j) = j·2^132 ± 1` — that is `S(j) = j/256` to one
+  ulp, which is exactly what `RowCert.lean`'s `|256·S(j) − j| ≤ 3/10^40` already
+  asserts. **Those 255 entries carry nothing the row certificate does not.**
+* Only `j = 256` is off-pattern: it encloses `S(256) ≈ 211.432009142486`, the
+  periodic value the row certificate is silent about.
+
+**So the request to the authors is not "send us the certificate".** It is: *the
+law behind `cert_N256_blk_b128m.json` — the weights, positions and marks.* That
+is a small, citable, easily-granted object, and with it the enclosures are
+recomputable here and `EnclOK` becomes a theorem rather than a third axiom.
+
+Standing recommendation unchanged: adopt `EnclOK` last, not first. Supplier 3 is
+now the live option and its ask has shrunk to one line.

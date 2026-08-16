@@ -141,6 +141,12 @@ degradations, not less.
   are reported and never fail — editing them would break `vendor_check.py`.
   The floor is a ratchet, not a target: `--update` is for a cycle that fixed
   warnings, never for one that added them.
+* **Read the vendored dependency before pricing a request to its authors.**
+  `266` priced rung 0 by reading `LawN256.lean`'s enclosure table and found `255`
+  of its `256` entries are `j·2^132 ± 1`, implied by the row certificate.
+  `forensics/lawN256_shape.py` holds that reading and fails if the table changes.
+  The vendored tree is **read-only** — editing it breaks `vendor_check.py`'s
+  hash, which is the point of vendoring.
 * **R25 — attempt the composite before believing two routes differ.**
   `263` spent a cycle believing the `N`-resource and `N_off`-resource ladders
   were different theorems; one typecheck of the composite against the existing

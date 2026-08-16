@@ -12358,3 +12358,62 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** I graded my own theorems as independent routes four
 cycles after writing both of them, so the failure this project should expect from
 its operator is not misreading the mathematics but forgetting what it already did.
+
+## Rung 0: supplier 2 is blocked too — but the ask has shrunk to one line
+
+`265` exhausted supplier 1 (the artifact is not published). Supplier 2 was
+*price regenerating the certificate from the paper's stated parameters*, which is
+the last option that needs nobody outside this repo.
+
+**Kill condition, filed first:** *if the certificate's parameters are not
+recoverable from the vendored source — if regeneration needs a number only the
+missing file carries — then supplier 2 is blocked for the same reason as
+supplier 1 and I report it as such rather than estimating a cost I cannot
+ground.* **It fired.**
+
+`LawN256.lean`'s header is generous — `70`-digit interval arithmetic at
+`K = 2^140`, the form factor in closed form, weights summing to `1`, rational
+positions, marks in `{1,2}` summing to `256`, `τ = 3/10^40`. It states the
+*shape* of the law. It does not state the law. Which weights, which positions,
+which marks is in the JSON; a grep of the vendored tree finds the filename and
+`sha256` in one docstring and no law. Interval arithmetic wants its input, and
+that is the part that was not published.
+
+**The consolation is a real one, and it is the cycle's finding.** I read the
+enclosure table instead of assuming it:
+
+* `256` enclosures, every interval exactly `1` ulp wide at `2^-140`.
+* For `j = 1 … 255` they are `j·2^132 ± 1`. That is `S(j) = j/256` to one ulp —
+  precisely what `RowCert.lean`'s `|256·S(j) − j| ≤ 3/10^40` already asserts.
+  **Those 255 numbers carry nothing the row certificate does not.**
+* Only `j = 256` is off-pattern, enclosing `S(256) ≈ 211.432009142486` — the
+  periodic value the row certificate says nothing about.
+
+So the thing that is actually missing is small. The request to the authors is not
+*"send us the certificate"* but *"the law behind it — the weights, positions and
+marks"*, and with that the enclosures are recomputable here and `EnclOK` becomes
+a theorem instead of a third baseline axiom.
+
+`forensics/lawN256_shape.py` is the tenth guard and holds that reading: it checks
+the scale, the count, the widths, the closed form on `1…255`, and that `j = 256`
+is **not** on the pattern — because if it were, the table would carry nothing at
+all and this entire reading of the ruling would be wrong. All three exit paths
+exercised before it was believed.
+
+**PRICES updated; the standing recommendation is unchanged.** Adopt `EnclOK`
+last, not first. Supplier 3 is now the live option and its ask is one line.
+
+**Snag, bin 2.** I nearly reported a cost estimate for supplier 2 off the
+header's completeness, because a header that lists `τ`, `K`, `p₀` and the form
+factor *reads* like a specification. It is a description of the output. `S27`
+says check the registers for a specification before reconstructing — the
+sharper form is that a description of what a computation produced is not a
+specification of how to produce it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, ten guards green, `vendor_check` still clean — the
+vendored tree was read and not touched.
+
+**Might-mean, unhedged:** the certified numeric input this whole board is
+denominated in reduces, at the point where it is actually load-bearing, to a
+single number that nobody outside its authors can currently recompute.

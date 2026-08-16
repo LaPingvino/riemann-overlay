@@ -588,6 +588,47 @@ through the off-line shelf and back returns `084`'s formula exactly, which is
 theorem proportionStd_exchange_identity (κ : ℝ) :
     κ - (1 - κ) / 2 = (3 * κ - 1) / 2 := by ring
 
+/-! ### What a rung of the ladder buys — `SESSION 236`
+
+`certified_nsc_ladder` prices rung `m` at `(m·κ − 1)/(m − 1)`.  `234` listed the
+rungs and `235` showed only the odd ones are distinct hypotheses.  Neither said
+what a rung *buys*, and both closed forms are one line.
+
+The side condition is `m ≠ 1` in both, which the ladder supplies since it starts
+at `m = 3` — stated rather than assumed. -/
+
+/-- **The distance from rung `m` to `NoHaunted` is `(1 − κ)/(m − 1)`.**
+`SESSION 236`.
+
+`NoHaunted` is the ladder's limit at `κ`, so this is what is still unbought at
+rung `m`.  It falls like `1/(m − 1)`, which is why the rungs crowd: rung `3`
+leaves a sixth of a point of `κ` on the table and rung `11` a thirtieth. -/
+theorem ladder_gap {κ m : ℝ} (hm : m ≠ 1) :
+    κ - (m * κ - 1) / (m - 1) = (1 - κ) / (m - 1) := by
+  field_simp
+  ring
+
+/-- **Climbing two rungs buys `2(1 − κ)/(m² − 1)`.**  `SESSION 236`.  Two,
+because `235` showed the intervening even rung is the same hypothesis. -/
+theorem ladder_step {κ m : ℝ} (h1 : m ≠ 1) (h2 : m + 1 ≠ 0) :
+    ((m + 2) * κ - 1) / ((m + 2) - 1) - (m * κ - 1) / (m - 1)
+      = 2 * (1 - κ) / ((m - 1) * (m + 1)) := by
+  have h3 : m + 2 - 1 ≠ 0 := by intro h; apply h2; linarith
+  have h4 : m - 1 ≠ 0 := sub_ne_zero.2 h1
+  field_simp
+  ring
+
+/-- **One constant governs the whole ladder.**  `SESSION 236`.
+
+At the certified `κ = 0.6725` the numerator `1 − κ` is `131/400 = 0.3275` — the
+project's certified off-line bound — and the gap at the ladder's free first rung
+is `131/800 = 0.16375`, the haunted-density constant.  `190` found that number
+wearing four hats; this is the fifth, and it is the general formula's `m = 3`
+case rather than another coincidence. -/
+theorem ladder_gap_at_three :
+    (1 : ℝ) - 0.6725 = 0.3275 ∧ ((1 : ℝ) - 0.6725) / (3 - 1) = 0.16375 := by
+  constructor <;> norm_num
+
 /-- **Which star-bound exchange to use, and where they cross** — `SESSION 191`.
 
 A `StarBound C` reaches the `Nsc` row two ways:

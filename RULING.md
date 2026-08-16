@@ -80,6 +80,14 @@ Every rung is `Optimal`-free arithmetic on one theorem,
 | ⋯ | ⋯ | ⋯ | ⋯ |
 | `→ ∞` | `NoHaunted` | — | `0.6725000` |
 
+**What a rung buys, in closed form (`SESSION 236`).** The distance from rung `m`
+to `NoHaunted` is `(1 − κ)/(m − 1)` (`Gaps.ladder_gap`), and climbing two rungs
+buys `2(1 − κ)/(m² − 1)` (`Gaps.ladder_step`). At the certified `κ` the
+numerator `1 − κ` is `131/400 = 0.3275`, the project's own off-line bound, so the
+gap at the free first rung is `131/800 = 0.16375` — the haunted-density constant,
+here as the `m = 3` case of the general formula. The rungs crowd: rung `3` leaves
+`0.16375` unbought, rung `7` leaves `0.0546`, rung `11` leaves `0.0328`.
+
 **Odd `m` only, and that is a theorem as of `SESSION 235`.** A haunted ordinate
 carries an odd number of zeros, so `NoSmallHaunted m` for even `m` is the same
 hypothesis as for `m + 1` (`Gaps.noSmallHaunted_even_iff`). Since the value

@@ -193,6 +193,10 @@ import Riemann
 -- SESSION 235: the ladder has only odd rungs; even m is the same hypothesis as m+1.
 #check @Riemann.noSmallHaunted_even_step
 #check @Riemann.noSmallHaunted_even_iff
+-- SESSION 236: what a rung buys, and the constant that governs the ladder.
+#check @Riemann.ladder_gap
+#check @Riemann.ladder_step
+#check @Riemann.ladder_gap_at_three
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

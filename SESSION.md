@@ -10831,3 +10831,46 @@ green.
 **Might-mean, unhedged:** the ladder is indexed by a number that can take values
 the mathematics forbids, and a buyer reading it naively would have paid full
 price for a rung and collected the one below.
+
+## What a rung buys, and where `0.16375` comes from
+
+`234` listed the ladder's rungs, `235` showed only the odd ones are distinct
+hypotheses. Neither said what a rung *buys*, and each closed form took one line to prove.
+
+**Kill condition, filed first:** *if the gap formula needs side conditions the
+ladder doesn't guarantee, I state them explicitly rather than presenting a clean
+identity that quietly assumes them.* It did not fire in substance — the only
+condition is `m ≠ 1`, which the ladder supplies by starting at `3` — and it is
+stated in both signatures rather than assumed.
+
+* `ladder_gap` — the distance from rung `m` to `NoHaunted` is `(1 − κ)/(m − 1)`.
+* `ladder_step` — climbing two rungs buys `2(1 − κ)/(m² − 1)`. Two rather than
+  one, since `235` collapsed the intervening even rung onto its neighbour.
+
+Checked in exact rationals at every rung the board lists before being written.
+
+### Where `0.16375` comes from
+
+The numerator `1 − κ` is `131/400 = 0.3275` — the project's own certified
+off-line bound. The gap at the free first rung is `131/800 = 0.16375`, the
+haunted-density constant.
+
+`190` recorded that four different bounds reach `0.16375` and read the agreement
+as the interesting fact. Here it arrives as a value of a family the project had
+already proved: **`0.16375` is `(1 − κ)/(m − 1)` at `m = 3`**, the rung that
+costs nothing. `S106`.
+
+The rungs crowd accordingly — rung `3` leaves `0.16375` unbought, rung `7`
+leaves `0.0546`, rung `11` leaves `0.0328` — which is `RULING.md`'s answer to
+"how much is the next exclusion worth", now stated rather than tabulated.
+
+Three theorems, axiom-free, all in `audit/Declarations.lean`; the board gains the
+closed forms at its location.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** this project's recurring constants are values of
+formulas it already owns, and it has been meeting them as coincidences because
+nobody asked the formulas for their general shape.

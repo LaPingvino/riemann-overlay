@@ -6985,8 +6985,8 @@ circular via `EP1`, scale-valid only on `[3.0, 9.9]`; `GGOS_floor` on
 
 That is `absence_queue`'s docstring, and it is a sentence about a run in `133`.
 **Nothing re-ran it.** All four claims have since been corrected in the
-registers, so none of them flags today and the line cannot be reproduced from the
-corpus at all — a green light with no witness, which is `148`'s class applied to a
+registers, so `forensics/absence_queue.py` flags none of them today and the line
+cannot be reproduced from the corpus — a green light with no witness, which is `148`'s class applied to a
 *calibration claim* rather than an exit code.
 
 The sharp part: **`154` changed the settle logic in that very file**, and nothing
@@ -7001,11 +7001,11 @@ now exits `1` if its calibration breaks — which also moves it out of `148`'s
 
 ## `S60` — and the check I added last cycle was never called
 
-`154` added `claims_gate.calibrate()`. I tested it by hand and **never wired it
-into `main`**. A check that exists and does not run — precisely the class `148`
+`154` added `claims_gate.calibrate()`. I tested it by hand and left it with no
+call site in `forensics/claims_gate.py`. A check that exists and does not run — precisely the class `148`
 audited, committed by me in the cycle *after* writing that audit. It runs first
-now and returns `2` on failure: a gate whose own test set misbehaves cannot be
-trusted to grade anything else.
+now and returns `2` on failure, so a gate whose own test set misbehaves stops
+rather than grades.
 
 ## Fault injection, and what each calibration actually tests
 

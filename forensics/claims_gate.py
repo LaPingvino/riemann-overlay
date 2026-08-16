@@ -214,6 +214,15 @@ def scan(text, label):
 
 
 def main(argv):
+    # SESSION 155: `154` added `calibrate()` and never called it — a check that
+    # exists and does not run, which is exactly the class `148` audited one cycle
+    # earlier.  It runs first now, and a broken calibration blocks the report:
+    # a gate whose own test set no longer behaves cannot be trusted to grade
+    # anything else.
+    if calibrate():
+        print("\n  \u26a0\ufe0f calibration failed — this gate's verdicts are not trustworthy.")
+        return 2
+    print()
     if len(argv) > 1:
         total = sum(scan(open(f, encoding="utf-8").read(), f) for f in argv[1:])
     else:

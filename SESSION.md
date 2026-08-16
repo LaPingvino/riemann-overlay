@@ -6966,3 +6966,66 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 wrong thing, and that justification is why I stopped looking — I had read the
 docstring several times without once checking its factual claim against the rule
 it cited.
+
+# SESSION 155 — a calibration nobody re-ran, and a check I wrote that never ran
+
+**Kill condition, stated first:** *if no other `forensics/` docstring asserts a
+project rule that the owning register contradicts, `S57` was isolated and this
+dies in one pass.* **It fired**, though not on a rule — on a claim about an
+instrument's own calibration.
+
+`154` found `absence_queue` justifying the wrong behaviour in prose. The obvious
+question was whether that docstring was alone. I swept every instrument for
+assertions about rules or about other instruments' behaviour. `quarry`'s claims
+about `provenance_lint`'s Rule 1 check out against the node table (`CMR_1.3208`
+circular via `EP1`, scale-valid only on `[3.0, 9.9]`; `GGOS_floor` on
+`[1.0, 1.5]`). `claims_gate`'s citation of `window_opt.py` resolving `#29` holds.
+
+## `S59` — "Calibration: it flags all four of the above, 4/4"
+
+That is `absence_queue`'s docstring, and it is a sentence about a run in `133`.
+**Nothing re-ran it.** All four claims have since been corrected in the
+registers, so none of them flags today and the line cannot be reproduced from the
+corpus at all — a green light with no witness, which is `148`'s class applied to a
+*calibration claim* rather than an exit code.
+
+The sharp part: **`154` changed the settle logic in that very file**, and nothing
+existed that would have told me if the change had blinded the instrument to the
+four shapes it was built for. I shipped that edit with no regression check and
+did not notice for a cycle.
+
+Fixed: the four claims are now **embedded as sentences** with two negative
+controls, corpus-independent, and run on every invocation. **6/6.** The script
+now exits `1` if its calibration breaks — which also moves it out of `148`'s
+"cannot fail" list, while the queue itself stays a work list rather than an alarm.
+
+## `S60` — and the check I added last cycle was never called
+
+`154` added `claims_gate.calibrate()`. I tested it by hand and **never wired it
+into `main`**. A check that exists and does not run — precisely the class `148`
+audited, committed by me in the cycle *after* writing that audit. It runs first
+now and returns `2` on failure: a gate whose own test set misbehaves cannot be
+trusted to grade anything else.
+
+## Fault injection, and what each calibration actually tests
+
+`absence_queue`: removing the patterns behind one case trips it (`bad = 1`).
+
+`claims_gate`: **removing a single redundant pattern does not** — each
+calibration sentence matches several, so this is a coarse end-to-end check rather
+than a per-rule test. It does fire on wholesale damage: all `POSITIVE` removed →
+2 misses, all `NEGATIVE` → 1, and disabling `ARITHMETIC_EXACT` — the filter the
+calibration exists for — → 3. Stated plainly because "the calibration passes" is
+otherwise read as more than it is.
+
+**`S51` again, twice.** My first injection into each file failed to trip it, and
+in both cases the fault was insufficient rather than the check vacuous. That is
+the third and fourth time this project has hit it; the lesson is stable and I
+still needed two attempts each.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Guards green.
+
+**Might-mean, unhedged:** two cycles running I have shipped an instrument change
+with no way to detect if it broke the instrument, in a project whose entire
+apparatus exists to detect exactly that.

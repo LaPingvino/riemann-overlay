@@ -17,6 +17,16 @@ All four were invalidated by something being **added**, not by anything cited
 changing.  Expiry watches the wrong direction: it asks "did my source move?",
 and the defect is "does something now exist that I do not cite?".
 
+⚠️ **SESSION 155 — "Calibration: it flags all four, 4/4" was a claim about a
+past run, and nothing re-ran it.**  All four have since been corrected in the
+registers, so none of them flags today and the sentence could no longer be
+reproduced from the corpus.  That made it a green light with no witness — `148`'s
+class (a check that cannot fail) applied to a *calibration claim* rather than to
+an exit code.  Worse, `154` changed the settle logic in this very file, and there
+was nothing that would have told me if that change had broken the four shapes the
+instrument exists to catch.  The calibration is now **embedded and runnable**
+below, independent of what the registers currently say.
+
 **So: no detector, and no expiry.  A queue.**  Every claim of *absence* is a
 standing obligation to re-check.  This script lists them.  It makes no judgment
 about whether any is stale — it cannot — it only ensures none is invisible.
@@ -84,6 +94,38 @@ def sentences(text):
                 yield s
 
 
+# The four stale claims this queue was built from (`120`, `121`, `127`, `128`),
+# as sentences rather than as a story about them.  Corpus-independent: these must
+# flag on their own text, so a change to the settle logic cannot silently blind
+# the instrument to the shapes that bought it.
+CALIBRATION = [
+    ("The window-optimisation table has no code in the repo.", True),
+    ("`PairCeiling.ceiling_law256` is unreachable from our root.", True),
+    ("The only capacity certificate we can run came in with zeta-23.", True),
+    ("Whether the profile is minimal is not proved.", True),
+    # Negative controls: shapes that must NOT be read as claims of absence.
+    ("**Never as a bound.**  Do not cite a grade-N entry as one.", False),
+    ("The ledger reads `Nsc 50.88%` and the row is carried by one axiom.", False),
+]
+
+
+def calibrate():
+    """Run the four purchasing claims against the ABSENCE patterns."""
+    print("=== absence_queue calibration (the four that bought it must flag) ===")
+    bad = 0
+    for s, want in CALIBRATION:
+        if DIRECTIVE.match(s):
+            got = False
+        else:
+            got = any(re.search(p, QUOTED.sub(" ", s), re.I) for p in ABSENCE)
+        ok = got == want
+        bad += not ok
+        print(f"  [{'ok ' if ok else 'MISS'}] want={'flag ' if want else 'clear'}"
+              f"  got={'flag ' if got else 'clear'}  {s[:60]}")
+    print(f"  {len(CALIBRATION) - bad}/{len(CALIBRATION)} as designed.")
+    return bad
+
+
 def scan(path):
     """Flag absence claims whose paragraph — or the next one — carries no
     dated re-check.
@@ -149,7 +191,11 @@ def main(argv):
     print(f"\n{total} claim(s) of absence carrying no dated re-check.")
     print("Each is an obligation, not a defect. Re-check when its subject "
           "could plausibly have been built since.")
-    return 0
+    print()
+    bad = calibrate()
+    if bad:
+        print("  ⚠️ the instrument no longer catches the shapes that bought it.")
+    return 1 if bad else 0
 
 
 if __name__ == "__main__":

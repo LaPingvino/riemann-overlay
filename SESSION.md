@@ -11382,3 +11382,52 @@ green.
 **Might-mean, unhedged:** the barrier this project files against itself is not
 that no invariant sees the extremal configuration, but that the ones which do
 were bought with the number they would be spent to improve.
+
+## The citation guard, measured and declined
+
+`246` found a stale citation by an ad-hoc sweep and I deferred the question of
+making it a guard. `247` used the hygiene budget on mathematics; this cycle
+answers it.
+
+**Kill condition, filed first:** *if filtering the known-good prefixes cannot get
+the false-positive count down to something triageable in one cycle, the guard is
+noise and I do not add it — `206`'s precedent.* **It fired, and harder than
+expected.**
+
+Built the filter `246`'s triage justified: skip Lean core and Mathlib prefixes,
+skip file extensions, and resolve against top-level declarations **plus**
+namespaces **plus** structure fields harvested from `Riemann/` and the vendored
+`Zeta23/`. Ran it over every register.
+
+**383 citations, 17 flags, and every one is a false positive** — five mechanical
+shapes:
+
+* `Namespace.lemma`, `Namespace.name` — prose placeholders describing the
+  citation convention itself;
+* `CMR_1.3208` — a labelled constant, not a declaration;
+* `ZeroData.Z` — a structure field my field-harvester missed because it is
+  uppercase;
+* `CITE.findall` — Python quoted in a session entry;
+* `D.ordinates.toFinset.card`, `Z.toFinset` — expressions, not names;
+* both `Assumptions.baseline_przz` hits — inside `246`'s own corrections, which
+  have to name the deleted axiom to correct it.
+
+A guard that fires seventeen times with nothing behind it is `148`'s defect
+inverted: not a check that cannot fail, but one whose failures mean nothing. I
+could filter each shape, and each filter would be fitted to this measurement,
+which is what `S39` exists to forbid.
+
+**So: no guard.** The one real defect `246` found was created by a **deletion**,
+and the narrow instrument for that is a list of removed names — which today has
+one entry and no measured need. Recorded rather than built.
+
+No Lean this cycle; the deliverable is a measurement and a decision not to add
+an instrument.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** this project's registers cite nearly four hundred names
+and the one stale citation found so far was produced by a deletion, so the defect
+to watch for sits in deleting rather than in citing.

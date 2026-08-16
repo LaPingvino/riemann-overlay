@@ -12936,3 +12936,45 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 turned out to be one Mathlib lemma used at a larger index, which suggests the
 gap between "we do combinatorics" and "they do certified numerics" is narrower
 than either side's file listing implies.
+
+## `sin` to order ten, and the numeric step is now one rational comparison
+
+`276` proved the cosine half and named the sine analogue as next. This is it.
+
+**Kill condition, filed first:** *if the `sin` assembly does not follow the
+cosine's pattern — if the odd-index sum needs a treatment the `cos` proof does
+not demonstrate — then I report the asymmetry rather than assuming the pattern
+transfers.* It did not fire, but it grazed, and the graze is the useful part.
+
+`cos` is `(e₊ + e₋)/2` and its error factors out by `sub_div` alone. `sin` is
+`(e₋ − e₊)·I/2`, where the `I` must come out through the subtraction too, and
+chaining `sub_div` with `sub_mul` does not match the goal. An explicit `ring`
+identity for the factoring does, and was shorter to write than finding the right
+rewrite order. Recorded at the theorem.
+
+**`sin_bound10`** — for `|x| ≤ 1`,
+`|sin x − (x − x³/6 + x⁵/120 − x⁷/5040 + x⁹/362880)| ≤ |x|¹⁰·11/36288000`.
+Axiom-free, `3757` jobs unchanged.
+
+**And with both bounds the numeric step is arithmetic.** At `x = 1/√2` the
+polynomials are rational because `x² = 1/2`: `P = 163483/215040`,
+`R = 5334193/5806080` (the sine polynomial being `x·R`), `e = 11/1161216000`.
+Using `√2·x = 1` and `√2 ≤ 3/2`, the target `0.6725 ≤ 3/2 − cot(x)/√2` becomes
+
+    882808211/1161216000 ≤ 706247142277/928972800000
+
+with slack `191159/309657600000 ≈ 6.17·10⁻⁷`. One `norm_num` call. Written into
+`PRICES.md` so the assembly is bookkeeping.
+
+**What this arc has cost and bought.** Four cycles ago `baseline_zeta23`'s second
+cost was "a certified bound on a transcendental, and `267` measured us as having
+no interval arithmetic". It is now two Mathlib-pattern theorems on disk and a
+comparison of two explicit rationals. The `44,441`-line `ThmD` build is untouched
+and remains that axiom's real price.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, eleven guards green, `PRICES` at baseline `24`.
+
+**Might-mean, unhedged:** the transcendental never had to be evaluated — every
+step that looked like numerics turned into algebra once `x² = 1/2` and
+`x·√2 = 1` were used instead of `x ≈ 0.7071`.

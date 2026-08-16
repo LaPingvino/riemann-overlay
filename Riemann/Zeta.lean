@@ -287,4 +287,60 @@ theorem cos_bound10 {x : ℝ} (hx : |x| ≤ 1) :
         rw [Complex.norm_real]; rfl
     _ ≤ _ := by push_cast [Complex.ofReal_cos]; exact key
 
+/-- **`sin` to order ten.**  `SESSION 277`.
+
+The companion to `cos_bound10`, same order and same error bound.
+
+**The pattern transferred, with one difference worth recording.**  `cos` is
+`(e₊ + e₋)/2` and its error factors by `sub_div` alone; `sin` is `(e₋ − e₊)·I/2`,
+where the `I` has to come out through the subtraction as well, and chaining
+`sub_div` with `sub_mul` does not match.  An explicit `ring` identity for the
+factoring does, and is shorter than finding the right rewrite order. -/
+theorem sin_bound10 {x : ℝ} (hx : |x| ≤ 1) :
+    |Real.sin x - (x - x^3/6 + x^5/120 - x^7/5040 + x^9/362880)|
+      ≤ |x| ^ 10 * (11 / (3628800 * 10)) := by
+  have hI : ‖(x:ℂ) * Complex.I‖ ≤ 1 := by
+    rw [norm_mul, Complex.norm_I, mul_one, Complex.norm_real]; simpa using hx
+  have hI' : ‖-(x:ℂ) * Complex.I‖ ≤ 1 := by
+    rw [norm_mul, Complex.norm_I, mul_one]; simpa using hx
+  have e1 := Complex.exp_bound hI (n := 10) (by norm_num)
+  have e2 := Complex.exp_bound hI' (n := 10) (by norm_num)
+  have hnorm : ‖(x:ℂ) * Complex.I‖ = |x| := by
+    rw [norm_mul, Complex.norm_I, mul_one, Complex.norm_real]; rfl
+  have hnorm' : ‖-(x:ℂ) * Complex.I‖ = |x| := by
+    rw [norm_mul, Complex.norm_I, mul_one]; simp
+  have key : ‖Complex.sin (x:ℂ)
+      - ((x:ℂ) - (x:ℂ)^3/6 + (x:ℂ)^5/120 - (x:ℂ)^7/5040 + (x:ℂ)^9/362880)‖
+      ≤ |x| ^ 10 * (11 / (3628800 * 10)) := by
+    have hsin : Complex.sin (x:ℂ)
+        = (Complex.exp (-(x:ℂ) * Complex.I) - Complex.exp ((x:ℂ) * Complex.I)) * Complex.I / 2 := by
+      rw [Complex.sin]
+    have hsum : (∑ m ∈ Finset.range 10, (-(x:ℂ) * Complex.I) ^ m / m.factorial
+        - ∑ m ∈ Finset.range 10, ((x:ℂ) * Complex.I) ^ m / m.factorial) * Complex.I / 2
+        = ((x:ℂ) - (x:ℂ)^3/6 + (x:ℂ)^5/120 - (x:ℂ)^7/5040 + (x:ℂ)^9/362880) := by
+      simp [Finset.sum_range_succ, Nat.factorial]
+      ring_nf
+      simp [Complex.I_sq]
+      ring
+    rw [hsin, ← hsum]
+    have hfac : (Complex.exp (-(x:ℂ) * Complex.I) - Complex.exp ((x:ℂ) * Complex.I)) * Complex.I / 2
+        - (∑ m ∈ Finset.range 10, (-(x:ℂ) * Complex.I) ^ m / m.factorial
+           - ∑ m ∈ Finset.range 10, ((x:ℂ) * Complex.I) ^ m / m.factorial) * Complex.I / 2
+        = ((Complex.exp (-(x:ℂ) * Complex.I) - ∑ m ∈ Finset.range 10, (-(x:ℂ) * Complex.I) ^ m / m.factorial)
+           - (Complex.exp ((x:ℂ) * Complex.I) - ∑ m ∈ Finset.range 10, ((x:ℂ) * Complex.I) ^ m / m.factorial))
+          * Complex.I / 2 := by ring
+    rw [hfac, norm_div, Complex.norm_ofNat, norm_mul, Complex.norm_I, mul_one]
+    have := norm_sub_le
+      (Complex.exp (-(x:ℂ) * Complex.I) - ∑ m ∈ Finset.range 10, (-(x:ℂ) * Complex.I) ^ m / m.factorial)
+      (Complex.exp ((x:ℂ) * Complex.I) - ∑ m ∈ Finset.range 10, ((x:ℂ) * Complex.I) ^ m / m.factorial)
+    rw [hnorm] at e1; rw [hnorm'] at e2
+    have hf : ((10 : ℕ).factorial : ℝ) = 3628800 := by norm_num [Nat.factorial]
+    rw [hf] at e1 e2
+    simp only [Nat.succ_eq_add_one] at e1 e2
+    nlinarith [norm_nonneg (Complex.exp ((x:ℂ) * Complex.I) - ∑ m ∈ Finset.range 10, ((x:ℂ) * Complex.I) ^ m / m.factorial)]
+  calc |Real.sin x - (x - x^3/6 + x^5/120 - x^7/5040 + x^9/362880)|
+      = ‖((Real.sin x - (x - x^3/6 + x^5/120 - x^7/5040 + x^9/362880) : ℝ) : ℂ)‖ := by
+        rw [Complex.norm_real]; rfl
+    _ ≤ _ := by push_cast [Complex.ofReal_sin]; exact key
+
 end Riemann

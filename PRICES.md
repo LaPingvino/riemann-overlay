@@ -1113,3 +1113,33 @@ arithmetic. **A page of Lean at a known pattern, not a new capability.**
 
 *Route and order established by computation; no Lean proof of the bound exists
 yet and this entry does not claim one.*
+
+## The `cot(1/√2)` step, fully specified (`SESSION 277`)
+
+`276` proved `cos_bound10`; `277` proves `sin_bound10`, its companion at the same
+order and the same error. What is left is one rational inequality, and it is
+written out here so the assembly is bookkeeping rather than discovery.
+
+At `x = 1/√2` the two polynomials collapse to rationals, because `x² = 1/2`:
+
+| quantity | exact value | decimal |
+|---|---|---|
+| `P` — the `cos` polynomial | `163483/215040` | `0.760244605655` |
+| `R` — with `sin` polynomial `= x·R` | `5334193/5806080` | `0.918725370646` |
+| `e` — the order-ten error, `|x|¹⁰·11/36288000` | `11/1161216000` | `9.473·10⁻⁹` |
+
+The goal `0.6725 ≤ 3/2 − cot(x)/√2` is `cos x ≤ k·√2·sin x` with
+`k = 3/2 − 0.6725 = 8275/10000`. Bounding `cos x ≤ P + e` and
+`sin x ≥ x·R − e`, and using `√2·x = 1` so that `k·√2·(x·R − e) = k·(R − √2·e)`,
+and finally `√2 ≤ 3/2` to keep everything rational, the whole thing reduces to
+
+    882808211/1161216000  ≤  706247142277/928972800000
+
+which holds with slack `191159/309657600000 ≈ 6.17·10⁻⁷`. **A `norm_num` call.**
+
+So `baseline_zeta23`'s numeric step is: two theorems now on disk, plus one
+rational comparison. The `44,441`-line `ThmD` build remains the real cost of that
+axiom and is untouched by any of this.
+
+*The two bounds are proved in Lean; the assembly above is arithmetic verified in
+`ℚ` and is **not formalised** here.*

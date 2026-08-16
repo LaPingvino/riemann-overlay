@@ -10287,3 +10287,43 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** four cycles of asking what this project's coordinates
 can see ended by explaining a design decision made twenty-six cycles earlier,
 which suggests the dictionary was built right before anyone could say why.
+
+## The same pair hides both literature quantities
+
+`222` closed `NscAny`. The project brackets a second literature quantity the
+same way — `distinctZeros`, the literature's `N_d`, sandwiched by
+`atomCount_le_distinctZeros` and `distinctZeros_le_atomCount_add_Noff`.
+
+**Kill condition, filed first:** *if `221`'s pair does not separate
+`distinctZeros`, I say so and stop rather than constructing a second pair.* It
+did not fire — the same two configurations do it.
+
+`distinctZeros_not_fiber_functional`: same ordinates, same `offAt`, and one
+doubled mirror pair has two distinct **points** where two distinct mirror pairs
+have four.
+
+`distinctZeros_not_profile_functional` had already put `N_d` outside the profile.
+This puts it outside the finer fiber coordinate, at the witness that does the
+same for `NscAny` — so both quantities the project brackets are invisible to its
+coordinates, for the same reason and at the same configuration.
+
+Note what separates: `atomCount` counts distinct **ordinates** and is a functional
+of `μ_T` by definition (`220`); `distinctZeros` counts distinct **points** and is
+not a functional even of `(μ_T, offAt)`. The distinct-zero route reaches the
+ledger through the former, which is why it works at all.
+
+Proved by strict inclusion rather than by counting the larger configuration —
+`R22`'s lesson applied on purpose rather than after two wasted attempts.
+
+**Snag, bin 1.** `simp` left two propositional rearrangements standing
+(`x = (b,0) ∨ …` against the same disjuncts reordered); `tauto` closed both. The
+`simp` set normalises membership but does not reorder a disjunction to match.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** this project's coordinates were built to see what its
+own ledger needs, and both quantities the literature offers it are outside them,
+so every comparison it can make is a bracket rather than a translation.

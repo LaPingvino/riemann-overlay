@@ -4968,6 +4968,69 @@ theorem NscAny_not_fiber_functional {a b : ℝ} (ha : a ≠ 1/2) (hb : b ≠ 1/2
     exact ⟨(a, (0:ℝ)), Multiset.mem_filter.2 ⟨hmem, hcount⟩⟩
   omega
 
+/-- **`distinctZeros` is not a functional of `(μ_T, offAt)` either.**
+`SESSION 223`.
+
+The literature's `N_d` counts distinct zeros as *points*; `atomCount` counts
+distinct *ordinates* and is an ordinate functional by definition
+(`atomCount_ordinate_functional`).  `221`'s pair separates the two notions
+sharply: same ordinates, same `offAt`, and one doubled mirror pair has two
+distinct points where two distinct mirror pairs have four.
+
+`distinctZeros_not_profile_functional` already put `N_d` outside the profile.
+This puts it outside the finer fiber coordinate, and does it with the pair that
+already did the same for `NscAny` — so the two literature quantities the project
+brackets are invisible to its coordinates for the same reason and at the same
+witness.
+
+Proved by strict inclusion rather than by counting `B`, per `R22`. -/
+theorem distinctZeros_not_fiber_functional {a b : ℝ} (ha : a ≠ 1/2) (hb : b ≠ 1/2)
+    (hab : a ≠ b) (hab' : a ≠ 1 - b) :
+    (config 0 2 a).ordinates = (superpose (config 0 1 a) (config 0 1 b)).ordinates
+      ∧ (∀ γ : ℝ, offAt (config 0 2 a) γ
+          = offAt (superpose (config 0 1 a) (config 0 1 b)) γ)
+      ∧ distinctZeros (config 0 2 a)
+          < distinctZeros (superpose (config 0 1 a) (config 0 1 b)) := by
+  classical
+  obtain ⟨hord, hoff, -⟩ := NscAny_not_fiber_functional ha hb hab hab'
+  refine ⟨hord, hoff, ?_⟩
+  have hmemA : ∀ x : ℝ × ℝ, x ∈ (config 0 2 a).Z ↔ (x = (a, (0:ℝ)) ∨ x = ((1 - a : ℝ), (0:ℝ))) := by
+    intro x
+    show x ∈ Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 2 (a, (0:ℝ))
+          + Multiset.replicate 2 ((1 - a : ℝ), (0:ℝ))) ↔ _
+    simp
+    tauto
+  have hmemB : ∀ x : ℝ × ℝ,
+      x ∈ (superpose (config 0 1 a) (config 0 1 b)).Z ↔
+        (x = (a, (0:ℝ)) ∨ x = ((1 - a : ℝ), (0:ℝ))
+          ∨ x = (b, (0:ℝ)) ∨ x = ((1 - b : ℝ), (0:ℝ))) := by
+    intro x
+    show x ∈ (Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 1 (a, (0:ℝ))
+          + Multiset.replicate 1 ((1 - a : ℝ), (0:ℝ))))
+      + (Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 1 (b, (0:ℝ))
+          + Multiset.replicate 1 ((1 - b : ℝ), (0:ℝ)))) ↔ _
+    simp
+    tauto
+  have hsub : (config 0 2 a).Z.toFinset
+      ⊆ (superpose (config 0 1 a) (config 0 1 b)).Z.toFinset := by
+    intro x hx
+    rw [Multiset.mem_toFinset] at hx ⊢
+    rcases (hmemA x).1 hx with h | h
+    · exact (hmemB x).2 (Or.inl h)
+    · exact (hmemB x).2 (Or.inr (Or.inl h))
+  have hin : (b, (0:ℝ)) ∈ (superpose (config 0 1 a) (config 0 1 b)).Z.toFinset := by
+    rw [Multiset.mem_toFinset]; exact (hmemB _).2 (Or.inr (Or.inr (Or.inl rfl)))
+  have hout : (b, (0:ℝ)) ∉ (config 0 2 a).Z.toFinset := by
+    rw [Multiset.mem_toFinset]
+    intro h
+    rcases (hmemA _).1 h with h1 | h1
+    · exact hab (congrArg Prod.fst h1).symm
+    · exact hab' (by have := congrArg Prod.fst h1; simp at this; linarith)
+  exact Finset.card_lt_card ((Finset.ssubset_iff_of_subset hsub).2 ⟨_, hin, hout⟩)
+
 /-- **Equal ordinates and equal `offAt` give equal profiles.**  `SESSION 222`.
 The profile is built from exactly those two, so this is bookkeeping — but naming
 it turns `221`'s witnesses into a profile-level statement for free. -/

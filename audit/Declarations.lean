@@ -179,6 +179,8 @@ import Riemann
 #check @Riemann.Blindness.profile_eq_of_ordinates_offAt
 #check @Riemann.Blindness.NscAny_not_profile_functional
 #check @Riemann.Blindness.no_profile_function_computes_NscAny
+-- SESSION 223: and the same pair hides N_d from the fiber coordinate too.
+#check @Riemann.Blindness.distinctZeros_not_fiber_functional
 -- SESSION 216: two ledger entries are not recoverable from the other four.
 #check @Riemann.Blindness.Noff_not_determined_by_ledger
 #check @Riemann.Blindness.NscStd_not_determined_by_ledger

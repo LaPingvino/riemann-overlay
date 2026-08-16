@@ -9464,3 +9464,46 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 
 **Might-mean, unhedged:** the theorem that says this project cannot do better in
 two moments is a theorem about a world where its goal is false.
+
+## The quantifier that had been carried by hand for eighty cycles
+
+`ISSUES` `#20` derives `prop1`'s optimality from an LP criterion it states in
+both directions: `αm + βm² ≤ [m = 1]`, for every `m ≥ 1`. The development
+formalised that criterion at `m = 1` (`linearBound_le_one`) and `m = 2`
+(`linearBound_mass2`), in the direction that runs from a valid bound to the
+criterion. The "every `m`" was hand-derived, and it is that direction and that
+quantifier this cycle supplies — the other direction stays `#20`'s.
+
+**Kill condition, filed first:** *if the single-atom test at general mass needs
+a configuration the development cannot build, I formalise only what it can and
+say which masses remain hand-derived.* It did not fire — `config m 0 a` is the
+configuration, and it was already there.
+
+Two counting lemmas were missing and are now present:
+`config_Nstar_pure : (config m 0 a).Nstar = m * m` and
+`config_Nsc_pure : (config m 0 a).Nsc = if m = 1 then 1 else 0`. With
+`config_N` those give the test, and `linearBound_mass` is the "only if" half at
+every `m`. The two old lemmas are its `m = 1` and `m = 2` instances in content;
+kept, because `prop1_LP_optimal` cites them by name.
+
+**And `#20`'s consequence paragraph needed the quantifier it had dropped.** *"Improving
+Proposition 1 requires information beyond the two moments"* holds for a bound
+asserted over configurations of every mass. `202` put the threshold at `M = 2`
+and `203` identified the class below it as `{N_sc = N}`. So there is a second
+thing that can improve the reduction: **shrinking the class**. Not a route to a
+better bound for `ζ` — `201` says why — but the paragraph's "only" was unscoped.
+Both notes filed at the location.
+
+Three theorems, axiom-free, all three in `audit/Declarations.lean`.
+
+**Snag, bin 1.** `configAt_H` is `@[simp]`, so `have := configAt_H …; simpa
+using this` simplified the hypothesis to `True`. Rewriting the goal
+(`rw [config_eq_configAt, configAt_H]`) instead of massaging a hypothesis fixed
+both occurrences.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the load-bearing step of this project's optimality
+argument spent eighty cycles as a phrase in a register entry, and it took four
+cycles of asking what a class was to notice.

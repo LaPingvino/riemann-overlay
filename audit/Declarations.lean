@@ -118,6 +118,10 @@ import Riemann
 #check @Riemann.Optimal.prop1_LP_threshold_at_two
 -- SESSION 203: and that threshold class is exactly {Nsc = N}.
 #check @Riemann.Optimal.boundedMult_one_iff_Nsc_eq_N
+-- SESSION 204: #20's "for every m >= 1" quantifier, machine-checked.
+#check @Riemann.Blindness.config_Nstar_pure
+#check @Riemann.Blindness.config_Nsc_pure
+#check @Riemann.Optimal.linearBound_mass
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

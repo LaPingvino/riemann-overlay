@@ -102,6 +102,32 @@ theorem linearBound_mass2 {a b : ℝ} (h : LinearBound a b) : a + 2 * b ≤ 0 :=
   push_cast at this
   linarith
 
+/-- **The single-atom test at every mass.**  `SESSION 204`.
+
+`ISSUES` `#20` derives `prop1`'s optimality from the LP characterisation *"a
+linear bound `a₁ ≥ αN + βN⊛` is valid iff `αm + βm² ≤ [m = 1]` for every
+`m ≥ 1`"*, and that quantifier was hand-derived: only `m = 1`
+(`linearBound_le_one`) and `m = 2` (`linearBound_mass2`) were machine-checked.
+
+This is the "only if" half at every `m`, tested on the pure on-line atom
+`config m 0 a`, where `N = m`, `N⊛ = m²` and `N_sc = [m = 1]`.  The two existing
+lemmas are its `m = 1` and `m = 2` instances in content, and are kept because
+`prop1_LP_optimal` cites them by name. -/
+theorem linearBound_mass (m : ℕ) {a b : ℝ} (h : LinearBound a b) :
+    a * m + b * (m * m) ≤ if m = 1 then 1 else 0 := by
+  have hm := h (Blindness.config m 0 0)
+  rw [Blindness.config_N, Blindness.config_Nstar_pure,
+    Blindness.config_Nsc_pure] at hm
+  by_cases h1 : m = 1
+  · rw [if_pos h1]
+    rw [if_pos h1] at hm
+    push_cast at hm
+    linarith
+  · rw [if_neg h1]
+    rw [if_neg h1] at hm
+    push_cast at hm
+    linarith
+
 /-! ### Optimality -/
 
 /-- **Proposition 1 is LP-optimal in `(N, N⊛)`.**  Under a star bound `C` in the

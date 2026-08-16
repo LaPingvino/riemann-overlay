@@ -4462,6 +4462,47 @@ theorem nscAny_import_transfer_attained {a : ℝ} (ha : a ≠ 1/2) :
   rw [config_N, config_NscAny 1 1 ha, config_NscStd 1 1 ha, config_Noff ha]
   norm_num
 
+/-- **`N⊛` on a pure on-line atom of mass `m`.**  `SESSION 204`.  Every one of
+the `m` zeros sits at ordinate `0`, where `H = m`, so the sum is `m²`. -/
+lemma config_Nstar_pure (m : ℕ) (a : ℝ) : (config m 0 a).Nstar = m * m := by
+  classical
+  have hH : ∀ γ' : ℝ, (config m 0 a).H γ' = if γ' = 0 then m else 0 := by
+    intro γ'
+    rw [config_eq_configAt, configAt_H]
+    simp
+  show ((config m 0 a).Z.map fun p => (config m 0 a).H p.2).sum = m * m
+  have hZ : (config m 0 a).Z = Multiset.replicate m ((1/2 : ℝ), (0:ℝ)) := by
+    show Multiset.replicate m ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 0 (a, (0:ℝ))
+          + Multiset.replicate 0 ((1 - a : ℝ), (0:ℝ))) = _
+    simp
+  rw [hZ, Multiset.map_replicate, hH, if_pos rfl, Multiset.sum_replicate]
+  simp
+
+/-- **`N_sc` on a pure on-line atom of mass `m`.**  `SESSION 204`.  The atom is
+on the line, so the only question is whether its multiplicity is one. -/
+lemma config_Nsc_pure (m : ℕ) (a : ℝ) :
+    (config m 0 a).Nsc = if m = 1 then 1 else 0 := by
+  classical
+  have hH : (config m 0 a).H (0:ℝ) = m := by
+    rw [config_eq_configAt, configAt_H]
+    simp
+  have hZ : (config m 0 a).Z = Multiset.replicate m ((1/2 : ℝ), (0:ℝ)) := by
+    show Multiset.replicate m ((1/2 : ℝ), (0:ℝ))
+        + (Multiset.replicate 0 (a, (0:ℝ))
+          + Multiset.replicate 0 ((1 - a : ℝ), (0:ℝ))) = _
+    simp
+  show Multiset.card (Multiset.filter
+      (fun p => p.1 = 1 / 2 ∧ (config m 0 a).H p.2 = 1) (config m 0 a).Z) = _
+  rw [hZ]
+  by_cases hm : m = 1
+  · rw [filter_replicate_pos _ m ((1/2 : ℝ), (0:ℝ)) ⟨rfl, by rw [hH]; exact hm⟩,
+      if_pos hm]
+    simp [hm]
+  · rw [filter_replicate_neg _ m ((1/2 : ℝ), (0:ℝ)) (by
+      intro h; exact hm (by rw [← hH]; exact h.2)), if_neg hm]
+    simp
+
 /-- **…and on odd atoms of mass `≥ 3` it really is ambiguous** — the converse
 half, so the localisation is witnessed in both directions.  Two states of the
 same odd mass `m ≥ 3` share their ordinates and disagree on `NscStd`. -/

@@ -571,6 +571,24 @@ every configuration built from atoms of mass `1` and `2`, and
 `Gauge.prop1_tight` witnesses it in the kernel: one mirror pair gives
 `2N − N⊛ = 0 = N_sc`.
 
+> **SCOPED and PARTLY DISCHARGED, `SESSION 204`.** Two notes on what follows.
+>
+> **(a) The quantifier is now machine-checked.** The derivation above says a
+> bound is valid iff `αm + βm² ≤ [m = 1]` for **every** `m ≥ 1`, and only
+> `m = 1` and `m = 2` were formalised. `Optimal.linearBound_mass` supplies the
+> direction running from a valid bound to the criterion, at every `m`, tested on
+> the pure on-line atom `config m 0 a` where `N = m`, `N⊛ = m²`,
+> `N_sc = [m = 1]`. The converse direction remains this entry's hand derivation.
+>
+> **(b) The consequence below carries that quantifier and should say so.**
+> "Improving Proposition 1 requires a third moment" holds for a bound asserted
+> over configurations of every mass. `Optimal.prop1_LP_threshold_at_two` puts
+> the threshold at `M = 2`, and `Optimal.boundedMult_one_iff_Nsc_eq_N` shows the
+> class below it is `{N_sc = N}` — the ledger's own target. So a second thing
+> can improve the reduction besides a third moment: **shrinking the class**.
+> That is not a route to a better bound for `ζ` (see `SESSION 201`), but the
+> word "only" below is unscoped as written.
+
 **Consequence, and it is the interesting part:** improving Proposition 1
 requires information beyond the two moments — a **third moment `Σ m³`** — which
 is precisely [OPEN D]'s currency. So third-moment data is not only what pushes

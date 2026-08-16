@@ -460,6 +460,21 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 >
 > That is why Route III's cone is `1` axiom and why it was never subject to the
 > wall — it does not pass through the off-line exchange at all.
+>
+> ✅ **`SESSION 171` — the unwalled channel enumerated, and it holds no new
+> supply.** All eight `StarBound` producers are guarded in
+> `forensics/board.py`. Two are **axiom-free**:
+>
+> | producer | pays | verdict |
+> |---|---|---|
+> | `starBound_of_multiplicity_le` | `Proportion (2 − M)`, beating `0.50875` only at `M = 1` | `M = 1` is *every zero simple* — the target, not a route |
+> | `routeIII_with_narrowBox` | `4/3 → 2/3` | already the menu's Route III row |
+>
+> The ζ-level instances (`starBound_of_multiplicity_two`,
+> `starBound_of_mult_le_two_zeta`) carry `baseline_zeta23` in their cones despite
+> proportion-free *statements* — they instantiate with the certified row inside
+> their proofs. **So the second channel is genuinely unwalled and genuinely
+> empty of anything the menu does not already list.**
 > Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
 > which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
 > with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).

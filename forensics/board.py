@@ -66,6 +66,15 @@ TRANSFER = {
         "offLineImport_of_proportionStd", "offLineImport_of_derivative",
         "certified_offline", "offline_via_xiPrime",
     },
+    # SESSION 171: `170` claimed the StarBound channel is unwalled because its
+    # producers do not consume a proportion.  Classifying by input confirmed it —
+    # four of eight take no proportion — so the enumeration is guarded here too.
+    "StarBound": {
+        "starBound_of_multiplicity_le", "starBound_of_multiplicity_and_proportion",
+        "starBound_of_mult_le_two", "routeIII_with_narrowBox", "routeIII_via_A''",
+        "starBound_of_multiplicity_two", "starBound_of_mult_le_two_zeta",
+        "starBound_of_mult_le_three",
+    },
     "HauntedDensity": {
         "hauntedDensity_of_offLineImport", "hauntedDensity_of_starBound",
         "hauntedDensity_of_distinctZeros", "certified_haunted",

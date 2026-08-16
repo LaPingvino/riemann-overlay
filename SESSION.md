@@ -7878,3 +7878,61 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the distinction that had been doing silent work all
 along is between a zero being *near* the line and being *on* it, which is the
 distinction the whole project is named after.
+
+# SESSION 171 — the unwalled channel is empty, and 166's method was unsound
+
+**Kill condition, stated first:** *if every `StarBound` producer consumes a
+proportion, the second channel is minted from the same row too and `170`'s "not
+walled" needs qualifying.* **It did not fire** — two producers are axiom-free.
+
+**Wildcard, kill condition first:** *if the proportion-free producers reduce to
+genres already on the menu, their independence buys no new supply and this dies
+confirming the menu is complete on that channel.* **It fired.**
+
+## The channel, enumerated and guarded
+
+All eight `StarBound` producers are now in `forensics/board.py` alongside
+`OffLineImport` and `HauntedDensity`. Two are **axiom-free**:
+
+| producer | pays | verdict |
+|---|---|---|
+| `starBound_of_multiplicity_le` | `Proportion (2 − M)`, beating `0.50875` only at `M = 1` | `M = 1` is *every zero simple* — the target, not a route |
+| `routeIII_with_narrowBox` | `4/3 → 2/3` | the menu's Route III row since `163` |
+
+So `170`'s claim survives: the second channel is genuinely unwalled. It is also
+genuinely **empty of anything the menu does not already list**.
+
+## `S77` — and `166`'s classification method is unsound as stated
+
+`166` classified `HauntedDensity` producers by the hypotheses in their
+**statements**, and I reused that method here. It disagrees with the cone.
+
+`starBound_of_multiplicity_two` takes no proportion in its statement and passes
+`certified_nsc_unconditional` **inside its proof**, so `#print axioms` returns
+`baseline_zeta23`. My hypothesis-regex counted it independent; the kernel did
+not. The same holds for `starBound_of_mult_le_two_zeta`.
+
+`166`'s `HauntedDensity` classification happens to be right — its producers take
+their inputs as explicit hypotheses — but it was right by luck of construction,
+and **statement-level independence is not cone-level independence**. The cone is
+the measure; the regex is a way of generating candidates.
+
+## Where the board stands
+
+Both channels are now enumerated, guarded, and priced:
+
+* **off-line / haunted** — walled at `β = 1 − κ`, proved optimal (`169`) and not
+  suppliable by proximity (`170`);
+* **`StarBound`** — unwalled, and its independent producers are the multiplicity
+  bound (useful only at `M = 1`) and the narrow box (Route III).
+
+Every route I can name is on `PRICES.md`'s table, and each is blocked on a
+hypothesis rather than on a derivation.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new Lean this cycle.
+
+**Might-mean, unhedged:** I built a classification method five cycles ago, reused
+it without re-deriving it, and the kernel corrected it the first time the two
+disagreed — which is the argument for checking cones rather than reading
+signatures, in one instance.

@@ -132,7 +132,101 @@ def check_transfer():
     return bad
 
 
+# SESSION 172.  `S77`: `166` classified producers by the hypotheses in their
+# *statements*, and `171` found that unsound — `starBound_of_multiplicity_two`
+# takes no proportion in its statement and passes `certified_nsc_unconditional`
+# inside its proof.  The cone is the measure.
+#
+# `165` deliberately kept this file build-free ("a linter that needs a build
+# stops being run"), so cone-checking is **opt-in**: `--cones` emits a Lean file
+# of `#print axioms`, runs it, and compares against `CONE_EXPECTED`.  The default
+# run stays cheap and the expensive check stays reproducible.
+CONE_EXPECTED = {
+    # axiom-free — genuinely independent of the ledger's rows
+    "Blindness.offLine_bound_attained": set(),
+    "Blindness.offLine_count_not_bounded_by_proximity": set(),
+    "Blindness.atomCount_le_distinctZeros": set(),
+    "Blindness.distinctZeros_le_atomCount_add_Noff": set(),
+    "starBound_of_multiplicity_le": set(),
+    "routeIII_with_narrowBox": set(),
+    "offline_roundtrip_loses": set(),
+    "NoSmallHaunted.mono": set(),
+    "noHaunted_iff_forall_noSmallHaunted": set(),
+    "noSmallHaunted_strict": set(),
+    # one axiom
+    "conjectural_routeIII": {"zetaNonempty"},
+    "conjectural_routeI": {"zetaNonempty"},
+    "conjectural_full": {"zetaNonempty"},
+    # two — the certified tier
+    "certified_nsc_unconditional": {"baseline_zeta23", "zetaNonempty"},
+    "certified_nsc_via_noSmallHaunted": {"baseline_zeta23", "zetaNonempty"},
+    "certified_nsc_via_noSmallHaunted_seven": {"baseline_zeta23", "zetaNonempty"},
+    "starBound_of_multiplicity_two": {"baseline_zeta23", "zetaNonempty"},
+    "starBound_of_mult_le_two_zeta": {"baseline_zeta23", "zetaNonempty"},
+    # four — Route II
+    "certified_nsc_via_xiPrime": {"baseline_zeta23", "xiPrimeFamily",
+                                  "zeta23_xiPrime", "zetaNonempty"},
+    "offline_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime", "zetaNonempty"},
+}
+
+LEAN_AX = re.compile(r"'Riemann\.([^']+)' depends on axioms: \[([^\]]*)\]", re.S)
+
+
+def check_cones():
+    """Opt-in: ask the kernel what each producer actually consumes."""
+    import subprocess
+    import tempfile
+    names = sorted(CONE_EXPECTED)
+    src = "import Riemann\n" + "".join(
+        f"#print axioms Riemann.{n}\n" for n in names)
+    with tempfile.NamedTemporaryFile("w", suffix=".lean", delete=False) as fh:
+        fh.write(src)
+        path = fh.name
+    # SESSION 172: `subprocess.run` RAISES when the executable is missing rather
+    # than returning nonzero, so the graceful branch below never fired and a
+    # traceback exited 1 — indistinguishable from a cone mismatch.  That is `S40`
+    # exactly (`proportion.go` reporting a verdict for a check it could not run),
+    # committed in the same cycle that cites it.  Exit 5 for harness failure,
+    # matching `proportion.go`'s convention.
+    try:
+        r = subprocess.run(["lake", "env", "lean", path], cwd=ROOT,
+                           capture_output=True, text=True)
+    except OSError as e:
+        print(f"  ⚠️ could not RUN `lake env lean` ({e}) — cone check NOT "
+              "performed. This is a harness failure, NOT a verdict on any "
+              "cone (S40). Is `lake` on PATH?")
+        raise SystemExit(5)
+    if r.returncode != 0:
+        print("  ⚠️ `lake env lean` exited nonzero — cone check NOT performed.")
+        print(r.stderr[:400])
+        raise SystemExit(5)
+    got = {}
+    for m in LEAN_AX.finditer(r.stdout):
+        ax = {a.strip().replace("Riemann.", "")
+              for a in m.group(2).split(",")}
+        got[m.group(1)] = {a for a in ax
+                           if a not in {"propext", "Classical.choice",
+                                        "Quot.sound"}}
+    bad = 0
+    print("\n=== cone check (the kernel, not the regex) ===")
+    for n in names:
+        if n not in got:
+            print(f"  [MISS] {n:46} not reported")
+            bad += 1
+            continue
+        ok = got[n] == CONE_EXPECTED[n]
+        bad += not ok
+        print(f"  [{'ok ' if ok else 'WRONG'}] {n:46} "
+              f"{sorted(got[n]) if got[n] else 'axiom-free'}")
+        if not ok:
+            print(f"          recorded: {sorted(CONE_EXPECTED[n]) or 'axiom-free'}")
+    print(f"  {len(names) - bad}/{len(names)} cones as recorded.")
+    return bad
+
+
 def main():
+    if "--cones" in sys.argv:
+        raise SystemExit(1 if check_cones() else 0)
     got = extract()
     print("=== the board: ζ-level `Proportion` declarations, extracted ===")
     for name in sorted(got):

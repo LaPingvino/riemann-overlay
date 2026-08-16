@@ -7936,3 +7936,53 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 it without re-deriving it, and the kernel corrected it the first time the two
 disagreed — which is the argument for checking cones rather than reading
 signatures, in one instance.
+
+# SESSION 172 — every independence claim checked against the kernel, and one new tool that lied
+
+**Kill condition, stated first:** *if the cone classification disagrees with what
+the registers record for any producer, some independence claim I made across
+`162`–`171` is wrong, and that is the finding.* **It did not fire: 20/20.**
+
+`171` recorded that `166`'s classification method — reading hypotheses out of
+statements — is unsound, and did not fix it. This is the fix.
+
+## `board.py --cones`
+
+`165` deliberately kept this file build-free, so the cone check is **opt-in**: it
+emits a Lean file of `#print axioms` over every producer whose independence the
+registers assert, runs it, and compares against `CONE_EXPECTED`. The default run
+stays cheap; the expensive check stays reproducible.
+
+**20 declarations, 20 cones as recorded** — the axiom-free ones (`169`'s
+attainment witness, `170`'s proximity witness, both dictionary entries,
+`starBound_of_multiplicity_le`, `routeIII_with_narrowBox`, the ladder theorems),
+the one-axiom routes (`conjectural_routeI/III/full`), the certified tier, and
+Route II's four. **Every independence claim this project has made in the last ten
+cycles now has a kernel witness rather than my reading of a signature.**
+
+Fault-injected: recording a wrong cone gives `[WRONG]`, the recorded-versus-got
+pair, and a nonzero exit.
+
+## `S79` — and the new tool shipped `S40`'s defect, citing `S40`
+
+I wrote a harness-failure branch on purpose, with a comment naming `S40`
+(`proportion.go` reporting "a claimed name does not exist" for a check it could
+not run). **It was unreachable**, as `forensics/board.py`'s own
+comment now records: `subprocess.run` *raises* `FileNotFoundError` when the
+executable is missing rather than returning nonzero, so `returncode != 0` was
+unreachable and a traceback exited `1` — indistinguishable from a cone mismatch.
+
+Found by running it with `lake` off `PATH` instead of trusting code I had written
+minutes earlier for exactly that case. Now `except OSError → exit 5`, matching
+`proportion.go`'s convention since `142`. All three paths verified: harness
+failure `5`, mismatch nonzero, clean `0`.
+
+Knowing a failure mode by name, and quoting it in the comment, did not prevent
+implementing it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new Lean.
+
+**Might-mean, unhedged:** the project's independence claims are all correct and
+the tool I built to confirm that was wrong in the one way I had written a comment
+warning myself about.

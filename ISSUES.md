@@ -1033,6 +1033,32 @@ commit, by hand, without an update. Now `lakefile.rev = manifest.inputRev =
 manifest.rev`, the warning is gone, and the build is green on the same
 revision.
 
+> **CLOSED, `SESSION 231`, on Joop's ruling — the vendored copy exists.**
+> `vendor/zeta23`, 341 files, byte-identical to the pinned commit, tree hash
+> `c9baf0ab3555bc7e…`. `vendor/PROVENANCE.md` records it and
+> `forensics/vendor_check.py` re-verifies all three of bytes, lakefile and
+> manifest.
+>
+> **The second half of the fix nearly got missed again, in the same way.**
+> Switching only `lakefile.toml` to `path = "vendor/zeta23"` builds green and
+> changes nothing: the manifest's `git` entry wins, and lake re-cloned zeta-23
+> from GitHub at the pinned commit while the build looked exactly as it should.
+> The manifest is the authority for a dependency it has already resolved. Fixed
+> by editing the manifest entry to `type: "path"` **by hand** — the same
+> technique this entry's first half used for `inputRev`, and again without
+> running `lake update`.
+>
+> Witness that the vendoring is real: `.lake/packages/zeta23` deleted, `lake
+> build` green in `3757` jobs, no clone recreated, build outputs appearing in
+> `vendor/zeta23/.lake`. Trust unmoved — base `cd7a22e688df`, axioms `2`,
+> ledger `NscStd 67.25% / Nsc 50.88%`.
+>
+> **Scope, stated because the ruling's phrasing is broader than the act.**
+> Mathlib is still a `git` dependency inherited from `vendor/zeta23`'s own
+> lakefile at rev `51e6992e…`; a fresh clone still fetches it. What now lives on
+> our disk is the package carrying this project's trusted inputs, not the whole
+> toolchain.
+
 Still open, and deliberately: **there is no vendored copy.** The pin removes the
 "someone else's content" half of the risk; the "someone else's uptime" half
 remains. Vendoring or mirroring is a larger call.

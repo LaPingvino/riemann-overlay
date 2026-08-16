@@ -3,16 +3,13 @@
   "packagesDir": ".lake/packages",
   "packages": [
     {
-      "url": "https://github.com/anthropics/zeta-23-lean",
-      "type": "git",
-      "subDir": null,
-      "scope": "",
-      "rev": "3635e74826a4c1fcece7d1cd2b6fa75e43a00510",
+      "type": "path",
       "name": "zeta23",
       "manifestFile": "lake-manifest.json",
-      "inputRev": "3635e74826a4c1fcece7d1cd2b6fa75e43a00510",
       "inherited": false,
-      "configFile": "lakefile.toml"
+      "configFile": "lakefile.toml",
+      "dir": "vendor/zeta23",
+      "scope": ""
     },
     {
       "url": "https://github.com/leanprover-community/mathlib4",

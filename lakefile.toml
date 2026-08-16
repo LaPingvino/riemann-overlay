@@ -13,7 +13,15 @@ name = "Riemann"
 # else's uptime AND someone else's content: a `lake update` would silently
 # retarget every axiom-free claim in this repo.  The manifest is the authority;
 # the lakefile now agrees with it by construction.
+# ISSUES #28(a), second half — CLOSED by Joop's ruling of `SESSION 231`.
+# zeta-23 is now VENDORED: the source lives at `vendor/zeta23`, byte-identical
+# to the pinned commit, and the build no longer reaches the network for it.
+# `vendor/PROVENANCE.md` records the upstream URL, the commit, and a
+# deterministic tree hash; `forensics/vendor_check.py` re-verifies the hash.
+#
+# The pin is now a fact about our own disk rather than a promise about someone
+# else's.  Mathlib is still an inherited git dependency — see PROVENANCE.md for
+# what this does and does not remove.
 [[require]]
 name = "zeta23"
-git = "https://github.com/anthropics/zeta-23-lean"
-rev = "3635e74826a4c1fcece7d1cd2b6fa75e43a00510"
+path = "vendor/zeta23"

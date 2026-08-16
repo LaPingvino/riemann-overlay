@@ -10602,3 +10602,60 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 
 **Might-mean, unhedged:** the board's cheapest conditional row buys visibility
 rather than a bound, and the number it moves is a consequence of that.
+
+## zeta-23 vendored — and the green build that meant nothing
+
+Joop's ruling arrived mid-cycle and put this at the top of the queue: vendor
+zeta-23, today, because delay is itself the risk.
+
+**Kill condition, filed first:** *if making the vendoring real requires `lake
+update`, I stop and escalate rather than run a command the standing instruction
+forbids.* It did not fire — the manifest was editable by hand, which is the
+technique `#28(a)`'s first half already used.
+
+`vendor/zeta23`: 341 files, byte-identical to commit `3635e748…`, tree hash
+`c9baf0ab3555bc7e…`, copied from a clean checkout at that commit and `diff -r`
+verified. `vendor/PROVENANCE.md` records it; the file sits **outside** the
+mirror so the hash checks upstream's bytes rather than our annotations.
+
+### The green build that meant nothing
+
+I switched `lakefile.toml` to `path = "vendor/zeta23"`, rebuilt, got `3757` jobs
+green with the ledger and axioms unmoved, and moved `.lake/packages/zeta23`
+aside as a test. The rebuild was still green. I wrote that down as the witness.
+
+It was not. `.lake/packages/zeta23` **came back** — with a `.git` directory,
+timestamped minutes old, at the pinned commit. Lake had re-cloned from GitHub
+and built from the clone. The manifest still said `git`, and the manifest is the
+authority for a dependency it has already resolved. The vendoring was not in
+effect and every number I would have quoted was true.
+
+Fixed by editing the manifest's `zeta23` entry to `type: "path"`, by hand,
+without `lake update`. Now: `.lake/packages/zeta23` absent after a full rebuild,
+build outputs in `vendor/zeta23/.lake`, no clone recreated. `S103`.
+
+### The guard
+
+`forensics/vendor_check.py` checks three things, because `231` learned that one
+of them alone proves nothing: the tree hash, the lakefile's `path`, and the
+manifest's `type`. **All three fault-injected** — a one-line edit to a vendored
+file, the lakefile reverted to `git`, the manifest reverted to `git` — each
+failing its own row with exit `1`, and green again after restore.
+
+### Scope, narrower than the ruling's phrasing
+
+Mathlib is still a `git` dependency, inherited from `vendor/zeta23`'s own
+lakefile at rev `51e6992e…`. A fresh clone still fetches it. What is now on our
+disk is the package carrying this project's trusted inputs — the
+`baseline_zeta23` cone and `PairCeiling` — not the whole toolchain. Vendoring
+Mathlib was not ruled on and is not attempted.
+
+`ISSUES` `#28(a)` closed at its location; `LOOP.md`'s banner gains the row, since
+the cron prompt's `STILL OPEN` line is now wrong.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Eight guards green.
+
+**Might-mean, unhedged:** the pin guaranteed which bytes arrived while leaving
+them to arrive from elsewhere, and what exposed the gap was a directory
+reappearing rather than a check this project had built.

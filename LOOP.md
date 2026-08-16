@@ -22,6 +22,7 @@
 > | *"Minimality of the profile is NOT proved and must not be claimed"* | settled **both** ways: `profile_not_minimal` (globally, `075`) and `profile_minimal_among_local` (locally, `077`) |
 > | queue items 1, 2, 3 | all discharged — `076`, `FAILURES.md`'s W32 table, `075`/`077` |
 > | queue item 4 — "W19 corridor … needs literature not in the registers" | **W19 is dead** (`144`): the error terms were fetched and the only identity precise enough is RH-conditional, which empties the target. `FAILURES.md` carries the autopsy. The GRH tier being empty has a standing mechanical witness — `provenance_lint` prints `tier GRH: 0/11`. |
+> | `STILL OPEN: no vendored copy of zeta-23` | **vendored at `SESSION 231`** on Joop's ruling — `vendor/zeta23`, byte-identical to the pinned commit, verified by `forensics/vendor_check.py`. Mathlib is still fetched; see `vendor/PROVENANCE.md`. |
 > | queue item 5 — "consolidation fallback: re-run all guards" | re-running them proves less than it looks: `148` found **9 of 16 scripts cannot return a failing exit code at all**. Check what a guard can fail on before quoting its green light. |
 > | `RECENT`'s "the PROFILE determines the ledger … minimality NOT proved" | the first half is right; the minimality clause is the row above — settled both ways. |
 >

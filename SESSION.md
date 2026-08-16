@@ -12594,3 +12594,59 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 itself `14%` short on its first run, and it took a second instrument counting the
 declarations another way to notice — so cross-checking two crude tools beats
 inspecting one careful one.
+
+## Half of `zetaNonempty` discharged, and the other half has a price rather than a difficulty
+
+`268` recommended measuring the wall-clock of the cheapest bridge before
+attempting it. This measures it, and then does the half that needs no build.
+
+**Kill condition, filed first:** *if building `Zeta23.RvM.Statement` fails or
+exceeds a bounded wall-clock budget, I report the cost as prohibitive and do not
+attempt the bridge this cycle.* It did not fire — **7m32s**, `3,689` jobs, clean.
+
+**`R26`'s first live use, and it paid twice.** Before spending anything I
+searched the index. It returned `Zeta23.RvM.Statement.riemannVonMangoldt
+(hΓ : GammaFacts) : RiemannVonMangoldt zetaZeroConfig` — a *hypothesis*, which
+would have traded one axiom for another. A second query found
+`Zeta23.gammaFacts : GammaFacts`, proved unconditionally in
+`GammaFacts/Complete.lean`. So the chain is complete: `gammaFacts` →
+`riemannVonMangoldt` → `Assembly.tendsto_N_atTop` → the divergence the axiom
+asserts. And `ofMult_N` was already in `Basic.lean`, which is `S111`'s lesson
+arriving as a saving rather than a bill.
+
+**`zetaZeroData_N`** — `(zetaZeroData T).N = Zeta23.Ncount 0 T`, axiom-free, and
+with **no new import**: `Ncount` and `zeroMult` are already in the `17`-module
+closure. `ofMult_N` gives a `Finset.sum` over the image of `ρ ↦ (ρ.re, ρ.im)`,
+that map is injective so `Finset.sum_image` moves the sum back to the zeros, and
+`finsum_mem_eq_finite_toFinset_sum` matches `Ncount`'s `finsum`. The build is
+unchanged at `3757` jobs.
+
+That is the first of the two steps `Assumptions.lean` has named since base `v2`.
+Annotated at the axiom, where the specification was.
+
+**Escalation — the second step is a standing tax, and it is Joop's call.**
+`import Zeta23.RvM.Statement` costs `27` modules and `9,148` lines, paid once
+now and on **every `lake build` afterwards**. `7m32s` today. In exchange the
+certified cone goes from `2` axioms to `1`, with a base version bump downward and
+full ceremony. The loop should not spend a permanent per-cycle cost on its own
+authority.
+
+**Snag, bin 2.** My first index query used `--find ': GammaFacts$'` and returned
+`0` matches while `grep` found the theorem. `--find` matches the whole
+tab-joined row, so `$` anchors the end of the row and not the statement column.
+The index was right and the query was wrong — recorded because the failure mode
+of a search tool is a confident empty result.
+
+**Snag, bin 1.** Two wrong lemma names before the right one:
+`finsum_mem_finset` does not exist, and rewriting with
+`Set.Finite.coe_toFinset` fails on *motive is not type correct* because the
+`Set` appears inside its own finiteness proof. `finsum_mem_eq_finite_toFinset_sum`
+takes the finiteness proof as an argument and sidesteps it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` — unmoved, since no axiom was removed yet — eleven guards
+green, index regenerated.
+
+**Might-mean, unhedged:** the last two axioms in the certified cone are priced in
+build minutes rather than in mathematics, which makes the trusted base a
+resourcing decision now instead of a research one.

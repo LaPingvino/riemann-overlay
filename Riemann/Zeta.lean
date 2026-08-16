@@ -55,4 +55,29 @@ noncomputable def zetaZeroData (T : ℝ) : ZeroData := by
       apply Complex.ext <;> simp [toC]
     rw [hcoe, hcoe', Zeta23.zeta_mult_reflect ρ hρ'.1]
 
+/-- **The `N` of our `ZeroData` is zeta-23's `Ncount`.**  `SESSION 270`.
+
+`Assumptions.lean`'s `zetaNonempty` docstring names the two steps left in
+discharging that axiom: *"`(zetaZeroData T).N = Zeta23.Ncount 0 T` (a `finsum` ↔
+`Finset.sum` conversion) and eventual positivity of `Ncount` from
+`Zeta23.RvM.riemannVonMangoldt`. Plumbing, not mathematics."*  This is the first
+step, and it needs no import our build does not already have — `Ncount` and
+`zeroMult` are in the `17`-module closure we reach today.
+
+`ofMult_N` turns the left side into a `Finset.sum` over the image of
+`ρ ↦ (ρ.re, ρ.im)`; that map is injective, so `Finset.sum_image` moves the sum
+back to the zeros themselves, and `finsum_mem_finset` matches the right side. -/
+theorem zetaZeroData_N (T : ℝ) : (zetaZeroData T).N = Zeta23.Ncount 0 T := by
+  classical
+  have hinj : ∀ ρ ∈ (Zeta23.zerosIn_finite 0 T).toFinset,
+      ∀ σ ∈ (Zeta23.zerosIn_finite 0 T).toFinset,
+        (ρ.re, ρ.im) = (σ.re, σ.im) → ρ = σ := by
+    intro ρ _ σ _ h
+    exact Complex.ext (congrArg Prod.fst h) (congrArg Prod.snd h)
+  rw [zetaZeroData, ZeroData.ofMult_N, Finset.sum_image hinj]
+  have hcoe : ∀ ρ : ℂ, toC (ρ.re, ρ.im) = ρ := fun ρ => Complex.ext rfl rfl
+  simp only [hcoe]
+  rw [Zeta23.Ncount,
+    finsum_mem_eq_finite_toFinset_sum _ (Zeta23.zerosIn_finite 0 T)]
+
 end Riemann

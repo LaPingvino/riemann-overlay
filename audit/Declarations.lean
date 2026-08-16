@@ -242,6 +242,8 @@ import Riemann
 -- SESSION 262: the off-line currency sharpens with the rung.
 #check @Riemann.Blindness.pred_mul_haunted_le_Noff
 #check @Riemann.hauntedDensity_of_offLineImport_at_rung
+-- SESSION 270: our N is zeta-23's Ncount — half of discharging zetaNonempty.
+#check @Riemann.zetaZeroData_N
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

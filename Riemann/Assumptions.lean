@@ -52,7 +52,20 @@ nonemptiness: finiteness in a window, the multiplicity function, closure under
 
 Discharging what is left needs `(zetaZeroData T).N = Zeta23.Ncount 0 T` (a
 `finsum` ↔ `Finset.sum` conversion) and eventual positivity of `Ncount` from
-`Zeta23.RvM.riemannVonMangoldt`.  Plumbing, not mathematics. -/
+`Zeta23.RvM.riemannVonMangoldt`.  Plumbing, not mathematics.
+
+**`270`: the first step is done.**  `Riemann.zetaZeroData_N` proves
+`(zetaZeroData T).N = Zeta23.Ncount 0 T`, axiom-free and with no new import —
+`Ncount` and `zeroMult` are already in the `17`-module closure we reach.
+
+What remains is eventual positivity, and it has a price rather than a
+difficulty.  `Zeta23.RvM.Statement.riemannVonMangoldt` needs `GammaFacts`, which
+`Zeta23.gammaFacts` proves unconditionally, and `Assembly.tendsto_N_atTop` turns
+`RiemannVonMangoldt zetaZeroConfig` into the divergence this axiom asserts.  The
+chain is complete and unconditional.  The cost is `import Zeta23.RvM.Statement`:
+`27` extra modules, `9,148` lines, measured at **7m32s** of build in `270` — paid
+once here, and on every `lake build` afterwards.  That is a standing tax on every
+future cycle and it is Joop's call, not the loop's. -/
 axiom zetaNonempty : ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N
 
 /-- The zeros of `ζ` as a `Family` — now a **construction**, not an axiom. -/

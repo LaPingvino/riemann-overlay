@@ -344,6 +344,26 @@ program, and the passage from `Finset` to integral — remains prose. Recorded a
 `SURPRISES` S20: I expected formalising the collapse would discharge the rung,
 and it discharged its skeleton.
 
+> **CORRECTED, `SESSION 198`.** The sentence below is wrong about what is left.
+> The `Finset`-to-integral passage it had in mind was indeed bookkeeping and was
+> done in `193`. The *other* half — the map from a bandwidth-one certificate
+> into this program — is **not** bookkeeping, and
+> `Capacity.subclass_floor_strictly_above_pinned` is the reason:
+>
+> `pinned_value_is_floor` computes a floor over `Admissible known F₀`. A
+> bandwidth-one class is a **subclass** of that, carrying a Fourier-support
+> constraint on top. A floor is an infimum, and an infimum over a smaller class
+> can be larger — the theorem exhibits a two-index case where restricting the
+> class raises the floor strictly. So the capacity results bound the
+> bandwidth-one program from below and do not compute it.
+>
+> What the map needs, named: a Fourier-support notion and a pair-correlation
+> form factor. A grep of `Riemann/*.lean` for `Fourier`, `bandwidth`,
+> `formFactor` and `pairCorrelation` returns prose mentions in
+> `Blindness.lean:35` and `Basic.lean:378` and no declaration. The debt is
+> therefore **blocked on a named analytic input**, which is a better status
+> than "owed" and a worse one than "bookkeeping".
+
 The remaining step is measure-theoretic bookkeeping rather than mathematics, and
 it is now a well-posed Lean task instead of an argument.
 

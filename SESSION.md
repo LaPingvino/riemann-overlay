@@ -9213,3 +9213,44 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the reason this project keeps meeting the same wall
 from different literatures is that every route out of the baseline pays the
 off-line mass exactly once, and `0.6725` is what is left after paying it.
+
+## "Bookkeeping" was the wrong word, and the inequality runs the other way
+
+The absence queue's one live obligation is the other half of rung 0: the map
+from a bandwidth-one certificate into `#10`'s program. `FAILURES.md` closed that
+section with *"the remaining step is measure-theoretic bookkeeping rather than
+mathematics"*, and `193` discharged the half that really was.
+
+**Kill condition, filed first:** *if restricting the admissible class cannot
+raise the guaranteed floor, the bandwidth constraint is harmless and the
+remainder really is bookkeeping — I say so; if it can, the debt is structural
+and the register must stop calling it bookkeeping.*
+
+It can. `Capacity.subclass_floor_strictly_above_pinned`: two indices,
+`known = {0}`, `K ≡ 1`, `F₀ = (1, 0)`. The pinned value `1` is attained in the
+full admissible class by `F = F₀`, and every member of the subclass "`F ≥ 1` off
+`known`" strictly exceeds it.
+
+That is the whole point, and it is a direction I had not checked. A
+bandwidth-one class is a **subclass** of `Admissible known F₀` — it carries a
+Fourier-support constraint on top. A floor is an infimum, and an infimum over a
+smaller class can be larger. So `pinned_value_is_floor` and its integral form
+bound the bandwidth-one program **from below** and do not compute it. The
+adversary that makes the capacity floor tight is exactly what a bandwidth
+constraint might exclude.
+
+**What the map needs, named rather than gestured at.** A Fourier-support notion
+and a pair-correlation form factor. Grepping `Riemann/*.lean` for `Fourier`,
+`bandwidth`, `formFactor`, `pairCorrelation` returns prose mentions at
+`Blindness.lean:35` and `Basic.lean:378`, and no declaration. So the debt moves
+from *owed* to **blocked on a named analytic input** — better than "owed",
+worse than "bookkeeping". Corrected at the location, `S94`.
+
+One theorem, axiom-free, added to `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Six guards green, banner 6/6.
+
+**Might-mean, unhedged:** I discharged half of this debt five cycles ago while
+repeating the register's own word for the other half, which means the fastest way
+to inherit a wrong belief here is to fix something next to it.

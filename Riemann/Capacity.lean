@@ -412,6 +412,47 @@ theorem weighted_sum_le_mass_mul (S : Finset ι) (w e : ι → ℝ) (E : ℝ)
 end Reweighting
 
 
+/-- **Restricting the admissible class can raise the floor, strictly.**
+`SESSION 198`.
+
+The rung-0 debt `FAILURES.md` still carries is "the map from a bandwidth-one
+certificate into this program", and the register calls the remainder
+bookkeeping.  This theorem is why that description is wrong.
+
+`pinned_value_is_floor` computes a floor over `Admissible known F₀` — pinned on
+`known`, nonnegative outside.  A **bandwidth-one** certificate class is a
+*subclass* of that: it carries a Fourier-support constraint on top.  A floor is
+an infimum, and an infimum over a smaller class can be **larger**.  So the
+capacity theorems bound the bandwidth-one program from below and do not compute
+it, and the missing half is not a change of variables.
+
+The witness: two indices, `known = {0}`, `K ≡ 1`, `F₀ = (1, 0)`.  The pinned
+value `1` is attained in the full class (take `F = F₀`), and every member of the
+subclass "`F ≥ 1` off `known`" strictly exceeds it.  The subclass here is a
+stand-in for bandwidth-one, chosen because it is the cheapest constraint that
+excludes the adversary `pinned_value_attained` exhibits — which is the property
+that matters, since that adversary is what makes the floor tight. -/
+theorem subclass_floor_strictly_above_pinned :
+    ∃ (known S : Finset (Fin 2)) (K F₀ : Fin 2 → ℝ),
+      known ⊆ S
+      ∧ (∀ i ∈ S, i ∉ known → 0 ≤ K i)
+      ∧ (∃ F, Admissible known F₀ F
+            ∧ ∑ i ∈ S, K i * F i = ∑ i ∈ known, K i * F₀ i)
+      ∧ (∀ F, Admissible known F₀ F → (∀ i ∉ known, 1 ≤ F i) →
+            ∑ i ∈ known, K i * F₀ i < ∑ i ∈ S, K i * F i) := by
+  classical
+  refine ⟨{0}, Finset.univ, fun _ => 1, fun i => if i = 0 then 1 else 0,
+    Finset.subset_univ _, fun i _ _ => zero_le_one, ⟨fun i => if i = 0 then 1 else 0,
+      ⟨fun i _ => rfl, fun i _ => by by_cases h : i = 0 <;> simp [h]⟩, ?_⟩, ?_⟩
+  · simp [Fin.sum_univ_two]
+  · intro F hF hsub
+    have h0 : F 0 = 1 := by
+      have := hF.1 0 (Finset.mem_singleton_self 0); simpa using this
+    have h1 : (1 : ℝ) ≤ F 1 := hsub 1 (by simp)
+    simp only [Fin.sum_univ_two, Finset.sum_singleton, one_mul]
+    norm_num [h0]
+    linarith
+
 /-! ### Rung 0 at the class `#10` actually names — `SESSION 193`
 
 `FAILURES.md` recorded rung 0 as **partial**: the `Finset` skeleton was proved

@@ -95,6 +95,8 @@ import Riemann
 #check @Riemann.Capacity.AdmissibleOn
 #check @Riemann.Capacity.value_eq_pinned_integral
 #check @Riemann.Capacity.no_gain_past_known_integral
+-- SESSION 198: why the bandwidth-one half of rung 0 is not bookkeeping.
+#check @Riemann.Capacity.subclass_floor_strictly_above_pinned
 #check @Riemann.Capacity.unbounded_below_of_neg_outside_integral
 -- prop1's optimality in the two moments, certified (was a docstring claim)
 #check @Riemann.Optimal.LinearBound

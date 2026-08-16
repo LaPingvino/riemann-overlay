@@ -166,6 +166,9 @@ import Riemann
 #check @Riemann.Family.ProportionAny
 #check @Riemann.Family.proportionAny_le_one
 #check @Riemann.Family.proportionStd_of_proportionAny
+-- SESSION 216: two ledger entries are not recoverable from the other four.
+#check @Riemann.Blindness.Noff_not_determined_by_ledger
+#check @Riemann.Blindness.NscStd_not_determined_by_ledger
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

@@ -74,8 +74,21 @@ share a profile without any relabelling relating them. `SURPRISES` S26 is one
 cycle old and records exactly this overreach, so the register says invariance and
 stops.
 
-Minimal residue still unidentified; now known to sit below `(μ_T, offAt)` and to
-be relabelling-invariant.
+> **`SESSION 216`.** Two more facts about where it sits, both axiom-free.
+> `215` established it is strictly **coarser** than the profile
+> (`profile_not_minimal`). Now: within the ledger itself,
+> `Blindness.Noff_not_determined_by_ledger` and
+> `Blindness.NscStd_not_determined_by_ledger` show neither `N_off` nor `NscStd`
+> is recoverable from the other four entries, so the ledger has no redundancy
+> those two could be dropped through.
+>
+> **Not addressed:** the same question for `N`, `N⊛` and `N_sc`. A witness would
+> need three atoms — for two atoms, `Σm` and `Σm²` already pin the mass
+> multiset — and `twoAtom` builds two. Named rather than left as an implied
+> completeness.
+
+Minimal residue still unidentified; now known to sit below `(μ_T, offAt)`, to
+be relabelling-invariant, and to be strictly coarser than the profile.
 
 ### Night cycle 16 — the residue is an UPPER BOUND; last cycle's claim corrected
 

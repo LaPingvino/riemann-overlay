@@ -1594,6 +1594,76 @@ theorem profile_not_minimal {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
     exact_mod_cast this
   · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
 
+/-! ### Is the ledger itself irredundant? — `SESSION 216`
+
+`075` showed the profile is not the minimal sufficient statistic: the ledger is
+coarser and still determines itself.  `NIGHT.md` has carried "minimal residue
+still unidentified" since night-`17`.  The sharp question one level down is
+whether the ledger's own five entries are independent — whether any of them is
+recoverable from the other four.
+
+Two are not, by the same construction `profile_not_minimal` uses: read every
+entry off the profile and `decide`. -/
+
+/-- **`N_off` is not determined by the other four ledger entries.**
+`SESSION 216`.
+
+Two atoms of masses `4` and `2`, once entirely on the line and once entirely off
+it.  `N = 6`, `N⊛ = 20`, `N_sc = 0`, `NscStd = 0` on both — no atom has mass one,
+and no atom has on-line part one — while `N_off` is `0` against `6`. -/
+theorem Noff_not_determined_by_ledger {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (twoAtom γ a 4 0 2 0).N = (twoAtom γ a 0 2 0 1).N
+      ∧ (twoAtom γ a 4 0 2 0).Nstar = (twoAtom γ a 0 2 0 1).Nstar
+      ∧ (twoAtom γ a 4 0 2 0).Nsc = (twoAtom γ a 0 2 0 1).Nsc
+      ∧ (twoAtom γ a 4 0 2 0).NscStd = (twoAtom γ a 0 2 0 1).NscStd
+      ∧ (twoAtom γ a 4 0 2 0).Noff ≠ (twoAtom γ a 0 2 0 1).Noff := by
+  have pA := twoAtom_profile hγ ha (k₁ := 4) (j₁ := 0) (k₂ := 2) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 0) (j₁ := 2) (k₂ := 0) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+  · have : ((twoAtom γ a 4 0 2 0).Nsc : ℤ) = ((twoAtom γ a 0 2 0 1).Nsc : ℤ) := by
+      rw [Nsc_from_profile, Nsc_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · have : ((twoAtom γ a 4 0 2 0).NscStd : ℤ)
+        = ((twoAtom γ a 0 2 0 1).NscStd : ℤ) := by
+      rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+
+/-- **`NscStd` is not determined by the other four ledger entries.**
+`SESSION 216`.
+
+Masses `5` and `3` with two off-line zeros, placed on the mass-`5` atom or on
+the mass-`3` one.  `N = 8`, `N⊛ = 34`, `N_off = 2`, `N_sc = 0` on both; but the
+on-line part is `3` and `3` in the first case and `5` and `1` in the second, so
+`NscStd` is `0` against `1`. -/
+theorem NscStd_not_determined_by_ledger {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (twoAtom γ a 3 1 3 0).N = (twoAtom γ a 5 0 1 1).N
+      ∧ (twoAtom γ a 3 1 3 0).Nstar = (twoAtom γ a 5 0 1 1).Nstar
+      ∧ (twoAtom γ a 3 1 3 0).Nsc = (twoAtom γ a 5 0 1 1).Nsc
+      ∧ (twoAtom γ a 3 1 3 0).Noff = (twoAtom γ a 5 0 1 1).Noff
+      ∧ (twoAtom γ a 3 1 3 0).NscStd ≠ (twoAtom γ a 5 0 1 1).NscStd := by
+  have pA := twoAtom_profile hγ ha (k₁ := 3) (j₁ := 1) (k₂ := 3) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 5) (j₁ := 0) (k₂ := 1) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+  · have : ((twoAtom γ a 3 1 3 0).Nsc : ℤ) = ((twoAtom γ a 5 0 1 1).Nsc : ℤ) := by
+      rw [Nsc_from_profile, Nsc_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+  · have : ((twoAtom γ a 3 1 3 0).NscStd : ℤ)
+        ≠ ((twoAtom γ a 5 0 1 1).NscStd : ℤ) := by
+      rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
+    exact_mod_cast this
+
 /-- The profile of a single atom. -/
 lemma configAt_profile {γ a : ℝ} (ha : a ≠ 1/2) {k j : ℕ} (h : k + 2 * j ≠ 0) :
     profile (configAt γ k j a) = {(k + 2 * j, 2 * j)} := by

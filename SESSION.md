@@ -10010,3 +10010,42 @@ existing theorems.
 **Might-mean, unhedged:** this project's refusals age in two directions and its
 registers record only the moment of refusal, so the honest reading of any
 "declined" entry requires re-deriving both its reason and its verdict.
+
+## Two ledger entries that the other four cannot recover
+
+`215` placed the residue strictly below the profile. `NIGHT.md` has carried
+"minimal residue still unidentified" since night-`17`. One level down from the
+profile sits the ledger itself, and the sharp question there is whether its five
+entries are independent.
+
+**Kill condition, filed first:** *if one of the five is determined by the other
+four, I record which and prove the dependence rather than hunting for a
+witness.* It did not fire on the two I could reach.
+
+* `Noff_not_determined_by_ledger` — two atoms of masses `4` and `2`, once
+  entirely on the line and once entirely off it. `N = 6`, `N⊛ = 20`,
+  `N_sc = 0`, `NscStd = 0` on both — no atom of mass one, no atom with on-line
+  part one — and `N_off` is `0` against `6`.
+* `NscStd_not_determined_by_ledger` — masses `5` and `3` with two off-line
+  zeros, placed on the mass-`5` atom or on the mass-`3` one. `N = 8`, `N⊛ = 34`,
+  `N_off = 2`, `N_sc = 0` on both; the on-line parts are `3, 3` against `5, 1`,
+  so `NscStd` is `0` against `1`.
+
+Both by `075`'s own construction: read every entry off the profile with
+`*_from_profile` and `decide`. Both axiom-free.
+
+**What is not addressed, and why.** The same question for `N`, `N⊛` and `N_sc`.
+A witness needs three atoms — with two, `Σm` and `Σm²` already pin the mass
+multiset, so any pair with matching `N` and `N⊛` has matching masses and cannot
+differ in `N_sc`. `twoAtom` builds two. Named at the location rather than left
+as an implied completeness.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`. `NIGHT.md`'s
+standing line updated at its location.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the ledger looks like five numbers and behaves like
+five numbers, and the two the project cares most about are the two now known to
+carry information the others do not.

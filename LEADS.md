@@ -1,6 +1,31 @@
 # LEADS — the cutting-room floor
 
 
+## `SESSION 181` — the profile dictionary, completed for the ledger and open for one quantity
+
+Every ledger quantity now has a profile reading: `N`, `Noff`, `N⊛`, `Nsc`,
+`NscStd` (the original five), `oddAtoms`, `atomCount` (`180`) and
+**`hauntedCount`** (`181`, axiom-free). The last two were definitional
+connections nobody had written down, and `hauntedCount`'s absence mattered — it
+is the quantity `HauntedDensity`, the ladder and the off-line exchange all
+consume, so had it not been a profile functional the blindness analysis would
+have had a hole exactly where this project's own coined quantity lives.
+
+**One quantity appears NOT to be a profile functional, and this is an argument,
+not a theorem.** `ZeroData.distinctZeros` (introduced at `167` for the Wu
+dictionary) counts distinct *points*; a profile entry `(m, o)` records `o` units
+of off-line **mass**, not how that mass splits into distinct points. Two
+configurations with profile `(4, 4)` — one ordinate with two off-line pairs at
+distinct `β`, versus one pair at doubled multiplicity — should share a profile and
+differ in `distinctZeros`.
+
+**Not proved here.** Building the doubled-multiplicity witness needs a
+construction the file does not have, and `175`/`176` are the record of what
+happens when a plausible structural claim is written as though established. Filed
+as the shape of an explanation for why `167`/`168`'s dictionary had to be an
+*inequality* (`atomCount ≤ distinctZeros`) rather than an identity.
+
+
 ## `SESSION 159` — a simplicity route that consumes *location* rather than multiplicity
 
 Read from displayed statements in Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh,

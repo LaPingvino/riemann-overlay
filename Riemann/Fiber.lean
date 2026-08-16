@@ -3128,6 +3128,30 @@ off-line pairs. -/
 noncomputable def hauntedCount (D : ZeroData) : ℕ :=
   (D.ordinates.toFinset.filter fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1).card
 
+/-- **`hauntedCount` is read off the profile too** — `SESSION 181`.
+
+The file carries five `_from_profile` theorems (`N`, `Noff`, `N⊛`, `Nsc`,
+`NscStd`) and states that the profile determines the ledger.  `hauntedCount` —
+the quantity this project coined, and the one every conditional route runs
+through — had no such reading, for the same reason `180` found `atomCount`
+lacked one: the connection is definitional and nobody wrote it down.
+
+It is immediate, and it has to be: a profile entry is `(H γ, offAt γ)`, and
+hauntedness is the predicate `H − offAt = 1 ∧ H ≠ 1` on exactly that pair.  So
+`hauntedCount` was always a profile functional; now it says so.
+
+**Why this is worth a line.**  `Blindness` argues that the profile is the
+residue — everything the ledger can see. `HauntedDensity`, the ladder, and the
+off-line exchange all consume `hauntedCount`, so had it *not* been a profile
+functional, the blindness analysis would have had a hole exactly where the
+project's own quantity lives. -/
+theorem hauntedCount_from_profile (D : ZeroData) :
+    hauntedCount D
+      = Multiset.card ((profile D).filter fun q => q.1 - q.2 = 1 ∧ q.1 ≠ 1) := by
+  classical
+  rw [hauntedCount, profile, Multiset.filter_map, Multiset.card_map]
+  rfl
+
 /-- **`NscStd = Nsc + hauntedCount`** — an identity, not a bound.
 
 Every standard-simple ordinate is either simple or haunted, and the two cases are

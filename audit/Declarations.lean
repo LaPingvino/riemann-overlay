@@ -318,5 +318,6 @@ import Riemann
 #check @Riemann.Blindness.haunted_chain_attains
 #check @Riemann.Blindness.haunted_chain_attains_star_and_atoms
 #check @Riemann.Blindness.atomCount_eq_card_profile
+#check @Riemann.Blindness.hauntedCount_from_profile
 #check @Riemann.Blindness.configAt_H
 #check @Riemann.Blindness.configAt_offAt

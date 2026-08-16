@@ -8408,3 +8408,50 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the two facts `179` could not reach were both a single
 rewrite away through a lemma nobody had written, and the reason nobody had
 written it is that the profile's own docstring already said what it meant.
+
+# SESSION 181 — the project's own quantity had no profile reading
+
+**Kill condition, stated first:** *if `hauntedCount` already has a stated profile
+reading, this dies as a duplicate — the profile↔ledger dictionary is complete and
+`180`'s gap was isolated.* **It did not fire.**
+
+`180` found `atomCount` unconnected to the profile despite being definitionally
+that count, and the same question was owed of the rest. The file carries five
+`_from_profile` theorems — `N`, `Noff`, `N⊛`, `Nsc`, `NscStd` — and says the
+profile determines the ledger. **`hauntedCount` had none.**
+
+`Blindness.hauntedCount_from_profile` (**axiom-free**, built first try): a
+profile entry is `(H γ, offAt γ)`, and hauntedness is the predicate
+`H − offAt = 1 ∧ H ≠ 1` on exactly that pair.
+
+**Why the absence mattered.** `HauntedDensity`, the ladder, and the off-line
+exchange all consume `hauntedCount`. `Blindness` argues the profile is the
+residue — everything the ledger can see. Had `hauntedCount` *not* been a profile
+functional, the blindness analysis would have had a hole precisely where this
+project's own coined quantity lives. It is one; now it says so.
+
+## The wildcard: one quantity that appears not to be
+
+**Kill condition first:** *if every remaining ledger quantity has a profile
+reading, the dictionary is complete after this cycle.* Swept: `N`, `Noff`, `N⊛`,
+`Nsc`, `NscStd`, `oddAtoms`, `atomCount`, `hauntedCount` all have one.
+**`distinctZeros` has none**, and I do not think it can.
+
+A profile entry `(m, o)` records `o` units of off-line **mass**, not how that mass
+splits into distinct points. Two configurations with profile `(4, 4)` — one
+ordinate with two off-line pairs at distinct `β`, versus one pair at doubled
+multiplicity — should share a profile and differ in `distinctZeros`.
+
+**Not proved.** The doubled-multiplicity witness needs a construction the file
+does not have. `175`/`176` are this project's record of what happens when a
+plausible structural claim is written as though established, so it is filed in
+`LEADS.md` as the *shape* of an explanation — for why `167`/`168`'s dictionary
+had to be an inequality (`atomCount ≤ distinctZeros`) rather than an identity —
+and not as a result.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` checks **25**.
+
+**Might-mean, unhedged:** two cycles running, the gap was a definitional
+connection nobody had written because the definitions already said it, and in
+this one the unwritten line was under the project's own central quantity.

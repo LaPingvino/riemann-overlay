@@ -10570,3 +10570,35 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** this project's central quantity is fenced above and
 below by things the literature can compute, which is why the bracket transfers
 and why closing it needs an input from outside the fence.
+
+## What buying the `NoHaunted` row actually purchases
+
+`229` left `NscStd` fenced between two `μ_T`-visible quantities. The board's
+`NoHaunted` row assumes the hypothesis that collapses the fence.
+
+**Kill condition, filed first:** *if the development already states `NoHaunted`
+as a bundle that makes `NscStd` `μ_T`-computable, I say so in one line and
+stop.* It did not fire: `separating_bundle_excludes` gives the negative side —
+any such bundle must exclude one of two legitimate configurations — and its
+docstring says what a useful bundle does, *"it rules out the world in which the
+coordinate is ambiguous"*, with no instance in the development.
+
+* `noHaunted_bundle_computes_NscStd` — a bundle forcing `hauntedCount = 0`
+  collapses `NscStd` onto `N_sc` by the master identity, and `N_sc` is a `μ_T`
+  functional. So the invisible row becomes visible under exactly that
+  hypothesis.
+* `noHaunted_bundle_excludes` — feeding it back through
+  `separating_bundle_excludes` returns the predicted exclusion.
+
+**This is `224`'s map talking to `RULING.md`'s board.** The hypothesis is not
+itself `μ_T`-checkable — `226` puts `hauntedCount` outside `μ_T` — so a
+certificate class cannot verify it and can only assume it. That is what buying
+a row on the board costs, stated as a theorem rather than as a policy.
+
+Two theorems, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the board's cheapest conditional row buys visibility
+rather than a bound, and the number it moves is a consequence of that.

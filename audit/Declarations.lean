@@ -187,6 +187,9 @@ import Riemann
 #check @Riemann.Blindness.hauntedSet_card_not_ordinate_functional
 #check @Riemann.Blindness.hauntedSet_card_determined
 -- SESSION 226: the two haunted counts are the same number; 225 carried across.
+-- SESSION 230: NoHaunted is a separating bundle — it makes NscStd mu_T-computable.
+#check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
+#check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card
 #check @Riemann.Blindness.hauntedCount_not_ordinate_functional
 #check @Riemann.Blindness.hauntedCount_determined

@@ -5204,6 +5204,40 @@ theorem hauntedSet_card_determined {D D' : ZeroData}
   have h2 := ZeroData.NscStd_eq_Nsc_add_haunted D'
   omega
 
+/-- **A no-haunted bundle computes `NscStd` from `μ_T`.**  `SESSION 230`.
+
+`Blindness.separating_bundle_excludes` is the negative side of the bundle
+question: any hypothesis that lets `μ_T` compute `NscStd` must exclude one of
+two legitimate configurations.  Its docstring says what a useful bundle does —
+*"it rules out the world in which the coordinate is ambiguous"* — and the
+development had no instance of one.
+
+Here is the instance the board already prices.  `NoHaunted` forces
+`hauntedCount = 0`, the master identity collapses `NscStd` onto `N_sc`, and
+`N_sc` **is** a `μ_T` functional (`ZeroData.Nsc_eq_ordinate_functional`).  So the
+invisible row becomes visible under exactly that hypothesis.
+
+Note the shape, which is `224`'s map talking to `RULING.md`'s board: the
+hypothesis itself is *not* `μ_T`-checkable — `226` puts `hauntedCount` outside
+`μ_T` — so a certificate class cannot verify it and can only assume it.  That is
+what buying a row on the board costs. -/
+theorem noHaunted_bundle_computes_NscStd (B : ZeroData → Prop)
+    (hB : ∀ D, B D → hauntedCount D = 0) :
+    ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, B D → D.NscStd = f D.ordinates := by
+  classical
+  refine ⟨fun m => (m.filter fun γ => Multiset.count γ m = 1).card, fun D hD => ?_⟩
+  have h := NscStd_eq_Nsc_add_haunted D
+  rw [hB D hD, Nat.add_zero] at h
+  rw [h, ZeroData.Nsc_eq_ordinate_functional]
+
+/-- **…and such a bundle must exclude one of the two gauge configurations.**
+`SESSION 230`.  The consistency check: feeding the bundle above into
+`separating_bundle_excludes` returns the exclusion it predicts. -/
+theorem noHaunted_bundle_excludes (B : ZeroData → Prop)
+    (hB : ∀ D, B D → hauntedCount D = 0) :
+    ¬ (B Gauge.triple ∧ B Gauge.haunted) :=
+  separating_bundle_excludes B (noHaunted_bundle_computes_NscStd B hB)
+
 /-- **The two haunted counts are the same number.**  `SESSION 226`.
 
 The development carries two of them, in two namespaces, and they are used in

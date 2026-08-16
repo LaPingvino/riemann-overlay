@@ -302,6 +302,35 @@ theorem prop1_LP_threshold_at_two {C : ℝ} (hC1 : 1 < C) (hC2 : C ≤ 2) :
     exact_mod_cast Nsc_eq_N_of_boundedMult_one D hD1
   simpa using hcast
 
+/-- **The class the LP conclusion fails on is the `RH`-and-simple class.**
+`SESSION 203`.
+
+`BoundedMult 1` is not merely a technical restriction: it **is** `N_sc = N`.
+
+Forward is `201` plus `N_sc ≤ N`.  Backward is `Nsc_eq_N_iff` composed with
+`ordinates_simple_iff` and `H_eq_count`: `N_sc = N` says every ordinate is
+singly occupied, and an unoccupied ordinate has `H = 0`, so `H ≤ 1` everywhere.
+No hypothesis beyond `ZeroData`'s own structure is needed in either direction.
+
+Read with `prop1_LP_threshold_at_two`, this says where the two-moment optimality
+lives: it holds on classes admitting a doubled zero and fails on the class of
+configurations that already satisfy the ledger's target.  The argument that the
+two-moment world is exhausted is an argument about configurations the project is
+trying to rule out. -/
+theorem boundedMult_one_iff_Nsc_eq_N (D : ZeroData) :
+    BoundedMult 1 D ↔ D.Nsc = D.N := by
+  constructor
+  · intro h
+    have h1 := Nsc_eq_N_of_boundedMult_one D h
+    have h2 : D.Nsc ≤ D.N := Multiset.card_le_card (Multiset.filter_le _ _)
+    omega
+  · intro h γ
+    rw [ZeroData.H_eq_count]
+    by_cases hγ : γ ∈ D.ordinates
+    · exact le_of_eq
+        ((ZeroData.ordinates_simple_iff D).2 ((ZeroData.Nsc_eq_N_iff D).1 h) γ hγ)
+    · simp [Multiset.count_eq_zero_of_notMem hγ]
+
 
 
 /-! ### The moment route is walled at every order

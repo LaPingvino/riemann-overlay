@@ -116,6 +116,8 @@ import Riemann
 #check @Riemann.Optimal.prop1_LP_optimal_fails_on_simple_class
 -- SESSION 202: and the threshold between them is exactly M = 2.
 #check @Riemann.Optimal.prop1_LP_threshold_at_two
+-- SESSION 203: and that threshold class is exactly {Nsc = N}.
+#check @Riemann.Optimal.boundedMult_one_iff_Nsc_eq_N
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

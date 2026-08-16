@@ -9427,3 +9427,40 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the strength of every bound this project certifies is
 set by the worst configuration its class admits, so the ledger is a statement
 about what has not been ruled out rather than about `ζ`.
+
+## The class where the argument fails is the class the project is aiming at
+
+`202` located the two-moment threshold at `M = 2` and left `BoundedMult 1`
+looking like a technical restriction. It is not one.
+
+**Kill condition, filed first:** *if the converse needs a hypothesis beyond
+`ZeroData`'s own structure, I state the forward direction alone and name what is
+missing rather than adding hypotheses until it closes.* It did not fire.
+
+`boundedMult_one_iff_Nsc_eq_N`: **`BoundedMult 1 D ↔ D.Nsc = D.N`.**
+
+Forward is `201` together with `N_sc ≤ N`. Backward composes `Nsc_eq_N_iff`,
+`ordinates_simple_iff` and `H_eq_count`: `N_sc = N` says every ordinate is
+singly occupied, an unoccupied ordinate has `H = 0`, so `H ≤ 1` everywhere.
+
+Read with `prop1_LP_threshold_at_two`, the picture closes. The two-moment
+optimality holds on classes admitting a doubled zero and fails on `{N_sc = N}` —
+which is the ledger's own target, `(★)` with `C → 1` in its native coordinate,
+per `Nsc_eq_N_iff`'s docstring. The argument that the two-moment world is
+exhausted is an argument about configurations this project exists to rule out.
+
+`200`–`203` fit together: the optimality is a fact about the class; the class
+needs a mass-two atom; the threshold sits at `M = 2`; and the class below it is
+`{N_sc = N}`.
+
+**Snag, bin 1.** `Multiset.count_eq_zero_of_not_mem` does not exist; the name is
+`count_eq_zero_of_notMem`. `S85` recorded the same convention for
+`Finset.card_insert_of_notMem`.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the theorem that says this project cannot do better in
+two moments is a theorem about a world where its goal is false.

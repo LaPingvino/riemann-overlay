@@ -11267,6 +11267,22 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 `v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
 green.
 
+**Snag, bin 1 — and it damaged a record, which is worse than a rebuild.** The
+commit message for this cycle was passed through a double-quoted shell string
+containing a backticked identifier. The shell command-substituted it: the
+sentence *"it matched the last dotted component and could not see `theorem
+NoSmallHaunted.mono`"* is stored in `93b406e` as *"could not see );"*, with the
+identifier gone and `theorem: command not found` printed to the terminal.
+
+**The correct sentence is the one above in this entry.** The commit is pushed
+and is not being rewritten for a prose defect; `SESSION.md` is the authoritative
+record and carries the text.
+
+Audited the surrounding twenty commits for the same symptom — empty
+substitutions, orphaned punctuation — and **only this one is affected**. The
+other nineteen carry no backticks and no gaps, so this is a slip rather than a
+standing corruption. One instance; recorded, not made a rule (`S39`).
+
 **Might-mean, unhedged:** this project's strongest guarantee applied to a list
 somebody maintained by hand, and the list had drifted four names behind the
 claims it was supposed to protect.

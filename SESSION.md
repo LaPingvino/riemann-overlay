@@ -13076,3 +13076,59 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 numeric fact about the constant its whole board is denominated in — which makes
 `0.6725` the first of this project's inherited numbers that it can defend
 without citing anyone.
+
+## `baseline_zeta23` reduced to one imported theorem
+
+`270`–`272` did this for `zetaNonempty`. This is the binding axiom's turn, and
+it completes the pair.
+
+**Kill condition, filed first:** *if `ThmD`'s headline is dyadic-only with no
+cumulative form on disk, then the reduction needs a dyadic-to-cumulative step
+for a **ratio** — harder than `271`'s count monotonicity — and I report that as a
+third cost.* It did not fire. `Zeta23.ThmD.Mult.thmD₀_simple_mult_cumulative`
+states `(HD 1 − ε)·Ncount 0 T ≤ N0simple 0 T` eventually, cumulative already,
+and zeta-23 derives it from its own dyadic form with `cumulative_of_dyadic`.
+
+**`baseline_of_cumulative`** — given that shape for any `c ≥ 0.6725`,
+`zetaFamily.ProportionStd 0.6725` follows. `3757` jobs unchanged, no new import.
+Both count bridges were already on disk and cost nothing: `270`'s
+`zetaZeroData_N` and `274`'s `zetaZeroData_NscStd`.
+
+**It is not axiom-free, and the reason is structural.** `#print axioms` reports
+`zetaNonempty`, because the statement names `zetaFamily`, which is *built* from
+that axiom. Every theorem about `zetaFamily` carries it. Discharging
+`zetaNonempty` would clear this one too — one more reason to take the two
+bridges in that order, and a thing worth saying plainly rather than letting
+"axiom-free" attach to it by habit.
+
+**Where both axioms now stand.** Neither has any remaining cost but its build.
+
+| axiom | build | remaining work after it |
+|---|---|---|
+| `zetaNonempty` | `34` modules, `11,710` lines, `7m32s` | one rewrite, then `272`'s theorem |
+| `baseline_zeta23` | `ThmD.Final`, `44,441` lines | unfold `HD 1`, then `279` + this |
+
+`279` removed the second cost of the second row; `280` removes the last
+structural one. What is left is compute.
+
+**`duplication_floor` fired; graded, then `--update`.** `certified_std` and
+`baseline_of_cumulative` share `zetaFamily.ProportionStd 0.6725`. Under `264`'s
+rule neither hypothesis implies the other, and the relation is sharper than
+that: `certified_std` proves the row *from the axiom*, `baseline_of_cumulative`
+proves it *from the hypothesis intended to replace that axiom*. They are the
+row and its replacement-in-waiting, and the day the second is discharged the
+first stops citing `baseline_zeta23`. Floor `21 → 22`.
+
+**Snag, bin 2.** I placed the theorem by finding the file's trailing `end`
+blocks and inserting above them, because `Proportion.lean` ends in nested
+`end`s rather than a single one. A blind append would have landed outside the
+namespace and the error would have been about an unknown identifier, not about
+placement.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, twelve guards green, index regenerated.
+
+**Might-mean, unhedged:** both certified-cone axioms are now reduced to a build
+and a rewrite rather than retired, so the trusted base has turned into a
+purchasing decision — while the three literature axioms stayed mathematics
+throughout and no bridge touches them.

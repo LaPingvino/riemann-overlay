@@ -564,4 +564,41 @@ metric is designed to make visible.
 The first *mathematical* binding constraint after that is
 `Fujii.c0_lower_bound`'s counterpart from above: an effective `c₀ ≤ 0.33`. -/
 
+/-- **`baseline_zeta23` reduces to zeta-23's cumulative `ThmD` row, and nothing
+else.**  `SESSION 280`.
+
+The `zetaNonempty` treatment (`270`–`272`), applied to the binding axiom. Given
+the cumulative statement zeta-23 proves — `(c − ε)·Ncount 0 T ≤ N0simple 0 T`
+eventually — and any `c ≥ 0.6725`, this axiom follows.
+
+Both count bridges are already on disk and cost no build: `270`'s
+`zetaZeroData_N` identifies our `N` with their `Ncount 0 T`, and `274`'s
+`zetaZeroData_NscStd` identifies our `NscStd` with their `N0simple 0 T`.
+
+**What the import would buy is one theorem.**
+`Zeta23.ThmD.Mult.thmD₀_simple_mult_cumulative` has exactly the hypothesis
+shape above with `c = HD 1`, and `279`'s `baseline_decimal_le_exact` supplies
+`0.6725 ≤ HD 1` once `HD 1` is unfolded to `3/2 − cot(1/√2)/√2`. The price is
+`ThmD.Final`'s `44,441` lines (`268`), and that is now the whole of it.
+
+**Not axiom-free, and the reason is structural.**  `#print axioms` reports
+`zetaNonempty`, because the *statement* names `zetaFamily`, which is built from
+that axiom.  Every theorem about `zetaFamily` carries it; discharging
+`zetaNonempty` would clear this one too, which is one more reason the two
+bridges are worth taking in that order. -/
+theorem baseline_of_cumulative {c : ℝ} (hc : (0.6725:ℝ) ≤ c)
+    (h : ∀ ε > 0, ∃ T₀ : ℝ, ∀ T : ℝ, T₀ ≤ T →
+      (c - ε) * (Zeta23.Ncount 0 T : ℝ) ≤ (Zeta23.N0simple 0 T : ℝ)) :
+    zetaFamily.ProportionStd 0.6725 := by
+  intro ε hε
+  obtain ⟨T₀, hT₀⟩ := h ε hε
+  filter_upwards [Filter.eventually_ge_atTop T₀] with T hT
+  have hb := hT₀ T hT
+  show ((0.6725:ℝ) - ε) * ((zetaZeroData T).N : ℝ)
+      ≤ ((zetaZeroData T).NscStd : ℝ)
+  rw [zetaZeroData_N, zetaZeroData_NscStd]
+  have hn : (0:ℝ) ≤ (Zeta23.Ncount 0 T : ℝ) := Nat.cast_nonneg _
+  nlinarith [hb, hn, hc]
+
+
 end Riemann

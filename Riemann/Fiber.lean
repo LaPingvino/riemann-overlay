@@ -3439,7 +3439,19 @@ different inputs, `N⊛` there and the third factorial moment here.
 **Its ledger value is nil**, and that is worth stating: nothing certified bounds
 `factMoment 3`, and `Optimal.moment_route_walled` shows no moment inequality of
 order `≥ 3` can be made to bind.  So the fourth bound exists, is sharp at mass
-`3`, and buys nothing — which is why `123` did not miss it by looking. -/
+`3`, and buys nothing — which is why `123` did not miss it by looking.
+
+**`SESSION 143` — the "nothing bounds it" is now priced, not just stated.**
+`Optimal.moment_route_walled` does not apply *here*: its two witnesses have
+masses `≤ 2`, so their `factMoment 3` and `hauntedCount` are both zero, and it
+walls prop1's LP rather than this inequality.  What actually stands between this
+bound and the ledger is a **scale separation**, measured in
+`forensics/w19_price.py`: a mass-`3` ordinate perturbs `∫S²` by exactly `2δL`,
+a quantity with no `log log T`, while the certified S-moment asymptotics carry
+`log log T` in their main term.  So an S-moment identity feeds this bound iff its
+**error** term is `o(T)`.  That is a statement about the second-order term of
+Fujii's expansion and is `[RECALL, UNVERIFIED]` — it carries no conclusion here.
+-/
 theorem six_mul_haunted_le_factMoment_three (D : ZeroData) :
     6 * hauntedCount D ≤ factMoment D 3 := by
   classical

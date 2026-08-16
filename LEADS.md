@@ -393,6 +393,16 @@ the class secretly consumes — the most interesting outcome available.
 | W17 | Fazzari's `|ζ|^{2k}`-weighted pair correlation | i | probe first |
 | W18 | Any published **hybrid** consuming both `μ_T` and mollified value moments (pair correlation × Levinson) | i | structural either way |
 | W19 | **Fujii's `2k`-th moments as the order>2 escape**: `k ≥ 2` are higher correlations of `μ_T`, certified since 1974–86. Does the `k=2` moment exclude the ceiling's extremal configuration? | iii | realizability with a named input |
+
+> ⚠️ **PRICED, `SESSION 143`** (`forensics/w19_price.py`). The answer is a
+> **scale separation, not a yes/no.** A mass-3 atom perturbs `∫S²` by exactly
+> `2δL` (the perturbation is exact combinatorics: `ΔS = ∓1` on two adjacent
+> gaps), against a main term `L·log log T/2π²`. So the signal is `o(main)` —
+> but only by `1/log log T`, and at `T = 7.5×10⁴` it stands at `11.2·δ`, i.e.
+> `δ ≈ 0.09` doubles the second moment. **W19 converts from "does `k=2` help?"
+> into a want-ad**: an S-moment identity helps iff its error term is `o(T)` with
+> no `log log` — a question about the SECOND-ORDER term of Fujii's expansion,
+> not its main term. Only that one error term is now worth fetching.
 | W20 | Rudnick–Sarnak `n`-level, `n ≥ 3`: what is unconditional, and does BGST de-conditioning generalise? | iii | probe |
 | W21 | Platt–Trudgian's 12.3 × 10¹² verified zeros as **exact microscale `μ_T` data** spliced into a theorem, not a sanity check | iii | pairs with W9 |
 | **W22** | **RE-SCOPED (day cycle 2): the composition exists and has been done — see the autopsy below.** Motohashi's fourth moment as the seam of the two budgets (PRICES.md). Both traditions' walls (mollifier length, `F`-support) break on shifted-convolution input, whose common engine is the additive divisor problem, where Motohashi is the richest certified object | i | **now the hybrid's address, not a probe** |

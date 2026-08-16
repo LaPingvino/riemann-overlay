@@ -8,6 +8,15 @@ the self-check on the counting function passed, and the kill condition therefore
 pointed at the normalisation — which is exactly what it was written to do.  The
 factor is `π² ≈ 9.87`, and `0.0483 × π² = 0.477`.
 
+⚠️ **SESSION 143 — what this file measures is a MIDPOINT statistic, and that is
+not the functional Fujii's moments use.**  `S` is sampled here at gap midpoints.
+The time-average `∫S²/L` — the quantity `∫|S|^{2k}` moment theorems are about —
+is **larger by the sawtooth's own contribution** `E[d³]/12 ≈ 0.126`, verified in
+`forensics/w19_price.py` to `3%`.  Measured on this same table: midpoint
+`0.05644`, time-average `0.17916`.  Neither number is wrong; they are different
+functionals, and the variance ratio below (`≈ 0.46–0.48` of Selberg's main term)
+is the midpoint one.  **Do not quote it against a moment theorem.**
+
 **Prediction, registered before the computation ran** (`SESSION 140`): Selberg's
 central limit theorem says
 

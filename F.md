@@ -124,6 +124,19 @@ whether the full sequence does what no finite prefix can.*
 > moments (Fujii-with-main-terms), a different supply chain. Re-filed at that
 > grade and no higher.
 
+> ⚠️ **SESSION 143 — the supply chain is now priced, and it is narrower than
+> "main terms".** `forensics/w19_price.py` measures what the ledger's own
+> quantity does to an S-moment: a haunted (mass-3) atom moves `∫S²` by exactly
+> `2δL`, a term with **no `log log T`**. Fujii's main term carries `log log T`.
+> So a moment identity is useful to `hauntedCount` iff its ERROR term is `o(T)`
+> — the main term is the wrong part of the expansion to want. F2's cast gains a
+> named member: *an S-moment asymptotic with error `o(T)`, uniformly*.
+>
+> **Not claimed:** that Selberg's CLT is this supply. F2 wants moments of the
+> MASS distribution; these are moments of `S`. They meet only at sub-leading
+> order, and that scale gap is the wall — calling them one object would be the
+> `S30` shape.
+
 **F3 — the flow entropy.** Cast: the Lyapunov functional (E5m's named gap), its
 monotonicity, and — the hard member — arithmetic evaluability at `t = 0`. Spawn:
 read Csordas–Smith–Varga's Lehmer-pair machinery as inequalities *on a

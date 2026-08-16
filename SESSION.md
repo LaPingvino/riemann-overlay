@@ -6138,3 +6138,98 @@ is 2 true positives in 4 on my own prose, in line with the 2026-08-15 triage.
 cycle for fifty-eight sessions because a document titled "Current state" was
 written once and never re-titled, and the fix was not to correct the number but
 to correct the **tense** of the heading.
+
+# SESSION 143 — W19 priced, and the second moment of S was two quantities
+
+**Kill condition, stated first:** *if the mass-3 signal is `o(the S-moment's
+main term)`, then no leading-order S-moment identity can bound `hauntedCount/N`
+below any constant, and W19-as-a-ledger-route dies — the wall being the
+finding.* **It fired — and the manner of firing is the result.**
+
+Queue item 4 is the one item still undischarged (`LOOP.md` line 14 and `S33`
+record items 1–3 as done; 5 is a fallback), and its stated blocker
+("literature not in the registers") stopped being true when arXiv opened at
+`134`. But the register's own genre says price before fetching, so this is
+`forensics/w19_price.py`, in the line of `three_moment_lp.py`.
+
+**Why W19 is a real ledger route.** `six_mul_haunted_le_factMoment_three` gives
+`6·hauntedCount ≤ Σ H(H−1)(H−2)`, and its docstring records that nothing
+certified bounds that moment. A bound feeds `HauntedDensity` and hence
+`proportion_of_hauntedDensity`. **`Optimal.moment_route_walled` does not block
+it** — that theorem's two witnesses have masses `≤ 2`, so their `factMoment 3`
+and `hauntedCount` are both zero; it walls prop1's LP, not this. Corrected at
+the location in `Fiber.lean`.
+
+**The perturbation is exact combinatorics, not a model** (`forensics/w19_price.py`). Merging `γ_a < γ_{a+1} < γ_{a+2}`
+into a mass-3 atom changes the counting function by exactly `−1` on one gap and
+`+1` on the next, nothing outside. So `Δ∫S² = 2[∫S over gap 2 − ∫S over gap 1]
++ (γ_{a+2} − γ_a)`, with no approximation past the quadrature.
+
+**Registered before the run:** the cross term is a difference of `S`-averages
+over *adjacent* gaps, so it should cancel and accumulate like a random walk while
+the `ΔS²` term accumulates linearly — giving `Δ∫S²/∫S² ≈ 4π²δ/log log T`.
+The cross term came in at **0.37%** of the `ΔS²` term, so that half held.
+
+**The verdict: a scale separation, not a yes/no.** The signal `2δL` is
+**constant in height**; the main term `L·log log T/2π²` grows. So the ratio
+decays as `1/log log T` — the slowest wall in the subject. At `T = 7.5×10⁴` it
+stands at `11.2·δ`. Asymptotically no leading-order S-moment identity bounds
+`hauntedCount/N` below a constant, because a theorem needs the limit; but the
+vanishing is so slow that at every height anyone will compute, mass-3 atoms are
+loud in the second moment.
+
+**So W19 converts from a yes/no into a want-ad:** an S-moment identity feeds this
+bound **only if** its **error** term is `o(T)` with no `log log` — that is the
+direction this cycle establishes, since a larger error swamps the `2δL` signal;
+the converse is not claimed and would need the identity in hand — a question about the
+*second-order* term of Fujii's expansion, not its main term. That is one specific
+error term worth fetching, rather than a survey. Filed on `LEADS`'s W19 row and
+as a named cast member on `F2`.
+
+**Not claimed, and the gate would have caught it:** that Selberg's CLT *is* the
+moment supply `F2` wants. `F2` wants moments of the **mass** distribution; these
+are moments of `S`. They meet only at sub-leading order, and that scale gap is
+the wall. Calling them one object is the `S30` shape.
+
+**The prediction missed by 31%, and the miss was the cycle's real find.** I had
+divided by the *theoretical* main term. Rescaling by the **measured** `∫S²/L`
+gives `11.16` against an observed `11.25` — the perturbation was right all along.
+The denominator was not:
+
+    time-average  ∫S²/L                 = 0.17916
+    midpoint-sampled mean S²  (140/141) = 0.05644
+    difference                          = 0.12271
+    predicted sawtooth  E[d³]/12        = 0.12610   (103%)
+
+`140`/`141` sampled `S` at gap **midpoints**; a moment theorem **integrates**.
+The two differ by the sawtooth's own contribution: `S` jumps `+1` at each zero
+and falls by the normalised gap `d`, so a ramp of drop `d` sits `d²/12` above its
+midpoint value, and time-weighting gives `E[d³]/12`. Verified to `3%`, the
+residual being the ramp's curvature in `t` versus `θ`. Recorded as `S42`, and
+the correction is at the location in `selberg_S.py`: **the `0.477` is a midpoint
+statistic and must not be quoted against a moment theorem.**
+
+**And the sawtooth does not fade with height** (`S43`, tabulated in
+`forensics/w19_price.py`). It is height-independent at
+`0.126`; Selberg's term reaches only `0.215` at `T = 10³⁰`. At the height of
+Odlyzko's table the two agree to **0.2%** — a coincidence sitting exactly where
+the data is, so anyone checking `∫S²/L ≈ log log T/2π²` here gets confirmation of
+a formula that accounts for about half the quantity.
+
+`[RECALL, UNVERIFIED]`, carrying no conclusion: higher-`k` asymptotics
+`~c_k·T(log log T)^k` and every error term in Fujii's expansion. The `k = 1`
+constant is verified (`141`).
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved.
+
+**The gate on this entry: 4 flagged, 1 real.** *"feeds this bound **iff**"* was
+an overclaim — I established that a larger error swamps the signal, i.e. the
+`only if` direction; the converse needs the identity in hand. The other three
+were witnessed and now cite `forensics/w19_price.py` or `LOOP.md` line 14.
+Second clean pass: 0 flagged.
+
+**Might-mean, unhedged:** I spent three cycles saying "the variance of `S`" as
+though it named one number, and it named two that differ by a factor of three —
+the one I kept computing was not the one the theorems I was reaching for are
+about.

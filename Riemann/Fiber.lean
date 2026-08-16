@@ -3152,6 +3152,93 @@ theorem hauntedCount_from_profile (D : ZeroData) :
   rw [hauntedCount, profile, Multiset.filter_map, Multiset.card_map]
   rfl
 
+/-- **`distinctZeros` is NOT a profile functional** — `SESSION 184`, settling the
+obligation `181` opened and `182`/`183` narrowed.
+
+`181` completed the profile↔ledger dictionary: every ledger quantity has a
+profile reading.  `ZeroData`'s `distinctZeros` — the literature's `N_d`,
+introduced at `167` for the Wu dictionary — has none, and cannot.
+
+Both configurations put **four off-line zeros at one ordinate**, so both have
+`H = 4`, `offAt = 4` and therefore the **same profile** `{(4, 4)}`.  They differ
+in how that off-line *mass* splits into *points*:
+
+* `configAt 0 0 2 a` — one pair at doubled multiplicity;
+* `superpose (configAt 0 0 1 a) (configAt 0 0 1 b)` — two distinct pairs.
+
+**This is why `167`/`168`'s dictionary had to be an inequality.**
+`atomCount ≤ distinctZeros` cannot be strengthened to an identity, and no
+profile-level argument can bound `N_d`, because the profile records off-line mass
+and `N_d` counts points.
+
+*Method note.*  `182` and `183` failed computing `distinctZeros` of the
+four-point configuration directly (`Finset` cardinalities over multiset literals;
+`simp` stalling, then `maximum recursion depth`).  The strict-subset route needs
+no such computation: `A`'s support is contained in `B`'s, and `(b, 0)` is in `B`
+and not in `A`, so `Finset.card_lt_card` gives the strict inequality without ever
+counting `B`. -/
+theorem distinctZeros_not_profile_functional {a b : ℝ}
+    (ha : a ≠ 1/2) (hb : b ≠ 1/2) (hab : a ≠ b) (hab' : a ≠ 1 - b) :
+    profile (configAt 0 0 2 a)
+        = profile (superpose (configAt 0 0 1 a) (configAt 0 0 1 b))
+      ∧ distinctZeros (configAt 0 0 2 a)
+        < distinctZeros (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)) := by
+  classical
+  have hane : a ≠ 1 - a := fun h => ha (by linarith [h])
+  have hba : b ≠ 1 - a := fun h => hab' (by linarith [h])
+  constructor
+  · have hA : (configAt 0 0 2 a).ordinates = Multiset.replicate 4 (0:ℝ) := by
+      rw [configAt_ordinates]
+    have hB : (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)).ordinates
+        = Multiset.replicate 4 (0:ℝ) := by
+      rw [add_ordinates, configAt_ordinates, configAt_ordinates,
+        ← Multiset.replicate_add]
+    have h1 : (configAt 0 0 2 a).H 0 = 4 := by rw [configAt_H]; norm_num
+    have h2 : (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)).H 0 = 4 := by
+      rw [H_superpose, configAt_H, configAt_H]; norm_num
+    have h3 : offAt (configAt 0 0 2 a) 0 = 4 := by rw [configAt_offAt ha]
+    have h4 : offAt (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)) 0 = 4 := by
+      rw [offAt_superpose, configAt_offAt ha, configAt_offAt hb]
+    rw [profile, profile, hA, hB, Multiset.toFinset_replicate,
+      if_neg (by norm_num : ¬(4 = 0))]
+    simp only [Finset.singleton_val, Multiset.map_singleton]
+    rw [h1, h2, h3, h4]
+  · rw [distinctZeros, distinctZeros]
+    refine Finset.card_lt_card ⟨?_, ?_⟩
+    · intro p hp
+      rw [Multiset.mem_toFinset] at hp ⊢
+      show p ∈ (configAt 0 0 1 a).Z + (configAt 0 0 1 b).Z
+      rw [Multiset.mem_add]
+      left
+      revert hp
+      show p ∈ (Multiset.replicate 0 ((1/2:ℝ),(0:ℝ))
+        + (Multiset.replicate 2 (a,(0:ℝ)) + Multiset.replicate 2 ((1-a:ℝ),(0:ℝ)))) → _
+      intro hp
+      show p ∈ (Multiset.replicate 0 ((1/2:ℝ),(0:ℝ))
+        + (Multiset.replicate 1 (a,(0:ℝ)) + Multiset.replicate 1 ((1-a:ℝ),(0:ℝ))))
+      simp only [Multiset.replicate_zero, zero_add, Multiset.mem_add,
+        Multiset.mem_replicate] at hp ⊢
+      tauto
+    · intro hsub
+      have hmem : ((b,(0:ℝ)) : ℝ × ℝ)
+          ∈ (superpose (configAt 0 0 1 a) (configAt 0 0 1 b)).Z.toFinset := by
+        rw [Multiset.mem_toFinset]
+        show (b,(0:ℝ)) ∈ (configAt 0 0 1 a).Z + (configAt 0 0 1 b).Z
+        rw [Multiset.mem_add]; right
+        show (b,(0:ℝ)) ∈ (Multiset.replicate 0 ((1/2:ℝ),(0:ℝ))
+          + (Multiset.replicate 1 (b,(0:ℝ)) + Multiset.replicate 1 ((1-b:ℝ),(0:ℝ))))
+        simp
+      have hcon := hsub hmem
+      rw [Multiset.mem_toFinset] at hcon
+      revert hcon
+      show (b,(0:ℝ)) ∈ (Multiset.replicate 0 ((1/2:ℝ),(0:ℝ))
+        + (Multiset.replicate 2 (a,(0:ℝ)) + Multiset.replicate 2 ((1-a:ℝ),(0:ℝ)))) → False
+      simp only [Multiset.replicate_zero, zero_add, Multiset.mem_add,
+        Multiset.mem_replicate]
+      rintro (⟨-, h⟩ | ⟨-, h⟩) <;> rw [Prod.ext_iff] at h
+      · exact hab.symm h.1
+      · exact hba h.1
+
 /-- **`NscStd = Nsc + hauntedCount`** — an identity, not a bound.
 
 Every standard-simple ordinate is either simple or haunted, and the two cases are

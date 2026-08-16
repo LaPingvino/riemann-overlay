@@ -8553,3 +8553,53 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** I diagnosed a failure from its visible cause, fixed
 that, and found the invisible one still standing — which is why the kill
 condition was written to count attempts rather than to judge progress.
+
+# SESSION 184 — proved on the third attempt, by asking a different question
+
+**Kill condition, stated first:** *if the strict-subset route also fails, the
+obligation is parked and not attempted again without new `Finset` machinery in
+the file.* **It did not fire — the theorem is proved.**
+
+This is **attempt three**, and it is only legitimate because the method is
+materially different: `183`'s kill condition bound the *cardinality-computation*
+approach, and this route never computes the cardinality it was stuck on. Said
+plainly rather than rationalised after the fact.
+
+## The theorem
+
+`Blindness.distinctZeros_not_profile_functional`, **axiom-free**:
+
+    profile (configAt 0 0 2 a) = profile (superpose (configAt 0 0 1 a) (configAt 0 0 1 b))
+    ∧ distinctZeros (configAt 0 0 2 a) < distinctZeros (superpose …)
+
+Both put four off-line zeros at one ordinate — `H = 4`, `offAt = 4`, profile
+`{(4, 4)}` — and differ only in how that off-line **mass** splits into **points**:
+one doubled pair versus two distinct pairs.
+
+**So `167`/`168`'s dictionary had to be an inequality.** By
+`Blindness.distinctZeros_not_profile_functional`, `atomCount ≤ distinctZeros`
+admits no strengthening to an identity, and no profile-level argument reaches the
+literature's `N_d`, because the profile records mass and `N_d` counts points. `181`'s note is promoted from argument to theorem.
+
+## `S86` — the obstacle was never the machinery
+
+`182` and `183` both tried to prove `distinctZeros B = 4`. **The statement never
+mentions that number.** The claim is an inequality, and `Finset.card_lt_card` on
+a strict subset delivers it without counting `B`: `A`'s support sits inside
+`B`'s, `(b, 0)` is in `B` and not in `A`, done.
+
+Two cycles were spent on a cardinality the goal does not require. The kill
+conditions did their job — they stopped a failing method twice — but they also
+left me holding the wrong diagnosis: I recorded "needs new `Finset` machinery"
+when what it needed was rereading the statement.
+
+Three attempts, each bounded before it began, and the record shows the shape:
+**a bad formulation survives kill conditions, because each one only kills the
+attempt.**
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` checks **26**.
+
+**Might-mean, unhedged:** I stopped twice for the right reasons and both times
+recorded the wrong reason, and what finally worked was noticing that the number I
+could not compute does not appear in the thing I was trying to prove.

@@ -43,6 +43,13 @@ as the shape of an explanation for why `167`/`168`'s dictionary had to be an
 >
 > So the claim is **still unproved**, but it is now a specified obligation with a
 > named witness pair and a known hard half, rather than an argument.
+
+> ✅ **PROVED, `SESSION 184`.** `Blindness.distinctZeros_not_profile_functional`
+> (axiom-free): same profile `{(4,4)}`, and
+> `distinctZeros A < distinctZeros B`. The route that worked avoids computing
+> `distinctZeros B` at all — `A`'s support is contained in `B`'s and `(b, 0)` is
+> in `B` and not in `A`, so `Finset.card_lt_card` gives the strict inequality.
+> Three attempts: `182` and `183` both tried to *count* `B`.
 >
 > **`SESSION 183` — second attempt; half closes, and the working proof is
 > recorded here so a third does not rediscover it.** The lemma name `182` guessed

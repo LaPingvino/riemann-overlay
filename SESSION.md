@@ -6304,3 +6304,66 @@ writing anything, which is the `S127` repair doing its job.
 input — it also moves the thing you were trying to measure, and I spent two
 cycles pricing the sharpness of an instrument without checking whether its
 assumption zeroes the quantity it points at.
+
+# SESSION 145 — the guard that would have said it, and the paragraph that already did
+
+**Kill condition, stated first:** *if a vacuity rule cannot be made to fire on
+both `S3` and `S44` without also firing on conditional inputs that are
+legitimately useful, it has no discriminating power and is not added — `S39` is
+the precedent for reporting that honestly.* **It half-fired, and the half is
+reported rather than papered over.**
+
+**The piece.** `144` died of a shape Rules 1–3 of `provenance_lint.py` cannot
+see. They ask whether an input is CIRCULAR, out of SCALE, or too weak in
+QUALITY. None asks the question `144` turned on: **does the hypothesis this
+input carries trivialise the very quantity it would bound?** An input can be
+impeccable on all three axes and still be worthless, because its own condition
+empties the target.
+
+**Rule 4 (VACUITY)** keys on a target's *vacuity depth* — the hypothesis depth at
+which it goes empty — and flags whenever `depth(input) ≥ vacuity_depth(target)`.
+`hauntedCount` has depth 1, witnessed by `Fiber.noHaunted_of_Noff_zero`.
+
+**Calibration, 4/4, with the negative controls doing real work:**
+
+| case | input | target | verdict |
+|---|---|---|---|
+| S44 / W19 | `Goldston_1987_RH` | `hauntedCount` | **FLAG** |
+| S44 / W19 | `Selberg_1946` | `hauntedCount` | clean (precision fails, not vacuity) |
+| negctl | `Goldston_1987_RH` | `N*_bound` | clean |
+| negctl | `CGdL_68_45` | `NscStd` | clean |
+
+The rule is **live, not a museum piece**: in `forensics/provenance_lint.py`,
+`lint()` takes a `target` argument (defaulting to `N*_bound`, so every pre-`145`
+caller keeps its meaning — checked by diffing the tool's output across the
+change: all nine pre-existing verdict lines are identical and the only added
+verdicts are the new W19 block; T3(b) still answers 3/11. **Not** byte-identical
+output, and I had written that it was before checking: the header line now also
+prints the target),
+and the W19 chain now returns `BLOCKED` with the reason named. T3(b) still
+answers **3/11** — the standing kill condition on guard generalisation.
+
+**Scope, and it is the `S39` discipline: the rule catches one of two species.**
+*Target-zero* — the hypothesis makes the quantity identically zero (`S44`) —
+is caught. *Threshold-unreachable* — the hypothesis makes the required threshold
+impossible while the quantity stays live (`S3`, session 026) — is **not** (`forensics/provenance_lint.py`, and the calibration block says so in
+the file): it needs per-route threshold data this table does not carry. Inventing that data to
+make the calibration read 5/5 is precisely what `S39` refused to do. So the
+honest score against the purchasing surprises is **1 of 2**.
+
+**And the sharper finding, which is not about the guard.** `LEADS.md` line 1787
+says, in c.ai's words: *"haunting only exists in the unconditional world. Under
+RH it is vacuous."* That sentence was on disk while `143` wrote the want-ad and
+`144` spent a fetch confirming it. This is the `S27` shape — check the registers
+before reconstructing — applied not to a computation but to a **verdict**.
+Recorded as `S45`, and corrected at the location.
+
+The repair is deliberately mechanical rather than resolutional. I do not get to
+promise to re-read line 1787; the guard now refuses the chain.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. All 15 guards green.
+
+**Might-mean, unhedged:** the register had already answered the question two
+cycles before I asked it, which means the project's failure mode has quietly
+moved from not knowing things to not finding the things it knows.

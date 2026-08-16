@@ -1784,7 +1784,20 @@ computed heights. Two absences, one instrument each.
 
 **Why the quantity has no name.** claude.ai searched and reports none, with a
 reason worth keeping: haunting only exists in the *unconditional* world. Under
-RH it is vacuous; the classical unconditional quantities (`N`, `N_d`, `N⊛`) are
+RH it is vacuous;
+
+> ⚠️ **`SESSION 145` — this sentence predicted `144`'s result, and I did not read
+> it.** "Under RH it is vacuous" is exactly why `W19` died: the only S-moment
+> identity precise enough (Goldston 1987, error `o(T)`) is RH-conditional, and
+> RH empties `hauntedCount`. `143` wrote the want-ad and `144` spent a fetch
+> confirming what was already three registers deep on disk. This is the `S27`
+> shape — *check the registers before reconstructing* — applied not to a
+> computation but to a **verdict**. The repair is mechanical rather than
+> resolutional: `forensics/provenance_lint.py` Rule 4 (VACUITY) now refuses any
+> chain pairing an RH-conditional input with `hauntedCount`, so the next time it
+> is the guard that says this and not a paragraph nobody re-reads.
+
+*(original note continues)* the classical unconditional quantities (`N`, `N_d`, `N⊛`) are
 `μ_T`-visible and, by `Blindness`, provably cannot isolate it. The nearest named
 object is the distinct-zeros deficit `N(T) − N_d(T)`, of which `hauntedCount` is
 the cross-term nobody has had reason to separate. The unconditional regime where

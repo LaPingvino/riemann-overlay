@@ -64,7 +64,87 @@ NODES = {
     "BBMZ_theta":       (["sieve_twin"],                        (1.0, 9.9), "later theta; RECALL; log-power only"),
     "MRT_8_33":         (["sieve_twin"],                        (1.0, 9.9), "theta = 8/33, the current wall; log-power only"),
     TARGET:             ([],                                  (0.0, 9.9), "the thing being bounded"),
+    # SESSION 145: the two W19 suppliers, so Rule 4 has real nodes to weigh.
+    "Selberg_1946":     ([],                                  (0.0, 9.9), "uncond. 2nd moment of S; error O(T sqrt(log log T))"),
+    "Goldston_1987_RH": (["RH"],                              (0.0, 9.9), "2nd moment of S to second order; error o(T); RH"),
 }
+
+# ---------------------------------------------------------------------------
+# Rule 4 (VACUITY), added SESSION 145.  Purchased by TWO surprises 118 sessions
+# apart, both the same shape and neither caught by Rules 1-3:
+#
+#   S3  (026): Lemma 1 made my published thresholds RH-IMPOSSIBLE.
+#   S44 (144): Goldston 1987 supplies the o(T) error term W19 needed — under RH,
+#              and RH forces `hauntedCount = 0` (`Fiber.noHaunted_of_Noff_zero`).
+#
+# Rules 1-3 ask whether an input is CIRCULAR, out of SCALE, or too weak in
+# QUALITY.  None of them asks the question these two deaths turn on: **does the
+# hypothesis this input carries trivialise the very quantity it would bound?**
+# An input can be impeccable on all three axes and still be worthless, because
+# its own condition empties the target.
+#
+# The rule keys on a target's VACUITY DEPTH: the hypothesis depth at which the
+# target becomes identically zero (or otherwise unreachable).  Flag whenever
+# `depth(input) >= vacuity_depth(target)`.
+#
+# ⚠️ SCOPE, and this is the S39 discipline — say what the signature MISSES.
+# Two species of vacuity appeared in the record and this rule catches ONE:
+#
+#   * TARGET-ZERO      — the hypothesis makes the bounded quantity identically
+#                        zero.  S44.  **Caught.**
+#   * THRESHOLD-UNREACHABLE — the hypothesis makes the required threshold
+#                        impossible while the quantity stays live.  S3.  **NOT
+#                        caught**: it needs per-route threshold data this table
+#                        does not carry, and inventing that data to make the
+#                        calibration look better is exactly what S39 refused.
+#
+# So the calibration below is honestly 1-of-2 on the purchasing surprises, plus
+# two negative controls it must NOT fire on.
+TARGET_VACUITY_DEPTH = {
+    # target                depth at which it goes vacuous, and the witness
+    "hauntedCount":  (1, "RH => Noff = 0 => NoHaunted; Fiber.noHaunted_of_Noff_zero"),
+    "Noff":          (1, "RH puts every zero on the line"),
+    "factMoment_3":  (1, "bounds hauntedCount and nothing else the ledger reads"),
+    # negative controls: live at every hypothesis depth
+    "N*_bound":      (99, "a star bound is not trivialised by RH or GRH"),
+    "NscStd":        (99, "the literature's row; RH makes it N, not vacuous"),
+}
+
+
+def vacuity(target, input_name):
+    """Rule 4: does this input's own hypothesis empty this target?"""
+    d = depth(input_name)
+    vd, why = TARGET_VACUITY_DEPTH.get(target, (99, "target not tabulated"))
+    if d >= vd:
+        return f"VACUOUS (target `{target}` is empty at depth {DEPTH_NAME.get(vd, vd)}: {why})"
+    return None
+
+
+def vacuity_calibration():
+    """Run Rule 4 on the cases that bought it, and on cases it must not flag."""
+    print("=== Rule 4 (VACUITY) calibration — the cases that purchased it ===")
+    cases = [
+        ("S44 / W19", "Goldston_1987_RH", "hauntedCount", True,
+         "the o(T) identity exists only under RH"),
+        ("S44 / W19", "Selberg_1946",     "hauntedCount", False,
+         "unconditional supply: precision fails, but not vacuity"),
+        ("negctl",    "Goldston_1987_RH", "N*_bound",     False,
+         "RH does not empty a star bound"),
+        ("negctl",    "CGdL_68_45",       "NscStd",       False,
+         "GRH-tier proportion against a target RH does not empty"),
+    ]
+    hits = 0
+    for tag, inp, tgt, expect, note in cases:
+        got = vacuity(tgt, inp)
+        ok = bool(got) == expect
+        hits += ok
+        print(f"  [{'ok ' if ok else 'MISS'}] {tag:10s} {inp:18s} -> {tgt:14s}"
+              f" {'FLAG' if got else 'clean':6s}  ({note})")
+    print(f"  {hits}/{len(cases)} as designed."
+          "  S3 is NOT among them: it is the threshold-unreachable species,")
+    print("  which this rule does not detect and which is recorded as a known miss.")
+    return hits == len(cases)
+
 
 def ancestry(name, seen=None):
     seen = seen or set()
@@ -73,9 +153,14 @@ def ancestry(name, seen=None):
             seen.add(d); ancestry(d, seen)
     return seen
 
-def lint(inputs, window):
-    """inputs: [(node, scale_used)]; window: (lo, hi) the window actually consumes."""
-    print(f"provenance lint — window scale {window}")
+def lint(inputs, window, target=TARGET):
+    """inputs: [(node, scale_used)]; window: (lo, hi) the window actually consumes.
+
+    `target` names what the chain is bounding, so Rule 4 (VACUITY) can ask
+    whether an input's own hypothesis empties it.  Defaults to the historical
+    `N*_bound` so every pre-`145` caller keeps its exact meaning.
+    """
+    print(f"provenance lint — window scale {window}, target {target}")
     ok = True
     for name, scale in inputs:
         anc = ancestry(name)
@@ -85,6 +170,8 @@ def lint(inputs, window):
         flags = []
         if circ:      flags.append(f"CIRCULAR (ancestry hits {sorted(anc & (CLASS_OPTIMUM | {TARGET}))})")
         if bad_scale: flags.append(f"SCALE (valid on [{lo},{hi}], consumed at {scale})")
+        vac = vacuity(target, name)
+        if vac:       flags.append(vac)
         req = NODES2.get(name, (None, "none"))[1]
         if req != "none":
             for other, _ in inputs:
@@ -142,6 +229,8 @@ def t3b_report():
 if __name__ == "__main__":
     t3b_report()
     print()
+    _r4 = vacuity_calibration()
+    print()
     print("=== replaying the two corrections that cost headlines ===\n")
     print("[day cycle 6] feeding CMR's averaged constant at window scale 0.3:")
     lint([("CMR_1.3208", 0.3)], (1.0, 1.32))
@@ -151,3 +240,7 @@ if __name__ == "__main__":
     lint([("MRT_corr", 1.32), ("GM_bridge", 1.32)], (1.0, 1.32))
     print("\n[#27] the same chain, with Rule 3 active — this is the gate:")
     lint([("MRT_corr", 1.32), ("GM_bridge", 1.32)], (1.0, 1.32))
+    print("\n[144 / W19] Rule 4 live: the route that died of its own hypothesis.")
+    print("  Had this been run before the fetch, it would have said so first.")
+    lint([("Selberg_1946", 1.0), ("Goldston_1987_RH", 1.0)], (0.0, 9.9),
+         target="hauntedCount")

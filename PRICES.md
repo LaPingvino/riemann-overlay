@@ -1143,3 +1143,33 @@ axiom and is untouched by any of this.
 
 *The two bounds are proved in Lean; the assembly above is arithmetic verified in
 `ℚ` and is **not formalised** here.*
+
+## Both builds measured, and `270`/`271`'s "standing tax" was wrong (`SESSION 281`)
+
+`268` left `ThmD.Final`'s wall-clock unmeasured and `absence_queue` had been
+carrying that as an obligation. Measured now, and measuring it exposed a
+mistake in how both discharges were priced.
+
+| | one-time build | recurring, per elaboration |
+|---|---|---|
+| `import Riemann` (today) | — | `9.3s` (3 runs: `9.7`, `9.3`, `8.8`) |
+| `+ RvM.Statement + GammaFacts.Complete` | `7m32s` (`270`) | `9.0s` (`8.8`, `10.4`, `7.9`) |
+| `+ ThmD.Final` | `18m12s` = `1092s` | `15.4s` (`15.6`, `17.3`, `13.3`) |
+
+**`270` and `271` called the `zetaNonempty` import "a standing tax on every
+`lake build`". That is wrong.** `lake` caches; the build happens once. The
+recurring cost is olean loading, and for `RvM.Statement + GammaFacts.Complete`
+it is **indistinguishable from the current baseline** — `9.0s` against `9.3s`,
+with the samples overlapping.
+
+`ThmD.Final` does cost about `+6s` per elaboration, which is real but is six
+seconds, not eighteen minutes.
+
+**What this does to the two rulings.** The `zetaNonempty` discharge costs one
+build of seven and a half minutes and nothing measurable afterwards. The
+`baseline_zeta23` discharge costs one build of eighteen minutes and about six
+seconds per elaboration thereafter. Neither is a per-cycle tax in the sense the
+escalation described, and the escalation should be re-read with these numbers.
+
+*Wall-clock on this machine, three samples each; `ThmD` measured in two runs of
+`570s` and `522s` because the tool budget is ten minutes.*

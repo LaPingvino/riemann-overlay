@@ -73,6 +73,12 @@ chain is complete and unconditional.  The cost is the import.
   cumulative.  The import alone does not close it; the missing step is
   `Riemann.Ncount_mono_left`, which is ours and needs no import.
 
+**`281`: `ThmD.Final`'s build measured — `18m12s` one-time, `+6s` per
+elaboration.**  `268` priced it at `125` modules and `44,441` lines and left the
+wall-clock unmeasured.  It is `1092s` of build from the state after `270`'s, and
+afterwards `import Zeta23.ThmD.Final` costs about six seconds on top of
+`import Riemann`'s nine.
+
 **`279`: `baseline_zeta23`'s numeric second cost is gone.**
 `Riemann.baseline_decimal_le_exact` proves `0.6725 ≤ 3/2 − cot(1/√2)/√2`,
 axiom-free — so the decimal this axiom asserts is a proved floor for the exact
@@ -90,9 +96,14 @@ unconditionally in `Riemann/Zeta.lean` at no build cost.
 So the discharge is now **one imported fact and one rewrite**: obtain
 `Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts |>.main`, rewrite with the
 already-reachable simp lemma `Zeta23.zetaZeroConfig_N`, and apply
-`zetaNonempty_of_rvm_main`.  The price is `34` modules and `11,710` lines on
-every `lake build` thereafter, measured at `7m32s`.  Joop's call, not the
-loop's. -/
+`zetaNonempty_of_rvm_main`.  The price is `34` modules and `11,710` lines.
+
+**`281` corrects what `270` and `271` said about that price.**  Both called it
+*"a standing tax on every `lake build`"*.  That is wrong: `lake` caches, so the
+`7m32s` is a **one-time** build.  The recurring cost is olean loading, and
+measured over three runs it is `9.0s` against `9.3s` for `import Riemann` alone
+— indistinguishable.  The discharge costs one build of about seven and a half
+minutes and, per cycle afterwards, nothing measurable. -/
 axiom zetaNonempty : ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N
 
 /-- The zeros of `ζ` as a `Family` — now a **construction**, not an axiom. -/

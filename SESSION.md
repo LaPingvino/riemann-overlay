@@ -13132,3 +13132,54 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 and a rewrite rather than retired, so the trusted base has turned into a
 purchasing decision — while the three literature axioms stayed mathematics
 throughout and no bridge touches them.
+
+## Both builds measured — and `270`/`271` priced them wrong
+
+`absence_queue` was carrying `268`'s *"one cycle to measure and has not been
+measured"* as an open obligation on `ThmD`'s wall-clock. Measuring it exposed a
+mistake in how both discharges have been priced to Joop for ten cycles.
+
+**Kill condition, filed first:** *if the build exceeds a bounded budget or
+fails, I report the wall-clock as measured and do not retry — a build that does
+not finish in budget is itself the answer.* It did not fire. `ThmD.Final` is
+`8828` jobs and took `1092s` — `18m12s` — in two runs of `570s` and `522s`,
+because the tool budget is ten minutes and the build resumes from cache.
+
+**The correction.** `270` and `271` told Joop the `zetaNonempty` import was *"a
+standing tax on every `lake build`"* of `7m32s`. **That is wrong.** `lake`
+caches: the build happens once. The recurring cost is olean loading, and three
+runs each give
+
+| | recurring |
+|---|---|
+| `import Riemann` | `9.7`, `9.3`, `8.8` → `9.3s` |
+| `+ RvM.Statement + GammaFacts.Complete` | `8.8`, `10.4`, `7.9` → `9.0s` |
+| `+ ThmD.Final` | `15.6`, `17.3`, `13.3` → `15.4s` |
+
+The `zetaNonempty` imports are **indistinguishable from the baseline**, samples
+overlapping. `ThmD` costs about `+6s` per elaboration — real, and six seconds
+rather than eighteen minutes.
+
+So the standing escalation should be re-read: `zetaNonempty` costs one build of
+seven and a half minutes and nothing measurable per cycle. Corrected at both
+locations — the axiom's docstring and `PRICES.md`.
+
+**Snag, bin 1.** I first launched the build with `( … ) &` inside a `Bash` call
+and then polled it across later calls. It was dead: `pgrep` found no `lake` and
+no `lean`, the log frozen at the thirty-second mark. A backgrounded process does
+not survive the call that spawned it here, so I spent nineteen minutes polling a
+corpse and read the stale log as progress. The `date`-stamped log was what
+caught it — the file had not been written to in nineteen minutes.
+
+**Snag, bin 2.** `/usr/bin/time` is absent from this container, so timing came
+from `date +%s%N` around the command instead. And `printf "%.1f"` fails under a
+comma locale, which is why the first table came out with commas for decimal
+points.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, twelve guards green, `PRICES` at baseline `24`.
+
+**Might-mean, unhedged:** I priced a recurring cost from a one-time measurement
+and carried the error through ten cycles of escalation, which rhymes with
+`268`'s closure mistake: on both occasions the number was right and the quantity
+it named was not.

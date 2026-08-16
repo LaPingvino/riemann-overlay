@@ -147,6 +147,19 @@ degradations, not less.
   `forensics/lawN256_shape.py` holds that reading and fails if the table changes.
   The vendored tree is **read-only** — editing it breaks `vendor_check.py`'s
   hash, which is the point of vendoring.
+* **R26 — search the statement index before assuming or fetching, never
+  before proving.**  `forensics/statement_index.py` indexes `5,118`
+  declarations across this repo and the vendored dependency, with a `reachable`
+  column saying whether a dependency theorem can be cited today or would need a
+  build (`268`: `RvM.Statement` `9,148` lines, `ThmD.Final` `44,441`,
+  `XiPrime.Final` `82,256`). `255` re-proved two `181` theorems (`S111`) and
+  `267` found an axiom standing over a sorry-free proof we vendor; both queries
+  return the answer in one command, and `269` replayed both to check it.
+  **The rule is bounded on purpose.** An axiom or a literature request is the
+  moment to search. A new theorem about the ledger is not: most of this
+  project concerns structures outside the dependency's vocabulary, where a hit
+  is a false alarm. The index is checked for staleness, because one that
+  silently lags answers *"nothing proves this"* from a snapshot.
 * **R25 — attempt the composite before believing two routes differ.**
   `263` spent a cycle believing the `N`-resource and `N_off`-resource ladders
   were different theorems; one typecheck of the composite against the existing

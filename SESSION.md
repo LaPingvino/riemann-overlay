@@ -12543,3 +12543,54 @@ finding is a price, and the recommendation is not to pay it.
 transcendental expression, and the same seven-digit agreement that makes the
 rounding safe is what makes discharging it a numerics problem rather than a
 formalisation one.
+
+## Eleven guards: the vendored statement index, and it caught its own 14% hole first
+
+`268` established that we reach `3.0%` of `103,067` vendored lines, so *"already
+proved somewhere on disk"* is now the normal case. `255` re-proved two `181`
+theorems (`S111`); `267` found an axiom standing over a sorry-free proof we
+vendor. Both have the same shape: the thing existed, and finding it cost more
+than redoing it.
+
+**Kill condition, filed first:** *if a query against the index would not have
+surfaced the theorem in the two cases I actually got wrong, then it is a
+catalogue and not an instrument, and I report it as such.* It did not fire, and
+both replays are in the cycle rather than asserted:
+
+* `--find 'N0simple.*0\.85838'` returns `xiDeriv_simple_on_line_flat` with its
+  full statement, marked `[dep/no]` — exists, would need a build. That is exactly
+  what `267` needed and did not have.
+* `--find 'noHaunted_of'` returns `noHaunted_of_mult_le_two` first, with the
+  statement `255` was about to write again.
+
+`forensics/statement_index.py` indexes `5,118` declarations — `491` ours, `4,627`
+theirs, of which `126` are reachable today. The `reachable` column is the useful
+one: it separates *can be cited now* from *exists but costs a build*, and `268`
+priced those builds.
+
+**Snag, bin 1, and the guard caught itself.** The first version wrote the index
+with one regex carrying an optional leading docstring under `re.S`. A
+docstring's `.*?` runs forward across the next declaration and swallows it: the
+index held `4,421` rows where the sources have `5,118`. **It silently omitted
+`14%`** — and an index that quietly omits answers *"nothing already proves this"*
+from a partial snapshot, which is the failure it exists to prevent. Found by
+comparing against `dependency_profile.py`'s independent count of the same
+declarations. Fixed by scanning anchored for the declaration and
+looking *backwards* for its docstring; the reason is in the code at the regex.
+
+**Staleness is checked rather than trusted**, for the same reason: truncated to
+`199` rows the guard reports `FAIL … 199 rows on disk, 5118 in the sources`. All
+three exit paths exercised — `0` current, `1` stale, `5` with the tree absent.
+
+**`R26` adopted, and bounded on purpose.** Search before assuming or fetching,
+and not before proving. Most of this project concerns structures outside the
+dependency's vocabulary — the ledger, the profile, hauntedness — where an index
+hit is a false alarm rather than a saving.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, eleven guards green.
+
+**Might-mean, unhedged:** the instrument built to stop me repeating work was
+itself `14%` short on its first run, and it took a second instrument counting the
+declarations another way to notice — so cross-checking two crude tools beats
+inspecting one careful one.

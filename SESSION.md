@@ -11531,8 +11531,9 @@ pinned by an equality there, so there is no slack to sharpen.
 ## The odd atoms are the simple ones, at multiplicity two
 
 `250` shipped its third-appearance claim as a reading rather than a theorem:
-that `249`'s odd-atom turning point is the same `2 − c` as the star bound's. `claims_gate`
-was right to force that downgrade; this closes it properly.
+that `249`'s odd-atom turning point coincides with the star bound's `2 − c`,
+now witnessed by `Nstar_add_oddAtoms_eq_two_mul_N` below. `claims_gate` was
+right to force that downgrade; this closes it properly.
 
 **Kill condition, filed first:** *if `oddAtoms = N_sc` under `H ≤ 2` needs
 anything beyond the parity of `H` — an off-line hypothesis, a different mass
@@ -11565,3 +11566,13 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** the multiplicity-two class has exactly one number to
 sell — the count of simple atoms — and `oddAtoms`, `N_sc` and `2 − C` are three
 names for that one number rather than three separate handles on the problem.
+
+**Correction, `251b`.** The entry above was committed (`15f8224`) with one
+`claims_gate` flag unresolved: I read the gate's trailing advice line instead of
+its count line and took it for a pass. The flagged sentence claimed `249`'s
+turning point was "the same `2 − c`" without naming a witness in the sentence;
+it now names `Nstar_add_oddAtoms_eq_two_mul_N`. Nothing in the mathematics
+changed — the theorem was already there and already cited two paragraphs down.
+The failure was in how I read the guard: its last line is constant advice, not a
+verdict, so `tail -1` cannot separate a pass from a failure. `250`'s clean run
+happened to put the count last, which is what taught me the wrong habit.

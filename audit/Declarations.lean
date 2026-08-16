@@ -233,6 +233,9 @@ import Riemann
 #check @Riemann.Family.noHaunted_of_boundedMult_two
 -- SESSION 257: NoHaunted buys no star bound; 181's docstring, witnessed.
 #check @Riemann.Blindness.noHaunted_no_starBound
+-- SESSION 260: the threshold is exactly two; H <= 3 already admits a haunted atom.
+#check @Riemann.Blindness.noHaunted_fails_at_mult_three
+#check @Riemann.Family.noHaunted_sharp_at_two
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

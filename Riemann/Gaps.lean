@@ -482,7 +482,11 @@ is `Blindness.noHaunted_not_mult_le_two`.  Both hypotheses reach `κ` by making
 `ZeroData`; `RULING.md` has stated the domination as prose since `234` and cited
 them, but nothing carried it to the `Family` level where `NoHaunted` is defined
 and where the board's rows live.  This is that one line, so the board's claim is
-now a term and not a sentence. -/
+now a term and not a sentence.
+
+*(`260`: and the cap cannot be relaxed — `Family.noHaunted_sharp_at_two`
+exhibits a family at `H ≤ 3` that is haunted, so `2` is the threshold and not
+merely a convenient value.)* -/
 theorem Family.noHaunted_of_boundedMult_two (F : Family)
     (h : ∀ T γ, (F.D T).H γ ≤ 2) : NoHaunted F :=
   fun T γ hγ => Blindness.noHaunted_of_mult_le_two (F.D T) (h T) γ hγ
@@ -865,6 +869,23 @@ are asymptotic predicates on families, so a `ZeroData` witness only refutes a
 noncomputable def constFamily (D : ZeroData) (h : 0 < D.N) : Family where
   D := fun _ => D
   nonempty := Filter.Eventually.of_forall fun _ => h
+
+/-- **`255`'s implication is sharp, at the level the board works at.**
+`SESSION 260`.
+
+`Family.noHaunted_of_boundedMult_two` lifts `H ≤ 2 → NoHaunted` to families.
+This is the matching negative one step up: a family capped at `H ≤ 3` that is
+haunted, so the cap cannot be relaxed at all.
+
+Placed after `constFamily` rather than beside `255`'s block, per `R23` — the
+pointwise content is `Blindness.noHaunted_fails_at_mult_three` and this is only
+its transport. -/
+theorem Family.noHaunted_sharp_at_two {a : ℝ} (ha : a ≠ 1/2)
+    (hpos : 0 < (Blindness.configAt 0 1 1 a).N) :
+    (∀ T γ, ((constFamily (Blindness.configAt 0 1 1 a) hpos).D T).H γ ≤ 3)
+      ∧ ¬ NoHaunted (constFamily (Blindness.configAt 0 1 1 a) hpos) := by
+  obtain ⟨hle, hbad⟩ := Blindness.noHaunted_fails_at_mult_three ha
+  exact ⟨fun _ γ => hle γ, fun hcon => hbad fun γ => hcon 0 γ⟩
 
 /-- **The family-level genre wall is attained.**  `SESSION 218`.
 

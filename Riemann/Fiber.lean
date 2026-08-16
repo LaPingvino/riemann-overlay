@@ -3660,6 +3660,39 @@ theorem noHaunted_not_mult_le_two {a : ℝ} (ha : a ≠ 1/2) :
     have := hcon 0
     omega
 
+/-- **The threshold is exactly two: `H ≤ 3` does not give `NoHaunted`.**
+`SESSION 260`.
+
+`255` proved `H ≤ 2 → NoHaunted` and `noHaunted_not_mult_le_two` proved the
+implication strict.  That leaves open how far up the cap can be relaxed, and the
+answer is not at all: one step to `H ≤ 3` already admits a haunted ordinate.
+
+`configAt 0 1 1 a` — one on-line zero and one mirror pair at the same ordinate —
+has `H = 3` and `offAt = 2`, so `H − offAt = 1` with `H ≠ 1`, which is haunted by
+definition.  `mass_three_atom_attains_all` is the fuller account of this
+configuration; it is the object at which every route constant is tight.
+
+So the implication `BoundedMult M → NoHaunted` holds at `M = 2` and fails at
+every `M ≥ 3`, and it is `noSmallHaunted_three` that explains why there is
+nothing in between: a haunted ordinate carries mass at least three, so capping
+at two excludes them by arithmetic and capping at three admits the smallest one
+exactly. -/
+theorem noHaunted_fails_at_mult_three {a : ℝ} (ha : a ≠ 1/2) :
+    (∀ γ, (configAt 0 1 1 a).H γ ≤ 3)
+      ∧ ¬ (∀ γ, (configAt 0 1 1 a).H γ - offAt (configAt 0 1 1 a) γ = 1 →
+              (configAt 0 1 1 a).H γ = 1) := by
+  classical
+  have hH0 : (configAt 0 1 1 a).H 0 = 3 := by
+    simp only [configAt_H, if_true]
+  have hO0 : offAt (configAt 0 1 1 a) 0 = 2 := by
+    rw [offAt_configAt_self ha]
+  refine ⟨fun γ => ?_, fun hcon => ?_⟩
+  · by_cases hz : γ = 0
+    · subst hz; omega
+    · simp only [configAt_H, if_neg hz]; omega
+  · have := hcon 0 (by omega)
+    omega
+
 /-- **`NoHaunted` is exactly "the two simplicity notions agree".**
 
 `Nsc ≤ NscStd` always, pointwise: a mass-one ordinate has no off-line zeros to

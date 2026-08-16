@@ -12042,3 +12042,58 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** the registers are the slowest-moving surface in this
 project and the Lean docstrings the fastest, so when the two disagree the
 register is the one to suspect.
+
+## The threshold is exactly two, and the warning guard billed me for finding it
+
+`255` proved `H ≤ 2 → NoHaunted` and `noHaunted_not_mult_le_two` proved it
+strict. How far the cap can be relaxed was left open, and a haunted ordinate
+carries odd mass `≥ 3` (`noSmallHaunted_three`), so `3` is where to look.
+
+**Kill condition, filed first:** *if `configAt 0 1 1 a` fails the
+multiplicity-`3` cap at some ordinate, the threshold is not at `2` and I report
+where it actually is.* It did not fire — `H = 3` at the atom and `0` elsewhere.
+
+* `Blindness.noHaunted_fails_at_mult_three` — one on-line zero and one mirror
+  pair at the same ordinate gives `H = 3`, `offAt = 2`, so `H − offAt = 1` with
+  `H ≠ 1`: haunted, at `H ≤ 3`.
+* `Family.noHaunted_sharp_at_two` — the same through `constFamily`, at the level
+  the board's rows live. Placed after `constFamily` per `R23`, and it is only
+  transport; the content is pointwise.
+
+So `BoundedMult M → NoHaunted` holds at `M = 2` and fails at every `M ≥ 3`, with
+nothing in between: capping at two excludes haunted ordinates by arithmetic,
+capping at three admits the smallest one exactly. `2` is a threshold rather than
+a convenient value, annotated on `255`'s theorem at its location.
+
+The configuration is not new — `mass_three_atom_attains_all` proves
+`hauntedCount = 1` for it and is the fuller account, the object at which every
+route constant is tight. Checked for before writing, per `S111`; what was
+missing was the pairing of that with the cap.
+
+**Snag, bin 1, and the guard caught it.** `warning_floor` came back `1` — my
+`simp only [configAt_H, if_true, eq_self_iff_true]` carried an unused
+`eq_self_iff_true`, taking the count from `54` to `55`. Fixed rather than
+`--update`-ed, which is the choice the guard's docstring asks for. `252` built
+it because a `push_neg` deprecation had gone unread inside `250`'s proof; eight
+cycles later it billed the cycle that added a warning, which is what a ratchet
+is for.
+
+**Snag, bin 2.** My annotation on `255`'s docstring landed *after* its closing
+`-/` because that docstring had grown a `257` paragraph since I last read it,
+and I anchored on remembered text. `R24a` exists for this; the rule is to anchor
+on the opening line, and I anchored on the end.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, nine guards green, warnings back at the floor of
+`54`, 30/30 cones.
+
+**Might-mean, unhedged:** the multiplicity axis is a threshold and the
+crowding axis is a continuum — `254` showed the ladder dense below `κ` with no
+step anywhere in it, and this cycle shows the cap jumping at `2` — so which of
+the two a hypothesis lives on decides whether buying more of it is even a
+coherent request.
+
+*(Written after catching myself: the first draft said every hypothesis the
+project has priced has a sharp threshold. `254` is a counterexample I proved
+eleven cycles ago and `claims_gate` passed the sentence, because "every
+hypothesis" carries no exactness word for it to see.)*

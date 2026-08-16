@@ -55,7 +55,25 @@ EXPECTED = {
 # and the extractor removed it on its first run — which is the direction of
 # correction this file was built for.
 
-DECL = re.compile(r"^(?:theorem|lemma)\s+(\S+)((?:.|\n)*?):=", re.M)
+# SESSION 166: the same guard, extended to the rest of the transfer layer.
+# `162` recorded "every `OffLineImport` carries β = 1 − κ" as a table in
+# `PRICES.md`, hand-assembled from a grep — the identical construction that
+# `163`–`165` showed loses rows silently.  A producer added later would make that
+# claim stale with nothing to notice.  These sets are the enumerations the
+# registers rely on; the point is not their content but that they are checked.
+TRANSFER = {
+    "OffLineImport": {
+        "offLineImport_of_proportionStd", "offLineImport_of_derivative",
+        "certified_offline", "offline_via_xiPrime",
+    },
+    "HauntedDensity": {
+        "hauntedDensity_of_offLineImport", "hauntedDensity_of_starBound",
+        "hauntedDensity_of_distinctZeros", "certified_haunted",
+        "certified_haunted_via_distinctZeros",
+    },
+}
+
+DECL = re.compile(r"^(?:theorem|lemma|axiom)\s+(\S+)((?:.|\n)*?):=", re.M)
 
 
 def extract():
@@ -71,6 +89,38 @@ def extract():
                     and "ProportionStd" not in concl:
                 out[m.group(1)] = concl
     return out
+
+
+def extract_concluding(pred):
+    """Declarations whose stated conclusion mentions `pred` (and not a longer
+    predicate containing it)."""
+    out = set()
+    for fn in sorted(os.listdir(SRC)):
+        if not fn.endswith(".lean"):
+            continue
+        src = open(os.path.join(SRC, fn), encoding="utf-8").read()
+        for m in DECL.finditer(src):
+            head = m.group(0).split(":=")[0]
+            concl = " ".join(head.rsplit(":", 1)[-1].split())
+            if re.search(r"\b" + pred + r"\b", concl):
+                out.add(m.group(1))
+    return out
+
+
+def check_transfer():
+    """The enumerations `162` recorded by hand, re-derived."""
+    bad = 0
+    for pred, expected in TRANSFER.items():
+        got = extract_concluding(pred)
+        new, gone = sorted(got - expected), sorted(expected - got)
+        status = "unchanged" if not (new or gone) else "CHANGED"
+        print(f"\n  {pred}: {len(got)} declarations — {status}")
+        for n in sorted(got):
+            print(f"      {'ok ' if n in expected else 'NEW'} {n}")
+        for n in gone:
+            print(f"      GONE {n}")
+        bad += bool(new or gone)
+    return bad
 
 
 def main():
@@ -91,6 +141,14 @@ def main():
               "defect this file exists for (S67, S69).")
         return 1
     print("  board unchanged.")
+    print("\n=== transfer-layer enumerations (the tables `162` recorded) ===")
+    bad = check_transfer()
+    if bad:
+        print("\n  ⚠️ a transfer enumeration changed.  `PRICES.md`'s claim that "
+              "every `OffLineImport` carries `β = 1 − κ` is only as good as this "
+              "list.")
+        return 1
+    print("\n  transfer enumerations unchanged.")
     return 0
 
 

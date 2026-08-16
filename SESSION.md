@@ -7594,3 +7594,54 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the instrument I built to stop me mis-listing the board
 found a mis-listing in the list I built it from, which is the strongest evidence
 I have that the previous three cycles were not bad luck.
+
+# SESSION 166 — the transfer enumerations guarded, and two channels are open
+
+**Kill condition, stated first:** *if extending the extractor to the other
+transfer predicates finds no discrepancy with what the registers already record,
+the defect was confined to `Proportion` and this dies confirming the rest were
+recorded correctly.* **It fired.** `OffLineImport` 4/4 and `HauntedDensity` 5/5,
+both exactly as `162` recorded them by hand.
+
+`162`'s claim that *every* `OffLineImport` carries `β = 1 − κ` is a table
+assembled from a grep — the construction `163`–`165` showed drops rows silently.
+It is now re-derived on every run of `forensics/board.py`, which exits 1 if
+either enumeration changes. Fault-injected: a phantom producer gives `GONE` and
+exit 1.
+
+## `S72` — the wildcard did not fire the way I framed it, and the finding is better
+
+**Wildcard, kill condition first:** *if `hauntedDensity_of_distinctZeros`'s `c` is
+derived from the baseline, `HauntedDensity` is as circular as `OffLineImport`.*
+Our instantiation **is**: `certified_haunted_via_distinctZeros` feeds
+`c = 0.6725` from `certified_atomCount`, the baseline again.
+
+But that is a fact about the instantiation, not the machinery — and classifying
+the producers by their **input** rather than their output separates them:
+
+| producer | input | circular? |
+|---|---|---|
+| `hauntedDensity_of_offLineImport` | `OffLineImport β` | yes — `β` is structurally `1 − κ` |
+| `hauntedDensity_of_starBound` | `StarBound C` | **no** — `StarBound` has independent producers |
+| `hauntedDensity_of_distinctZeros` | a raw `atomCount ≥ c·Nz` bound | **no** — accepts any distinct-zeros bound |
+
+**Two open channels.** The project has fed neither anything but the baseline,
+which is why both ζ instances land on the same `0.16375` — I had generalised
+`162`'s circularity from the outputs agreeing, and `162` read conclusions only,
+never input types.
+
+## The want-ad, precisely
+
+**A distinct-zeros lower bound `atomCount ≥ c·Nz` with `c > 0.6725`**, from the
+Cheer–Goldston literature `hauntedDensity_of_distinctZeros`'s own docstring
+names. The machinery accepts it directly and has never been given one. That is a
+different want-ad from `144`'s and `161`'s: those needed a supply that does not
+exist entangled; this one needs a supply the literature reportedly studies.
+Labelled `[RECALL, UNVERIFIED]` — I have not read Cheer–Goldston.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved.
+
+**Might-mean, unhedged:** I had been reading the toolkit by what its theorems
+conclude, and reading it by what they *require* found two doors I had recorded as
+walls.

@@ -381,6 +381,22 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 >
 > So `161`'s circularity is **structural, not incidental**: the machinery has no
 > way to make an off-line bound that is not one minus somebody's proportion.
+> ⚠️ **`SESSION 166` — and this is true of `OffLineImport` only.** Classifying
+> the *inputs* of the `HauntedDensity` producers, two of the three accept
+> something the off-line shelf cannot supply:
+>
+> | producer | input | circular? |
+> |---|---|---|
+> | `hauntedDensity_of_offLineImport` | `OffLineImport β` | yes — `β` is structurally `1 − κ` |
+> | `hauntedDensity_of_starBound` | `StarBound C` | **no** — `StarBound` has independent producers (`routeIII_with_narrowBox`, `starBound_of_multiplicity_le`) |
+> | `hauntedDensity_of_distinctZeros` | a raw `atomCount ≥ c·Nz` bound | **no** — takes any distinct-zeros lower bound |
+>
+> So the transfer layer has **two open channels**, and the project has fed
+> neither anything but the baseline: `certified_haunted_via_distinctZeros`
+> instantiates `c = 0.6725` from `certified_atomCount`, which is the baseline
+> again. **The want-ad is a distinct-zeros bound `c > 0.6725` from the
+> Cheer–Goldston literature the docstring already names** — an input the
+> machinery can accept and has never been given.
 > Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
 > which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
 > with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).

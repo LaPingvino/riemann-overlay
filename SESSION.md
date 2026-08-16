@@ -8041,3 +8041,58 @@ rather than a regression.
 **Might-mean, unhedged:** the cheapest way to produce a number nobody can trust is
 to measure the part of a register you expect to be interesting and call the answer
 a rate.
+
+# SESSION 174 — the triage finished, and the gate is 97.4% noise on this register
+
+**Kill condition, stated first:** *if the completed triage's true-positive rate
+is below `LEADS`'s 3.6% (2 in 56), the gate's flags on `ISSUES.md` should stop
+driving cycles.* **It fired: 1 in 39 = 2.6%.**
+
+`173` triaged five and refused to report a rate. This finishes the other 34, so
+the number means what `127`'s and `149`'s do.
+
+## All 39, classified
+
+| shape | count |
+|---|---|
+| rhetorical *exactly* / *the same* / *the only* inside a narrative judgement | 12 |
+| historical records and self-corrections, with citations | 10 |
+| enumerations over content displayed immediately above them | 8 |
+| literature attributions (*"never ours to build"*, *"never depended on RH"*) | 2 |
+| directives (*"Rule. Never wrap a long step in `\| tail`"*) | 2 |
+| already dated by an earlier cycle (`159`'s re-check and its subject) | 2 |
+| **mechanically verified this cycle** | 2 |
+| **TRUE POSITIVE** (`#1`'s "cannot be manufactured", scoped at `173`) | **1** |
+
+The two I checked rather than classified: `audit/regression/Boom_2026-08-13.lean`
+still fails to typecheck (`lake env lean` exits nonzero, as `proportion.go`'s
+S-WITNESS requires), and `0.703704 > 0.6818287` is arithmetic.
+
+## `S81` — the skipped 34 held nothing
+
+`173` took the five **most likely** flags and I recorded that any extrapolation
+would be biased upward. It was worse than biased: the five contained **the entire
+signal**. All 34 remaining are false positives.
+
+That is simultaneously the best case for prior-guided triage — my prior was
+perfect — and the worst case for the flag count as a metric. `ISSUES.md`'s 39 are
+`97.4%` noise, and the register is now measured rather than estimated.
+
+## What this settles
+
+The gate has now been triaged whole on three registers: `LEADS` `2/56` (`127`),
+`CLAIMS` `1/5` (`149`), `ISSUES` `1/39` (`173`–`174`). **Its value is not in the
+count but in the shapes it catches** — all four true positives across the three
+registers (`127`'s two, `149`'s one, `173`'s one) were *stale or unscoped
+absolutes*, and none was a fabricated claim. It is a staleness
+detector with a wordlist, and the wordlist is most of the cost.
+
+`ISSUES.md`'s flag count should not drive a cycle again. The other registers'
+counts stand on their own triages.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new Lean.
+
+**Might-mean, unhedged:** an instrument that is 97% noise on a register can still
+be worth running, because the 3% it catches is a class of error I have committed
+in eleven separate cycles and cannot see by reading.

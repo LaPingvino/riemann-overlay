@@ -707,6 +707,8 @@ realizability from above" jaw **does not exist**.
 
 *`251`:* `oddAtoms_eq_Nsc_of_mult_le_two` — inside the class the odd-atom currency and the simple-atom currency are the same number, so `247`'s "cheap jaw" buys nothing the star bound did not already have there. It can only differ outside multiplicity two.
 
+*`252`:* `boundedMult_two_iff_oddAtom_exact` — the odd-atom equality cuts out the same class as the simple-atom one, so the "cheap jaw" is not a weaker instrument, it is the same instrument. E11's pincer needs a hypothesis that is not a multiplicity cap in disguise.
+
 > **`SESSION 243` — sharpened, not discharged, for one family.** Within
 > multiplicity caps the claim is now a theorem.
 > `Optimal.mult_cap_excluding_pairOnly`: `Gauge.pairOnly` has `H = 2`, so a cap

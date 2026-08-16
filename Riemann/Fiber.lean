@@ -3120,6 +3120,58 @@ theorem Nstar_add_oddAtoms_eq_two_mul_N (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2
   rw [oddAtoms_eq_Nsc_of_mult_le_two D h]
   exact Nstar_add_Nsc_eq_two_mul_N D h
 
+/-- **The odd-atom equality characterises the class too.**  `SESSION 252`.
+
+`251` gave one direction by routing through `N_sc`.  The converse does not
+route back the same way — `oddAtoms` and `N_sc` are only equal *given* `H ≤ 2`,
+which is what is being concluded — so it is proved directly: for `H ≥ 3`,
+`H² + [H odd] ≥ 3H > 2H`, strict whatever the parity does.
+
+So `oddAtoms` is not a weaker currency than `N_sc` for this purpose.  Both
+equalities cut out the same class. -/
+theorem boundedMult_two_iff_oddAtom_exact (D : ZeroData) :
+    (∀ γ, D.H γ ≤ 2) ↔ D.Nstar + oddAtoms D = 2 * D.N := by
+  classical
+  refine ⟨Nstar_add_oddAtoms_eq_two_mul_N D, fun heq γ₀ => ?_⟩
+  by_contra hbig
+  have hmem : γ₀ ∈ D.ordinates.toFinset := by
+    rw [Multiset.mem_toFinset, ← Multiset.count_pos, ← ZeroData.H_eq_count]
+    omega
+  have key : 2 * (D.N : ℤ) < (D.Nstar : ℤ) + oddAtoms D := by
+    have hO : (oddAtoms D : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if ¬ Even (D.H γ) then (1 : ℤ) else 0) := by
+      rw [oddAtoms, Finset.card_filter, Nat.cast_sum]
+      exact Finset.sum_congr rfl fun γ _ => by split <;> simp_all
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    have hS : (D.Nstar : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ) * (D.H γ : ℤ)) := by
+      rw [Nstar_eq_sum_H_sq D, Nat.cast_sum]; push_cast; rfl
+    rw [hS, hO, hN, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_lt_sum (fun γ hγ => ?_) ⟨γ₀, hmem, ?_⟩
+    · have hpos : 0 < D.H γ := by
+        rw [ZeroData.H_eq_count, Multiset.count_pos]
+        exact Multiset.mem_toFinset.1 hγ
+      have hpar : ¬ Even (D.H γ) ↔ D.H γ % 2 = 1 := by rw [Nat.even_iff]; omega
+      by_cases hone : D.H γ = 1
+      · rw [if_pos (hpar.2 (by omega)), hone]; norm_num
+      · have hm : (2 : ℤ) ≤ (D.H γ : ℤ) := by
+          have : 2 ≤ D.H γ := by omega
+          exact_mod_cast this
+        have hite : (0 : ℤ) ≤ (if ¬ Even (D.H γ) then (1 : ℤ) else 0) := by
+          split <;> norm_num
+        nlinarith
+    · have hm : (3 : ℤ) ≤ (D.H γ₀ : ℤ) := by
+        have : 3 ≤ D.H γ₀ := by omega
+        exact_mod_cast this
+      have hite : (0 : ℤ) ≤ (if ¬ Even (D.H γ₀) then (1 : ℤ) else 0) := by
+        split <;> norm_num
+      nlinarith
+  have : 2 * (D.N : ℤ) = (D.Nstar : ℤ) + oddAtoms D := by exact_mod_cast heq.symm
+  omega
+
 /-- **The sharp form at every `M`: `N⊛ + (M−1)·Nsc ≤ M·N`.**
 
 `096` proved `N⊛ + M·Nsc ≤ (1 + M)·N`, which is loose by `N − Nsc`: it charges a

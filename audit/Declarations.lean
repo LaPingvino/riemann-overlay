@@ -225,6 +225,8 @@ import Riemann
 -- SESSION 251: odd atoms are the simple ones at multiplicity two.
 #check @Riemann.Blindness.oddAtoms_eq_Nsc_of_mult_le_two
 #check @Riemann.Blindness.Nstar_add_oddAtoms_eq_two_mul_N
+-- SESSION 252: the odd-atom equality characterises the class too.
+#check @Riemann.Blindness.boundedMult_two_iff_oddAtom_exact
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

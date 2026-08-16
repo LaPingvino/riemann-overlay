@@ -11596,3 +11596,58 @@ Caught by the advisor, not by me; I had already recorded the wrong cause twice.
 `S109` is corrected at its own row, and `15f8224`, `b69d426` and `19c1450`
 stand with their commit messages carrying the superseded diagnosis — the `245`
 precedent, corrected by reference rather than force-pushed.
+
+## Eight guards now, because `grep "^error"` cannot see a warning
+
+`251`'s snag said warnings are invisible to the way I check builds. This looks.
+
+**Kill condition for the wildcard, filed first:** *if `N⊛ + oddAtoms = 2·N`
+holds for some configuration with an atom of mass `≥ 3`, the equality is not a
+characterisation and I report `oddAtoms` as strictly weaker than `N_sc` for this
+purpose.* It did not fire.
+
+`boundedMult_two_iff_oddAtom_exact` — `(∀ γ, H γ ≤ 2) ↔ N⊛ + oddAtoms = 2·N`,
+axiom-free. The converse cannot route back through `251`'s
+`oddAtoms_eq_Nsc_of_mult_le_two`, because that lemma assumes what is being
+concluded; it is proved directly, from `H ≥ 3 ⟹ H² + [H odd] ≥ 3H > 2H`, strict
+whatever the parity does. So both equalities cut out the same class and
+`oddAtoms` is not the weaker currency.
+
+**The piece: `forensics/warning_floor.py`.** `lake build` emits **54** warnings
+in `Riemann/*.lean` and `5` in vendored `Zeta23/*`, and I had not been reading
+them. The guard counts them against a recorded floor and fails if the count
+grows; vendored warnings are reported for information and are excluded from the
+comparison, because editing them would break `vendor_check.py`'s tree hash. All three exit paths were exercised before the
+guard was believed — `0` at the floor, `1` with the floor set one lower, `5`
+with `lake` off `PATH`. `148` found `9` of `16` scripts here could not return a
+failing exit code, so a guard's failing path is not taken on trust.
+
+**None of the 54 indicates a wrong proof, and I checked rather than assumed.**
+The three that could have — two `this tactic is never executed` and one
+`'push_cast' tactic does nothing` — are a `<;> norm_num` after a `simp` that had
+already closed every goal (`Fiber` `3425`, `Capacity` `490`) and a `push_cast`
+on an already-normal hypothesis (`Optimal` `564`). The bulk is `29` unused
+`simp` arguments that went stale when Mathlib moved underneath them. Rewriting
+those is churn against a moving dependency, which is why the invariant is "must
+not grow" rather than "must be zero".
+
+**Snag, bin 1.** My hand count off the earlier `uniq -c` was `51`; the guard
+says `54`. I had summed truncated message prefixes and dropped three rows. The
+first thing the instrument did was correct the number I would otherwise have
+written into this entry.
+
+**Queue item 1 is not done, and here is the data it needs.** `claims_gate` over
+the registers: `LEADS` `69`, `ISSUES` `40`, `PRICES` `24`, `FAILURES` `19`,
+`NIGHT` `15`, `E` `14`, `F` `11`, `METHOD` `9`, `VERIFYING` `8`, `README` `6`,
+`S` `6`, `SURPRISES` `5`, `CLAIMS` `4`, `A` `4`, `FRAMING` `4`, `LOOP` `3`,
+`STATEMENTS` `2`, `RULING` `0` — and `SESSION` `207`, which is a log rather than
+a live register. The queue says "six CLAIMS.md flags"; there are `4`. Triage is
+a cycle's work at `086`'s standard (that run hand-graded `14` and found `1` true
+positive), and I am not going to quote a rate I have not earned.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, eight guards green, 30/30 cones.
+
+**Might-mean, unhedged:** this project's guards all grew out of a cycle being
+wrong in a way nothing looked at, so the useful question each cycle is not "did
+the checks pass" but "what did no check look at".

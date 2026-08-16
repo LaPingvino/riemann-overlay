@@ -131,6 +131,14 @@ degradations, not less.
   **SCALE** (consumed outside its validity range), **QUALITY** (supplier weaker
   than consumer requires). Replays the project's three expensive failures and
   blocks all three at proposal time.
+* **Warnings are checked, because `grep "^error"` cannot see them.**
+  `forensics/warning_floor.py` counts `lake build` warnings in `Riemann/*.lean`
+  against a recorded floor and fails if the count grows. `251` lost a
+  deprecation warning inside its own proof; `252` found `54` standing, none of
+  them a wrong proof, and none of them ever read. Vendored `Zeta23/*` warnings
+  are reported and never fail — editing them would break `vendor_check.py`.
+  The floor is a ratchet, not a target: `--update` is for a cycle that fixed
+  warnings, never for one that added them.
 * **S-witness — form-factor models must pass Lemma 1.**
   `forensics/lemma1_guard.py` checks any candidate `D` against
   `∫_B^{B+1} F ≤ 3` (RH) before a table is built. Retroactively it kills every

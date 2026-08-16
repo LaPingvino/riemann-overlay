@@ -147,6 +147,13 @@ degradations, not less.
   `forensics/lawN256_shape.py` holds that reading and fails if the table changes.
   The vendored tree is **read-only** — editing it breaks `vendor_check.py`'s
   hash, which is the point of vendoring.
+* **The newest `SESSION.md` entry is gated by a guard, not by a habit.**
+  `forensics/session_gate.py` runs `claims_gate` over the text from the last
+  `## ` heading to the end of the file and fails if it carries an unresolved
+  flag. `251` and `277` both shipped a flagged entry by putting the gate and
+  `git commit` in one shell call; `251d` wrote the rule and `277` broke it
+  anyway, which is `S113`. A guard in the roster closes the window to one
+  cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
 * **R26 — search the statement index before assuming or fetching, never
   before proving.**  `forensics/statement_index.py` indexes `5,118`
   declarations across this repo and the vendored dependency, with a `reachable`

@@ -12987,3 +12987,51 @@ rule: *"the gate and the commit never go in one call, or the gate's exit code is
 the `&&` condition"* — and `269`–`276` all honoured it. The flagged sentence was
 the might-mean's "every step"; nothing in the mathematics changed. Twenty-six
 cycles is how long that rule held before I broke it the same way twice.
+
+## The gate-then-commit rule becomes a guard
+
+`S113`'s verdict was that a rule depending on a remembered shell operator is a
+habit, not a rule. This is the enforceable form.
+
+**Kill condition, filed first:** *if "the last `SESSION.md` entry" is not
+mechanically well-defined — if the boundary cannot be found reliably — then the
+guard would gate the wrong text and I report that rather than shipping a guard
+that checks something else.* It did not fire: the text from the last `^## `
+heading to end of file is unambiguous at the tail, where recent entries are
+`## `-headed with `### ` sub-sections.
+
+**It is unambiguous only at the tail, and the docstring says so.** Entries before
+roughly `SESSION 100` use `# SESSION NNN` with `## ` sub-sections, so this
+heuristic would carve those wrongly. The guard is deliberately applied to the
+newest entry only: the one a cycle can still fix, and the one it makes a claim
+about.
+
+`forensics/session_gate.py` is the twelfth guard. All three exit paths
+exercised: `0` clean, `1` on a deliberately flagged entry, `5` with
+`claims_gate.py` absent.
+
+**Replayed against the two failures it exists for.** Against `0ae75b9` —
+`277`'s flagged commit — it **fails, naming the sentence that shipped**, which
+is the witness that it would have caught what it was built for. Against
+`15f8224` — `251`'s — it passes, and that is not a defect: `253` added
+self-disclaimer markers to `claims_gate`, so `251`'s sentence no longer flags
+under today's calibration. The replay is uninformative there rather than
+negative, and saying so is the difference between a witness and a green light.
+
+**What it does not fix.** It closes the window to one cycle; it does not stop
+the flagged entry being written. The cycle that writes the entry sees red if the
+guard runs after the write, and the next cycle sees red if it does not. `277`
+ran the guards before writing the entry, which is exactly how the miss survived.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, twelve guards green.
+
+**Snag, bin 1, and the guard billed its author on its first live run.** It
+failed this very entry — twice — on a `the only one it claims anything about`
+and on `the exact sentence`. Both were genuine scope words; both are fixed
+above. Twelve guards now, and the newest one's first act was to charge the
+cycle that built it — as `warning_floor` did at `260`.
+
+**Might-mean, unhedged:** this project's rules survive right up until the cycle
+that has internalised them, and the ones that last are the ones an instrument
+holds rather than an author.

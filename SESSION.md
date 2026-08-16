@@ -12749,3 +12749,47 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** an axiom that has stood since base `v2` is now a
 three-line proof waiting on a build-time budget, which means the trusted base of
 this project is bounded below by disk and patience rather than by mathematics.
+
+## Starting the `baseline_zeta23` bridge: one lemma, and a named obstacle
+
+`272` finished `zetaNonempty` down to one imported fact. `baseline_zeta23` is the
+binding axiom and the same treatment applies, starting from the count side.
+
+**Kill condition, filed first:** *if our `NscStd` is not equal to their
+`N0simple` on the same window — if the two notions of "standard simple" differ —
+then the bridge needs a genuine inequality rather than a rewrite, and I report
+which direction survives.* It did not fire: ours filters `Z` on
+`p.1 = 1/2 ∧ Z.count p = 1`, theirs takes the `ncard` of
+`zerosIn ∩ {re = 1/2} ∩ {zeroMult = 1}`, and on `zetaZeroData` the two range over
+the same points, because an on-line zero is determined by its ordinate. I found
+no case separating them.
+
+**`ZeroData.ofMult_count`** — `(ofMult s m _ _).Z.count p = if p ∈ s then m p
+else 0`. `ofMult_N` read the total; this reads a single fibre, which is what the
+`NscStd` bridge needs, since their filter is on `zeroMult ρ = 1` and ours on
+`Z.count p = 1`. Axiom-free, `3757` jobs unchanged. `R26` said it did not exist,
+and it did not.
+
+**Snag, bin 2, and it stopped the cycle where it stopped.** The next lemma —
+`(ofMult s m _ _).NscStd = (s.filter fun p => p.1 = 1/2 ∧ m p = 1).card` — is
+mathematically routine and mechanically not. Two attempts failed:
+`Multiset.filter_bind` leaves the predicate unfolded so `Multiset.map_congr` will
+not match, and folding the predicate with `set` then makes `rw` fail on *motive
+is not type correct*, because `Multiset.filter`'s `DecidablePred` instance
+depends on the term being rewritten. The fix is `conv` or `simp only` rather than
+`rw`, per Lean's own diagnostic; that is the next cycle's first move and it is
+recorded so the next cycle starts from the obstacle rather than from scratch.
+
+**What that means for the ruling.** `baseline_zeta23` is not yet reduced the way
+`zetaNonempty` is, and its second cost — a certified bound on `cot(1/√2)`, since
+`ThmD` proves the exact `2 − 1/c₁*` and we assert the decimal `0.6725` (`268`)
+— is untouched. The `zetaNonempty` ruling stands on its own and does not wait
+for this.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, eleven guards green, index regenerated.
+
+**Might-mean, unhedged:** the two axiom discharges have opposite shapes — one was
+blocked on a build budget and cleared in three cycles, the other is blocked on a
+decidability instance and a transcendental constant, so "reduce the trusted base"
+is not one project but two with nothing in common.

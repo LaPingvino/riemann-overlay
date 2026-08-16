@@ -341,6 +341,27 @@ theorem nscAny_ceiling_is_the_certified_row : (1 : ℝ) - 0.3275 = 0.6725 := by
 -- > result.
 
 
+/-- **The multiplicity of a point of `ofMult` is the multiplicity it was given.**
+`SESSION 273`.
+
+`ofMult_N` reads the *total*; this reads a single fibre, which is what any
+`NscStd`-side bridge to zeta-23 needs — their `N0simple` filters on
+`zeroMult ρ = 1`, and ours filters on `Z.count p = 1`, so the two only meet once
+`count` is known to be `m`. -/
+lemma ofMult_count (s : Finset (ℝ × ℝ)) (m : ℝ × ℝ → ℕ)
+    (hclosed : ∀ p ∈ s, refl p ∈ s) (hm : ∀ p ∈ s, m (refl p) = m p) (p : ℝ × ℝ) :
+    (ofMult s m hclosed hm).Z.count p = if p ∈ s then m p else 0 := by
+  classical
+  show Multiset.count p (s.val.bind fun q => Multiset.replicate (m q) q) = _
+  rw [Multiset.count_bind]
+  have hmap : (s.val.map fun q => Multiset.count p (Multiset.replicate (m q) q))
+      = s.val.map (fun q => if p = q then m q else 0) := by
+    refine Multiset.map_congr rfl fun q _ => ?_
+    simp [Multiset.count_replicate, eq_comm]
+  rw [hmap]
+  show (Finset.sum s fun q => if p = q then m q else 0) = _
+  rw [Finset.sum_ite_eq s p m]
+
 /-- The total count of `ofMult` is the sum of the multiplicities — the
 Riemann–von Mangoldt side of the interface. -/
 lemma ofMult_N (s : Finset (ℝ × ℝ)) (m : ℝ × ℝ → ℕ)

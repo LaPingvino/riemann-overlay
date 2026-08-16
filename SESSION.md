@@ -11775,3 +11775,54 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** the multiplicity ladder is dense below `κ` but its
 hypotheses grow without bound along it, so the ladder is a way of paying for
 `κ` in unbounded instalments rather than a family of cheaper routes to it.
+
+## The board's two `κ` rows are one row — and `181` knew
+
+The board carries `proportion_of_mult_le_two` and `proportion_of_noHaunted_zeta`
+at the same `0.6725` from hypotheses that look unrelated. After `249`–`252`
+turned three appearances of `2 − c` into one mechanism, two rows at `κ` were
+worth the same question.
+
+**Kill condition, filed first:** *if `mult ≤ 2` does not imply the family-level
+`NoHaunted` as the project defines it, the two `κ` rows are independent and I
+report them as two routes, not one.* It did not fire: `offAt` is even and at most
+`H`, so `H − offAt = 1` under `H ≤ 2` forces `H = 1` and there is no haunted
+ordinate to exclude.
+
+**Then I found the project had proved it at `181`.**
+`Blindness.noHaunted_of_mult_le_two` and `noHaunted_not_mult_le_two` (the
+strictness witness, `configAt 0 4 0 a`) were already in `Fiber.lean`, already in
+`audit/Declarations.lean`, and already cited **by name** in `RULING.md`'s "struck
+on the mathematics" list. I had written both again, with a different witness
+(`configAt 0 2 1 a`, mass `4` carrying off-line mass `2` — also valid, and also
+redundant). Deleted. Logged as `S111`.
+
+**What was actually missing, and is now there.** Those theorems are about one
+`ZeroData`. `NoHaunted` is a `Family` predicate and the board's rows are family
+rows, and nothing carried the implication across that gap —
+`RULING.md` has asserted the domination in prose since `234` while the witness
+underneath it quantified over single configurations.
+`Family.noHaunted_of_boundedMult_two` is that one line, axiom-free. The board's
+"`H ≤ 2` is dominated by `NoHaunted`" is now a term rather than a sentence, and
+`234`'s ruling to display `NoHaunted` is a consequence rather than a preference.
+
+**Snag, bin 3, and it is the cycle's real content.** `S27` says check the
+registers for a specification before reconstructing. I read the `NoHaunted`,
+`NoSmallHaunted`, `hauntedCount` and `hauntedSet` *definitions* and started
+proving. The theorems about them were one grep from the definitions I had open.
+`S98` was this same move with a `private` copy that shadowed a real lemma and
+broke two proofs; this time the cost was only wasted work, because the duplicate
+happened to live in a different place. Reading a definition is not reading the
+register.
+
+Caught by following `RULING.md`'s citation to see whether it resolved — the
+`246`/`S107` habit of not trusting a name in prose, applied to a name I was
+about to make redundant.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, eight guards green, 30/30 cones, board unchanged at
+13 declarations.
+
+**Might-mean, unhedged:** this project's registers are now large enough that the
+expensive failure mode has shifted from proving something false to proving
+something twice, and the guards all watch the first one.

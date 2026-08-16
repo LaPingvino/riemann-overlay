@@ -129,7 +129,10 @@ who can prove less than `NoHaunted` and more than nothing.
 **Two rows are struck on the mathematics, not on taste:**
 
 * **`H ≤ 2`** is dominated by `NoHaunted` — strictly stronger hypothesis
-  (`noHaunted_not_mult_le_two`), identical payout.
+  (`noHaunted_not_mult_le_two`), identical payout. *(`255`: this is now a term
+  at the level the board works at — `Family.noHaunted_of_boundedMult_two`. Until
+  then the domination was stated here and witnessed only one `ZeroData` at a
+  time.)*
 * **ξ′** is dominated by the `m = 7` rung — fewer points *and* two more axioms.
 
 ### Where the two currencies stop (`SESSION 240`)

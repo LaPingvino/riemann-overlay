@@ -466,6 +466,27 @@ theorem noSmallHaunted_three (F : Family) : NoSmallHaunted F 3 := by
       omega
     exact ZeroData.three_le_H_of_haunted hmem (by rfl) hcount h2
 
+/-- **The board's two `κ` rows are one row.**  `SESSION 255`.
+
+`proportion_of_mult_le_two` and `proportion_of_noHaunted_zeta` both return
+`0.6725`, from hypotheses that look unrelated.  They are not: multiplicity `≤ 2`
+*implies* `NoHaunted`, so the first row is a corollary of the second.
+
+The mechanism is `Blindness.noHaunted_of_mult_le_two`, which has been in
+`Fiber.lean` since `181`: `offAt` is even and at most `H`, so `H − offAt = 1`
+under `H ≤ 2` forces `H = 1`, leaving no haunted ordinate to exclude.  Strictness
+is `Blindness.noHaunted_not_mult_le_two`.  Both hypotheses reach `κ` by making
+`N_sc = NscStd`, and `κ` is the certified `NscStd` row.
+
+**What is new here is only the lift.**  Those two theorems are about a single
+`ZeroData`; `RULING.md` has stated the domination as prose since `234` and cited
+them, but nothing carried it to the `Family` level where `NoHaunted` is defined
+and where the board's rows live.  This is that one line, so the board's claim is
+now a term and not a sentence. -/
+theorem Family.noHaunted_of_boundedMult_two (F : Family)
+    (h : ∀ T γ, (F.D T).H γ ≤ 2) : NoHaunted F :=
+  fun T γ hγ => Blindness.noHaunted_of_mult_le_two (F.D T) (h T) γ hγ
+
 /-- **The rungs are nested: a higher rung is at least as large a demand.**
 
 `PRICES.md`'s menu presents `m = 5, 7, → ∞` as a *dial* — a scale on which you

@@ -5087,6 +5087,47 @@ theorem hauntedSet_card_determined {D D' : ZeroData}
   have h2 := ZeroData.NscStd_eq_Nsc_add_haunted D'
   omega
 
+/-- **The two haunted counts are the same number.**  `SESSION 226`.
+
+The development carries two of them, in two namespaces, and they are used in
+different halves of the project:
+
+* `ZeroData.hauntedSet` counts haunted **zeros** — on-line, multiplicity one, at
+  a crowded ordinate — and `ZeroData.NscStd_eq_Nsc_add_haunted` is the master
+  identity in terms of its cardinality.
+* `Blindness.hauntedCount` counts haunted **ordinates**, and
+  `Blindness.NscStd_eq_Nsc_add_haunted` is the same identity in terms of it.
+  This is the one `HauntedDensity` and every conditional route use.
+
+Both identities subtract to the same thing, so the two counts agree — and no
+lemma said so.  They have been provably equal since `181` wrote the second
+identity.
+
+This matters for `225`: `hauntedSet_card_not_ordinate_functional` and
+`hauntedSet_card_determined` were stated on the `hauntedSet` side, which is not
+the side the ledger's haunted row runs through.  The two corollaries below carry
+them across. -/
+theorem hauntedCount_eq_hauntedSet_card (D : ZeroData) :
+    hauntedCount D = D.hauntedSet.card := by
+  have h1 := NscStd_eq_Nsc_add_haunted D
+  have h2 := ZeroData.NscStd_eq_Nsc_add_haunted D
+  omega
+
+/-- `225`'s invisibility, on the count the routes actually use. -/
+theorem hauntedCount_not_ordinate_functional :
+    ¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, hauntedCount D = f D.ordinates := by
+  rintro ⟨f, hf⟩
+  exact hauntedSet_card_not_ordinate_functional
+    ⟨f, fun D => by rw [← hauntedCount_eq_hauntedSet_card, hf]⟩
+
+/-- `225`'s fiber-visibility, on the count the routes actually use. -/
+theorem hauntedCount_determined {D D' : ZeroData}
+    (hord : D.ordinates = D'.ordinates)
+    (hoff : ∀ γ, offAt D γ = offAt D' γ) :
+    hauntedCount D = hauntedCount D' := by
+  rw [hauntedCount_eq_hauntedSet_card, hauntedCount_eq_hauntedSet_card]
+  exact hauntedSet_card_determined hord hoff
+
 /-- **`atomCount` *is* an ordinate functional**, and by definition rather than by
 argument.  `SESSION 220`.  Stated so the contrast with
 `NscAny_not_ordinate_functional` is a pair of theorems rather than a sentence. -/

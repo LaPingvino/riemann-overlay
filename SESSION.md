@@ -10406,3 +10406,46 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the quantity this project invented to name what the
 literature cannot bound is now proved invisible to the certificate class, so the
 coinage was tracking the obstruction rather than describing it.
+
+## Two haunted counts, one number, no lemma
+
+`225` proved the haunted count is where `NscStd`'s invisibility lives. Before
+building on that, the question is which haunted count.
+
+**Kill condition, filed first:** *if a lemma already links `hauntedCount` and
+`hauntedSet.card`, I say so and move on; if they are genuinely different
+quantities, that is a finding about which one the master identity governs.* It
+fired the second way, and worse than expected: they are the same number and
+nothing said so.
+
+The development carries both, in two namespaces:
+
+* `ZeroData.hauntedSet` — haunted **zeros**, with
+  `ZeroData.NscStd_eq_Nsc_add_haunted` stating the master identity for its card.
+* `Blindness.hauntedCount` — haunted **ordinates**, with
+  `Blindness.NscStd_eq_Nsc_add_haunted` stating the same identity for it. This
+  is the one `HauntedDensity` and every conditional route consume.
+
+Subtracting the two identities gives `hauntedCount D = D.hauntedSet.card` by
+`omega`. It has been available since `181` wrote the second identity.
+
+**This mattered.** `225`'s two theorems were stated on the `hauntedSet` side,
+which is not the side the ledger's haunted row runs through. Both are now
+carried across — `hauntedCount_not_ordinate_functional` and
+`hauntedCount_determined` — so `225`'s result applies to the quantity the routes
+actually use rather than to its twin.
+
+`S102`, and the sharpest part is that `206` had already *measured* this name pair
+as a cross-namespace duplicate, classified it as deliberate parallel naming, and
+moved on. It was deliberate. It was also two names for one number with no
+equation between them.
+
+Three theorems, axiom-free, all in `audit/Declarations.lean`. `LEADS.md`'s
+visibility table updated at its location.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** carrying a quantity in two coordinate systems guards
+this project against error while hiding equations from it, and one pair of names
+produced both effects.

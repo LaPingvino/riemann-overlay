@@ -504,7 +504,7 @@ cycle rather than recalled.
 | `atomCount` (distinct **ordinates**) | **yes**, by definition | yes | `Blindness.atomCount_ordinate_functional` (`220`) |
 | `NscStd` | **no** | **yes** | `NscStd_not_ordinate_functional` · `NscStd_determined` |
 | `N_off` | **no** | **yes** | `no_muInvariant_bundle_computes_Noff` · `Noff_determined` |
-| `hauntedSet.card` | **no** | **yes** | `hauntedSet_card_not_ordinate_functional` · `hauntedSet_card_determined` (`225`) |
+| `hauntedSet.card` = `hauntedCount` | **no** | **yes** | `hauntedSet_card_not_ordinate_functional` · `hauntedSet_card_determined` (`225`); carried to `hauntedCount` by `hauntedCount_eq_hauntedSet_card` (`226`) |
 | `NscAny` | no | **no** | `NscAny_not_ordinate_functional` (`220`) · `NscAny_not_fiber_functional` (`221`) |
 | `distinctZeros` = `N_d` (distinct **points**) | no | **no** | `distinctZeros_not_profile_functional` · `distinctZeros_not_fiber_functional` (`223`) |
 

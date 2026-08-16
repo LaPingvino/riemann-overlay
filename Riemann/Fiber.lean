@@ -3359,6 +3359,41 @@ theorem haunted_chain_attains {a : ℝ} (ha : a ≠ 1/2) (n : ℕ) :
       ++ List.replicate (n - n) ((3 : ℕ), (0 : ℕ))))
   refine ⟨by omega, by omega, by omega, by omega⟩
 
+/-- `atomCount` is the profile's length: one pair per distinct ordinate. -/
+lemma atomCount_eq_card_profile (D : ZeroData) :
+    atomCount D = Multiset.card (profile D) := by
+  classical
+  rw [atomCount, profile, Multiset.card_map]
+  rfl
+
+/-- **The other two bounds lift as well: six of six** — `SESSION 180`.
+
+`179` lifted four of `178`'s six equalities to the chain and left the two
+involving `N⊛` and `atomCount` at `n = 1`, naming what they needed: chain-level
+`Nstar` and `atomCount`.  Both come from `chain_profile`, which was already
+there — the profile of `n` haunted mass-`3` atoms is `n` copies of `(3, 2)`, so
+`N⊛ = 9n` by `Nstar_from_profile` and `atomCount = n` by counting pairs.
+
+With `179`, **every route bound of `178` is an equality at every `n`.** -/
+theorem haunted_chain_attains_star_and_atoms {a : ℝ} (ha : a ≠ 1/2) (n : ℕ) :
+    let C := chain a (List.replicate n ((1 : ℕ), (1 : ℕ)))
+    C.Nstar = 9 * n ∧ atomCount C = n := by
+  classical
+  have hne : ∀ p ∈ List.replicate n ((1 : ℕ), (1 : ℕ)), p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    rw [List.eq_of_mem_replicate hp]
+    norm_num
+  have hprof : profile (chain a (List.replicate n ((1 : ℕ), (1 : ℕ))))
+      = Multiset.replicate n ((3 : ℕ), (2 : ℕ)) := by
+    rw [chain_profile ha _ hne]
+    simp [List.map_replicate, Multiset.coe_replicate]
+  refine ⟨?_, ?_⟩
+  · rw [Nstar_from_profile, hprof, Multiset.map_replicate, Multiset.sum_replicate,
+      smul_eq_mul]
+    norm_num
+    ring
+  · rw [atomCount_eq_card_profile, hprof, Multiset.card_replicate]
+
 /-- **The mass accounting: `Nsc + 3·hauntedCount ≤ N`.**  A simple ordinate
 carries one zero, a haunted one at least three, and they are disjoint. -/
 theorem Nsc_add_three_mul_haunted_le_N (D : ZeroData) :

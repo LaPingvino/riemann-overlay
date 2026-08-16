@@ -8358,3 +8358,53 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 a small accident but a shape you can repeat as often as you like, which is the
 difference between a bound that happens to be tight and one that stays tight at
 every size.
+
+# SESSION 180 — six of six, and the machinery was already there
+
+**Kill condition, stated first:** *if chain-level `Nstar` or `atomCount` cannot be
+computed from the existing chain machinery without new structural work, say so
+and leave it at four of six rather than forcing it.* **It did not fire — both
+came from `chain_profile`, which has been in the file since the `104`-era
+tightness work.**
+
+`179` lifted four of `178`'s six equalities to the chain and named exactly what
+the other two needed. That naming was the whole cost: `chain_profile` gives the
+profile of `n` haunted mass-`3` atoms as `n` copies of `(3, 2)`, and from there
+
+* `N⊛ = 9n` by `Nstar_from_profile`;
+* `atomCount = n` by counting pairs — which needed one new line,
+  `Blindness.atomCount_eq_card_profile`, connecting `atomCount` to the profile
+  for the first time, despite the profile being one pair per distinct ordinate.
+
+Both **axiom-free**. So the chain of `n` haunted mass-`3` atoms has
+
+    N = 3n,  N⊛ = 9n,  Nsc = 0,  NscStd = n,  Noff = 2n,  haunted = n,  atomCount = n
+
+and **all six route bounds are equalities at every `n`**:
+
+| bound | at every `n` |
+|---|---|
+| `Noff + NscStd ≤ N` | `2n + n = 3n` |
+| `2·haunted + NscStd ≤ N` | `2n + n = 3n` |
+| `2·haunted + atomCount ≤ N` | `2n + n = 3n` |
+| `6·haunted + N ≤ N⊛` | `6n + 3n = 9n` |
+| `3·NscStd ≤ N + 2·Nsc` | `3n = 3n` |
+| `Nsc + 3·haunted ≤ N` | `0 + 3n = 3n` |
+
+`178` found the extremal object, `179` showed four bounds scale, `180` closes it:
+**no route bound of this project improves at any size.**
+
+## The small structural gap that was actually there
+
+`atomCount_eq_card_profile` is a one-line lemma — `card (map f s) = card s` — and
+it did not exist. The profile was introduced as *one pair per distinct ordinate*
+and `atomCount` is defined as *the count of distinct ordinates*, and nothing
+connected them. That is the kind of gap `179`'s scope note was for: it named a
+missing lemma rather than a missing idea, and the naming made it a one-cycle fix.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` checks **24**.
+
+**Might-mean, unhedged:** the two facts `179` could not reach were both a single
+rewrite away through a lemma nobody had written, and the reason nobody had
+written it is that the profile's own docstring already said what it meant.

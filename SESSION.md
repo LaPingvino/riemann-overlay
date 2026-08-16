@@ -8603,3 +8603,51 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** I stopped twice for the right reasons and both times
 recorded the wrong reason, and what finally worked was noticing that the number I
 could not compute does not appear in the thing I was trying to prove.
+
+# SESSION 185 — R22, and the kill condition that mis-specified itself
+
+**Kill condition, stated first:** *if the rule cannot be stated in a form that
+would have changed `182`'s behaviour, it is a description rather than a rule and
+does not go into `LOOP.md`.* **It fired — on a technicality that is the rule's own
+subject matter, and the rule went in anyway. Reasoning below.**
+
+`184`'s `S86` was doctrine-level: three attempts at one obligation, two of them
+avoidable, and both earlier cycles ended *honestly* at kill conditions while
+recording the wrong diagnosis. `R12` requires a kill condition on every wildcard;
+nothing required checking that the formulation under test was the one the target
+needed.
+
+## `R22`, adopted into `LOOP.md`
+
+> **A kill condition kills an attempt, not a formulation.** Before a *second*
+> attempt at the same target, re-derive what the target statement actually
+> requires — not what the first attempt required.
+
+Purchased by `S86`, sessions `182`–`184`: the goal was an **inequality**, two
+cycles were spent proving `distinctZeros B = 4` — a number absent from
+`Blindness.distinctZeros_not_profile_functional`'s statement — and the third
+closed in minutes without counting `B` at all.
+
+## `S87` — and my kill condition named the wrong cycle
+
+`R22` fires before a **second** attempt. It therefore could not have changed
+`182`, which was the first. My kill condition asked whether it would have changed
+`182`, so as literally written it fires and the rule should be rejected.
+
+It would have changed **`183`**, and demonstrably: `183` re-attempted the same
+formulation with a corrected lemma name, leaving the question of whether that
+formulation was required unasked. So the rule is actionable and the *kill condition* was
+mis-specified — **the identical defect `R22` describes, committed in the act of
+writing `R22`.**
+
+I am keeping the rule and recording the mis-specification rather than quietly
+restating the condition to fit. The test it should have posed is "would this have
+changed `183`", and the answer is yes.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. No new Lean.
+
+**Might-mean, unhedged:** I wrote a rule about mis-specifying what a test needs,
+and mis-specified what its own test needed, which is either the strongest possible
+evidence that the rule was worth writing or the clearest possible evidence that
+writing it will not be enough.

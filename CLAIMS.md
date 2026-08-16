@@ -161,6 +161,13 @@ grade A.**
 > grade **A** is correct — the theorem is machine-checked — but the ceiling it
 > certifies is available to us only if that hypothesis is granted, which is the
 > open ruling `232` raised.
+>
+> **`SESSION 245`: every grade-A citation in this file is now guarded.**
+> All 96 distinct declarations cited by the 97 grade-A rows resolve; four
+> of them — `Nsc_le_NscStd`, `mul_NscStd_le_N_add_pred_mul_Nsc`,
+> `routeIII_with_narrowBox`, `ceiling_law256` — were outside
+> `audit/Declarations.lean` and are now in it, so `ISSUES` `#17`'s
+> guarantee covers this table rather than most of it.
 
 ## The sweep's verdict (night cycle 8)
 

@@ -11232,3 +11232,41 @@ green.
 
 **Might-mean, unhedged:** the claims this register marks as weak are honest
 about being weak, and the one that drifted was a row marked strong.
+
+## Every grade-A citation is now guarded
+
+`244` found drift in a row marked **strong**, not weak. That inverts where to
+look, so this cycle swept the citations of all 97 grade-A rows.
+
+**Kill condition, filed first:** *if every grade-A row's cited declaration
+resolves, there is no further drift of that kind and I report the count rather
+than reading rows for prose defects.* **It fired.** All 96 distinct names
+resolve. Two appeared to fail and were artefacts of my own checker — it matched
+on the last dotted component, which cannot see `theorem NoSmallHaunted.mono`;
+both confirmed by `#check`.
+
+### The mechanism gap the sweep exposed
+
+`ISSUES` `#17` guarantees a claimed name exists — but only for names in
+`audit/Declarations.lean`, which `tools/proportion.go` compiles before writing a
+log line. Comparing the two sets: **four of the 96 were outside it**
+(`Nsc_le_NscStd`, `mul_NscStd_le_N_add_pred_mul_Nsc`, `routeIII_with_narrowBox`,
+`ceiling_law256`). They exist today; nothing would have caught a rename.
+
+All four added. `ceiling_law256` is the useful one twice over: it also pins the
+vendored zeta-23's reachability mechanically, which `244` had to verify by hand.
+
+**The guard was fault-injected**, not assumed: renaming one entry to a ghost
+gives `Unknown identifier` and `exit status 4`, with no log line written; green
+again after restore.
+
+No Lean added — four `#check` lines and a register note. The finding is that the
+audit point now covers the claims table rather than most of it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** this project's strongest guarantee applied to a list
+somebody maintained by hand, and the list had drifted four names behind the
+claims it was supposed to protect.

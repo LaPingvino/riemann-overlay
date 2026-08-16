@@ -467,3 +467,13 @@ import Riemann
 #check @Riemann.Blindness.minimal_haunted_attained
 #check @Riemann.Blindness.configAt_H
 #check @Riemann.Blindness.configAt_offAt
+
+-- SESSION 245: the four grade-A citations in CLAIMS.md that this file did not
+-- guard.  All 96 cited names resolve today; these four were outside the audit
+-- point, so a rename would have broken a claim without breaking a build.
+-- `ceiling_law256` additionally pins the vendored zeta-23's reachability, which
+-- `244` had to verify by hand.
+#check @Riemann.ZeroData.Nsc_le_NscStd
+#check @Riemann.Blindness.mul_NscStd_le_N_add_pred_mul_Nsc
+#check @Riemann.routeIII_with_narrowBox
+#check @Zeta23.PairCeiling.ceiling_law256

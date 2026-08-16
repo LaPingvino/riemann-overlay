@@ -10170,3 +10170,47 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 one mirror pair — is the witness for the genre wall, the distinct-zeros rate and
 the off-line bound, so the object that blocks the literature is a single
 arrangement of three zeros.
+
+## One configuration, three walls, two layers
+
+`219` closed on the observation that the same three-zero configuration witnesses
+all three genre walls. The follow-up worth asking is whether they therefore sit
+at the same layer of what a certificate class can see.
+
+**Kill condition, filed first:** *if `NscAny` turns out to be an ordinate
+functional, the three genres share a layer and I record that instead of a
+separation.* It did not fire.
+
+* `atomCount_ordinate_functional` — `atomCount` is a functional of `ordinates`
+  by definition (`D.ordinates.toFinset.card`), so the witness is `rfl`. Stated
+  as a theorem so the contrast below is a pair of results rather than a sentence
+  in a docstring — the docstring I first wrote asserted it, and asserting a
+  definitional fact is still asserting.
+* `NscAny_not_ordinate_functional` — `config 3 0 a` and `config 1 1 a` share
+  their ordinates (one atom of mass three either way) and have `NscAny` equal to
+  `0` and `3`.
+
+With `thirdMoment_determined` already putting the moments inside `μ_T`'s reach,
+the three genres split across two layers: the moment routes and the distinct-zero
+counts bound quantities a `μ_T`-invariant theory can compute; the simple-zero
+counts do not. That is why the `NscAny` wall (`197`, `214`, `218`) runs through
+the off-line import and not through the moment machinery — same wall, different
+reason for standing there.
+
+The `NscAny` result is the analogue of `NscStd_not_ordinate_functional`, which
+has been in the development since the blindness cluster.
+
+**Snag, bin 1.** Anchored the second theorem between an existing docstring and
+its theorem — `unexpected token '/--'`. `S61` and `S62` record an anchor error
+of this shape. `R23`, which I added at `217`, is about dependency order and says
+nothing about docstrings, so it did not help here. Fixed by anchoring on the
+docstring's opening line.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the literature's three genres meet the same obstacle
+from two different sides of this project's visibility boundary, so the boundary
+is not what stops them.

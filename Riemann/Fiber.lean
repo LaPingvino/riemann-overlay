@@ -4904,6 +4904,44 @@ lemma config_Nsc_pure (m : ℕ) (a : ℝ) :
       intro h; exact hm (by rw [← hH]; exact h.2)), if_neg hm]
     simp
 
+/-- **`atomCount` *is* an ordinate functional**, and by definition rather than by
+argument.  `SESSION 220`.  Stated so the contrast with
+`NscAny_not_ordinate_functional` is a pair of theorems rather than a sentence. -/
+theorem atomCount_ordinate_functional :
+    ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, atomCount D = f D.ordinates :=
+  ⟨fun m => m.toFinset.card, fun _ => rfl⟩
+
+/-- **`NscAny` is not an ordinate functional.**  `SESSION 220`.
+
+`219` observed that all three literature genres wall at the same three-zero
+configuration.  They do not, however, live at the same layer of visibility.
+
+`Blindness.thirdMoment_determined` puts the moments inside `μ_T`'s reach, and
+`atomCount` is *defined* from `ordinates`, so the moment and distinct-zero
+genres both bound quantities a `μ_T`-invariant theory can compute.  `NscAny`
+does not: `config 3 0 a` and `config 1 1 a` share their ordinates — one atom of
+mass three either way — and have `NscAny` equal to `0` and `3`.
+
+So the simple-zero genre bounds something the certificate class cannot see,
+which is why its wall (`197`, `214`, `218`) runs through the off-line import
+rather than through the moment machinery.  Same wall, different reason for
+being there.
+
+This is the `NscAny` analogue of `Blindness.NscStd_not_ordinate_functional`. -/
+theorem NscAny_not_ordinate_functional :
+    ¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, D.NscAny = f D.ordinates := by
+  rintro ⟨f, hf⟩
+  have ha : (0:ℝ) ≠ 1/2 := by norm_num
+  have hord : (config 3 0 (0:ℝ)).ordinates = (config 1 1 (0:ℝ)).ordinates :=
+    config_ordinates_eq (by norm_num) 0 0
+  have h1 := hf (config 3 0 (0:ℝ))
+  have h2 := hf (config 1 1 (0:ℝ))
+  rw [config_NscAny 3 0 ha] at h1
+  rw [config_NscAny 1 1 ha] at h2
+  rw [hord] at h1
+  norm_num at h1 h2
+  omega
+
 /-- **…and on odd atoms of mass `≥ 3` it really is ambiguous** — the converse
 half, so the localisation is witnessed in both directions.  Two states of the
 same odd mass `m ≥ 3` share their ordinates and disagree on `NscStd`. -/

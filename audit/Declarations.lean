@@ -125,6 +125,8 @@ import Riemann
 -- SESSION 205: and the converse, so #20's characterisation is checked both ways.
 #check @Riemann.Blindness.Nsc_eq_sum_mass_one
 #check @Riemann.Optimal.linearBound_of_mass_test
+-- SESSION 206: and the feasible set is three inequalities; only masses 1 and 2 bind.
+#check @Riemann.Optimal.linearBound_iff
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

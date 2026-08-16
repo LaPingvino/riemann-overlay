@@ -171,6 +171,64 @@ theorem linearBound_of_mass_test {a b : ℝ}
 
 /-! ### Optimality -/
 
+
+/-- **The feasible set, in three inequalities — and only masses `1` and `2`
+bind.**  `SESSION 206`.
+
+With `204` and `205` the criterion is `a·m + b·m² ≤ [m = 1]` at every `m ≥ 1`,
+which is infinitely many constraints.  Three of them suffice:
+
+    LinearBound a b  ↔  b ≤ 0  ∧  a + b ≤ 1  ∧  a + 2b ≤ 0
+
+`b ≤ 0` is forced by letting the mass grow: if `b > 0` then `a·m + b·m²` is
+eventually positive, and every `m ≥ 2` demands it be `≤ 0`.  Given `b ≤ 0`, the
+constraint at mass `m ≥ 2` reads `m·(a + b·m) ≤ 0`, and `b·m ≤ 2b`, so mass `2`
+implies all of them.
+
+**This is why `prop1_LP_optimal` needed exactly two witnesses.**  `200`–`203`
+established that the optimality is a fact about the class; this says which two
+members of the class carry it, and that the rest are redundant rather than
+merely unused. -/
+theorem linearBound_iff (a b : ℝ) :
+    LinearBound a b ↔ (b ≤ 0 ∧ a + b ≤ 1 ∧ a + 2 * b ≤ 0) := by
+  constructor
+  · intro h
+    refine ⟨?_, linearBound_le_one h, linearBound_mass2 h⟩
+    by_contra hb
+    push_neg at hb
+    obtain ⟨n, hn⟩ := exists_nat_gt ((-a) / b)
+    set m : ℕ := max n 2 with hm
+    have hm2 : 2 ≤ m := le_max_right _ _
+    have hmn : (n : ℝ) ≤ (m : ℝ) := by exact_mod_cast le_max_left n 2
+    have hmpos : (0 : ℝ) < m := by
+      have : (2 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm2
+      linarith
+    have hgt : (-a) / b < (m : ℝ) := lt_of_lt_of_le hn hmn
+    have hkey : -a < b * m := by
+      rw [div_lt_iff₀ hb] at hgt
+      linarith
+    have hne : m ≠ 1 := by omega
+    have := linearBound_mass m h
+    rw [if_neg hne] at this
+    nlinarith [this, hmpos, hkey]
+  · rintro ⟨hb, h1, h2⟩
+    refine linearBound_of_mass_test fun m hm => ?_
+    by_cases hone : m = 1
+    · rw [if_pos hone]
+      subst hone
+      push_cast
+      linarith
+    · rw [if_neg hone]
+      have hm2 : 2 ≤ m := by omega
+      have hm2' : (2 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm2
+      have hbm : b * (m : ℝ) ≤ 2 * b := by
+        nlinarith [mul_nonneg (neg_nonneg.2 hb) (sub_nonneg.2 hm2')]
+      have habm : a + b * (m : ℝ) ≤ 0 := by linarith
+      have hmpos : (0 : ℝ) < (m : ℝ) := by linarith
+      have hprod := mul_le_mul_of_nonneg_left habm (le_of_lt hmpos)
+      simp only [mul_zero] at hprod
+      nlinarith [hprod]
+
 /-- **Proposition 1 is LP-optimal in `(N, N⊛)`.**  Under a star bound `C` in the
 useful regime `1 ≤ C ≤ 2`, no linear bound in the two moments yields a
 proportion exceeding `2 − C`, which is exactly what `prop1` yields.

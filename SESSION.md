@@ -9544,3 +9544,56 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the LP that this project's central reduction rests on
 is now checked in both directions, and what made it take two cycles was working
 out which parts of it had only ever been sentences.
+
+## The feasible set is three inequalities, and a guard that measurement killed
+
+Two things this cycle, one of them a negative result.
+
+### The piece: only masses 1 and 2 bind
+
+`204`/`205` left the criterion as infinitely many constraints — `a·m + b·m² ≤
+[m = 1]` at every `m ≥ 1`. Three of them suffice.
+
+**Kill condition, filed first:** *if the redundancy of the mass-`≥3` constraints
+needs a hypothesis beyond `b ≤ 0`, I state which masses bind and stop rather
+than forcing an `iff`.* It did not fire.
+
+`linearBound_iff : LinearBound a b ↔ (b ≤ 0 ∧ a + b ≤ 1 ∧ a + 2b ≤ 0)`.
+
+`b ≤ 0` is forced by letting the mass grow — if `b > 0` then `a·m + b·m²` is
+eventually positive while every `m ≥ 2` demands it be non-positive. Given
+`b ≤ 0`, the constraint at mass `m ≥ 2` is `m·(a + b·m) ≤ 0` and `b·m ≤ 2b`, so
+mass `2` implies all of them.
+
+This is why `prop1_LP_optimal` needed two witnesses and not more. `200`–`203`
+established that the optimality is a fact about the class; this says which two
+members carry it, and that the others are **redundant** rather than merely
+unused.
+
+### The wildcard: a collision guard, measured and declined
+
+`S98` was a name collision — a `private` copy of `Basic.card_filter_eq_sum` that
+shadowed the original and broke two proofs. A guard for that shape is cheap.
+
+**Kill condition, filed first:** *if the repo already carries many benign
+same-name declarations across namespaces, a collision guard is noise — I report
+the count and do not add it.* **It fired.**
+
+485 declarations, 10 repeated base names, and none is the shadowing shape. The
+same-namespace hits are a scanning artefact — a regex reading `def Family.Nsc`
+as `Family` — and the genuine cross-namespace ones (`Nsc`, `Noff`, `NscStd` in
+`ZeroData` against `Family`; `NscStd_eq_Nsc_add_haunted` in `ZeroData` against
+`Blindness`) are deliberate parallel naming this project uses on purpose.
+
+So no guard, and the reason is on the record: `S98` was caught by the build in
+one step, and an instrument whose whole yield is one already-caught instance is
+`148`'s shape — a check that cannot earn its exit code.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the whole two-moment reduction rests on two
+configurations and three inequalities, and every cycle since `200` has been
+finding out how small its real content is.

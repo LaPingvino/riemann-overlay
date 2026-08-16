@@ -89,9 +89,53 @@ WITNESS = re.compile(r"forensics/[a-z_0-9]+\.py"
 # author speaking.
 QUOTED = re.compile(r'\*"[^"]*"\*|"[^"]{0,200}"|`[^`]*`')
 
+# `exact` has two senses and this gate hunts only one of them.  `S26`/`S27` are
+# about EXACTNESS OF A RESIDUE — "the exact residue, nothing else at all".  But
+# "in exact rationals", "the exact value is 7415/12000" and "exactly 3" are
+# statements about ARITHMETIC PRECISION, and carry no claim that nothing more is
+# needed.  `SESSION 153` triaged four flags on one entry and all four were this
+# shape — the first homogeneous false-positive class the gate has produced.
+#
+# Deliberately narrow: the word is exempted only when it sits directly against
+# arithmetic vocabulary or a numeral.  "the exact residue" and "the exact
+# characterisation" are untouched, which is what the calibration below checks.
+ARITHMETIC_EXACT = re.compile(
+    r"\bexact(?:ly)?\s+(?:\S{1,12}\s+){0,4}"
+    r"(?:rationals?|decimals?|fractions?|arithmetic|integers?|values?|numerals?)"
+    r"|\bexact(?:ly)?\s+\d", re.I)
+
 
 def unquoted(s):
-    return QUOTED.sub(" ", s)
+    return ARITHMETIC_EXACT.sub(" ", QUOTED.sub(" ", s))
+
+
+# Calibration.  The two entries that bought this gate must still flag, and the
+# `153` triage must clear.  Run as part of the self-test; a change that breaks
+# either direction is over-fitting.
+CALIBRATION = [
+    # (sentence, must_flag)
+    ("`(mu_T, offAt)` is the exact residue, nothing else at all.", True),
+    ("The window computation is not in the repo and cannot be repaired.", True),
+    ("A complete characterisation of the class is the only thing that would do.",
+     True),
+    ("In exact rationals, no floating point.", False),
+    ("The exact m = 7 ladder value is 7415/12000, a repeating decimal.", False),
+    ("Anything needing the exact value should use the ladder directly.", False),
+]
+
+
+def calibrate():
+    print("=== claims_gate calibration (S26/S27 must flag; 153's shape must clear) ===")
+    bad = 0
+    for s, want in CALIBRATION:
+        bare = unquoted(s)
+        got = any(re.search(p, bare, re.I) for p in POSITIVE + NEGATIVE + IDENTITY)
+        ok = got == want
+        bad += not ok
+        print(f"  [{'ok ' if ok else 'MISS'}] want={'flag ' if want else 'clear'}"
+              f"  got={'flag ' if got else 'clear'}  {s[:62]}")
+    print(f"  {len(CALIBRATION) - bad}/{len(CALIBRATION)} as designed.")
+    return bad
 
 DOWNGRADE = [
     ("the exact", "a sufficient"), ("exactly the", "a"),

@@ -6901,3 +6901,68 @@ is the record.
 **Might-mean, unhedged:** three cycles of correcting myself and not one of them
 was a wrong number, which means the register's arithmetic has been sound the
 whole time and my reading of it has been the moving part.
+
+# SESSION 154 — the queue was reading corrections from the wrong side
+
+**Kill condition, stated first:** *if either deferred filter changes a verdict
+that the recorded triages classified as a TRUE positive, it is over-fitted and
+reverts — these filters may only remove false positives already identified in
+earlier cycles.* **It did not fire.** Every verdict that changed was an FP
+recorded in `146` or `153`.
+
+`153` deferred two filters under `S39`'s rule — a filter must not be designed
+during the measurement that informs it. Both triages are now in prior cycles, so
+the objection is discharged and this cycle is the one to build them.
+
+## Filter 1 — `claims_gate`'s two senses of "exact"
+
+`ARITHMETIC_EXACT`: the word is exempted only when it sits against arithmetic
+vocabulary or a numeral. Calibration **6/6** — `S26`'s "the exact residue,
+nothing else at all", `S27`'s negative form and a completeness claim all still
+flag; `153`'s three arithmetic uses clear.
+
+**Corpus impact: zero.** No register count moved (`CLAIMS 4`, `LEADS 64`,
+`ISSUES 38`, `FAILURES 18`, `E 14`, `PRICES 15`, all unchanged). The phrasing
+occurs in session entries, not in the registers, so this prevents future noise
+rather than clearing present flags — worth saying plainly, since a filter with no
+live yield is easy to report as an improvement.
+
+**`S58` — and it corrected `153` on the way.** I wrote that `153`'s four flags
+were "all one shape". The filter clears exactly **three**; the fourth flags on
+`never`, a different pattern. I had classified an FP class by reading four
+sentences and generalising, and the instrument built from that classification is
+what disproved it.
+
+## Filter 2 — and it turned up something much worse
+
+The `DIRECTIVE` and quote filters went in as `146` specified: `13 → 12`, one
+directive removed. Only the two *mechanical* shapes are handled; `146`'s other
+false positives are not mechanically separable, so this **reduces** the FP rate
+without eliminating it, and the count still must not be quoted as a defect rate.
+
+Then the discharged Odlyzko escalation was still listed. `146` closed it with a
+✅ block placed **above** the claim, exactly as the standing rule requires, and
+`forensics/absence_queue.py` did not register it — the claim kept listing for
+eight cycles.
+
+**`S57`.** `absence_queue`'s docstring justified reading the *next* paragraph
+with: *"corrections in this project are written below the text they correct (the
+standing rule)"*. The standing rule is the **opposite** — `CLAIMS.md` line 247
+and `NIGHT.md` line 157: *a retraction must appear above what it retracts*, added
+after `S25` found a banner sitting below the numbers it retracted. So the queue
+was blind to every correctly-placed correction and settled only on rule-violating
+ones: **an instrument rewarding the violation it exists downstream of.**
+
+Fixed — both neighbours now count, with `146`'s heading exclusion applied to
+each. `12 → 10`, and I checked *which* two rather than the count: the Odlyzko
+discharge, and a claim whose previous paragraph is a `SESSION 124` correction of
+that same enumeration. Both legitimate.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. Guards green, including
+`provenance_lint`'s replay self-test.
+
+**Might-mean, unhedged:** the queue had a written justification for doing the
+wrong thing, and that justification is why I stopped looking — I had read the
+docstring several times without once checking its factual claim against the rule
+it cited.

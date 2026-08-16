@@ -59,6 +59,22 @@ SETTLED = re.compile(
     re.I)
 
 
+# SESSION 154.  `146` triaged this queue's 13 and found **7 were not absence
+# claims at all** (54% FP).  The filters were deliberately not added that cycle —
+# `S39`'s rule against fitting a filter to the measurement that informs it — and
+# are added here, one cycle later, against that recorded triage.
+#
+# Only the two MECHANICAL shapes are handled.  `146`'s other false positives (a
+# past-tense record, a rhetorical question, a schema description, two ordinary
+# statements) are not mechanically separable from real absence claims, and
+# inventing rules for them is what `S39` warns against.  So this reduces the FP
+# rate, it does not eliminate it, and the count still must not be quoted as a
+# defect rate without triage (R17).
+DIRECTIVE = re.compile(r"^\W*(never|do not|don't|always|cite|use|run|prefer)\b"
+                       r"|\bnever cite\b|\bdo not cite\b|\bnever as a\b", re.I)
+QUOTED = re.compile(r'\*"[^"]*"\*|"[^"]{0,200}"|`[^`]*`')
+
+
 def sentences(text):
     for para in text.split("\n\n"):
         flat = " ".join(para.split())
@@ -70,10 +86,21 @@ def sentences(text):
 
 def scan(path):
     """Flag absence claims whose paragraph — or the next one — carries no
-    dated re-check.  Corrections in this project are written *below* the text
-    they correct (the standing rule), so the following paragraph counts as the
-    settlement; the first run of this script flagged two claims that `127` and
-    `128` had already annotated exactly that way."""
+    dated re-check.
+
+    ⚠️ **SESSION 154 — this docstring asserted the standing rule backwards, and
+    the scan implemented it backwards.**  It said "corrections in this project
+    are written *below* the text they correct (the standing rule)".  The standing
+    rule is the opposite: **a retraction must appear *above* what it retracts**
+    (`CLAIMS.md` line 247, `NIGHT.md` line 157, added after `S25` found a
+    retraction banner sitting below the numbers it retracted).  So every
+    correctly-placed correction was invisible to this queue and only
+    rule-violating ones settled a claim — the instrument was rewarding the
+    violation.  `146`'s discharge of the Odlyzko escalation is the example: the
+    ✅ block sits above the claim, exactly as required, and the claim kept
+    listing.
+
+    Both neighbours now count, with `146`'s heading exclusion applied to each."""
     try:
         text = open(os.path.join(ROOT, path), encoding="utf-8").read()
     except OSError:
@@ -82,6 +109,9 @@ def scan(path):
     out = []
     for i, para in enumerate(paras):
         nxt = paras[i + 1] if i + 1 < len(paras) else ""
+        prv = paras[i - 1] if i > 0 else ""
+        if prv.lstrip().startswith("#"):
+            prv = ""
         # SESSION 146: a following HEADING is not a correction.  The Odlyzko
         # escalation was settled by `## The slow-convergence recall, tested
         # (SESSION 139)` — the next block, about something else entirely.
@@ -90,13 +120,18 @@ def scan(path):
         # and `SESSION` in the heading were each sufficient on their own.
         if nxt.lstrip().startswith("#"):
             nxt = ""
-        context = para + " " + nxt
+        context = prv + " " + para + " " + nxt
         if SETTLED.search(context):
             continue
         flat = " ".join(para.split())
         for s in re.split(r"(?<=[.!?])\s+", flat):
             s = s.strip()
-            if s and any(re.search(p, s, re.I) for p in ABSENCE):
+            if not s or DIRECTIVE.match(s):
+                continue
+            # A trigger inside quoted material is someone else's claim, or one
+            # being retracted — `146` found both shapes here.
+            bare = QUOTED.sub(" ", s)
+            if any(re.search(p, bare, re.I) for p in ABSENCE):
                 out.append(s)
     return out
 

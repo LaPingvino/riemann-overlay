@@ -572,6 +572,52 @@ noncomputable def constFamily (D : ZeroData) (h : 0 < D.N) : Family where
   D := fun _ => D
   nonempty := Filter.Eventually.of_forall fun _ => h
 
+/-- **The family-level genre wall is attained.**  `SESSION 218`.
+
+`214` proved `ProportionAny κ` plus an off-line import at `β` delivers
+`ProportionStd (κ − β)` and no more.  A ceiling nobody reaches says less than
+one that is met, and `197` supplied the pointwise witness; this is the family
+one, which is the level `ProportionStd` lives at.
+
+The constant family on `config 1 1 a` — one on-line zero, one off-line pair —
+has `N = 3`, `NscAny = 3`, `NscStd = 1`, `N_off = 2`.  So `κ = 1` and `β = 2/3`
+are both admissible, the wall predicts `ProportionStd (1/3)`, and the family's
+actual standard-simple ratio **is** `1/3`.
+
+Placed after `constFamily` rather than beside `214`'s block, per `R23`. -/
+theorem proportionAny_wall_attained {a : ℝ} (ha : a ≠ 1/2)
+    (hpos : 0 < (Blindness.config 1 1 a).N) :
+    (constFamily (Blindness.config 1 1 a) hpos).ProportionAny 1
+      ∧ OffLineImport (constFamily (Blindness.config 1 1 a) hpos) (2/3)
+      ∧ (constFamily (Blindness.config 1 1 a) hpos).ProportionStd (1 - 2/3)
+      ∧ ((Blindness.config 1 1 a).NscStd : ℝ) / ((Blindness.config 1 1 a).N : ℝ)
+          = 1 - 2/3 := by
+  have hN : (Blindness.config 1 1 a).N = 3 := by
+    rw [Blindness.config_N]
+  have hAny : (Blindness.config 1 1 a).NscAny = 3 := by
+    rw [Blindness.config_NscAny 1 1 ha]; norm_num
+  have hStd : (Blindness.config 1 1 a).NscStd = 1 := by
+    rw [Blindness.config_NscStd 1 1 ha]; norm_num
+  have hOff : (Blindness.config 1 1 a).Noff = 2 := by
+    rw [Blindness.config_Noff ha]
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · intro ε hε
+    refine Filter.Eventually.of_forall fun T => ?_
+    show (1 - ε) * ((Blindness.config 1 1 a).N : ℝ)
+        ≤ ((Blindness.config 1 1 a).NscAny : ℝ)
+    rw [hN, hAny]; push_cast; linarith
+  · intro ε hε
+    refine Filter.Eventually.of_forall fun T => ?_
+    show ((Blindness.config 1 1 a).Noff : ℝ)
+        ≤ (2/3 + ε) * ((Blindness.config 1 1 a).N : ℝ)
+    rw [hN, hOff]; push_cast; linarith
+  · intro ε hε
+    refine Filter.Eventually.of_forall fun T => ?_
+    show (1 - 2/3 - ε) * ((Blindness.config 1 1 a).N : ℝ)
+        ≤ ((Blindness.config 1 1 a).NscStd : ℝ)
+    rw [hN, hStd]; push_cast; linarith
+  · rw [hN, hStd]; norm_num
+
 /-- The single-ordinate witness clears rung `1 + 2j`.  Extracted in `SESSION 158`
 so that strictness and non-vacuity rest on one construction rather than two
 copies of it. -/

@@ -10096,3 +10096,41 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the project spent a hundred cycles hunting the residue
 below its ledger, and the ledger it has been keeping the whole time carries no
 entry that the rest of it could supply.
+
+## The family wall is met, not merely posted
+
+`214` proved the genre wall at family level: `ProportionAny κ` with an off-line
+import at `β` delivers `ProportionStd (κ − β)` and no more. A ceiling nobody
+reaches says less than one that is met. `197` supplied the pointwise witness;
+the family one was missing, and `ProportionStd` is a family-level predicate.
+
+**Kill condition, filed first:** *if a constant family cannot satisfy
+`ProportionAny` and `OffLineImport` simultaneously at the values the wall needs,
+I report which pair is unattainable rather than hunting for a fancier family.*
+It did not fire.
+
+`constFamily` already existed (`Gaps.lean:571`), found by looking rather than
+rebuilt — `S98`'s lesson applied before it could cost anything.
+
+`proportionAny_wall_attained`: the constant family on `config 1 1 a` — one
+on-line zero, one off-line pair — has `N = 3`, `NscAny = 3`, `NscStd = 1`,
+`N_off = 2`. So `κ = 1` and `β = 2/3` are both admissible, the wall predicts
+`ProportionStd (1/3)`, and the family's actual standard-simple ratio **is**
+`1/3`. All four conjuncts in one theorem, axiom-free.
+
+So the arXiv:2306.04799 genre is walled at family level by a bound that is
+reached, which is the difference between "we could not do better" and "better is
+not available".
+
+Placed after `constFamily` rather than beside `214`'s block — the first cycle to
+apply `R23` deliberately rather than pay for it.
+
+One theorem in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** the walls this arc built — the moment LP values at
+every order, the pointwise genre wall, and now the family one — are each stated
+as an attained optimum rather than a bound, so what stops these routes is the
+mathematics and not a step nobody tested.

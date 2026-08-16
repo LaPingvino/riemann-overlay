@@ -3808,6 +3808,22 @@ off-line pairs. -/
 noncomputable def hauntedCount (D : ZeroData) : ℕ :=
   (D.ordinates.toFinset.filter fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1).card
 
+/-- **A haunted ordinate carries mass at least three, pointwise.**  `SESSION 289`.
+
+`Basic.three_le_H_of_haunted` says this about a *zero* — a point of `Z` with
+`count = 1` on the line — because `Basic.lean` precedes `onAt` and `offAt` and
+cannot speak about an ordinate's on-line part.  Here it is about the ordinate,
+and the proof is arithmetic: the hypothesis gives `onAt = 1`, so `H = 1 + offAt`,
+so `H ≠ 1` forces `offAt ≠ 0`, and `offAt` is even, hence at least two.
+
+This is `noSmallHaunted_three`'s content — the ladder's free rung — with no
+appeal to the zero-level statement. -/
+theorem three_le_H_of_haunted_at (D : ZeroData) {γ : ℝ}
+    (h : D.H γ - offAt D γ = 1) (h1 : D.H γ ≠ 1) : 3 ≤ D.H γ := by
+  have hsum := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  omega
+
 /-- **A haunted ordinate is a lone on-line zero with off-line mass beside it.**
 `SESSION 288`.
 

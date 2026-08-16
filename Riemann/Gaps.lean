@@ -443,28 +443,21 @@ whose on-line part is `1` and whose mass is not `1` — carries at least three
 zeros, because the functional equation pairs its off-line ghosts
 (`ZeroData.three_le_H_of_haunted`, and `R10`'s factor of two).
 
+*(`289`: the proof no longer routes through that zero-level statement.
+`Blindness.three_le_H_of_haunted_at` says the same about the ordinate, and its
+proof is `omega` from `H = onAt + offAt` and `Even offAt` — the hypothesis gives
+`onAt = 1`, so `H ≠ 1` forces `offAt ≠ 0`, and an even nonzero count is at least
+two. Fifteen lines became four.)*
+
 This is why `certified_nsc_ladder` at `m = 3` returns `407/800 = 0.50875`, which
 is `certified_nsc_unconditional` exactly.  The multiplicity ladder does not
 start at the certified row by coincidence — the certified row **is** its first
 rung, and it is free because rung `3` demands nothing. -/
 theorem noSmallHaunted_three (F : Family) : NoSmallHaunted F 3 := by
-  classical
   intro T γ hγ
   by_cases h1 : (F.D T).H γ = 1
   · exact Or.inl h1
-  · refine Or.inr ?_
-    -- `onAt γ = 1` puts the on-line point at `γ` in `Z` with multiplicity one
-    have hon : Blindness.onAt (F.D T) γ = 1 := by
-      have := Blindness.H_eq_onAt_add_offAt (F.D T) γ
-      omega
-    have hcount : (F.D T).Z.count ((1/2 : ℝ), γ) = 1 := by
-      rw [Blindness.count_eq_onAt (F.D T) (by rfl)]; exact hon
-    have hmem : ((1/2 : ℝ), γ) ∈ (F.D T).Z :=
-      Multiset.count_pos.1 (by rw [hcount]; norm_num)
-    have h2 : 2 ≤ (F.D T).H γ := by
-      have hsum := Blindness.H_eq_onAt_add_offAt (F.D T) γ
-      omega
-    exact ZeroData.three_le_H_of_haunted hmem (by rfl) hcount h2
+  · exact Or.inr (Blindness.three_le_H_of_haunted_at (F.D T) hγ h1)
 
 /-- **The board's two `κ` rows are one row.**  `SESSION 255`.
 

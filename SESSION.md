@@ -13531,3 +13531,49 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** three cycles of characterising `onAt` have turned the
 project's central open quantity from a comparison between two definitions into a
 count of one configuration, which is the kind of object a hypothesis can exclude.
+
+## The ladder's free rung, from the characterisation
+
+`288` showed a haunted ordinate is `onAt = 1` with `offAt ≠ 0`. `254` and `261`
+both lean on `noSmallHaunted_three` — the rung that costs nothing, and the reason
+the ladder starts at the certified row rather than below it. That rung's proof
+predates the characterisation.
+
+**Kill condition, filed first:** *if `offAt ≠ 0` does not give `offAt ≥ 2` — if
+the evenness is not available at that point — then the collapse needs the old
+route and I report the characterisation as insufficient for the rung.* It did not
+fire; `even_offAt` is pointwise and `omega` takes it directly.
+
+**`three_le_H_of_haunted_at`** — for an ordinate, `H − offAt = 1` and `H ≠ 1`
+give `3 ≤ H`. The whole proof is `omega` from `H = onAt + offAt` and
+`Even (offAt γ)`: the hypothesis gives `onAt = 1`, so `H = 1 + offAt`, so `H ≠ 1`
+forces `offAt ≠ 0`, and an even nonzero count is at least two.
+
+`noSmallHaunted_three` now uses it: **fifteen lines became four**, and the
+Family-level rung no longer routes through `Basic.three_le_H_of_haunted`.
+
+**Why the old route existed, which is the interesting part.**
+`Basic.three_le_H_of_haunted` states this about a *zero* — a point of `Z` with
+`count = 1` lying on the line — because `Basic.lean` precedes `onAt` and `offAt`
+and has no vocabulary for an ordinate's on-line part. Reaching it from the
+Family level meant rebuilding that zero: recovering `onAt = 1`, converting it to
+a `count`, producing membership, and re-deriving `2 ≤ H`. Every one of those
+steps was translation, not mathematics.
+
+`Basic.three_le_H_of_haunted` stays, and **it is not unused** — I checked before
+writing that down, and `Basic.lean` itself consumes it twice, at `682` and `901`.
+What changed is only that the `Family`-level rung no longer reaches back for it.
+It remains the statement in the vocabulary `Basic.lean` has.
+
+**Snag, bin 3.** This is the fourth collapse in seven cycles — `263`, `287`,
+`289`, and `280`'s `Nsc_eq_NscStd_of_mult_le_two` at `256`. All four share a cause: a proof written
+before a characterisation existed, still working, and so left alone until a
+later cycle happened to look. `duplication_floor` does not see them, since the conclusions
+are not duplicated; what is longer than it needs to be is the reasoning.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green, both indices regenerated.
+
+**Might-mean, unhedged:** the `onAt` vocabulary arrived at `181` and three of
+this project's load-bearing proofs were written without it, so the cost of a
+missing definition is paid in proof length by everything built before it.

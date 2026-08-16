@@ -8308,3 +8308,53 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the configuration that makes every one of the project's
 route bounds sharp is a single critical zero with a ghost on either side, which
 is the object the whole apparatus was built to fail to see.
+
+# SESSION 179 — the extremal configuration scales
+
+**Kill condition, stated first:** *if the chain of `n` mass-3 haunted atoms fails
+to attain all six bounds simultaneously, the extremal point is isolated and
+`178`'s result does not lift to families.* **It did not fire, for four of the
+six.**
+
+`178` showed the haunted mass-`3` atom attains every route bound at once — but
+that is a single `ZeroData` with `N = 3`, and `Proportion` is **asymptotic over
+families**. `111`'s lesson is exactly that a small witness does not refute a
+`Family`-level claim, which is why `constFamily` and `baseline_cap_witness`
+exist. So `178`'s result needed lifting before it meant anything about the
+ledger.
+
+**`Blindness.haunted_chain_attains`** (axiom-free, built first try): the chain of
+`n` haunted mass-`3` atoms has `N = 3n`, `NscStd = n`, `Nsc = 0`, `Noff = 2n`,
+`hauntedCount = n`, and
+
+| bound | at every `n` |
+|---|---|
+| `Noff + NscStd ≤ N` | `2n + n = 3n` |
+| `2·haunted + NscStd ≤ N` | `2n + n = 3n` |
+| `3·NscStd ≤ N + 2·Nsc` | `3n = 3n` |
+| `Nsc + 3·haunted ≤ N` | `0 + 3n = 3n` |
+
+**No route bound improves asymptotically.** The tightness is a property of the
+configuration *type*, not of one small instance — which is what the ledger's
+asymptotic statements actually needed.
+
+## Scope, said plainly rather than rounded up
+
+**Four of six.** The two involving `N⊛` and `atomCount` — `6·haunted + N ≤ N⊛`
+and `2·haunted + atomCount ≤ N` — are **not** lifted here. They need chain-level
+`Nstar` and `atomCount` lemmas the file does not have, and `178` establishes them
+only at `n = 1`.
+
+The proof rests entirely on `bracket_tight_chain` and `Noff_tight_chain`, which
+already supplied `NscStd`, `Nsc`, `Noff` and `N`; `hauntedCount = n` then falls
+out of `NscStd_eq_Nsc_add_haunted` for free. That is why four came cheaply and
+two did not: `bracket_tight_chain` and `Noff_tight_chain` supply the quantities
+the `104`-era tightness work needed, and `N⊛`/`atomCount` are not among them.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` now checks **23**.
+
+**Might-mean, unhedged:** the object that makes the project's bounds sharp is not
+a small accident but a shape you can repeat as often as you like, which is the
+difference between a bound that happens to be tight and one that stays tight at
+every size.

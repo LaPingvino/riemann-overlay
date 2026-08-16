@@ -147,6 +147,7 @@ CONE_EXPECTED = {
     "Blindness.offLine_count_not_bounded_by_proximity": set(),
     "Blindness.Nstar_bound_attained": set(),
     "Blindness.mass_three_atom_attains_all": set(),
+    "Blindness.haunted_chain_attains": set(),
     "Blindness.atomCount_le_distinctZeros": set(),
     "Blindness.distinctZeros_le_atomCount_add_Noff": set(),
     "starBound_of_multiplicity_le": set(),

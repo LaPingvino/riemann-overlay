@@ -3327,6 +3327,38 @@ theorem mass_three_atom_attains_all {a : ℝ} (ha : a ≠ 1/2) :
     omega
   exact ⟨hN, hS, hNsc, hNscStd, hOff, hH, hA⟩
 
+/-- **And the extremal point is not isolated — it scales** — `SESSION 179`.
+
+`178` showed the haunted mass-`3` atom attains every route bound at once, but
+that is a single `ZeroData` with `N = 3`.  `Proportion` is **asymptotic over
+families** (`111`'s lesson: a small witness does not refute a `Family`-level
+claim), so the question is whether the equalities survive at arbitrary size.
+
+They do.  The chain of `n` haunted mass-`3` atoms has `N = 3n`, `NscStd = n`,
+`Nsc = 0`, `Noff = 2n` and `hauntedCount = n`, and four of `178`'s six bounds are
+equalities at **every** `n`.  So no route bound improves asymptotically: the
+tightness is a property of the configuration *type*, not of one small instance.
+
+*Scope, stated:* the two bounds involving `N⊛` and `atomCount`
+(`6·haunted + N ≤ N⊛`, `2·haunted + atomCount ≤ N`) are **not lifted here** —
+they need chain-level `Nstar` and `atomCount` lemmas the file does not have, and
+`178` establishes them only at `n = 1`.  Four of six, said plainly rather than
+rounded up. -/
+theorem haunted_chain_attains {a : ℝ} (ha : a ≠ 1/2) (n : ℕ) :
+    let C := chain a (List.replicate n ((1 : ℕ), (1 : ℕ))
+      ++ List.replicate (n - n) ((3 : ℕ), (0 : ℕ)))
+    C.Noff + C.NscStd = C.N
+      ∧ 2 * hauntedCount C + C.NscStd = C.N
+      ∧ 3 * C.NscStd = C.N + 2 * C.Nsc
+      ∧ C.Nsc + 3 * hauntedCount C = C.N := by
+  classical
+  obtain ⟨-, hStd, hSc, -⟩ := bracket_tight_chain ha n n (le_refl n)
+  obtain ⟨hOff, hN⟩ := Noff_tight_chain ha n n (le_refl n)
+  have hid := NscStd_eq_Nsc_add_haunted
+    (chain a (List.replicate n ((1 : ℕ), (1 : ℕ))
+      ++ List.replicate (n - n) ((3 : ℕ), (0 : ℕ))))
+  refine ⟨by omega, by omega, by omega, by omega⟩
+
 /-- **The mass accounting: `Nsc + 3·hauntedCount ≤ N`.**  A simple ordinate
 carries one zero, a haunted one at least three, and they are disjoint. -/
 theorem Nsc_add_three_mul_haunted_le_N (D : ZeroData) :

@@ -839,6 +839,38 @@ theorem pairOnly_factMoment {k : ℕ} (hk : 3 ≤ k) :
   Blindness.factMoment_eq_zero_of_masses_le_two _ hk fun γ =>
     le_trans (H_le_N Gauge.pairOnly γ) (le_of_eq_of_le Gauge.pairOnly_N (le_refl 2))
 
+/-- **E11's pincer, sharpened for the multiplicity family.**  `SESSION 243`.
+
+`LEADS.md` files against E11 that *"the 'ceilings from below' jaw works; a
+'cheap realizability from above' jaw does not exist"* — no free classical
+invariant excludes the ceiling's extremal configuration.  Within the
+multiplicity family that is now a theorem rather than an observation.
+
+`Gauge.pairOnly` — one mirror pair, `H = 2` — is the configuration that makes
+`prop1` tight.  A cap `BoundedMult M` excludes it only if `M ≤ 1`, and `203`
+proved `BoundedMult 1 ↔ N_sc = N`.  So **the cheapest multiplicity hypothesis
+that excludes the extremal configuration is the ledger's own target**: the jaw
+does not merely fail to be cheap, it costs the whole problem.
+
+This does not settle E11 for every classical invariant, only for caps on
+multiplicity.  Named rather than generalised. -/
+theorem mult_cap_excluding_pairOnly {M : ℕ} (h : ¬ BoundedMult M Gauge.pairOnly)
+    (D : ZeroData) (hD : BoundedMult M D) : D.Nsc = D.N := by
+  have hM : M ≤ 1 := by
+    by_contra hM
+    push_neg at hM
+    exact h fun γ => by
+      by_cases hγ : γ = 0
+      · subst hγ; rw [Gauge.pairOnly_H]; omega
+      · have : Gauge.pairOnly.H γ = 0 := by
+          rw [ZeroData.H_eq_count]
+          show Multiset.count γ (Multiset.map Prod.snd
+            (((1/4 : ℝ), (0:ℝ)) ::ₘ ((3/4 : ℝ), (0:ℝ)) ::ₘ 0)) = 0
+          simp [hγ]
+        omega
+  have hD1 : BoundedMult 1 D := fun γ => le_trans (hD γ) hM
+  exact (boundedMult_one_iff_Nsc_eq_N D).1 hD1
+
 /-- **The moment route is walled at every order.** -/
 theorem moment_route_walled {k : ℕ} (hk : 3 ≤ k) :
     Blindness.factMoment single k = 0 ∧

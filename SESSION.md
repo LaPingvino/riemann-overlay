@@ -11135,3 +11135,50 @@ green.
 **Might-mean, unhedged:** four cycles of pricing the board have found no
 constant the development had not already derived, which is what a closed
 combinatorial layer looks like from inside.
+
+## The absence queue, re-triaged — and one claim got a theorem
+
+`242` reported the pricing layer converged. Before taking a quiet heartbeat, the
+one obligation that ages: the absence queue, last triaged at `187` and `194`.
+
+**Kill condition, filed first:** *if no queued absence claim has become
+checkable since `194`, I report that in a line and take the quiet cycle rather
+than manufacturing work.* It did not fire, on one of nine.
+
+Nine items. Seven are unchanged — past-tense records, schema descriptions, the
+`GRH tier` claim that carries a standing mechanical witness. One,
+`FAILURES.md`'s *"what is still owed"* heading, was answered at `232` and
+annotated there. And one moved:
+
+**`LEADS.md`, filed against E11:** *"the 'ceilings from below' jaw works; a
+'cheap realizability from above' jaw does not exist."*
+
+`235` looked like it might touch this — haunted masses are odd, a cheap
+realizability constraint — but `Gauge.pairOnly` is a mirror pair with on-line
+part `0`, so it is not haunted and the odd-mass constraint does not reach it.
+The claim survives that.
+
+What does reach it is `203`. `mult_cap_excluding_pairOnly`: `pairOnly` has
+`H = 2`, so a cap `BoundedMult M` excludes it only if `M ≤ 1`, and
+`boundedMult_one_iff_Nsc_eq_N` makes `BoundedMult 1` equivalent to `N_sc = N`.
+**So within multiplicity caps the cheapest hypothesis excluding the extremal
+configuration is the ledger's own target** — the jaw does not merely fail to be
+cheap, it costs the whole problem.
+
+Sharpened, not discharged: this settles the multiplicity family and says nothing
+about other classical invariants, which is stated at the claim's location.
+
+One theorem, axiom-free, in `audit/Declarations.lean`.
+
+**Snag, bin 1.** Anchored the block on `boundedMult_one_iff_Nsc_eq_N`'s own
+docstring, which put it *before* the theorem it cites — `R23` in the form `R23`
+exists to prevent, one cycle after `R24a` split the docstring case out. The two
+rules cover different halves and I hit the half I did not just write.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2 in the certified cone and 8 declared. Seven guards
+green.
+
+**Might-mean, unhedged:** the register's oldest standing claims are the ones
+most likely to have quietly acquired proofs, because the work that proves them
+is filed under other names.

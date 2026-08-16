@@ -696,6 +696,18 @@ extremal configuration is already modest in *every* cheap invariant. Filed
 against E11's pincer: the "ceilings from below" jaw works; a "cheap
 realizability from above" jaw **does not exist**.
 
+> **`SESSION 243` — sharpened, not discharged, for one family.** Within
+> multiplicity caps the claim is now a theorem.
+> `Optimal.mult_cap_excluding_pairOnly`: `Gauge.pairOnly` has `H = 2`, so a cap
+> `BoundedMult M` excludes it only if `M ≤ 1`, and `203`'s
+> `boundedMult_one_iff_Nsc_eq_N` makes `BoundedMult 1` equivalent to `N_sc = N`.
+> So the cheapest multiplicity hypothesis that excludes the extremal
+> configuration **is the ledger's own target** — the jaw does not merely fail to
+> be cheap, it costs the whole problem.
+>
+> This settles the multiplicity family only. Other classical invariants are
+> untouched, and the claim above stands for them.
+
 
 ## W25 (new, future basket) — is there a natural-proofs barrier for zeta-witnesses?
 

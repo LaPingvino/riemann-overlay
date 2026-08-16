@@ -988,3 +988,54 @@ recomputable here and `EnclOK` becomes a theorem rather than a third axiom.
 
 Standing recommendation unchanged: adopt `EnclOK` last, not first. Supplier 3 is
 now the live option and its ask has shrunk to one line.
+
+## What it would cost to stop assuming what we already vendor (`SESSION 268`)
+
+`267` found that `zeta23_xiPrime` is axiomatised while a sorry-free proof of the
+same constant sits in the dependency. This prices the two candidate discharges.
+
+**Kill condition, filed first:** *if their zero data cannot be assembled into a
+`ZeroData` — a finite, reflection-symmetric multiset — without an additional
+assumption of its own, then the axiom is not merely an unwritten bridge and I
+report what the extra assumption is.* **It did not fire.** Everything the
+construction needs exists in the vendored tree, sorry-free, and mirrors the ζ
+bridge we already wrote in `Riemann/Zeta.lean`:
+
+| what `ZeroData.ofMult` needs | ζ (we have it) | ξ′ (exists, unbuilt) |
+|---|---|---|
+| finite zero set | `Zeta23.zerosIn_finite` | `XiPrime.zerosIn_finite` |
+| zero predicate | `IsNontrivialZero` | `IsXiDerivZero ρ := xiDeriv ρ = 0` |
+| multiplicity | `zeroMult` | `xiDerivMult` |
+| closed under `ρ ↦ 1 − ρ̄` | `zeta_reflect_zero` | `xiDeriv_reflect_eq_zero_iff` |
+| multiplicity invariant | `zeta_mult_reflect` | `xiDerivMult_reflect` |
+
+**The price is the build, and it is most of the dependency.**
+
+| discharge | extra modules | extra lines |
+|---|---|---|
+| `zeta23_xiPrime` from `Zeta23.XiPrime.Final` | `247` | `82,256` |
+| `baseline_zeta23` from `Zeta23.ThmD.Final` | `125` | `44,441` |
+
+Neither area has ever been compiled here — the vendored `.lake` holds only what
+our `17`-module closure needed, so `import Zeta23.XiPrime.Final` fails on a
+missing `olean` rather than on any error.
+
+**And `zeta23_xiPrime` is the wrong one to buy.** `RULING.md` already strikes ξ′
+as dominated by the `m = 7` rung — fewer points *and* two more axioms. Paying
+`82,256` lines of build to strengthen a struck row is a bad trade at any price.
+
+**`baseline_zeta23` is the interesting one, and it carries a second cost that
+went unpriced until now.** Their theorem states `2 − 1/c₁* = HD 1 = 3/2 − cot(1/√2)/√2` in
+closed form; `ThmD/Final.lean` says in as many words that *"decimals are not
+formalized; the constant is exact"*. Our axiom asserts the decimal `0.6725`. So discharging it needs
+the build **and** a proof that `0.6725 ≤ 3/2 − cot(1/√2)/√2`.
+
+In double precision that constant is `0.672500703679…`, so the decimal is a
+**safe** rounding with slack `7.04 × 10⁻⁷` — the axiom is not asserting more than
+their theorem gives. That is a floating-point check and not a proof; what it
+establishes is the direction of the rounding, which is the thing that would have
+been alarming the other way.
+
+**Recommendation.** Neither discharge now. Of the two, the `44,441`-line one is
+worth revisiting, and only if the build turns out cheap in wall-clock — which is
+one cycle to measure and has not been measured.

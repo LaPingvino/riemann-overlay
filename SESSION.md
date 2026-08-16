@@ -12488,3 +12488,58 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 sorry-free proof of that constant sits in the dependency we already vendor, so at
 least one of our assumptions is an unwritten bridge rather than an unavailable
 theorem.
+
+## Pricing the two discharges: the bridge is buildable, and it costs most of the dependency
+
+`267` ended on the observation that `zeta23_xiPrime` is an axiom whose proof
+ships in the dependency. This prices it, and its sibling.
+
+**Kill condition, filed first:** *if their ξ′ zero data cannot be assembled into
+a `ZeroData` — finite and reflection-symmetric — without an additional assumption
+of its own, then the axiom is not merely an unwritten bridge and I report what
+the extra assumption is.* **It did not fire.** Every piece exists, sorry-free,
+and mirrors the ζ bridge already in `Riemann/Zeta.lean`: `zerosIn_finite`,
+`IsXiDerivZero`, `xiDerivMult`, `xiDeriv_reflect_eq_zero_iff`,
+`xiDerivMult_reflect`. `Zeta23.reflect ρ = 1 − conj ρ` is the same reflection our
+`Riemann.refl` uses, so the window `0 < Im ≤ T` is preserved.
+
+**The price is the build.** `zeta23_xiPrime` needs `247` extra modules and
+`82,256` extra lines; `baseline_zeta23` needs `125` and `44,441`. Neither area
+has been compiled here — `import Zeta23.XiPrime.Final` fails on a missing
+`olean`, not on an error, because the vendored `.lake` holds only what our
+`17`-module closure required.
+
+**`zeta23_xiPrime` is the wrong one to buy.** `RULING.md` already strikes ξ′ as
+dominated by the `m = 7` rung — fewer points and two more axioms. Paying `82,256`
+lines of build to strengthen a struck row is a bad trade at any price. That is
+`264`'s domination result deciding a resourcing question four cycles later.
+
+**`baseline_zeta23` carries a second cost, unpriced until now.** Their theorem
+states `2 − 1/c₁* = 3/2 − cot(1/√2)/√2` in closed form; `ThmD/Final.lean` says in
+as many words that *"decimals are not formalized; the constant is exact"*. Our
+axiom asserts `0.6725`. So
+the discharge needs the build **and** a proof that `0.6725 ≤ 3/2 − cot(1/√2)/√2`
+— a certified bound on `cot(1/√2)`, of the kind `267` measured this overlay as
+carrying none of: not one integer literal above `10^12`.
+
+**The reassuring half.** In double precision that constant is `0.672500703679…`,
+so `0.6725` is a safe rounding with slack `7.04 × 10⁻⁷`. The binding axiom of
+this project is not claiming more than the dependency proves. That is a
+floating-point check rather than a proof, and it is reported as one; what it
+settles is the direction of the rounding, which is the thing that would have been
+alarming the other way.
+
+**Snag, bin 3.** The vendored `.lake/build` is not part of `vendor_check`'s tree
+hash — `SKIP_DIRS` excludes it — so building unbuilt areas of the dependency is
+safe and does not disturb the vendoring. Worth knowing before the next cycle
+that wants to try, because the instinct is that touching the vendored tree at all
+is forbidden.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, ten guards green. No Lean was added this cycle: the
+finding is a price, and the recommendation is not to pay it.
+
+**Might-mean, unhedged:** our binding constant is a decimal rounding of a
+transcendental expression, and the same seven-digit agreement that makes the
+rounding safe is what makes discharging it a numerics problem rather than a
+formalisation one.

@@ -1491,6 +1491,18 @@ nowhere near sufficient over **integer** atom masses: equality forces every atom
 to share one mass `C`, so `C = 3/2` is not realizable by any configuration at
 all. The LP was pricing input pairs no configuration can present.
 
+> **`SESSION 212`: the named next step is not needed, and `W35` is dead.**
+> `Optimal.linearBoundK_no_gain_at_any_moment`: for `k ≥ 3`, a feasible `c` is
+> non-positive (`linearBoundK_c_nonpos`), and `Blindness.moment_obstruction`
+> puts every configuration's `C_k` at or above `A·C − (A−1)` with
+> `A + 1 = 2^{k−1}`. Moving `C_k` up from that floor with `c ≤ 0` can only
+> shrink the delivered bound, and the floor already gives `2 − C`.
+>
+> So the bound delivered at **any** admissible `C_k` is at most `2 − C`,
+> whatever the realizable region turns out to be. The diagnosis below stands —
+> the LP was pricing pairs no configuration presents — but mapping the region
+> would not rescue the route, so it is not work worth doing.
+
 **So W35 is neither alive nor dead, and the next step is named:** the realizable
 region of `(C, C₃)` for integer masses. That is a **W7-shaped realizability
 problem** — this project's own genre, and the one whose autopsy reads *"the

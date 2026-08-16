@@ -9834,3 +9834,46 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the project spent many cycles treating higher moments
 as a ladder of possible suppliers, and every rung is closed by the same
 inequality for the same reason.
+
+## W35's named next step is not needed
+
+`LEADS.md`'s `W35` produced a three-moment LP value of `7/4` — a proportion above
+one, so a hypothesis was wrong — and diagnosed it as the realizable input
+region: `C₃ = C²` forces every atom to share one mass, so `C = 3/2` is presented
+by no configuration. It closed by naming the next step: *"the realizable region
+of `(C, C₃)` for integer masses."*
+
+**Kill condition, filed first:** *if `c ≤ 0` does not follow from
+`LinearBoundK` alone, the "any realizable `C_k`" form needs it as a hypothesis
+and I state it that way, naming the assumption rather than burying it.* It did
+not fire.
+
+* `linearBoundK_c_nonpos` — for `k ≥ 3`, a feasible `c` is non-positive. The
+  mass test at `m ≥ 2` reads `m·(a + b·m + c·m^{k−1}) ≤ 0`, and a positive `c`
+  makes the inner expression eventually positive. `206` ran this one degree
+  lower. `k = 2` is excluded on purpose: there `c` merges into `b` and nothing
+  forces its sign.
+* `linearBoundK_no_gain_at_any_moment` — so for any `C_k` above the floor
+  `A·C − (A−1)` that `moment_obstruction` guarantees, the delivered bound is at
+  most `2 − C`.
+
+That answers `W35` without mapping anything. `211` priced the route at the floor;
+this says moving off the floor only makes it worse, because `c ≤ 0`. The
+realizable region could be any shape and the route still delivers nothing.
+`W35`'s own diagnosis stands — the LP was pricing pairs no configuration
+presents — but the region is not work worth doing. Annotated at its location.
+
+**Snag, bin 1.** Three tactic failures in one proof, all shape mismatches rather
+than mathematics: `↑(m^k)` against `(↑m)^k` until `push_cast`; then `linarith`
+refusing a combination that `ring_nf` first made available; then the final
+contradiction needing the growth step spelled out as four `have`s instead of
+`nlinarith` hints. The Archimedean argument at degree three costs more tactic
+work than the same argument at degree one did in `206`.
+
+Two theorems, axiom-free, both in `audit/Declarations.lean`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base `cd7a22e688df` unmoved. Seven guards green, cones 30/30, banner 6/6.
+
+**Might-mean, unhedged:** `W35` looked open because its failure was diagnosed as
+missing information, and the missing information turns out not to matter.

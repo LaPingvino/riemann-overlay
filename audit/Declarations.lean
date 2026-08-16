@@ -158,6 +158,9 @@ import Riemann
 #check @Riemann.Optimal.prop1_as_linearBoundK
 #check @Riemann.Optimal.linearBoundK_no_gain
 #check @Riemann.Optimal.linearBoundK_LP_value
+-- SESSION 212: a feasible c is non-positive, so any realizable C_k is no better.
+#check @Riemann.Optimal.linearBoundK_c_nonpos
+#check @Riemann.Optimal.linearBoundK_no_gain_at_any_moment
 -- X from the other side: the fiber decomposition and what each row reads
 #check @Riemann.Blindness.onAt
 #check @Riemann.Blindness.offAt

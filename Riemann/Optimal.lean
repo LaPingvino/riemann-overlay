@@ -537,6 +537,72 @@ theorem linearBoundK_LP_value {k A : ℕ} (hk : 2 ≤ k) (hA : A + 1 = 2 ^ (k - 
   · rintro v ⟨a, b, c, habc, rfl⟩
     exact linearBoundK_no_gain hk hA habc hC1 hC2
 
+/-- **A feasible `c` is non-positive, for `k ≥ 3`.**  `SESSION 212`.
+
+The mass test at `m ≥ 2` reads `m·(a + b·m + c·m^(k−1)) ≤ 0`.  If `c > 0` the
+inner expression is eventually positive, so no such bound is feasible.  `206`
+ran the same argument one degree lower.
+
+`k = 2` is excluded on purpose: there `c` merges into `b` and nothing forces its
+sign. -/
+theorem linearBoundK_c_nonpos {k : ℕ} (hk : 3 ≤ k) {a b c : ℝ}
+    (h : LinearBoundK k a b c) : c ≤ 0 := by
+  by_contra hc
+  push_neg at hc
+  obtain ⟨n, hn⟩ := exists_nat_gt ((|b| + |a| + 1) / c)
+  set m : ℕ := max n 2 with hmdef
+  have hm2 : 2 ≤ m := le_max_right _ _
+  have hmn : (n : ℝ) ≤ (m : ℝ) := by exact_mod_cast le_max_left n 2
+  have hm2' : (2 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm2
+  have hmpos : (0 : ℝ) < (m : ℝ) := by linarith
+  have hgt : (|b| + |a| + 1) / c < (m : ℝ) := lt_of_lt_of_le hn hmn
+  have hkey : |b| + |a| + 1 < c * m := by
+    rw [div_lt_iff₀ hc] at hgt; linarith
+  -- the test at mass `m`, with `m^k ≥ m^3` absorbed
+  have hmass := linearBoundK_mass (by omega) m h
+  rw [if_neg (by omega : ¬ m = 1)] at hmass
+  push_cast at hmass
+  have hcube : (m : ℝ) ^ 3 ≤ (m : ℝ) ^ k :=
+    pow_le_pow_right₀ (by linarith) hk
+  have hstep : c * ((m : ℝ) ^ 3) ≤ c * ((m : ℝ) ^ k) :=
+    mul_le_mul_of_nonneg_left hcube (le_of_lt hc)
+  have hcubed : a * (m : ℝ) + b * ((m : ℝ) * (m : ℝ)) + c * ((m : ℝ) ^ 3) ≤ 0 := by
+    have h' := hmass
+    ring_nf at h' ⊢
+    linarith [h', hstep]
+  -- `c·m³` outgrows what `−a·m − b·m²` can pay for
+  have hsq : (0 : ℝ) < (m : ℝ) ^ 2 := by positivity
+  have hgrow : (|b| + |a| + 1) * (m : ℝ) ^ 2 < (c * (m : ℝ)) * (m : ℝ) ^ 2 :=
+    mul_lt_mul_of_pos_right hkey hsq
+  have hcm : (c * (m : ℝ)) * (m : ℝ) ^ 2 = c * ((m : ℝ) ^ 3) := by ring
+  have hnegA : -(a * (m : ℝ)) ≤ |a| * (m : ℝ) := by
+    nlinarith [neg_abs_le a, hmpos]
+  have hnegB : -(b * ((m : ℝ) * (m : ℝ))) ≤ |b| * (m : ℝ) ^ 2 := by
+    nlinarith [neg_abs_le b, hsq]
+  have habs : (0 : ℝ) ≤ |a| := abs_nonneg a
+  have hmm : (m : ℝ) ≤ (m : ℝ) ^ 2 := by nlinarith [hm2', hmpos]
+  nlinarith [hcubed, hgrow, hcm, hnegA, hnegB, habs, hmm, hsq]
+
+/-- **`W35` is answered: no realizable `(C, C_k)` pair helps.**  `SESSION 212`.
+
+`LEADS.md`'s `W35` left "the realizable region of `(C, C₃)` for integer masses"
+as the named next step.  It is not needed.  Whatever a configuration's actual
+`C_k` is, `Blindness.moment_obstruction` puts it at or above `A·C − (A−1)`, and
+a feasible `c` is non-positive, so moving `C_k` up from that floor can only make
+the delivered bound smaller.  The floor already gives `2 − C`.
+
+So the bound delivered at **any** admissible `C_k` is at most `2 − C`, and the
+realizable region cannot rescue the route however it turns out. -/
+theorem linearBoundK_no_gain_at_any_moment {k A : ℕ} (hk : 3 ≤ k)
+    (hA : A + 1 = 2 ^ (k - 1)) {a b c C Ck : ℝ} (h : LinearBoundK k a b c)
+    (hC1 : 1 ≤ C) (hC2 : C ≤ 2) (hCk : (A : ℝ) * C - ((A : ℝ) - 1) ≤ Ck) :
+    a + b * C + c * Ck ≤ 2 - C := by
+  have hc : c ≤ 0 := linearBoundK_c_nonpos hk h
+  have hbase := linearBoundK_no_gain (by omega) hA h hC1 hC2
+  have hdrop : c * Ck ≤ c * ((A : ℝ) * C - ((A : ℝ) - 1)) :=
+    mul_le_mul_of_nonpos_left hCk hc
+  nlinarith [hbase, hdrop]
+
 
 /-- **And the bound is attained**, so `2 − C` is the exact optimum of the class,
 not merely an upper bound for it. -/

@@ -438,6 +438,31 @@ theorem proportion_of_noHaunted {F : Family} {κ : ℝ}
   rw [le_div_iff₀ hpos', heq]
   linarith [hT]
 
+/-- **The exchange map is complete: one genuine crossover, two identities** —
+`SESSION 192`.
+
+`191` found the two `StarBound` exchanges crossing at `C = 1.393` and observed
+that the board is a set of *exchanges* with ranges of validity.  Enumerating
+every pair that consumes the **same** input settles how many such ranges there
+are:
+
+| input | routes | relation |
+|---|---|---|
+| `ProportionStd κ` | `(3κ−1)/2` direct, or via `OffLineImport (1−κ)` | **identical** (below) |
+| `OffLineImport β` | `κ − β/2` direct, or via `HauntedDensity (β/2)` | **identical** — same formula |
+| `StarBound C` | `2 − C` direct, or via `HauntedDensity ((C−1)/6)` | **crosses at `1.393`** |
+| `atomCount ≥ c·N` | via `HauntedDensity ((1−c)/2)` only | single route |
+
+So the board has **one** place where the choice of exchange matters, and it is
+`191`'s.  Everywhere else the two ways of spending an input agree by
+construction — which is why no earlier cycle ever had to choose.
+
+The `ProportionStd` identity is the one worth writing down: routing the baseline
+through the off-line shelf and back returns `084`'s formula exactly, which is
+`162`'s circularity as an equation rather than as an observation. -/
+theorem proportionStd_exchange_identity (κ : ℝ) :
+    κ - (1 - κ) / 2 = (3 * κ - 1) / 2 := by ring
+
 /-- **Which star-bound exchange to use, and where they cross** — `SESSION 191`.
 
 A `StarBound C` reaches the `Nsc` row two ways:

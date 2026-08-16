@@ -159,6 +159,7 @@ CONE_EXPECTED = {
     "routeIII_with_narrowBox": set(),
     "offline_roundtrip_loses": set(),
     "starBound_exchange_crossover": set(),
+    "proportionStd_exchange_identity": set(),
     "NoSmallHaunted.mono": set(),
     "noHaunted_iff_forall_noSmallHaunted": set(),
     "noSmallHaunted_strict": set(),

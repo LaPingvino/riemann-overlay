@@ -8939,3 +8939,46 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 reach is three times better than the one it uses and still the wrong way to spend
 the same input, which is what it looks like when a quantity is not the
 bottleneck.
+
+# SESSION 192 — the exchange map, complete: one crossover and two identities
+
+**Kill condition, stated first:** *if some pair of exchanges sharing an input
+crosses at a point other than `1.393`, the map is incomplete and that point is
+the finding.* **It did not fire.**
+
+`191` found the two `StarBound` exchanges crossing and observed that the board is
+a set of *exchanges* with ranges of validity. That raises a countable question:
+**how many such ranges are there?** Enumerated over every pair consuming the same
+input:
+
+| input | routes | relation |
+|---|---|---|
+| `ProportionStd κ` | `(3κ−1)/2` direct, or via `OffLineImport (1−κ)` | **identical** |
+| `OffLineImport β` | `κ − β/2` direct, or via `HauntedDensity (β/2)` | **identical** — the same formula |
+| `StarBound C` | `2 − C` direct, or via `HauntedDensity ((C−1)/6)` | **crosses at `1.393`** |
+| `atomCount ≥ c·N` | via `HauntedDensity ((1−c)/2)` only | single route |
+
+**One place on the board where the choice of exchange matters**, and it is
+`191`'s. Everywhere else the two ways of spending an input agree by construction
+— which is why no earlier cycle ever had to choose, and why the ambiguity only
+surfaced when an input arrived from outside the `κ` family.
+
+## The identity worth writing down
+
+`proportionStd_exchange_identity` (axiom-free): `κ − (1−κ)/2 = (3κ−1)/2`.
+
+Routing the baseline through the off-line shelf and back returns `084`'s formula
+**exactly**. That is `162`'s circularity as an equation rather than as an
+observation, and `190`'s four-bounds-one-number traces to the same identity —
+`proportionStd_exchange_identity` is what makes all three agree.
+
+The `OffLineImport` pair is not even an identity to prove: both routes evaluate
+to the literal expression `κ − β/2`, because `hauntedDensity_of_offLineImport`
+emits `δ = β/2` and the haunted exchange subtracts `δ` at rate `1`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` checks **30**.
+
+**Might-mean, unhedged:** the board has exactly one decision in it that is not
+forced, and three cycles of looking for more found only the same circle drawn in
+different notations.

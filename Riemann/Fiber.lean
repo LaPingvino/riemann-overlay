@@ -3258,6 +3258,75 @@ theorem offLine_count_not_bounded_by_proximity {ε : ℝ} (hε : 0 < ε) :
       Multiset.mem_replicate] at this
     rcases this with ⟨_, h⟩ | ⟨_, h⟩ <;> rw [h] <;> assumption
 
+/-- **One configuration attains every route constant at once** — `SESSION 178`.
+
+`176` counted **99** inequality-concluding theorems against about **21**
+tightness witnesses and withdrew the claim that all were tight.  The question it
+did not ask: are the ones on a **route to the ledger** among the 21?
+
+They are, and they are tight *together*.  The single ordinate carrying one
+critical zero and one off-line pair — `configAt 0 1 1 a`, the haunted atom of
+mass `3` — has
+
+    N = 3,  N⊛ = 9,  Nsc = 0,  NscStd = 1,  Noff = 2,  haunted = 1,  atomCount = 1
+
+and every route constant is an **equality** there:
+
+| bound | at this configuration |
+|---|---|
+| `Noff + NscStd ≤ N` (`169`, the off-line optimum) | `2 + 1 = 3` |
+| `2·haunted + NscStd ≤ N` (`110`'s canonical bound) | `2 + 1 = 3` |
+| `2·haunted + atomCount ≤ N` (the distinct-zeros route) | `2 + 1 = 3` |
+| `6·haunted + N ≤ N⊛` (the `StarBound` route's `/6`) | `6 + 3 = 9` |
+| `3·NscStd ≤ N + 2·Nsc` (`084`) | `3 = 3` |
+| `Nsc + 3·haunted ≤ N` (mass accounting) | `0 + 3 = 3` |
+
+So the `21/99` of `176` is a count dominated by plumbing: **every constant on a
+route is tight, and they are tight at one object.** The remaining tightness
+questions are about lemmas no route consumes. -/
+theorem mass_three_atom_attains_all {a : ℝ} (ha : a ≠ 1/2) :
+    let D := configAt 0 1 1 a
+    D.N = 3 ∧ D.Nstar = 9 ∧ D.Nsc = 0 ∧ D.NscStd = 1 ∧ D.Noff = 2
+      ∧ hauntedCount D = 1 ∧ atomCount D = 1 := by
+  classical
+  obtain ⟨hEq, -⟩ := offLine_bound_attained ha
+  have hN : (configAt 0 1 1 a).N = 3 := by rw [configAt_N]
+  have hOff : (configAt 0 1 1 a).Noff = 2 := by rw [configAt_Noff ha]
+  have hNscStd : (configAt 0 1 1 a).NscStd = 1 := by omega
+  have hA : atomCount (configAt 0 1 1 a) = 1 := by
+    rw [atomCount, configAt_ordinates]
+    rw [show Multiset.replicate (1 + 2 * 1) (0:ℝ) = Multiset.replicate 3 (0:ℝ)
+      by norm_num, Multiset.toFinset_replicate, if_neg (by norm_num : ¬(3 = 0))]
+    simp
+  have hS : (configAt 0 1 1 a).Nstar = 9 := by
+    have hsum : (configAt 0 1 1 a).Nstar
+        = ((configAt 0 1 1 a).Z.map fun _ : ℝ × ℝ => 3).sum := by
+      show ((configAt 0 1 1 a).Z.map fun p => (configAt 0 1 1 a).H p.2).sum = _
+      congr 1
+      refine Multiset.map_congr rfl fun p hp => ?_
+      have hp2 : p.2 = 0 := by
+        have hmem : p.2 ∈ (configAt 0 1 1 a).ordinates :=
+          Multiset.mem_map_of_mem _ hp
+        rw [configAt_ordinates] at hmem
+        exact Multiset.eq_of_mem_replicate hmem
+      rw [hp2, configAt_H]; simp
+    rw [hsum, Multiset.map_const', Multiset.sum_replicate, smul_eq_mul]
+    rw [show Multiset.card (configAt 0 1 1 a).Z = (configAt 0 1 1 a).N from rfl, hN]
+  have hNsc : (configAt 0 1 1 a).Nsc = 0 := by
+    rw [ZeroData.Nsc, Multiset.card_eq_zero, Multiset.filter_eq_nil]
+    intro p hp hcon
+    have hp2 : p.2 = 0 := by
+      have hmem : p.2 ∈ (configAt 0 1 1 a).ordinates :=
+        Multiset.mem_map_of_mem _ hp
+      rw [configAt_ordinates] at hmem
+      exact Multiset.eq_of_mem_replicate hmem
+    have : (configAt 0 1 1 a).H p.2 = 3 := by rw [hp2, configAt_H]; simp
+    omega
+  have hH : hauntedCount (configAt 0 1 1 a) = 1 := by
+    have := NscStd_eq_Nsc_add_haunted (configAt 0 1 1 a)
+    omega
+  exact ⟨hN, hS, hNsc, hNscStd, hOff, hH, hA⟩
+
 /-- **The mass accounting: `Nsc + 3·hauntedCount ≤ N`.**  A simple ordinate
 carries one zero, a haunted one at least three, and they are disjoint. -/
 theorem Nsc_add_three_mul_haunted_le_N (D : ZeroData) :

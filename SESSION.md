@@ -8252,3 +8252,59 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** the useful outcome of the cycle was not building the
 thing I came in wanting to build, and the register that stopped me was one I
 wrote to stop exactly this.
+
+# SESSION 178 — every route constant is tight, and at one object
+
+**Kill condition, stated first:** *if some constant on a route to the ledger
+lacks a tightness witness, that route may be losing points to a sharpenable step
+and that is the finding; if all have one, `176`'s `21/99` is a count over
+plumbing.* **It did not fire — and the answer is sharper than "all have one".**
+
+`176` withdrew the claim that every derivation is tight, counting 99
+inequality-concluding theorems against ~21 witnesses. It did not ask the question
+that matters: are the constants **on a route** among the 21?
+
+Checked one by one, each has a witness, and several are ones the project already
+had: `coupling_tight` for the `β/2` halving, `ladder_sharp_at_odd` for the
+ladder's `m`, `Gauge.prop1_tight` for `2 − C`, `row_essentially_optimal` for
+`084`'s `(3κ−1)/2`, `offLine_bound_attained` (`169`) and `Nstar_bound_attained`
+(`175`) for the two exchange constants.
+
+## And they are tight together
+
+`Blindness.mass_three_atom_attains_all` (**axiom-free**): the single ordinate
+carrying one critical zero and one off-line pair has
+
+    N = 3,  N⊛ = 9,  Nsc = 0,  NscStd = 1,  Noff = 2,  haunted = 1,  atomCount = 1
+
+and **every route bound is an equality there**:
+
+| bound | at this configuration |
+|---|---|
+| `Noff + NscStd ≤ N` (the off-line optimum) | `2 + 1 = 3` |
+| `2·haunted + NscStd ≤ N` (`110`'s canonical bound) | `2 + 1 = 3` |
+| `2·haunted + atomCount ≤ N` (the distinct-zeros route) | `2 + 1 = 3` |
+| `6·haunted + N ≤ N⊛` (the `StarBound` route's `/6`) | `6 + 3 = 9` |
+| `3·NscStd ≤ N + 2·Nsc` (`084`) | `3 = 3` |
+| `Nsc + 3·haunted ≤ N` (mass accounting) | `0 + 3 = 3` |
+
+So `176`'s `21/99` is a count dominated by plumbing. **Every constant on a route
+is tight, and they are tight at one object** — the haunted atom that has been
+this project's witness since `104`, now shown to be the simultaneous extremal
+point for all of them.
+
+The remaining untight inequalities are lemmas no route consumes. That is the
+correctly scoped version of the sentence `175` overreached on and `176` withdrew.
+
+## Snag, bin 2
+
+Same forward-reference class as `169`: I anchored on
+`Nsc_add_three_mul_haunted_le_N`'s docstring and then used that theorem in the
+proof, which sits below. Proved `Nsc = 0` directly instead. Caught by the build.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` now checks **22**.
+
+**Might-mean, unhedged:** the configuration that makes every one of the project's
+route bounds sharp is a single critical zero with a ghost on either side, which
+is the object the whole apparatus was built to fail to see.

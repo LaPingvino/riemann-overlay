@@ -1039,3 +1039,41 @@ been alarming the other way.
 **Recommendation.** Neither discharge now. Of the two, the `44,441`-line one is
 worth revisiting, and only if the build turns out cheap in wall-clock — which is
 one cycle to measure and has not been measured.
+
+## `baseline_zeta23`'s numeric step is not blocked on numerics (`SESSION 274`)
+
+`268` recorded a second cost for this axiom: `ThmD` proves the exact
+`2 − 1/c₁* = 3/2 − cot(1/√2)/√2` while we assert the decimal `0.6725`, so the
+discharge needs a certified bound on a transcendental value — and `267` measured
+this overlay as carrying no interval arithmetic at all.
+
+**It needs none.** At `x = 1/√2` two identities hold with no approximation:
+`x² = 1/2`, and `x·√2 = 1`. The cosine series has only even powers, so
+`cos x = Σ (−1)^k (1/2)^k/(2k)!` is **rational**; the sine series is
+`x·S` with `S = Σ (−1)^k (1/2)^k/(2k+1)!` also rational; and
+
+    cot(x)/√2 = cos x / (sin x · √2) = C / (x · S · √2) = C / S
+
+because `x·√2 = 1`. **The `√2` cancels and the target is rational arithmetic.**
+
+Verified in exact rationals:
+
+| terms | `3/2 − C/S` | `≥ 0.6725` |
+|---|---|---|
+| 5 | `0.672500695044` | yes |
+| 6 | `0.672500703713` | yes |
+| 8 | `0.672500703679` | yes |
+
+At `8` terms the alternating-series tails are `|cos| ≤ (1/2)^8/16! ≈ 1.9·10⁻¹⁶`
+and `|sin| ≤ (1/2)^8/17! ≈ 1.1·10⁻¹⁷`, against a required margin of
+`7.04·10⁻⁷` — nine orders of room. Five terms already suffice.
+
+**So the classification changes.** This is not "interval arithmetic, their whole
+method, we have none"; it is an alternating-series bound in `ℚ` at a point where
+the irrationality cancels. What remains is Lean work of a known genre — Taylor
+partial sums with alternating remainder — and not a capability the project
+lacks. The `44,441`-line build for `ThmD` stands unchanged and is still the
+larger cost.
+
+*Stated as a paper computation in `ℚ`; the bound is **not formalised** here and
+this entry does not claim a Lean proof of it.*

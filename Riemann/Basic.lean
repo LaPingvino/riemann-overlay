@@ -362,6 +362,47 @@ lemma ofMult_count (s : Finset (ℝ × ℝ)) (m : ℝ × ℝ → ℕ)
   show (Finset.sum s fun q => if p = q then m q else 0) = _
   rw [Finset.sum_ite_eq s p m]
 
+/-- **`NscStd` of `ofMult` counts the points of multiplicity one on the line.**
+`SESSION 274`.
+
+The `NscStd`-side counterpart of `ofMult_N`, and the shape zeta-23's `N0simple`
+is in: their filter is on `zeroMult ρ = 1`, ours on `Z.count p = 1`, and
+`ofMult_count` is what identifies the two.
+
+`273` failed at this twice by rewriting under `Multiset.filter`, whose
+`DecidablePred` instance depends on the term being rewritten — *motive is not
+type correct*. The way through is not to rewrite the filter at all: prove the
+filtered multiset **is** the filtered `Finset`'s `val`, by `ext` on counts, where
+`Multiset.count_filter` and `ofMult_count` do all the work. -/
+lemma ofMult_NscStd (s : Finset (ℝ × ℝ)) (m : ℝ × ℝ → ℕ)
+    (hclosed : ∀ p ∈ s, refl p ∈ s) (hm : ∀ p ∈ s, m (refl p) = m p) :
+    (ofMult s m hclosed hm).NscStd
+      = (s.filter fun p => p.1 = 1 / 2 ∧ m p = 1).card := by
+  classical
+  set D := ofMult s m hclosed hm with hD
+  have key : D.Z.filter (fun p => p.1 = 1 / 2 ∧ D.Z.count p = 1)
+      = (s.filter fun p => p.1 = 1 / 2 ∧ m p = 1).val := by
+    ext p
+    rw [Multiset.count_filter, hD, ofMult_count]
+    by_cases hps : p ∈ s
+    · simp only [if_pos hps]
+      by_cases hc : p.1 = 1 / 2 ∧ m p = 1
+      · rw [if_pos ⟨hc.1, hc.2⟩, hc.2]
+        rw [Multiset.count_eq_one_of_mem (s.filter _).nodup
+          (Finset.mem_filter.2 ⟨hps, hc⟩)]
+      · rw [if_neg (fun h => hc ⟨h.1, h.2⟩)]
+        rw [Multiset.count_eq_zero_of_notMem]
+        intro hmem
+        exact hc (Finset.mem_filter.1 hmem).2
+    · simp only [if_neg hps]
+      rw [if_neg (by rintro ⟨-, h⟩; exact absurd h (by norm_num))]
+      rw [Multiset.count_eq_zero_of_notMem]
+      intro hmem
+      exact hps (Finset.mem_filter.1 hmem).1
+  show Multiset.card (D.Z.filter _) = _
+  rw [key]
+  rfl
+
 /-- The total count of `ofMult` is the sum of the multiplicities — the
 Riemann–von Mangoldt side of the interface. -/
 lemma ofMult_N (s : Finset (ℝ × ℝ)) (m : ℝ × ℝ → ℕ)

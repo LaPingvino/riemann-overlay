@@ -185,4 +185,50 @@ theorem zetaNonempty_of_rvm_main
     linarith [this.1, this.2]
   exact_mod_cast hgap
 
+/-- **Our `NscStd` is zeta-23's `N0simple`.**  `SESSION 274`.
+
+The `NscStd`-side counterpart of `270`'s `zetaZeroData_N`, and the second of the
+two count bridges `baseline_zeta23` needs.  Their `N0simple` takes the `ncard` of
+`zerosIn ∩ {re = 1/2} ∩ {zeroMult = 1}`; ours filters the multiset on
+`p.1 = 1/2 ∧ Z.count p = 1`.  `ofMult_NscStd` puts ours in `Finset` form,
+`ρ ↦ (ρ.re, ρ.im)` is injective so the filter and the image commute, and the
+two sides are the same set counted the same way.
+
+**The kill condition `273` filed did not fire, and that is the finding.**  The
+project's `NscStd` and zeta-23's `N0simple` coincide on `zetaZeroData` with no
+separating case — an on-line zero is determined by its ordinate, so "the on-line
+part has mass one" and "this zero is simple and on the line" pick out the same
+points.  The two vocabularies were one vocabulary at the point of contact. -/
+theorem zetaZeroData_NscStd (T : ℝ) : (zetaZeroData T).NscStd = Zeta23.N0simple 0 T := by
+  classical
+  rw [zetaZeroData, ZeroData.ofMult_NscStd]
+  have hinj : Set.InjOn (fun ρ : ℂ => (ρ.re, ρ.im))
+      ((Zeta23.zerosIn_finite 0 T).toFinset : Set ℂ) := by
+    intro a _ b _ h
+    exact Complex.ext (congrArg Prod.fst h) (congrArg Prod.snd h)
+  have hfil : ((Zeta23.zerosIn_finite 0 T).toFinset.image fun ρ : ℂ => (ρ.re, ρ.im)).filter
+      (fun p => p.1 = 1 / 2 ∧ Zeta23.zeroMult (toC p) = 1)
+      = ((Zeta23.zerosIn_finite 0 T).toFinset.filter
+          (fun ρ => ρ.re = 1 / 2 ∧ Zeta23.zeroMult ρ = 1)).image
+          (fun ρ : ℂ => (ρ.re, ρ.im)) := by
+    ext p
+    simp only [Finset.mem_filter, Finset.mem_image]
+    constructor
+    · rintro ⟨⟨ρ, hρ, rfl⟩, h1, h2⟩
+      have hc : toC (ρ.re, ρ.im) = ρ := Complex.ext rfl rfl
+      rw [hc] at h2
+      exact ⟨ρ, ⟨hρ, h1, h2⟩, rfl⟩
+    · rintro ⟨ρ, ⟨hρ, h1, h2⟩, rfl⟩
+      have hc : toC (ρ.re, ρ.im) = ρ := Complex.ext rfl rfl
+      exact ⟨⟨ρ, hρ, rfl⟩, h1, by rw [hc]; exact h2⟩
+  rw [hfil, Finset.card_image_of_injOn (hinj.mono (by intro x hx; simpa using
+      (Finset.mem_filter.1 hx).1))]
+  have hfin : (Zeta23.zerosIn 0 T ∩ {ρ : ℂ | ρ.re = 1 / 2} ∩
+      {ρ : ℂ | Zeta23.zeroMult ρ = 1}).Finite :=
+    (Zeta23.zerosIn_finite 0 T).subset (fun x hx => hx.1.1)
+  rw [Zeta23.N0simple, Set.ncard_eq_toFinset_card _ hfin]
+  congr 1
+  ext ρ
+  simp [Set.Finite.mem_toFinset, and_assoc]
+
 end Riemann

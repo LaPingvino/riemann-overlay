@@ -12793,3 +12793,55 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 blocked on a build budget and cleared in three cycles, the other is blocked on a
 decidability instance and a transcendental constant, so "reduce the trusted base"
 is not one project but two with nothing in common.
+
+## The `NscStd` bridge lands, and `baseline_zeta23`'s numeric step turns out to be rational
+
+`273` stopped at a named wall and this cycle starts there, which is what obstacle
+notes are for.
+
+**Kill condition, filed first:** *if `conv`/`simp only`/`ext` all fail on the
+decidability instance — if the filter cannot be transported at all — then the
+`NscStd` bridge needs restating in a form that avoids `Multiset.filter`, and I
+report that rather than keep fighting the rewrite.* It did not fire. The way
+through was not to rewrite the filter: prove the filtered multiset **is** the
+filtered `Finset`'s `val`, by `ext` on counts, where `Multiset.count_filter` and
+`273`'s `ofMult_count` do the work.
+
+* `ZeroData.ofMult_NscStd` — `NscStd` of `ofMult` counts the points of
+  multiplicity one on the line.
+* `zetaZeroData_NscStd` — **our `NscStd` is zeta-23's `N0simple`**, on the nose.
+
+Both axiom-free, `3757` jobs unchanged. With `270`'s `zetaZeroData_N` the two
+count bridges `baseline_zeta23` needs are now both on disk, at no build cost.
+
+**And `273`'s kill condition not firing is the better news.** The project's
+`NscStd` and zeta-23's `N0simple` coincide on `zetaZeroData` with no separating
+case, because an on-line zero is determined by its ordinate. Two vocabularies
+that looked different were one vocabulary at the point of contact.
+
+**Wildcard: the `cot(1/√2)` bound needs no interval arithmetic.** `268` filed
+this as a second cost and `273` implied it was blocked on a capability `267`
+measured us as lacking. It is not. At `x = 1/√2`, `x² = 1/2` and `x·√2 = 1`, so
+the cosine series is rational in `1/2`, the sine series is `x` times a rational
+series, and in `cot(x)/√2 = cos x/(sin x·√2) = C/S` **the `√2` cancels**. The
+target is rational arithmetic: `3/2 − C/S ≥ 0.6725` already holds at **five**
+terms, and at eight the alternating tails are `≈1.9·10⁻¹⁶` and `≈1.1·10⁻¹⁷`
+against a required margin of `7.04·10⁻⁷`. Recorded in `PRICES.md` as a paper
+computation; the bound is not formalised and the entry does not claim it is.
+
+That answers the half-cycle `claude.ai` proposed, in the direction they hoped
+but for a different reason — not "Mathlib has Taylor bounds" but "the
+irrationality cancels before any bound is needed".
+
+**Snag, bin 2.** `Set.ncard_eq_toFinset_card'` wants a `Fintype` instance;
+`Set.ncard_eq_toFinset_card _ hfin` takes the finiteness proof and does not.
+The primed and unprimed names differ by which of the two you must supply, and
+the error names neither.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, eleven guards green, `PRICES` at its baseline `24`.
+
+**Might-mean, unhedged:** both of this project's remaining axioms turned out to
+be cheaper than their first pricing, and in both cases the saving came from
+looking at what the constant actually is rather than at what class of problem it
+belongs to.

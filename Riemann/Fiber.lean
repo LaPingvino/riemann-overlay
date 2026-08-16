@@ -2080,6 +2080,46 @@ theorem atomCount_le_distinctZeros (D : ZeroData) :
   rw [atomCount, distinctZeros, ZeroData.ordinates, Multiset.toFinset_map]
   exact Finset.card_image_le
 
+/-- **The reverse dictionary: `distinctZeros ≤ atomCount + Noff`** — `SESSION
+168`.
+
+`167` gave `atomCount ≤ distinctZeros` and stopped, which showed only that a
+*lower* bound on the literature's `N_d` does not transfer downward.  `161`'s
+lesson is that the other direction is where the arithmetic actually gets decided,
+so here it is.
+
+Split the distinct zeros by whether they sit on the line.  A distinct point with
+`β = 1/2` is `(1/2, γ)` for a distinct ordinate `γ`, so those are counted by
+`atomCount`; the rest are off-line and counted by `Noff`. -/
+theorem distinctZeros_le_atomCount_add_Noff (D : ZeroData) :
+    distinctZeros D ≤ atomCount D + D.Noff := by
+  classical
+  have hsub : D.Z.toFinset ⊆ (D.Z.toFinset.filter fun p => p.1 = 1/2)
+      ∪ (D.Z.toFinset.filter fun p => ¬ (p.1 = 1/2)) := by
+    intro p hp
+    by_cases h : p.1 = 1/2
+    · exact Finset.mem_union_left _ (Finset.mem_filter.2 ⟨hp, h⟩)
+    · exact Finset.mem_union_right _ (Finset.mem_filter.2 ⟨hp, h⟩)
+  have hsplit : distinctZeros D
+      ≤ (D.Z.toFinset.filter fun p => p.1 = 1/2).card
+        + (D.Z.toFinset.filter fun p => ¬ (p.1 = 1/2)).card :=
+    le_trans (Finset.card_le_card hsub) (Finset.card_union_le _ _)
+  have h1 : (D.Z.toFinset.filter fun p => p.1 = 1/2).card ≤ atomCount D := by
+    rw [atomCount, ZeroData.ordinates, Multiset.toFinset_map]
+    refine Finset.card_le_card_of_injOn Prod.snd (fun p hp => ?_) ?_
+    · exact Finset.mem_image_of_mem _ (Finset.mem_of_mem_filter _ hp)
+    · intro p hp q hq h
+      have hp' := (Finset.mem_filter.1 hp).2
+      have hq' := (Finset.mem_filter.1 hq).2
+      exact Prod.ext (hp'.trans hq'.symm) h
+  have h2 : (D.Z.toFinset.filter fun p => ¬ (p.1 = 1/2)).card ≤ D.Noff := by
+    have he : (D.Z.toFinset.filter fun p => ¬ (p.1 = 1/2))
+        = (D.Z.filter fun p => ¬ (p.1 = 1/2)).toFinset :=
+      (Multiset.toFinset_filter _ _).symm
+    rw [he, ZeroData.Noff]
+    exact Multiset.toFinset_card_le _
+  omega
+
 /-- **The four-quantity bridge:** `2·A + #{odd atoms} ≤ N + 2·Nsc`.  Per atom
 this is `2 + [odd] ≤ mass + 2·[mass = 1]`, tight at masses `1`, `2` and `3`. -/
 theorem two_mul_atomCount_add_oddAtoms_le (D : ZeroData) :

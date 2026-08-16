@@ -414,6 +414,23 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 >
 > The channel stays open and the want-ad stands, now dated against a primary
 > source rather than carried as `[RECALL]`.
+>
+> ✅ **`SESSION 168` — completed in the reverse direction, and it is `161`'s wall
+> again.** `Blindness.distinctZeros_le_atomCount_add_Noff` (axiom-free) gives
+> `atomCount ≥ distinctZeros − Noff`, so Wu's theorem *can* be pointed at our
+> quantity after all. The arithmetic then decides it:
+>
+> * `0.66036 − 0.3275 = 0.33286`, against the baseline's `0.6725` — so the route
+>   halves what we hold, and `δ ≤ 0.33357` against `certified_haunted`'s
+>   `0.16375`.
+> * And it can **never** win: beating `κ` needs `N_d/N > κ + (1 − κ) = 1`, while
+>   `distinctZeros ≤ N` always. **Tie at `N_d = N`, never exceeded.**
+>
+> That is the identical wall `161` found for `NscAny`, from the identical cause —
+> the `Noff` it pays with is `1 − κ`, minted from the row being raised. **Third
+> instance.** The distinct-zeros channel is open in form and closed in
+> arithmetic, exactly like the other two, until an independent off-line bound
+> exists.
 > Fed back through `proportion_of_offLineImport`, that returns `(3κ − 1)/2`,
 > which `offline_roundtrip_loses` (axiom-free) shows is `< κ` for every `κ < 1`,
 > with equality exactly at `κ = 1` (`offline_roundtrip_eq_iff`).

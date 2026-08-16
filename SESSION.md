@@ -7711,3 +7711,59 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 a quantity one definition away from the one I needed, and both times the
 difference was exactly whether zeros are counted where they are or only how high
 they are.
+
+# SESSION 168 — the dictionary runs both ways, and it is 161's wall a third time
+
+**Kill condition, stated first:** *if `distinctZeros ≤ atomCount + Noff` fails,
+no reverse dictionary exists and Wu's theorem relates to our quantity in one
+direction only; if it holds, the arithmetic decides whether it can feed the route
+after all.* **It holds.**
+
+`167` closed the distinct-zeros route on the grounds that the dictionary runs the
+wrong way. `161`'s lesson is that the reverse direction is where the arithmetic
+actually gets decided, so I checked it.
+
+**`Blindness.distinctZeros_le_atomCount_add_Noff`** (axiom-free): split the
+distinct zeros by whether they sit on the line — those that do are `(1/2, γ)` for
+a distinct ordinate, those that do not are off-line. So
+`atomCount ≥ distinctZeros − Noff`, and **Wu's theorem does reach our quantity
+after all.**
+
+## `S74` — `167` was right about the conclusion and wrong about the reason
+
+The route fails on arithmetic, not on direction:
+
+* `0.66036 − 0.3275 = 0.33286` against the `0.6725` that `certified_atomCount`
+  supplies — the route returns under half of it, giving `δ ≤ 0.33357` against
+  `certified_haunted`'s `0.16375`;
+* and it can never win: beating `κ` needs `N_d/N > κ + (1 − κ) = 1`, while
+  `distinctZeros ≤ N` always. **Tie at `N_d = N`**, since `distinctZeros ≤ N`, and nothing above it.
+
+That is the identical wall `161` found for `NscAny`, from the identical cause —
+the `Noff` it pays with is `1 − κ`, minted from the row being raised. **Third
+instance**, after `NscAny` and the off-line round trip.
+
+So `167` declared the route closed for a reason that was not the operative one,
+and the operative one had already been recorded seven cycles earlier. The
+conclusion survives; the explanation in `PRICES.md` is corrected at its location.
+
+## What this makes precise
+
+Three literature genres — S-moments (`144`), simple-zero counts (`161`),
+distinct-zero counts (`168`) — each reach the ledger through an exchange paid in
+`Noff`, and `162`'s enumeration found every `OffLineImport` in the development
+carrying `β = 1 − κ`. Each stops at the same place: **the input would have to
+exceed 1.**
+
+The want-ad is therefore one thing, not three: **an off-line bound `β < 1 − κ`
+not minted from a proportion row.** Everything else on the location and counting
+shelves is downstream of it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. One name added to
+`audit/Declarations.lean`.
+
+**Might-mean, unhedged:** I have now closed the same route three times in three
+different vocabularies, and each time the arithmetic bottomed out on the same
+missing number, which suggests the project has one open problem on this shelf and
+not a family of them.

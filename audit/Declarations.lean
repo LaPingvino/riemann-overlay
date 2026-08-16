@@ -321,5 +321,7 @@ import Riemann
 #check @Riemann.Blindness.hauntedCount_from_profile
 #check @Riemann.Blindness.distinctZeros_not_profile_functional
 #check @Riemann.Blindness.dictionary_bounds_attained
+#check @Riemann.Blindness.minimal_haunted_configuration
+#check @Riemann.Blindness.minimal_haunted_attained
 #check @Riemann.Blindness.configAt_H
 #check @Riemann.Blindness.configAt_offAt

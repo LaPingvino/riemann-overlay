@@ -152,6 +152,7 @@ CONE_EXPECTED = {
     "Blindness.hauntedCount_from_profile": set(),
     "Blindness.distinctZeros_not_profile_functional": set(),
     "Blindness.dictionary_bounds_attained": set(),
+    "Blindness.minimal_haunted_configuration": set(),
     "Blindness.atomCount_le_distinctZeros": set(),
     "Blindness.distinctZeros_le_atomCount_add_Noff": set(),
     "starBound_of_multiplicity_le": set(),

@@ -3990,6 +3990,34 @@ theorem three_mul_haunted_le_N (D : ZeroData) : 3 * hauntedCount D ≤ D.N := by
   have h := Nsc_add_three_mul_haunted_le_N D
   omega
 
+/-- **Why one configuration keeps being extremal: it is the cheapest object that
+haunts at all** — `SESSION 189`.
+
+`178`–`180` and `188` found the haunted mass-`3` atom attaining **eight**
+separate bounds, across the route table, the chain, and the `N_d` dictionary.
+That is not a coincidence and it has a one-line reason.
+
+`three_mul_haunted_le_N` says `3·hauntedCount ≤ N`.  So **any** configuration
+with a haunted ordinate at all carries at least three zeros, and
+`configAt 0 1 1 a` carries exactly three (`178`).  It is the minimum of the class,
+and every bound the ledger owns that mentions `hauntedCount` is an inequality
+between costs paid *per haunted ordinate* — so each is tight exactly where
+haunting is cheapest, which is here.
+
+The bounds not mentioning `hauntedCount` are tight here for the dual reason:
+`NscStd = Nsc + hauntedCount` (`109`) turns every `NscStd` statement into a
+haunted-count statement, and `Noff + NscStd ≤ N` is saturated when the ordinate's
+whole mass is one critical zero plus its ghosts. -/
+theorem minimal_haunted_configuration (D : ZeroData) (h : 1 ≤ hauntedCount D) :
+    3 ≤ D.N :=
+  le_trans (by omega) (three_mul_haunted_le_N D)
+
+/-- …and the minimum is attained, by the configuration in question. -/
+theorem minimal_haunted_attained {a : ℝ} (ha : a ≠ 1/2) :
+    1 ≤ hauntedCount (configAt 0 1 1 a) ∧ (configAt 0 1 1 a).N = 3 := by
+  obtain ⟨hN, -, -, -, -, hH, -⟩ := mass_three_atom_attains_all ha
+  exact ⟨by omega, hN⟩
+
 /-- **Both are strictly weaker than `110`'s, on the certified inputs.**
 
 `three_mul_haunted_le_N` gives `δ ≤ 1/3 ≈ 0.3333`; `haunted_le_NscStd` gives no

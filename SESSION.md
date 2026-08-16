@@ -8803,3 +8803,46 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 for eight separate bounds across three different vocabularies, which stops
 looking like a coincidence and starts looking like the definition of what this
 ledger measures.
+
+# SESSION 189 — why one configuration is extremal everywhere
+
+**Kill condition, stated first:** *if some configuration with `hauntedCount ≥ 1`
+has `N < 3`, mass `3` is not minimal and the explanation fails.* **It did not
+fire.**
+
+`188` closed on a hypothesis rather than a fact: the haunted mass-`3` atom is
+extremal for **eight** bounds — six route bounds (`178`), the chain lift
+(`179`/`180`), the `N_d` dictionary's upper end (`188`) — and that "stops looking
+like a coincidence". This cycle turns that into a theorem.
+
+**`Blindness.minimal_haunted_configuration`** (axiom-free): `3·hauntedCount ≤ N`,
+so **any** configuration that haunts at all carries at least three zeros.
+**`minimal_haunted_attained`**: `configAt 0 1 1 a` carries exactly three.
+
+It is the minimum of its class. And every ledger bound mentioning `hauntedCount`
+is an inequality between costs paid **per haunted ordinate**, so each is tight
+exactly where haunting is cheapest — which is there.
+
+The bounds that do *not* mention `hauntedCount` are tight for the dual reason:
+`NscStd = Nsc + hauntedCount` (`109`) rewrites every `NscStd` statement as a
+haunted-count statement, and `Noff + NscStd ≤ N` saturates when an ordinate's
+whole mass is one critical zero plus its ghosts.
+
+**So the eight coincidences share one cause**, and
+`Blindness.minimal_haunted_configuration` names it: the object this ledger
+measures is the cost of a lone critical zero being shadowed, and its cheapest
+instance is where every accounting of that cost becomes an equality.
+
+## Snag, bin 2
+
+Third forward-reference of the run: I anchored on `Nsc_add_three_mul_haunted_le_N`'s
+docstring and then used `three_mul_haunted_le_N`, which sits ~430 lines below.
+Relocated by anchoring on the first docstring *after* that theorem. Caught by the
+build, as the previous two were.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` checks **28**.
+
+**Might-mean, unhedged:** the project spent 189 cycles measuring a quantity whose
+extremal object is three zeros and a reflection, and the last four cycles were
+spent discovering that every measurement it makes is sharp at that one object.

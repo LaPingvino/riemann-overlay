@@ -438,6 +438,27 @@ theorem proportion_of_noHaunted {F : Family} {κ : ℝ}
   rw [le_div_iff₀ hpos', heq]
   linarith [hT]
 
+/-- **Which star-bound exchange to use, and where they cross** — `SESSION 191`.
+
+A `StarBound C` reaches the `Nsc` row two ways:
+
+* **direct** — `proportion_of_starBound` gives `Proportion (2 − C)`;
+* **via haunting** — `hauntedDensity_of_starBound` gives `HauntedDensity
+  ((C−1)/6)`, then `proportion_of_hauntedDensity` gives `Proportion (κ − (C−1)/6)`.
+
+They cross at `C = 1.393` (exactly, `κ` being rational). Below it the direct
+exchange is better; above it the haunted one is, because `2 − C` degrades at rate
+`1` in `C` while the haunted route degrades at rate `1/6`.
+
+**Route III's `C = 4/3 ≈ 1.3333` sits below the crossover**, so its `2/3` is the
+right reading there — the haunted route would give only `0.61694`. That is worth
+recording because `hauntedDensity_of_starBound` is the **one** haunted-density
+bound in the development whose input is not minted from `κ` (`190`), and it is
+still dominated at the only `C` the board actually offers. -/
+theorem starBound_exchange_crossover {C : ℝ} :
+    (0.6725 : ℝ) - (C - 1) / 6 ≤ 2 - C ↔ C ≤ 1.393 := by
+  constructor <;> intro h <;> linarith
+
 /-- **The off-line exchange, fed the only `β` the machinery makes, strictly
 loses** — `SESSION 162`.
 

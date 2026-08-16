@@ -8894,3 +8894,48 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
 **Might-mean, unhedged:** four different accountings of the same ledger agree to
 five decimal places, and the reason is not that they confirm each other but that
 they were all struck from one coin.
+
+# SESSION 191 — the star-bound exchanges cross at 1.393
+
+**Kill condition, stated first:** *if the star-bound haunted route beats Route
+III's direct route, the menu is missing a row; if not, it is dominated and the
+menu stands.* **It did not fire — the menu stands.**
+
+`190`'s enumeration surfaced one haunted-density bound whose input is **not**
+minted from `κ`: `6·haunted + N ≤ N⊛` consumes a `StarBound`, and `171` showed
+that channel has axiom-free producers. So it was worth asking what it buys.
+
+## The comparison
+
+Route III's narrow box gives `C = 4/3`, hence `δ ≤ (C−1)/6 = 1/18 ≈ 0.05556` —
+**nearly 3× sharper than the certified `0.16375`**, and
+by `190`'s enumeration the one `δ` in the development whose input is not minted
+from `κ`. It still loses:
+
+| route | `Nsc ≥` | gain |
+|---|---|---|
+| via haunting, `κ − (C−1)/6` | `0.61694` | `+10.819` |
+| **direct, `2 − C`** | **`0.66667`** | **`+15.792`** |
+
+## And they cross, exactly
+
+`starBound_exchange_crossover` (axiom-free): `κ − (C−1)/6 ≤ 2 − C ↔ C ≤ 1.393`.
+Exactly `1393/1000`, `κ` being rational.
+
+Below the crossover the direct exchange wins; above it the haunted one does,
+because `2 − C` degrades at rate `1` in `C` while the haunted route degrades at
+rate `1/6`. **Route III's `4/3 ≈ 1.3333` sits below**, so `2/3` is the right
+reading there — and any future star bound weaker than `1.393` should be read the
+other way.
+
+That is a second crossover for the register, alongside the `C = 1.655` one it
+already tracks: the board is not a set of routes but a set of *exchanges*, each
+with a range of `C` where it is the right one.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved. `board.py --cones` checks **29**.
+
+**Might-mean, unhedged:** the sharpest haunted-density bound the project can
+reach is three times better than the one it uses and still the wrong way to spend
+the same input, which is what it looks like when a quantity is not the
+bottleneck.

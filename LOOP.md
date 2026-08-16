@@ -154,6 +154,15 @@ degradations, not less.
   `git commit` in one shell call; `251d` wrote the rule and `277` broke it
   anyway, which is `S113`. A guard in the roster closes the window to one
   cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
+* **R27 — query the process index before a long or unusual command, and
+  before writing a snag up as new.**  `forensics/process_index.py` holds `175`
+  entries: the `R`-rule table, the `S` table, and every `ISSUES`/`FAILURES`
+  header with its first paragraph. `S115` is why — `ISSUES` `#14` recorded in
+  session `003` that detached builds do not survive a `Bash` call, and `281`
+  hit it anyway and wrote it up as a discovery. **A closed entry is one no
+  instrument reads again**, which is exactly what made it invisible.
+  The index holds what the *registers* hold: a lesson kept only in a `SESSION`
+  entry is not in it, so where a lesson is written is now load-bearing.
 * **R26 — search the statement index before assuming or fetching, never
   before proving.**  `forensics/statement_index.py` indexes `5,118`
   declarations across this repo and the vendored dependency, with a `reachable`

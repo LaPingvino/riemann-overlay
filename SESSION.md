@@ -13346,3 +13346,56 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 
 **Might-mean, unhedged:** this project indexes what it has proved and not what it
 has learned, so its theorems are searchable and its scar tissue is not.
+
+## The process index — thirteenth guard, and its reach measured rather than claimed
+
+`284` named the pattern and deferred the design to its own cycle. This is it.
+
+**Kill condition, filed first:** *if process rules cannot be extracted
+mechanically — if what counts as a rule is a judgement call per entry — then an
+index would be a hand-curated list that goes stale like any prose, and I report
+that rather than shipping one.* It did not fire. All four sources are already
+tabular or header-structured: `LOOP`'s `| R<n> | … |` rule table, `SURPRISES`'
+`| S<n> | … |` table, and `ISSUES`/`FAILURES` `##` headers. This is extraction,
+not curation.
+
+`forensics/process_index.py` — `175` entries: `25` rules, `115` surprises, `32`
+issues, `3` failures. Staleness checked; all three exit paths exercised.
+
+**The replay, and it is a partial success — which is the honest number.** Four
+recurrences motivated this. Querying as a cycle plausibly would:
+
+| recurrence | query | surfaced |
+|---|---|---|
+| `281` detached build (`#14`) | `long build\|detached` | **yes** |
+| `S113` gate-then-commit | `gate.*commit` | **yes** |
+| `S111` re-proved theorems | `re-prove\|already prove` | no |
+| `S114` neighbouring quantities | `same headline\|neighbouring quantit` | no |
+
+All four **are** in the index. The two misses are lexical: `S111`'s row opens
+*"the two `κ` rows agreeing by coincidence was worth a cycle to check"*, which no
+natural query for "did I already prove this" reaches. The index inherits
+`claims_gate`'s weakness — it matches words, not meaning — and two of four is
+what that buys.
+
+**`R27` adopted, with the trigger named.** Query it before a long or unusual
+command, and before writing a snag up as new. The second half is the one that
+would have caught `281`, and naming a trigger is what makes `R26` work.
+
+**What it deliberately does not hold.** A lesson kept only in a `SESSION` entry
+is not indexed, because `SESSION.md` is a log rather than a register. That makes
+*where* a lesson is written load-bearing for the first time: `LOOP`, `ISSUES`,
+`SURPRISES` or `FAILURES`, or it is not findable.
+
+**Snag, bin 1.** The first version indexed `31` of `32` `ISSUES` headers. The
+missing one was `## #29 (original note, superseded)`, whose id carries a
+parenthetical with spaces that the id pattern did not allow. Caught by comparing
+the row count against the header count — `269`'s lesson, applied on purpose this
+time rather than after the fact.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green, `LOOP` at baseline `6`.
+
+**Might-mean, unhedged:** an index of scar tissue only reaches the scars whose
+description you can guess, so the registers' wording is now part of their
+function rather than only their style.

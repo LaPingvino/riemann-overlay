@@ -403,6 +403,15 @@ the class secretly consumes — the most interesting outcome available.
 > into a want-ad**: an S-moment identity helps iff its error term is `o(T)` with
 > no `log log` — a question about the SECOND-ORDER term of Fujii's expansion,
 > not its main term. Only that one error term is now worth fetching.
+
+> ✅ **FETCHED AND CLOSED, `SESSION 144`.** Chirre–Quesada-Herrera
+> (arXiv:2006.08503) §1.2 displays the error terms. Unconditionally (Selberg
+> 1946, their (1.4)) it is `O(T√(log log T))` — larger than the `2δL` signal for
+> every `δ` at every height. The `o(T)` the want-ad needs exists (Goldston 1987,
+> their (1.8)) but **only under RH**, and RH gives `Noff = 0`, which gives
+> `hauntedCount = 0` by `Fiber.noHaunted_of_Noff_zero`. **W19 dies as an
+> unconditional ledger route**, by a margin of exactly `√(log log T)`. Moved to
+> `FAILURES.md`.
 | W20 | Rudnick–Sarnak `n`-level, `n ≥ 3`: what is unconditional, and does BGST de-conditioning generalise? | iii | probe |
 | W21 | Platt–Trudgian's 12.3 × 10¹² verified zeros as **exact microscale `μ_T` data** spliced into a theorem, not a sanity check | iii | pairs with W9 |
 | **W22** | **RE-SCOPED (day cycle 2): the composition exists and has been done — see the autopsy below.** Motohashi's fourth moment as the seam of the two budgets (PRICES.md). Both traditions' walls (mollifier length, `F`-support) break on shifted-convolution input, whose common engine is the additive divisor problem, where Motohashi is the richest certified object | i | **now the hybrid's address, not a probe** |

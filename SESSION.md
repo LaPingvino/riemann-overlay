@@ -6233,3 +6233,74 @@ Second clean pass: 0 flagged.
 though it named one number, and it named two that differ by a factor of three —
 the one I kept computing was not the one the theorems I was reaching for are
 about.
+
+# SESSION 144 — the want-ad was filled, by a paper from 1987, in the wrong world
+
+**Kill condition, stated first:** *if the published error term in the `2k`-th
+moment formula for `S(t)` is `Ω(T)` — larger than the `2δL` signal a haunted
+density produces — then no such identity can see haunted mass at any `δ`, and
+W19 dies at the supply rather than at the scale.* **It fired.**
+
+`143` converted W19 into one precise question and committed to one fetch. This
+is that fetch, and it is all this cycle did.
+
+**The formulas, read off the displayed equations** — Chirre–Quesada-Herrera,
+arXiv:2006.08503 §1.2, not from memory:
+
+| source | condition | error term |
+|---|---|---|
+| Selberg 1946, their (1.4) | **unconditional** | `O(T·√(log log T))` |
+| Selberg, their (1.4) | RH | `O(T)` |
+| Goldston 1987, their (1.8) | RH | **`o(T)`** |
+
+The unconditional supply misses: `2δL` against `O(T√(log log T))` is a ratio
+`2δ/√(log log T)`, which is below 1 for every fixed `δ` at every height.
+
+**The want-ad is met by (1.8) — and (1.8) is conditional on RH.** RH gives
+`Noff = 0`; `Noff = 0` gives `NoHaunted` by `Fiber.noHaunted_of_Noff_zero`,
+axiom-free and already in this repo. So `hauntedCount = 0` identically in
+**every** world where the identity precise enough to bound it exists — an
+implication only, since `Fiber.noHaunted_not_imp_Noff_zero` puts `NoHaunted` in
+strictly more worlds than RH. **The
+want-ad is filled only where the goods are worthless.**
+
+**`S44`, and it is the honest shape of the miss.** I expected the object not to
+exist — the register's habit is that the needed thing is missing. It exists and
+is 39 years old. The route dies for a reason I had not considered: I priced the
+*precision* of the supply across two cycles and never once asked what its
+*hypothesis* does to the target.
+
+**What the death is worth.** Not "the moments are too weak" but a **located
+margin**: the entire distance between a live route and a dead one is the
+`√(log log T)` separating Selberg's unconditional error from Goldston's
+conditional one. That also explains why `143`'s numerics looked so encouraging
+at `11.2·δ` — the signal really is loud at `T ≈ 7.5×10⁴`, and the error bars are
+louder. Filed in `FAILURES.md`; `LEADS`'s W19 row closed; `F2` converted to a
+rung per the F-protocol, its cast member found and found already employed, which
+is the iron law's own prediction.
+
+**A shared input, recorded and not overread.** (1.8)'s second-order constant is
+built from `∫₁^∞ F(α)/α² dα` — the pair-correlation form factor on `[1,∞)`,
+which is the corridor `PRICES.md` prices and `LEADS`:623 calls "certified bare"
+past `A`. The S-moment route and the corridor route consume the **same**
+unavailable input. That is a shared dependency, **not** an identity of routes;
+calling them one object is the `S30` shape and the gate would flag it.
+
+*Scope, stated: only `k = 1` was fetched. Higher-`k` asymptotics and their error
+terms remain `[RECALL, UNVERIFIED]` and carry no part of this verdict.*
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, axioms
+2, base hash `cd7a22e688df` unmoved.
+
+**The gate on this entry: 4 flagged, 3 real, and one was load-bearing.** I had
+written that RH-conditionality zeroes the target *"in exactly the world where"*
+the identity exists — but `Fiber.noHaunted_not_imp_Noff_zero`, already in this
+repo, puts `NoHaunted` in strictly **more** worlds than RH. The claim is an
+implication, not a coincidence of worlds, and it now says so in both places it
+appears. Two `assert`-guarded replacements refused on line-wrapping before
+writing anything, which is the `S127` repair doing its job.
+
+**Might-mean, unhedged:** a hypothesis is not just a price you pay for an
+input — it also moves the thing you were trying to measure, and I spent two
+cycles pricing the sharpness of an instrument without checking whether its
+assumption zeroes the quantity it points at.

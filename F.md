@@ -132,6 +132,17 @@ whether the full sequence does what no finite prefix can.*
 > — the main term is the wrong part of the expansion to want. F2's cast gains a
 > named member: *an S-moment asymptotic with error `o(T)`, uniformly*.
 >
+> ✅ **`SESSION 144`: that cast member exists and is hired elsewhere.** Goldston
+> 1987 supplies exactly it (arXiv:2006.08503 (1.8)) — **under RH**. So F2's cast
+> is complete only in a world where the quantity it would bound is zero
+> (`Fiber.noHaunted_of_Noff_zero`). Per the F-protocol a fiction whose cast is
+> proven *unavailable unconditionally* converts to a **rung**: no S-moment
+> identity of order `k = 1` can bound haunted density unconditionally, and the
+> obstruction is the `√(log log T)` between (1.4) and (1.8). The iron law's
+> prediction held — the cast member was already employed, and under a name
+> (Goldston's pair-correlation second-order term) we had met in a different
+> register entirely.
+>
 > **Not claimed:** that Selberg's CLT is this supply. F2 wants moments of the
 > MASS distribution; these are moments of `S`. They meet only at sub-leading
 > order, and that scale gap is the wall — calling them one object would be the

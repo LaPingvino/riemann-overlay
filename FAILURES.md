@@ -465,3 +465,52 @@ the eight.
 pattern-claim, and the five theorem-backed rows are not judgement at all. The
 three judgement rows (1, 3, 11) are marked as such. No p-value is quoted and
 none is available.*
+
+---
+
+## W19 — Fujii/Selberg S-moments as a haunted-density bound. Dead, and the margin is `√(log log T)`.
+
+**Kill condition, as filed (`143`):** *if the published error term in the
+`2k`-th moment formula for `S(t)` is `Ω(T)` — larger than the `2δL` signal a
+haunted density produces — then no such identity can see haunted mass at any
+`δ`, and W19 dies at the supply rather than at the scale.* **It fired.**
+
+**The route.** `Fiber.six_mul_haunted_le_factMoment_three` gives
+`6·hauntedCount ≤ Σ H(H−1)(H−2)`; a bound feeds `HauntedDensity` and hence
+`proportion_of_hauntedDensity`. `143` measured what the ledger's own quantity
+does to an S-moment: a mass-`3` ordinate perturbs `∫S²` by exactly `2δL`
+(`forensics/w19_price.py`), a term with **no `log log T`**.
+
+**The supply, read off displayed formulas** — Chirre–Quesada-Herrera,
+arXiv:2006.08503 §1.2:
+
+| source | condition | error term | verdict |
+|---|---|---|---|
+| Selberg 1946, their (1.4) | **unconditional** | `O(T·√(log log T))` | swamps `2δL` for every `δ`, every `T` |
+| Selberg, their (1.4) | RH | `O(T)` | swamps `2δL` for small `δ` |
+| Goldston 1987, their (1.8) | RH | **`o(T)`** | precise enough — and useless |
+
+**Why the one that works is useless.** RH gives `Noff = 0`; `Noff = 0` gives
+`NoHaunted` by `Fiber.noHaunted_of_Noff_zero` (axiom-free, in this repo). So
+`hauntedCount = 0` identically in **every** world where the identity precise
+enough to bound it becomes available — an implication only, since
+`Fiber.noHaunted_not_imp_Noff_zero` puts `NoHaunted` in strictly more worlds
+than RH. **The want-ad is filled only where the
+goods are worthless.**
+
+**What the death is worth.** Not "the moments are too weak" — a *located*
+margin. The whole distance between a live route and a dead one is the
+`√(log log T)` separating Selberg's unconditional error from Goldston's
+conditional one. That is the smallest gap any route in this census has died in,
+and it is the reason the numerics at `T ≈ 7.5×10⁴` looked so encouraging
+(`11.2·δ`, `143`): the signal really is loud, and the error bars are louder.
+
+**A shared input, noted and not overread.** (1.8)'s second-order constant is
+built from `∫₁^∞ F(α)/α² dα` — the pair-correlation form factor on `[1,∞)`,
+which is the corridor `PRICES.md` prices and `LEADS`:623 calls "certified bare"
+past `A`. The S-moment route and the corridor route consume the **same**
+unavailable input. Recorded as a shared dependency, **not** as an identity of
+routes: that would be the `S30` shape.
+
+*Scope: only `k = 1` was fetched. Higher-`k` asymptotics and their error terms
+remain `[RECALL, UNVERIFIED]` and carry no part of this verdict.*

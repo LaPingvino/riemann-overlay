@@ -47,10 +47,45 @@ against a main term `L·(1/2π²)·log log T`.  Hence the registered prediction:
 which at these heights (`log log T ≈ 2.4`) is **≈ 16.4·δ** — and decays in
 height only as `1/log log T`.
 
-`[RECALL, UNVERIFIED]`: the `k = 1` variance constant `(1/2π²)` is verified
-(`141`, arXiv:2403.19803).  Higher-`k` asymptotics `~ c_k·T·(log log T)^k` and
-the *error terms* in Fujii's expansion are **not** read and carry no conclusion
-here.  Per queue item 4 they are labelled and left alone.
+✅ **SESSION 144 — THE WANT-AD WAS FILLED, AND THE FILL IS CIRCULAR.**  The
+error terms are no longer `[RECALL]`; they are read off displayed formulas in
+Chirre–Quesada-Herrera, arXiv:2006.08503, §1.2:
+
+    (1.4)  Selberg 1946, UNCONDITIONAL:
+             ∫₀ᵀ|S(t)|²dt = (T/2π²)·log log T + O(T·√(log log T))
+    (1.4)  Selberg, under RH:                   error O(T)
+    (1.8)  Goldston 1987, under RH:
+             ∫₀ᵀ|S(t)|²dt = (T/2π²)log log T
+                          + (T/2π²)[∫₁^∞ F(α)/α² dα + γ₀ − 2π²ΣΣ(1/m−1/m²)p^{−m}]
+                          + o(T)
+
+So the want-ad — *error `o(T)` with no `log log`* — **is met, by (1.8), and only
+by (1.8)**.  The unconditional supply (1.4) carries `O(T√(log log T))`, which
+exceeds the `2δL` signal for every fixed `δ` at every height: the ratio is
+`2δ/√(log log T) → 0`.
+
+**And (1.8) is conditional on RH, which makes the target identically zero.**  RH
+gives `Noff = 0`, and `Fiber.noHaunted_of_Noff_zero` (axiom-free, in this repo)
+gives `Noff = 0 → NoHaunted`, i.e. `hauntedCount = 0`.  The only identity precise
+enough to see a haunted density is available only in the world where there is no
+haunted density to see.
+
+**W19 is therefore dead as an unconditional ledger route**, and the death is
+located to the exact gap: `O(T√log log T)` unconditional versus `o(T)`
+conditional.  Not "the moments are too weak" — a factor of `√(log log T)`, held
+by the difference between RH and no RH.
+
+*Worth recording separately:* (1.8)'s second-order constant is built from
+`∫₁^∞ F(α)/α² dα`, the pair-correlation form factor on `[1,∞)` — the same
+corridor `PRICES.md` prices and `LEADS`:623 calls "certified bare" past `A`.
+The S-moment route and the corridor route consume the *same* unavailable input.
+That is an observation about a shared input, **not** a claim that the two routes
+are one object.
+
+`[RECALL, UNVERIFIED]`, still, and carrying no conclusion here: higher-`k`
+asymptotics `~ c_k·T·(log log T)^k` and their error terms.  Only `k = 1` was
+fetched.  The `k = 1` variance constant `(1/2π²)` is verified (`141`,
+arXiv:2403.19803).
 """
 
 import math
@@ -202,12 +237,19 @@ def main():
   vanishes so slowly that at every height anyone will ever compute, mass-3
   atoms are LOUD in the second moment.  The wall is real and asymptotic-only.
 
-  WHAT THIS CONVERTS W19 INTO.  Not "does the k=2 moment help?" but a precise
-  want-ad: **an S-moment identity helps iff its error term is `o(δ·L)`, i.e.
-  `o(T)` with no `log log`.**  That is a question about the SECOND-ORDER term
-  of Fujii's expansion, not its main term — which is exactly what `F2` meant by
-  needing "Fujii-with-main-terms" rather than moment inequalities.  Only now is
-  a fetch worth making, and it is one specific error term, not a survey.
+  WHAT THIS CONVERTED W19 INTO, AND HOW IT ENDED.  Not "does the k=2 moment
+  help?" but a precise want-ad: **an S-moment identity helps only if its error
+  term is `o(δ·L)`, i.e. `o(T)` with no `log log`.**  That fetch was made the
+  next cycle (see the ✅ block in this file's docstring) and the answer is:
+
+    * unconditional (Selberg 1946):  error `O(T·√(log log T))`  — too big, at
+      every height, for every `δ`;
+    * under RH (Goldston 1987):      error `o(T)`               — big enough,
+      and RH forces `hauntedCount = 0` by `Fiber.noHaunted_of_Noff_zero`.
+
+  So the want-ad is filled only in the world where the goods are worthless.
+  **W19 is dead as an unconditional ledger route**, by a margin of exactly
+  `√(log log T)`.
 
   NOT CLAIMED: that Selberg's CLT *is* the moment supply `F2` wants.  These are
   moments of `S`, and `F2` wants moments of the MASS distribution; the two meet

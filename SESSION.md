@@ -11567,12 +11567,32 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 sell — the count of simple atoms — and `oddAtoms`, `N_sc` and `2 − C` are three
 names for that one number rather than three separate handles on the problem.
 
-**Correction, `251b`.** The entry above was committed (`15f8224`) with one
-`claims_gate` flag unresolved: I read the gate's trailing advice line instead of
-its count line and took it for a pass. The flagged sentence claimed `249`'s
+**Correction, `251b`, itself corrected in `251d` — read the `251d` paragraph
+below before this one.** The entry above was committed (`15f8224`) with one
+`claims_gate` flag unresolved. The flagged sentence claimed `249`'s
 turning point was "the same `2 − c`" without naming a witness in the sentence;
 it now names `Nstar_add_oddAtoms_eq_two_mul_N`. Nothing in the mathematics
 changed — the theorem was already there and already cited two paragraphs down.
-The failure was in how I read the guard: its last line is constant advice, not a
-verdict, so `tail -1` cannot separate a pass from a failure. `250`'s clean run
-happened to put the count last, which is what taught me the wrong habit.
+~~The failure was in how I read the guard: its last line is constant advice, not
+a verdict, so `tail -1` cannot separate a pass from a failure.~~ **False — see
+`251d`.**
+
+**Correction, `251d`.** `251b`'s diagnosis was wrong, and `251c` propagated it
+into `SURPRISES` as `S109`. I blamed `claims_gate`: its closing advice line
+prints unconditionally, I said, so `tail -1` cannot tell a pass from a failure.
+Measured, on a clean file and a flagged one — the advice line prints **only**
+when flags exist, a clean run ends with `0 flagged sentence(s)`, and the exit
+code is `0` against `1`. The instrument distinguishes them two ways and I used
+neither.
+
+What actually happened: I put the gate, two register edits, `git commit -F -`
+and `git push` in a single `Bash` call. The `&&`-chained commit ran before any
+of the gate's output came back to me, so there was no moment at which I could
+have read it. The habit to fix is the shell structure, not the reading — the
+gate and the commit do not go in one call, or the gate's exit code becomes the
+`&&` condition.
+
+Caught by the advisor, not by me; I had already recorded the wrong cause twice.
+`S109` is corrected at its own row, and `15f8224`, `b69d426` and `19c1450`
+stand with their commit messages carrying the superseded diagnosis — the `245`
+precedent, corrected by reference rather than force-pushed.

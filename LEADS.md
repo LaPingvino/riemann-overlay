@@ -703,6 +703,8 @@ realizability from above" jaw **does not exist**.
 
 *`249`:* and the one class known to exclude `prop1`'s tight witness (`247`, `oddAtoms ≥ c·N`) turns at exactly `2 − c` — `oddAtom_class_ratio`. So the pincer's upper jaw does not close below the star-bound break-even; the two jaws meet at the same number rather than crossing.
 
+*`250`:* and the reason is now an iff — `boundedMult_two_iff_star_exact`. Multiplicity `≤ 2` is not a class on which `C ≤ 2 − κ` is provable; it is the class on which `C = 2 − N_sc/N` is an equality. A pincer that wants to close below `2 − κ` has to leave the class, not sharpen inside it.
+
 > **`SESSION 243` — sharpened, not discharged, for one family.** Within
 > multiplicity caps the claim is now a theorem.
 > `Optimal.mult_cap_excluding_pairOnly`: `Gauge.pairOnly` has `H = 2`, so a cap

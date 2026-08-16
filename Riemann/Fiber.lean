@@ -2959,7 +2959,10 @@ theorem Nsc_eq_NscStd_of_mult_le_two (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
 
 /-- **Under multiplicity `≤ 2` the star constant is exact:** `N⊛ + Nsc = 2·N`.
 Per atom, `H² + [H = 1] = 2H` with `H ∈ {1, 2}` — an identity, not an estimate.
-So `C = 2 − Nsc/N`, and `prop1`'s output `2 − C` is exactly `Nsc/N`. -/
+So `C = 2 − Nsc/N`, and `prop1`'s output `2 − C` is exactly `Nsc/N`.
+
+`250`: the converse holds too — see `boundedMult_two_iff_star_exact`, which
+makes this hypothesis and this equality the same condition. -/
 theorem Nstar_add_Nsc_eq_two_mul_N (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
     D.Nstar + D.Nsc = 2 * D.N := by
   classical
@@ -2985,6 +2988,93 @@ theorem Nstar_add_Nsc_eq_two_mul_N (D : ZeroData) (h : ∀ γ, D.H γ ≤ 2) :
     · have he : D.H γ = 2 := by omega
       rw [if_neg hone, he]; norm_num
   exact_mod_cast key
+
+/-- **`2·N ≤ N⊛ + N_sc`, with no hypothesis at all.**  `SESSION 250`.
+
+Per atom `2H ≤ H² + [H = 1]`: at `H = 1` both sides are `2`, at `H = 2` both are
+`4`, and from `H = 3` the square runs away.  This is the floor whose matching
+ceiling is `Nstar_add_pred_mul_Nsc_le` at `M = 2`. -/
+theorem two_mul_N_le_Nstar_add_Nsc (D : ZeroData) :
+    2 * D.N ≤ D.Nstar + D.Nsc := by
+  classical
+  have key : 2 * (D.N : ℤ) ≤ (D.Nstar : ℤ) + D.Nsc := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    have hS : (D.Nstar : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ) * (D.H γ : ℤ)) := by
+      rw [Nstar_eq_sum_H_sq D, Nat.cast_sum]; push_cast; rfl
+    rw [hS, hB, hN, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun γ hγ => ?_
+    have hpos : 0 < D.H γ := by
+      rw [ZeroData.H_eq_count, Multiset.count_pos]
+      exact Multiset.mem_toFinset.1 hγ
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, hone]; norm_num
+    · rw [if_neg hone]
+      have hm : (2 : ℤ) ≤ (D.H γ : ℤ) := by
+        have : 2 ≤ D.H γ := by omega
+        exact_mod_cast this
+      nlinarith
+  exact_mod_cast key
+
+/-- **Multiplicity `≤ 2` is exactly the equality class of the star bound.**
+`SESSION 250`.
+
+`097` proved `H ≤ 2 → N⊛ + N_sc = 2·N`.  With the unconditional floor
+`two_mul_N_le_Nstar_add_Nsc` in hand the converse is available too, because a
+single atom of mass `3` already makes the per-atom inequality strict
+(`9 + 0 > 6`) and the other atoms only add slack.
+
+So `C = 2 − κ` is not a bound the class happens to satisfy — the class **is**
+the set on which `C = 2 − N_sc/N` holds with equality.  That is the shared
+mechanism behind the three places `2 − c` has turned up: the star bound at
+multiplicity two (`097`), its `prop1` image `2 − C = N_sc/N` (`242`), and the
+turning point of the odd-atom class (`249`). -/
+theorem boundedMult_two_iff_star_exact (D : ZeroData) :
+    (∀ γ, D.H γ ≤ 2) ↔ D.Nstar + D.Nsc = 2 * D.N := by
+  classical
+  refine ⟨Nstar_add_Nsc_eq_two_mul_N D, fun heq γ₀ => ?_⟩
+  by_contra hbig
+  push_neg at hbig
+  have hmem : γ₀ ∈ D.ordinates.toFinset := by
+    rw [Multiset.mem_toFinset, ← Multiset.count_pos, ← ZeroData.H_eq_count]
+    omega
+  have key : 2 * (D.N : ℤ) < (D.Nstar : ℤ) + D.Nsc := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    have hS : (D.Nstar : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ) * (D.H γ : ℤ)) := by
+      rw [Nstar_eq_sum_H_sq D, Nat.cast_sum]; push_cast; rfl
+    rw [hS, hB, hN, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_lt_sum (fun γ hγ => ?_) ⟨γ₀, hmem, ?_⟩
+    · have hpos : 0 < D.H γ := by
+        rw [ZeroData.H_eq_count, Multiset.count_pos]
+        exact Multiset.mem_toFinset.1 hγ
+      by_cases hone : D.H γ = 1
+      · rw [if_pos hone, hone]; norm_num
+      · rw [if_neg hone]
+        have hm : (2 : ℤ) ≤ (D.H γ : ℤ) := by
+          have : 2 ≤ D.H γ := by omega
+          exact_mod_cast this
+        nlinarith
+    · have hone : ¬ D.H γ₀ = 1 := by omega
+      rw [if_neg hone]
+      have hm : (3 : ℤ) ≤ (D.H γ₀ : ℤ) := by
+        have : 3 ≤ D.H γ₀ := by omega
+        exact_mod_cast this
+      nlinarith
+  have : 2 * (D.N : ℤ) = (D.Nstar : ℤ) + D.Nsc := by exact_mod_cast heq.symm
+  omega
 
 /-- **The sharp form at every `M`: `N⊛ + (M−1)·Nsc ≤ M·N`.**
 

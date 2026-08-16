@@ -11480,3 +11480,48 @@ green.
 break-even, the constant `H ≤ 2` achieves, and the turning point of the
 odd-atom class, which suggests it is the boundary of what the baseline can be
 spent on rather than three separate facts.
+
+## Multiplicity `≤ 2` *is* the equality class of the star bound
+
+`249` ended with `2 − c` having turned up in three places, and a might-mean that
+they were one fact. This checks it.
+
+**Kill condition, filed first:** *if the converse needs a hypothesis beyond
+`ZeroData`'s own finiteness, then `2 − c` is a fact the class satisfies rather
+than a definition of it, and I report it that way.* It did not fire — the
+converse needs nothing.
+
+`097` had one direction: `H ≤ 2 → N⊛ + N_sc = 2·N`, per atom `H² + [H=1] = 2H`.
+Two theorems close it, both axiom-free:
+
+* `two_mul_N_le_Nstar_add_Nsc` — `2·N ≤ N⊛ + N_sc` **unconditionally**. Per atom
+  `2H ≤ H² + [H=1]`, equality at `H ∈ {1,2}`, and from `H = 3` the square runs
+  away. This is the floor matching `Nstar_add_pred_mul_Nsc_le`'s ceiling at
+  `M = 2`; the file had the ceiling since `098` and not the floor.
+* `boundedMult_two_iff_star_exact` — `(∀ γ, H γ ≤ 2) ↔ N⊛ + N_sc = 2·N`. One
+  atom of mass `3` makes its own term strict and the rest only add slack, so
+  `Finset.sum_lt_sum` closes the reverse direction with no side condition.
+
+So `C = 2 − κ` is not a bound the multiplicity-two class happens to satisfy: the
+class **is** the set where `C = 2 − N_sc/N` is an equality. That settles two of
+`249`'s three appearances — the star bound at multiplicity two (`097`) and its
+`prop1` image `2 − C = N_sc/N` (`242`) are now the two directions of
+`boundedMult_two_iff_star_exact`, whose converse direction is the new content.
+The third, `249`'s odd-atom turning point, sits on the mass-`{1,2}` family,
+where `N⊛ = 2N − N_sc` holds and `oddAtoms = N_sc`; I checked that by hand and
+did **not** formalise it, so the collapse of the third appearance is a reading,
+not a theorem. The forward pointer sits on `097`'s docstring where the
+hypothesis is stated.
+
+**Snag, bin 3.** `lake build` reported the same `3757 jobs` before and after two
+new theorems, which is what a silent no-op edit looks like (`241`). Job count
+counts modules, not declarations, so it cannot distinguish them; the witness was
+`#print axioms` on both names. Worth remembering that the number I read every
+cycle is insensitive to a failure it looks like it would catch.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, seven guards green.
+
+**Might-mean, unhedged:** a route that wants `C > 2 − κ` is asking to leave
+multiplicity two, not asking for a better estimate inside it — the constant is
+pinned by an equality there, so there is no slack to sharpen.

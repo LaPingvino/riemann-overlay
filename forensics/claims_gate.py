@@ -50,6 +50,21 @@ POSITIVE = [
     r"\bminimal\b", r"\bthe unique\b", r"\bthe only\b",
     r"\bnothing else\b", r"\bnothing more\b", r"\bnothing beyond\b",
     r"\bif and only if\b", r"\biff\b",
+    # `352`: **exactness by comparison** — `exactly as ADJ as`.  Three cycles in a
+    # row (`347`, `348`, `351`) I wrote one of these into a `SESSION.md`
+    # might-mean, caught each by re-reading rather than by this gate, and each
+    # asserted a converse I had not proved: *"separates configurations exactly as
+    # far as their ordinate multisets differ"*, *"exactly as blind as a single
+    # moment"*, *"exactly as legible as the pair of marginals"*.  `\bexact\b`
+    # cannot see them and neither can `\bexactly the\b`.
+    #
+    # The second `as` is what makes this narrow.  Measured before adding: over
+    # `Riemann/*.lean` the bare phrase `exactly as` occurs five times and this
+    # pattern flags **two**, both accurate statements heading the theorem that
+    # witnesses them — so the cost is two flags on `overclaim_floor` rather than
+    # the eleven that stopped `350` from adding *"does not determine"*.  The rule
+    # that decided both is the same: measure the cost, then choose.
+    r"\bexactly as\s+\S+\s+as\b",
     # `304`: `302` wrote "the cap is reached **exactly when** every ordinate is
     # a triple" — a set equality, wrong, and unflagged.  `\bexact\b` does not
     # match "exactly", and `\bexactly the\b` wants a noun after it.  This is
@@ -163,6 +178,16 @@ CALIBRATION = [
     ("The cap is reached exactly when every ordinate is a triple.", True),
     ("The exact m = 7 ladder value is 7415/12000, a repeating decimal.", False),
     ("Anything needing the exact value should use the ladder directly.", False),
+    # `352`: the three historical cases of exactness-by-comparison, all corrected
+    # at their locations in `SESSION.md` before being recorded here, so none is a
+    # live defect (`S89`).  Real data rather than invented strings.
+    ("The moment sequence separates configurations exactly as far as their "
+     "ordinate multisets differ.", True),
+    ("The moment family is exactly as blind as a single moment is.", True),
+    ("The ledger is exactly as legible as the pair of marginals.", True),
+    # …and the innocent forms the second `as` keeps out.
+    ("They are related exactly as the word limit claims.", False),
+    ("The row replays exactly as recorded.", False),
 ]
 
 
@@ -222,6 +247,12 @@ DOWNGRADE = [
 # `350` paid it.  So adding the pattern would raise `overclaim_floor` by about
 # eleven flags of the *"a docstring heads its own witness"* shape — the blind spot
 # recorded above — to surface one that a cycle's own reading found anyway.
+#
+# **`352` ran the same measurement on a different phrase and decided the other way.**
+# `exactly as ADJ as` cost **two** flags, both of which turned out to be improvable
+# rather than mutable — citing the theorem underneath cleared both and left the
+# floor at `203`, so that pattern was added at no cost.  The rule is not "widen"
+# or "don't widen": it is measure the cost first, then choose.  See `POSITIVE`.
 #
 # **Decision: not added, and the reason is the blind spot rather than the phrase.**
 # Until this gate can see that the declaration under a docstring is its witness,

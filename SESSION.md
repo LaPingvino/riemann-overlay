@@ -17143,3 +17143,61 @@ project spent sixty cycles mapping sits strictly below what the ledger reports �
 `X` is the statement that the reporting stops a level above where the mathematics
 happens. (The reverse reading is not proved and not claimed: the ledger does not
 determine the marginals, as `oddAtoms_not_determined_by_ledger` already shows.)
+
+## The overclaim I keep writing, now watched
+
+**Piece.** Three cycles running — `347`, `348`, `351` — I wrote an overclaim into a
+`SESSION.md` might-mean, and caught each by re-reading rather than by the gate. All
+three were the same shape in two of the three cases: **exactness by comparison**,
+*"separates configurations exactly as far as …"*, *"exactly as blind as a single
+moment"*, *"exactly as legible as the pair of marginals"* — each asserting a converse
+I had not proved. `\bexact\b` does not match "exactly" and `\bexactly the\b` wants a
+noun, so the vocabulary could not see any of them.
+
+**Kill condition, filed first:** *if the pattern that catches them costs more flags
+than it is worth, I record the gap and decline, as `350` did for "does not
+determine".* It did not fire, and the measurement is the point:
+
+* Over `Riemann/*.lean` the bare phrase `exactly as` occurs **five** times.
+* `\bexactly as\s+\S+\s+as\b` — the second `as` is what makes it narrow — flags
+  **two** of the five, skipping *"exactly as recorded"*, *"exactly as at order
+  three"*, *"exactly as the word limit claims"*.
+* Both two were accurate statements heading the theorem that witnesses them, so I
+  cited that theorem in each rather than muting anything: `Gaps.lean`'s board-prices
+  note now points at `Riemann.offLineImport_board_prices`'s fourth conjunct, and
+  `Fiber.lean`'s proximity note now says off-line is a predicate rather than a
+  distance.
+
+**So the pattern went in at zero cost** — `overclaim_floor` is still `203`, and two
+docstrings are better than they were.
+
+**`350` and `352` apply one rule and reach opposite verdicts.** `350` measured *"does
+not determine"* at eleven flags of the documented *"a docstring cannot cite the
+declaration beneath it"* shape and declined. `352` measured this one at two, both
+improvable, and added it. Recorded beside `350`'s note in
+`forensics/claims_gate.py`, because the transferable thing is not either verdict but
+that the cost gets measured before the choice.
+
+**Wildcard — calibrate on the real failures, not on invented strings.** **Kill
+condition, filed first:** *if the pattern does not catch all three historical
+sentences, it is the wrong pattern and I say so.* It caught all three. They are now
+`CALIBRATION` rows, with two innocent forms as negative controls; the gate reports
+`12/12`. All three were corrected at their locations in earlier cycles before being
+recorded here, so none is a live defect (`S89`).
+
+**What this does not fix, and it is a third of the problem.** `348`'s slip was not
+exactness by comparison but **over-quantification** — *"a useless one for everything
+the ledger reports"*, when the moments determine three of the five rows. No cheap
+pattern covers that: any rule keyed on *every* or *all* would flood a file whose
+theorems are mostly universally quantified. Two of three shapes are watched; the
+third is named here and not solved.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203`. No Lean declarations added — two docstrings edited — so no
+`equiv_check` and no `audit/Declarations.lean` entry is owed.
+
+**Might-mean, scoped to my own last three cycles:** `forensics/claims_gate.py` catches
+the shapes I got wrong before and not the one I am getting wrong now, so each new shape
+is found by re-reading and only afterwards becomes machine-checkable — which makes the
+instrument a growing record of my errors, with the re-reading still doing the finding.

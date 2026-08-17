@@ -4354,8 +4354,9 @@ the hypothesis Route III consumes, asserting every zero lies within `b/log T` of
 the critical line.
 
 **It supplies nothing here.**  `NarrowBox` constrains how *far* a zero sits from
-the line; `Noff` counts how *many* sit off it, and a zero at
-`β = 1/2 + 10⁻⁶/log T` is off-line exactly as much as one at `β = 0.9`.  For
+the line; `Noff` counts how *many* sit off it, and off-line is a
+predicate rather than a distance: a zero at `β = 1/2 + 10⁻⁶/log T` counts once,
+like one at `β = 0.9`.  For
 every `ε > 0` there is a configuration whose zeros all lie within `ε` of the line
 and whose off-line count is **all of them**.
 

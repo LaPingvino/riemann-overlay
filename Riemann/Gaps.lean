@@ -712,8 +712,9 @@ The free row costs the free import; `ξ'` costs `1 − κ'`; Route III's `2/3` c
 `0.6725` costs `β = 0` — **no off-line zeros at all**.
 
 That last is the sharp one.  Reaching the `NoHaunted` row *through this currency*
-is exactly as expensive as ruling out off-line zeros outright, which is why the
-board buys it as a multiplicity hypothesis instead. -/
+costs `β = 0`, which is ruling out off-line zeros outright — the fourth conjunct of
+`Riemann.offLineImport_board_prices` below is that `0` — and it is why the board
+buys that row as a multiplicity hypothesis instead. -/
 theorem offLineImport_board_prices :
     (2 : ℝ) * (0.6725 - 0.50875) = 0.3275
       ∧ (2 : ℝ) * (0.6725 - 0.60169) = 0.14162

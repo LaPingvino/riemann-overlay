@@ -5208,6 +5208,59 @@ theorem offLineOnly_le_Noff (D : ZeroData) : 2 * offLineOnly D ≤ D.Noff := by
     omega
   · rw [if_neg h]; omega
 
+/-! #### Which gaps `N_off = 0` closes — `SESSION 312`
+
+`311`'s closing sentence read *"the whole distance between our vocabulary and
+the literature's is priced in off-line mass."*  **It is not**, and this section
+is the correction: two of the chain's four gaps vanish with `N_off`, and two
+survive.
+
+**Kill condition, filed first:** *if all four gaps vanish under `N_off = 0`,
+`311`'s sentence is right and the deliverable is the theorem confirming it; if
+some survive, the sentence is an overclaim and the correction is the
+deliverable.*  **Two survive.** -/
+
+/-- With no off-line mass, every ordinate carries an on-line zero. -/
+theorem offLineOnly_eq_zero_of_Noff_zero (D : ZeroData) (h : D.Noff = 0) :
+    offLineOnly D = 0 := by
+  have := offLineOnly_le_Noff D; omega
+
+/-- …and nothing is haunted, since a haunted ordinate needs off-line mass. -/
+theorem hauntedCount_eq_zero_of_Noff_zero (D : ZeroData) (h : D.Noff = 0) :
+    hauntedCount D = 0 := by
+  have h1 := pred_mul_haunted_le_Noff D 3
+    (fun γ hγ => (em (D.H γ = 1)).imp id (three_le_H_of_haunted_at D hγ))
+  omega
+
+/-- **But the `oddAtoms ≤ onLineOrdinates` gap survives `N_off = 0`.**
+
+A **double zero on the critical line** has no off-line mass at all, is invisible
+to `oddAtoms` (its `onAt` is even), and is counted by `onLineOrdinates`.  So the
+distance between the two vocabularies is *not* priced in off-line mass — the part
+priced that way is `offLineOnly` and `hauntedCount`; the rest is multiplicity on
+the line, which `N_off` says nothing about. -/
+theorem evenOnAt_survives_Noff_zero {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 2 0 a).Noff = 0 ∧ evenOnAt (configAt 0 2 0 a) = 1
+      ∧ oddAtoms (configAt 0 2 0 a) = 0
+      ∧ onLineOrdinates (configAt 0 2 0 a) = 1 := by
+  classical
+  have hfin : (configAt 0 2 0 a).ordinates.toFinset = {0} := by
+    rw [configAt_ordinates, Multiset.toFinset_replicate, if_neg (by norm_num)]
+  have hon : onAt (configAt 0 2 0 a) 0 = 2 := by
+    have h := H_eq_onAt_add_offAt (configAt 0 2 0 a) 0
+    rw [configAt_H, if_pos rfl, offAt_configAt_self ha] at h
+    omega
+  refine ⟨by rw [configAt_Noff ha], ?_, ?_, ?_⟩
+  · rw [evenOnAt, hfin, Finset.filter_singleton,
+      if_pos (by rw [hon]; exact ⟨⟨1, rfl⟩, by norm_num⟩)]
+    rfl
+  · rw [oddAtoms_eq_odd_onAt, hfin, Finset.filter_singleton,
+      if_neg (by rw [hon]; simp)]
+    rfl
+  · rw [onLineOrdinates, onOrd_toFinset, hfin, Finset.filter_singleton,
+      if_pos (by rw [hon]; norm_num)]
+    rfl
+
 /-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
 
 `295` showed `oddAtoms` is not a functional of the five ledger counts, and gave

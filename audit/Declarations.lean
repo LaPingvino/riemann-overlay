@@ -329,6 +329,10 @@ import Riemann
 #check @Riemann.ZeroData.NscStd_add_simpleOffLine
 #check @Riemann.ZeroData.simpleOffLine_le_Noff
 #check @Riemann.ZeroData.NscAny_eq_NscStd_of_Noff_zero
+-- SESSION 312: which gaps Noff = 0 closes, and one that survives it.
+#check @Riemann.Blindness.offLineOnly_eq_zero_of_Noff_zero
+#check @Riemann.Blindness.hauntedCount_eq_zero_of_Noff_zero
+#check @Riemann.Blindness.evenOnAt_survives_Noff_zero
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

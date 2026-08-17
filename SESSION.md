@@ -14821,3 +14821,57 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 line — `Riemann.Blindness.offLineOnly` and `Riemann.ZeroData.simpleOffLine` — are
 bounded by `N_off` and vanish with it, so the whole distance between our
 vocabulary and the literature's is priced in off-line mass.
+
+> **Correction, `312`.** The clause after the comma is an overclaim. Those two
+> gaps do vanish with `N_off`, and so does `hauntedCount`
+> (`hauntedCount_eq_zero_of_Noff_zero`) — but the chain has two more, and
+> `evenOnAt_survives_Noff_zero` exhibits one surviving: a **double zero on the
+> critical line** has no off-line mass, is invisible to `oddAtoms`, and is
+> counted by `onLineOrdinates`. The part of the distance priced in off-line mass
+> is `offLineOnly` and `hauntedCount`; the rest is multiplicity on the line,
+> which `N_off` says nothing about.
+
+## `311` said the distance is priced in off-line mass; a double zero on the line says otherwise
+
+**Piece and wildcard, one target — correcting `311` at its location.** That
+entry closed on *"the whole distance between our vocabulary and the literature's
+is priced in off-line mass."* It is an overclaim, and I made it by generalising
+from the two gaps that cycle happened to touch.
+
+**Kill condition, filed first:** *if all four of the chain's gaps vanish under
+`N_off = 0`, `311`'s sentence is right and the deliverable is the theorem
+confirming it; if some survive, the sentence is an overclaim and the correction
+is the deliverable.* **Two survive.**
+
+Three theorems, axiom-free:
+
+* `offLineOnly_eq_zero_of_Noff_zero` — with no off-line mass every ordinate
+  carries an on-line zero;
+* `hauntedCount_eq_zero_of_Noff_zero` — and nothing is haunted, since a haunted
+  ordinate needs off-line mass (`pred_mul_haunted_le_Noff` at `m = 3`);
+* `evenOnAt_survives_Noff_zero` — **and the `oddAtoms ≤ onLineOrdinates` gap does
+  not close.** A double zero on the critical line: `N_off = 0`, `oddAtoms = 0`,
+  `onLineOrdinates = 1`, `evenOnAt = 1`.
+
+So the chain under `N_off = 0` reads `N_sc = NscStd ≤ oddAtoms ≤ onLineOrdinates
+= atomCount`, with the outer two gaps closed and the inner two open. The part of
+the distance priced in off-line mass is `offLineOnly` and `hauntedCount`; the
+rest is **multiplicity on the line**, which `N_off` says nothing about — and
+which is the object `Blindness` was written about in the first place.
+
+**Snag, bin 1.** `311` had both halves of the counterexample already: it named
+`evenOnAt` as a gap (`309`) and it knew `N_off` bounds only some gaps. The
+sentence generalised over four objects from two. This is the third might-mean in
+five cycles that needed correcting the next cycle — `302`, `308`, `311` — and all
+three failed the same way, by quantifying over a set larger than the one the
+cycle had checked.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green.
+
+**Might-mean, unhedged, and scoped to what this cycle checked:** the two gaps
+that survive `N_off = 0` — `Riemann.Blindness.evenOnAt` and the odd-above filter
+of `Riemann.Blindness.oddAtoms_eq_NscStd_add_oddAbove` — both count on-line
+zeros stacked at one height, so once the off-line mass is gone what still
+separates our counts from the literature's is the multiplicity question
+`Blindness` was written about.

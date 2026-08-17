@@ -8586,5 +8586,56 @@ theorem NscStd_not_determined_by_two_moments_and_split {γ a : ℝ} (hγ : γ �
   omega
 
 
+/-! #### The on-line side of the chain — `SESSION 365`
+
+`349` proved the on-line moments determine every on-line count under a cap and
+instantiated it only at `n = 1`, for `NscStd`.  `365` takes the general form uncapped
+and spends it on the chain's middle term.
+
+`N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount` — `348` gave the `H`-moments
+the two outer terms via the mass counts, and `349` gave the on-moments `NscStd`.
+`oddAtoms` is a count of on-line values with a parity condition, so it should fall to
+the on-moments too, and the bridge is a fiberwise partition of the ordinates by `onAt`.
+
+**Kill condition, filed first:** *if the fiberwise partition does not go through
+cheaply, I ship the uncapped `onCount` determinacy alone and state the chain corollary
+as not done.*  It did not fire.
+
+**`onLineOrdinates` is not done.**  The same argument with the predicate `n ≠ 0` in
+place of `Odd n` would give it; this cycle did not write it, and the chain's fourth
+term is therefore still unaddressed by the on-moments. -/
+
+/-- **`oddAtoms` as a sum of on-line counts.**  Partition the ordinates by the value of
+`onAt`, which lies in `[0, B]` under the cap, and keep the odd fibres. -/
+lemma oddAtoms_eq_sum_onCount (D : ZeroData) {B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ B) :
+    oddAtoms D = ∑ n ∈ Finset.range (B + 1), if Odd n then onCount D n else 0 := by
+  classical
+  have hmaps : ∀ γ ∈ D.ordinates.toFinset.filter (fun γ => ¬ Even (onAt D γ)),
+      onAt D γ ∈ Finset.range (B + 1) := by
+    intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    exact Finset.mem_range.2 (by have := h γ hγ.1; omega)
+  have hfib := Finset.card_eq_sum_card_fiberwise hmaps
+  rw [oddAtoms_eq_odd_onAt, hfib]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  by_cases hn : Odd n
+  · rw [if_pos hn, onCount]
+    congr 1
+    ext γ
+    simp only [Finset.mem_filter, Multiset.mem_toFinset]
+    constructor
+    · intro hx; exact ⟨hx.1.1, hx.2⟩
+    · intro hx
+      refine ⟨⟨hx.1, ?_⟩, hx.2⟩
+      rw [hx.2]
+      exact Nat.not_even_iff_odd.2 hn
+  · rw [if_neg hn, Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+    intro γ hγ h2
+    rw [Finset.mem_filter] at hγ
+    exact hn (Nat.not_even_iff_odd.1 (h2 ▸ hγ.2))
+
+
+
 end Blindness
 end Riemann

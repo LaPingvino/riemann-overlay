@@ -765,6 +765,41 @@ theorem ledger_determined_by_both_moment_families {D D' : ZeroData}
   have h1 := hon 1
   omega
 
+/-- **The on-line moments determine every on-line count, with no cap.**  `349`'s capped
+theorem at `B = max D.N D'.N`, which is the same reduction `346` used for the `H`-side.
+`349` shipped only the `n = 1` instance, inside `NscStd_determined_by_on_moments`. -/
+
+theorem onCount_determined_by_on_moments {D D' : ZeroData}
+    (hm : ∀ p, Blindness.onMoment D p = Blindness.onMoment D' p) (n : ℕ) :
+    Blindness.onCount D n = Blindness.onCount D' n := by
+  have hon : ∀ (E : ZeroData) (γ : ℝ), Blindness.onAt E γ ≤ E.N := by
+    intro E γ
+    have h := Blindness.H_eq_onAt_add_offAt E γ
+    have h2 := H_le_N E γ
+    omega
+  exact Blindness.onCount_determined_of_cap (B := max D.N D'.N)
+    (fun γ _ => le_trans (hon D γ) (le_max_left _ _))
+    (fun γ _ => le_trans (hon D' γ) (le_max_right _ _)) hm n
+
+/-- **…and therefore `oddAtoms`.**  Through `Blindness.oddAtoms_eq_sum_onCount` at a
+common bound.  With `349` this puts two of the chain's five terms in the on-line
+family's reach; `348` puts the two outer ones in the `H`-family's. -/
+
+theorem oddAtoms_determined_by_on_moments {D D' : ZeroData}
+    (hm : ∀ p, Blindness.onMoment D p = Blindness.onMoment D' p) :
+    Blindness.oddAtoms D = Blindness.oddAtoms D' := by
+  have hon : ∀ (E : ZeroData) (γ : ℝ), Blindness.onAt E γ ≤ E.N := by
+    intro E γ
+    have h := Blindness.H_eq_onAt_add_offAt E γ
+    have h2 := H_le_N E γ
+    omega
+  rw [Blindness.oddAtoms_eq_sum_onCount D (B := max D.N D'.N)
+        (fun γ _ => le_trans (hon D γ) (le_max_left _ _)),
+      Blindness.oddAtoms_eq_sum_onCount D' (B := max D.N D'.N)
+        (fun γ _ => le_trans (hon D' γ) (le_max_right _ _))]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  rw [onCount_determined_by_on_moments hm n]
+
 /-- A **cheap constraint**: an upper bound on horizontal multiplicity.  This is
 the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, and
 it involves no multiplicative information whatever. -/

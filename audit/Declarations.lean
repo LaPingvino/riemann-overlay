@@ -827,3 +827,10 @@ import Riemann
 -- N, Nstar, Noff (and the on-line total they determine) do not fix NscStd, so the
 -- paper's certificate class is strictly richer than that shadow of it.
 #check @Riemann.Blindness.NscStd_not_determined_by_two_moments_and_split
+
+-- SESSION 365: the on-line side of the chain.  349's capped onCount determinacy, taken
+-- uncapped, plus a fiberwise partition of the ordinates by onAt, gives oddAtoms.
+-- onLineOrdinates is NOT done.
+#check @Riemann.Blindness.oddAtoms_eq_sum_onCount
+#check @Riemann.Optimal.onCount_determined_by_on_moments
+#check @Riemann.Optimal.oddAtoms_determined_by_on_moments

@@ -17856,3 +17856,52 @@ unresolved. No Lean changed.
 list the ones its own keeper creates, so the queue's value is not that it reaches zero but
 that reaching zero requires saying out loud which entries were paid and which were only
 explained — and this cycle paid neither.
+
+## The on-line side of the chain
+
+**Piece.** `349` proved the on-line moments determine every `onCount` **under a cap**, and
+spent it only at `n = 1`, for `NscStd`. This takes the general form uncapped and spends it
+on the chain's middle term.
+
+The chain is `N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount`. `348` gave the
+`H`-moments its two outer terms through the mass counts; `349` gave the on-moments
+`NscStd`. `oddAtoms` counts on-line values with a parity condition, so it should fall to
+the on-moments too.
+
+**Kill condition, filed first:** *if the fiberwise partition does not go through cheaply, I
+ship the uncapped `onCount` determinacy alone and state the chain corollary as not done.*
+It did not fire.
+
+* `Riemann.Optimal.onCount_determined_by_on_moments` — the uncapped form, at
+  `B = max D.N D'.N`. **One line**, because `346` had already found that every
+  configuration is capped by its own `N`.
+* `Blindness.oddAtoms_eq_sum_onCount` — the bridge: partition the ordinates by the value
+  of `onAt`, which lies in `[0, B]` under the cap, and keep the odd fibres.
+* `Riemann.Optimal.oddAtoms_determined_by_on_moments` — the corollary.
+
+**`S154` — I had the difficulty backwards.** I expected the general theorem to be the work
+and `oddAtoms` to be a corollary. The general theorem was one line; `oddAtoms` needed the
+fiberwise partition, three Mathlib renames (`Nat.not_even_iff_odd`, `Finset.notMem_empty`,
+`Finset.filter_eq_empty_iff`), and a `Finset.card_eq_sum_card_fiberwise` whose side
+condition had to be a named `have` rather than an inline `?_`.
+
+**`onLineOrdinates` is not done, and the docstring says so.** The same argument with `n ≠ 0`
+in place of `Odd n` would give it. I did not write it, so the chain's fourth term is still
+unaddressed by the on-moments.
+
+**Snag, bin 2 — my shipping script dropped a lemma's binders.** Extracting the block from
+scratch with `split("\n",1)[1]` cut the line carrying `(D : ZeroData) {B : ℕ}`, so the
+lemma shipped with its hypothesis and no subject and the build failed in two places at the
+call site rather than the definition. Restored by hand. This is `358`'s snag in a new
+costume: string surgery over Lean source cuts wherever the pattern says, not where the
+syntax ends.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`,
+duplication floor `26`, overclaim floor `203` — clean first pass.
+
+**Might-mean, scoped to the four chain terms now placed:** the chain the decomposition arc
+built splits by which moment family sees it — the two outer terms to the multiplicity
+moments, `NscStd` and `oddAtoms` to the on-line ones — so the chain is not a ladder of
+increasing strength but a boundary between two kinds of statistic, with the ledger's two
+reported rows on opposite sides of it.

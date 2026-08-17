@@ -5384,6 +5384,70 @@ theorem atomCount_decomposition_all_inhabited {a : ℝ} (ha : a ≠ 1/2) :
   · rw [offLineOnly_from_profile, hp]; decide
   · rw [atomCount_eq_card_profile, hp]; decide
 
+/-! #### Blindness, extended to the decomposition — `SESSION 325`
+
+`324` settled `E.md`'s thesis with a **partial** witness:
+`no_muInvariant_theory_computes_NscStd` covers one nature and one quantity.
+`314` split the ordinates into five classes, so the question is which of them a
+`μ_T`-invariant theory can compute.  `N_sc` it can — `Nsc_eq_ordinate_functional`
+— and `oddAtoms` too.  The four gaps are the question.
+
+**Kill condition, filed first:** *if the existing gauge pair does not separate all
+four gaps — if some gap agrees on `Gauge.triple` and `Gauge.haunted` — then that
+gap is `μ_T`-computable and I report which, rather than extending the
+blindness.*  **It fired.**  The mass-three pair separates `hauntedCount` and
+`oddAbove` and is **silent** on `evenOnAt` and `offLineOnly`, which are `0` on
+both configurations.  Blindness at mass three does not reach the two classes that
+need an ordinate of even on-line count.
+
+So there is a second pair, at mass two, and between them the four gaps are
+covered. -/
+
+/-- **The mass-three gauge pair separates two of the four gaps.**
+`Gauge.triple` is three on-line zeros at one height, `Gauge.haunted` is one
+on-line zero with a mirror pair — same `μ_T`, and the ordinate is `oddAbove` for
+the first and `hauntedCount` for the second. -/
+theorem gauge_pair_separates_haunted_and_oddAbove :
+    hauntedCount Gauge.triple = 0 ∧ oddAbove Gauge.triple = 1
+      ∧ hauntedCount Gauge.haunted = 1 ∧ oddAbove Gauge.haunted = 0 := by
+  classical
+  obtain ⟨f, hf⟩ := oddAtoms_ordinate_functional
+  have hodd : oddAtoms Gauge.triple = oddAtoms Gauge.haunted := by
+    rw [hf, hf, Gauge.ordinates_eq]
+  have hnsc := Gauge.Nsc_gauge_invariant
+  have h1 := NscStd_eq_Nsc_add_haunted Gauge.triple
+  have h2 := NscStd_eq_Nsc_add_haunted Gauge.haunted
+  have h3 := oddAtoms_eq_NscStd_add_oddAbove Gauge.triple
+  have h4 := oddAtoms_eq_NscStd_add_oddAbove Gauge.haunted
+  have ht := Gauge.NscStd_triple
+  have hh := Gauge.NscStd_haunted
+  have hac : atomCount Gauge.haunted = 1 := by
+    rw [atomCount, ← Gauge.ordinates_eq]
+    show (Multiset.map Prod.snd (Multiset.replicate 3 ((1/2 : ℝ), (0:ℝ)))).toFinset.card = 1
+    rw [Multiset.map_replicate, Multiset.toFinset_replicate, if_neg (by norm_num)]
+    rfl
+  have hle := oddAtoms_le_atomCount Gauge.haunted
+  have hge := NscStd_le_oddAtoms Gauge.haunted
+  omega
+
+/-- **A second gauge pair, at mass two, separates the other two.**  One ordinate
+of multiplicity two: both zeros on the line, or one mirror pair.  Same `μ_T` by
+`configAt_ordinates`, and the ordinate is `evenOnAt` for the first and
+`offLineOnly` for the second. -/
+theorem gauge_pair_two_separates_even_and_offLine {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 2 0 a).ordinates = (configAt 0 0 1 a).ordinates
+      ∧ evenOnAt (configAt 0 2 0 a) = 1 ∧ offLineOnly (configAt 0 2 0 a) = 0
+      ∧ evenOnAt (configAt 0 0 1 a) = 0 ∧ offLineOnly (configAt 0 0 1 a) = 1 := by
+  classical
+  have h2 := configAt_profile (γ := (0:ℝ)) ha (k := 2) (j := 0) (by norm_num)
+  have h0 := configAt_profile (γ := (0:ℝ)) ha (k := 0) (j := 1) (by norm_num)
+  norm_num at h2 h0
+  refine ⟨by rw [configAt_ordinates, configAt_ordinates], ?_, ?_, ?_, ?_⟩
+  · rw [evenOnAt_from_profile, h2]; decide
+  · rw [offLineOnly_from_profile, h2]; decide
+  · rw [evenOnAt_from_profile, h0]; decide
+  · rw [offLineOnly_from_profile, h0]; decide
+
 /-! #### What each class costs — `SESSION 315`
 
 `314` made the counting vocabulary a partition.  A partition invites a weight:

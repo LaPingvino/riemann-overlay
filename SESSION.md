@@ -15506,3 +15506,47 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, scoped to the seven entries now read:** the one genuinely open
 obligation in this register needs a history of solved problems rather than any
 theorem, so what this project is short of is not proof but reading.
+
+## Blindness needed a second gauge pair
+
+**Piece and wildcard, one target.** `324` settled `E.md`'s thesis with a partial
+witness — `no_muInvariant_theory_computes_NscStd` covers one nature and one
+quantity. `314` split the ordinates into five classes, so the sharper question is
+which of them a `μ_T`-invariant theory can compute. `N_sc` it can
+(`Nsc_eq_ordinate_functional`), and `oddAtoms` too. The four gaps were the
+question.
+
+**Kill condition, filed first:** *if the existing gauge pair does not separate
+all four gaps — if some gap agrees on `Gauge.triple` and `Gauge.haunted` — then
+that gap is `μ_T`-computable and I report which, rather than extending the
+blindness.* **It fired, and the failure is the finding.**
+
+`gauge_pair_separates_haunted_and_oddAbove`: the mass-three pair separates
+`hauntedCount` and `oddAbove` — three stacked on-line zeros against one on-line
+zero with a mirror pair, same `μ_T`, the ordinate landing in a different class
+each way. But `evenOnAt` and `offLineOnly` are **`0` on both configurations**.
+The pair that has carried Blindness since the beginning is silent on the two
+classes that need an ordinate of *even* on-line count, because mass three is odd.
+
+`gauge_pair_two_separates_even_and_offLine`: a second pair at **mass two** — one
+ordinate of multiplicity two, either both zeros on the line or one mirror pair.
+Same `μ_T` by `configAt_ordinates`; `evenOnAt = 1, offLineOnly = 0` against
+`evenOnAt = 0, offLineOnly = 1`. Both axiom-free, and the second is four
+`decide`s on one-entry profiles.
+
+So all four gaps of `314`'s decomposition are invisible to `μ_T`, and **it takes
+two gauge pairs to say so**. `E.md`'s settle is widened at its location.
+
+**Snag, bin 2.** I expected one pair to suffice. In hindsight the parity says
+otherwise: both sides of the mass-three pair have odd `onAt` where their zeros
+sit, so a class defined by an even on-line count reads `0` on each side. That
+pair was built at `#7` for `NscStd`, which lives on the odd side, and a
+separating object inherits the question it was built for.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2.
+
+**Might-mean, scoped to the four gaps and two pairs checked:** the blindness this
+project has been describing since `#7` needs one witness per parity of the
+on-line count, so what `μ_T` hides is indexed by the same arithmetic that indexes
+the decomposition.

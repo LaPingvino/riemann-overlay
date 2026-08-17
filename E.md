@@ -83,7 +83,12 @@ so every instrument half-works, and the halves are canonical.
 > **partial machine witness**, and the scope matters.
 > `Riemann.Blindness.no_muInvariant_theory_computes_NscStd` and its bundle form
 > prove that no `μ`-invariant theory computes `NscStd`: one nature, one quantity,
-> formalised. That is an instance of the shape, not the sentence. The general
+> formalised. That is an instance of the shape, not the sentence.
+> *(`325` widened the instance: `gauge_pair_separates_haunted_and_oddAbove` and
+> `gauge_pair_two_separates_even_and_offLine` show all four gaps of `314`'s
+> decomposition are invisible to `μ_T`, and that it takes **two** gauge pairs to
+> see them — the mass-three pair is silent on the two classes that need an even
+> on-line count.)* The general
 > claim quantifies over instruments this project has not defined, and stays a
 > thesis rather than a theorem.
 

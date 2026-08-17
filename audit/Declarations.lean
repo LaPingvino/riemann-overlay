@@ -345,6 +345,9 @@ import Riemann
 #check @Riemann.Blindness.oddAbove_survives_Noff_zero
 #check @Riemann.Blindness.atomCount_decomposition_all_inhabited
 -- SESSION 315: each class charged its minimum mass.
+-- SESSION 325: Blindness extended to the decomposition's four gaps.
+#check @Riemann.Blindness.gauge_pair_separates_haunted_and_oddAbove
+#check @Riemann.Blindness.gauge_pair_two_separates_even_and_offLine
 #check @Riemann.Blindness.mass_charges_every_class
 #check @Riemann.Blindness.Nsc_add_gaps_le_N
 -- SESSION 316: the weights are tight; the bound is a re-coordinatisation.

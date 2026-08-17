@@ -659,3 +659,19 @@ import Riemann
 #check @Riemann.Blindness.pure_chain_momentK
 #check @Riemann.Blindness.pure_chain_Nsc
 #check @Riemann.Blindness.single_momentK_not_determine_Nsc
+
+-- SESSION 336: a multiplicity cap does not bound `N_sc`, it computes it.  Two
+-- hypothesis-free inequalities whose equality cases are the caps at 3 and 4, and
+-- the composition with 334 -- the moment family's equality set is exactly where
+-- three moments compute `N_sc`.
+#check @Riemann.Blindness.Nsc_eq_sum_mass_one_nat
+#check @Riemann.Blindness.one_le_H_of_mem
+#check @Riemann.Blindness.cap_three_pointwise
+#check @Riemann.Blindness.cap_three_pointwise_lt
+#check @Riemann.Blindness.two_mul_Nsc_add_five_mul_N_le
+#check @Riemann.Blindness.two_mul_Nsc_eq_iff
+#check @Riemann.Blindness.momentK_charges_eq_iff_Nsc_computed
+#check @Riemann.Blindness.cap_four_pointwise
+#check @Riemann.Blindness.cap_four_pointwise_lt
+#check @Riemann.Blindness.nine_mul_Nstar_add_atomCount_le
+#check @Riemann.Blindness.nine_mul_Nstar_add_atomCount_eq_iff

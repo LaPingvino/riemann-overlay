@@ -2334,6 +2334,13 @@ the *behaviour* the literature is said to report, not read the literature.
 
 ## Does the whole moment sequence determine `N_sc`? (SESSION 335, open)
 
+> **Partly answered at `336`, and the answer is a cap rather than a limit.**
+> Under a multiplicity cap the question is finite and positive: `two_mul_Nsc_eq_iff`
+> gives `2·N_sc + 5·N = N⊛ + 6·atomCount` **iff** every mass is at most `3`, and
+> `nine_mul_Nstar_add_atomCount_eq_iff` does the same at `4` with the third moment.
+> So *three* moments compute `N_sc` on capped configurations, and the general
+> uncapped question below is what remains — the limit statement, not the finite one.
+
 `335` proved two things that leave a gap between them. Every `momentK D k` is a
 functional of `D.ordinates` (`momentK_ordinate_functional`), and `N_sc` is *also*
 an ordinate functional (`Nsc_eq_ordinate_functional`) — so the reduction that

@@ -16059,3 +16059,68 @@ spending effort in a currency that provably cannot carry the answer. Where the
 family might be stronger than one member is a different question and is **not**
 answered here: the wildcard shows one moment cannot determine `N_sc`, and whether
 the whole sequence can is left open.
+
+## A multiplicity cap does not bound `N_sc` — it computes it
+
+**Piece.** `200`–`206` characterised the unconditional linear bounds
+`a·N + b·N⊛ ≤ N_sc` by the mass test `a·m + b·m² ≤ [m = 1]`, and `linearBound_iff`
+showed only masses `1` and `2` bind. This asks what a *cap* buys, with three
+counts instead of two.
+
+**Kill condition, filed first:** *if the cap-`3` identity holds only under the
+cap — if the pointwise inequality fails somewhere above `3` in the wrong
+direction — it is a conditional identity and I say so rather than dressing it as
+a bound.* **It did not fire.** The pointwise gap is `(m−2)(m−3)`, non-negative
+for every `m ≥ 1`, so the inequality is hypothesis-free and the cap is exactly
+its equality case. That is `334`'s skeleton, and the shape the disk already
+demanded: the cap-`2` case has been an `iff` since `boundedMult_two_iff_star_exact`.
+
+`two_mul_Nsc_add_five_mul_N_le`: **`2·N_sc + 5·N ≤ N⊛ + 6·atomCount`**, every
+configuration. `Riemann.Blindness.two_mul_Nsc_eq_iff` carries both directions: equality holds
+**iff** every ordinate has mass at most three. So on capped configurations `N_sc` is not bounded by `atomCount`, `N`
+and `N⊛` — it is *determined* by them, and that is a difference in kind from
+anything `200`–`206` could state.
+
+`Riemann.Blindness.momentK_charges_eq_iff_Nsc_computed` composes it with `334` in
+one line, and carries both directions: the moment charge is an equality **iff**
+the `N_sc` identity is. By `momentK_zero`/`momentK_one`/`momentK_two` the three
+counts in that identity are the moments at `k = 0, 1, 2`.
+
+**Two contrasts, both already on disk, neither re-derived.**
+`no_NscStd_coefficient_at_three` says that under the same cap `NscStd` cannot
+hold *any* coefficient in a bound of that shape — so the cap pins `N_sc` exactly
+while leaving `NscStd` unreachable, which is `X` again in a new currency. And
+`Proportion.starBound_of_mult_le_three` turns the same hypothesis into
+`StarBound 1.9825` for `zetaFamily`; this is a second, exact consequence of a
+hypothesis the ledger already has a route for.
+
+**Wildcard — does the cap at four do the same, and in which direction?**
+**Kill condition, filed first:** *if the strict tail above `4` needs cubic
+positivity the naturals will not give cheaply, I ship a conditional identity and
+record that the unconditional form was not reached.* It did not fire:
+substituting `m = j + 5` turns the gap `(m−2)(m−3)(m−4)` into `(j+1)(j+2)(j+3)`,
+a sum of positive terms with no truncated subtraction anywhere.
+
+`nine_mul_Nstar_add_atomCount_le` gives `9·N⊛ + 24·atomCount ≤ 6·N_sc + Σm³ +
+26·N` for every configuration, and
+`Riemann.Blindness.nine_mul_Nstar_add_atomCount_eq_iff` carries both directions of
+the equality condition: it holds precisely when every mass is at most four. **The direction flips.** At
+the cap of three `N_sc` sits on the small side of the inequality; at four it sits
+on the large side, because the gap polynomial changes sign with its degree's
+parity. Two rungs are witnessed, so the alternation is stated for `3` and `4` and
+for no general `m`.
+
+**Snag, bin 2.** `interval_cases` needed the strict tail split out at `m = 4`
+rather than folded into the same `<;>`: the branch is one case, and the `<;>`
+tripped the `unnecessarySeqFocus` linter, which would have moved the warning
+floor off `54`. Caught in scratch, so the floor stayed at `54`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, warnings at the floor `54` (the eleven new
+declarations added none), duplication floor `23`.
+
+**Might-mean, scoped to the caps at three and four:** a multiplicity cap is not a
+technical convenience that makes bounds nicer — under it `N_sc` is an explicit
+linear function of `atomCount`, `N` and `N⊛`, so any route that assumes bounded
+multiplicity is assuming enough to compute `N_sc` outright and should be priced
+as assuming that rather than as assuming a bound.

@@ -7248,5 +7248,193 @@ theorem single_momentK_not_determine_Nsc {a : ℝ} (ha : a ≠ 1/2) (k : ℕ) :
   rw [pure_chain_momentK ha 2 k (by norm_num), simple_chain_momentK ha _ k]
 
 
+/-! #### A multiplicity cap does not bound `N_sc` — it computes it — `SESSION 336`
+
+`200`–`206` characterised the *unconditional* linear bounds `a·N + b·N⊛ ≤ N_sc`
+by the mass test `a·m + b·m² ≤ [m = 1]` at every `m ≥ 1`, and `linearBound_iff`
+showed only masses `1` and `2` bind.  Under a cap the picture changes kind: with
+three counts instead of two, `N_sc` stops being bounded and becomes determined.
+
+`Nstar_add_Nsc_eq_two_mul_N` and `boundedMult_two_iff_star_exact` are the cap-`2`
+case and have been on disk since `178`-era work — two unknowns, two equations,
+no `atomCount` needed.  Below are the caps at `3` and `4`.
+
+**Kill condition, filed first:** *if the cap-`3` identity holds only under the
+cap — if the corresponding pointwise inequality fails somewhere above `3` in the
+wrong direction — then it is a conditional identity and not a member of this
+file's inequality inventory, and I say so rather than dressing it as a bound.*
+It did not fire: the pointwise gap is `(m−2)(m−3)`, so the inequality is
+unconditional and the cap is exactly its equality case.  Both statements below
+are therefore hypothesis-free `≤` plus an `iff`, which is `334`'s skeleton. -/
+
+/-- `N_sc` as a `ℕ`-valued sum over the atoms.  `Nsc_eq_sum_mass_one` is the
+same fact in `ℤ`; the `ℕ` form is what the sum-inequality lemmas want. -/
+lemma Nsc_eq_sum_mass_one_nat (D : ZeroData) :
+    D.Nsc = ∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then 1 else 0) := by
+  classical
+  have h := Nsc_eq_sum_mass_one D
+  have : ((D.Nsc : ℤ)) = ((∑ γ ∈ D.ordinates.toFinset,
+      (if D.H γ = 1 then 1 else 0) : ℕ) : ℤ) := by
+    rw [h]
+    push_cast
+    exact Finset.sum_congr rfl fun γ _ => by by_cases hg : D.H γ = 1 <;> simp [hg]
+  exact_mod_cast this
+
+/-- An ordinate in the support has mass at least one.  Spelled out because
+`interval_cases` needs both bounds in scope (`329`). -/
+lemma one_le_H_of_mem {D : ZeroData} {γ : ℝ} (hγ : γ ∈ D.ordinates.toFinset) :
+    1 ≤ D.H γ := by
+  classical
+  rw [D.H_eq_count γ]
+  exact Multiset.count_pos.2 (Multiset.mem_toFinset.1 hγ)
+
+/-- The cap-`3` pointwise inequality, `2·[m = 1] + 5m ≤ m² + 6`.  The gap is
+`(m−2)(m−3)`, written here as the two cases the naturals make cheap. -/
+lemma cap_three_pointwise {m : ℕ} (hm : 1 ≤ m) :
+    2 * (if m = 1 then 1 else 0) + 5 * m ≤ m * m + 6 := by
+  rcases Nat.lt_or_ge m 5 with h | h
+  · interval_cases m <;> norm_num
+  · rw [if_neg (by omega)]
+    have : 5 * m ≤ m * m := Nat.mul_le_mul h le_rfl
+    omega
+
+/-- …strict from `4` up, which is the contrapositive half of the `iff`. -/
+lemma cap_three_pointwise_lt {m : ℕ} (h : 4 ≤ m) :
+    2 * (if m = 1 then 1 else 0) + 5 * m < m * m + 6 := by
+  rw [if_neg (by omega)]
+  rcases Nat.lt_or_ge m 5 with h5 | h5
+  · have hm4 : m = 4 := by omega
+    subst hm4
+    norm_num
+  · have : 5 * m ≤ m * m := Nat.mul_le_mul h5 le_rfl
+    omega
+
+/-- **`2·N_sc + 5·N ≤ N⊛ + 6·atomCount`, for every configuration.**
+
+Three ordinate functionals on the right, `N_sc` on the left.  Contrast
+`no_NscStd_coefficient_at_three`: under the same cap `NscStd` cannot hold *any*
+coefficient in a bound of that shape, while `N_sc` is pinned exactly. -/
+theorem two_mul_Nsc_add_five_mul_N_le (D : ZeroData) :
+    2 * D.Nsc + 5 * D.N ≤ D.Nstar + 6 * atomCount D := by
+  classical
+  rw [Nsc_eq_sum_mass_one_nat, N_eq_sum_H, Nstar_eq_sum_H_sq, atomCount,
+    Finset.card_eq_sum_ones, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  exact Finset.sum_le_sum fun γ hγ => by
+    simpa using cap_three_pointwise (one_le_H_of_mem hγ)
+
+/-- **…with equality exactly under a multiplicity cap of three.**  So on capped
+configurations `N_sc` is not merely bounded by `atomCount`, `N` and `N⊛` — it is
+*computed* by them, which is what a cap buys that no unconditional bound can.
+
+The same hypothesis is what `Proportion.starBound_of_mult_le_three` turns into
+`StarBound 1.9825` for `zetaFamily`; this is a second, exact consequence of it. -/
+theorem two_mul_Nsc_eq_iff (D : ZeroData) :
+    (2 * D.Nsc + 5 * D.N = D.Nstar + 6 * atomCount D)
+      ↔ ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ 3 := by
+  classical
+  rw [Nsc_eq_sum_mass_one_nat, N_eq_sum_H, Nstar_eq_sum_H_sq, atomCount,
+    Finset.card_eq_sum_ones, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  constructor
+  · intro heq γ hγ
+    by_contra hb
+    have hlt : ∑ x ∈ D.ordinates.toFinset,
+          (2 * (if D.H x = 1 then 1 else 0) + 5 * D.H x)
+        < ∑ x ∈ D.ordinates.toFinset, (D.H x * D.H x + 6 * 1) := by
+      refine Finset.sum_lt_sum (fun x hx => by
+        simpa using cap_three_pointwise (one_le_H_of_mem hx))
+        ⟨γ, hγ, by simpa using cap_three_pointwise_lt (show 4 ≤ D.H γ by omega)⟩
+    omega
+  · intro h
+    refine Finset.sum_congr rfl fun γ hγ => ?_
+    have h1 := one_le_H_of_mem hγ
+    have h3 := h γ hγ
+    interval_cases hm : (D.H γ) <;> norm_num
+
+/-- **The moment family's equality set is exactly where three moments compute
+`N_sc`.**  `334` characterised the charge's equality by the cap at three; this
+cycle characterises the `N_sc` identity by the same cap.  Composing them says
+the two saturations are one condition, and `momentK_zero`, `momentK_one` and
+`momentK_two` are the three counts on the right-hand side. -/
+theorem momentK_charges_eq_iff_Nsc_computed (D : ZeroData) {k : ℕ} (hk : 2 ≤ k) :
+    ((3 ^ k - 3) * hauntedCount D + (3 ^ k - 3) * oddAbove D
+        + (2 ^ k - 2) * evenOnAt D + (2 ^ k - 2) * offLineOnly D
+        + D.N = momentK D k)
+      ↔ (2 * D.Nsc + 5 * D.N = D.Nstar + 6 * atomCount D) :=
+  (momentK_charges_eq_iff D hk).trans (two_mul_Nsc_eq_iff D).symm
+
+/-! **Wildcard — does the cap at four do the same thing, and in which
+direction?**
+
+**Kill condition, filed first:** *if the strict tail above `4` needs cubic
+positivity the naturals will not give cheaply, I ship the cap-`4` identity as a
+conditional one and record that the unconditional form was not reached.*  It did
+not fire — substituting `m = j + 5` turns the gap `(m−2)(m−3)(m−4)` into
+`(j+1)(j+2)(j+3)`, a sum of positive terms with no subtraction anywhere. -/
+
+/-- The cap-`4` pointwise inequality.  Note the **direction**: the odd-degree gap
+`(m−2)(m−3)(m−4)` is positive above `4`, so the sides swap relative to the
+cap-`3` statement. -/
+lemma cap_four_pointwise {m : ℕ} (hm : 1 ≤ m) :
+    9 * (m * m) + 24 * 1 ≤ 6 * (if m = 1 then 1 else 0) + m * m * m + 26 * m := by
+  rcases Nat.lt_or_ge m 5 with h | h
+  · interval_cases m <;> norm_num
+  · rw [if_neg (by omega)]
+    obtain ⟨j, rfl⟩ : ∃ j, m = j + 5 := ⟨m - 5, by omega⟩
+    have key : (j + 5) * (j + 5) * (j + 5) + 26 * (j + 5)
+        = 9 * ((j + 5) * (j + 5)) + 24 * 1
+          + (j * j * j + 6 * (j * j) + 11 * j + 6) := by ring
+    omega
+
+/-- …strict from `5` up. -/
+lemma cap_four_pointwise_lt {m : ℕ} (h : 5 ≤ m) :
+    9 * (m * m) + 24 * 1 < 6 * (if m = 1 then 1 else 0) + m * m * m + 26 * m := by
+  rw [if_neg (by omega)]
+  obtain ⟨j, rfl⟩ : ∃ j, m = j + 5 := ⟨m - 5, by omega⟩
+  have key : (j + 5) * (j + 5) * (j + 5) + 26 * (j + 5)
+      = 9 * ((j + 5) * (j + 5)) + 24 * 1
+        + (j * j * j + 6 * (j * j) + 11 * j + 6) := by ring
+  omega
+
+/-- **`9·N⊛ + 24·atomCount ≤ 6·N_sc + Σm³ + 26·N`, for every configuration** —
+the cap-`4` bound, with `N_sc` now on the *large* side. -/
+theorem nine_mul_Nstar_add_atomCount_le (D : ZeroData) :
+    9 * D.Nstar + 24 * atomCount D ≤ 6 * D.Nsc + thirdMoment D + 26 * D.N := by
+  classical
+  rw [Nsc_eq_sum_mass_one_nat, N_eq_sum_H, Nstar_eq_sum_H_sq, thirdMoment,
+    atomCount, Finset.card_eq_sum_ones, Finset.mul_sum, Finset.mul_sum,
+    Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  exact Finset.sum_le_sum fun γ hγ => cap_four_pointwise (one_le_H_of_mem hγ)
+
+/-- **…with equality exactly under a multiplicity cap of four.**  So the cap at
+`m` computes `N_sc` from the first `m` moments, and the direction of the bound
+that surrounds it alternates with `m`: at `3` the identity's `N_sc` side is the
+small one, at `4` it is the large one.  Only two rungs are witnessed here, so the
+alternation is stated for `3` and `4` and not for general `m`. -/
+theorem nine_mul_Nstar_add_atomCount_eq_iff (D : ZeroData) :
+    (9 * D.Nstar + 24 * atomCount D = 6 * D.Nsc + thirdMoment D + 26 * D.N)
+      ↔ ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ 4 := by
+  classical
+  rw [Nsc_eq_sum_mass_one_nat, N_eq_sum_H, Nstar_eq_sum_H_sq, thirdMoment,
+    atomCount, Finset.card_eq_sum_ones, Finset.mul_sum, Finset.mul_sum,
+    Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  constructor
+  · intro heq γ hγ
+    by_contra hb
+    have hlt := Finset.sum_lt_sum
+      (fun x (hx : x ∈ D.ordinates.toFinset) =>
+        cap_four_pointwise (one_le_H_of_mem hx))
+      ⟨γ, hγ, cap_four_pointwise_lt (show 5 ≤ D.H γ by omega)⟩
+    omega
+  · intro h
+    refine Finset.sum_congr rfl fun γ hγ => ?_
+    have h1 := one_le_H_of_mem hγ
+    have h4 := h γ hγ
+    interval_cases hm : (D.H γ) <;> norm_num
+
+
 end Blindness
 end Riemann

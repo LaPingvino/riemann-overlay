@@ -536,6 +536,12 @@ wordlist issue. Named, not built.
 
 ## SESSION 127 — `LEADS.md` triaged, all 56 flags
 
+> **Re-check, `SESSION 323` (2026-08-17).** `absence_queue` flags the sentence
+> below as a claim of absence. It is a **past-tense record of the state before
+> the triage this same section then reports** — `146` listed exactly this shape
+> among the mechanical false positives it declined to filter, on `S39`'s ground
+> that a filter fitted to its own measurement proves nothing. Graded, not fixed.
+
 The route table had never been triaged, and it is the register that decides what
 future cycles do.
 

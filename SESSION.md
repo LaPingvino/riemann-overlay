@@ -15404,3 +15404,56 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 readings turn a witness into a computation when its profile is a literal, so what
 now costs proof work in this project is the size of the configuration rather than
 the quantity being computed.
+
+## An obligation paid at `193`, still listed as owed
+
+**Piece — the target I declined first.** `322` recorded that `replicate`-built
+witnesses do not collapse. The obvious next move was a lemma to fix that, and I
+read the proof before writing one: the cost is `List.filter_replicate` reasoning,
+three or four lines per quantity, at **one** call site. A helper would save less
+than it costs, so `322`'s limit stands and this cycle went elsewhere. Declining
+is cheaper than shipping and retracting.
+
+**Wildcard — `absence_queue`'s seven standing entries.**
+
+**Kill condition, filed first:** *if the remaining claims all lack mechanical
+witnesses, the queue is doing its job and I settle only the one I came for; if
+others are already witnessed, the queue is over-reporting and each is a
+settlement.* **It fired, and harder than expected.**
+
+**One had been paid at `193`, and `FAILURES.md` still lists it.** Its section
+*"What is still owed, by this audit's own criterion"* says rung 0 was certified
+for a `Finset` skeleton while `#10`'s class is an integral program over `[0,1]`.
+`Riemann.Capacity.value_eq_pinned_integral` proves it over any measure space and
+any measurable set, and `value_eq_pinned_unit_interval` writes out
+`α = ℝ, A = [0,1], μ = volume`. `Capacity.lean`'s own section header reads
+*"Rung 0 at the class `#10` actually names"*. One hundred and thirty cycles.
+
+**A second is continuously machine-checked.** The empty GRH tier has a standing
+witness — `provenance_lint` prints `tier GRH : 0/11 []` on every run, it is in
+the roster `session_gate` gates on, and `banner_check` cross-checks that line
+against `LOOP.md`. Verified every cycle rather than periodically re-read, which
+is the strongest settle this queue admits.
+
+**A third is a mechanical false positive**, graded rather than fixed:
+`CLAIMS.md`'s *"the route table had never been triaged"* opens the section that
+reports the triage. `146` listed that shape among the false positives it declined
+to filter, on `S39`'s ground that a filter fitted to its own measurement proves
+nothing.
+
+Queue `7 → 4`. Filed as `S125`.
+
+**Snag, bin 1.** The queue was **right on every listing for a hundred and thirty
+cycles**. What failed is the reading step: the listing and the file that answers it were
+both on disk, and I did not put them side by side. `297` went the same way, with
+a measurement sitting in `PRICES.md`'s own table under a claim that it was
+outstanding. Two instruments now
+have this failure mode in common, and neither can fix it: a queue can say *this
+is unsettled*, and only a reader can say *this is answered over there*.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2.
+
+**Might-mean, scoped to the three entries settled:** two of the seven standing
+absence claims had answers already on disk and a third was a past-tense record,
+so `absence_queue`'s count ran ahead of what was open by three.

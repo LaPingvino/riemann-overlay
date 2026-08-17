@@ -187,6 +187,13 @@ scale-valid are ones our window never reaches, and Rule 1 blocks it there too.
 So the corridor is not under-fuelled from this node — it is **unfuellable** from
 it, and no choice of window rescues it.
 
+> **Re-check, `SESSION 323` (2026-08-17).** The emptiness claim below carries a
+> **standing mechanical witness**: `forensics/provenance_lint.py` prints
+> `tier GRH : 0/11  []` on every run, it is in the roster `session_gate` gates
+> on, and `forensics/banner_check.py` checks that very line against `LOOP.md`.
+> Continuously verified rather than periodically re-read, which is the strongest
+> settle this queue admits.
+
 **Hypothesis-depth stratification.** 8/11 unconditional, 3/11 RH, **0/11 GRH**.
 The GRH tier is empty, which is a recruitment criterion rather than a gap: a
 death consuming GRH would be bridge material that changes in *more* worlds, and
@@ -334,7 +341,17 @@ not a theorem about a program.
 So the extension is *worthless* when nonnegative and *fatal* when not. Never
 profitable. That is `#10`'s content, and it is now machine-checked.
 
-### What is still owed, by this audit's own criterion
+### What was owed, by this audit's own criterion — **paid at `SESSION 193`**
+
+> **Re-check, `SESSION 323` (2026-08-17).** The paragraph below states an
+> obligation that was discharged one hundred and thirty cycles ago and never
+> recorded here. `Riemann.Capacity.value_eq_pinned_integral` proves the statement
+> over *any* measure space and *any* measurable set, and
+> `Riemann.Capacity.value_eq_pinned_unit_interval` writes out the instance
+> `α = ℝ`, `A = [0,1]`, `μ = volume` — which is `#10`'s class exactly. That
+> file's own section header says so: *"Rung 0 at the class `#10` actually
+> names"*. `absence_queue` has listed this correctly ever since, and nobody read
+> the listing against `Capacity.lean`.
 
 The class certified here is `{F pinned on a finite `known`, F ≥ 0 outside}`.
 The class named in `#10` is `{F on [0,1], F ≥ 0}` — an integral program over a

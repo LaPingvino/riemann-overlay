@@ -195,6 +195,29 @@ DOWNGRADE = [
 # Sentences that are NOT claims by construction, and must not be flagged:
 # markdown headings (they label, they do not assert) and kill conditions (they
 # are deliberately counterfactual — stating one is the discipline, not a claim).
+# `342` triaged all four flags this instrument raises on `CLAIMS.md` and found
+# **no true positives** — and the reason each is a false positive is the same
+# reason in three shapes: **the sentence carries its witness in a form this
+# vocabulary cannot read.**
+#
+# * `CLAIMS.md:5` names its two witnesses as *files* — `FAILURES.md` `#10` and
+#   `Gauge.lean` — and the `_EXT` guard in `WITNESS` deliberately drops file
+#   names so that a `.md` reference is not mistaken for a declaration.
+# * `CLAIMS.md:490` ("1 true positive in 14") is witnessed by the fourteen-row
+#   table immediately above it.  `EXEMPT` removes table rows from *scanning*,
+#   and as a side effect a table can never *witness* anything either.  That
+#   asymmetry is a property of this design, not an accident of that file.
+# * `CLAIMS.md:550` was already graded at `323`, in a blockquote directly above
+#   the sentence.  A grading note is not an `EXEMPT` pattern, so a sentence
+#   stays flagged after being triaged.
+#
+# **These are recorded and not fixed, on `S39`'s ground:** a filter fitted to
+# its own measurement proves nothing, and each of the three widenings above
+# would mute real flags — a preceding table would excuse any sentence that
+# follows one, and a blockquote above a claim is exactly where an *unwitnessed*
+# grading would sit.  The four flags are graded in `CLAIMS.md` instead, where a
+# reader looking at them finds the verdict.
+#
 EXEMPT = re.compile(r"^\s*#|kill condition|^\s*\||superseded|RETRACTED|"
                     r"original note", re.I)
 

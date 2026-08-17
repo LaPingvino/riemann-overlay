@@ -16018,9 +16018,15 @@ out, the reduction it powers, and the corollaries. Searched
 positive contrast is `momentK_zero` and `momentK_one` only.
 
 **The positive end is the low end, and it is small.** `k = 0` is `atomCount`,
-`k = 1` is `N`, `k = 2` is `N⊛`. Those are the three counts the ordinates already
-determine, so the family's whole positive content sits at `k ≤ 2` and every
-higher moment is, for these purposes, more of the same currency.
+`k = 1` is `N`, `k = 2` is `N⊛`.
+
+> **`342`: the sentence that followed was wrong and is corrected here.** It read
+> *"those are the three counts the ordinates already determine"*. The ordinates
+> determine a fourth — `ZeroData.Nsc_eq_ordinate_functional` — and `atomCount` is
+> not a ledger row, which the `Fiber.lean` version of this sentence also claimed.
+> What survives is the weaker and true form: the family's positive content sits at
+> `k ≤ 2`, and every higher moment is more of the same currency rather than a new
+> one.
 
 **Wildcard — is one moment ever enough for `N_sc`?** `N_sc` *is* an ordinate
 functional (`Nsc_eq_ordinate_functional`), so the reduction says nothing against
@@ -16505,3 +16511,72 @@ ladder is not a weaker relative of the other rows but a scale that passes them �
 rung `7` above Route II, rung `59` above Route III — so the board's real question
 is not which row buys most but at what multiplicity threshold a coincidence
 hypothesis becomes harder to believe than a location hypothesis.
+
+## The four `CLAIMS.md` flags, and the surface nothing gates
+
+**Piece — queue item 1, which the prompt has asked for every cycle.** Triage
+`claims_gate`'s `CLAIMS.md` flags and report the rate honestly.
+
+**Kill condition, filed first:** *if every flag is a false positive, the
+deliverable is the rate and the reason, not a manufactured fix.* **It fired on
+`CLAIMS.md`: zero true positives in four.** And the four are not in the
+ninety-six claim rows — including the four I added at `336`–`341` — they are in
+the file's commentary about its own past triages.
+
+**One reason in three shapes: the sentence carries its witness in a form the
+gate's vocabulary cannot read.**
+
+* `:5` names its two witnesses as *files* (`FAILURES.md` `#10`, `Gauge.lean`), and
+  `WITNESS`'s `_EXT` guard drops file names deliberately.
+* `:490` (*"1 true positive in 14"*) is witnessed by the fourteen-row table
+  directly above it. `EXEMPT` removes table rows from scanning, and
+  `forensics/claims_gate.py`'s `WITNESS` vocabulary has no pattern for a preceding
+  table, so a table cannot serve as a witness either. Both halves are readable in
+  that file; the asymmetry is a property of the design rather than of this file.
+* `:550` was **already graded at `323`**, in a blockquote directly above the
+  sentence. A grading note is not an `EXEMPT` pattern, so a sentence stays flagged
+  after being triaged.
+
+**Recorded, not fixed**, on `S39`'s ground that a filter fitted to its own
+measurement proves nothing: a preceding table would excuse any sentence that
+follows one, and a blockquote above a claim is exactly where an *unwitnessed*
+grading would sit. The verdicts are in `CLAIMS.md` where a reader meets the flags.
+
+**Wildcard — is the standing `Fiber.lean` figure still `36`?** **Kill condition,
+filed first:** *if the count has not moved, the standing "untriaged" note needs no
+update and I say so.* It did not fire, and the direction matters: **`108`**, with
+`205` across `Riemann/*.lean` in all. The growth is the decomposition arc
+`292`–`341`, which is my prose.
+
+**And that is when the actual finding turned up. The gate covers the entry and not
+the docstrings.** `session_gate` runs the overclaim gate on the newest `SESSION.md`
+entry; its *roster* entry for `claims_gate` is CALIBRATION-only, because a bare
+invocation lints stdin (`S123`). So every cycle's prose entry is gated and every
+cycle's Lean docstrings are not — and the docstrings are where `108` flags
+accumulated. `S131`.
+
+**The bounded slice, and it yielded one true positive.** Rather than claim a rate
+for `108` untriaged flags, I graded only the declarations added at `334`–`341` —
+six flags, mine, judgeable. One is real: `momentK_zero`'s docstring said the first
+three moments *"are exactly the three ledger counts the ordinates already
+determine"*. Wrong twice — `atomCount` is not a ledger row, and
+`ZeroData.Nsc_eq_ordinate_functional` makes `N_sc` a fourth quantity the ordinates
+determine. Corrected at the docstring and at the `SESSION 335` entry that repeated
+it. The other five are documented shapes: a docstring heading an `iff` theorem, an
+accurate `never`, a cast called "the same fact", a composition naming witnesses
+without dots, and a question.
+
+**Snag, bin 3.** I ran `claims_gate` bare, without `</dev/null`, and it went to
+the background lintng stdin — the trap `304` hit for ten minutes and the roster
+carries a label about. Knowing a trap by name is not the same as not walking into
+it; the habit that avoids it is redirecting stdin on every invocation, not
+remembering the note.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `23`.
+
+**Might-mean, scoped to the four flags graded and the six-flag slice:** the
+project's overclaim discipline is enforced exactly where it writes *about* its
+work and not where it writes *in* it, so the docstrings — the text a reader of the
+Lean actually meets — are the least checked prose in the repository, and the one
+defect found this cycle was there rather than in any register.

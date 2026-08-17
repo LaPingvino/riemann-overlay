@@ -7282,7 +7282,12 @@ theorem NscStd_not_momentK_computable :
 
 /-- **The positive end of the family.**  `k = 0` counts atoms.  With
 `momentK_one` and `momentK_two` (`= N` and `= N⊛`), the first three moments are
-exactly the three ledger counts the ordinates already determine. -/
+`atomCount`, `N` and `N⊛`.
+
+**`342` corrects what this said.**  It read *"exactly the three ledger counts the
+ordinates already determine"*, which is wrong twice: `atomCount` is not a ledger
+row, and `ZeroData.Nsc_eq_ordinate_functional` makes `N_sc` a fourth quantity the
+ordinates determine.  The accurate statement is the flat one above. -/
 lemma momentK_zero (D : ZeroData) : momentK D 0 = atomCount D := by
   classical
   rw [momentK, atomCount]

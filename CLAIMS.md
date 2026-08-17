@@ -498,6 +498,51 @@ positives, the instrument does not transfer and I say so* — **did not fire**.
 `Fiber.lean` (36 flags) is almost entirely my own prose and is **untriaged**;
 it must not be quoted as a defect rate.
 
+> **`342`: that figure is a dated record and the number has tripled.** Measured
+> this cycle: `Fiber.lean` **108**, `Gaps.lean` `32`, `Proportion.lean` `18`,
+> `Optimal.lean` `13`, `Capacity.lean` and `Basic.lean` `9` each,
+> `Blindness.lean` `5`, `Zeta.lean` `4`, `Program.lean` `3`, `Gauge.lean` `2`,
+> `Fujii.lean` and `Assumptions.lean` `1` each, `Transfer.lean` `0` — `205` in
+> all. The `Fiber.lean` growth is the decomposition arc `292`–`341`, which is
+> my prose. Still untriaged in bulk, still not a defect rate; run the script for
+> the live figure rather than trusting either number here (`328`).
+>
+> **Why that surface accumulates: it is the one nothing gates.** `session_gate`
+> runs the overclaim gate on the newest `SESSION.md` entry, and its roster entry
+> for `claims_gate` is CALIBRATION-only because a bare invocation lints stdin
+> (`S123`). So every cycle's prose *entry* is gated and every cycle's Lean
+> *docstrings* are not.
+
+### `SESSION 342` — the four `CLAIMS.md` flags, triaged
+
+The prompt has asked for this rate every cycle. **Zero true positives in four**,
+and the four are not in the ninety-six claim rows — they are in this file's
+commentary about its own past triages.
+
+| flag | verdict |
+|---|---|
+| `:5` *"Two were found living as prose in three cycles"* | **false** — the two witnesses are named in the same sentence, as *files*; `WITNESS`'s `_EXT` guard drops file names by design |
+| `:469` *"lived on a surface the instrument had never seen"* | **false** — a claim about the gate's own scan set, checkable from the script |
+| `:490` *"1 true positive in 14 — but it is the one being hunted"* | **false** — witnessed by the fourteen-row table directly above, which `EXEMPT` removes from scanning and therefore from witnessing |
+| `:550` *"The route table had never been triaged"* | **false**, and **already graded at `323`** in a blockquote directly above it |
+
+**One reason in three shapes:** each sentence carries its witness in a form the
+gate's vocabulary cannot read — a file name, a preceding table, a grading note.
+Recorded in `forensics/claims_gate.py` and **not fixed**, on `S39`'s ground that
+a filter fitted to its own measurement proves nothing; each widening would mute
+real flags.
+
+**The bounded slice that did yield one.** Rather than claim a rate for
+`Fiber.lean`'s `108`, I graded only the flags in declarations added at `334`–`341`,
+which I wrote and can judge. Six flags, **one true positive**:
+`momentK_zero`'s docstring said the first three moments *"are exactly the three
+ledger counts the ordinates already determine"* — wrong twice, since `atomCount`
+is not a ledger row and `ZeroData.Nsc_eq_ordinate_functional` makes `N_sc` a
+fourth ordinate-determined quantity. Corrected at that docstring and at the
+`SESSION 335` entry that repeated it. The other five are the documented shapes: a
+docstring heading an `iff` theorem, an accurate `never`, a cast described as "the
+same fact", a composition naming its own witnesses without dots, and a question.
+
 
 ---
 

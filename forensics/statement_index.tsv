@@ -411,7 +411,7 @@ ours	Riemann.Fiber	theorem	oddAbove_not_momentK_computable	: ¬ ∃ F : (ℕ →
 ours	Riemann.Fiber	theorem	evenOnAt_not_momentK_computable	: ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, evenOnAt D = F (momentK D)	-	`evenOnAt` is not computable from the moment family.
 ours	Riemann.Fiber	theorem	offLineOnly_not_momentK_computable	: ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, offLineOnly D = F (momentK D)	-	`offLineOnly` is not computable from the moment family.
 ours	Riemann.Fiber	theorem	NscStd_not_momentK_computable	: ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, D.NscStd = F (momentK D)	-	`NscStd` is not computable from the moment family either — the ledger row the project actually reports, not only the four gaps.
-ours	Riemann.Fiber	lemma	momentK_zero	(D : ZeroData) : momentK D 0 = atomCount D	-	**The positive end of the family.** `k = 0` counts atoms. With `momentK_one` and `momentK_two` (`= N` and `= N⊛`), the first three moments are exactly the three
+ours	Riemann.Fiber	lemma	momentK_zero	(D : ZeroData) : momentK D 0 = atomCount D	-	**The positive end of the family.** `k = 0` counts atoms. With `momentK_one` and `momentK_two` (`= N` and `= N⊛`), the first three moments are `atomCount`, `N` 
 ours	Riemann.Fiber	lemma	momentK_one	(D : ZeroData) : momentK D 1 = D.N	-	`momentK` at `1` is `N`.
 ours	Riemann.Fiber	lemma	simple_chain_profile	{a : ℝ} (ha : a ≠ 1/2) (n : ℕ) : profile (chain a (List.replicate n ((1 : ℕ), (0 : ℕ)))) = Multiset.replicate n ((1 : ℕ), (0 : ℕ))	-	The profile of `n` simple on-line atoms is `n` copies of `(1, 0)`.
 ours	Riemann.Fiber	lemma	simple_chain_momentK	{a : ℝ} (ha : a ≠ 1/2) (n k : ℕ) : momentK (chain a (List.replicate n ((1 : ℕ), (0 : ℕ)))) k = n	-	Every moment of `n` simple atoms is `n` — the mass is `1`, so `k` never enters.

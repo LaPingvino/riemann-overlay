@@ -16725,3 +16725,72 @@ carries the cap hypothesis, outside its `ℕ`-linear hypothesis-free inventory.
 what a multiplicity cap buys is not a family of separate arithmetic accidents at
 `3` and `4`; the open question about caps is what the coefficients of the expanded
 form say, and that expansion is the part this cycle did not prove.
+
+## The expansion `344` left open
+
+**Piece.** `344` proved `capWitness_eq` and named its own open half: the expansion
+of the falling product into `momentK 0 … momentK b`, which it said would need
+elementary symmetric polynomials. **It does not.** The coefficients satisfy a
+two-term recursion in `b`, and one induction gives the polynomial identity.
+
+**Kill condition, filed first:** *if the induction on the coefficient shift does
+not go through cheaply, I ship the sum-swap bridge alone and say the
+polynomial-existence half is open.* It did not fire.
+
+* `capCoeff`, computable, by `c_{b+1,k+1} = c_{b,k} − (b+2)·c_{b,k+1}`.
+* `capCoeff_eq_zero_of_gt` — and this is the one that matters. The reindexing step
+  reassembles the previous polynomial only after the phantom coefficient at
+  `k = b + 1` is killed, so the lemma that looks like bookkeeping is load-bearing.
+* `capCoeff_prod`: the falling product equals `Σ_{k≤b} capCoeff b k · x^k`.
+* `capWitness_eq_sum_moments` — **hypothesis-free.** The cap is needed only to
+  identify the left side with `N_sc`; the expansion itself is a sum swap.
+* `Nsc_from_moments`: under a cap at `b + 1`,
+  `(−1)^b · b! · N_sc = Σ_{k≤b} capCoeff b k · momentK k`. That is `344`'s gap.
+
+`capCoeff 2` is `(6, −5, 1)` and `capCoeff 3` is `(−24, 26, −9, 1)` — `336`'s two
+shipped constants, checked by `decide` in scratch and not restated in the file
+(`256`). The coefficients are characterised by the recursion; identifying them with
+signed elementary symmetric functions of `{2, …, b+1}` is **not** proved and is not
+needed.
+
+**Wildcard — the determinacy statement `335`'s LEADS entry actually asks for.**
+**Kill condition, filed first:** *if the `ℤ` cancellation fights, I ship the two
+formula instances and state the determinacy in prose citing them.* It did not fire:
+`(−1)^b · b!` is a nonzero integer, so `mul_left_cancel₀` does it.
+
+`Nsc_determined_by_moments_of_cap`: two configurations capped at `b + 1` that agree
+on `momentK k` for every `k ≤ b` have equal `N_sc`. **The uncapped question is
+untouched:** the coefficients depend on `b`, and this cycle claims no combination
+that works for all `b` at once. So `335`'s entry is now the uncapped question alone,
+annotated there.
+
+**`S134`, and it is the shape worth keeping.** `344` named the hard tool without
+checking whether the easy one closed the gap. A two-term recursion did in one cycle
+what a symmetric-function development was budgeted for, and the difficulty that did
+show up was `capCoeff_eq_zero_of_gt`, a vanishing lemma that reads like
+housekeeping.
+
+**Snag, bin 1 — `overclaim_floor` fired again, second cycle running, on my own new
+docstring.** `Fiber.lean` `107 → 108`: *"showed one moment **never** suffices"* in
+`Nsc_determined_by_moments_of_cap`'s docstring. Fixed by citing
+`Riemann.Blindness.single_momentK_not_determine_Nsc` in qualified form and dropping
+the absolute, not by raising the floor. Two cycles, two catches, both on prose I
+wrote that same cycle — the guard is calibrated on live traffic rather than on a
+backlog.
+
+**Corrections at their locations.** `344`'s section header said the expansion *"is
+not proved here"* and `capWitness_eq`'s docstring said *"the expansion in general is
+not proved here"*. Both now point at `345`'s theorems. That is `S132`'s species
+caught in the same commit that created it rather than six cycles later.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `23`,
+overclaim floor `203`. No `equiv_check` owed: everything new is `ℤ`-valued or
+carries the cap hypothesis.
+
+**Might-mean, scoped to configurations under a cap and to the moments below it:**
+`Riemann.Blindness.Nsc_determined_by_moments_of_cap` makes bounded multiplicity the
+exact point where the moment family stops being blind to `N_sc`, so the moment
+route's whole difficulty is concentrated in configurations of unbounded
+multiplicity — which is the same place the ladder's ceiling and the haunting bound
+both live.

@@ -718,3 +718,14 @@ import Riemann
 #check @Riemann.Blindness.capWitness_eq
 #check @Riemann.Blindness.capWitness_from_profile
 #check @Riemann.Blindness.capWitness_needs_the_cap
+
+-- SESSION 345: the expansion 344 left open, by a coefficient recursion rather
+-- than elementary symmetric polynomials.  Under a cap at b+1, N_sc is a Z-linear
+-- combination of momentK 0 .. momentK b, and those moments determine it.
+#check @Riemann.Blindness.capCoeff
+#check @Riemann.Blindness.capCoeff_eq_zero_of_gt
+#check @Riemann.Blindness.capCoeff_prod
+#check @Riemann.Blindness.momentK_cast
+#check @Riemann.Blindness.capWitness_eq_sum_moments
+#check @Riemann.Blindness.Nsc_from_moments
+#check @Riemann.Blindness.Nsc_determined_by_moments_of_cap

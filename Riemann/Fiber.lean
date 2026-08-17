@@ -7587,9 +7587,10 @@ factor — and it needs no expansion into moments to state.
 into moments to be worth stating, I ship the product form and say plainly that the
 expansion is not proved.*  It did not fire in the sense that the product form is a
 complete statement, and it **did** fire in the sense the condition anticipated:
-the expansion into `momentK 0 … momentK b` is real content, needs elementary
-symmetric polynomials, and **is not proved here**.  What is below is the product
-identity.
+the expansion into `momentK 0 … momentK b` is real content and is not in this
+section — **`345` proved it**, by a coefficient recursion rather than the
+elementary symmetric polynomials named here, in `capWitness_eq_sum_moments` and
+`Nsc_from_moments` further down.  What is below is the product identity.
 
 `336`'s two rows are the `b = 2` and `b = 3` cases.  Both were checked against it
 in scratch: `∑ (H−2)(H−3) = 2·N_sc` expands to
@@ -7635,7 +7636,7 @@ lemma cap_pointwise {m b : ℕ} (h1 : 1 ≤ m) (hb : m ≤ b + 1) :
 
 `capWitness D b = (−1)^b · b! · N_sc` whenever every ordinate has mass at most
 `b + 1`.  `b = 2` and `b = 3` are `336`'s two identities after expanding the
-product; the expansion in general is not proved here. -/
+product; the general expansion is `capWitness_eq_sum_moments` (`345`). -/
 theorem capWitness_eq (D : ZeroData) {b : ℕ}
     (h : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ b + 1) :
     capWitness D b = (-1) ^ b * (Nat.factorial b : ℤ) * (D.Nsc : ℤ) := by
@@ -7676,6 +7677,140 @@ theorem capWitness_needs_the_cap {a : ℝ} (ha : a ≠ 1/2) :
   refine ⟨?_, pure_chain_Nsc ha 4 (by norm_num)⟩
   rw [capWitness_from_profile, chain_profile ha _ hne]
   simp [Finset.prod_range_succ]
+
+
+/-! #### The expansion `344` left open — `SESSION 345`
+
+`344` proved `capWitness_eq` and said the expansion of its falling product into
+`momentK 0 … momentK b` was not proved, naming elementary symmetric polynomials as
+what it would need.  It does not need them.  The coefficients satisfy a two-term
+recursion in `b`, and an induction on `b` gives the polynomial identity directly.
+
+**Kill condition, filed first:** *if the induction on the coefficient shift does
+not go through cheaply, I ship the sum-swap bridge alone and say the
+polynomial-existence half is open.*  It did not fire, and what made it go through
+is `capCoeff_eq_zero_of_gt`: the reindexing step reassembles the previous
+polynomial only after the phantom top coefficient is killed, so the vanishing
+lemma is load-bearing rather than decorative.
+
+**What is proved and what is not.**  The coefficients are *characterised by the
+recursion*; the identification of `capCoeff b k` with a signed elementary symmetric
+function of `{2, …, b+1}` is **not** proved here and is not needed for anything
+below.  `capCoeff` is computable, so its values are `decide`-checkable —
+`capCoeff 2` is `(6, −5, 1)` and `capCoeff 3` is `(−24, 26, −9, 1)`, which are
+`336`'s two shipped constants; both checked in scratch and not restated here
+(`256`). -/
+
+/-- The coefficients of `∏_{j=2}^{b+1}(x − j)` in `x`, by recursion on `b`:
+multiplying by `(x − (b+2))` shifts the previous coefficients up one and subtracts
+`(b+2)` times them. -/
+def capCoeff : ℕ → ℕ → ℤ
+  | 0, 0 => 1
+  | 0, _ + 1 => 0
+  | b + 1, 0 => -((b : ℤ) + 2) * capCoeff b 0
+  | b + 1, k + 1 => capCoeff b k - ((b : ℤ) + 2) * capCoeff b (k + 1)
+
+/-- Above the degree there is nothing.  Load-bearing in `capCoeff_prod`: the
+induction step reassembles the previous polynomial only once the phantom
+coefficient at `k = b + 1` is known to vanish. -/
+lemma capCoeff_eq_zero_of_gt : ∀ b k : ℕ, b < k → capCoeff b k = 0
+  | 0, 0, h => absurd h (by omega)
+  | 0, _ + 1, _ => rfl
+  | b + 1, 0, h => absurd h (by omega)
+  | b + 1, k + 1, h => by
+      rw [capCoeff]
+      rw [capCoeff_eq_zero_of_gt b k (by omega),
+        capCoeff_eq_zero_of_gt b (k + 1) (by omega)]
+      ring
+
+/-- **The falling product is a polynomial with those coefficients.**  Induction on
+`b`; the step is one reindex of the sum and the vanishing lemma. -/
+lemma capCoeff_prod (b : ℕ) (x : ℤ) :
+    ∏ i ∈ Finset.range b, (x - ((i : ℤ) + 2))
+      = ∑ k ∈ Finset.range (b + 1), capCoeff b k * x ^ k := by
+  induction b with
+  | zero => simp [capCoeff]
+  | succ b ih =>
+      rw [Finset.prod_range_succ, ih]
+      rw [Finset.sum_range_succ' (fun k => capCoeff (b + 1) k * x ^ k) (b + 1)]
+      have hzero : capCoeff b (b + 1) = 0 :=
+        capCoeff_eq_zero_of_gt b (b + 1) (by omega)
+      have hshift : ∑ j ∈ Finset.range (b + 1), capCoeff b (j + 1) * x ^ (j + 1)
+          = ∑ j ∈ Finset.range b, capCoeff b (j + 1) * x ^ (j + 1) := by
+        rw [Finset.sum_range_succ, hzero]
+        ring
+      have hre : ∑ k ∈ Finset.range (b + 1), capCoeff b k * x ^ k
+          = (∑ j ∈ Finset.range b, capCoeff b (j + 1) * x ^ (j + 1))
+            + capCoeff b 0 * x ^ 0 :=
+        Finset.sum_range_succ' (fun k => capCoeff b k * x ^ k) b
+      simp only [capCoeff]
+      set A := ∑ k ∈ Finset.range (b + 1), capCoeff b k * x ^ k with hA
+      set B := ∑ k ∈ Finset.range (b + 1), capCoeff b k * x ^ (k + 1) with hB
+      set C := ∑ k ∈ Finset.range (b + 1), capCoeff b (k + 1) * x ^ (k + 1) with hC
+      set D := ∑ j ∈ Finset.range b, capCoeff b (j + 1) * x ^ (j + 1) with hD
+      have hAx : A * x = B := by
+        rw [hA, hB, Finset.sum_mul]
+        exact Finset.sum_congr rfl fun j _ => by rw [pow_succ]; ring
+      have hsplit : ∑ k ∈ Finset.range (b + 1),
+            (capCoeff b k - ((b : ℤ) + 2) * capCoeff b (k + 1)) * x ^ (k + 1)
+          = B - ((b : ℤ) + 2) * C := by
+        rw [hB, hC, Finset.mul_sum, ← Finset.sum_sub_distrib]
+        exact Finset.sum_congr rfl fun j _ => by ring
+      rw [hsplit]
+      have hCD : C = D := hshift
+      have hAD : A = D + capCoeff b 0 * x ^ 0 := hre
+      have hexp : A * (x - ((b : ℤ) + 2)) = A * x - ((b : ℤ) + 2) * A := by ring
+      rw [hexp, hAx, hAD, hCD]
+      ring
+
+/-- `momentK` in `ℤ`, as a sum over the atoms. -/
+lemma momentK_cast (D : ZeroData) (k : ℕ) :
+    ((momentK D k : ℕ) : ℤ) = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ)) ^ k := by
+  rw [momentK]; push_cast; rfl
+
+/-- **`capWitness` in the moments, with no hypothesis at all.**  The cap is needed
+only to identify the left side with `N_sc`; the expansion itself is a sum swap. -/
+theorem capWitness_eq_sum_moments (D : ZeroData) (b : ℕ) :
+    capWitness D b
+      = ∑ k ∈ Finset.range (b + 1), capCoeff b k * ((momentK D k : ℕ) : ℤ) := by
+  classical
+  rw [capWitness, Finset.sum_congr rfl fun γ _ => capCoeff_prod b ((D.H γ : ℤ)),
+    Finset.sum_comm]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  rw [momentK_cast, Finset.mul_sum]
+
+/-- **`N_sc` as a `ℤ`-combination of the first `b + 1` moments, under a cap at
+`b + 1`.**  This is what `344` left open, and `336`'s two identities are `b = 2`
+and `b = 3` of it. -/
+theorem Nsc_from_moments (D : ZeroData) {b : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ b + 1) :
+    (-1) ^ b * (Nat.factorial b : ℤ) * (D.Nsc : ℤ)
+      = ∑ k ∈ Finset.range (b + 1), capCoeff b k * ((momentK D k : ℕ) : ℤ) :=
+  (capWitness_eq D h).symm.trans (capWitness_eq_sum_moments D b)
+
+/-- **Under a cap, the moments up to the cap determine `N_sc`.**
+
+`335` filed the uncapped question — whether the whole moment sequence determines
+`N_sc` — as open, and `Riemann.Blindness.single_momentK_not_determine_Nsc` showed
+that no single moment suffices, at any `k`.  This is the capped answer: at a cap of `b + 1`, agreement on
+`momentK k` for `k ≤ b` forces equal `N_sc`.  The **uncapped** question is
+untouched by this. -/
+theorem Nsc_determined_by_moments_of_cap {D D' : ZeroData} {b : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ b + 1)
+    (h' : ∀ γ ∈ D'.ordinates.toFinset, D'.H γ ≤ b + 1)
+    (hm : ∀ k, k ≤ b → momentK D k = momentK D' k) :
+    D.Nsc = D'.Nsc := by
+  have hsum : ∑ k ∈ Finset.range (b + 1), capCoeff b k * ((momentK D k : ℕ) : ℤ)
+      = ∑ k ∈ Finset.range (b + 1), capCoeff b k * ((momentK D' k : ℕ) : ℤ) :=
+    Finset.sum_congr rfl fun k hk => by
+      rw [hm k (Nat.lt_succ_iff.1 (Finset.mem_range.1 hk))]
+  have key : ((-1 : ℤ) ^ b * (Nat.factorial b : ℤ)) * (D.Nsc : ℤ)
+      = ((-1 : ℤ) ^ b * (Nat.factorial b : ℤ)) * (D'.Nsc : ℤ) := by
+    rw [Nsc_from_moments D h, Nsc_from_moments D' h', hsum]
+  have hne : ((-1 : ℤ) ^ b * (Nat.factorial b : ℤ)) ≠ 0 :=
+    mul_ne_zero (pow_ne_zero _ (by norm_num))
+      (by exact_mod_cast Nat.factorial_ne_zero b)
+  exact_mod_cast mul_left_cancel₀ hne key
 
 
 end Blindness

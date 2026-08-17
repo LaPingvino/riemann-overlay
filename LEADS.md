@@ -2334,6 +2334,15 @@ the *behaviour* the literature is said to report, not read the literature.
 
 ## Does the whole moment sequence determine `N_sc`? (SESSION 335, open)
 
+> **Answered under a cap at `345`; the uncapped question is what remains.**
+> `Nsc_from_moments` gives `(−1)^b · b! · N_sc` as a `ℤ`-combination of
+> `momentK 0 … momentK b` whenever every mass is at most `b + 1`, and
+> `Nsc_determined_by_moments_of_cap` is the determinacy statement this entry asks
+> for, with the cap added: two capped configurations agreeing on those moments have
+> equal `N_sc`. **Without a cap nothing here applies** — the coefficients depend on
+> `b`, and there is no uniform combination. So this entry's question is now exactly
+> the uncapped one.
+>
 > **Partly answered at `336`, and the answer is a cap rather than a limit.**
 > Under a multiplicity cap the question is finite and positive: `two_mul_Nsc_eq_iff`
 > gives `2·N_sc + 5·N = N⊛ + 6·atomCount` **iff** every mass is at most `3`, and

@@ -5448,6 +5448,53 @@ theorem gauge_pair_two_separates_even_and_offLine {a : ℝ} (ha : a ≠ 1/2) :
   · rw [evenOnAt_from_profile, h0]; decide
   · rw [offLineOnly_from_profile, h0]; decide
 
+/-! #### …and the four necessity theorems — `SESSION 326`
+
+`325` produced the separating pairs; these are what they are for.
+`Blindness.not_muInvariant_computable_of_separating` abstracts the quantity out
+of `#7`'s argument, so each gap costs one line of instantiation.  Three of the
+four are new; `hauntedCount`'s was already proved at `225` by a different route.
+
+Together with `ZeroData.Nsc_eq_ordinate_functional` and
+`oddAtoms_ordinate_functional` — both of which **are** `μ_T` functionals — this
+splits `314`'s decomposition cleanly: the ordinate count and the simple count are
+visible, and every gap between them is not. -/
+
+/-- `oddAbove` is not an ordinate functional.
+
+(`hauntedCount`'s case is **not** here: `hauntedCount_not_ordinate_functional`
+has been below since `225`, routed through
+`Blindness.hauntedSet_card_not_ordinate_functional`.  `326` wrote a second one
+from the new pair before searching, and the build refused it.) -/
+theorem oddAbove_not_ordinate_functional :
+    ¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, oddAbove D = f D.ordinates := by
+  intro ⟨f, hf⟩
+  obtain ⟨_, h2, _, h4⟩ := gauge_pair_separates_haunted_and_oddAbove
+  exact Blindness.not_muInvariant_computable_of_separating (q := oddAbove)
+    Gauge.ordinates_eq (by omega) (fun _ => True) (fun _ _ _ => Iff.rfl)
+    (Or.inl trivial) ⟨f, fun D _ => hf D⟩
+
+/-- `evenOnAt` is not an ordinate functional — and this one needs `325`'s second
+pair, since the mass-three pair reads `0` on both sides. -/
+theorem evenOnAt_not_ordinate_functional :
+    ¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, evenOnAt D = f D.ordinates := by
+  intro ⟨f, hf⟩
+  obtain ⟨ho, h2, _, h4, _⟩ := gauge_pair_two_separates_even_and_offLine
+    (a := (1/4 : ℝ)) (by norm_num)
+  exact Blindness.not_muInvariant_computable_of_separating (q := evenOnAt)
+    ho (by omega) (fun _ => True) (fun _ _ _ => Iff.rfl)
+    (Or.inl trivial) ⟨f, fun D _ => hf D⟩
+
+/-- `offLineOnly` is not an ordinate functional, from the same pair. -/
+theorem offLineOnly_not_ordinate_functional :
+    ¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, offLineOnly D = f D.ordinates := by
+  intro ⟨f, hf⟩
+  obtain ⟨ho, _, h3, _, h5⟩ := gauge_pair_two_separates_even_and_offLine
+    (a := (1/4 : ℝ)) (by norm_num)
+  exact Blindness.not_muInvariant_computable_of_separating (q := offLineOnly)
+    ho (by omega) (fun _ => True) (fun _ _ _ => Iff.rfl)
+    (Or.inl trivial) ⟨f, fun D _ => hf D⟩
+
 /-! #### What each class costs — `SESSION 315`
 
 `314` made the counting vocabulary a partition.  A partition invites a weight:

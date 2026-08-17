@@ -348,6 +348,11 @@ import Riemann
 -- SESSION 325: Blindness extended to the decomposition's four gaps.
 #check @Riemann.Blindness.gauge_pair_separates_haunted_and_oddAbove
 #check @Riemann.Blindness.gauge_pair_two_separates_even_and_offLine
+-- SESSION 326: the argument abstracted, and three new necessity theorems.
+#check @Riemann.Blindness.not_muInvariant_computable_of_separating
+#check @Riemann.Blindness.oddAbove_not_ordinate_functional
+#check @Riemann.Blindness.evenOnAt_not_ordinate_functional
+#check @Riemann.Blindness.offLineOnly_not_ordinate_functional
 #check @Riemann.Blindness.mass_charges_every_class
 #check @Riemann.Blindness.Nsc_add_gaps_le_N
 -- SESSION 316: the weights are tight; the bound is a re-coordinatisation.

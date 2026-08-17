@@ -15550,3 +15550,44 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 project has been describing since `#7` needs one witness per parity of the
 on-line count, so what `μ_T` hides is indexed by the same arithmetic that indexes
 the decomposition.
+
+## The argument was never about `NscStd`
+
+**Piece — what `325`'s pairs were for.** That cycle produced two separating
+pairs and stopped at the computations. `#7`'s necessity theorem uses nothing
+about `NscStd` beyond two values on a pair with equal ordinates.
+
+**Kill condition, filed first:** *if the existing proof depends on
+`NscStd`-specific facts rather than on a separating pair, each gap needs its own
+argument and I report the cost rather than lifting.* **It did not fire** — the
+proof is generic, and the abstraction is nine lines.
+
+`Blindness.not_muInvariant_computable_of_separating`: given any `q`, any pair
+with the same `μ_T`, and any `μ_T`-invariant `B` admitting one of them, `q` is
+not computable from `μ_T` on `B`'s class. `#7`'s theorem is its instance at
+`q = NscStd`.
+
+Three new necessity theorems follow, one line each:
+`oddAbove_not_ordinate_functional` from `325`'s mass-three pair,
+`evenOnAt_not_ordinate_functional` and `offLineOnly_not_ordinate_functional`
+from the mass-two pair.
+
+With `ZeroData.Nsc_eq_ordinate_functional` and `oddAtoms_ordinate_functional` on
+the other side, `314`'s decomposition now splits cleanly: the ordinate count and
+the simple count are visible to `μ_T`, and every gap between them is not.
+
+**Snag, bin 1.** I wrote a fourth instantiation for `hauntedCount` and the build
+refused it: `hauntedCount_not_ordinate_functional` has been in the same file
+since `225`, proved through `Blindness.hauntedSet_card_not_ordinate_functional`.
+`R26` says search the statement
+index before assuming, and I ran the search *after* the compiler told me. The
+index would have answered in one command; the compiler answered in three minutes.
+Recorded at the declaration so the next reader sees why one of four is missing.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, duplication floor `23`.
+
+**Might-mean, scoped to the five classes now classified:** the blindness result
+this project has cited since `#7` was a statement about a pair of configurations
+rather than about `NscStd`, so naming the decomposition turned one theorem into a
+lemma with four instances.

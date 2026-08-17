@@ -108,6 +108,26 @@ theorem no_muInvariant_bundle_computes_NscStd
   rw [← Gauge.ordinates_eq, ← h0] at h1
   exact absurd h1 (by norm_num)
 
+/-- **The argument above, with the quantity abstracted.**  `SESSION 326`.
+
+`no_muInvariant_bundle_computes_NscStd`'s proof uses nothing about `NscStd`
+beyond two computed values on a pair with equal ordinates.  `325` produced two
+more such pairs, for the four gaps of `314`'s decomposition, so the argument is
+worth stating once with the quantity as a parameter.
+
+Given any `q`, any pair with the same `μ_T`, and any `μ_T`-invariant `B` that
+admits one of them, `q` is not computable from `μ_T` on `B`'s class. -/
+theorem not_muInvariant_computable_of_separating
+    {q : ZeroData → ℕ} {D₁ D₂ : ZeroData}
+    (hord : D₁.ordinates = D₂.ordinates) (hq : q D₁ ≠ q D₂)
+    (B : ZeroData → Prop) (hB : MuInvariant B) (hmem : B D₁ ∨ B D₂) :
+    ¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, B D → q D = f D.ordinates := by
+  rintro ⟨f, hf⟩
+  have hiff : B D₁ ↔ B D₂ := hB _ _ hord
+  have h1 : B D₁ := hmem.elim id fun h => hiff.2 h
+  have h2 : B D₂ := hiff.1 h1
+  exact hq (by rw [hf _ h1, hf _ h2, hord])
+
 /-- The unconditional corollary: with no hypothesis at all (`B = True`),
 `NscStd` is not an ordinate functional. -/
 theorem NscStd_not_ordinate_functional :

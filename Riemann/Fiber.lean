@@ -5357,6 +5357,61 @@ theorem atomCount_decomposition_all_inhabited {a : ℝ} (ha : a ≠ 1/2) :
   have p5 := onLineOrdinates_add_offLineOnly (chain a L)
   refine ⟨hsc', ?_, ?_, ?_, hoo, hA⟩ <;> omega
 
+/-! #### What each class costs — `SESSION 315`
+
+`314` made the counting vocabulary a partition.  A partition invites a weight:
+each class has a minimum mass, and summing those over the ordinates charges the
+whole decomposition against `N`.
+
+* `N_sc` — `H = 1`, costs nothing above the ordinate itself;
+* `hauntedCount` — `onAt = 1` with even nonzero `offAt`, so `H ≥ 3`: **two**;
+* `oddAbove` — `onAt` odd and above one, so `H ≥ 3`: **two**;
+* `evenOnAt` — `onAt` even and positive, so `H ≥ 2`: **one**;
+* `offLineOnly` — `onAt = 0` and `offAt` even positive, so `H ≥ 2`: **one**.
+
+**Kill condition, filed first:** *if a joint bound charging all four gaps is
+already on disk, this is a re-derivation and the deliverable is the pointer.*
+Searched with `statement_index --find 'le_N$|≤ D.N'`, reading every
+`ZeroData`-argument row.  It did not fire.
+
+**And it does not move the certified row.**  `Nsc_add_gaps_le_N` specialises at
+`oddAbove = evenOnAt = offLineOnly = 0` to `110`'s
+`Nsc_add_three_mul_haunted_le_N`, which is the row's engine; the extra terms are
+non-negative, so they tighten the bound without loosening the consumer.  What
+they would buy needs an *upper* bound on one of the three, and none is on
+disk. -/
+
+/-- **Every class charged its minimum mass.**  Subsumes
+`two_mul_haunted_add_atomCount_le_N` and `evenOnAt_add_atomCount_le_N`, which are
+this with the other classes' weights set to zero. -/
+theorem mass_charges_every_class (D : ZeroData) :
+    2 * hauntedCount D + 2 * oddAbove D + evenOnAt D + offLineOnly D
+      + atomCount D ≤ D.N := by
+  classical
+  rw [hauntedCount_eq_onAt_one_offAt_pos, oddAbove, evenOnAt, offLineOnly,
+    atomCount, N_eq_sum_H, Finset.card_filter, Finset.card_filter,
+    Finset.card_filter, Finset.card_filter, Finset.card_eq_sum_ones,
+    Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [D.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  have hsum := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  split_ifs <;> simp only [Nat.even_iff] at * <;> omega
+
+/-- **The same bound with `314`'s partition substituted in**, so the simple
+ordinates appear on the left with the gaps' full weights.  At
+`oddAbove = evenOnAt = offLineOnly = 0` this is `110`'s
+`Nsc_add_three_mul_haunted_le_N`. -/
+theorem Nsc_add_gaps_le_N (D : ZeroData) :
+    D.Nsc + 3 * hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D
+      + 2 * offLineOnly D ≤ D.N := by
+  have h1 := mass_charges_every_class D
+  have h2 := atomCount_decomposition D
+  omega
+
 /-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
 
 `295` showed `oddAtoms` is not a functional of the five ledger counts, and gave

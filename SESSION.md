@@ -14977,3 +14977,48 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 classes and `atomCount_decomposition_all_inhabited` fills all five at once, so
 the project's counting vocabulary is now a partition of one object rather than a
 list of quantities that happen to be related.
+
+## A partition invites a weight
+
+**Piece and wildcard, one target.** `314` made the counting vocabulary a
+partition of the ordinates into five classes. Each class has a minimum mass, so
+summing those charges the whole decomposition against `N`.
+
+**Kill condition, filed first:** *if a joint bound charging all four gaps is
+already on disk, this is a re-derivation and the deliverable is the pointer.*
+Searched with `statement_index --find 'le_N$|≤ D.N'`, reading every
+`ZeroData`-argument row. It did not fire.
+
+`mass_charges_every_class`, axiom-free:
+`2·hauntedCount + 2·oddAbove + evenOnAt + offLineOnly + atomCount ≤ N`.
+
+The weights are the classes' minimum masses: haunted and `oddAbove` give
+`H ≥ 3`, `evenOnAt` and `offLineOnly` give `H ≥ 2`, and an `N_sc` ordinate has
+`H = 1`. The whole proof is one `Finset.sum_le_sum` and a `split_ifs`
+over the five cases, once `Even` is translated to `% 2` so `omega` can see it.
+
+`Riemann.Blindness.Nsc_add_gaps_le_N` restates it through `314`'s partition:
+`N_sc + 3·hauntedCount + 3·oddAbove + 2·evenOnAt + 2·offLineOnly ≤ N`.
+
+**Two subsumptions and no row movement, stated rather than implied.** The first
+theorem specialises to `two_mul_haunted_add_atomCount_le_N` and `309`'s
+`evenOnAt_add_atomCount_le_N` by zeroing the other weights; the second
+specialises to `110`'s `Nsc_add_three_mul_haunted_le_N`, which is the certified
+row's engine. **The certified row does not move**: the extra terms are
+non-negative, so they tighten the bound without loosening its consumer, and
+converting them into proportion would need an *upper* bound on `oddAbove`,
+`evenOnAt` or `offLineOnly` — none of which is on disk.
+
+**Snag, bin 3.** The first attempt rewrote the four `if`s one at a time with
+`if_pos`/`if_neg` and produced a goal asking me to prove `offAt γ = 0` from
+`onAt γ = 1`, which is false. `split_ifs` over all four at once, with the parity
+facts translated first, is four lines shorter and does not invite the mistake.
+I reach for hand-directed rewriting when the case split is the whole content.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, duplication floor `23`.
+
+**Might-mean, scoped to what this cycle checked:**
+`Riemann.Blindness.Nsc_add_gaps_le_N` prices all four gaps against `N` at once
+and specialises to the row's own engine, so what the certified `N_sc` row spends
+is one of four available charges and the other three have never been billed.

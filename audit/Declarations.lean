@@ -340,6 +340,9 @@ import Riemann
 #check @Riemann.Blindness.atomCount_decomposition
 #check @Riemann.Blindness.offLineOnly_from_profile
 #check @Riemann.Blindness.atomCount_decomposition_all_inhabited
+-- SESSION 315: each class charged its minimum mass.
+#check @Riemann.Blindness.mass_charges_every_class
+#check @Riemann.Blindness.Nsc_add_gaps_le_N
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

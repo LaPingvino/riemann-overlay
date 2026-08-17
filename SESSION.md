@@ -17438,3 +17438,57 @@ project has spent sixty cycles formalising the blindness of a method, and the me
 paper states that blindness in its *"what the results are not"* section, so the work has
 been an independent formalisation of a limitation its supplier already knew — which makes
 the value of `X` the machine-checked form rather than the observation.
+
+## The pin is the published version
+
+**Piece.** `356` established that `arXiv:2608.13637` is the paper of the artifact this
+project vendors, and that it speaks of *"the cited repository tag (`v1.0`)"*. Our pin is
+a bare commit hash. So: is the pin that tag?
+
+**Kill condition, filed first:** *if GitHub's tag data is not reachable, I report the
+attempt and leave the provenance question open — I do not infer the tag from the paper's
+date.* It did not fire.
+`github.com/anthropics/zeta-23-lean/commits/v1.0` lists the ref's history newest-first,
+and **its top entry is `3635e74826a4c1fcece7d1cd2b6fa75e43a00510`** — our pin.
+
+So the chain closes in both directions: `vendor_check` verifies `vendor/zeta23` is
+byte-identical to the pin every cycle, the pin is the tip of `v1.0`, and `v1.0` is the
+tag the published paper cites. `#28(a)`'s *"someone else's uptime"* half is now closed to
+a **published version** rather than to an arbitrary commit, which is a stronger property
+than vendoring alone gave.
+
+**Method stated so it is not over-read**, in `vendor/PROVENANCE.md`: this is GitHub's
+rendered ref history, not the git object database. No clone was made and no tag object
+inspected. What it establishes is that the `v1.0` ref's newest commit is our pin at the
+time of checking.
+
+**One consequence worth carrying.** The paper's *"at the cited repository tag (`v1.0`),
+the enclosures `EnclOK` are certified by interval arithmetic and are not checked by the
+Lean kernel"* therefore describes **this** tree. `PRICES.md`'s rung-0 note is about our
+own `vendor/zeta23` and not about a neighbouring version of it.
+
+**Wildcard — is the tree behind the paper's contents?** **Kill condition, filed first:**
+*if the vendored tree contains the paper's named theorems, there is nothing to report
+beyond that; if it does not, I report which names are absent and do **not** conclude the
+tree is older, since absence could be renaming (`S130`).* It fired in the first branch.
+All nine names the paper prints resolve inside `vendor/zeta23`: `thmB₀_mult` and
+`thmC₀_mult` in `Zeta23/FinalMult.lean`, `montgomery_taylor_simple_on_critical_line` and
+`montgomery_taylor_distinct` and `cMT` in the `comparator` tree,
+`two_thirds_simple_on_critical_line` and `five_sixths_distinct` in
+`comparator/PrintAxioms/Multiplicity.lean`, `EnclOK` in `Zeta23/PairCeiling/`, and
+`thmD₀_simple_mult_cumulative` in `Zeta23/ThmD/Mult.lean`.
+
+**What that does not give the ledger, stated so no cycle mistakes it.** `thmB₀_mult`'s
+`2/3` and `thmC₀_mult`'s `5/6` are *weaker* than what the ledger already carries:
+`2/3 < 0.6725` for the same count, and `338` showed a distinct-**points** proportion
+converts to at most `c − 0.3275` for our `atomCount`, so `5/6` gives `0.50875` there.
+Both were reachable all along and neither pays.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203`, `vendor_check` intact. No Lean changed.
+
+**Might-mean, scoped to the provenance chain checked this cycle:** the project's trusted
+base is now traceable from its own build to a tagged release of a published paper, so what
+`R5` calls garbage height has been replaced not by fewer assumptions but by better
+citations — and the remaining numerical debt sits in the one place the paper itself flags.

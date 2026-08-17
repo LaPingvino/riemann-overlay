@@ -1107,6 +1107,14 @@ Still open, and deliberately: **there is no vendored copy.** The pin removes the
 "someone else's content" half of the risk; the "someone else's uptime" half
 remains. Vendoring or mirroring is a larger call.
 
+> **`357`: the uptime half is closed further than vendoring closed it.** The pin is not
+> merely a commit we happen to have a copy of — it is the tip of tag **`v1.0`**, which is
+> the tag `arXiv:2608.13637` cites. Checked at
+> `github.com/anthropics/zeta-23-lean/commits/v1.0`, whose newest entry is
+> `3635e74…`; recorded with its method in `vendor/PROVENANCE.md`. So the local copy is
+> byte-identical to a *published* version, and the paper's remarks about `v1.0` —
+> including the `EnclOK` status — are remarks about this tree.
+
 
 ## #30 — [bin 3, process, **FIXED** — see the body] R17 was never applied to the loop's own liveness
 

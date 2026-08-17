@@ -1074,6 +1074,29 @@ bound excludes `Gauge.pairOnly`. Neither is a supplier.
 Cost if a supplier appeared: **zero axioms** — `proportion_of_oddAtoms` is
 axiom-free and the composite adds nothing.
 
+**`307`: the request, stated exactly, and searched for on both sides.**
+`oddAtoms_input_beats_certified_row_iff` fixes the threshold: a supplier must
+give `c > 0.6725`, because `0.50875` is the image of `κ` under the same
+increasing map. **The ask, in one line:** *an eventual lower bound
+`oddAtoms ≥ c·N` for `zetaFamily` with `c` above `κ` — a bound on how many
+ordinates carry **odd** multiplicity, not how many are simple.*
+
+Searched, per `R28`, and named: `statement_index --find 'oddAtoms'` read over
+every row of both trees, plus a grep for `≤ oddAtoms` across `Riemann/` —
+one lower bound, `Blindness.NscStd_le_oddAtoms`, lifted at
+`oddAtoms_ge_of_proportionStd` to exactly `κ`. On the dependency side,
+`--find 'odd'` returns nothing at all, and `--find 'N0|N₀'` returns `N0`
+(on-line mass), `N0star` (distinct on-line zeros) and `N0s` (on-line **simple**
+zeros) — the vendored tree tracks *simple* and *all*, never *odd*.
+
+*[RECALL, UNVERIFIED]* the nearest classical object is plausibly sign-change
+counting for Hardy's `Z`; this carries no conclusion and no constant, and is
+recorded only so the request has a direction to point.
+
+**The route cannot bootstrap.** `Nsc ≤ NscStd ≤ oddAtoms`, so its own output
+feeds back as an input and `offline_roundtrip_loses` shows the round trip loses
+at every `c < 1`.
+
 **`306`: the rate is not improvable.** `proportion_of_oddAtoms_attained` shows
 that at every configuration where `Blindness.three_mul_oddAtoms_le` is tight,
 the constant family's true `N_sc/N` is `(3c − 1)/2` on the nose. So a supplier

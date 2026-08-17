@@ -1342,6 +1342,27 @@ theorem proportion_of_oddAtoms_attained {D : ZeroData} (hpos : 0 < D.N)
   · field_simp
     linarith [heq']
 
+/-- **What an odd-atom supplier would have to say.**  `SESSION 307`.
+
+`proportion_of_oddAtoms` returns `(3c − 1)/2`, so it improves on
+`certified_nsc_unconditional`'s `0.50875` exactly when `c > 0.6725`.  The
+threshold landing on `κ` is not a second fact: `0.50875` **is** the image of `κ`
+under that same strictly increasing map, so this is monotonicity read at the
+certified point.
+
+That fixes the request precisely — an eventual `oddAtoms ≥ c·N` for `zetaFamily`
+with `c` above `κ`, worth `3/2` per point (`proportion_of_oddAtoms_attained`) at
+zero axioms.
+
+**The route cannot be run on its own output.**  `Nsc ≤ NscStd ≤ oddAtoms`, so a
+`Proportion c'` supplies `oddAtoms ≥ c'·N`, and feeding that back gives
+`(3c' − 1)/2 < c'` for every `c' < 1` — which is `offline_roundtrip_loses`,
+proved for the off-line exchange and now constraining a route that did not exist
+when it was written. -/
+theorem oddAtoms_input_beats_certified_row_iff {c : ℝ} :
+    (0.50875 : ℝ) < (3 * c - 1) / 2 ↔ (0.6725 : ℝ) < c := by
+  constructor <;> intro h <;> linarith
+
 /-- **A distinct-zeros proportion is a haunted-density bound, at rate `(1−c)/2`.**
 
 `N − atomCount` is the **distinct-zeros deficit** `N(T) − N_d(T)`, a quantity the

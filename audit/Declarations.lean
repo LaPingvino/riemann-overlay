@@ -308,6 +308,8 @@ import Riemann
 #check @Riemann.Blindness.three_mul_oddAtoms_eq_iff_separates
 -- SESSION 306: the 3/2 rate is attained across the whole equality set.
 #check @Riemann.proportion_of_oddAtoms_attained
+-- SESSION 307: the threshold a supplier must clear.
+#check @Riemann.oddAtoms_input_beats_certified_row_iff
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

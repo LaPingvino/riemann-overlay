@@ -14565,3 +14565,54 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 supplier, which makes it the cleanest open request this project can hand to the
 literature — a lower bound on how many ordinates carry odd multiplicity, worth
 one and a half times its size.
+
+## The supplier search, run on the side I had not searched
+
+**Wildcard, and it owned the kill condition.** `303` and `306` both recorded
+that the odd-atom route has no supplier on disk. That claim rested on a search of
+**our** vocabulary. The dependency would not call the quantity `oddAtoms`.
+
+**Kill condition, filed first:** *if an `oddAtoms ≥ c·N` with `c > 0.6725` is
+already derivable — if the dependency-side search turns up a supplier — then
+`303`/`306`'s "no supplier" is wrong and the correction is the deliverable.*
+**It did not fire**, and now the claim is witnessed rather than assumed.
+
+Searches, named per `R28`. Ours: `statement_index --find 'oddAtoms'` read over
+every row, plus a grep for `≤ oddAtoms` across `Riemann/` — one lower bound,
+`Blindness.NscStd_le_oddAtoms`, lifted at `oddAtoms_ge_of_proportionStd` to
+exactly `κ`. Theirs: `--find 'odd'` returns **nothing at all**; `--find 'N0|N₀'`
+returns `N0` (on-line mass), `N0star` (distinct on-line zeros), `N0s` (on-line
+**simple** zeros); `--find 'Hardy'` returns the `XiPrime` simple-zero material we
+already price at four axioms. The vendored tree tracks *simple* and *all*, and
+does not track *odd*.
+
+`267` is why this was worth doing: it found `Riemann.zeta23_xiPrime` axiomatising
+`0.85838` while `Zeta23.XiPrime.Final` proves that constant, in lines the build
+does not reach. A negative answer from a search of one vocabulary is a statement
+about that vocabulary.
+
+**Piece — the request, made exact.** `Riemann.oddAtoms_input_beats_certified_row_iff`
+gives the threshold: the route beats `0.50875` when `c > 0.6725`. The threshold
+lands on `κ` because `0.50875` is the image of `κ` under the same increasing
+map, so this is monotonicity read at the certified point.
+
+**And the route cannot bootstrap.** `Nsc ≤ NscStd ≤ oddAtoms`, so its own output
+feeds back as an input, and the round trip loses at every `c < 1`. The theorem
+saying so is `offline_roundtrip_loses`, proved for the off-line exchange long
+before this route existed. `R26` found it before I wrote the duplicate.
+
+`PRICES.md` now carries the ask in one line, the searches that back it, and a
+`[RECALL, UNVERIFIED]` pointer to sign-change counting for Hardy's `Z` that
+carries no constant and no conclusion.
+
+**Snag, bin 1.** I had written "no supplier" into two registers across two cycles
+on the strength of a search I ran once, in one vocabulary. Neither cycle recorded
+which vocabulary. `R28` says name the search; it does not yet say *name the
+vocabulary the search was in*, and that is the part that failed here.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, duplication floor `23`.
+
+**Might-mean, unhedged:** the dependency counts zeros that are simple and zeros
+that are anything, and its `--find 'odd'` comes back empty, so the quantity this
+project's cheapest open route consumes is one its supplier did not measure.

@@ -477,6 +477,7 @@ ours	Riemann.Fiber	lemma	onAt_eq_zero_of_offLine	(E : ZeroData) (h : ∀ p ∈ E
 ours	Riemann.Fiber	lemma	offLine_pair_no_online	{a : ℝ} (ha : a ≠ 1/2) : ∀ p ∈ (configAt 0 0 1 a).Z, p.1 ≠ 1/2	-	
 ours	Riemann.Fiber	theorem	Nsc_sensitive_to_offLine	{a : ℝ} (ha : a ≠ 1/2) : superpose (configAt 0 1 0 a) (configAt 0 0 1 a) = configAt 0 1 1 a ∧ (configAt 0 1 0 a).NscStd = 1 ∧ (configAt 0 1 1 a).NscStd = 1 ∧ (configAt 0 1 0 a).Nsc = 1 ∧ (configAt 0 1 1 a).Nsc = 0	-	
 ours	Riemann.Fiber	theorem	NscStd_insensitive_offLine_witness	{a : ℝ} (ha : a ≠ 1/2) : (configAt 0 1 1 a).NscStd = (configAt 0 1 0 a).NscStd	-	
+ours	Riemann.Fiber	theorem	NscStd_not_determined_by_two_moments_and_split	{γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) : (twoAtom γ a 3 0 3 1).N = (twoAtom γ a 1 1 5 0).N ∧ (twoAtom γ a 3 0 3 1).Nstar = (twoAtom γ a 1 1 5 0).Nstar ∧ (twoAtom γ a 3 0 3 1).Noff = (twoAtom γ a 1 1 5 0).Noff ∧ onMoment (twoAtom γ a 3 0 3 1)	-	**Three global numbers do not determine `NscStd`.** On `353`'s pair — profiles `{(3,0),(5,2)}` and `{(3,2),(5,0)}` — the totals `N`, `N⊛`, `N_off` and `Σ onAt` 
 ours	Riemann.Fujii	lemma	sqrt_le_of_sq	{x y : ℝ} (hy : 0 ≤ y) (h : x ≤ y ^ 2) : Real.sqrt x ≤ y	-	
 ours	Riemann.Fujii	lemma	log_two_add_le	{lam : ℝ} (h : 0 ≤ lam) : Real.log (2 + lam) ≤ 0.6931471808 + lam / 2	-	`log (2 + λ) ≤ log 2 + λ/2 ≤ 0.6931471808 + λ/2`.
 ours	Riemann.Fujii	lemma	log_two_add_nonneg	{lam : ℝ} (h : 0 ≤ lam) : 0 ≤ Real.log (2 + lam)	-	

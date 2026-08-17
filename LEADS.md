@@ -2291,6 +2291,15 @@ counts. **The resemblance is close and is not an identification:** the paper's d
 trace moments against test functions, an analytic object; the profile is a combinatorial
 multiset. Recorded as an analogy for a later cycle to make precise or refute.
 
+> **`363` refuted it in its naive reading, which is the reading I had.** If *"first two
+> trace moments"* meant two numbers, the shadow of the paper's data on a `ZeroData` would
+> be `N`, `N⊛`, `N_off` and `Σ onAt` — three numbers, since `351`'s identity determines
+> the fourth. `Riemann.Blindness.NscStd_not_determined_by_two_moments_and_split` shows
+> those do not fix `NscStd`, on `353`'s pair. So a certificate depending only on them
+> could not satisfy `p ≤ N₀ˢ/N` configuration by configuration, and **the paper's class is
+> strictly richer than the shadow** — its moments are a family indexed by test functions.
+> The `≈0.682` ceiling is over the paper's class and is untouched by this.
+
 **`2/3` is within `0.016` of its own method's ceiling.** §7.2: the ceiling over all
 bandwidth-one certificates is `≈0.682`, established by Eric Easley and *"sharpened by
 Stephen McAleer"*, and `Zeta23.PairCeiling.ceiling_law256` is the Lean form.

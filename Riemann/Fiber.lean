@@ -8536,5 +8536,55 @@ theorem NscStd_insensitive_offLine_witness {a : ℝ} (ha : a ≠ 1/2) :
   rwa [(rfl : superpose (configAt 0 1 0 a) (configAt 0 0 1 a) = configAt 0 1 1 a)] at h
 
 
+/-! #### `361`'s analogy, made precise and then refuted in its naive form —
+`SESSION 363`
+
+`361` recorded a resemblance and asked a later cycle to make it precise or refute it.
+`arXiv:2608.13637` §7.2 defines a *bandwidth-one certificate* as depending on a
+configuration *"only through its first two trace moments against test functions of
+Fourier support in `[−1,1]` and the partition into on-line points and off-line pairs"*,
+and this project's ledger is a functional of the profile.
+
+**The naive reading is that "two trace moments" means two numbers.** Its combinatorial
+shadow on a `ZeroData` is `N = Σ mass`, `N⊛ = Σ mass²`, the off-line total `N_off`, and
+the on-line total `Σ onAt` — and by `Noff_add_onMoment_one` the fourth is determined by
+the first and third, so it is three numbers.
+
+**That reading is refuted below:** those numbers do not determine `NscStd`, so a
+certificate depending only on them could not be one at all. **The paper's class is
+therefore strictly richer than the shadow** — its moments are a family indexed by test
+functions, not a fixed tuple — which is what the analogy got wrong.
+
+**Kill condition, filed first:** *if the four numbers differ on `353`'s pair, I need a
+different witness and I say so.* It did not fire: `353`'s
+`marginal_pair_separates_only_NscStd` already gives `N`, `N⊛` and `N_off` equal there, and
+the on-line total follows from `351`'s identity.
+
+**What this does not do.** It says nothing about the paper's certificates, whose data is
+richer than these three numbers; it only removes one reading of the resemblance. The
+`≈0.682` ceiling is over the paper's class and is untouched. -/
+
+/-- **Three global numbers do not determine `NscStd`.**  On `353`'s pair — profiles
+`{(3,0),(5,2)}` and `{(3,2),(5,0)}` — the totals `N`, `N⊛`, `N_off` and `Σ onAt` all
+agree while `NscStd` is `0` against `1`.
+
+Composed from `353`'s two theorems and `351`'s `Noff_add_onMoment_one`; nothing new is
+computed. -/
+theorem NscStd_not_determined_by_two_moments_and_split {γ a : ℝ} (hγ : γ ≠ 0)
+    (ha : a ≠ 1/2) :
+    (twoAtom γ a 3 0 3 1).N = (twoAtom γ a 1 1 5 0).N
+      ∧ (twoAtom γ a 3 0 3 1).Nstar = (twoAtom γ a 1 1 5 0).Nstar
+      ∧ (twoAtom γ a 3 0 3 1).Noff = (twoAtom γ a 1 1 5 0).Noff
+      ∧ onMoment (twoAtom γ a 3 0 3 1) 1 = onMoment (twoAtom γ a 1 1 5 0) 1
+      ∧ (twoAtom γ a 3 0 3 1).NscStd = 0
+      ∧ (twoAtom γ a 1 1 5 0).NscStd = 1 := by
+  obtain ⟨hN, hStar, -, hOff⟩ := marginal_pair_separates_only_NscStd hγ ha
+  obtain ⟨-, -, hS0, hS1⟩ := NscStd_not_determined_by_profile_marginals hγ ha
+  refine ⟨hN, hStar, hOff, ?_, hS0, hS1⟩
+  have e1 := Noff_add_onMoment_one (twoAtom γ a 3 0 3 1)
+  have e2 := Noff_add_onMoment_one (twoAtom γ a 1 1 5 0)
+  omega
+
+
 end Blindness
 end Riemann

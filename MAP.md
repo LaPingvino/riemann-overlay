@@ -126,6 +126,12 @@ Since `337` **every board row is axiom-free except Route II** — measured, not
 assumed, by `forensics/board.py --cones` (`SESSION 340`). So adopting any row now
 costs `0 → 1` axioms rather than `2 → 3`. `RULING.md` carries the re-priced board.
 
+**One analogy, tested and dropped.** `361` noticed that the paper's *bandwidth-one
+certificate* data resembles the profile; `363` refuted the naive reading —
+`Riemann.Blindness.NscStd_not_determined_by_two_moments_and_split` shows three global
+numbers do not fix `NscStd`, so the paper's class is strictly richer. The `≈0.682` ceiling
+is over that richer class.
+
 **And what would pass the wall, named by the source.** `arXiv:2608.13637` §7.2 puts the
 ceiling of its own method at `≈0.682` and says passing it needs *"pair-correlation
 information beyond Fourier support 1"*; §7.3 prices two conditional rows —

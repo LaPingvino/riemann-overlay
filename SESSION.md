@@ -17754,3 +17754,55 @@ duplication floor `26`, overclaim floor `203`, `forensics/banner_check.py` `0` f
 land above this project's row is out of reach of everything the project can spend, so the
 board's real content is not a menu of purchasable rows but a boundary — and the row that
 crosses it is priced in a conjecture about primes rather than in anything about zeros.
+
+## `361`'s analogy, made precise and refuted
+
+**Piece.** `361` recorded a resemblance between `arXiv:2608.13637` §7.2's *bandwidth-one
+certificate* data and this project's profile, and asked a later cycle to make it precise
+or refute it. Making it precise refutes it.
+
+§7.2's certificate depends on a configuration *"only through its first two trace moments
+against test functions of Fourier support in `[−1,1]` and the partition into on-line
+points and off-line pairs"*. **The naive reading — the one I had — is that "two trace
+moments" means two numbers.** Its shadow on a `ZeroData` is `N = Σ mass`, `N⊛ = Σ mass²`,
+the off-line total `N_off`, and the on-line total `Σ onAt`; by `351`'s
+`Noff_add_onMoment_one` the fourth is determined by the first and third, so it is three
+numbers.
+
+**Kill condition, filed first:** *if those numbers differ on `353`'s pair, I need a
+different witness and I say so.* It did not fire.
+`NscStd_not_determined_by_two_moments_and_split` composes `353`'s
+`marginal_pair_separates_only_NscStd` (which already gives `N`, `N⊛`, `N_off` equal on
+that pair) with `351`'s identity for the on-line total, and `353`'s
+`NscStd_not_determined_by_profile_marginals` for `NscStd` at `0` against `1`. Nothing new
+is computed.
+
+**So the naive reading is false, and usefully so.** A certificate depending only on those
+three numbers could not satisfy `p ≤ N₀ˢ/N` configuration by configuration, because two
+configurations agreeing on all three have different `N₀ˢ`. **The paper's class is strictly
+richer than the shadow** — its moments are a family indexed by test functions, not a fixed
+tuple — and that is what my analogy got wrong.
+
+**What this does not touch.** The `≈0.682` ceiling is over the paper's class, not over the
+shadow, so it stands. Nothing here constrains the paper's certificates; one reading of a
+resemblance is removed.
+
+**`S152`.** Making an analogy precise can refute it, and that is the cheaper outcome: one
+composition of two existing theorems rather than a new development. `361` was right to
+record it as an analogy and right not to act on it.
+
+**Wildcard — does the refutation cost the registers anything?** **Kill condition, filed
+first:** *if `MAP.md` or `LEADS.md` carried the analogy as more than an analogy, that is a
+defect and I fix it at its location.* It did not fire: `361` wrote *"the resemblance is
+close and is not an identification"* and `MAP.md` did not carry it at all. Both now carry
+the refutation instead, and `forensics/citation_check.py` still reports `0` unresolved with
+the new `MAP.md` paragraph.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`,
+duplication floor `26`, overclaim floor `203` — clean first pass.
+
+**Might-mean, scoped to the naive reading tested:** the project's blindness results are
+about a class of statistics too coarse to be the paper's certificates, so `X` and the
+`0.682` ceiling are bounds on different things — and the honest relation between them is
+still unknown rather than close.

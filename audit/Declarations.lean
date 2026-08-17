@@ -822,3 +822,8 @@ import Riemann
 #check @Riemann.HL_row_on_the_board
 #check @Riemann.ladder_cannot_reach_HL_row
 #check @Riemann.offLine_currency_cannot_reach_HL_row
+
+-- SESSION 363: 361's analogy, refuted in its naive reading.  The three global numbers
+-- N, Nstar, Noff (and the on-line total they determine) do not fix NscStd, so the
+-- paper's certificate class is strictly richer than that shadow of it.
+#check @Riemann.Blindness.NscStd_not_determined_by_two_moments_and_split

@@ -4484,38 +4484,20 @@ theorem haunted_chain_attains_star_and_atoms {a : ℝ} (ha : a ≠ 1/2) (n : ℕ
   · rw [atomCount_eq_card_profile, hprof, Multiset.card_replicate]
 
 /-- **The mass accounting: `Nsc + 3·hauntedCount ≤ N`.**  A simple ordinate
-carries one zero, a haunted one at least three, and they are disjoint. -/
+carries one zero, a haunted one at least three, and they are disjoint.
+
+**Collapsed at `SESSION 318`.**  This carried its own twenty-line sum estimate
+over `ordinates.toFinset`, and `317`'s `forensics/equiv_check.py` put it in one
+class with `three_mul_NscStd_le_N_add_two_mul_Nsc`, which runs the *same*
+argument — its docstring states the same mechanism, that a haunted atom has mass
+at least three while contributing one to each count.  Two proofs of one estimate,
+which is `256`'s case to collapse rather than `256`'s case to keep: no route is
+lost, because there was only ever one route. -/
 theorem Nsc_add_three_mul_haunted_le_N (D : ZeroData) :
     D.Nsc + 3 * hauntedCount D ≤ D.N := by
-  classical
-  have key : (D.Nsc : ℤ) + 3 * (hauntedCount D : ℤ) ≤ (D.N : ℤ) := by
-    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
-        (if D.H γ = 1 then (1 : ℤ) else 0) := by
-      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
-    have hC : (hauntedCount D : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
-        (if D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1 then (1 : ℤ) else 0) := by
-      rw [hauntedCount, Finset.card_filter]; push_cast; rfl
-    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
-      rw [N_from_profile, profile, Multiset.map_map]; rfl
-    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
-      rw [hN0, Nat.cast_sum]
-    rw [hB, hC, hN, Finset.mul_sum, ← Finset.sum_add_distrib]
-    refine Finset.sum_le_sum fun γ _ => ?_
-    have h1 := H_eq_onAt_add_offAt D γ
-    obtain ⟨r, hr⟩ := even_offAt D γ
-    by_cases hone : D.H γ = 1
-    · rw [if_pos hone, if_neg (by simp [hone]), hone]; norm_num
-    · rw [if_neg hone]
-      by_cases hsc : D.H γ - offAt D γ = 1
-      · rw [if_pos ⟨hsc, hone⟩]
-        have : (3 : ℤ) ≤ (D.H γ : ℤ) := by
-          have : 3 ≤ D.H γ := by omega
-          exact_mod_cast this
-        linarith
-      · rw [if_neg (by tauto)]
-        have : (0 : ℤ) ≤ (D.H γ : ℤ) := Int.natCast_nonneg _
-        linarith
-  exact_mod_cast key
+  have h := three_mul_NscStd_le_N_add_two_mul_Nsc D
+  have hid := NscStd_eq_Nsc_add_haunted D
+  omega
 
 /-- **`084` derived from the identity**, rather than from its own sum estimate:
 `3·NscStd = 3·Nsc + 3·hauntedCount ≤ 3·Nsc + (N − Nsc) = N + 2·Nsc`. -/
@@ -5384,6 +5366,15 @@ disk. -/
 /-- **Every class charged its minimum mass.**  Subsumes
 `two_mul_haunted_add_atomCount_le_N` and `evenOnAt_add_atomCount_le_N`, which are
 this with the other classes' weights set to zero.
+
+**Kept long, deliberately — `SESSION 318`.**  `317` put this in one class with
+`two_mul_atomCount_add_oddAtoms_le`, so the three lines
+`have e := two_mul_atomCount_add_oddAtoms_le D; …; omega` would prove it.  That
+proof is **not** taken, and the reason is the opposite of
+`Nsc_add_three_mul_haunted_le_N`'s: the weights `2, 2, 1, 1` are this theorem's
+content, and the per-ordinate `split_ifs` below is where they are *checked*.
+Routing through the older inequality would leave them asserted by the statement
+and verified nowhere.  `256`'s case to keep.
 
 **Correction, `SESSION 316`.**  It is **equivalent** to
 `two_mul_atomCount_add_oddAtoms_le`, which predates this whole arc — substituting

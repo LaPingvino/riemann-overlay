@@ -15138,3 +15138,50 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 inequalities in this inventory became consequences of arithmetic once `292`–`313`
 named the four complements, so the naming did not add facts to the project — it
 moved them from the theorem list into the definitions.
+
+## Two equivalence classes, two opposite verdicts
+
+**Piece — grading what `317` found.** `equiv_check` reported two classes with
+more than one member. `256`'s concern is a second **proof**, not a second form,
+so the question is how each member is actually proved.
+
+**Kill condition, filed first:** *if a long proof records a mechanism its short
+route would discard, it is a deliberate route and I record the grading instead of
+collapsing.* **It fired on one class and not the other**, which is the useful
+outcome.
+
+**Class one — collapsed.** `Nsc_add_three_mul_haunted_le_N` carried its own
+twenty-line sum estimate over `ordinates.toFinset`.
+`three_mul_NscStd_le_N_add_two_mul_Nsc` runs the same argument, and its docstring
+states the same mechanism in the same words: a haunted atom has mass at least
+three while contributing one to each count. Two proofs of one estimate with no
+second route between them. Now three lines through the identity. Sixth collapse
+of this shape, and the first found by an instrument rather than by tripping over
+it.
+
+The class's third member was already three lines through the second, so the class
+is now one long proof and two short ones.
+
+**Class two — kept, and the reason is the mirror image.** `317` showed
+`mass_charges_every_class` is `two_mul_atomCount_add_oddAtoms_le` in the
+partitions' coordinates, so three lines would prove it. **That proof is not
+taken.** The weights `2, 2, 1, 1` are the theorem's content, and the per-ordinate
+`split_ifs` is where they are checked; routing through the older inequality would
+leave them asserted by the statement and verified nowhere. Recorded at the
+declaration.
+
+**Snag, bin 2.** The two verdicts turn on something no instrument can read: what
+a proof is *for*. `equiv_check` found both classes and is silent on which to
+collapse, `duplication_floor` would not have found either, and the deciding
+evidence in the first case was that two docstrings say the same sentence. The
+tooling narrowed sixteen candidates to two; the grading stayed manual, and `256`
+always said it would.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, duplication floor `23`,
+`equiv_check` re-run after the collapse and unchanged.
+
+**Might-mean, scoped to what this cycle checked:** of the two classes `317`
+found, one was a duplicated proof and one is a proof that earns its length, so
+equivalence modulo the partitions locates candidates for `256` without deciding
+any of them.

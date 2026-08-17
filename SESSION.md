@@ -15931,3 +15931,60 @@ than implied by the phrasing.
 moment inequality at once, and that is the hypothesis `297`'s ladder rung and
 `110`'s cap both live under, so the family this arc built is sharp exactly where
 the certified row already argues.
+
+## The converse `333` left open
+
+**Piece — closing it.** `333` proved mass at most three saturates every moment and
+wrote down what the converse needed: a **strict** form of `331`'s excess lemma,
+plus a pointwise argument off `Finset.sum_eq_sum_iff_of_le`.
+
+**Kill condition, filed first:** *if the strict lemma or the pointwise step needs
+more than the non-strict version did — if the sum step will not factor through a
+per-ordinate strict inequality — I report the obstruction rather than the
+theorem.* **It did not fire.**
+
+`pow_excess_strict` is `331`'s proof with `d ≥ 1` and `H^j ≥ 2` in place of
+`H^j ≥ 1` — the same `H = m + d` factorisation, no new idea. `moment_weight_lt`
+then gives the strict pointwise bound whenever `4 ≤ n + f`, and
+`momentK_charges_lt_of_big` lifts it with **`Finset.sum_lt_sum`**.
+
+`Riemann.Blindness.momentK_charges_eq_iff`, axiom-free: for `k ≥ 2`, the charge is
+an equality **iff** every ordinate has mass at most three — the theorem carries
+both directions. `333`'s condition is therefore the saturating one, and the
+family's equality set is a single set rather than one per moment.
+
+**`333` guessed one of the two pieces wrong, and it did not matter.**
+`Finset.sum_eq_sum_iff_of_le` — the lemma that note named, and that `citation_check`
+made me kernel-check last cycle — is **not used**. `Finset.sum_lt_sum` takes the
+sum step directly, because the contrapositive wants a strict inequality rather
+than an equality-to-pointwise conversion. Corrected at `333`'s location.
+
+**`k ≥ 2` is not cosmetic.** At `k = 1` the charge reads `N ≤ N`: an equality for
+every configuration, so no characterisation can hold there. Stated at the
+declaration.
+
+**Snag, bin 3.** The scratch file could not see `moment_weight`, which is
+`private` in `Fiber.lean`, so the `lt` theorem only compiled once shipped. `322`
+recorded scratch-versus-project environment differences as a recurring shape and I
+hit a new instance of it: not `open` scope or namespace this time but visibility.
+Three flavours now, and the response is the one `322` implied: a proof citing a
+`private` lemma has to be checked in the file that declares it.
+
+**The gate went red on this cycle's own prose, two cycles running.** `333` cited
+`Finset.sum_eq_sum_iff_of_le` and `citation_check` made me check it; `334`'s
+docstring for `momentK_charges_lt_of_big` cites `Finset.sum_lt_sum`, and the guard
+went red on that too. Kernel-checked (`∀ i ∈ s, f i ≤ g i → ∃ i ∈ s, f i < g i →
+∑ < ∑`, which is the shape the lift needs), in `ALLOW` with the cycle number. Two
+consecutive cycles where the red came from the sentence I had just written rather
+than from an old one: the guard is fail-closed on *new* Mathlib citations by
+design, and that is where it is paying.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, warnings at the floor `54`, duplication floor `23`,
+`session_gate` `13/14` first pass — it stopped the commit on the citation above —
+then `14/14` in its own call.
+
+**Might-mean, scoped to `k ≥ 2` and the condition now proved both ways:** the
+whole countable family of moment inequalities has a single equality set, the
+configurations of multiplicity at most three, so the moments constrain the zeros
+in different amounts but agree about which configurations are extremal.

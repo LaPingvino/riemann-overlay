@@ -5553,10 +5553,10 @@ private lemma moment_weight_eq (n f k : ℕ) (hf : f % 2 = 0) (hpos : 0 < n + f)
 depend on `k`, so a single hypothesis makes the whole countable family of `331`
 an equality.
 
-**The converse is not proved.**  Equality ought to force `H ≤ 3`, by strict
-monotonicity of `x ↦ xᵏ − x`; `pow_excess_mono` supplies the non-strict form
-only, so the converse wants a strict variant and a pointwise argument off
-`Finset.sum_eq_sum_iff_of_le`.  Left open rather than assumed. -/
+**The converse is proved at `334`** — `momentK_charges_eq_iff`, for `k ≥ 2`.
+`333` wrote here that it would want a strict variant of `pow_excess_mono` and an
+argument off `Finset.sum_eq_sum_iff_of_le`; the strict variant was needed and that
+`Finset` lemma was not, since `Finset.sum_lt_sum` does the sum step directly. -/
 theorem momentK_charges_eq_of_mult_le_three (D : ZeroData) {k : ℕ} (hk : 1 ≤ k)
     (h3 : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ 3) :
     (3 ^ k - 3) * hauntedCount D + (3 ^ k - 3) * oddAbove D
@@ -5580,6 +5580,119 @@ theorem momentK_charges_eq_of_mult_le_three (D : ZeroData) {k : ℕ} (hk : 1 ≤
     (by omega)
   rw [← hsum] at this
   convert this using 3
+
+/-! #### The converse, which `333` left open — `SESSION 334`
+
+`333` proved mass at most three saturates every moment and recorded what the
+converse needed: a **strict** form of `331`'s excess lemma, plus a pointwise
+argument.  Both are below.
+
+**Kill condition, filed first:** *if the strict lemma or the pointwise step needs
+more than the non-strict version did — if the sum step will not factor through a
+per-ordinate strict inequality — I report the obstruction rather than the
+theorem.*  It did not fire.  `pow_excess_strict` is the same `H = m + d`
+factorisation with `d ≥ 1` and `H^j ≥ 2`, and `Finset.sum_lt_sum` takes the sum
+step directly, so `Finset.sum_eq_sum_iff_of_le` — which `333` guessed at — was not
+needed at all. -/
+
+
+private lemma pow_excess_strict {m H k : ℕ} (hm : 1 ≤ m) (h : m < H) (hk : 2 ≤ k) :
+    m ^ k + H < H ^ k + m := by
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+  obtain ⟨d, rfl⟩ : ∃ d, H = m + d := ⟨H - m, by omega⟩
+  have hd : 1 ≤ d := by omega
+  have hH2 : 2 ≤ m + d := by omega
+  have hj : 1 ≤ j := by omega
+  have hP : 2 ≤ (m + d) ^ j := by
+    calc 2 = 2 ^ 1 := by norm_num
+    _ ≤ (m + d) ^ 1 := Nat.pow_le_pow_left hH2 1
+    _ ≤ (m + d) ^ j := Nat.pow_le_pow_right (by omega) hj
+  have h1 : m ^ (j + 1) ≤ (m + d) ^ j * m := by
+    rw [pow_succ]
+    exact Nat.mul_le_mul (Nat.pow_le_pow_left (by omega) j) le_rfl
+  have h2 : (m + d) ^ (j + 1) = (m + d) ^ j * m + (m + d) ^ j * d := by
+    rw [pow_succ]; ring
+  have h3 : 2 * d ≤ (m + d) ^ j * d := Nat.mul_le_mul hP le_rfl
+  omega
+
+private lemma moment_weight_lt (n f k : ℕ) (hf : f % 2 = 0) (hk : 2 ≤ k)
+    (h4 : 4 ≤ n + f) :
+    (3 ^ k - 3) * (if n = 1 ∧ f ≠ 0 then 1 else 0)
+      + (3 ^ k - 3) * (if ¬ Even n ∧ n ≠ 1 then 1 else 0)
+      + (2 ^ k - 2) * (if Even n ∧ n ≠ 0 then 1 else 0)
+      + (2 ^ k - 2) * (if n = 0 then 1 else 0)
+      + (n + f) < (n + f) ^ k := by
+  have h2le : 2 ≤ 2 ^ k := Nat.le_self_pow (by omega) 2
+  have h3le : 3 ≤ 3 ^ k := Nat.le_self_pow (by omega) 3
+  rcases Nat.eq_zero_or_pos n with h0 | h0
+  · subst h0
+    have hkey := pow_excess_strict (m := 2) (H := 0 + f) (by omega) (by omega) hk
+    rw [if_neg (by omega : ¬ ((0:ℕ) = 1 ∧ f ≠ 0)),
+      if_neg (by simp : ¬ (¬ Even 0 ∧ (0:ℕ) ≠ 1)),
+      if_neg (by simp : ¬ (Even 0 ∧ (0:ℕ) ≠ 0)), if_pos rfl]
+    omega
+  · rcases eq_or_ne n 1 with h1 | h1
+    · subst h1
+      have hz : f ≠ 0 := by omega
+      have hkey := pow_excess_strict (m := 3) (H := 1 + f) (by omega) (by omega) hk
+      rw [if_pos ⟨rfl, hz⟩, if_neg (by simp), if_neg (by simp), if_neg (by simp)]
+      omega
+    · by_cases he : Even n
+      · have hkey := pow_excess_strict (m := 2) (H := n + f) (by omega) (by omega) hk
+        rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)),
+          if_neg (by tauto : ¬ (¬ Even n ∧ n ≠ 1)),
+          if_pos ⟨he, by omega⟩, if_neg (by omega : ¬ n = 0)]
+        omega
+      · have hkey := pow_excess_strict (m := 3) (H := n + f) (by omega) (by omega) hk
+        rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)), if_pos ⟨he, h1⟩,
+          if_neg (by tauto : ¬ (Even n ∧ n ≠ 0)), if_neg (by omega : ¬ n = 0)]
+        omega
+
+/-- **One ordinate above mass three makes the charge strict.**  `SESSION 334`. -/
+theorem momentK_charges_lt_of_big (D : Riemann.ZeroData) {k : ℕ} (hk : 2 ≤ k)
+    {γ₀ : ℝ} (hγ₀ : γ₀ ∈ D.ordinates.toFinset) (h4 : 4 ≤ D.H γ₀) :
+    (3 ^ k - 3) * hauntedCount D + (3 ^ k - 3) * oddAbove D
+      + (2 ^ k - 2) * evenOnAt D + (2 ^ k - 2) * offLineOnly D
+      + D.N < momentK D k := by
+  classical
+  rw [hauntedCount_eq_onAt_one_offAt_pos, oddAbove, evenOnAt, offLineOnly,
+    N_eq_sum_H, momentK, Finset.card_filter, Finset.card_filter,
+    Finset.card_filter, Finset.card_filter,
+    Finset.mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  refine Finset.sum_lt_sum (fun γ hγ => ?_) ⟨γ₀, hγ₀, ?_⟩
+  · have hpos : 0 < D.H γ := by
+      rw [D.H_eq_count, Multiset.count_pos]
+      exact Multiset.mem_toFinset.1 hγ
+    have hsum := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    have := moment_weight (onAt D γ) (offAt D γ) k (by omega) (by omega) (by omega)
+    rw [← hsum] at this
+    convert this using 3
+  · have hsum := H_eq_onAt_add_offAt D γ₀
+    obtain ⟨r, hr⟩ := even_offAt D γ₀
+    have := moment_weight_lt (onAt D γ₀) (offAt D γ₀) k (by omega) hk (by omega)
+    rw [← hsum] at this
+    convert this using 3
+
+/-- **Mass at most three is exactly the saturating condition.**  `SESSION 334`,
+closing the converse `333` left open.
+
+`k ≥ 2` rather than `k ≥ 1`: at `k = 1` the charge is `N ≤ N`, an equality for
+every configuration, so the characterisation cannot hold there and the hypothesis
+is not cosmetic. -/
+theorem momentK_charges_eq_iff (D : ZeroData) {k : ℕ} (hk : 2 ≤ k) :
+    ((3 ^ k - 3) * hauntedCount D + (3 ^ k - 3) * oddAbove D
+        + (2 ^ k - 2) * evenOnAt D + (2 ^ k - 2) * offLineOnly D
+        + D.N = momentK D k)
+      ↔ ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ 3 := by
+  constructor
+  · intro heq γ hγ
+    by_contra hb
+    have hlt := momentK_charges_lt_of_big D hk hγ (by omega)
+    omega
+  · exact fun h => momentK_charges_eq_of_mult_le_three D (by omega) h
 
 /-- `momentK` read off the profile. -/
 lemma momentK_from_profile (D : ZeroData) (k : ℕ) :

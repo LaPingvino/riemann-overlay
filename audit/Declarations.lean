@@ -358,6 +358,9 @@ import Riemann
 -- SESSION 332: every member of the family is sharp, at one configuration.
 -- SESSION 333: mass at most three saturates the whole family.
 #check @Riemann.Blindness.momentK_charges_eq_of_mult_le_three
+-- SESSION 334: the converse, so mass at most three is exactly the condition.
+#check @Riemann.Blindness.momentK_charges_lt_of_big
+#check @Riemann.Blindness.momentK_charges_eq_iff
 #check @Riemann.Blindness.momentK_from_profile
 #check @Riemann.Blindness.momentK_five_class
 #check @Riemann.Blindness.momentK_charges_tight

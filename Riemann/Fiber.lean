@@ -5023,6 +5023,45 @@ theorem oddAtoms_le_atomCount (D : ZeroData) : oddAtoms D ≤ atomCount D := by
   rw [oddAtoms, atomCount]
   exact Finset.card_filter_le _ _
 
+/-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
+
+`295` showed `oddAtoms` is not a functional of the five ledger counts, and gave
+`oddAtoms ≡ N⊛ (mod 4)` as what `N⊛` does pin.  The remaining question is what
+the ledger *bounds*.  Below, `287`'s `NscStd ≤ oddAtoms`.  Above, this.
+
+**Kill condition, filed first:** *if a ledger-only upper bound already exists —
+if anything bounds `oddAtoms` by `N`, `N⊛`, `N_sc`, `NscStd`, `N_off` alone —
+this is a re-derivation and the deliverable is the pointer.*  Searched with
+`statement_index --find 'oddAtoms'`, reading all twelve `ZeroData` rows:
+`Noff_add_oddAtoms_le_N` is ledger-only but weak, and
+`two_mul_atomCount_add_oddAtoms_le` is sharp but spends `atomCount`, which is
+not a ledger count.  It did not fire. -/
+
+/-- **`3·oddAtoms ≤ N + 2·N_sc`** — the ledger's upper bound on a quantity the
+ledger does not determine.
+
+Two steps: `two_mul_atomCount_add_oddAtoms_le` and `oddAtoms ≤ atomCount`.  It is
+strictly stronger than `Noff_add_oddAtoms_le_N` wherever `N_off` is small — on
+`295`'s witness (`N = 14`, `N_off = 0`, `N_sc = 0`) that bound gives `14` and
+this one gives `4`, which the witness attains. -/
+theorem three_mul_oddAtoms_le (D : ZeroData) :
+    3 * oddAtoms D ≤ D.N + 2 * D.Nsc := by
+  have h1 := two_mul_atomCount_add_oddAtoms_le D
+  have h2 := oddAtoms_le_atomCount D
+  omega
+
+/-- **And it is attained at every size**, by `n` on-line atoms of mass three —
+the `t = 0` end of `bracket_tight_chain`'s family.  There `N = 3n`, `N_sc = 0`
+and every ordinate is odd, so both sides are `3n`. -/
+theorem three_mul_oddAtoms_attained {a : ℝ} (ha : a ≠ 1/2) (n : ℕ) :
+    3 * oddAtoms (chain a (List.replicate n ((3:ℕ), (0:ℕ))))
+      = (chain a (List.replicate n ((3:ℕ), (0:ℕ)))).N
+        + 2 * (chain a (List.replicate n ((3:ℕ), (0:ℕ)))).Nsc := by
+  have hb := bracket_tight_chain ha n 0 (Nat.zero_le n)
+  have hn := Noff_tight_chain ha n 0 (Nat.zero_le n)
+  simp only [List.replicate_zero, List.nil_append, Nat.sub_zero] at hb hn
+  omega
+
 /-- **The haunted count converts from the distinct-zeros deficit:
 `2·hauntedCount + atomCount ≤ N`.**
 

@@ -14290,3 +14290,49 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 build open, so its errors are not guesses but stale truths — names that were
 right about an earlier version of the proof standing beside the version that
 replaced it.
+
+## What the ledger bounds, when it cannot determine
+
+**Piece and wildcard collapse into one target this cycle**, and the reason is
+`R20`:
+`300` and `301` were both audits of my own recent prose, and a third would hit
+the hygiene cap. So this cycle had to be Lean or quiet, and the question `295`
+left open turned out to be live.
+
+`295` proved `oddAtoms` is not a functional of the five ledger counts, and gave
+`oddAtoms ≡ N⊛ (mod 4)` as what `N⊛` does pin. It did not ask what the ledger
+**bounds**. Below, `287` has `NscStd ≤ oddAtoms`. Above, nothing.
+
+**Kill condition, filed first:** *if a ledger-only upper bound already exists —
+if anything bounds `oddAtoms` by `N`, `N⊛`, `N_sc`, `NscStd`, `N_off` alone —
+this is a re-derivation and the deliverable is the pointer.* Per `R28` the
+search is named: `statement_index --find 'oddAtoms'`, reading all twelve
+`ZeroData`-argument rows. `Noff_add_oddAtoms_le_N` is ledger-only but weak;
+`two_mul_atomCount_add_oddAtoms_le` is sharp but spends `atomCount`, which is
+not a ledger count. **It did not fire** — the first time in five cycles.
+
+**`three_mul_oddAtoms_le`:** `3·oddAtoms ≤ N + 2·N_sc`, axiom-free, two steps
+from the two theorems above.
+
+**`three_mul_oddAtoms_attained`:** equality at every `n`, on `n` on-line atoms
+of mass three — the `t = 0` end of `bracket_tight_chain`'s family, which has been
+in the file since `183` and needed no new construction.
+
+The bracket is now two-sided in ledger terms: `NscStd ≤ oddAtoms ≤ (N + 2·N_sc)/3`,
+with `295`'s residue mod `4` inside it. On `295`'s own witness the new bound
+gives `4` where `Noff_add_oddAtoms_le_N` gives `14`, and the witness sits at `4`.
+
+**Snag, bin 2.** Both proofs are `omega` over two existing inequalities, and the
+attainment reuses a family from `183`. Five cycles running, the ingredients were
+on disk; what was new here is that these two had not been put next to each
+other. `R26` searches statements, so a statement-that-would-follow is outside
+what it can return. I am not proposing to build the instrument that would close
+that gap — writing the gap down is this cycle's whole claim about it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, statement index `5,155`.
+
+**Might-mean, unhedged:** the ledger cannot say how many ordinates carry odd
+multiplicity, but it caps that number at a third of the mass, and the cap is
+reached exactly when every ordinate is a triple — which is the configuration the
+whole `N_sc` row has been fighting since `110`.

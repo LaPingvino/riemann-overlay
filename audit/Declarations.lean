@@ -295,6 +295,9 @@ import Riemann
 -- SESSION 299: the m = 7 rung's precision, prose until now.
 #check @Riemann.ladder_seven_exact_value
 #check @Riemann.ladder_seven_shortfall
+-- SESSION 302: the ledger's upper bound on oddAtoms, and its attainment.
+#check @Riemann.Blindness.three_mul_oddAtoms_le
+#check @Riemann.Blindness.three_mul_oddAtoms_attained
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

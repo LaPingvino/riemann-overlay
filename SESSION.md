@@ -16119,6 +16119,15 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 `v3/c3b240548ad8`, axioms 2, warnings at the floor `54` (the eleven new
 declarations added none), duplication floor `23`.
 
+**`equiv_check`, owed because the inventory changed, and run.** The instrument's
+trigger is *"run it when the inventory of inequalities changes"*, and two
+hypothesis-free `ℕ`-linear bounds is a change. Exit `0`, sentinel reported in
+every chunk. Inventory `34`, of which `7` follow from the four partitions alone
+and `27` carry content; `702` ordered pairs; `22` classes, `3` with more than one
+member. Neither new name appears in any of those three, so on the evidence of
+this run each cap bound sits in a class of its own — not a re-coordinatisation of
+anything on disk, which is the question `317` built the instrument to answer.
+
 **Might-mean, scoped to the caps at three and four:** a multiplicity cap is not a
 technical convenience that makes bounds nicer — under it `N_sc` is an explicit
 linear function of `atomCount`, `N` and `N⊛`, so any route that assumes bounded

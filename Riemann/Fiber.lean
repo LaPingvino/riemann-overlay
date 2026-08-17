@@ -5461,6 +5461,84 @@ theorem star_charges_every_class (D : ZeroData) :
   rw [← hsum] at this
   convert this using 3
 
+/-! #### The next moment, and the weights do not saturate — `SESSION 330`
+
+`329` closed on the reading that what decides whether a decomposition earns its
+keep is which moment it is charged against.  `N⊛` gave weights `6, 6, 2, 2`; the
+third moment gives `24, 24, 6, 6`, since a class of minimum mass `m` contributes
+`m³ − m`.
+
+**Kill condition, filed first:** *if the third-moment weights are proportional to
+the `N⊛` weights, the ladder saturates at `N⊛` and higher moments add nothing but
+scale; if they are not, each moment is a different constraint.*  `24 · 2 = 48`
+and `6 · 6 = 36`, so **the vectors are not parallel and it did not fire** —
+`third_moment_weights_not_parallel` records the arithmetic.
+
+The pattern continues at every `k` — the weight is `m^k − m` — but only `k = 3`
+is proved here.  A general-`k` proof needs `Hᵏ − H ≥ mᵏ − m` for `H ≥ m ≥ 1`,
+which is a genuine lemma rather than a `nlinarith` per branch, and this cycle
+does not claim it. -/
+
+/-- The per-ordinate weight at the third moment, isolated for the same reason as
+`star_weight`. -/
+private lemma cube_weight (n f : ℕ) (hf : f % 2 = 0) (hpos : 0 < n + f) :
+    24 * (if n = 1 ∧ f ≠ 0 then 1 else 0)
+      + 24 * (if ¬ Even n ∧ n ≠ 1 then 1 else 0)
+      + 6 * (if Even n ∧ n ≠ 0 then 1 else 0)
+      + 6 * (if n = 0 then 1 else 0)
+      + (n + f) ≤ (n + f) * (n + f) * (n + f) := by
+  rcases Nat.eq_zero_or_pos n with h0 | h0
+  · subst h0
+    have h2 : 2 ≤ f := by omega
+    norm_num
+    nlinarith [h2]
+  · rcases eq_or_ne n 1 with h1 | h1
+    · subst h1
+      rcases eq_or_ne f 0 with hz | hz
+      · subst hz; norm_num
+      · have h2 : 2 ≤ f := by omega
+        norm_num [hz]
+        nlinarith [h2]
+    · have h2 : 2 ≤ n := by omega
+      by_cases he : Even n
+      · rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)),
+          if_neg (by tauto : ¬ (¬ Even n ∧ n ≠ 1)),
+          if_pos ⟨he, by omega⟩, if_neg (by omega : ¬ n = 0)]
+        nlinarith [h2]
+      · have h3 : 3 ≤ n := by
+          rcases Nat.lt_or_ge n 3 with h | h
+          · exfalso; interval_cases n; simp_all
+          · exact h
+        rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)), if_pos ⟨he, h1⟩,
+          if_neg (by tauto : ¬ (Even n ∧ n ≠ 0)), if_neg (by omega : ¬ n = 0)]
+        nlinarith [h3]
+
+/-- **Every class charged its minimum mass at the third moment.**
+`24·hauntedCount + 24·oddAbove + 6·evenOnAt + 6·offLineOnly + N ≤ Σ H³`. -/
+theorem thirdMoment_charges_every_class (D : ZeroData) :
+    24 * hauntedCount D + 24 * oddAbove D + 6 * evenOnAt D + 6 * offLineOnly D
+      + D.N ≤ thirdMoment D := by
+  classical
+  rw [hauntedCount_eq_onAt_one_offAt_pos, oddAbove, evenOnAt, offLineOnly,
+    N_eq_sum_H, thirdMoment, Finset.card_filter, Finset.card_filter,
+    Finset.card_filter, Finset.card_filter,
+    Finset.mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [D.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  have hsum := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have := cube_weight (onAt D γ) (offAt D γ) (by omega) (by omega)
+  rw [← hsum] at this
+  convert this using 3
+
+/-- **The two weight vectors are not parallel**, so the third moment is a
+different constraint rather than a rescaling of `N⊛`'s. -/
+theorem third_moment_weights_not_parallel : 24 * 2 ≠ 6 * 6 := by decide
+
 /-! #### Blindness, extended to the decomposition — `SESSION 325`
 
 `324` settled `E.md`'s thesis with a **partial** witness:

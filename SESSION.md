@@ -15742,3 +15742,49 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 re-coordinatisation in the `N` currency and new information in the `N⊛` one, so
 what decides whether a decomposition earns its keep is which moment it is charged
 against.
+
+## The moment ladder does not saturate at `N⊛`
+
+**Piece and wildcard, one target.** `329` closed on the reading that what decides
+whether a decomposition earns its keep is which moment it is charged against.
+That is testable at the next rung: `N⊛` gave weights `6, 6, 2, 2`, and the third
+moment should give `24, 24, 6, 6`, since a class of minimum mass `m` contributes
+`m³ − m`.
+
+**Kill condition, filed first:** *if the third-moment weights are proportional to
+the `N⊛` weights, the ladder saturates at `N⊛` and higher moments add nothing but
+scale; if they are not, each moment is a different constraint.* `24 · 2 = 48`
+against `6 · 6 = 36`, so **it did not fire**, and
+`third_moment_weights_not_parallel` records the arithmetic — a theorem that
+depends on no axioms at all, which is what `decide` on two products looks like.
+
+`thirdMoment_charges_every_class`, axiom-free:
+`24·hauntedCount + 24·oddAbove + 6·evenOnAt + 6·offLineOnly + N ≤ Σ H³`.
+
+**Confirmed new by the instrument, on `329`'s discipline.** `equiv_check` goes
+`19 → 20` classes with the same three multi-member ones, and the new bound is
+present in the inventory — checked directly rather than inferred from its absence
+in the output, which is the step `329` added after nearly reading a truncation as
+a result two cycles earlier.
+
+**What is not claimed.** The pattern continues at every `k`, the weight being
+`m^k − m`, and only `k = 3` is proved. A general-`k` version needs
+`Hᵏ − H ≥ mᵏ − m` for `H ≥ m ≥ 1`, which is a real lemma rather than an
+`nlinarith` per branch — the difference of powers factors, and each of the `k`
+terms is at least one, but that is an induction this cycle did not write. Stated
+at the declaration so the gap is visible rather than implied.
+
+**Snag, bin 2.** The proof is `329`'s with four constants changed and one line
+shorter — `convert this using 3` closed without the trailing `omega` that `329`
+needed, because the cubic form matches the goal's shape more directly. Two
+cycles, two nearly identical fifty-line proofs, and the shared structure is a
+pointwise weight lemma plus a `Finset.sum_le_sum`. If a fourth moment ever wants
+the same treatment, the honest move is the general `k` rather than a third copy.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, warnings at the floor `54`.
+
+**Might-mean, scoped to the two moments computed:** the five classes are charged
+at `6 : 2` against `N⊛` and `24 : 6` against the third moment, so each moment
+reweights the same partition differently and the constraints they impose are
+independent rather than nested.

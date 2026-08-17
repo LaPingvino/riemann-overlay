@@ -76,6 +76,12 @@ no on-line zeros leaves `NscStd` unchanged. The project's stronger row does move
 `hauntedCount`, which `Riemann.Blindness.hauntedCount_eq_NscStd_sub_Nsc` names.
 This is the count-level form of the paper's own §1.4.
 
+**And reaching the row constrains nothing about location.**
+`Riemann.proportionStd_admits_positive_offline_density`: a constant family on one
+haunted ordinate among four simple ones satisfies `ProportionStd 0.6725` while `2/7`
+of its zeros are off the line, a share that does not decay. That is the second clause
+of the paper's §1.4 in this vocabulary.
+
 **Heights carry nothing.** `Riemann.Blindness.ledger_relabel_invariant`.
 
 ## 4. The five-class decomposition and the moment arc

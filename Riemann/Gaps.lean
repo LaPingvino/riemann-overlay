@@ -899,6 +899,63 @@ noncomputable def constFamily (D : ZeroData) (h : 0 < D.N) : Family where
   D := fun _ => D
   nonempty := Filter.Eventually.of_forall fun _ => h
 
+/-! #### The other clause of §1.4: the row does not force the line — `SESSION 360`
+
+`358` formalised the first half of `arXiv:2608.13637` §1.4.  The second half reads
+*"and hold for Davenport–Heilbronn and Epstein zeta functions, for which the analogue
+of RH is false"*.  `ZeroData` does not model those functions, but the content does
+translate: **the certified conclusion is satisfiable with off-line zeros at positive
+density**, so reaching the row says nothing about where the zeros sit.
+
+**Kill condition, filed first:** *if `ProportionStd` for a constant family does not
+reduce to the pointwise inequality without extra hypotheses, I ship the `ZeroData`
+counts and state the family lift as not done.*  It did not fire —
+`constFamily_proportionStd` is four lines, because `constFamily`'s `D` is constant and
+`Filter.Eventually.of_forall` does the rest.
+
+The configuration is one haunted ordinate among four simple ones:
+`N = 7`, `NscStd = 5`, `N_off = 2`, `N_sc = 4`.  `5/7 = 0.714… ≥ 0.6725` clears the
+certified row while `2/7 = 0.285…` of the zeros are off the line — and being a
+*constant* family, that share does not decay. -/
+
+lemma constFamily_proportionStd {D : ZeroData} (h : 0 < D.N) {κ : ℝ}
+    (hκ : κ * (D.N : ℝ) ≤ (D.NscStd : ℝ)) : (constFamily D h).ProportionStd κ := by
+  intro ε hε
+  refine Filter.Eventually.of_forall fun T => ?_
+  show (κ - ε) * ((D.N : ℕ) : ℝ) ≤ ((D.NscStd : ℕ) : ℝ)
+  have h0 : (0:ℝ) ≤ ((D.N : ℕ) : ℝ) := Nat.cast_nonneg _
+  nlinarith
+
+lemma mixed_chain_counts {a : ℝ} (ha : a ≠ 1/2) :
+    (Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]).N = 7
+      ∧ (Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]).NscStd = 5
+      ∧ (Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]).Noff = 2
+      ∧ (Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]).Nsc = 4 := by
+  classical
+  have hne : ∀ p ∈ [((1:ℕ),(1:ℕ)),(1,0),(1,0),(1,0),(1,0)], p.1 + 2 * p.2 ≠ 0 := by
+    decide
+  have hp : Blindness.profile (Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)])
+      = {(3,2),(1,0),(1,0),(1,0),(1,0)} := by
+    rw [Blindness.chain_profile ha _ hne]
+    norm_num
+    rfl
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [Blindness.N_from_profile, hp]; decide
+  · rw [Blindness.NscStd_from_onProfile, Blindness.onProfile_eq_profile_map, hp]; decide
+  · rw [Blindness.Noff_from_profile, hp]; decide
+  · rw [Blindness.Nsc_from_onProfile, Blindness.onProfile_eq_profile_map, hp]; decide
+
+theorem proportionStd_admits_positive_offline_density {a : ℝ} (ha : a ≠ 1/2)
+    (hN : 0 < (Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]).N) :
+    (constFamily (Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]) hN).ProportionStd 0.6725
+      ∧ (0.28 : ℝ)
+            * ((Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]).N : ℝ)
+          ≤ ((Blindness.chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]).Noff : ℝ) := by
+  obtain ⟨hN7, hS5, hO2, -⟩ := mixed_chain_counts ha
+  refine ⟨constFamily_proportionStd hN ?_, ?_⟩
+  · rw [hN7, hS5]; norm_num
+  · rw [hN7, hO2]; norm_num
+
 /-- **`255`'s implication is sharp, at the level the board works at.**
 `SESSION 260`.
 

@@ -808,3 +808,10 @@ import Riemann
 #check @Riemann.Blindness.offLine_pair_no_online
 #check @Riemann.Blindness.Nsc_sensitive_to_offLine
 #check @Riemann.Blindness.NscStd_insensitive_offLine_witness
+
+-- SESSION 360: the second clause of arXiv:2608.13637 section 1.4.  The certified row
+-- is satisfiable with off-line zeros at positive, non-decaying density — one haunted
+-- ordinate among four simple ones, NscStd/N = 5/7 and Noff/N = 2/7.
+#check @Riemann.constFamily_proportionStd
+#check @Riemann.mixed_chain_counts
+#check @Riemann.proportionStd_admits_positive_offline_density

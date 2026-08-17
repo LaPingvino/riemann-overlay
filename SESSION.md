@@ -17596,3 +17596,53 @@ and two corrections at their locations.
 its witnesses can be machine-checked against them, so the register that was most at risk
 of drifting is now the one with the tightest coupling to the source — and the reason no
 earlier cycle wrote it was that the arc kept moving, not that the page was hard.
+
+## The other clause of §1.4
+
+**Piece.** `358` formalised the first half of `arXiv:2608.13637` §1.4. The second half
+reads *"and hold for Davenport–Heilbronn and Epstein zeta functions, for which the
+analogue of RH is false"*. I had set it aside as outside `ZeroData`'s reach, and that was
+a misreading of what the clause claims.
+
+**Kill condition, filed first:** *if `ProportionStd` for a constant family does not reduce
+to the pointwise inequality without extra hypotheses, I ship the `ZeroData` counts and
+state the family lift as not done.* It did not fire: `constFamily_proportionStd` is four
+lines, because `constFamily`'s `D` is constant and `Filter.Eventually.of_forall` does the
+rest.
+
+`Riemann.proportionStd_admits_positive_offline_density`: the constant family on
+`chain a [(1,1),(1,0),(1,0),(1,0),(1,0)]` — one haunted ordinate among four simple ones —
+satisfies `ProportionStd 0.6725`, because `NscStd/N = 5/7 = 0.714…`, while `2/7` of its
+zeros are off the line. Being a *constant* family, that share does not decay. So
+**reaching the certified row constrains nothing about where the zeros sit**, which is what
+the clause claims.
+
+`mixed_chain_counts` is the arithmetic: `N = 7`, `NscStd = 5`, `N_off = 2`, `N_sc = 4`,
+each read off `chain_profile` and closed by `decide`.
+
+**`S149` — I mistook the clause's subject matter for its content.** *"Holds for
+Davenport–Heilbronn"* is about other `L`-functions, which `ZeroData` does not model; what
+it *claims* is that the certificate's conclusion is compatible with off-line zeros at
+positive density, and that is a statement about configurations. The obstacle I expected was
+the model. The actual work was arithmetic on a five-element chain.
+
+**Wildcard — does the map survive its own extension?** **Kill condition, filed first:**
+*if adding a row to `MAP.md` breaks `forensics/citation_check.py`, the map's guard is
+brittle and I say so before adding more.* It did not fire: the new §3 row cites three
+declarations, all resolve, `0` unresolved. `359`'s coupling held on its first real edit, which is
+when a coupling gets tested.
+
+**What this does not claim, stated at the declaration.** `ZeroData` does not model
+Davenport–Heilbronn or Epstein zeta functions. This is the translated content of the
+clause, not the paper's statement, and the docstring says so.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203` — clean first pass. No `equiv_check` owed: one family-level
+implication and one conjunction of counts on a named chain.
+
+**Might-mean, scoped to the family exhibited:**
+`Riemann.proportionStd_admits_positive_offline_density` pays the certified row in full
+while a fixed fraction of its zeros sit off the line, so the ledger's headline number
+carries information about multiplicity and none about the critical line — which is the
+same fact `Riemann.Blindness.NscStd_insensitive_to_offLine` states pointwise.

@@ -781,3 +781,9 @@ import Riemann
 #check @Riemann.Blindness.Noff_add_onMoment_one
 #check @Riemann.Blindness.profile_not_determined_by_both_families
 #check @Riemann.Optimal.ledger_determined_by_both_moment_families
+
+-- SESSION 353: two marginalisations of one object.  The profile's own marginals
+-- (mass, off-line mass) lose NscStd; 351's (mass, on-line) pair does not, because
+-- NscStd is a functional of the on-line marginal alone (349).
+#check @Riemann.Blindness.NscStd_not_determined_by_profile_marginals
+#check @Riemann.Blindness.marginal_pair_separates_only_NscStd

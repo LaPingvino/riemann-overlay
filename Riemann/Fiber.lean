@@ -8270,5 +8270,79 @@ theorem profile_not_determined_by_both_families {γ a : ℝ} (hγ : γ ≠ 0) (h
     decide
 
 
+/-! #### Two marginalisations of one object, and only one of them keeps the row —
+`SESSION 353`
+
+`351` showed the pair *(mass marginal, on-line marginal)* determines every ledger row.
+The profile is written in a different pair of coordinates — *(mass, off-line mass)* —
+and the obvious question is whether **its own** marginals do the same.  They do not.
+
+**The reason is short and already on disk.**  `NscStd` is a functional of the on-line
+marginal alone (`349`), so the first pair carries it for free.  Recovering the on-line
+count from the second pair needs `on = mass − off` *per ordinate*, which is the joint
+and not the marginals.
+
+**Kill condition, filed first:** *if a not-sufficient theorem for the profile's
+marginal pair is already on disk, the deliverable is the pointer.*  Searched
+`statement_index --find 'both_marginals|marginals_not|…'` and read the neighbours:
+`mass_only_not_sufficient` and `off_only_not_sufficient` each drop **one** marginal
+and are about `Noff` and `N`; neither is about the pair, and neither is about `NscStd`.
+It did not fire. -/
+
+/-- **The profile's own two marginals do not determine `NscStd`.**
+
+Two two-atom configurations with profiles `{(3,0),(5,2)}` and `{(3,2),(5,0)}` — the same
+masses `{3,5}` and the same off-line masses `{0,2}`, paired the other way round.  The
+on-line counts are `{3,3}` against `{1,5}`, so `NscStd` is `0` against `1`.
+
+Contrast `Riemann.Optimal.ledger_determined_by_both_moment_families`: swapping the
+off-line marginal for the on-line one makes the same pair of marginals sufficient for
+every row. -/
+theorem NscStd_not_determined_by_profile_marginals {γ a : ℝ} (hγ : γ ≠ 0)
+    (ha : a ≠ 1/2) :
+    (profile (twoAtom γ a 3 0 3 1)).map Prod.fst
+        = (profile (twoAtom γ a 1 1 5 0)).map Prod.fst
+      ∧ (profile (twoAtom γ a 3 0 3 1)).map Prod.snd
+        = (profile (twoAtom γ a 1 1 5 0)).map Prod.snd
+      ∧ (twoAtom γ a 3 0 3 1).NscStd = 0
+      ∧ (twoAtom γ a 1 1 5 0).NscStd = 1 := by
+  classical
+  have pA := twoAtom_profile hγ ha (k₁ := 3) (j₁ := 0) (k₂ := 3) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 1) (j₁ := 1) (k₂ := 5) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [pA, pB]; decide
+  · rw [pA, pB]; decide
+  · rw [NscStd_from_onProfile, onProfile_eq_profile_map, pA]; decide
+  · rw [NscStd_from_onProfile, onProfile_eq_profile_map, pB]; decide
+
+/-- **On that witness the other four rows agree.**  `N`, `N⊛`, `N_sc` and `N_off` are
+all equal across the pair, so the row the profile's marginals lose there is the reported
+one, which is what `Riemann.Blindness.NscStd_not_determined_by_profile_marginals`
+exhibits.
+
+This is a fact about this witness, not a general claim: it says the pair is a clean
+separator, not that `NscStd` is the only row any such pair could separate. -/
+theorem marginal_pair_separates_only_NscStd {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (twoAtom γ a 3 0 3 1).N = (twoAtom γ a 1 1 5 0).N
+      ∧ (twoAtom γ a 3 0 3 1).Nstar = (twoAtom γ a 1 1 5 0).Nstar
+      ∧ (twoAtom γ a 3 0 3 1).Nsc = (twoAtom γ a 1 1 5 0).Nsc
+      ∧ (twoAtom γ a 3 0 3 1).Noff = (twoAtom γ a 1 1 5 0).Noff := by
+  classical
+  have pA := twoAtom_profile hγ ha (k₁ := 3) (j₁ := 0) (k₂ := 3) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 1) (j₁ := 1) (k₂ := 5) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+  · rw [Nsc_from_onProfile, Nsc_from_onProfile, onProfile_eq_profile_map,
+      onProfile_eq_profile_map, pA, pB]; decide
+  · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+
+
 end Blindness
 end Riemann

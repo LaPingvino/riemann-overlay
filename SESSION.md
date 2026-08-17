@@ -17201,3 +17201,49 @@ overclaim floor `203`. No Lean declarations added — two docstrings edited — 
 the shapes I got wrong before and not the one I am getting wrong now, so each new shape
 is found by re-reading and only afterwards becomes machine-checkable — which makes the
 instrument a growing record of my errors, with the re-reading still doing the finding.
+
+## Two marginalisations of one object
+
+**Piece.** `351` showed the pair *(mass marginal, on-line marginal)* determines every
+ledger row. The profile is written in different coordinates — *(mass, off-line mass)* —
+so the natural question is whether **its own** marginals do the same. They do not.
+
+**Kill condition, filed first:** *if a not-sufficient theorem for the profile's marginal
+pair is already on disk, the deliverable is the pointer.* It did not fire, and the
+search is worth naming because it nearly did: `mass_only_not_sufficient` and
+`off_only_not_sufficient` each drop **one** marginal, and are about `Noff` and `N`.
+Neither is about the pair and neither is about `NscStd`.
+
+`NscStd_not_determined_by_profile_marginals`: two two-atom configurations with profiles
+`{(3,0),(5,2)}` and `{(3,2),(5,0)}` — the same masses `{3,5}`, the same off-line masses
+`{0,2}`, paired the other way round. The on-line counts are `{3,3}` against `{1,5}`, so
+`NscStd` is `0` against `1`.
+
+**Wildcard — how clean is the separator?** **Kill condition, filed first:** *if any other
+ledger row also differs on the pair, the statement is weaker than I want and I say so.*
+It did not fire: `marginal_pair_separates_only_NscStd` gives `N`, `N⊛`, `N_sc` and
+`N_off` all equal. Recorded at the declaration as a fact about this witness rather than
+a claim that no such pair could separate another row.
+
+**`S142`, and the reason is not deep — which is the finding.** `NscStd` is a functional
+of the on-line marginal **alone** (`349`), so a coordinate choice that keeps the on-line
+marginal carries it for free. Recovering the on-line count from mass and off-line mass
+needs `on = mass − off` *per ordinate*, which is the joint. So a coarsening's usefulness
+depends on which coordinates it forgets, not on how many — and the profile's own
+coordinates are the worse of the two choices for the row the project reports.
+
+**Snag, bin 1 — `overclaim_floor` fired once, on `nothing else on the ledger`.** Cleared
+by naming the sibling theorem instead of raising the floor, which keeps it at `203`.
+Notable that `352`'s new `exactly as` pattern did **not** fire this cycle — the sentence
+that tripped was an older shape, which is what a growing vocabulary should look like.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203`. No `equiv_check` owed: both theorems are conjunctions of
+equalities on named configurations.
+
+**Might-mean, scoped to the two coordinate choices and the five rows:** the project's
+central object is the profile and the profile's own coordinates are the ones that hide
+its reported row, so the difficulty `X` names is partly a choice of vocabulary — the
+same data written as `(mass, on)` instead of `(mass, off)` gives the ledger up to a
+marginal, and what stays hidden either way is the pairing.

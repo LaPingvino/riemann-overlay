@@ -336,6 +336,10 @@ import Riemann
 -- SESSION 313: the upper gap promoted to a def, and the chain closing on itself.
 #check @Riemann.Blindness.oddAbove
 #check @Riemann.Blindness.Nsc_add_gaps_eq_atomCount_of_Noff_zero
+-- SESSION 314: the decomposition without the hypothesis, and all five inhabited.
+#check @Riemann.Blindness.atomCount_decomposition
+#check @Riemann.Blindness.offLineOnly_from_profile
+#check @Riemann.Blindness.atomCount_decomposition_all_inhabited
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

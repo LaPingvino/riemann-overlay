@@ -14928,3 +14928,52 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 entire distance between `N_sc` and `atomCount` into the non-simple ordinates, so
 on this hypothesis the project's remaining distance to a full simplicity result
 is one quantity rather than four.
+
+## `313` proved the special case; the general one was the same `omega`
+
+**Piece — the hypothesis `313` did not need.** It stated the chain's sum under
+`N_off = 0`. The four partitions it composes carry no hypothesis, so the same
+proof gives the unconditional statement and `313`'s becomes a corollary.
+
+**Kill condition, filed first:** *if the five-way decomposition is already on
+disk, this is a re-derivation and the deliverable is the pointer.* Searched with
+`statement_index --find 'atomCount'`, reading all twelve `ZeroData` rows. It did
+not fire.
+
+`atomCount_decomposition`, axiom-free: **every ordinate is exactly one of five
+things** — `N_sc` simple, `hauntedCount` one on-line zero with off-line company,
+`oddAbove` an odd on-line count above one, `evenOnAt` an even positive one,
+`offLineOnly` none at all.
+
+This is `R30`'s failure mode with the polarity reversed. That rule was written
+one cycle ago about claims quantified **past** what the cycle checked; this was a
+claim restricted **below** what the cycle had proved. Both are the sentence not
+matching the theorems, and I had just written the rule.
+
+**Wildcard — is any part redundant?**
+
+**Kill condition, filed first:** *if some class cannot be inhabited alongside the
+others — if the five are not simultaneously realisable — the decomposition has a
+degenerate part and I report which.* It did not fire.
+`atomCount_decomposition_all_inhabited`: the chain on masses
+`(1,0), (1,1), (3,0), (2,0), (0,1)` puts **one ordinate in each of the five
+classes at once**, `atomCount = 5` with every part equal to `1`.
+
+`offLineOnly_from_profile` was the piece needed to compute it — `onAt = 0` is
+`mass = off-line mass`, which the profile can see.
+
+**Snag, bin 2.** Every theorem this cycle is `omega` or `decide` over facts that
+existed. Three cycles running with no new mathematics, and each one found real
+content anyway: `312` a counterexample, `313` a sum, `314` a generalisation and a
+witness. The seam is not the mathematics; it is that a partition written down is
+worth more than the same partition proved and left inside a proof, and the
+project has now paid for that lesson five times.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, duplication floor `23`.
+
+**Might-mean, scoped to what this cycle checked:**
+`Riemann.Blindness.atomCount_decomposition` sorts every ordinate into five
+classes and `atomCount_decomposition_all_inhabited` fills all five at once, so
+the project's counting vocabulary is now a partition of one object rather than a
+list of quantities that happen to be related.

@@ -5291,6 +5291,72 @@ theorem Nsc_add_gaps_eq_atomCount_of_Noff_zero (D : ZeroData) (h : D.Noff = 0) :
   have g6 := offLineOnly_eq_zero_of_Noff_zero D h
   omega
 
+/-! #### The decomposition without the hypothesis — `SESSION 314`
+
+`313` proved the sum under `N_off = 0` and stopped there.  The four partitions
+it composes carry no hypothesis, so the same `omega` gives the unconditional
+statement, and `313`'s is its corollary.  That is `R30`'s failure mode with the
+polarity reversed: not a claim quantified past what was checked, but a claim
+*restricted* below what was proved.
+
+**Kill condition, filed first:** *if the five-way decomposition is already on
+disk, this is a re-derivation and the deliverable is the pointer.*  Searched with
+`statement_index --find 'atomCount'`, reading all twelve `ZeroData` rows.  It did
+not fire. -/
+
+/-- **Every ordinate is exactly one of five things.**
+
+`N_sc` simple; `hauntedCount` one on-line zero with off-line company; `oddAbove`
+an odd on-line count above one; `evenOnAt` an even positive one; `offLineOnly`
+none at all. -/
+theorem atomCount_decomposition (D : ZeroData) :
+    D.Nsc + hauntedCount D + oddAbove D + evenOnAt D + offLineOnly D
+      = atomCount D := by
+  have g2 := NscStd_eq_Nsc_add_haunted D
+  have g3 := oddAtoms_eq_NscStd_add_oddAbove D
+  have g4 := onLineOrdinates_eq_oddAtoms_add_evenOnAt D
+  have g5 := onLineOrdinates_add_offLineOnly D
+  omega
+
+/-- `offLineOnly` read off the profile: `onAt = 0` is `mass = off-line mass`. -/
+theorem offLineOnly_from_profile (D : ZeroData) :
+    offLineOnly D = Multiset.card ((profile D).filter fun q => q.1 = q.2) := by
+  classical
+  rw [offLineOnly, profile, Multiset.filter_map, Multiset.card_map]
+  show Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+      = Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+  congr 1
+  refine Multiset.filter_congr fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  simp only [Function.comp_apply]
+  omega
+
+/-- **No part of the decomposition is redundant** — one configuration puts a
+single ordinate in each of the five classes at once. -/
+theorem atomCount_decomposition_all_inhabited {a : ℝ} (ha : a ≠ 1/2) :
+    let L : List (ℕ × ℕ) := [(1,0),(1,1),(3,0),(2,0),(0,1)]
+    (chain a L).Nsc = 1 ∧ hauntedCount (chain a L) = 1 ∧ oddAbove (chain a L) = 1
+      ∧ evenOnAt (chain a L) = 1 ∧ offLineOnly (chain a L) = 1
+      ∧ atomCount (chain a L) = 5 := by
+  classical
+  intro L
+  have hp := chain_profile ha L (by decide)
+  norm_num [L] at hp
+  have hA : atomCount (chain a L) = 5 := by
+    rw [atomCount_eq_card_profile, hp]; decide
+  have hsc : ((chain a L).Nsc : ℤ) = 1 := by rw [Nsc_from_profile, hp]; decide
+  have hsc' : (chain a L).Nsc = 1 := by exact_mod_cast hsc
+  have hst : ((chain a L).NscStd : ℤ) = 2 := by rw [NscStd_from_profile, hp]; decide
+  have hst' : (chain a L).NscStd = 2 := by exact_mod_cast hst
+  have hod : oddAtoms (chain a L) = 3 := by rw [oddAtoms_from_profile, hp]; decide
+  have hoo : offLineOnly (chain a L) = 1 := by
+    rw [offLineOnly_from_profile, hp]; decide
+  have p2 := NscStd_eq_Nsc_add_haunted (chain a L)
+  have p3 := oddAtoms_eq_NscStd_add_oddAbove (chain a L)
+  have p4 := onLineOrdinates_eq_oddAtoms_add_evenOnAt (chain a L)
+  have p5 := onLineOrdinates_add_offLineOnly (chain a L)
+  refine ⟨hsc', ?_, ?_, ?_, hoo, hA⟩ <;> omega
+
 /-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
 
 `295` showed `oddAtoms` is not a functional of the five ledger counts, and gave

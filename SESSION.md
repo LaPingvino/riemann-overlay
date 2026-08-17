@@ -14153,3 +14153,70 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** a number that appears once and is not needed twice is
 where this project's prose goes wrong, because everything cited more than once
 gets a theorem behind it sooner or later.
+
+## The screen `299` implied, built and run — and `299` was not representative
+
+**Piece — testing my own closing sentence.** `299` ended: *a number that appears
+once and is not needed twice is where this project's prose goes wrong, because
+everything cited more than once gets a theorem behind it sooner or later.* That
+is a screen, so I built it and ran it rather than quoting it again.
+
+**Kill condition, filed first:** *if the numerals living only in prose are
+dominated by session numbers, line counts and citation years rather than
+mathematical claims, the screen has no discriminating power and I report it as
+unusable rather than triaging noise.* **It did not fire, but it came close.**
+
+Of `279` distinct numerals in `Riemann/*.lean` docstrings, `189` appear in no
+Lean code anywhere in the tree. `121` of those are bare integers in the session
+range and `6` are large integers (line counts). **The discriminating set is `62`
+decimals and rationals** — a quarter of what the screen returns, which is enough
+to read but not enough to be a guard.
+
+**The triage, and it came back clean.** Fourteen of the `62` read against their
+contexts:
+
+* the `1000 : 321` witness accounting at `Fiber.lean:4617` — `642 + 1321 = 1963`,
+  `2·321 + 1321 = 1963`, `642/1963 ≈ 0.32705` with `0.00045` under `0.3275`;
+* the ladder's `δ = (1 − κ)/(m − 1)` readings at `Gaps.lean:1165` —
+  `0.3275/2 = 0.16375`, `0.3275/4 = 0.081875`, and
+  `0.6725 − 0.081875 = 0.590625`;
+* the exchange crossover at `Gaps.lean:814` — the haunted route at `C = 4/3`
+  gives `0.607 + (1.393 − 4/3)/6 ≈ 0.61694`.
+
+All sound. **`299`'s slip was not representative**, and the value of running the
+screen is that this sentence is now a measurement rather than a hope.
+
+**Wildcard — ship the screen or keep it.**
+
+`forensics/prose_numerals.py`, and deliberately **not** a guard. It exits `0`
+always, like `dependency_profile.py`. `S50` is why: most of its output is
+legitimate, so a version that could return a failing exit code would be red
+forever, and a script in the roster that cannot fail is worse than one outside
+it that can be read.
+
+Its false-positive shapes are recorded from this run rather than guessed:
+`Fujii 1974/81` parses as a rational and is a citation, and `1974/1981` two
+lines later arises the same way.
+
+**The Lean idea I dropped, and why.** I had meant to make the even-rung
+domination a theorem — rung `4` is worth `169/300 ≈ 0.5633` against rung `5`'s
+`0.590625` at the same hypothesis, so citing an even rung costs proportion for
+nothing. `235`
+did it: `noSmallHaunted_even_iff` collapses the hypotheses and `ladder_step`
+gives the monotonicity. That is four cycles running where the Lean candidate was
+already on disk, and `R26` found each of them before any code was written.
+
+**Snag, bin 2.** Four consecutive cycles where the combinatorial layer's next
+theorem turned out to exist. `293`–`295` produced new content there; `297`–`300`
+have produced one theorem-pair and three corrections. The seam is not empty —
+`297` found a real gap — but the ratio has turned, and the cycles that paid this
+week were the ones auditing what is already written.
+
+Python-only cycle; hygiene run at one (`R20`). Build green (3757 jobs), sorries
+0, ledger `NscStd 67.25% / Nsc 50.88%`, base `v3/c3b240548ad8`, axioms 2,
+thirteen guards green plus the new instrument.
+
+**Might-mean, unhedged:** the docstrings in this repo carry `62` numbers no
+machine reads, and the fourteen I checked were right, so the risk in this project
+is not arithmetic but the citations threaded through prose that no instrument
+can follow.

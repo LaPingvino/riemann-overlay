@@ -36,14 +36,47 @@ Nothing here is new. It is one page instead of twenty.
 
 ## The state
 
+> ### ⚠️ `340`: the axiom column of this whole page is out of date, in one direction
+>
+> `337` discharged `baseline_zeta23` and `zetaNonempty` on your standing ruling —
+> both are theorems now, proved through the vendored `zeta-23` tree. `340` re-ran
+> `forensics/board.py --cones`, which asks the kernel rather than the register:
+> **ten of thirty-two recorded cones moved, every one of them downward.**
+>
+> | | recorded before `337` | measured at `340` |
+> |---|---|---|
+> | `certified_nsc_unconditional` | 2 | **0** |
+> | `certified_nsc_via_noSmallHaunted` (`0.590625`) | 2 | **0** |
+> | `certified_nsc_via_noSmallHaunted_seven` (`0.6179166`) | 2 | **0** |
+> | `starBound_of_multiplicity_two`, `starBound_of_mult_le_two_zeta` | 2 | **0** |
+> | `conjectural_routeIII`, `conjectural_routeI`, `conjectural_full` | 1 | **0** |
+> | `certified_nsc_via_xiPrime` (Route II) | 4 | **2** |
+> | `offline_via_xiPrime` | 3 | **2** |
+>
+> **Every row on the board is axiom-free except Route II.** The `axioms` column
+> in the table below reads `2`, `1`, `1`, `1`; the measured values are `0`, `0`,
+> `0`, `0`. `CONE_EXPECTED` in `board.py` now records the measured sets and
+> `32/32` pass.
+>
+> **What this does and does not change.** The board's *ordering* is unchanged —
+> Route II was already dominated (`0.60169` against the ladder's `0.6179166` at
+> strictly more axioms), and it still is. What changed is the stakes: the project
+> now holds a **fully unconditional** `50.88%`, and adopting any row trades that
+> property away rather than adding to a base that already assumed two things.
+> Going `0 → 1` is a different act from going `2 → 3`. That is the decision you
+> have, restated in the currency it is now in.
+>
+> The rest of this page is left as written, per the rule that corrections go at
+> the location of the stale text rather than by rewriting the record.
+
 | | |
 |---|---|
-| certified `NscStd` | **67.25%** (`baseline_zeta23`) |
+| certified `NscStd` | **67.25%** (`baseline_zeta23` — **`337`: a theorem, not an axiom**) |
 | certified `Nsc` | **50.88%** (`certified_nsc_unconditional`) |
-| axioms in the certified cone | **2** |
-| axioms declared | **8** (`SESSION 233`: `baseline_przz` deleted on ruling 3) |
+| axioms in the certified cone | **2** — **`337`: `0`** |
+| axioms declared | **8** (`SESSION 233`: `baseline_przz` deleted on ruling 3) — **`337`: `6`** |
 | sorries | 0 |
-| build | green, 3757 jobs |
+| build | green, 3757 jobs — **`337`: 8862, the vendored tree is in it** |
 
 **The `Nsc` row cannot move from what the project already holds.** `111`/`112`
 prove it is within `0.00069` of the best obtainable from the baseline alone;
@@ -59,10 +92,14 @@ Gains are on the `Nsc` row over the certified `0.50875`.
 
 | route | `Nsc` | gain | axioms | hypothesis |
 |---|---|---|---|---|
-| **`NoHaunted`** | `0.672500` | `+16.375` | 2 | no haunted ordinate at all |
-| **Route III** | `2/3 − ε` | `+15.792` | **1** | narrow box (BGST) |
-| **Route I** | `> 0.6725` | `> +16.375` | **1** | effective Fujii `c₀ ≤ 0.33` |
-| **[OPEN D]** | `1 − ε` | `+49.125` | **1** | extended support |
+| **`NoHaunted`** | `0.672500` | `+16.375` | 2 → **0** (`340`) | no haunted ordinate at all |
+| **Route III** | `2/3 − ε` | `+15.792` | **1** → **0** (`340`) | narrow box (BGST) |
+| **Route I** | `> 0.6725` | `> +16.375` | **1** → **0** (`340`) | effective Fujii `c₀ ≤ 0.33` |
+| **[OPEN D]** | `1 − ε` | `+49.125` | **1** → **0** (`340`) | extended support |
+
+**`340`: the `axioms` column above is superseded by the measurement at the top of
+this page.** Every entry in it is `0`. The hypothesis column is unchanged and is
+now the whole cost of every row.
 
 ### The same board, priced in off-line control (`SESSION 239`)
 
@@ -207,6 +244,16 @@ Nothing on this board is asserted, and I am not proposing to assert any of it.
 Adopting a row means moving a hypothesis into `Assumptions.lean`, which raises
 the trusted base — `R5` calls an axiom garbage height, since clearing it is not
 something a later cycle can do.
+
+**`340`: `R5`'s "clearing it is not something a later cycle can do" now has a
+counterexample, and it is worth being precise about why it is not a refutation.**
+`233` cleared `baseline_przz` and `337` cleared two more, so axioms *have* been
+cleared by later cycles. But none of the three was cleared by *proving the
+mathematics* — `baseline_przz` was derivable from a stronger axiom already
+present, and the other two were placeholders for an import that existed all
+along. `R5` is right about the case that matters: an axiom standing in for
+something nobody has proved does not come back down. The three that came down
+were bookkeeping, not results.
 **Declining every row is a coherent answer** and leaves the project exactly where
 it is, which is a fully certified `50.88%` with all its derivations proved tight.
 

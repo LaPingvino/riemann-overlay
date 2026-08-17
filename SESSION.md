@@ -16367,3 +16367,75 @@ located off the critical line, since on the line the two styles agree by
 theirs is in our vocabulary up to a bridge, while a count over all zeros carries
 the off-line deficit that `Riemann.distinctZeros_route_ties_at_one` prices at no
 gain for any input constant.
+
+## What `337` did to the board, measured
+
+**Piece — re-audit the board's cones after the discharge.** `337` emptied the
+certified cone and I reported that for the two ledger rows. The board has thirty
+other rows, and their recorded axiom sets were written against a base that no
+longer exists.
+
+**Kill condition, filed first:** *if no cone moved beyond the two ledger rows
+already reported at `337`, the re-audit is a one-line confirmation and I say so
+rather than dressing a null result as a finding.* **It did not fire.**
+`forensics/board.py --cones` — the opt-in mode that asks the kernel rather than
+the register — reported **ten of thirty-two recorded cones wrong, every one of
+them downward:**
+
+| row | recorded | measured |
+|---|---|---|
+| `certified_nsc_unconditional` | 2 | **0** |
+| `certified_nsc_via_noSmallHaunted` (`0.590625`) | 2 | **0** |
+| `certified_nsc_via_noSmallHaunted_seven` (`0.6179166`) | 2 | **0** |
+| `starBound_of_multiplicity_two`, `starBound_of_mult_le_two_zeta` | 2 | **0** |
+| `conjectural_routeIII`, `conjectural_routeI`, `conjectural_full` | 1 | **0** |
+| `certified_nsc_via_xiPrime` | 4 | **2** |
+| `offline_via_xiPrime` | 3 | **2** |
+
+**Every row on the board is axiom-free except Route II.** `CONE_EXPECTED` now
+records the measured sets and the check reports `32/32`, exit `0`. `RULING.md`'s
+`axioms` column read `2, 1, 1, 1` against measured `0, 0, 0, 0`; corrected at the
+top of that page and beside the table, with the old column left as written.
+
+**Wildcard — does the board's ordering change?** **Kill condition, filed first:**
+*if the reordering does not change which row is cheapest, I report that the
+ranking is unchanged and only the absolute costs moved.* **It fired.** Route II
+was already dominated — `0.60169` against the ladder's `0.6179166` at strictly
+more axioms — and it still is. The ordering is untouched.
+
+**What did change is the stakes, and that is the part worth Joop's attention.**
+Before `337`, adopting a row meant `2 → 3` axioms. Now it means `0 → 1`. The
+project holds a fully unconditional `50.88%`, and every row on the board trades
+that property for points. Same ordering, different act.
+
+**`R5` now has a counterexample, and it is not a refutation.** `R5` says an axiom
+is garbage height because clearing it is not something a later cycle can do —
+and `233` cleared one, `337` cleared two. But none was cleared by proving
+mathematics: `baseline_przz` was derivable from a stronger axiom already present,
+and the other two were placeholders for an import that existed the whole time.
+`R5` is right about the case it is for. Recorded at `R5`'s location in
+`RULING.md`.
+
+**Snag, bin 1 — the gate could not see the staleness the same commit created.**
+`session_gate` reported `14/14 green` at `337`, `338` and `339` while ten cones
+were wrong, because cone-checking is `board.py`'s opt-in mode and the roster ran
+it bare. The reason it was opt-in — *"running lake from a linter would make the
+cheap check expensive"* — does not apply to a gate that already runs two
+lake-invoking guards once before a commit. `board --cones` is in the roster now,
+which took teaching the roster to pass arguments. `S129`.
+
+**And a smaller one, bin 3.** My first reading of the cone check said `EXIT 0`
+because I had piped it through `tail`, so `$?` was `tail`'s. The real exit was
+`1`. Nothing followed from it — I was reading the rows, not the code — but a
+guard's exit status read through a pipe is not that guard's exit status.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `23`,
+roster now fifteen.
+
+**Might-mean, scoped to the ten cones measured:** the discharge at `337` did not
+just clear the ledger's own two axioms, it cleared them out of every conditional
+row that consumed them, so the board Joop has been deciding about is now a menu
+of hypotheses with no axiom prices attached at all except Route II's — and the
+thing being risked by adopting any of them is a property the project only
+acquired four cycles ago.

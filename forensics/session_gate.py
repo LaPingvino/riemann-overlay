@@ -65,11 +65,18 @@ watches, confirm red, restore, confirm green.
 * **`warning_floor`, controlled at `327`** — `320` left it untested because its
   control needs a real Lean warning.  `327` appended a theorem with an unused
   binder to a leaf module: `55 warnings, floor is 54 — this cycle added 1`,
-  exit `1`; reverted, rebuilt, exit `0`.  **All fourteen are now controlled.**
+  exit `1`; reverted, rebuilt, exit `0`.  **All fourteen were controlled at `327`.**
+* **`board --cones`, added at `340` and controlled by the event that motivated
+  it.**  `337`'s axiom discharge moved ten of thirty-two recorded cones and this
+  gate said `14/14 green` for three cycles, because the cone check is `board.py`'s
+  opt-in mode and the roster ran it bare.  Running it at `340` printed ten
+  `[WRONG]` rows and exited `1`; recording the measured sets took it to `32/32`
+  and exit `0`.  That is a live red and a live green, on the same guard, in one
+  cycle.
 
 **Shown to go red, because `S60` says a guard that has never flagged is
 unproven.**  `319` appended a fabricated row to `statement_index.tsv` and ran
-this: `[FAIL] statement_index`, `13/14 green`, exit `1` — while `--entry-only`
+this: `[FAIL] statement_index`, `13/14 green` (the roster was fourteen then and is fifteen since `340`), exit `1` — while `--entry-only`
 still exited `0`, which is what proves the roster half is doing the work.  The
 row was removed and the index re-verified afterwards.
 
@@ -183,6 +190,14 @@ ROSTER = [
     ("statement_index", "index freshness"),
     ("process_index", "index freshness"),
     ("citation_check", "declaration names cited in docstrings"),
+    # `340`: added, with a witness for why.  `board.py`'s cone check is opt-in
+    # (`--cones`), so `337`'s axiom discharge moved ten recorded cones and nothing
+    # in this roster noticed for three cycles while it reported `14/14` green.
+    # The reason cone-checking was opt-in — "running lake from a linter would make
+    # the cheap check expensive" — does not apply to this gate, which already runs
+    # two lake-invoking guards and is called once before a commit rather than on
+    # every edit.
+    ("board --cones", "the same rows' cones, asked of the kernel — invokes lake"),
 ]
 
 
@@ -191,11 +206,12 @@ def roster():
     print("=== the roster, in this call rather than beside the commit (`S122`) ===")
     bad = harness = 0
     for name, why in ROSTER:
-        script = os.path.join(HERE, name + ".py")
+        base, *args = name.split()
+        script = os.path.join(HERE, base + ".py")
         if not os.path.exists(script):
-            die_harness(f"roster member {name}.py is missing")
+            die_harness(f"roster member {base}.py is missing")
         try:
-            r = subprocess.run([sys.executable, script], cwd=ROOT,
+            r = subprocess.run([sys.executable, script, *args], cwd=ROOT,
                                stdin=subprocess.DEVNULL, capture_output=True,
                                text=True, timeout=1800).returncode
         except OSError as exc:

@@ -560,7 +560,7 @@ All nine declared axioms, each with its ledger value and the reason:
 
 | axiom | ledger value | status |
 |---|---|---|
-| `zetaNonempty` | not a proportion input; supplies positivity | **realised** |
+| `zetaNonempty` | not a proportion input; supplies positivity | **realised**; **`337`: discharged, no longer an axiom** |
 | `xiPrimeFamily` | an opaque `Family` constant, not a claim | nil alone; carrier for `zeta23_xiPrime` |
 | `closePairsZeta` | an opaque function constant | nil alone |
 | `fujii_ineffective` | `∃ c₀, ∀ λ, StarBound (Cbound c₀ λ)`. `Cbound c₀ λ = λ + log(2+λ)/(π²λ) + c₀√(log(2+λ))/λ` grows with `c₀` and has no `c₀`-uniform minimum over `λ`, so **no numerical `C` is extractable** | nil until `c₀` is effective — checked by reading `Cbound`, not by trusting the note |
@@ -568,7 +568,7 @@ All nine declared axioms, each with its ledger value and the reason:
 | `zeta23_xiPrime` `0.85838` | **9.29 points**, blocked on `OffTransfer` + `NzComparable` | ⚠️ **`SESSION 150`: no longer "the one live item"** — see the axiom-cost comparison below (`087`) |
 | `levinson_montgomery` | an input to that route | realised in `087`'s pricing |
 | ~~`baseline_przz`~~ `0.4162` | **none — it is a theorem** (`przz_of_zeta23`) | **DELETED, `SESSION 233`** on Joop's ruling 3; declared surface `9 → 8` |
-| `baseline_zeta23` `0.6725` | the `NscStd` row, and via `084` the `Nsc` row | **realised twice** |
+| `baseline_zeta23` `0.6725` | the `NscStd` row, and via `084` the `Nsc` row | **realised twice**; **`337`: discharged, no longer an axiom** |
 
 **Kill condition, filed first:** *if every axiom's ledger value is already
 realised or provably nil, the audit yields nothing and I say so.* **On its own

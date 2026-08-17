@@ -217,20 +217,28 @@ CONE_EXPECTED = {
     "noSmallHaunted_strict": set(),
     "NoSmallHaunted.mono_le": set(),
     "free_ladder_stops_at_three": set(),
-    # one axiom
-    "conjectural_routeIII": {"zetaNonempty"},
-    "conjectural_routeI": {"zetaNonempty"},
-    "conjectural_full": {"zetaNonempty"},
-    # two — the certified tier
-    "certified_nsc_unconditional": {"baseline_zeta23", "zetaNonempty"},
-    "certified_nsc_via_noSmallHaunted": {"baseline_zeta23", "zetaNonempty"},
-    "certified_nsc_via_noSmallHaunted_seven": {"baseline_zeta23", "zetaNonempty"},
-    "starBound_of_multiplicity_two": {"baseline_zeta23", "zetaNonempty"},
-    "starBound_of_mult_le_two_zeta": {"baseline_zeta23", "zetaNonempty"},
-    # four — Route II
-    "certified_nsc_via_xiPrime": {"baseline_zeta23", "xiPrimeFamily",
-                                  "zeta23_xiPrime", "zetaNonempty"},
-    "offline_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime", "zetaNonempty"},
+    # `337` discharged `baseline_zeta23` and `zetaNonempty`, and `340` re-ran this
+    # check to see what that did to the board.  **Ten of the thirty-two rows below
+    # moved, every one of them downward**, and the tiers this table used to be
+    # organised by ("one axiom", "two — the certified tier", "four — Route II") no
+    # longer exist.  The three former one-axiom rows and the five former two-axiom
+    # rows are axiom-free; Route II went four to two.  The old groupings are kept
+    # as comments because the *pricing* in `PRICES.md` and `RULING.md` was written
+    # against them.
+    #
+    # was one axiom (`zetaNonempty`) — now none
+    "conjectural_routeIII": set(),
+    "conjectural_routeI": set(),
+    "conjectural_full": set(),
+    # was two, the certified tier — now none
+    "certified_nsc_unconditional": set(),
+    "certified_nsc_via_noSmallHaunted": set(),
+    "certified_nsc_via_noSmallHaunted_seven": set(),
+    "starBound_of_multiplicity_two": set(),
+    "starBound_of_mult_le_two_zeta": set(),
+    # was four, Route II — now two, and they are the only axioms left on the board
+    "certified_nsc_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime"},
+    "offline_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime"},
 }
 
 LEAN_AX = re.compile(r"'Riemann\.([^']+)' depends on axioms: \[([^\]]*)\]", re.S)

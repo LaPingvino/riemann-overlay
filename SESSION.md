@@ -15083,3 +15083,58 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 `Riemann.Blindness.Nsc_add_gaps_le_N_tight` shows the five-class weights are
 attained, so the decomposition of the last four cycles has bought this project a
 vocabulary and a sharpness proof rather than a new inequality.
+
+## Seven of the chain's inequalities are arithmetic, and my checker lied about the rest
+
+**Wildcard — mechanising `316`'s hand-find.** That cycle found one
+re-coordinatisation by hand. `duplication_floor` cannot find that shape: it
+matches conclusions, and the two conclusions share no term.
+
+**Kill condition, filed first:** *if the check finds no pair beyond
+`315`/`two_mul_atomCount_add_oddAtoms_le`, `316`'s find was isolated and I report
+the inventory clean; if it finds more, each is a `256` grading decision.* **It
+found one more class.**
+
+Of the `25` hypothesis-free `ℕ`-linear `ZeroData` inequalities:
+
+* **`7` follow from the four partitions alone** — every `≤` link of the chain
+  `N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount`, plus
+  `haunted_le_NscStd`, `NscStd_le_atomCount`, `oddAtoms_le_atomCount`. Once the
+  complements are named these are arithmetic, which is the strongest form of what
+  `R29` bought.
+* the other `18` fall into **`14` classes**. Two classes hold several members —
+  `316`'s, and a second around `110`'s row, where
+  `Riemann.Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc`,
+  `Riemann.Blindness.Nsc_add_three_mul_haunted_le_N` and
+  `Riemann.Blindness.two_mul_haunted_add_NscStd_le_N` each prove the other two
+  once the partitions are supplied.
+
+**Snag, bin 1, and it nearly went out as a finding.** The first run put all `272`
+pairs in one file. **Lean stopped emitting errors partway** — `1908` source
+lines, last reported error at line `864` — so every goal below that read as
+proved, and the tool reported *one equivalence class of twelve*. Among its
+members was `3·haunted ≤ N` implying `2·offLineOnly ≤ N_off`, which share no
+variable. That implausibility is what prompted the check, and in its own file the
+pair failed immediately.
+
+`S49`'s family, from the producer side rather than the guard side. Filed as
+`S121`. Before that I had also mis-mapped errors to blocks by one line, which
+produced a *different* wrong answer — two compounding bugs, and the arithmetic
+implausibility caught both.
+
+**The fix is a positive control, not a heuristic.** Each chunk now ends with
+`D.N + 1 ≤ D.N`, which `omega` refuses; if that error is missing the chunk is a
+harness failure and reports nothing. My first fix *was* a
+heuristic — "the last error should be near the end" — and it raised a false
+harness failure on a chunk that legitimately ended in successes.
+
+`forensics/equiv_check.py` ships as an **instrument, not a guard**: it shells out
+to `lake env lean` and takes minutes. The roster stays at fourteen.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green.
+
+**Might-mean, scoped to what this cycle checked:** seven of the twenty-five
+inequalities in this inventory became consequences of arithmetic once `292`–`313`
+named the four complements, so the naming did not add facts to the project — it
+moved them from the theorem list into the definitions.

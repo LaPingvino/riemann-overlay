@@ -5392,7 +5392,14 @@ directions by `omega`.  So this is a **re-coordinatisation**, not a stronger
 bound, and `315`'s *"they tighten the bound without loosening its consumer"* is
 wrong: they tighten nothing.  What the decomposition buys is a reading — the
 existing inequality **is** "each class charged its minimum mass", and the weights
-`3, 3, 2, 2` are its content. -/
+`3, 3, 2, 2` are its content.
+
+`317` mechanised the check (`forensics/equiv_check.py`) and confirmed it: of the
+`25` hypothesis-free `ℕ`-linear `ZeroData` inequalities, `7` follow from the four
+partitions alone and the remaining `18` fall into `14` classes.  Two classes have
+more than one member — this one, and `110`'s
+`three_mul_NscStd_le_N_add_two_mul_Nsc` = `Nsc_add_three_mul_haunted_le_N` =
+`two_mul_haunted_add_NscStd_le_N`. -/
 theorem mass_charges_every_class (D : ZeroData) :
     2 * hauntedCount D + 2 * oddAbove D + evenOnAt D + offLineOnly D
       + atomCount D ≤ D.N := by

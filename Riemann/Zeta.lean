@@ -365,10 +365,13 @@ order ten, `≈9.5·10⁻⁹` against the `2.98·10⁻⁷` needed.  What is left
 this proves, is one comparison of explicit rationals with slack
 `191159/309657600000`.
 
-**This does not discharge `baseline_zeta23`.**  That still needs `ThmD`'s
-`44,441`-line build to obtain the exact constant in the first place.  What is
-gone is the *second* cost: the decimal no longer stands between their theorem and
-our row. -/
+**This does not discharge `baseline_zeta23`** — *written at `279`, and `337` did
+discharge it.*  At the time, that axiom still needed `ThmD`'s `44,441`-line build
+to obtain the exact constant; `337` took the build and `baseline_zeta23` is a
+theorem in `Riemann/Assumptions.lean`, proved through `Zeta23.ThmD.Mult` with this
+lemma supplying the decimal step.  What `279` removed was the *second* cost: the
+decimal no longer stood between their theorem and our row, which is why the
+remaining cost was only the build. -/
 theorem baseline_decimal_le_exact :
     (0.6725 : ℝ) ≤ 3/2 - Real.cos (1/Real.sqrt 2) / Real.sin (1/Real.sqrt 2) / Real.sqrt 2 := by
   have hs0 : (0:ℝ) < Real.sqrt 2 := Real.sqrt_pos.2 (by norm_num)

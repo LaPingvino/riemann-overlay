@@ -16580,3 +16580,83 @@ project's overclaim discipline is enforced exactly where it writes *about* its
 work and not where it writes *in* it, so the docstrings — the text a reader of the
 Lean actually meets — are the least checked prose in the repository, and the one
 defect found this cycle was there rather than in any register.
+
+## The docstrings are in a gate now, by floor rather than by triage
+
+**Piece.** `342` found the one prose surface nothing checked — `session_gate` runs
+the overclaim gate on the newest `SESSION.md` entry, and lists `claims_gate` in the
+roster CALIBRATION-only because a bare invocation lints stdin (`S123`) — and
+measured what had grown there: `107` unwitnessed flags in `Fiber.lean` against a
+recorded `36`, `204` across `Riemann/*.lean`.
+
+**Kill condition, filed first:** *if the per-file counts are not reproducible
+across runs, a floor is meaningless and I report that instead.* It did not fire:
+two runs over three files agreed exactly.
+
+`forensics/overclaim_floor.py`, and the design choice is the one `warning_floor`
+and `duplication_floor` already made twice: **bound the population, forbid growth,
+grade it down when a cycle has reason to touch the file anyway.** Not a triage —
+`342` graded a slice and found the backlog to be mostly false positives of
+documented shapes, so rewording them to please the gate would be fitting prose to
+the instrument, which `S39` rules out. What is worth preventing is a flag added
+tomorrow, because that is one nobody has read.
+
+Two things it does deliberately:
+
+* **Per file, not one total.** A drop in one file must not mask a rise in another,
+  and the rise is what is being watched.
+* **It imports `claims_gate`'s vocabulary rather than copying it** — `POSITIVE`,
+  `NEGATIVE`, `IDENTITY`, `WITNESS`, `sentences`, `unquoted` — and runs that gate's
+  `calibrate()` first, exiting `5` if it fails. A floor computed with a broken
+  wordlist is not a floor. A change to the wordlist moves these numbers and forces
+  a re-grade, which is right: the wordlist is what defines the population.
+
+**Control, run this cycle**, since `forensics/overclaim_floor.py` would otherwise
+be a green light with no demonstration behind it (`S60`). A
+`/-!` comment reading *"This is the only route that can ever work."* appended to
+`Transfer.lean` — the one file at `0` — gave `Transfer.lean 1 > 0` and exit `1`.
+Removed; `git diff --stat` clean; exit `0`.
+
+**Wildcard — can a floor come down on a file I have reason to read?** **Kill
+condition, filed first:** *if lowering it requires rewording accurate prose to
+please the gate, I do not lower it and I say so.* It did not fire, because the
+first thing I found was not an overclaim at all.
+
+I graded the six flags in the three smallest files, listing them with
+`forensics/overclaim_floor.py --list`. Five I graded as saying true
+things, each listed by `forensics/overclaim_floor.py --list` so the grading can be
+rerun: a house-rule directive, a parenthesis of computed optima, `301`'s own
+correction quoting the dead name it corrects, a proof step described as an
+identity, and a docstring heading the theorem that witnesses it. **The sixth was stale.** `Zeta.lean`'s
+`baseline_decimal_le_exact` still read *"**This does not discharge
+`baseline_zeta23`.** That still needs `ThmD`'s `44,441`-line build"* — written at
+`279`, false since `337`. Corrected at its location; `Zeta.lean` `4 → 3`, floor
+ratcheted to `203`.
+
+**That is `S132`, and it is the part worth keeping.** Six cycles of register
+corrections at `337`–`342` chased that discharge through `LOOP.md`, `CLAIMS.md`,
+`README.md`, `ISSUES.md`, `PRICES.md` and `RULING.md`, and none of them reached a
+Lean docstring, because docstrings were in no gate's scan set. The species is
+`121`/`122`'s **stale claim**, not `S26`'s overclaim — so the ungated surface was
+hiding a statement about the project's own state, which is a worse thing to leave
+lying around than an unscoped absolute.
+
+**Snag, bin 2 — the new guard's first run went red on the correction that
+motivated it.** My replacement sentence said `baseline_zeta23` is *"a theorem in
+`Riemann.Assumptions`"*, and `citation_check` resolves backticked identifiers
+against declarations plus *vendored* module paths, not our own module names. Fixed
+by naming the file — `Riemann/Assumptions.lean`, which that guard skips by suffix —
+rather than by adding an `ALLOW` entry, because
+`forensics/citation_check.py` is right on the point: the token is a module path,
+not a declaration. The roster caught it before the commit, which is what `340` widened it
+for.
+
+Roster is sixteen. Build green (8862 jobs), sorries 0, ledger
+`NscStd 67.25% / Nsc 50.88%`, base `v4/3508643365fd`, axioms 0, warnings at the
+floor `54`, duplication floor `23`, overclaim floor `203`.
+
+**Might-mean, scoped to the six flags graded and the one correction made:** the
+project's registers are audited by fifteen instruments and its docstrings by none
+until this cycle, so the prose most likely to be read by someone checking the
+mathematics was the prose least likely to be true — and the first sample of it
+turned up a sentence four cycles out of date about the project's headline result.

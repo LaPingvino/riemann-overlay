@@ -512,6 +512,14 @@ it must not be quoted as a defect rate.
 > for `claims_gate` is CALIBRATION-only because a bare invocation lints stdin
 > (`S123`). So every cycle's prose *entry* is gated and every cycle's Lean
 > *docstrings* are not.
+>
+> **`343`: now they are, by a floor rather than a triage.**
+> `forensics/overclaim_floor.py` records the count **per file** and fails if any
+> rises — `warning_floor`/`duplication_floor`'s pattern, and for the same reason:
+> the backlog is mostly false positives of documented shapes, so rewording it to
+> please the gate would be fitting prose to the instrument (`S39`), while a flag
+> added tomorrow is one nobody has read. In the roster since `343`, controlled the
+> same cycle. Floor `203`; the live figure is what the script prints.
 
 ### `SESSION 342` — the four `CLAIMS.md` flags, triaged
 

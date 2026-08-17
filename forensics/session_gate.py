@@ -66,6 +66,12 @@ watches, confirm red, restore, confirm green.
   control needs a real Lean warning.  `327` appended a theorem with an unused
   binder to a leaf module: `55 warnings, floor is 54 — this cycle added 1`,
   exit `1`; reverted, rebuilt, exit `0`.  **All fourteen were controlled at `327`.**
+* **`overclaim_floor`, added at `343` and controlled the same cycle.**  A
+  `/-!` comment reading *"This is the only route that can ever work."* appended to
+  `Transfer.lean` — the one file at `0` — took it to `Transfer.lean 1 > 0` and
+  exit `1`; removed, exit `0`.  `342`/`S131` is why it exists: this gate checks the
+  `SESSION.md` entry and its `claims_gate` line is CALIBRATION-only, so the
+  docstrings were the surface nothing read.
 * **`board --cones`, added at `340` and controlled by the event that motivated
   it.**  `337`'s axiom discharge moved ten of thirty-two recorded cones and this
   gate said `14/14 green` for three cycles, because the cone check is `board.py`'s
@@ -198,6 +204,11 @@ ROSTER = [
     # two lake-invoking guards and is called once before a commit rather than on
     # every edit.
     ("board --cones", "the same rows' cones, asked of the kernel — invokes lake"),
+    # `343`: added because `S131` found the one prose surface nothing gated.  This
+    # gate runs `claims_gate` on the newest entry and lists it CALIBRATION-only in
+    # the roster, so docstring prose was unchecked while it grew from `36` flags
+    # to `107` in `Fiber.lean` alone.  `overclaim_floor` bounds it per file.
+    ("overclaim_floor", "unwitnessed overclaims in Lean docstrings, ratcheted"),
 ]
 
 

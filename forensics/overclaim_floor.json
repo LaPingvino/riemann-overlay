@@ -1,0 +1,18 @@
+{
+  "files": {
+    "Riemann/Assumptions.lean": 1,
+    "Riemann/Basic.lean": 9,
+    "Riemann/Blindness.lean": 5,
+    "Riemann/Capacity.lean": 9,
+    "Riemann/Fiber.lean": 107,
+    "Riemann/Fujii.lean": 1,
+    "Riemann/Gaps.lean": 32,
+    "Riemann/Gauge.lean": 2,
+    "Riemann/Optimal.lean": 13,
+    "Riemann/Program.lean": 3,
+    "Riemann/Proportion.lean": 18,
+    "Riemann/Transfer.lean": 0,
+    "Riemann/Zeta.lean": 3
+  },
+  "total": 203
+}

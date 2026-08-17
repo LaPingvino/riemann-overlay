@@ -16660,3 +16660,68 @@ project's registers are audited by fifteen instruments and its docstrings by non
 until this cycle, so the prose most likely to be read by someone checking the
 mathematics was the prose least likely to be true — and the first sample of it
 turned up a sentence four cycles out of date about the project's headline result.
+
+## The cap identity at every bound
+
+**Piece.** `336` shipped two cap identities — mass `≤ 3` and mass `≤ 4` — and its
+own entry said they were *"stated for `3` and `4` and for no general `m`"*. This
+closes that, and `Riemann.Blindness.capWitness_eq` is the witness.
+
+The shape is Lagrange interpolation. On `{1, …, b+1}` the indicator of `m = 1` is
+`∏_{j=2}^{b+1}(m − j)` divided by its value at `m = 1`, which is `(−1)^b · b!`. So
+
+    capWitness D b = (−1)^b · b! · N_sc
+
+whenever every ordinate has mass at most `b + 1`, where `capWitness` is that
+falling product summed over the atoms. Written over `Finset.range b` with the shift
+`i ↦ i + 2`, so nothing subtracts in `ℕ`.
+
+**Kill condition, filed first:** *if the general form needs the product expanded
+into moments to be worth stating, I ship the product form and say plainly that the
+expansion is not proved.* **It fired in the second clause.** The product form is a
+complete statement and needs no symmetric-function machinery — the pointwise proof
+is two cases, `m = 1` giving `(−1)^b · b!` and any other admissible mass killing
+the factor at `j = m`. But **the expansion into `momentK 0 … momentK b` is not
+proved here**, and that is where the elementary symmetric polynomials would go.
+
+**So `336`'s two rows were not two instances of a hard general fact.** They were
+two *expansions* of an easy one — the interpolation — and the moments were needed
+only for the expanding. `S133`. Both were checked against `capWitness_eq` in
+scratch and neither is restated in the file, because a second proof of a shipped
+conclusion is what `duplication_floor` exists to stop (`256`).
+
+**Wildcard — is the cap hypothesis doing work?** **Kill condition, filed first:**
+*if evaluating the product on a configuration needs new infrastructure, drop the
+wildcard; a converse is not owed here.* It did not fire:
+`capWitness_from_profile` is the same one-liner as `momentK_from_profile`, so the
+product is computable on a `chain` through `chain_profile`.
+
+`capWitness_needs_the_cap`: at `b = 2` the identity reads `capWitness D 2 = 2·N_sc`,
+and a single pure on-line atom of mass four has `capWitness = 2` against `N_sc = 0`.
+That is a strictness witness, not a converse — it shows the hypothesis cannot
+simply be dropped and says nothing about which configurations above the cap satisfy
+the identity anyway.
+
+**Snag, bin 1 — `overclaim_floor` fired on its second cycle, on my own new
+docstring.** `Fiber.lean` went `107 → 108`: the sentence recording the two scratch
+checks said the products *"expand to exactly the two shipped `ℕ` statements"*. Fixed
+by naming the two theorems in qualified form rather than by `--update`-ing the
+floor, which is `329`'s precedent for `warning_floor`. The guard built last cycle to
+watch this surface caught the first thing added to it.
+
+**Snag, bin 3.** Three failed edits before the pointwise lemma compiled, all one
+shape: `((1 : ℕ) : ℤ)` in the goal against `(1 : ℤ)` in my rewrite. The fix that
+worked was binding the product's exact form in a `have` and rewriting with that,
+rather than a `Finset.prod_congr` over a separately stated pointwise equation. A
+cast that `push_cast` will not reach inside a binder is worth a named `have`.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `23`,
+overclaim floor `203`. No `equiv_check` owed: everything new is `ℤ`-valued or
+carries the cap hypothesis, outside its `ℕ`-linear hypothesis-free inventory.
+
+**Might-mean, scoped to the product identity and not to its moment expansion:**
+`Riemann.Blindness.capWitness_eq` holds at every bound with one interpolation, so
+what a multiplicity cap buys is not a family of separate arithmetic accidents at
+`3` and `4`; the open question about caps is what the coefficients of the expanded
+form say, and that expansion is the part this cycle did not prove.

@@ -7572,5 +7572,111 @@ theorem nine_mul_Nstar_add_atomCount_eq_iff (D : ZeroData) :
     interval_cases hm : (D.H γ) <;> norm_num
 
 
+/-! #### The cap identity at every bound — `SESSION 344`
+
+`336` proved two cap identities, at mass `≤ 3` and mass `≤ 4`, and said in its own
+entry that they were *"stated for `3` and `4` and for no general `m`"*.  This is
+the general one.
+
+The shape is Lagrange interpolation: on `{1, …, b+1}` the indicator of `m = 1` is
+`∏_{j=2}^{b+1} (m − j)` divided by its value at `m = 1`, which is
+`(−1)^b · b!`.  So summing that product over the atoms counts `N_sc` up to that
+factor — and it needs no expansion into moments to state.
+
+**Kill condition, filed first:** *if the general form needs the product expanded
+into moments to be worth stating, I ship the product form and say plainly that the
+expansion is not proved.*  It did not fire in the sense that the product form is a
+complete statement, and it **did** fire in the sense the condition anticipated:
+the expansion into `momentK 0 … momentK b` is real content, needs elementary
+symmetric polynomials, and **is not proved here**.  What is below is the product
+identity.
+
+`336`'s two rows are the `b = 2` and `b = 3` cases.  Both were checked against it
+in scratch: `∑ (H−2)(H−3) = 2·N_sc` expands to
+`Riemann.Blindness.two_mul_Nsc_eq_iff`'s equality and
+`∑ (H−2)(H−3)(H−4) = −6·N_sc` to
+`Riemann.Blindness.nine_mul_Nstar_add_atomCount_eq_iff`'s.  Neither is restated
+here, because a second proof of a shipped conclusion is what `duplication_floor`
+exists to stop (`256`). -/
+
+/-- The falling product `∏_{j=2}^{b+1} (H γ − j)`, summed over the atoms.  Written
+over `Finset.range b` with the shift `i ↦ i + 2` so that nothing subtracts in `ℕ`. -/
+noncomputable def capWitness (D : ZeroData) (b : ℕ) : ℤ :=
+  ∑ γ ∈ D.ordinates.toFinset, ∏ i ∈ Finset.range b, ((D.H γ : ℤ) - (i + 2))
+
+/-- The pointwise interpolation: on a mass in `[1, b+1]` the product is
+`(−1)^b · b!` at mass one and `0` at every other admissible mass, because the
+factor at `j = m` vanishes. -/
+lemma cap_pointwise {m b : ℕ} (h1 : 1 ≤ m) (hb : m ≤ b + 1) :
+    ∏ i ∈ Finset.range b, ((m : ℤ) - (i + 2))
+      = if m = 1 then (-1) ^ b * (Nat.factorial b : ℤ) else 0 := by
+  by_cases hm : m = 1
+  · subst hm
+    rw [if_pos rfl]
+    have key : ∏ i ∈ Finset.range b, (((1 : ℕ) : ℤ) - (i + 2))
+        = ∏ i ∈ Finset.range b, (-((i : ℤ) + 1)) :=
+      Finset.prod_congr rfl fun i _ => by push_cast; ring
+    rw [key, Finset.prod_neg, Finset.card_range]
+    congr 1
+    have hfac : ((Nat.factorial b : ℕ) : ℤ) = ∏ i ∈ Finset.range b, ((i : ℤ) + 1) := by
+      rw [Nat.factorial_eq_prod_range_add_one]
+      push_cast
+      rfl
+    exact hfac.symm
+  · rw [if_neg hm]
+    refine Finset.prod_eq_zero (i := m - 2) ?_ ?_
+    · rw [Finset.mem_range]; omega
+    · have hc : ((m - 2 : ℕ) : ℤ) = (m : ℤ) - 2 := by
+        have h2 : 2 ≤ m := by omega
+        push_cast [Nat.cast_sub h2]; ring
+      rw [hc]; ring
+
+/-- **`N_sc` from the falling product, under a multiplicity cap at `b + 1`.**
+
+`capWitness D b = (−1)^b · b! · N_sc` whenever every ordinate has mass at most
+`b + 1`.  `b = 2` and `b = 3` are `336`'s two identities after expanding the
+product; the expansion in general is not proved here. -/
+theorem capWitness_eq (D : ZeroData) {b : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ b + 1) :
+    capWitness D b = (-1) ^ b * (Nat.factorial b : ℤ) * (D.Nsc : ℤ) := by
+  classical
+  have hNsc : (D.Nsc : ℤ)
+      = ∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then (1 : ℤ) else 0) := by
+    have hn := Nsc_eq_sum_mass_one_nat D
+    rw [hn]
+    push_cast
+    exact Finset.sum_congr rfl fun γ _ => by by_cases hg : D.H γ = 1 <;> simp [hg]
+  rw [capWitness, hNsc, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun γ hγ => ?_
+  rw [cap_pointwise (one_le_H_of_mem hγ) (h γ hγ)]
+  by_cases hg : D.H γ = 1 <;> simp [hg]
+
+/-- `capWitness` through the profile, the same one-liner as `momentK_from_profile`
+— which is what makes it computable on a `chain`. -/
+lemma capWitness_from_profile (D : ZeroData) (b : ℕ) :
+    capWitness D b
+      = ((profile D).map fun q => ∏ i ∈ Finset.range b, ((q.1 : ℤ) - (i + 2))).sum := by
+  classical
+  rw [capWitness, profile, Multiset.map_map]
+  rfl
+
+/-- **The cap is doing work: one atom above it breaks the identity.**  At `b = 2`
+the identity reads `capWitness D 2 = 2·N_sc`; a single pure on-line atom of mass
+four has `capWitness = 2` and `N_sc = 0`.
+
+This is a strictness witness, not a converse: it shows the hypothesis of
+`capWitness_eq` cannot simply be dropped, and says nothing about which
+configurations above the cap happen to satisfy the identity anyway. -/
+theorem capWitness_needs_the_cap {a : ℝ} (ha : a ≠ 1/2) :
+    capWitness (chain a [((4 : ℕ), (0 : ℕ))]) 2 = 2
+      ∧ (chain a [((4 : ℕ), (0 : ℕ))]).Nsc = 0 := by
+  classical
+  have hne : ∀ p ∈ [((4 : ℕ), (0 : ℕ))], p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp; simp at hp; subst hp; norm_num
+  refine ⟨?_, pure_chain_Nsc ha 4 (by norm_num)⟩
+  rw [capWitness_from_profile, chain_profile ha _ hne]
+  simp [Finset.prod_range_succ]
+
+
 end Blindness
 end Riemann

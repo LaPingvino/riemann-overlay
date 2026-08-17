@@ -709,3 +709,12 @@ import Riemann
 #check @Riemann.ladder_beats_routeII_first_at_seven
 #check @Riemann.ladder_routeIII_crossing_exact
 #check @Riemann.ladder_beats_routeIII_first_at_fiftynine
+
+-- SESSION 344: the cap identity at every bound.  336 shipped mass <= 3 and <= 4
+-- and said "for no general m"; this is the general one, by Lagrange interpolation
+-- on {1..b+1}.  The expansion into moments is NOT proved.
+#check @Riemann.Blindness.capWitness
+#check @Riemann.Blindness.cap_pointwise
+#check @Riemann.Blindness.capWitness_eq
+#check @Riemann.Blindness.capWitness_from_profile
+#check @Riemann.Blindness.capWitness_needs_the_cap

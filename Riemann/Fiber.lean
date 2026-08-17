@@ -8603,7 +8603,11 @@ as not done.*  It did not fire.
 
 **`onLineOrdinates` is not done.**  The same argument with the predicate `n ≠ 0` in
 place of `Odd n` would give it; this cycle did not write it, and the chain's fourth
-term is therefore still unaddressed by the on-moments. -/
+term is therefore still unaddressed by the on-moments.
+
+**`366`: written.**  `onLineOrdinates_eq_sum_onCount` and
+`Riemann.Optimal.onLineOrdinates_determined_by_on_moments`, by exactly that
+substitution. -/
 
 /-- **`oddAtoms` as a sum of on-line counts.**  Partition the ordinates by the value of
 `onAt`, which lies in `[0, B]` under the cap, and keep the odd fibres. -/
@@ -8635,6 +8639,55 @@ lemma oddAtoms_eq_sum_onCount (D : ZeroData) {B : ℕ}
     rw [Finset.mem_filter] at hγ
     exact hn (Nat.not_even_iff_odd.1 (h2 ▸ hγ.2))
 
+
+
+/-! #### The chain's fourth term, and what the on-line family reaches — `SESSION 366`
+
+`365` shipped `oddAtoms` and named `onLineOrdinates` as not done: *"the same argument
+with `n ≠ 0` in place of `Odd n` would give it"*.  It does, and it completes the
+picture — with `atomCount` falling out of the definition rather than the argument.
+
+**Kill condition, filed first:** *if `atomCount = onMoment 0` is not immediate from the
+definitions, I ship the `onLineOrdinates` half and state the `atomCount` half
+separately.*  It did not fire: the zeroth moment of any weight counts the atoms. -/
+
+/-- **`atomCount` is the on-line family's zeroth moment.**  `onAt γ ^ 0 = 1` at every
+ordinate, so the sum counts them. -/
+lemma atomCount_eq_onMoment_zero (D : ZeroData) : atomCount D = onMoment D 0 := by
+  classical
+  rw [onMoment, atomCount]
+  simp
+
+/-- **`onLineOrdinates` as a sum of on-line counts.**  `365`'s partition with the
+non-zero fibres in place of the odd ones. -/
+lemma onLineOrdinates_eq_sum_onCount (D : ZeroData) {B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ B) :
+    onLineOrdinates D
+      = ∑ n ∈ Finset.range (B + 1), if n ≠ 0 then onCount D n else 0 := by
+  classical
+  have hmaps : ∀ γ ∈ D.ordinates.toFinset.filter (fun γ => onAt D γ ≠ 0),
+      onAt D γ ∈ Finset.range (B + 1) := by
+    intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    exact Finset.mem_range.2 (by have := h γ hγ.1; omega)
+  have hfib := Finset.card_eq_sum_card_fiberwise hmaps
+  rw [onLineOrdinates, onOrd_toFinset, hfib]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  by_cases hn : n = 0
+  · subst hn
+    rw [if_neg (by simp), Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+    intro γ hγ h2
+    rw [Finset.mem_filter] at hγ
+    exact hγ.2 h2
+  · rw [if_pos hn, onCount]
+    congr 1
+    ext γ
+    simp only [Finset.mem_filter, Multiset.mem_toFinset]
+    constructor
+    · intro hx; exact ⟨hx.1.1, hx.2⟩
+    · intro hx
+      refine ⟨⟨hx.1, ?_⟩, hx.2⟩
+      rw [hx.2]; exact hn
 
 
 end Blindness

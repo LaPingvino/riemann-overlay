@@ -17905,3 +17905,49 @@ built splits by which moment family sees it — the two outer terms to the multi
 moments, `NscStd` and `oddAtoms` to the on-line ones — so the chain is not a ladder of
 increasing strength but a boundary between two kinds of statistic, with the ledger's two
 reported rows on opposite sides of it.
+
+## The chain's fourth term, and where the on-line family stops
+
+**Piece.** `365` named `onLineOrdinates` as not done — *"the same argument with `n ≠ 0` in
+place of `Odd n` would give it"*. It does, and finishing it completes the chain's upper
+side.
+
+**Kill condition, filed first:** *if `atomCount = onMoment 0` is not immediate from the
+definitions, I ship the `onLineOrdinates` half and state the `atomCount` half separately.*
+It did not fire.
+
+* `Blindness.onLineOrdinates_eq_sum_onCount` — `365`'s fiberwise partition with the
+  non-zero fibres, and `onLineOrdinates_determined_by_on_moments` follows at a common
+  bound.
+* `Blindness.atomCount_eq_onMoment_zero` — **`atomCount` is the zeroth on-moment.** Three
+  lines, no partition.
+* `Riemann.Optimal.chain_upper_four_determined_by_on_moments` — `NscStd`, `oddAtoms`,
+  `onLineOrdinates`, `atomCount`, all four.
+
+**So the chain splits by family and the split is complete.** The on-line moments reach
+`N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount` from `NscStd` upward and stop
+below it — `350`'s pair, a simple atom against a haunted one with equal on-moments and
+`N_sc` at `1` against `0`. The `H`-moments take the other side through the mass counts
+(`348`).
+
+**`S155` — the difficulty was in the wrong place again, and for the same reason as `S154`.**
+I queued `atomCount` as the harder of the two remaining terms because it sits at the top of
+the chain. It is the zeroth moment of any weight, so it fell out of the definition while
+`onLineOrdinates` took the partition. Twice running I estimated cost by a term's position in
+the chain rather than by what it is defined as.
+
+**Wildcard — did shipping explicitly avoid `365`'s snag?** **Kill condition, filed first:**
+*if writing the blocks out by hand rather than slicing scratch still corrupts a
+declaration, the problem is not the slicing and I look elsewhere.* It did not fire: two
+heredocs, no surgery, and the build was green on the first attempt. `365`'s bin-2 snag was
+the slicing.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`,
+duplication floor `26`, overclaim floor `203` — clean first pass. `365`'s *"not done"* note
+corrected at its location; `MAP.md` gained the split and still reports `0` unresolved.
+
+**Might-mean, scoped to the five chain terms and the two families:** the chain's boundary
+between the families falls exactly at the project's own two reported rows, so the reason the
+ledger needs both is that no single summary statistic straddles the one step from `N_sc` to
+`NscStd` — and that step is `hauntedCount`.

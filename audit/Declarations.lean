@@ -834,3 +834,11 @@ import Riemann
 #check @Riemann.Blindness.oddAtoms_eq_sum_onCount
 #check @Riemann.Optimal.onCount_determined_by_on_moments
 #check @Riemann.Optimal.oddAtoms_determined_by_on_moments
+
+-- SESSION 366: the chain's fourth term, and the on-line family's reach.  onLineOrdinates
+-- by 365's argument with the non-zero fibres; atomCount = onMoment 0 from the definition.
+-- The family reaches the chain from NscStd upward and stops below it (350).
+#check @Riemann.Blindness.atomCount_eq_onMoment_zero
+#check @Riemann.Blindness.onLineOrdinates_eq_sum_onCount
+#check @Riemann.Optimal.onLineOrdinates_determined_by_on_moments
+#check @Riemann.Optimal.chain_upper_four_determined_by_on_moments

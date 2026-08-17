@@ -99,6 +99,11 @@ mass count; and `Riemann.Blindness.NscStd_not_determined_by_all_moments` — the
 not determine the reported row, witnessed by a haunted ordinate against a pure
 triple.
 
+**The chain splits by family.** `Riemann.Optimal.chain_upper_four_determined_by_on_moments`:
+the on-line moments determine `NscStd`, `oddAtoms`, `onLineOrdinates` and `atomCount`, and
+`Riemann.Blindness.Nsc_not_determined_by_on_moments` shows they stop below `N_sc`. The
+`H`-moments take the other side — `Riemann.Optimal.massCount_determined_by_all_moments`.
+
 **Swapping the weight fixes it.** `Riemann.Optimal.NscStd_determined_by_on_moments`:
 the moments of the *on-line* count determine `NscStd`, with no hypothesis. And
 `Riemann.Blindness.Nsc_not_determined_by_on_moments` shows that family misses the

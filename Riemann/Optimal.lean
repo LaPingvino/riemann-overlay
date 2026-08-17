@@ -800,6 +800,39 @@ theorem oddAtoms_determined_by_on_moments {D D' : ZeroData}
   refine Finset.sum_congr rfl fun n _ => ?_
   rw [onCount_determined_by_on_moments hm n]
 
+/-- **`onLineOrdinates` is determined by the on-line moments.**  `365`'s argument with
+the non-zero fibres, at a common bound. -/
+theorem onLineOrdinates_determined_by_on_moments {D D' : ZeroData}
+    (hm : ∀ p, Blindness.onMoment D p = Blindness.onMoment D' p) :
+    Blindness.onLineOrdinates D = Blindness.onLineOrdinates D' := by
+  have hon : ∀ (E : ZeroData) (γ : ℝ), Blindness.onAt E γ ≤ E.N := by
+    intro E γ
+    have h := Blindness.H_eq_onAt_add_offAt E γ
+    have h2 := H_le_N E γ
+    omega
+  rw [Blindness.onLineOrdinates_eq_sum_onCount D (B := max D.N D'.N)
+        (fun γ _ => le_trans (hon D γ) (le_max_left _ _)),
+      Blindness.onLineOrdinates_eq_sum_onCount D' (B := max D.N D'.N)
+        (fun γ _ => le_trans (hon D' γ) (le_max_right _ _))]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  rw [onCount_determined_by_on_moments hm n]
+
+/-- **The on-line moments determine the chain's four upper terms.**
+`NscStd` (`349`), `oddAtoms` (`365`), `onLineOrdinates` and `atomCount`.
+
+The fifth term is `N_sc`, and `Blindness.Nsc_not_determined_by_on_moments` (`350`)
+exhibits a pair with equal on-moments and different `N_sc` — so the on-line family
+reaches the chain from `NscStd` upward and stops exactly below it. -/
+theorem chain_upper_four_determined_by_on_moments {D D' : ZeroData}
+    (hm : ∀ p, Blindness.onMoment D p = Blindness.onMoment D' p) :
+    D.NscStd = D'.NscStd
+      ∧ Blindness.oddAtoms D = Blindness.oddAtoms D'
+      ∧ Blindness.onLineOrdinates D = Blindness.onLineOrdinates D'
+      ∧ Blindness.atomCount D = Blindness.atomCount D' := by
+  refine ⟨NscStd_determined_by_on_moments hm, oddAtoms_determined_by_on_moments hm,
+    onLineOrdinates_determined_by_on_moments hm, ?_⟩
+  rw [Blindness.atomCount_eq_onMoment_zero, Blindness.atomCount_eq_onMoment_zero, hm 0]
+
 /-- A **cheap constraint**: an upper bound on horizontal multiplicity.  This is
 the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, and
 it involves no multiplicative information whatever. -/

@@ -154,6 +154,19 @@ degradations, not less.
   `git commit` in one shell call; `251d` wrote the rule and `277` broke it
   anyway, which is `S113`. A guard in the roster closes the window to one
   cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
+* **R30 — the might-mean quantifies over what the cycle checked, and no more.**
+  Three in five cycles were corrected the next cycle, and all three failed the
+  same way.  `302`: *"the cap is reached exactly when every ordinate is a
+  triple"* — checked one family, quantified over all.  `308`: *"bounds
+  `oddAtoms` from below by nothing"* and *"the next cycle should stop here"* —
+  proved one inequality, prohibited a whole direction.  `311`: *"the whole
+  distance … is priced in off-line mass"* — checked two gaps of four.  The
+  sentence is the cycle's most-read output and the one with no witness attached,
+  so it needs the discipline the theorems get: **say which objects were looked
+  at.**  `312`'s form — *"scoped to what this cycle checked"* followed by the
+  named declarations — is the shape.  `claims_gate` does not catch this: all
+  three were scope errors, not exactness language, and `311`'s even cited two
+  real declaration names while generalising past them.
 * **R29 — a bound between two counts on one carrier is a partition; name the
   complement in the same cycle.**  `309`'s snag: `308` proved
   `oddAtoms ≤ onLineOrdinates`, reasoned a *direction* from it, and was wrong —

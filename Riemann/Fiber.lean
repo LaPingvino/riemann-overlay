@@ -2027,6 +2027,12 @@ theorem NscStd_le_oddAtoms (D : ZeroData) : D.NscStd ≤ oddAtoms D := by
   rw [Finset.mem_filter] at hγ ⊢
   exact ⟨hγ.1, by rw [hγ.2]; decide⟩
 
+/-- **The bracket's upper gap.**  `293` wrote this filter inline; `SESSION 313`
+promotes it to a definition, because `R29` says the complement is where the
+information is and an inline filter cannot be cited. -/
+noncomputable def oddAbove (D : ZeroData) : ℕ :=
+  (D.ordinates.toFinset.filter fun γ => ¬ Even (onAt D γ) ∧ onAt D γ ≠ 1).card
+
 /-- **The bracket's upper gap, named.**  `SESSION 293`.
 
 `287` made `NscStd ≤ oddAtoms` a subset relation but left the difference
@@ -2038,11 +2044,9 @@ With `288`'s `NscStd = N_sc + hauntedCount`, the bracket
 `{onAt = 1, offAt ≠ 0}` below and `{onAt odd, onAt ≠ 1}` above — and neither is
 slack in an estimate. -/
 theorem oddAtoms_eq_NscStd_add_oddAbove (D : ZeroData) :
-    oddAtoms D
-      = D.NscStd + (D.ordinates.toFinset.filter
-          fun γ => ¬ Even (onAt D γ) ∧ onAt D γ ≠ 1).card := by
+    oddAtoms D = D.NscStd + oddAbove D := by
   classical
-  rw [oddAtoms_eq_odd_onAt, NscStd_eq_onAt_one]
+  rw [oddAtoms_eq_odd_onAt, NscStd_eq_onAt_one, oddAbove]
   have hone : (D.ordinates.toFinset.filter fun γ => onAt D γ = 1)
       = (D.ordinates.toFinset.filter fun γ => ¬ Even (onAt D γ)).filter
           fun γ => onAt D γ = 1 := by
@@ -5260,6 +5264,32 @@ theorem evenOnAt_survives_Noff_zero {a : ℝ} (ha : a ≠ 1/2) :
   · rw [onLineOrdinates, onOrd_toFinset, hfin, Finset.filter_singleton,
       if_pos (by rw [hon]; norm_num)]
     rfl
+
+/-- **And that is all of it.**  `SESSION 313`.
+
+`312` showed two of the chain's four gaps survive `N_off = 0` and left them
+unaccounted.  They account for exactly the ordinates that are not simple: with no
+off-line mass, the simple ordinates plus `oddAbove` plus `evenOnAt` are every
+ordinate there is.
+
+**Kill condition, filed first:** *if the two surviving gaps sum to something
+other than `atomCount − N_sc` — if a third contribution appears — the picture is
+incomplete and I report the discrepancy.*  It did not fire; the proof is `omega`
+over the four partitions and the two vanishing theorems, which is the chain
+closing on itself.
+
+So under `N_off = 0` the distance between `N_sc` and `atomCount` is the
+multiple-zero count, and `309`'s wall — the distinct-zeros deficit — is not one
+obstruction among several but the whole of what is left. -/
+theorem Nsc_add_gaps_eq_atomCount_of_Noff_zero (D : ZeroData) (h : D.Noff = 0) :
+    D.Nsc + oddAbove D + evenOnAt D = atomCount D := by
+  have g1 := hauntedCount_eq_zero_of_Noff_zero D h
+  have g2 := NscStd_eq_Nsc_add_haunted D
+  have g3 := oddAtoms_eq_NscStd_add_oddAbove D
+  have g4 := onLineOrdinates_eq_oddAtoms_add_evenOnAt D
+  have g5 := onLineOrdinates_add_offLineOnly D
+  have g6 := offLineOnly_eq_zero_of_Noff_zero D h
+  omega
 
 /-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
 

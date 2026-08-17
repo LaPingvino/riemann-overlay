@@ -14875,3 +14875,56 @@ of `Riemann.Blindness.oddAtoms_eq_NscStd_add_oddAbove` — both count on-line
 zeros stacked at one height, so once the off-line mass is gone what still
 separates our counts from the literature's is the multiplicity question
 `Blindness` was written about.
+
+## The chain closes on itself, and the two surviving gaps are the multiple zeros
+
+**Wildcard — finishing `312`.** That cycle showed two of the chain's four gaps
+survive `N_off = 0` and left them unaccounted. What are they, together?
+
+**Kill condition, filed first:** *if the two surviving gaps sum to something
+other than `atomCount − N_sc` — if a third contribution appears — the picture is
+incomplete and I report the discrepancy.* **It did not fire.**
+
+`Nsc_add_gaps_eq_atomCount_of_Noff_zero`: with no off-line mass,
+`N_sc + oddAbove + evenOnAt = atomCount`. The simple ordinates plus the two
+surviving gaps account for every ordinate, so what the gaps hold between them is
+the non-simple ones.
+
+The proof is `omega` over four partitions and two vanishing theorems — the chain
+closing on itself, with nothing new needed. That is what the last four cycles of
+naming complements bought: the arithmetic was already there once every gap had a
+name.
+
+So under `N_off = 0` the distance between `N_sc` and `atomCount` **is** the
+multiple-zero count, and `309`'s wall — the distinct-zeros deficit — is not one
+obstruction among several but the whole of what remains.
+
+**Piece — `oddAbove` promoted, and `R30`.** `293` wrote the upper gap as an
+inline filter, which `R29` asks to be named and which no other declaration could
+refer to. It is a definition now, and
+`Riemann.Blindness.oddAtoms_eq_NscStd_add_oddAbove` states it.
+
+`R30` — *the might-mean quantifies over what the cycle checked, and no more.*
+Three in five cycles were corrected the next cycle and all three failed the same
+way: `302` checked one family and quantified over all, `308` proved one
+inequality and prohibited a direction, `311` checked two gaps of four.
+`claims_gate` catches none of them — they are scope errors, not exactness
+language, and `311`'s cited two real declaration names while generalising past
+them. The fix is the discipline the theorems already get: say which objects were
+looked at.
+
+**Snag, bin 2.** This cycle's theorem needed no new mathematics — six existing
+facts and `omega`. The four cycles that made it possible were each spent naming
+one complement, and `310` observed that a single index query displays the whole
+chain. The lesson `310` drew was about querying; the lesson here is that the
+*definitions* were the work, and they had to be paid for one at a time because
+each one's absence was invisible until the next one needed it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green.
+
+**Might-mean, scoped to what this cycle checked:** for a `ZeroData` with
+`N_off = 0`, `Riemann.Blindness.Nsc_add_gaps_eq_atomCount_of_Noff_zero` puts the
+entire distance between `N_sc` and `atomCount` into the non-simple ordinates, so
+on this hypothesis the project's remaining distance to a full simplicity result
+is one quantity rather than four.

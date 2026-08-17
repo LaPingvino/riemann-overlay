@@ -969,7 +969,35 @@ be re-verified by a reader.
 So the live options are supplier 2 (price the regeneration from the paper's
 stated parameters — one cycle, and the artifact would be ours hash-and-all) and
 supplier 3 (ask the authors — Joop's call, and the request is small enough to be
-a good first contact). Adopting `EnclOK` remains the option of last resort: the
+a good first contact).
+
+> ### `356`: the paper answers the *status* question, and supplier 3 is not needed for it
+>
+> `arXiv:2608.13637` §Appendix A, verbatim: *"At the cited repository tag (`v1.0`), the
+> enclosures `EnclOK` are certified by interval arithmetic and **are not checked by the
+> Lean kernel**; what is kernel-checked, given `EnclOK`, is the 255 near-CUE row
+> inequalities `|256·S(j) − j| ≤ 3·10⁻⁴⁰`, the edge bound `|D(1)| ≤ 0.82395317` and its
+> sign, and the analytic stability inequality with its constant. This is the only place
+> in the paper where a numerical certification enters."*
+>
+> So the thing this project priced — that `ceiling_law256`'s two hypotheses `hvalid` and
+> `EnclOK` sit outside the kernel — is confirmed by the source, and it did not need an
+> email. **What supplier 3 was also going to ask for is still missing:** the certificate
+> file itself. The paper names the law's location (`Zeta23/PairCeiling/LawN256.lean`) and
+> the exact rational `p₀ ≤ 0.6818287`, but the sampled form factor's provenance is the
+> interval-arithmetic run, not the repository.
+>
+> **What this does not change:** our certified rows come from `ThmD.Mult`, not from
+> `PairCeiling`, and `board --cones` reports them axiom-free. `ceiling_law256` carries
+> its two hypotheses in its own statement, which is why importing it cost no axiom
+> (`#28a`, `244`).
+>
+> **One figure to carry forward:** the paper puts the ceiling over *all* bandwidth-one
+> certificates at *"approximately `0.682`"*, and `0.6725` at *"optimal among windows
+> [CCLM17, Cor. 14]"*. That is the wall this project has been mapping since `E10`, with
+> both numbers now attributed.
+
+Adopting `EnclOK` remains the option of last resort: the
 base has gone `9 → 8 → 2` by discipline and it does not go back up for
 convenience.
 

@@ -2238,12 +2238,44 @@ what the paper means for the ledger:
   the abstract gives `2/3` unconditionally and `0.6725` under a named window;
 * whether the paper cites or subsumes zeta-23.
 
-**Joop: this is the escalation.** The project's certified row is `NscStd 67.25%` from
-zeta-23's `ThmD`, and a paper four days old states constants with the same numerals
-for a possibly-different count, by a route this repo has not modelled (Weil's
-Hermitian form, rank-trace, Sylvester inertia — none of which appears in any
-register). Reading the paper properly is a cycle's work and is a call about direction,
-not a mechanical next step, so I am raising it rather than acting on it.
+**Joop: this was the escalation, and `356` read the paper.** All four questions above
+are answered from the text, quoted below. The short version: **this paper is the paper
+of the artifact this repo already vendors**, the count is ours, the constant is ours,
+and the paper's own §1.4 states this project's blindness thesis.
+
+**1. The Lean artifact is `zeta-23`.** *"The repository is available at
+https://github.com/anthropics/zeta-23-lean."* That is the repo pinned at
+`3635e74…` and vendored at `vendor/zeta23`.
+
+**2. The count is ours.** The paper reproduces its own definition:
+`def N0simple (T₁ T₂ : ℝ) : ℕ := (zerosIn T₁ T₂ ∩ {ρ | ρ.re = 1/2} ∩ {ρ | zeroMult ρ = 1}).ncard`
+— on-line zeros of multiplicity one, which is what `274` identified with our `NscStd`.
+
+**3. `2/3` and `0.6725` are two windows, both unconditional — not a theorem and a
+hypothesis.** *"With the Montgomery–Taylor window `ψ_MT` of (2.6) in place of the
+indicator window `ψ₀`, the constants improve to `2 − c_MT⁻¹ = 0.67250…` and
+`½(3 − c_MT⁻¹) = 0.83625…`, where `c_MT⁻¹ := ½ + (1/√2)cot(1/√2)`; among windows `ψ`
+(equivalently, certificates of the form `2 − R(ψ)`), this is optimal [CCLM17, Cor. 14].
+The ceiling over the broader class of all bandwidth-one certificates is approximately
+`0.682`."* Our `Zeta23.ThmD.HD 1 = 2 − (cStar 1)⁻¹` and `279`'s
+`baseline_decimal_le_exact` proves `0.6725 ≤ 3/2 − cot(1/√2)/√2`, which is the same
+expression. **So the ledger's `67.25%` is the optimal-window constant and the `2/3` is
+the indicator-window one; nothing in our row was conditional and nothing is superseded.**
+
+**4. What the paper says the results are not — and it is this project's thesis.**
+§1.4, verbatim: *"The theorems are lower bounds only: the remaining third of the zeros
+are not shown to be off the line, merely not reached by the certificate. The inputs are
+insensitive to `o(N)` off-line zeros and hold for Davenport–Heilbronn and Epstein zeta
+functions, for which the analogue of RH is false."* That is `X` — a certificate class
+that cannot see the difference, stated in the source rather than derived here.
+
+**And one thing the paper settles that a register has been waiting on:** see the rung-0
+note in `PRICES.md`, annotated this cycle. `EnclOK` is *"certified by interval
+arithmetic and not checked by the Lean kernel"* at tag `v1.0`, by the paper's own
+statement — which is what the project priced without being able to confirm.
+
+*Still unread: the proof. `356` read §1, §1.4, the constant definitions, and Appendix A.
+Nothing here is a claim about correctness.*
 
 *Discipline, per `136`: this discharges "does the paper claim this", not "is the claim
 correct", and not "what does it mean for us".*

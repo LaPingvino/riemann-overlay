@@ -17375,3 +17375,66 @@ posted four days ago and the loop had not seen it, because the step that would h
 it is the step the loop had stopped running — so what is limiting this project may be
 less the mathematics or the axioms than how much of its own written procedure it
 actually executes.
+
+## The escalation, answered by reading it
+
+**Piece.** `355` raised `arXiv:2608.13637` and listed four questions an abstract could
+not settle, calling the reading "a call about direction". On re-reading my own entry:
+the four questions are **factual**, and Joop's standing pattern on parked items is to
+act rather than wait. So I fetched the paper.
+
+**Kill condition, filed first:** *if the full text is not fetchable in a form I can read
+reliably, I answer only what the abstract page settles and say which questions remain —
+I do not infer content from a title or a citation list.* It did not fire:
+`arxiv.org/html/2608.13637v1`, `782` KB, `92,149` characters of text.
+
+**All four answered, quoted at length in `LEADS.md`. The short version:**
+
+1. **The Lean artifact is `zeta-23`.** *"The repository is available at
+   `https://github.com/anthropics/zeta-23-lean`."* That is the repo this project pins at
+   `3635e74…` and vendors at `vendor/zeta23`.
+2. **The count is ours.** The paper prints
+   `def N0simple … := (zerosIn T₁ T₂ ∩ {ρ | ρ.re = 1/2} ∩ {ρ | zeroMult ρ = 1}).ncard`
+   — `274`'s identification of our `NscStd` with their `N0simple`, from the source.
+3. **`2/3` and `0.6725` are two windows, both unconditional.** *"With the
+   Montgomery–Taylor window `ψ_MT` … in place of the indicator window `ψ₀`, the constants
+   improve to `2 − c_MT⁻¹ = 0.67250…` … where `c_MT⁻¹ := ½ + (1/√2)cot(1/√2)`; among
+   windows `ψ` … this is optimal."* That expression is `279`'s
+   `baseline_decimal_le_exact` exactly. **Our row is the optimal-window constant; the
+   headline `2/3` is the indicator window. Nothing in the ledger was conditional and
+   nothing is superseded.**
+4. **§1.4 states this project's thesis.** *"The theorems are lower bounds only: the
+   remaining third of the zeros are not shown to be off the line, merely not reached by
+   the certificate. The inputs are insensitive to `o(N)` off-line zeros and hold for
+   Davenport–Heilbronn and Epstein zeta functions, for which the analogue of RH is
+   false."*
+
+**Wildcard — does the paper settle any standing register debt?** **Kill condition, filed
+first:** *if it does not, I say the reading was informative and closed nothing.* It
+fired in the useful direction. Appendix A: *"At the cited repository tag (`v1.0`), the
+enclosures `EnclOK` are certified by interval arithmetic and are not checked by the Lean
+kernel; … This is the only place in the paper where a numerical certification enters."*
+That is the rung-0 status `PRICES.md` has priced for ninety cycles without being able to
+confirm, and it did not need supplier 3's email. What supplier 3 was *also* for — the
+certificate file — is still absent; the paper names the law's location and `p₀ ≤ 0.6818287`
+but the form factor's provenance is the interval-arithmetic run.
+
+**And a figure for the wall.** *"The ceiling over the broader class of all bandwidth-one
+certificates is approximately `0.682`."* With `0.6725` optimal among windows, both numbers
+of `E10`'s wall now have attributions.
+
+**Snag, bin 1 — I called a factual question a directional one.** `355`'s four questions
+were all answerable by reading, and I deferred them for a cycle on the grounds that
+reading "is a call about direction". The escalation was worth raising; the *deferral* was
+not. What made it visible was re-reading my own entry rather than acting on its
+conclusion.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203`. No Lean changed.
+
+**Might-mean, scoped to what was read — §1, §1.4, the constants and Appendix A:** this
+project has spent sixty cycles formalising the blindness of a method, and the method's own
+paper states that blindness in its *"what the results are not"* section, so the work has
+been an independent formalisation of a limitation its supplier already knew — which makes
+the value of `X` the machine-checked form rather than the observation.

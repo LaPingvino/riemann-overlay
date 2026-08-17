@@ -797,3 +797,14 @@ import Riemann
 #check @Riemann.Blindness.N_from_on_marginals
 #check @Riemann.Blindness.ledger_partly_determined_by_on_off_marginals
 #check @Riemann.Blindness.Nstar_Nsc_not_determined_by_on_off_marginals
+
+-- SESSION 358: the formalisable half of arXiv:2608.13637's section 1.4.  Superposing a
+-- configuration with no on-line zeros leaves NscStd unchanged at ANY size, not merely
+-- o(N); N_sc is not insensitive, and the same superposition drops it 1 -> 0.
+#check @Riemann.Blindness.onAt_superpose
+#check @Riemann.Blindness.onAt_eq_zero_of_not_mem
+#check @Riemann.Blindness.NscStd_insensitive_to_offLine
+#check @Riemann.Blindness.onAt_eq_zero_of_offLine
+#check @Riemann.Blindness.offLine_pair_no_online
+#check @Riemann.Blindness.Nsc_sensitive_to_offLine
+#check @Riemann.Blindness.NscStd_insensitive_offLine_witness

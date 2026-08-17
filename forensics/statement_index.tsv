@@ -470,6 +470,13 @@ ours	Riemann.Fiber	lemma	Noff_from_on_marginal	(D : ZeroData) : D.Noff = ((onPro
 ours	Riemann.Fiber	lemma	N_from_on_marginals	(D : ZeroData) : D.N = ((onProfile D).map Prod.fst).sum + ((onProfile D).map Prod.snd).sum	-	`N` is the sum of both marginals — `mass = on + off` summed, which needs `profile_snd_le_fst` because the subtraction is in `ℕ`.
 ours	Riemann.Fiber	theorem	ledger_partly_determined_by_on_off_marginals	{D D' : ZeroData} (hon : (onProfile D).map Prod.fst = (onProfile D').map Prod.fst) (hoff : (onProfile D).map Prod.snd = (onProfile D').map Prod.snd) : D.N = D'.N ∧ D.Noff = D'.Noff ∧ D.NscStd = D'.NscStd	-	**The `(on, off)` pairing keeps three rows.** Each is a functional of one marginal or of the two sums, so forgetting the pairing costs nothing for these.
 ours	Riemann.Fiber	theorem	Nstar_Nsc_not_determined_by_on_off_marginals	{γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) : (onProfile (twoAtom γ a 1 0 3 1)).map Prod.fst = (onProfile (twoAtom γ a 1 1 3 0)).map Prod.fst ∧ (onProfile (twoAtom γ a 1 0 3 1)).map Prod.snd = (onProfile (twoAtom γ a 1 1 3 0)).map Prod.snd ∧ (two	-	**…and loses the other two.** Two configurations with on-line marginal `{1,3}` and off-line marginal `{0,2}`, paired the two ways: `N⊛` is `26` against `18` and
+ours	Riemann.Fiber	lemma	onAt_superpose	(D D' : ZeroData) (γ : ℝ) : onAt (superpose D D') γ = onAt D γ + onAt D' γ	-	
+ours	Riemann.Fiber	lemma	onAt_eq_zero_of_not_mem	(D : ZeroData) {γ : ℝ} (h : γ ∉ D.ordinates) : onAt D γ = 0	-	
+ours	Riemann.Fiber	theorem	NscStd_insensitive_to_offLine	(D E : ZeroData) (hE : ∀ γ, onAt E γ = 0) : (superpose D E).NscStd = D.NscStd	-	
+ours	Riemann.Fiber	lemma	onAt_eq_zero_of_offLine	(E : ZeroData) (h : ∀ p ∈ E.Z, p.1 ≠ 1/2) (γ : ℝ) : onAt E γ = 0	-	
+ours	Riemann.Fiber	lemma	offLine_pair_no_online	{a : ℝ} (ha : a ≠ 1/2) : ∀ p ∈ (configAt 0 0 1 a).Z, p.1 ≠ 1/2	-	
+ours	Riemann.Fiber	theorem	Nsc_sensitive_to_offLine	{a : ℝ} (ha : a ≠ 1/2) : superpose (configAt 0 1 0 a) (configAt 0 0 1 a) = configAt 0 1 1 a ∧ (configAt 0 1 0 a).NscStd = 1 ∧ (configAt 0 1 1 a).NscStd = 1 ∧ (configAt 0 1 0 a).Nsc = 1 ∧ (configAt 0 1 1 a).Nsc = 0	-	
+ours	Riemann.Fiber	theorem	NscStd_insensitive_offLine_witness	{a : ℝ} (ha : a ≠ 1/2) : (configAt 0 1 1 a).NscStd = (configAt 0 1 0 a).NscStd	-	
 ours	Riemann.Fujii	lemma	sqrt_le_of_sq	{x y : ℝ} (hy : 0 ≤ y) (h : x ≤ y ^ 2) : Real.sqrt x ≤ y	-	
 ours	Riemann.Fujii	lemma	log_two_add_le	{lam : ℝ} (h : 0 ≤ lam) : Real.log (2 + lam) ≤ 0.6931471808 + lam / 2	-	`log (2 + λ) ≤ log 2 + λ/2 ≤ 0.6931471808 + λ/2`.
 ours	Riemann.Fujii	lemma	log_two_add_nonneg	{lam : ℝ} (h : 0 ≤ lam) : 0 ≤ Real.log (2 + lam)	-	

@@ -8438,5 +8438,103 @@ theorem Nstar_Nsc_not_determined_by_on_off_marginals {γ a : ℝ} (hγ : γ ≠ 
   · rw [Nsc_from_onProfile, onProfile_eq_profile_map, pB]; decide
 
 
+/-! #### What the paper says its results are not, formalised — `SESSION 358`
+
+`356` read `arXiv:2608.13637` §1.4: *"The theorems are lower bounds only: the remaining
+third of the zeros are not shown to be off the line, merely not reached by the
+certificate.  The inputs are insensitive to `o(N)` off-line zeros and hold for
+Davenport–Heilbronn and Epstein zeta functions, for which the analogue of RH is false."*
+
+The middle clause has a formal shape in this vocabulary, and it is sharper than
+`o(N)`: **superposing a configuration with no on-line zeros leaves `NscStd`
+unchanged — at any size, not merely `o(N)`.**  What makes the paper say `o(N)` is
+that `N` itself grows, so the *proportion* moves by `o(1)`; the count does not move
+at all.
+
+**Kill condition, filed first:** *if a superposition-perturbation lemma for `NscStd`
+is already on disk, the deliverable is the pointer; and if `superpose` needs a
+disjointness hypothesis that makes the statement vacuous where it is wanted, I say so
+rather than adding hypotheses until it works.*  It did not fire — `H_superpose`,
+`offAt_superpose` and `add_ordinates` are unconditional, and the fourteen `superpose`
+rows in the index carry nothing about `NscStd`.
+
+**And the companion is the project's own distinction.**  `N_sc` is *not* insensitive:
+the same superposition drops it from `1` to `0`, because a mass-one ordinate that
+acquires an off-line pair has `H = 3`.  So the two ledger rows differ exactly in their
+response to added off-line zeros — which is `hauntedCount`, and which is why the
+project reports both. -/
+
+lemma onAt_superpose (D D' : ZeroData) (γ : ℝ) :
+    onAt (superpose D D') γ = onAt D γ + onAt D' γ := by
+  have h1 := H_eq_onAt_add_offAt D γ
+  have h2 := H_eq_onAt_add_offAt D' γ
+  have h3 := H_eq_onAt_add_offAt (superpose D D') γ
+  have h4 := H_superpose D D' γ
+  have h5 := offAt_superpose D D' γ
+  omega
+
+lemma onAt_eq_zero_of_not_mem (D : ZeroData) {γ : ℝ} (h : γ ∉ D.ordinates) :
+    onAt D γ = 0 := by
+  classical
+  have hH : D.H γ = 0 := by
+    rw [D.H_eq_count γ, Multiset.count_eq_zero]
+    exact h
+  have := H_eq_onAt_add_offAt D γ
+  omega
+
+theorem NscStd_insensitive_to_offLine (D E : ZeroData) (hE : ∀ γ, onAt E γ = 0) :
+    (superpose D E).NscStd = D.NscStd := by
+  classical
+  rw [NscStd_eq_onAt_one, NscStd_eq_onAt_one]
+  have hon : ∀ γ, onAt (superpose D E) γ = onAt D γ := by
+    intro γ; rw [onAt_superpose, hE γ, Nat.add_zero]
+  refine Finset.card_bij (fun γ _ => γ) ?_ (fun _ _ _ _ h => h) ?_
+  · intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    rw [hon γ] at hγ
+    refine Finset.mem_filter.2 ⟨?_, hγ.2⟩
+    rw [Multiset.mem_toFinset]
+    by_contra hnot
+    rw [onAt_eq_zero_of_not_mem D hnot] at hγ
+    exact absurd hγ.2 (by norm_num)
+  · intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    refine ⟨γ, Finset.mem_filter.2 ⟨?_, by rw [hon γ]; exact hγ.2⟩, rfl⟩
+    rw [Multiset.mem_toFinset, add_ordinates]
+    exact Multiset.mem_add.2 (Or.inl (Multiset.mem_toFinset.1 hγ.1))
+
+lemma onAt_eq_zero_of_offLine (E : ZeroData) (h : ∀ p ∈ E.Z, p.1 ≠ 1/2) (γ : ℝ) :
+    onAt E γ = 0 := by
+  classical
+  rw [onAt, Multiset.card_eq_zero, Multiset.filter_eq_nil]
+  intro p hp hc
+  exact h p hp hc.2
+
+lemma offLine_pair_no_online {a : ℝ} (ha : a ≠ 1/2) :
+    ∀ p ∈ (configAt 0 0 1 a).Z, p.1 ≠ 1/2 := by
+  have ha' : (1 - a : ℝ) ≠ 1/2 := fun h => ha (by linarith [h])
+  intro p hp
+  have : p ∈ Multiset.replicate 0 ((1/2 : ℝ), (0:ℝ))
+      + (Multiset.replicate 1 (a, (0:ℝ)) + Multiset.replicate 1 ((1 - a : ℝ), (0:ℝ))) := hp
+  simp only [Multiset.replicate_zero, zero_add, Multiset.replicate_one,
+    Multiset.mem_add, Multiset.mem_singleton] at this
+  rcases this with h | h <;> subst h
+  · exact ha
+  · exact ha'
+
+theorem Nsc_sensitive_to_offLine {a : ℝ} (ha : a ≠ 1/2) :
+    superpose (configAt 0 1 0 a) (configAt 0 0 1 a) = configAt 0 1 1 a
+      ∧ (configAt 0 1 0 a).NscStd = 1 ∧ (configAt 0 1 1 a).NscStd = 1
+      ∧ (configAt 0 1 0 a).Nsc = 1 ∧ (configAt 0 1 1 a).Nsc = 0 := by
+  refine ⟨rfl, (simple_atom_counts ha).1, (haunted_atom_counts ha).1,
+    (simple_atom_counts ha).2.1, (haunted_atom_counts ha).2.1⟩
+
+theorem NscStd_insensitive_offLine_witness {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 1 1 a).NscStd = (configAt 0 1 0 a).NscStd := by
+  have h := NscStd_insensitive_to_offLine (configAt 0 1 0 a) (configAt 0 0 1 a)
+    (onAt_eq_zero_of_offLine _ (offLine_pair_no_online ha))
+  rwa [(rfl : superpose (configAt 0 1 0 a) (configAt 0 0 1 a) = configAt 0 1 1 a)] at h
+
+
 end Blindness
 end Riemann

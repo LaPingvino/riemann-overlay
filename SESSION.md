@@ -17492,3 +17492,57 @@ overclaim floor `203`, `vendor_check` intact. No Lean changed.
 base is now traceable from its own build to a tagged release of a published paper, so what
 `R5` calls garbage height has been replaced not by fewer assumptions but by better
 citations — and the remaining numerical debt sits in the one place the paper itself flags.
+
+## What the paper says its results are not, formalised
+
+**Piece — and it is Lean, because `R20`'s cap was reached.** `355`–`357` were three
+consecutive cycles of literature and provenance with no Lean. `R20` caps hygiene at three,
+so this cycle builds.
+
+`356` read `arXiv:2608.13637` §1.4: *"The inputs are insensitive to `o(N)` off-line zeros
+and hold for Davenport–Heilbronn and Epstein zeta functions, for which the analogue of RH
+is false."* The middle clause has a formal shape here.
+
+**Kill condition, filed first:** *if a superposition-perturbation lemma for `NscStd` is
+already on disk, the deliverable is the pointer; and if `superpose` needs a disjointness
+hypothesis that makes the statement vacuous where it is wanted, I say so rather than
+adding hypotheses until it works.* It did not fire: the fourteen `superpose` rows in the
+index carry nothing about `NscStd`, and `H_superpose`, `offAt_superpose` and
+`add_ordinates` are unconditional.
+
+`NscStd_insensitive_to_offLine`: **superposing any configuration with no on-line zeros
+leaves `NscStd` unchanged.** Not `o(N)` — *unchanged*, at any size. `onAt_superpose` is
+additive, a purely off-line configuration contributes `0` at every ordinate, and the new
+ordinates it brings have `onAt = 0 ≠ 1` so they do not enter the count.
+
+**`S147` — the asymptotic wording was about the ratio, not the quantity.** Reading
+*"insensitive to `o(N)`"* as a statement about the count would have cost a `Family` and a
+filter argument; the count statement is one bijection on filtered finsets and is stronger.
+What makes the paper say `o(N)` is that `N` grows, so the *proportion* moves by `o(1)`.
+
+**Wildcard — is `N_sc` insensitive too?** **Kill condition, filed first:** *if it is, the
+two rows respond alike and the finding is smaller than it looks.* It is not.
+`Nsc_sensitive_to_offLine`: `superpose (configAt 0 1 0 a) (configAt 0 0 1 a)` is
+**`rfl`-equal** to `configAt 0 1 1 a`, and across that superposition `NscStd` stays `1`
+while `N_sc` falls from `1` to `0` — a mass-one ordinate that acquires an off-line pair
+has `H = 3`. So the two ledger rows differ exactly in their response to added off-line
+zeros, which is `hauntedCount`, and which is why the project reports both.
+
+**Snag, bin 2 — I broke the file with my own tooling.** Stripping scratch primes with
+`body.replace("'","")` also ate the primes in `D'`, `ha'` and `hγ'`, and the build failed
+in two places. Recovered with `git checkout Riemann/Fiber.lean` — safe because the file
+was committed at `357` and this cycle's only change was the appended block — then stripped
+the seven names individually with an assertion that some apostrophe survives. A blanket
+substitution over Lean source is a rename of everything that happens to match.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203` — clean first pass. No `equiv_check` owed: the new results are an
+equality between counts and a witness on named configurations.
+
+**Might-mean, scoped to superposition by a configuration with no on-line zeros:**
+`Riemann.Blindness.NscStd_insensitive_to_offLine` says the reported row does not move when
+off-line zeros are added, and `Nsc_sensitive_to_offLine` says the project's stronger row
+does, so the paper's *"what the results are not"* and this project's `X` are one
+observation at two resolutions — and at the count level the certificate is not merely
+asymptotically blind to off-line zeros but blind to them outright.

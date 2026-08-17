@@ -14616,3 +14616,54 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, unhedged:** the dependency counts zeros that are simple and zeros
 that are anything, and its `--find 'odd'` comes back empty, so the quantity this
 project's cheapest open route consumes is one its supplier did not measure.
+
+## What they name that we do not
+
+**Wildcard — the mirror of `307`.** That cycle searched the vendored tree for our
+`oddAtoms`; the dependency tracks *simple* and *all*, and its `--find 'odd'` came
+back empty. The mirror question is what **they** name that we do not.
+`Zeta23/Defs.lean:155`: `N0star T₁ T₂ := (Z.window T₁ T₂ ∩ onLine).ncard` — the
+count of **distinct on-line zeros**. A zero on the line is determined by its
+ordinate, so that is the number of ordinates carrying at least one on-line zero.
+
+`onOrd` has been in `Fiber.lean` since `157`; the card of its support had no
+name here.
+
+**Kill condition, filed first:** *if a lower bound on that quantity supplies the
+odd-atom route, then `307`'s "no supplier" is wrong and the correction is the
+deliverable.* **It resolves the other way, and the direction is the finding.**
+
+`onLineOrdinates`, plus `oddAtoms ≤ onLineOrdinates ≤ atomCount`, all axiom-free.
+The first inequality is `293`'s `onAt_pos_of_odd_H` read as a cardinality: an odd
+on-line count is a positive one.
+
+Because `oddAtoms ≤ onLineOrdinates`, a **lower** bound on `onLineOrdinates`
+bounds `oddAtoms` below by nothing. `Zeta23.Assembly`'s `N0star_lower_explicit`
+and its siblings are the wrong direction for `proportion_of_oddAtoms`, and the
+docstring says so at the point where the next cycle would reach for them. That
+was the obvious next hope after `307` and it is now closed in writing rather than
+by someone spending a cycle on it.
+
+**Piece — `R28a`, the gap `307`'s snag named.** `R28` requires a zero result to
+name what was searched and over what range. `307` obeyed it and still shipped a
+claim twice: `303` and `306` both wrote *"no supplier on disk"* from a search for
+`oddAtoms`, **our** word, in a project with two codebases. `267` is the same
+failure reversed — `zeta23_xiPrime` axiomatised `0.85838` while
+`Zeta23.XiPrime.Final` proved it, unreached. `R28a`: a negative search across two
+codebases owes the reader both spellings, and one spelling makes it a claim about
+one tree.
+
+**Snag, bin 3.** The `LOOP.md` banner already records that queue items `1`, `2`
+and `3` are discharged, with witnesses, checked by `banner_check`. `294` and
+`295` filed that same finding into `RULING.md` as if it were new. Two cycles of
+evidence-gathering for a fact the repo's own first screen already displays — and
+`R27` names the trigger (*before writing a snag up as new*) which I read as being
+about `SURPRISES`, not about the banner.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green.
+
+**Might-mean, unhedged:** the two codebases name different sections of the same
+bracket — they count the ordinates that have an on-line zero, we count the ones
+whose count is odd — so the gap between the projects is `#{onAt even and
+positive}`, a quantity neither side has ever bounded.

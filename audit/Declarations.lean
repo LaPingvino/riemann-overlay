@@ -310,6 +310,10 @@ import Riemann
 #check @Riemann.proportion_of_oddAtoms_attained
 -- SESSION 307: the threshold a supplier must clear.
 #check @Riemann.oddAtoms_input_beats_certified_row_iff
+-- SESSION 308: the dependency's N0star, in our vocabulary, and its bracket.
+#check @Riemann.Blindness.onLineOrdinates
+#check @Riemann.Blindness.oddAtoms_le_onLineOrdinates
+#check @Riemann.Blindness.onLineOrdinates_le_atomCount
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

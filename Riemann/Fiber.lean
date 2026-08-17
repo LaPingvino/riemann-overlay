@@ -5023,6 +5023,72 @@ theorem oddAtoms_le_atomCount (D : ZeroData) : oddAtoms D ≤ atomCount D := by
   rw [oddAtoms, atomCount]
   exact Finset.card_filter_le _ _
 
+/-! #### A quantity both vocabularies name — `SESSION 308`
+
+`307` searched the vendored tree for our `oddAtoms` and found the dependency
+tracks *simple* zeros and *all* zeros, never *odd* ones.  The mirror question is
+what **they** name that we do not.  `Zeta23/Defs.lean:155` has
+`N0star T₁ T₂ := (Z.window T₁ T₂ ∩ onLine).ncard` — the count of **distinct
+on-line zeros**.  A zero on the line is determined by its ordinate, so that is
+the number of ordinates carrying at least one on-line zero.
+
+`onOrd` has been in this file since `SESSION 157`; the card of its support had no
+name.  It does now, and it sits inside the bracket the rest of this section is
+about.
+
+**Kill condition, filed first:** *if a lower bound on this quantity supplies the
+odd-atom route, then `307`'s "no supplier" is wrong and the correction is the
+deliverable.*  **It resolves the other way, and that is worth writing down:**
+`oddAtoms ≤ onLineOrdinates`, so bounding `onLineOrdinates` from below bounds
+`oddAtoms` from below by nothing.  `N0star_lower_explicit` and its siblings in
+`Zeta23.Assembly` are the wrong direction for `proportion_of_oddAtoms`, and the
+next cycle to reach for them should stop here. -/
+
+/-- **The dependency's `N0star`, in our vocabulary**: ordinates carrying at least
+one on-line zero. -/
+noncomputable def onLineOrdinates (D : ZeroData) : ℕ := (onOrd D).toFinset.card
+
+/-- Its support, spelled as a filter on the ordinates. -/
+lemma onOrd_toFinset (D : ZeroData) :
+    (onOrd D).toFinset = D.ordinates.toFinset.filter fun γ => onAt D γ ≠ 0 := by
+  classical
+  ext γ
+  simp only [Finset.mem_filter, Multiset.mem_toFinset]
+  constructor
+  · intro h
+    have hc : onAt D γ ≠ 0 := by
+      rw [← count_onOrd]; simpa using (Multiset.count_pos.2 h).ne'
+    refine ⟨?_, hc⟩
+    rw [onOrd, Multiset.mem_map] at h
+    obtain ⟨p, hp, rfl⟩ := h
+    exact Multiset.mem_map_of_mem _ (Multiset.mem_of_mem_filter hp)
+  · rintro ⟨-, hc⟩
+    rw [← count_onOrd] at hc
+    exact Multiset.count_pos.1 (Nat.pos_of_ne_zero hc)
+
+/-- **An odd on-line count is a positive one** (`293`'s `onAt_pos_of_odd_H`
+read as a cardinality), so the new quantity sits above `oddAtoms`. -/
+theorem oddAtoms_le_onLineOrdinates (D : ZeroData) :
+    oddAtoms D ≤ onLineOrdinates D := by
+  classical
+  rw [oddAtoms_eq_odd_onAt, onLineOrdinates]
+  refine Finset.card_le_card fun γ hγ => ?_
+  rw [Finset.mem_filter] at hγ
+  rw [Multiset.mem_toFinset, ← Multiset.count_pos, count_onOrd]
+  exact Nat.pos_of_ne_zero fun h => hγ.2 (by rw [h]; decide)
+
+/-- …and below `atomCount`, since an ordinate with an on-line zero has a zero. -/
+theorem onLineOrdinates_le_atomCount (D : ZeroData) :
+    onLineOrdinates D ≤ atomCount D := by
+  classical
+  rw [onLineOrdinates, atomCount]
+  refine Finset.card_le_card fun γ hγ => ?_
+  rw [Multiset.mem_toFinset] at hγ
+  rw [onOrd, Multiset.mem_map] at hγ
+  obtain ⟨p, hp, rfl⟩ := hγ
+  exact Multiset.mem_toFinset.2
+    (Multiset.mem_map_of_mem _ (Multiset.mem_of_mem_filter hp))
+
 /-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
 
 `295` showed `oddAtoms` is not a functional of the five ledger counts, and gave

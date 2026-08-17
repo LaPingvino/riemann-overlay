@@ -154,6 +154,16 @@ degradations, not less.
   `git commit` in one shell call; `251d` wrote the rule and `277` broke it
   anyway, which is `S113`. A guard in the roster closes the window to one
   cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
+* **R28a — and name the *vocabulary* it ran in.**  `R28` says a zero result must
+  name what was searched and over what range.  `307` obeyed that and still shipped
+  a claim twice: `303` and `306` both recorded *"no supplier on disk"* for the
+  odd-atom route on the strength of a search for `oddAtoms`, **our** word.  The
+  vendored dependency does not use it — its `--find 'odd'` returns nothing at all,
+  because it counts *simple* zeros and *all* zeros under `N0`, `N0star`, `N0s`.
+  `267` is the same failure with the polarity reversed: `zeta23_xiPrime`
+  axiomatised `0.85838` while `Zeta23.XiPrime.Final` proved it, unreached.  So a
+  negative search across two codebases owes the reader both spellings, and if only
+  one was tried the claim is about one tree.
 * **R28 — a search that returns nothing is a statement about the search.**
   Before a zero result is allowed to carry a claim, the write-up names what was
   searched and over what range; if that sentence cannot be written, the claim is

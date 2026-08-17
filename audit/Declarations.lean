@@ -729,3 +729,9 @@ import Riemann
 #check @Riemann.Blindness.capWitness_eq_sum_moments
 #check @Riemann.Blindness.Nsc_from_moments
 #check @Riemann.Blindness.Nsc_determined_by_moments_of_cap
+
+-- SESSION 346: the uncapped question, answered.  Every ZeroData is capped by its
+-- own N (H_le_N) and N is the moment at k = 1, so 345's capped theorems apply at
+-- b = D.N.  The whole moment sequence determines N_sc.
+#check @Riemann.Optimal.Nsc_determined_by_all_moments
+#check @Riemann.Optimal.Nsc_from_moments_at_N

@@ -16794,3 +16794,65 @@ exact point where the moment family stops being blind to `N_sc`, so the moment
 route's whole difficulty is concentrated in configurations of unbounded
 multiplicity — which is the same place the ladder's ceiling and the haunting bound
 both live.
+
+## The uncapped question, answered — and it was mis-stated
+
+**Piece.** `335` filed it, `345` sharpened it: the moments up to a cap determine
+`N_sc`, and whether the whole sequence does was left open. **It does**, and the
+question was mis-stated rather than hard.
+
+**Kill condition, filed first:** *if no bound `H γ ≤ N` is on disk, I report the
+reduction and stop rather than proving a new bound.* It did not fire.
+`Riemann.Optimal.H_le_N` has been on disk since the `200`-series.
+
+**Every `ZeroData` is already capped, by its own `N`.** `H_le_N` says so, and
+`Blindness.momentK_one` says `N` is the moment at `k = 1` — so the cap index is
+readable off the sequence, and `345`'s capped determinacy applies at `b = D.N` with
+no case split. `Riemann.Optimal.Nsc_determined_by_all_moments` is four lines.
+
+`Nsc_from_moments_at_N` is the formula at that index, and every input is a moment.
+What it is **not** is a function on arbitrary sequences: the coefficients depend on
+`D.N`, so it reads a length off its input before choosing them. Determinacy is the
+theorem; the formula is the computation. Both stated at the declarations.
+
+**`S135` — where `335` and `345` both went wrong, in the same word.** Both wrote
+*"uncapped"* as though it meant *unbounded multiplicity*. For a single `ZeroData`
+it does not: the multiset is finite, and `Riemann.Optimal.H_le_N` bounds every mass
+by `N`. What the cap hypothesis in
+`345` actually excludes is not a configuration but a *uniform* `b` across
+configurations — and reading `b` off `momentK 1` supplies one per configuration,
+which is all the determinacy statement needs. `335`'s kill condition warned about
+limit statements not belonging in this file's vocabulary; the answer came from a
+bound, not a limit, and Newton's identities were never needed.
+
+**With `335`, this closes a pair `335` declined to close.**
+`Blindness.single_momentK_not_determine_Nsc`: no single moment determines `N_sc`, at
+any `k`. This: the sequence always does. `335`'s entry said only that the family
+*might* be stronger than one member and would not say which — now it says.
+
+**Wildcard — where do the theorems have to live?** **Kill condition, filed first:**
+*if placing them beside `345`'s in `Fiber.lean` works, do that; if not, say what
+forced the move rather than duplicating the bound.* It fired: `Fiber.lean` cannot
+see `H_le_N`, which sits in `Optimal.lean`, and `Optimal.lean` imports `Fiber.lean`
+rather than the other way round. So `346`'s two theorems live in `Optimal.lean`,
+with the reason in the section header. Re-proving `H γ ≤ N` in `Fiber.lean` would
+have been the duplication `duplication_floor` exists to stop.
+
+**Snag, bin 2 — `duplication_floor` `23 → 24`, and it is the third case its rule
+names.** `Nsc_determined_by_all_moments` shares its conclusion `D.Nsc = D'.Nsc`
+with `345`'s `Nsc_determined_by_moments_of_cap`. Neither implies the other: the
+capped one needs only `b + 1` moments, the uncapped one needs no cap. `256`'s rule
+is *another route to a known row is fine, a second copy of a proof is not* — this is
+a route, so the floor is raised to `24` and the reason is this paragraph, which is
+what raising it requires.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor now `24`,
+overclaim floor `203` (no new flags this cycle — the first of the three cycles since
+that guard shipped where my own docstrings did not move it).
+
+**Might-mean, scoped to `N_sc` and to the moment sequence:** the moment family's
+reach is not limited by how many moments you take but by which quantity you ask
+about — it computes `N_sc` from a sequence it can read its own cap off, and by
+`335` it computes none of the four gaps at any length, so the boundary of what
+moments see runs between `N_sc` and `NscStd` rather than anywhere along `k`.

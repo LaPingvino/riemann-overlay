@@ -2334,7 +2334,25 @@ the *behaviour* the literature is said to report, not read the literature.
 
 ## Does the whole moment sequence determine `N_sc`? (SESSION 335, open)
 
-> **Answered under a cap at `345`; the uncapped question is what remains.**
+> ## **`346`: ANSWERED. Yes.**
+> `Riemann.Optimal.Nsc_determined_by_all_moments` — two configurations agreeing on
+> `momentK k` at every `k` have equal `N_sc`. The question was mis-stated rather
+> than hard: **every `ZeroData` is already capped, by its own `N`** (`Optimal.H_le_N`),
+> and `Blindness.momentK_one` reads `N` off the sequence at `k = 1`, so `345`'s
+> capped determinacy applies at `b = D.N` with no case split. `Nsc_from_moments_at_N`
+> is the formula, every input a moment. Newton's identities were never needed; the
+> kill condition below about limit statements was answered by a bound, not a limit.
+>
+> With `335`'s `single_momentK_not_determine_Nsc` this closes the pair `335`
+> declined to close: no single moment determines `N_sc`, the whole sequence always
+> does.
+>
+> **What remains open is narrower and worth naming:** whether a function on
+> *arbitrary* sequences computes `N_sc` — `Nsc_from_moments_at_N` reads a length
+> (`D.N`) off its input before choosing coefficients, so it is a formula per
+> configuration rather than one functional.
+>
+> **Answered under a cap at `345`; the uncapped question was what remained.**
 > `Nsc_from_moments` gives `(−1)^b · b! · N_sc` as a `ℤ`-combination of
 > `momentK 0 … momentK b` whenever every mass is at most `b + 1`, and
 > `Nsc_determined_by_moments_of_cap` is the determinacy statement this entry asks

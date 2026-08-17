@@ -641,6 +641,58 @@ lemma H_le_N (D : ZeroData) (γ : ℝ) : D.H γ ≤ D.N := by
   classical
   exact Multiset.card_le_card (Multiset.filter_le _ _)
 
+/-! #### The uncapped question, answered — `SESSION 346`
+
+`335` filed it and `345` sharpened it: the moments up to a cap determine `N_sc`,
+and whether the **whole** sequence does was left open.  It does, and the trick is
+that the question was mis-stated rather than hard.
+
+**Every `ZeroData` is already capped, by its own `N`.**  `H_le_N` above says so, and
+`Blindness.momentK_one` says `N` is the moment at `k = 1` — so the cap index is
+itself readable off the sequence, and `345`'s capped theorems apply at `b = D.N`
+with no case split.
+
+**Kill condition, filed first:** *if no bound `H γ ≤ N` is on disk, I report the
+reduction and stop rather than proving a new bound.*  It did not fire — `H_le_N` has
+been here since the `200`-series — **and it is why these two theorems live in this
+file** rather than beside `345`'s in `Riemann/Fiber.lean`, which cannot see it
+(`R23`).
+
+**With `335`, this closes a pair that `335` explicitly declined to close.**
+`Blindness.single_momentK_not_determine_Nsc` says no single moment determines
+`N_sc`, at any `k`; the theorem below says the sequence always does.  `335`'s entry
+said only that the family *might* be stronger than one member and that it would not
+claim which — this is the answer. -/
+
+/-- **The whole moment sequence determines `N_sc`.**  Two configurations agreeing on
+`momentK k` at every `k` have equal `N_sc`.
+
+The proof is `345`'s capped determinacy at `b = D.N`: the caps hold because
+`H_le_N` bounds every mass by `N`, and the two `N`s agree because
+`Blindness.momentK_one` reads `N` off the sequence at `k = 1`. -/
+theorem Nsc_determined_by_all_moments {D D' : ZeroData}
+    (hm : ∀ k, Blindness.momentK D k = Blindness.momentK D' k) : D.Nsc = D'.Nsc := by
+  have hN : D.N = D'.N := by
+    have h1 := hm 1
+    rwa [Blindness.momentK_one, Blindness.momentK_one] at h1
+  refine Blindness.Nsc_determined_by_moments_of_cap (b := D.N) ?_ ?_ (fun k _ => hm k)
+  · exact fun γ _ => le_trans (H_le_N D γ) (Nat.le_succ _)
+  · exact fun γ _ => le_trans (H_le_N D' γ) (by omega)
+
+/-- **…and the formula, with every input a moment.**  `345`'s `Nsc_from_moments`
+instantiated at the configuration's own `N`.  The index `D.N` is not extra data:
+`Blindness.momentK_one` makes it `momentK D 1`, so the right-hand side is built from
+the moment sequence and nothing else.
+
+What this does **not** do is exhibit a function on arbitrary sequences: the
+coefficients depend on `D.N`, so the formula reads a length off the input before
+using it.  Determinacy is the statement above; this is the computation. -/
+theorem Nsc_from_moments_at_N (D : ZeroData) :
+    (-1) ^ D.N * (Nat.factorial D.N : ℤ) * (D.Nsc : ℤ)
+      = ∑ k ∈ Finset.range (D.N + 1),
+          Blindness.capCoeff D.N k * ((Blindness.momentK D k : ℕ) : ℤ) :=
+  Blindness.Nsc_from_moments D fun γ _ => le_trans (H_le_N D γ) (Nat.le_succ _)
+
 /-- A **cheap constraint**: an upper bound on horizontal multiplicity.  This is
 the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, and
 it involves no multiplicative information whatever. -/

@@ -2197,6 +2197,64 @@ from the other direction, and since `304` a theorem,
 count.** Route I and Route III exist to buy a `C`; what a `C` buys is `δ`.
 
 
+## ⚠️ ESCALATION — a four-day-old arXiv paper in this project's exact area (SESSION 355)
+
+**`arXiv:2608.13637`, submitted 13 Aug 2026, Levent Alpöge and Ralph Furman:**
+*"More than two thirds of the zeta zeros are simple and on the critical line"*.
+Found by running `LOOP.md`'s own cycle step 1 — the arXiv sweep of the active
+suppliers — which had not been run in many cycles.
+
+**Abstract, quoted rather than summarised** (fetched from `arxiv.org/abs/2608.13637`
+this cycle):
+
+> We prove unconditionally that at least two thirds of the nontrivial zeros of the
+> Riemann zeta function, counted with multiplicity, are simple and lie on the
+> critical line, and that at least five sixths are distinct; the previous
+> unconditional records are `5/12` and `0.6603`. With the Montgomery–Taylor window
+> the constants become `0.6725` and `0.8362`. The argument makes Montgomery's 1973
+> deduction unconditional: the Riemann hypothesis, classically needed to read the
+> zero side as a positive sum over real ordinates, is replaced by a rank-trace
+> inequality applied to a finite compression of Weil's Hermitian form, with
+> Sylvester's law of inertia handling off-line pairs. The analytic inputs are those
+> of Aryan and of Baluyot, Goldston, Suriajaya and Turnage-Butterbaugh. The results
+> extend to primitive Dirichlet `L`-functions and are formally verified in Lean 4.
+
+**One factual observation, and no inference past it.** The two window constants the
+abstract names — `0.6725` and `0.8362` — are the same numerals as this project's
+baseline `Zeta23.ThmD.HD 1` and its distinct-zeros companion `GD 1 = 0.83625`. The
+abstract also names Aryan and BGST as its analytic inputs, and both are already rows
+in the genre table below.
+
+**What is NOT established by reading an abstract**, and each of these would change
+what the paper means for the ledger:
+
+* whether the paper's *"simple and lie on the critical line, counted with
+  multiplicity"* is this project's `NscStd` (multiplicity one, on the line) or its
+  stronger `Nsc` (`H = 1`) — the two differ by `hauntedCount` and the whole ledger
+  turns on that distinction;
+* whether the *"formally verified in Lean 4"* artifact is `zeta-23-lean`, which this
+  repo vendors at `vendor/zeta23` and whose `ThmD` supplies the `0.6725`;
+* whether `2/3` or `0.6725` is the figure comparable to this project's rows, since
+  the abstract gives `2/3` unconditionally and `0.6725` under a named window;
+* whether the paper cites or subsumes zeta-23.
+
+**Joop: this is the escalation.** The project's certified row is `NscStd 67.25%` from
+zeta-23's `ThmD`, and a paper four days old states constants with the same numerals
+for a possibly-different count, by a route this repo has not modelled (Weil's
+Hermitian form, rank-trace, Sylvester inertia — none of which appears in any
+register). Reading the paper properly is a cycle's work and is a call about direction,
+not a mechanical next step, so I am raising it rather than acting on it.
+
+*Discipline, per `136`: this discharges "does the paper claim this", not "is the claim
+correct", and not "what does it mean for us".*
+
+**Also fetched this cycle:** `arXiv:2508.10857`, Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh,
+*"The Alternative Hypothesis for Zeros of the Riemann Zeta-Function"* (14 Aug 2025) —
+assumes RH and an AH formulation, obtains constraints on pair densities at `k/2`
+spacings which *"restrict the density of (possible) multiple zeros"*, and shows a
+stronger AH implies the Essential Simplicity Hypothesis. Recorded because
+multiple-zero density is the project's `hauntedCount` territory; **[abstract only]**.
+
 ## The genre, and where `NoHaunted` sits in it (SESSION 132, from claude.ai)
 
 > ✅ **Three of four verified from the arXiv abstracts, `SESSION 136`** — the
@@ -2214,6 +2272,15 @@ count.** Route I and Route III exist to buy a `C`; what a `C` buys is `δ`.
 to BGST-I. It is not in the abstract I read and I will not carry a number I have
 not seen. **Still [RECALL, UNVERIFIED]:** the *Acta Arith.* 214 narrow-box
 statement and its `61.7%`.
+
+> **`355` tried and failed to find it, and names the search.** Three queries against
+> `arxiv.org`: the author-team keywords *"Baluyot Goldston Suriajaya
+> Turnage-Butterbaugh simple zeros"* (four hits, none matching the hypothesis shape),
+> the author listing `arxiv.org/a/baluyot_s_1` (redirected, no listing parsed), and
+> the hypothesis-shape keywords *"zeros very close to the critical line simple zeros
+> proportion"* (no parsed results). So the label stays. What this does **not** show is
+> that the paper is absent from arXiv — only that three searches in that vocabulary
+> did not reach it, and a journal-only item would not be there at all (`R28`, `R28a`).
 
 **And Aryan's mechanism is ours.** The paper is titled *"On an extension of the
 Landau–Gonek formula"* — the `2/3` comes from **Landau–Gonek**, which is the

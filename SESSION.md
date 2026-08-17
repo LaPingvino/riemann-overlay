@@ -17302,3 +17302,76 @@ drops the coordinate its definition names — `NscStd` when `on` goes,
 `Riemann.Blindness.Nstar_Nsc_not_determined_by_on_off_marginals` when `mass` does — so
 the row the project reports is the one whose coordinate the profile's own notation
 leaves out.
+
+## Cycle step one, run for the first time in a long while
+
+**Piece.** `LOOP.md`'s cycle begins with *"Next-piece preview: arXiv listings for the
+active suppliers … anything citing zeta-23"*. Sixty cycles of steps 3–5 had crowded
+step 1 out. I ran it.
+
+**Kill condition, filed first:** *if the abstracts do not state what the registers
+attribute to them, I record what they say and leave the labels — and I report abstracts
+as abstracts, which discharges "does the paper claim this" and not "is the claim
+correct" (`136`'s rule).*
+
+**It found a paper four days old, in this project's area.**
+`arXiv:2608.13637`, submitted 13 Aug 2026, Levent Alpöge and Ralph Furman: *"More than
+two thirds of the zeta zeros are simple and on the critical line"*. The abstract is
+quoted in full in `LEADS.md` rather than summarised here. What it states:
+
+* unconditionally, at least `2/3` of the nontrivial zeros **counted with multiplicity**
+  are simple and on the critical line, and at least `5/6` are distinct;
+* previous unconditional records `5/12` and `0.6603`;
+* **"with the Montgomery–Taylor window the constants become `0.6725` and `0.8362`"**;
+* the route is Montgomery's 1973 deduction made unconditional — a rank-trace inequality
+  on a finite compression of Weil's Hermitian form, Sylvester's law of inertia for
+  off-line pairs;
+* analytic inputs from Aryan and from Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh,
+  both already rows in the genre table;
+* extends to primitive Dirichlet `L`-functions, and **"formally verified in Lean 4"**.
+
+**One factual observation and no inference past it.** `0.6725` and `0.8362` are the same
+numerals as this repo's `Zeta23.ThmD.HD 1` and `GD 1 = 0.83625`.
+
+**Four things an abstract does not settle**, each of which changes what the paper means
+for the ledger: whether its *"simple and on the critical line, counted with
+multiplicity"* is our `NscStd` or our stronger `Nsc` — they differ by `hauntedCount`,
+which is the whole of `X`; whether its Lean artifact is the `zeta-23` this repo vendors;
+whether `2/3` or `0.6725` is the figure comparable to our rows; and whether it cites or
+subsumes `ThmD`. All four are listed in `LEADS.md` as unread.
+
+**Raised to Joop rather than acted on.** Reading the paper properly is a cycle's work and
+a call about direction. Recorded in `CLAIMS.md` at grade **N** so that no later cycle
+quotes it as a repo claim.
+
+**Also fetched:** `arXiv:2508.10857` (BGST, 14 Aug 2025), *"The Alternative Hypothesis
+for Zeros of the Riemann Zeta-Function"* — RH plus an AH formulation gives constraints
+that *"restrict the density of (possible) multiple zeros"*, which is `hauntedCount`
+territory. Abstract only.
+
+**Wildcard — the one named `[RECALL, UNVERIFIED]` item.** `136` verified three of four
+genre rows from abstracts and left the *Acta Arith.* 214 narrow-box statement and its
+`61.7%`. **Kill condition, filed first:** *if the abstract does not state the hypothesis
+and the number, the label stays; I do not carry a figure I have not seen.* It fired at
+the search stage rather than the reading stage: three queries against `arxiv.org` — the
+author-team keywords, the author listing, and the hypothesis-shape keywords — did not
+reach the paper. The label stays, the three queries are named at its location, and a
+journal-only item would not be on arXiv at all (`R28`, `R28a`).
+
+**Snag, bin 1 — the register was wrong about the sandbox and I nearly trusted it.**
+`LEADS.md`'s escalation says *"the sandbox's network allowlist is `github.com` only"*.
+It is not, and has not been since `136`, which the same file records forty lines
+earlier. I checked reachability with a fetch of a known-good abstract before doing
+anything else, which is `R17` on a claim about live state — but the stale sentence and
+its own correction sit in one file, and I read the stale one first.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203`. No Lean changed this cycle.
+
+**Might-mean, scoped to the one abstract read this cycle:** a result carrying the same
+two constants as this repo's baseline, by a route none of its registers models, was
+posted four days ago and the loop had not seen it, because the step that would have seen
+it is the step the loop had stopped running — so what is limiting this project may be
+less the mathematics or the axioms than how much of its own written procedure it
+actually executes.

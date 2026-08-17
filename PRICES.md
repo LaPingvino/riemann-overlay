@@ -889,6 +889,20 @@ in which case Levinson–Montgomery 1974 (*Acta Math.* 133, 49–65) joins it.
 hypotheses is now **one paper**, and doing it by axiom would raise the certified
 proportion by `+9.29`, which `Assumptions.lean` forbids.
 
+> **`361`: the genre's own paper now names two conditional rows with constants.**
+> `arXiv:2608.13637` §7.3: `HL*(k₀)` — Hardy–Littlewood on prime pairs — gives
+> `liminf N₀ˢ/N ≥ 13/18 = 0.7222…`, **above this project's `0.6725`**; and `HL*(k₀)`
+> for all `k₀`, or Montgomery's form factor on every support, gives `100%`. §7.2 says
+> the ceiling of the present method is `≈0.682` and that passing it *"would require
+> pair-correlation information beyond Fourier support `1`"*.
+>
+> So the *"statistics"* currency on the board has a specific price and a specific
+> payout for the first time: the hypothesis is a prime-pair conjecture, not a location
+> or density assumption, and `13/18` would be `+5` points on the `NscStd` row. **Not
+> adopted and not priced as adoptable** — `HL*` is an open conjecture and `R5` forbids
+> assuming one; recorded so the board's third currency stops being a shape without a
+> number. Quotes in `LEADS.md`.
+
 **2. The genre exists, is two years old, and is active.** Conditioning
 strictly-weaker-than-RH for simple-zero proportions is a current programme:
 narrow box (BGST 2024, *Acta Arith.* 214 — a **horizontal-location** hypothesis);

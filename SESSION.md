@@ -17646,3 +17646,60 @@ implication and one conjunction of counts on a named chain.
 while a fixed fraction of its zeros sit off the line, so the ledger's headline number
 carries information about multiplicity and none about the critical line — which is the
 same fact `Riemann.Blindness.NscStd_insensitive_to_offLine` states pointwise.
+
+## §7.2 and §7.3 — the third thing, named by the source
+
+**Piece.** `MAP.md` §7 listed the paper's proof as unread, and the most decision-relevant
+part of it is §7.2, *"Sharpness and limits of the method"* — the ceiling this project has
+been mapping since `E10`. I read §7.2, §7.3 and Remark 7.1.
+
+**Kill condition, filed first:** *if §7.2 does not name what would be needed to pass its
+ceiling, I record what it does say and do not infer.* It did not fire: the section names
+it twice, once in §1.4 and once in §7.2(a).
+
+**The ceiling, and what passes it.** §7.2 puts the ceiling over all bandwidth-one
+certificates at `≈0.682` — established by Eric Easley and *"sharpened by Stephen
+McAleer"* — and says `2/3` is within `0.016` of it. Passing it *"would require
+pair-correlation information beyond Fourier support `1`"*; §7.2(a) names the source of the
+restriction (Proposition 5.4, `X ≤ T`) and says lifting it *"would require information on
+prime pairs (the Hardy–Littlewood conjectures, or equivalently Mo[ntgomery's form
+factor])"*.
+
+**Two conditional rows with constants, and `RULING.md`'s board carries none like them.**
+§7.3: `HL*(k₀)`
+gives `liminf N₀ˢ/N ≥ 13/18 = 0.7222…`, **above this project's `0.6725`**; `HL*(k₀)` for
+all `k₀`, or Montgomery's form factor on every support, gives `100%`. And *"RH itself is
+out of reach of the mechanism"*. Recorded in `PRICES.md` as **not adoptable** — both are
+open conjectures and `R5` forbids assuming one — but the third currency on the board now
+has a hypothesis shape *and* a number.
+
+**The class the ceiling is over resembles this project's `X`, and I did not identify
+them.** §7.2's *bandwidth-one certificate* depends on a configuration *"only through its
+first two trace moments against test functions of Fourier support in `[−1,1]` and the
+partition into on-line points and off-line pairs"*. The project's ledger is a functional
+of the profile, and `348`/`351` make the moments determine the mass counts. The
+resemblance is close; the paper's data are analytic and the profile is combinatorial.
+Filed in `LEADS.md` as an analogy for a later cycle to make precise or refute.
+
+**Wildcard — does anything in §7 discharge an axiom?** **Kill condition, filed first:**
+*if a constant is confirmed but a blocker remains, I say which blocker and do not claim
+the axiom is dischargeable.* It fired, and usefully. Remark 7.1 gives, unconditionally,
+`N₀ˢ_{ξ′}/N_{ξ′} ≥ 0.85838` — **the constant of `Riemann.zeta23_xiPrime`**, one of the six
+axioms still declared. So the figure is not in doubt.
+
+**It still cannot be discharged, and the reason is not the constant.** Two blockers, both
+already on disk: `Riemann.xiPrimeFamily` is itself an axiom — a `Family` declared, not
+constructed, so unlike `337`'s two there is nothing to prove things about; and the axiom
+asserts `Proportion` (our `N_sc` row) where the source proves `N0simple` (our `NscStd`),
+which is `ISSUES` `#7` since `SESSION 003` and whose content `283` names as
+`NoHaunted xiPrimeFamily`. Annotated at `#7`'s location.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 in the certified cone and 6 declared, warnings at the floor
+`54`, duplication floor `26`, overclaim floor `203`. `MAP.md` gained two entries and still
+passes `forensics/citation_check.py` with `0` unresolved.
+
+**Might-mean, scoped to §7 as read:** the paper puts its own method's ceiling at `0.682`
+and this project's certified row at `0.6725`, so the row is `0.0095` below a wall the
+source calls its own — and every remaining currency the board could spend, by the source's
+account, is a prime-pair conjecture rather than anything about the zeros.

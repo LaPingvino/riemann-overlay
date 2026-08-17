@@ -2274,8 +2274,65 @@ note in `PRICES.md`, annotated this cycle. `EnclOK` is *"certified by interval
 arithmetic and not checked by the Lean kernel"* at tag `v1.0`, by the paper's own
 statement — which is what the project priced without being able to confirm.
 
-*Still unread: the proof. `356` read §1, §1.4, the constant definitions, and Appendix A.
-Nothing here is a claim about correctness.*
+*Still unread: the proof. `356` read §1, §1.4, the constant definitions, and Appendix A;
+`361` added §7.2, §7.3 and Remark 7.1. Nothing here is a claim about correctness.*
+
+### `361`: §7.2 and §7.3 — the method's own ceiling, and the third thing named
+
+**The class the ceiling is over is close to this project's `X`.** §7.2 defines a
+*bandwidth-one certificate* as a function `p` of a configuration that *"(a) depends on
+the configuration only through its first two trace moments against test functions of
+Fourier support in `[−1,1]` and the partition into on-line points and off-line pairs,
+and (b) satisfies `p ≤ N₀ˢ/N` configuration by configuration."*
+
+The project's ledger is a functional of the **profile** — the multiset of
+`(mass, off-line mass)` pairs — and `348`/`351` show the moments determine the mass
+counts. **The resemblance is close and is not an identification:** the paper's data are
+trace moments against test functions, an analytic object; the profile is a combinatorial
+multiset. Recorded as an analogy for a later cycle to make precise or refute.
+
+**`2/3` is within `0.016` of its own method's ceiling.** §7.2: the ceiling over all
+bandwidth-one certificates is `≈0.682`, established by Eric Easley and *"sharpened by
+Stephen McAleer"*, and `Zeta23.PairCeiling.ceiling_law256` is the Lean form.
+
+**What would pass it, named.** §7.2(a): *"the ceiling of any argument of the present
+kind is `100%`"*; the restriction `L ≍ log T` (equivalently `X ≤ T`) comes from
+Proposition 5.4, and lifting it *"would require information on prime pairs (the
+Hardy–Littlewood conjectures, or equivalently Mo[ntgomery's form factor])"*. §1.4 puts
+the same thing as *"pair-correlation information beyond Fourier support `1`"*.
+
+**Two conditional rows with sources.** §7.3: `HL*(k₀)` gives
+*"`liminf N₀ˢ(T,2T)/N(T,2T) ≥ 13/18`"* — that is `0.7222…`, **above the project's
+`0.6725`** — and *"`HL*(k₀)` for all `k₀` would give proportion `1`"*. And:
+*"if Montgomery's form factor were known on support `(−λ₀,λ₀)` for all `λ₀`, the method
+would certify `100%` simple zeros on the line."* The paper adds *"RH itself is out of
+reach of the mechanism"*, which is §1.4's blindness again from the other side.
+
+### `361`: Remark 7.1 is the project's own `ξ′` axiom, stated unconditionally
+
+Remark 7.1 applies §§4–6 to `ξ′` and gets, **unconditionally**,
+`N₀ˢ_{ξ′}/N_{ξ′} ≥ 0.85838` and `N_{d,ξ′}/N_{ξ′} ≥ 0.92919` (flat window; `0.86864`
+and `0.93432` with a quartic window).
+
+**`0.85838` is the constant of `Riemann.zeta23_xiPrime`**, one of the six axioms still
+declared here. `267` already found `Zeta23/XiPrime/Final.lean` proving it sorry-free in
+lines we vendor and never import.
+
+**Why it is still an axiom, and it is not the constant.** Two blockers, both already
+named on disk:
+
+* `Riemann.xiPrimeFamily` is **itself an axiom** — a `Family` declared, not
+  constructed. `337` could discharge `baseline_zeta23` because `zetaFamily` is a
+  construction; there is no `ξ′` analogue, so nothing about `xiPrimeFamily` can be
+  proved from the vendored tree.
+* the axiom asserts `Proportion 0.85838` — the project's `N_sc` row — while the source
+  proves it for `N0simple`, the `NscStd` count. `ISSUES` `#7` has said so since
+  `SESSION 003`, and `283`'s `Riemann.xiPrime_proportion_of_std_and_noHaunted` names the
+  exact content the axiom absorbs: `NoHaunted xiPrimeFamily`.
+
+So Remark 7.1 confirms the *constant* and its unconditionality, and changes neither
+blocker. **What it does change** is the price of the honest half: an
+`xiPrimeFamily.ProportionStd 0.85838` would need only the construction, not `NoHaunted`.
 
 *Discipline, per `136`: this discharges "does the paper claim this", not "is the claim
 correct", and not "what does it mean for us".*

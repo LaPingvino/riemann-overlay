@@ -126,6 +126,12 @@ Since `337` **every board row is axiom-free except Route II** — measured, not
 assumed, by `forensics/board.py --cones` (`SESSION 340`). So adopting any row now
 costs `0 → 1` axioms rather than `2 → 3`. `RULING.md` carries the re-priced board.
 
+**And what would pass the wall, named by the source.** `arXiv:2608.13637` §7.2 puts the
+ceiling of its own method at `≈0.682` and says passing it needs *"pair-correlation
+information beyond Fourier support 1"*; §7.3 prices two conditional rows —
+`HL*(k₀)` gives `13/18 = 0.7222…`, above this project's row, and every support gives
+`100%`. Neither is adoptable: both are open conjectures. `PRICES.md`, `SESSION 361`.
+
 **What is dominated, and why.** The distinct-zeros route pays nothing at any input
 constant: `Riemann.distinctZeros_route_ties_at_one`. The moment route is walled at
 every order: `Riemann.Optimal.moment_route_walled`,
@@ -156,4 +162,9 @@ The ones that have caught live defects, with the cycle: `forensics/citation_chec
   repository at the pinned tag; the paper names the law's location and `p₀ ≤ 0.6818287`
   but the form factor's provenance is the interval-arithmetic run.
 * **The paper's proof** — unread. `356` read §1, §1.4, the constant definitions and
-  Appendix A, and every register note says so.
+  Appendix A; `361` added §7.2, §7.3 and Remark 7.1. Every register note says so.
+* **`Riemann.zeta23_xiPrime`** — still an axiom, and `361` establishes that the reason is
+  not the constant. Remark 7.1 states `0.85838` unconditionally; the blockers are that
+  `Riemann.xiPrimeFamily` is itself an axiom with no construction, and `ISSUES` `#7`'s
+  `Proportion`-versus-`ProportionStd` gap, whose content `283` names as
+  `NoHaunted xiPrimeFamily`.

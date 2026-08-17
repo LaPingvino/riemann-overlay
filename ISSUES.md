@@ -148,6 +148,14 @@ reading of §6" to "look at one displayed equation".
 
 ## #7 — [bin 1, fixed in the docstring; still an over-strong axiom] Proposition 1 read backwards is not a theorem
 
+> **`361`: the source states the constant unconditionally, and `#7` is unchanged.**
+> `arXiv:2608.13637` Remark 7.1 gives `N₀ˢ_{ξ′}/N_{ξ′} ≥ 0.85838` unconditionally, so
+> the figure is not in doubt. `#7`'s complaint was never the constant: the axiom asserts
+> it for `Proportion` (our `N_sc`) where the source proves it for `N0simple` (our
+> `NscStd`), and the gap is `NoHaunted xiPrimeFamily`, which `283` named. The second
+> blocker is that `xiPrimeFamily` is itself an axiom, so unlike `337`'s two there is no
+> construction to prove anything about. Quotes in `LEADS.md`.
+
 `zeta23_xiPrime` converts "0.85838 of `ξ′`-zeros are simple and critical"
 into `(★)` for `ξ′` with `C' = 1.14162`. That is Proposition 1 read
 *backwards*, which is **not** a theorem: `N_sc ≥ 2N - N⊛` does not give

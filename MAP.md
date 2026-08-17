@@ -162,8 +162,11 @@ The ones that have caught live defects, with the cycle: `forensics/citation_chec
   need sources outside the registers.
 * **The `Acta Arith.` 214 narrow-box statement and its `61.7%`** — still
   `[RECALL, UNVERIFIED]`; `355` names the three searches that did not reach it.
-* **`forensics/absence_queue.py`'s one live entry** — `T3`, the solved-problem control, needing
-  FLT and an open control.
+* **`T3`, the solved-problem control** — **blocked at `364`, with the blocker named.**
+  Its content is a chronology, and the register's own rule is that date verification is a
+  prerequisite; none of the sandbox's four allowlisted hosts is a bibliographic database,
+  and writing the chain from memory is what `S27` forbids. One allowlist entry would
+  unblock it. `forensics/absence_queue.py` now reports **`0`** live obligations.
 * **The rung-0 certificate file** — `cert_N256_blk_b128m.json`, absent from the
   repository at the pinned tag; the paper names the law's location and `p₀ ≤ 0.6818287`
   but the form factor's provenance is the interval-arithmetic run.

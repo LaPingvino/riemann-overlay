@@ -839,6 +839,37 @@ is disputed). The diagnostic question is sharp: **is the final restatement of a
 solved problem the first whose residue is empty, and was that visible *before*
 the solution?**
 
+> ### `SESSION 364`: adjudicated — blocked, and the blocker is named
+>
+> This entry has been `absence_queue`'s last live obligation since `324`. `364`
+> checked whether it is startable and it is not, for a reason narrower than
+> *"needs literature"*.
+>
+> **The register's own rule is the blocker.** Four lines above: *"Every date is
+> flagged `RECALL` … **Date verification is a prerequisite, not a formality.**"*
+> T3's whole content is a chronology — which restatement came first, and whether the
+> residue was empty *before* the solution — so undated it is not a control but a
+> story.
+>
+> **What was searched, and in what vocabulary** (`R28`, `R28a`). One query against
+> `arxiv.org`: *"Fermat Last Theorem modular elliptic curves history"*, zero parsed
+> hits. And the sandbox's four allowlisted hosts — `github.com`,
+> `www-users.cse.umn.edu`, `www.lmfdb.org`, `arxiv.org` — include **no bibliographic
+> database**; the FLT chain's primary sources are journal publications from `1847`,
+> `1986`, `1990` and `1995`, and arXiv covers none of them.
+>
+> **What I decline to do.** Write the chain from memory. `S27` forbids reconstructing
+> a missing computation that way and the `[RECALL]` convention exists to mark exactly
+> this gap; a chronology I cannot date is the failure mode T3 was designed to detect
+> in others.
+>
+> **What would unblock it:** any dated bibliographic source on the machine, or an
+> allowlist entry for one. **Joop's call, and small** — it is one host, not a
+> project.
+>
+> Recorded as *blocked with a named blocker* rather than *not started*, which is the
+> difference between an obligation and an open question.
+
 Register wiring: tagged **S** (an S-problem about S-moves); adjudicates
 **A9c**; tests **E10** empirically; would give **E13** historical evidence if
 the residue is constant and definitional; checks **E18** from outside.
@@ -2202,7 +2233,7 @@ count.** Route I and Route III exist to buy a `C`; what a `C` buys is `δ`.
 **`arXiv:2608.13637`, submitted 13 Aug 2026, Levent Alpöge and Ralph Furman:**
 *"More than two thirds of the zeta zeros are simple and on the critical line"*.
 Found by running `LOOP.md`'s own cycle step 1 — the arXiv sweep of the active
-suppliers — which had not been run in many cycles.
+suppliers — at `SESSION 355`, for the first time in many cycles.
 
 **Abstract, quoted rather than summarised** (fetched from `arxiv.org/abs/2608.13637`
 this cycle):

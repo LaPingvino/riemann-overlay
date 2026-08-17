@@ -17806,3 +17806,53 @@ duplication floor `26`, overclaim floor `203` — clean first pass.
 about a class of statistics too coarse to be the paper's certificates, so `X` and the
 `0.682` ceiling are bounds on different things — and the honest relation between them is
 still unknown rather than close.
+
+## The absence queue at zero, and why that is a weaker claim than it sounds
+
+**Piece.** `absence_queue` has carried a live obligation since `324`. I went to adjudicate
+it and found the queue at **two**, not one — because `355`'s own entry had joined it.
+
+**Kill condition, filed first:** *if emptying the queue requires muting a claim rather
+than dating or adjudicating it, that is a defect and I revert.* It did not fire, and the
+distinction is the point of this entry.
+
+**The entry I added myself.** `355` wrote *"…the arXiv sweep of the active suppliers —
+which had **not been run** in many cycles"*, which matches the guard's
+`not been (?:run|done|proved|measured|triaged)` pattern. An honest observation about the
+loop's own behaviour is still a claim of absence, and the guard was right to list it.
+Settled by **dating** it — *"at `SESSION 355`, for the first time in many cycles"* — which
+is the convention the guard already recognises. `S153`.
+
+**`T3` is blocked, and the blocker is narrower than "needs literature".** Its content is a
+chronology: which restatement of a solved problem came first, and whether the residue was
+empty *before* the solution. Four lines above it the register says *"Date verification is a
+prerequisite, not a formality."* So undated, T3 is not a control but a story.
+
+**What I searched, and in what vocabulary.** One query against `arxiv.org` —
+*"Fermat Last Theorem modular elliptic curves history"* — zero parsed hits. And the
+sandbox's four allowlisted hosts include **no bibliographic database**; the FLT chain's
+sources are journal publications from `1847`, `1986`, `1990` and `1995`, none on arXiv.
+
+**What I decline to do.** Write the chain from memory. `S27` forbids exactly that, and a
+chronology I cannot date is the failure mode `T3` was designed to detect in others. Filed
+as *blocked with a named blocker* rather than *not started*.
+
+**Joop: one allowlist entry unblocks it** — any dated bibliographic host. Small, and your
+call.
+
+**Wildcard — what does "zero" actually mean here?** **Kill condition, filed first:** *if
+the emptiness comes from either subject now existing, say so; if not, say that too.* It
+fired toward the second. The queue is at `0` because **one claim was dated and one was
+adjudicated as blocked** — not because the arXiv sweep's history became verifiable or
+because `T3` was built. The register is honest again; nothing was accomplished about `T3`
+itself. Calibration `9/9`, exit `0`.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`,
+duplication floor `26`, overclaim floor `203`, `MAP.md` §7 updated and still `0`
+unresolved. No Lean changed.
+
+**Might-mean, scoped to the two entries settled:** a register that lists obligations will
+list the ones its own keeper creates, so the queue's value is not that it reaches zero but
+that reaching zero requires saying out loud which entries were paid and which were only
+explained — and this cycle paid neither.

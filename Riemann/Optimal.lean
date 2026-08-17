@@ -719,7 +719,12 @@ swap `H` for `onAt` and `NscStd` becomes determined.
 
 No cap hypothesis is needed. `onAt ≤ H ≤ N` for each configuration, and taking
 `B = max D.N D'.N` supplies a common bound without assuming the two `N`s agree —
-which they need not, since the on-line moments do not determine `N`. -/
+which they need not, since the on-line moments do not determine `N`.
+
+**`350`: that last clause was asserted here without a witness and now has one.**
+`Blindness.Nsc_not_determined_by_on_moments` exhibits a pair with equal on-moments
+and `N` equal to `1` and `3`; the same pair separates `N_sc`, which makes this
+theorem's positive result and that negative one the mirror of `347`'s. -/
 theorem NscStd_determined_by_on_moments {D D' : ZeroData}
     (hm : ∀ p, Blindness.onMoment D p = Blindness.onMoment D' p) :
     D.NscStd = D'.NscStd := by

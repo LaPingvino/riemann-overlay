@@ -211,6 +211,23 @@ DOWNGRADE = [
 #   the sentence.  A grading note is not an `EXEMPT` pattern, so a sentence
 #   stays flagged after being triaged.
 #
+# `350` measured a **vocabulary gap** and decided against closing it.  `NEGATIVE`
+# has no pattern for *"does not determine"*, which is the phrase the `331`–`350`
+# blindness arc uses for its central results — `349` asserted *"the on-line moments
+# do not determine `N`"* in a docstring with no witness and this gate saw nothing.
+#
+# Counted: **twelve** occurrences of that phrasing across `Riemann/*.lean`.  Ten head
+# or sit beside the theorem that witnesses them; one cites a file
+# (`Blindness.lean`) rather than a declaration; **one** was the genuine debt, and
+# `350` paid it.  So adding the pattern would raise `overclaim_floor` by about
+# eleven flags of the *"a docstring heads its own witness"* shape — the blind spot
+# recorded above — to surface one that a cycle's own reading found anyway.
+#
+# **Decision: not added, and the reason is the blind spot rather than the phrase.**
+# Until this gate can see that the declaration under a docstring is its witness,
+# a stricter negative vocabulary buys noise.  Recorded so the next cycle that wants
+# to widen the wordlist knows what it costs and why.
+#
 # **These are recorded and not fixed, on `S39`'s ground:** a filter fitted to
 # its own measurement proves nothing, and each of the three widenings above
 # would mute real flags — a preceding table would excuse any sentence that

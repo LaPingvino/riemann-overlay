@@ -8151,5 +8151,56 @@ lemma NscStd_eq_onCount_one (D : ZeroData) : D.NscStd = onCount D 1 := by
   rw [onCount, NscStd_eq_onAt_one]
 
 
+/-! #### The two families and the two rows — `SESSION 350`
+
+`348`: the `H`-moments pin every mass count, and `347`'s pair shows they do not reach
+`NscStd`.  `349`: the `onAt`-moments reach `NscStd`.  The question this leaves is
+whether the on-line family reaches the *other* ledger row, and it does not.
+
+**Each family sees one of the two rows and misses the other**, and the two witnesses
+are the two smallest interesting configurations: `347` used a haunted ordinate against
+a pure triple, and this uses a haunted ordinate against a *simple* one.
+
+**Kill condition, filed first:** *if the on-moment values on these two single-atom
+configurations are not computable from lemmas on disk, I report the reduction and stop
+rather than building configuration infrastructure.*  It did not fire —
+`configAt_profile` and `onProfile_eq_profile_map` give both, once `onMoment` is
+expressed through the profile.
+
+**This also pays a debt from `349`.**  That cycle's docstring asserted that the
+on-line moments do not determine `N`, with no witness.  The same pair witnesses it:
+`N` is `1` and `3`. -/
+
+/-- `onMoment` through the profile — the analogue of `momentK_from_profile`, and what
+makes it computable on the small configurations. -/
+lemma onMoment_from_onProfile (D : ZeroData) (p : ℕ) :
+    onMoment D p = ((onProfile D).map fun q => q.1 ^ p).sum := by
+  classical
+  rw [onMoment, onProfile, Multiset.map_map]
+  rfl
+
+/-- **The on-line moments do not determine `N_sc`, nor `N`.**  A simple on-line atom
+and a haunted ordinate both have on-line count `1` at their one ordinate, so every
+`onMoment` agrees; `N_sc` is `1` and `0`, and `N` is `1` and `3`.
+
+With `Riemann.Optimal.NscStd_determined_by_on_moments` this is the mirror of `347`:
+the `H`-family determines `N_sc` and not `NscStd`, the `onAt`-family determines
+`NscStd` and not `N_sc`.  Note both configurations have `NscStd = 1`, which `349`
+requires of any pair with equal on-moments. -/
+theorem Nsc_not_determined_by_on_moments {a : ℝ} (ha : a ≠ 1/2) :
+    (∀ p, onMoment (configAt 0 1 0 a) p = onMoment (configAt 0 1 1 a) p)
+      ∧ (configAt 0 1 0 a).Nsc = 1 ∧ (configAt 0 1 1 a).Nsc = 0
+      ∧ (configAt 0 1 0 a).N = 1 ∧ (configAt 0 1 1 a).N = 3 := by
+  classical
+  refine ⟨fun p => ?_, (simple_atom_counts ha).2.1, (haunted_atom_counts ha).2.1,
+    (simple_atom_counts ha).2.2, (haunted_atom_counts ha).2.2⟩
+  have h0 := configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 0) (by norm_num)
+  have h1 := configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 1) (by norm_num)
+  norm_num at h0 h1
+  rw [onMoment_from_onProfile, onMoment_from_onProfile,
+    onProfile_eq_profile_map, onProfile_eq_profile_map, h0, h1]
+  simp
+
+
 end Blindness
 end Riemann

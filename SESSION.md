@@ -17042,3 +17042,54 @@ six that the docstrings came out clean first pass.
 computable from a moment family and it is the wrong one, so the obstruction the project
 has called `X` is not that `NscStd` resists summary statistics but that the statistic
 which summarises it is the one a `μ_T`-invariant theory cannot form.
+
+## The two families and the two rows
+
+**Piece.** `348` showed the `H`-moments pin every mass count and `347` that they miss
+`NscStd`; `349` showed the `onAt`-moments reach `NscStd`. What was left is whether the
+on-line family reaches the *other* ledger row. It does not, and the arc closes
+symmetrically: **each family determines one of the two rows and misses the other.**
+
+**Kill condition, filed first:** *if the on-moment values on the two single-atom
+configurations are not computable from lemmas on disk, I report the reduction and stop
+rather than building configuration infrastructure.* It did not fire —
+`configAt_profile` and `onProfile_eq_profile_map` give both, once `onMoment` is
+expressed through the profile (`onMoment_from_onProfile`, the analogue of
+`momentK_from_profile`).
+
+`Nsc_not_determined_by_on_moments`: a simple on-line atom and a haunted ordinate both
+have on-line count `1` at their one ordinate, so **every** `onMoment` agrees; `N_sc` is
+`1` and `0`. Both have `NscStd = 1`, which `349` requires of any such pair — a second
+consistency check on that theorem, like `347`'s on `346`.
+
+**And it pays a debt `349` incurred.** That cycle's docstring asserted *"the on-line
+moments do not determine `N`"* with no witness. The same pair witnesses it: `N` is `1`
+and `3`. Corrected at `349`'s location.
+
+**Wildcard — why did the gate not catch that assertion?** **Kill condition, filed
+first:** *if every occurrence of the phrasing already carries a witness, the gap is
+theoretical and I say so.* It did not fire, and the answer is a vocabulary gap:
+`claims_gate`'s `NEGATIVE` list has **no pattern for "does not determine"** — the
+phrase this whole arc uses for its central results. Verified by running the gate's own
+predicate over three sample sentences; all three miss.
+
+Counted: **twelve** occurrences across `Riemann/*.lean`. Ten head or sit beside the
+theorem that witnesses them, one cites a file rather than a declaration, and one was
+the genuine debt — **1 true positive in 12**, which is the rate `149` measured on a
+different surface (`1` in `14`, `S52`).
+
+**Decided against closing it, and the reason is the older blind spot.** Adding the
+pattern would raise `overclaim_floor` by about eleven flags of `342`'s recorded shape —
+a docstring cannot cite the declaration beneath it — to surface one that this cycle's
+own reading found anyway. Recorded in `forensics/claims_gate.py` so the next cycle that
+wants to widen the wordlist knows the price. `S139`.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `25`,
+overclaim floor `203` — clean first pass, second cycle running. No `equiv_check` owed:
+the new declarations are equalities on named configurations and a profile identity.
+
+**Might-mean, scoped to the two families and the two rows:** the project reports two
+proportions and each is legible to a different summary of the zeros, so the reason the
+ledger has needed two rows since the beginning is not conservatism about definitions
+but that no single moment family sees both.

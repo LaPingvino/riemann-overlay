@@ -767,3 +767,9 @@ import Riemann
 #check @Riemann.Blindness.onCount_determined_of_cap
 #check @Riemann.Blindness.NscStd_eq_onCount_one
 #check @Riemann.Optimal.NscStd_determined_by_on_moments
+
+-- SESSION 350: each moment family sees one ledger row and misses the other.  The
+-- H-family determines N_sc and not NscStd (347/348); the onAt-family determines
+-- NscStd and not N_sc, nor N — which pays 349's unwitnessed docstring claim.
+#check @Riemann.Blindness.onMoment_from_onProfile
+#check @Riemann.Blindness.Nsc_not_determined_by_on_moments

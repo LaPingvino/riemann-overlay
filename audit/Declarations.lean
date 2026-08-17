@@ -346,6 +346,8 @@ import Riemann
 #check @Riemann.Blindness.atomCount_decomposition_all_inhabited
 -- SESSION 315: each class charged its minimum mass.
 -- SESSION 325: Blindness extended to the decomposition's four gaps.
+-- SESSION 329: the decomposition priced in the N* currency.
+#check @Riemann.Blindness.star_charges_every_class
 #check @Riemann.Blindness.gauge_pair_separates_haunted_and_oddAbove
 #check @Riemann.Blindness.gauge_pair_two_separates_even_and_offLine
 -- SESSION 326: the argument abstracted, and three new necessity theorems.

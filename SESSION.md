@@ -15681,3 +15681,64 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, scoped to the two guards corrected:** both stale figures were
 attributions to a cycle rather than measurements of an object, so what goes stale
 in this project's tooling is the credit rather than the number.
+
+## The one currency the decomposition had not been priced in
+
+**Piece — `N⊛`.** `315` charged each class its minimum mass against `N`, and
+`316` found that bound was `two_mul_atomCount_add_oddAtoms_le` in new
+coordinates. `N⊛` is the currency `R16`'s regrouping works in, where a class of
+minimum mass `m` contributes `m² − m`, so the weights are `6, 6, 2, 2` rather
+than `3, 3, 2, 2`. Only the haunted class had been priced there.
+
+**Kill condition, filed first:** *if the five-class bound is equivalent to an
+existing one modulo the partitions, it is `315`'s story again and I report the
+pointer.* `317` built `equiv_check` for exactly this question.
+
+`star_charges_every_class`, axiom-free:
+`6·hauntedCount + 6·oddAbove + 2·evenOnAt + 2·offLineOnly + N ≤ N⊛`.
+
+**Wildcard — and the instrument could not see it.**
+
+`equiv_check` excluded anything naming `Nstar`, wholesale, since `317`. So the
+tool built to answer *"is this bound new?"* was blind to the currency the
+question was in. The exclusion was wrong on its own terms: `N⊛` is a `ℕ`
+quantity and the bounds naming it are linear in it, and the `ℤ`-valued ones were
+already dropped by a separate entry. Removed, with the reason recorded at the
+list.
+
+**Two results from the widening.** The inventory goes `18 → 24` carrying content,
+`14 → 19` classes, and:
+
+* `star_charges_every_class` is a **singleton** — confirmed present in the
+  inventory rather than inferred from its absence in the output. **Genuinely new**,
+  which is the opposite of `315`'s verdict and the reason the kill condition was
+  worth filing.
+* a **third multi-member class appeared among theorems that predate this cycle**:
+  `Riemann.ZeroData.six_mul_NscStd_le` and
+  `Riemann.Blindness.six_mul_haunted_add_N_le_Nstar` each prove the other given
+  the partitions.
+  Graded per `318`: the second is three lines routing through the first, a
+  documented restatement rather than a second proof. No collapse.
+
+**Snag, bin 3.** The sum needed a `split_ifs` over four class predicates, which
+is sixteen branches, half of them contradictory — `simp_all` hit maximum
+recursion depth trying to close them. Isolating the pointwise inequality as its
+own lemma over two naturals made the case analysis four branches and readable.
+`315`'s version got away with `split_ifs` because its arithmetic was linear and
+`omega` closed the contradictory branches for free; `N⊛`'s squares need
+`nlinarith`, which does not.
+
+**And the gate caught the cost.** `session_gate` came back `13/14`: my new proof
+added **three warnings** — a `<;>` where `;` suffices, and an `omega` that does
+nothing twice over — taking `warning_floor` from `54` to `57`. That guard exists
+for `251`'s snag, that warnings are invisible to `grep "^error"`, and `327`
+controlled it two cycles ago; this is its first live catch. Fixed rather than
+`--update`d, since all three were mine and none was load-bearing. Back at `54`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, `session_gate` `14/14` in its own call.
+
+**Might-mean, scoped to the two bounds compared:** the same five weights are a
+re-coordinatisation in the `N` currency and new information in the `N⊛` one, so
+what decides whether a decomposition earns its keep is which moment it is charged
+against.

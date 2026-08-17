@@ -5384,6 +5384,83 @@ theorem atomCount_decomposition_all_inhabited {a : ℝ} (ha : a ≠ 1/2) :
   · rw [offLineOnly_from_profile, hp]; decide
   · rw [atomCount_eq_card_profile, hp]; decide
 
+/-! #### The decomposition priced in `N⊛` — `SESSION 329`
+
+`315` charged each class its minimum mass against `N`, and `316` found that
+bound was `two_mul_atomCount_add_oddAtoms_le` in new coordinates.  The `N⊛`
+currency is the one the decomposition has not been priced in, and it is the
+currency `R16`'s regrouping works in: a class of minimum mass `m` contributes
+`m² − m` to `N⊛ − N`, so the weights are `6, 6, 2, 2` rather than `3, 3, 2, 2`.
+
+Only the haunted class was priced there — `six_mul_NscStd_le` reads
+`6·NscStd + N ≤ 6·N_sc + N⊛`, which is `6·hauntedCount + N ≤ N⊛` through `288`'s
+partition.  The other three classes were unpriced.
+
+**Kill condition, filed first:** *if the five-class bound is equivalent to an
+existing one modulo the partitions, it is `315`'s story again and I report the
+pointer.*  `317` built `forensics/equiv_check.py` for exactly this question, and
+`329` ran it after adding the theorem. -/
+
+/-- The per-ordinate weight in the `N⊛` currency, isolated because a
+`split_ifs` over four classes explores sixteen branches and half are
+contradictory. -/
+private lemma star_weight (n f : ℕ) (hf : f % 2 = 0) (hpos : 0 < n + f) :
+    6 * (if n = 1 ∧ f ≠ 0 then 1 else 0)
+      + 6 * (if ¬ Even n ∧ n ≠ 1 then 1 else 0)
+      + 2 * (if Even n ∧ n ≠ 0 then 1 else 0)
+      + 2 * (if n = 0 then 1 else 0)
+      + (n + f) ≤ (n + f) * (n + f) := by
+  rcases Nat.eq_zero_or_pos n with h0 | h0
+  · subst h0
+    have h2 : 2 ≤ f := by omega
+    norm_num
+    nlinarith [h2]
+  · rcases eq_or_ne n 1 with h1 | h1
+    · subst h1
+      rcases eq_or_ne f 0 with hz | hz
+      · subst hz; norm_num
+      · have h2 : 2 ≤ f := by omega
+        norm_num [hz]
+        nlinarith [h2]
+    · have h2 : 2 ≤ n := by omega
+      by_cases he : Even n
+      · rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)),
+          if_neg (by tauto : ¬ (¬ Even n ∧ n ≠ 1)),
+          if_pos ⟨he, by omega⟩, if_neg (by omega : ¬ n = 0)]
+        nlinarith [h2]
+      · have h3 : 3 ≤ n := by
+          rcases Nat.lt_or_ge n 3 with h | h
+          · exfalso; interval_cases n; simp_all
+          · exact h
+        rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)), if_pos ⟨he, h1⟩,
+          if_neg (by tauto : ¬ (Even n ∧ n ≠ 0)), if_neg (by omega : ¬ n = 0)]
+        nlinarith [h3]
+
+/-- **Every class charged its minimum mass in the `N⊛` currency.**
+`6·hauntedCount + 6·oddAbove + 2·evenOnAt + 2·offLineOnly + N ≤ N⊛`.
+
+The weights are `m² − m` at each class's minimum mass, which is what `R16`'s
+regrouping bills: `6` at mass three, `2` at mass two, nothing at mass one. -/
+theorem star_charges_every_class (D : ZeroData) :
+    6 * hauntedCount D + 6 * oddAbove D + 2 * evenOnAt D + 2 * offLineOnly D
+      + D.N ≤ D.Nstar := by
+  classical
+  rw [hauntedCount_eq_onAt_one_offAt_pos, oddAbove, evenOnAt, offLineOnly,
+    N_eq_sum_H, Nstar_eq_sum_H_sq, Finset.card_filter, Finset.card_filter,
+    Finset.card_filter, Finset.card_filter,
+    Finset.mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [D.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  have hsum := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have := star_weight (onAt D γ) (offAt D γ) (by omega) (by omega)
+  rw [← hsum] at this
+  convert this using 3
+
 /-! #### Blindness, extended to the decomposition — `SESSION 325`
 
 `324` settled `E.md`'s thesis with a **partial** witness:

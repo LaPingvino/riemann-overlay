@@ -51,8 +51,14 @@ PARTITIONS = [
 
 # Facts that are not ℕ-linear in the ordinate counts, or that name objects the
 # substitution cannot see through.
+#
+# `329`: `Nstar` was on this list and should not have been.  It is a `ℕ`
+# quantity and the bounds naming it are linear in it; the `ℤ`-valued ones are
+# already dropped by the `ℤ` entry.  The blanket exclusion meant the instrument
+# built at `317` to answer "is this bound new?" could not see the `N⊛` currency,
+# which is the currency `R16`'s regrouping works in.
 EXCLUDE = ("ℝ", "ℤ", "∀", "∃", "↔", "∧", "Even", "filter", "Multiset", "Finset",
-           "distinctZeros", "NscAny", "Nstar", "profile", "factMoment",
+           "distinctZeros", "NscAny", "profile", "factMoment",
            "hauntedSet", "refl", "simpleOffLine")
 
 CHUNK = 30

@@ -922,6 +922,28 @@ proportion exists post-BGST. If none does, the repo's `δ = 0.16375` may be the
 best haunting bound in existence — a packaging sentence, and one I will not write
 until the search is done.
 
+> **`338`: half answered, and the half that answered does not convert.** Within
+> the **vendored tree** — not the literature — two unconditional point-count
+> proportions exist and became reachable at `337`:
+> `Zeta23.Final.thmC_cumulative` at `3/4` and
+> `Zeta23.ThmD.thmD₀_dist_mult_cumulative` at `GD 1 = 0.83625`.
+>
+> **They are a different `N_d` from this section's.** This section's `N_d` is our
+> `atomCount` — *distinct ordinates* — because that is what
+> `two_mul_haunted_add_atomCount_le_N` is about. Theirs is `Ndist`, the `ncard`
+> of the zero *set*: distinct points in the strip. `atomCount_le_distinctZeros`
+> runs the wrong way, and `distinctZeros_le_atomCount_add_Noff` is the only
+> conversion on disk. Priced: `distinctZeros_route_dominated` gives `0.50875` for
+> `atomCount` from `0.83625` and `certified_offline`'s `0.3275`, which is below
+> the `0.6725` already held — and `distinctZeros_route_ties_at_one` shows even a
+> point-count proportion of `1` only ties it. **No input constant makes that
+> route pay**, so the missing count bridge is not worth building for this purpose.
+>
+> The packaging sentence stays unwritten. One vendored tree is not the
+> literature, and a point-count proportion could not produce a `δ` anyway: a
+> haunted ordinate can be three *distinct points*, contributing nothing to the
+> point-count deficit.
+
 ## Rung 0 — supplier 1 checked and exhausted (`SESSION 265`)
 
 The open ruling asks how to pay for `ceiling_law256`: adopt `EnclOK` as a third

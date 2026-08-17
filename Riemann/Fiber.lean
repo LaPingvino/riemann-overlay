@@ -2625,6 +2625,41 @@ theorem distinctZeros_le_atomCount_add_Noff (D : ZeroData) :
     exact Multiset.toFinset_card_le _
   omega
 
+/-! #### The dictionary, priced — `SESSION 338`
+
+`337` made half the vendored dependency reachable (`statement_index` went
+`126 → 2345` reachable declarations), and the first thing to look for there was
+an unconditional distinct-zeros proportion, which `PRICES.md` has carried as an
+open one-cycle check.  It is there: `Zeta23.Final.thmC_cumulative` gives
+`3/4` and `Zeta23.ThmD.thmD₀_dist_mult_cumulative` gives `GD 1 = 0.83625`, both
+unconditional, both reachable today.
+
+**They are in the wrong count, and the docstring above already said so** —
+*"the dictionary runs the wrong way for us"*.  What is new here is the
+quantitative half: how much a point-count proportion is worth after the only
+conversion on disk. -/
+
+/-- **What a distinct-*zero* proportion is worth for `atomCount`.**  Through
+`distinctZeros_le_atomCount_add_Noff`, a point-count proportion `c` and an
+off-line bound `k` give `c − k` for `atomCount` and no more. -/
+theorem atomCount_of_distinctZeros_and_Noff (D : ZeroData) {c k : ℝ}
+    (hd : c * (D.N : ℝ) ≤ (distinctZeros D : ℝ))
+    (hoff : (D.Noff : ℝ) ≤ k * (D.N : ℝ)) :
+    (c - k) * (D.N : ℝ) ≤ (atomCount D : ℝ) := by
+  have h : (distinctZeros D : ℝ) ≤ (atomCount D : ℝ) + (D.Noff : ℝ) := by
+    exact_mod_cast distinctZeros_le_atomCount_add_Noff D
+  nlinarith [hd, hoff, h]
+
+/-- **The margin is an identity.**  `Riemann.zeta23_GD_eq_of_HD` says
+`GD lam = (1 + HD lam)/2`, so with `h = HD 1` the conversion above runs at
+`c = (1+h)/2` against `k = 1 − h` — and `c − k` is `(3h−1)/2`, which is the
+`Nsc` row's own formula, while the shortfall against `h` itself is exactly
+`(1−h)/2`, the haunting bound.  Both by `ring`, so neither is a coincidence of
+the decimals. -/
+theorem distinct_route_margin (h : ℝ) :
+    (1 + h) / 2 - (1 - h) = (3 * h - 1) / 2 ∧ h - (3 * h - 1) / 2 = (1 - h) / 2 :=
+  ⟨by ring, by ring⟩
+
 /-- **The four-quantity bridge:** `2·A + #{odd atoms} ≤ N + 2·Nsc`.  Per atom
 this is `2 + [odd] ≤ mass + 2·[mass = 1]`, tight at masses `1`, `2` and `3`. -/
 theorem two_mul_atomCount_add_oddAtoms_le (D : ZeroData) :

@@ -642,4 +642,46 @@ theorem xiPrime_proportion_of_std_and_noHaunted
 
 
 
+/-! ### The distinct-zeros route, priced and closed — `SESSION 338` -/
+
+/-- **`GD lam = (1 + HD lam)/2`**, straight from the vendored definitions
+`Zeta23.ThmD.GD` and `Zeta23.ThmD.HD`.  Reachable only since `337`.  This is why
+the distinct-zeros constant and the `NscStd` constant are not independent
+numbers: `0.83625 = (1 + 0.6725)/2`. -/
+theorem zeta23_GD_eq_of_HD (lam : ℝ) :
+    Zeta23.ThmD.GD lam = (1 + Zeta23.ThmD.HD lam) / 2 := by
+  simp only [Zeta23.ThmD.GD, Zeta23.ThmD.HD]
+  ring
+
+/-- **The route through the point count is dominated.**  Feeding zeta-23's
+`0.83625` distinct-zeros constant through the only dictionary on disk, together
+with `certified_offline`'s `0.3275`, yields `0.50875` for `atomCount` — below the
+`0.6725` that `certified_atomCount` already has.
+
+**The hypotheses are hypotheses, deliberately.**  No bridge from our
+`distinctZeros` to `Zeta23.Ndist` is proved anywhere, and this theorem does not
+assume one: it takes a point-count proportion as an input and prices it. -/
+theorem distinctZeros_route_dominated (D : ZeroData)
+    (hd : (0.83625 : ℝ) * (D.N : ℝ) ≤ (Blindness.distinctZeros D : ℝ))
+    (hoff : (D.Noff : ℝ) ≤ 0.3275 * (D.N : ℝ)) :
+    (0.50875 : ℝ) * (D.N : ℝ) ≤ (Blindness.atomCount D : ℝ) := by
+  have h := Blindness.atomCount_of_distinctZeros_and_Noff D hd hoff
+  have e : (0.83625 : ℝ) - 0.3275 = 0.50875 := by norm_num
+  rwa [e] at h
+
+/-- **…and it is dominated for every constant, not just that one.**  Even a
+point-count proportion of `1` — every zero distinct, the strongest such statement
+there is — converts to exactly `0.6725`, tying `certified_atomCount` rather than
+beating it.  So the missing bridge is not worth building for this purpose at any
+input constant. -/
+theorem distinctZeros_route_ties_at_one (D : ZeroData)
+    (hd : (1 : ℝ) * (D.N : ℝ) ≤ (Blindness.distinctZeros D : ℝ))
+    (hoff : (D.Noff : ℝ) ≤ 0.3275 * (D.N : ℝ)) :
+    (0.6725 : ℝ) * (D.N : ℝ) ≤ (Blindness.atomCount D : ℝ) := by
+  have h := Blindness.atomCount_of_distinctZeros_and_Noff D hd hoff
+  have e : (1 : ℝ) - 0.3275 = 0.6725 := by norm_num
+  rwa [e] at h
+
+
+
 end Riemann

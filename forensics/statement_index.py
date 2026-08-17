@@ -15,6 +15,12 @@ cost of redoing it.  `268` measured the scale of the second: we reach `3.0%` of
 `103,067` vendored lines, so "already proved somewhere on disk" is now the normal
 case rather than the exception.
 
+**`338`: that reach figure is a record of `268`, not current state.**  `337`
+discharged both baseline axioms by importing `Zeta23.RvM.Statement`,
+`Zeta23.GammaFacts.Complete` and `Zeta23.ThmD.Mult`, and the `reachable` column
+went `126` declarations to `2345` in one cycle.  No live figure is quoted here for
+the reason `328` gives below; run the script.
+
 **What this makes cheap.**  One `grep` over `forensics/statement_index.tsv`
 answers *"does anything already conclude this?"* across every declaration in
 both trees.  Columns are `tree`, `module`, `kind`, `name`, `statement`,
@@ -23,7 +29,9 @@ both trees.  Columns are `tree`, `module`, `kind`, `name`, `statement`,
 `reachable` is the column that matters for the dependency: `yes` means our build
 already imports it and it can be cited today; `no` means the proof exists but
 would need a build (`268` prices those — `RvM.Statement` `9,148` lines,
-`ThmD.Final` `44,441`, `XiPrime.Final` `82,256`).
+`ThmD.Final` `44,441`, `XiPrime.Final` `82,256`).  **`338`: the first two of those
+three are `yes` now**, taken at `337`; `XiPrime.Final` is still the big unbought
+one.
 
 **What it is not for.**  Searching before *proving* is wrong.  Most of this
 project's content is about structures the dependency has no concept of — the

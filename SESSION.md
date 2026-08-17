@@ -16210,3 +16210,88 @@ simple on-line zeros rests on this repository and its vendored dependency, and
 the remaining gap between `50.88%` and `100%` is mathematics rather than
 assumption — the register that prices assumptions has, for these two rows,
 nothing left to price.
+
+## The distinct-zeros route, priced and closed
+
+**Piece — spend `337`'s reachability change.** Discharging the two axioms
+imported `Zeta23.RvM.Statement`, `Zeta23.GammaFacts.Complete` and
+`Zeta23.ThmD.Mult`, and `statement_index`'s `reachable` column went **`126` → `2345`**
+declarations — `2.7%` of the dependency to `50.7%`, at no further build cost.
+`R26`'s "search before assuming" now covers half of it.
+
+The first thing to look for there was the standing one-cycle check `PRICES.md`
+carries: *whether any unconditional distinct-zeros proportion exists*. It does.
+`Zeta23.Final.thmC_cumulative` gives `3/4` and
+`Zeta23.ThmD.thmD₀_dist_mult_cumulative` gives `GD 1 = 0.83625`, both
+unconditional, both reachable today, neither reachable four cycles ago.
+
+**Kill condition, filed first:** *if the conversion beats `0.6725` this is a
+ledger move and I build the count bridge; if it loses, I ship the domination
+theorem and the register annotation and do **not** build the bridge.* **It
+resolved before any Lean was written** — `0.83625 − 0.3275 = 0.50875` — so this
+cycle is the losing branch, and the entry says so in that order.
+
+**Why it loses is the count, and `Fiber.lean:2569` already said so.** That
+docstring reads *"The dictionary, and it runs the wrong way for us:
+`atomCount ≤ distinctZeros`"*. Their `Ndist` is the `ncard` of the zero *set* —
+distinct points in the strip. Our `atomCount` is distinct *ordinates*. A haunted
+ordinate is one ordinate and three distinct points. `338`'s contribution is the
+quantitative half, not the observation.
+
+* `atomCount_of_distinctZeros_and_Noff` — a point-count proportion `c` and an
+  off-line bound `k` give `c − k` for `atomCount`, through
+  `distinctZeros_le_atomCount_add_Noff`. Searched with
+  `statement_index --find 'distinctZeros'`, reading all ten rows: that lemma and
+  `atomCount_le_distinctZeros` are the two relating the counts, and the second
+  runs the wrong way, so the conversion above is the one the index offers.
+* `distinctZeros_route_dominated` — at `c = 0.83625` and `certified_offline`'s
+  `k = 0.3275`, that is `0.50875`, below the `0.6725` `certified_atomCount`
+  already holds.
+* `distinctZeros_route_ties_at_one` — **at `c = 1` it is exactly `0.6725`.** The
+  strongest point-count statement there is ties the row rather than beating it, so
+  no input constant makes the route pay and the missing bridge is not worth
+  building for this purpose.
+
+**The margin is an identity, checked by `ring`.** `Riemann.zeta23_GD_eq_of_HD`:
+`GD lam = (1 + HD lam)/2`, straight from the vendored definitions and reachable
+only since `337`. So with `h = HD 1` the conversion runs at `c = (1+h)/2` against
+`k = 1 − h`, and `distinct_route_margin` gives `c − k = (3h−1)/2` — the `Nsc`
+row's own formula — with shortfall `h − (3h−1)/2 = (1−h)/2 = 0.16375`, the
+haunting bound itself. `Riemann.zeta23_GD_eq_of_HD` is the witness that `0.83625`
+and `0.6725` are not independent numbers: it derives each from the other, by
+`ring` on the vendored definitions.
+
+**Same constant, different carrier, and worth keeping straight.** `(3h−1)/2` is
+`0.50875` both here and in the `Nsc` row, but the `Nsc` row bounds `Nsc` while
+this bounds `atomCount`. The coincidence is in the algebra of the two constants,
+not in the quantities.
+
+**The hypotheses stay hypotheses.** No bridge from our `distinctZeros` to
+`Zeta23.Ndist` is proved anywhere, and none of the three theorems assumes one:
+each takes a point-count proportion as input and prices it. Asserting the
+identification would be an `S114`-shaped slip: two neighbouring quantities whose
+headline numbers resemble each other.
+
+**Wildcard's kill condition also fired usefully on the packaging.** `PRICES.md`
+wanted to write *"`δ = 0.16375` may be the best haunting bound in existence"* once
+the search was done. I searched **one vendored tree, not the literature**, and a
+point-count proportion could not produce a `δ` at all, for the reason above. The
+sentence stays unwritten and the annotation says which half was answered.
+
+**Snag, bin 3.** Two figures in `forensics/statement_index.py`'s own docstring
+went stale at `337` and I did not notice for a cycle: the `3.0%` reach and the
+list of three unbought modules, two of which are bought now. `328` removed a live
+count from that same docstring for this reason and the remaining figures are
+dated records — so the fix is a dated `338` note beside each, not a new live
+number. The script prints the live one.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `23`.
+No `equiv_check` run owed: all three new inequalities carry hypotheses, so none
+enters its hypothesis-free inventory.
+
+**Might-mean, scoped to the point-count route and the one dictionary on disk:**
+the distinct-zeros shelf `PRICES.md` has priced as convertible pays nothing at any
+input constant, because the deficit it measures is the deficit haunting hides in —
+so a better `δ` than `0.16375` will not come from a better distinct-zeros number,
+and looking for one there is priced work that cannot pay.

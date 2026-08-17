@@ -682,3 +682,12 @@ import Riemann
 #check @Riemann.zetaNonempty
 #check @Riemann.baseline_zeta23
 #check @Riemann.baseline_of_cumulative
+
+-- SESSION 338: the distinct-zeros route, priced and closed.  337's reachability
+-- change surfaced zeta-23's unconditional point-count proportions; the dictionary
+-- on disk converts them to at most c - 0.3275, which ties 0.6725 at c = 1.
+#check @Riemann.Blindness.atomCount_of_distinctZeros_and_Noff
+#check @Riemann.Blindness.distinct_route_margin
+#check @Riemann.zeta23_GD_eq_of_HD
+#check @Riemann.distinctZeros_route_dominated
+#check @Riemann.distinctZeros_route_ties_at_one

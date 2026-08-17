@@ -741,3 +741,16 @@ import Riemann
 -- pair, a haunted ordinate against a pure triple.
 #check @Riemann.Blindness.NscStd_not_determined_by_all_moments
 #check @Riemann.Blindness.Nsc_agrees_on_the_moment_blind_pair
+
+-- SESSION 348: the recovery 347 left unproved.  Equal moment sequences force equal
+-- mass counts at every j — Newton's recovery in this vocabulary, with the
+-- coefficients never named.  Not equal ordinates: heights stay invisible.
+#check @Riemann.Blindness.exists_poly_of_prod
+#check @Riemann.Blindness.massCount
+#check @Riemann.Blindness.massCount_one
+#check @Riemann.Blindness.sum_prod_eq_sum_moments
+#check @Riemann.Blindness.node_prod_pointwise
+#check @Riemann.Blindness.node_const_ne_zero
+#check @Riemann.Blindness.node_sum_eq
+#check @Riemann.Blindness.massCount_determined_of_cap
+#check @Riemann.Optimal.massCount_determined_by_all_moments

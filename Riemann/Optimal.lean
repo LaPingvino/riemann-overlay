@@ -693,6 +693,24 @@ theorem Nsc_from_moments_at_N (D : ZeroData) :
           Blindness.capCoeff D.N k * ((Blindness.momentK D k : ℕ) : ℤ) :=
   Blindness.Nsc_from_moments D fun γ _ => le_trans (H_le_N D γ) (Nat.le_succ _)
 
+/-- **The moments determine every mass count, with no cap hypothesis.**  `346`'s
+reduction applied to `348`'s capped recovery: the cap is `D.N`, and the two `N`s
+agree because `Blindness.momentK_one` reads `N` off the sequence.
+
+With `Blindness.massCount_one` this contains `Nsc_determined_by_all_moments` as the
+`j = 1` case; that theorem is kept because it is stated in the ledger's own
+vocabulary. -/
+theorem massCount_determined_by_all_moments {D D' : ZeroData}
+    (hm : ∀ k, Blindness.momentK D k = Blindness.momentK D' k) (j : ℕ) :
+    Blindness.massCount D j = Blindness.massCount D' j := by
+  have hN : D.N = D'.N := by
+    have h1 := hm 1
+    rwa [Blindness.momentK_one, Blindness.momentK_one] at h1
+  exact Blindness.massCount_determined_of_cap (B := D.N)
+    (fun γ _ => H_le_N D γ)
+    (fun γ _ => by have := H_le_N D' γ; omega)
+    hm j
+
 /-- A **cheap constraint**: an upper bound on horizontal multiplicity.  This is
 the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, and
 it involves no multiplicative information whatever. -/

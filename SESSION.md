@@ -16908,9 +16908,85 @@ Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 overclaim floor `203`. No `equiv_check` owed: both new theorems are conjunctions of
 equalities on named configurations, outside its `ℕ`-linear inequality inventory.
 
+> **`348`: the converse this sentence was weakened to avoid is now proved.**
+> `Optimal.massCount_determined_by_all_moments` — equal moment sequences force equal
+> mass counts at every `j`. So the moment family sees **exactly** the mass counts,
+> not merely at most them. What it still does not see is heights
+> (`ledger_relabel_invariant`) or the on/off split, which is why `NscStd` stays
+> invisible.
+
 **Might-mean, scoped to this pair and these two counts:** two configurations with
 the same ordinates have the same moments, so the moment family sees at most what the
 ordinate multiset sees — and on this pair that is already too little for the ledger's
 reported row while still enough for the project's stronger one, the difference being
 `hauntedCount`, which is what the certified proportion has been paying for since the
 beginning.
+
+## The recovery `347` left unproved
+
+**Piece.** `347` weakened its own might-mean at the last moment because it assumed a
+converse: that equal moment sequences force equal mass data. That converse is the
+classical Newton recovery, and it is now proved — for the **mass counts**, which is
+the part the moment family reaches.
+
+**Kill condition, filed first:** *if the general expansion over an arbitrary finset
+does not go through this cycle, I ship the pointwise interpolation and state the
+determinacy as blocked on the expansion.* It did not fire.
+
+Three pieces of machinery, then the theorem:
+
+* `exists_poly_of_prod` — **any** product of monic linear factors is a polynomial,
+  by induction on the finset, **existence only**, with the vanishing condition
+  carried *inside* the existential. Without that clause the induction step cannot
+  reassemble the previous polynomial, which is the obstruction `345` met as
+  `capCoeff_eq_zero_of_gt`, in a form that travels.
+* `sum_prod_eq_sum_moments` — such a product summed over the atoms is a
+  `ℤ`-combination of moments. The abstract form of `345`'s
+  `capWitness_eq_sum_moments`; one sum swap.
+* `node_sum_eq` with `node_prod_pointwise` and `node_const_ne_zero` — the product
+  over `(Icc 1 B).erase j` isolates mass `j`, with a nonzero normalising constant.
+
+`massCount_determined_of_cap`, then `Riemann.Optimal.massCount_determined_by_all_moments`
+via `346`'s reduction: **equal moment sequences force equal mass counts at every `j`**,
+no cap hypothesis. `massCount_one` identifies `massCount D 1` with `N_sc`, so `346`'s
+theorem is the `j = 1` case; it stays because it is stated in the ledger's own
+vocabulary.
+
+**`S137` — three cycles, three decreasing amounts of machinery for one shape of
+fact.** `344` budgeted elementary symmetric polynomials and left the expansion open.
+`345` avoided them with a named coefficient recursion. `348` shows even the recursion
+was more than the statement needed: the determinacy argument consumes the
+coefficients through a single sum swap, so their *existence* suffices and no formula
+appears in the proof. The question worth asking earlier was what the proof consumes,
+not what the theorem is about.
+
+**Wildcard — what does this say the moment family sees?** **Kill condition, filed
+first:** *if the recovery extends to the ordinates themselves, `347`'s correction is
+wrong in the other direction and I say so.* It fired in the safe direction: it does
+**not** extend. Heights are invisible to every count in `Fiber.lean`
+(`ledger_relabel_invariant`), and the on/off split is invisible too — which is why
+`NscStd` stays unreachable by `347`'s pair while every mass count is now determined.
+So the moment family sees the mass counts and nothing finer, and `347`'s might-mean
+is corrected at its location to say `exactly` where it said `at most`.
+
+**Snag, bin 1 — `overclaim_floor` fired twice again, both on this cycle's
+docstrings.** *"the same lesson `345` learned"* and *"with the coefficients never
+named"*. Reworded; floor back at `107`. Four of the five cycles since that guard
+shipped have caught something, always in prose written the same cycle.
+
+**Snag, bin 3.** `massCount_one` shipped with a lemma name I had not used in scratch
+— `Finset.sum_ite_eq_sum_filter`, which does not exist — because I wrote that lemma
+directly into the shipped block rather than into the scratch file first. The build
+caught it in eighty seconds. Anything not passed through scratch is unchecked, even
+when it is one line.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `24`,
+overclaim floor `203`.
+
+**Might-mean, scoped to the mass counts and to the ledger rows with witnesses:** the
+moment sequence pins the mass distribution completely — `momentK_one` gives `N`,
+`momentK_two` gives `N⊛`, `346` gives `N_sc`, and `348` gives every mass count — while
+`347`'s pair shows it cannot reach `NscStd`, so the moment route's failure is not a
+shortage of moments but a mismatch of question: it measures how the zeros clump and
+the ledger's reported row asks which side of the line they sit on.

@@ -7869,5 +7869,168 @@ theorem Nsc_agrees_on_the_moment_blind_pair {a : ℝ} (ha : a ≠ 1/2) :
   norm_num
 
 
+/-! #### The recovery `347` left unproved — `SESSION 348`
+
+`347`'s might-mean was weakened at the last moment because it assumed a converse:
+that equal moment sequences force equal mass data.  That converse is the classical
+Newton recovery, and it is proved below — for the **mass counts**, which is the part
+the moment family can reach.
+
+Three pieces of reusable machinery, then the theorem.
+
+**Kill condition, filed first:** *if the general expansion over an arbitrary finset
+does not go through this cycle, I ship the pointwise interpolation and state the
+determinacy as blocked on the expansion.*  It did not fire.  `345`'s reindexing
+argument generalises once the coefficient function carries its own vanishing
+condition inside the existential — the obstruction `345` met as
+`capCoeff_eq_zero_of_gt`, in a form that travels.
+
+**What this does *not* say.**  Equal moments do not force equal ordinates: heights
+are invisible to every count in this file (`ledger_relabel_invariant`).  What is
+recovered is the multiset of masses, one count at a time. -/
+
+/-- **Any product of monic linear factors is a polynomial**, with coefficients
+vanishing above the degree.  Existence only — no formula, and none needed: the
+determinacy argument uses the coefficients only through a sum swap.
+
+The vanishing clause is carried *inside* the existential deliberately.  Without it
+the induction step cannot reassemble the previous polynomial — the same obstruction
+`345` met as `capCoeff_eq_zero_of_gt`. -/
+lemma exists_poly_of_prod (c : ℕ → ℤ) : ∀ s : Finset ℕ,
+    ∃ (n : ℕ) (a : ℕ → ℤ), (∀ k, n ≤ k → a k = 0) ∧
+      ∀ x : ℤ, ∏ i ∈ s, (x - c i) = ∑ k ∈ Finset.range n, a k * x ^ k := by
+  classical
+  intro s
+  induction s using Finset.induction_on with
+  | empty =>
+      refine ⟨1, fun k => if k = 0 then 1 else 0, ?_, ?_⟩
+      · intro k hk
+        dsimp only
+        rw [if_neg (by omega)]
+      · intro x; simp
+  | insert j t hj ih =>
+      obtain ⟨n, a, hvan, hpoly⟩ := ih
+      refine ⟨n + 1, fun k => (if k = 0 then 0 else a (k - 1)) - c j * a k, ?_, ?_⟩
+      · intro k hk
+        dsimp only
+        rw [if_neg (by omega), hvan (k - 1) (by omega), hvan k (by omega)]
+        ring
+      · intro x
+        rw [Finset.prod_insert hj, hpoly x]
+        have hA : ∑ k ∈ Finset.range (n + 1),
+              ((if k = 0 then 0 else a (k - 1)) - c j * a k) * x ^ k
+            = (∑ k ∈ Finset.range (n + 1), (if k = 0 then 0 else a (k - 1)) * x ^ k)
+              - ∑ k ∈ Finset.range (n + 1), (c j * a k) * x ^ k := by
+          rw [← Finset.sum_sub_distrib]
+          exact Finset.sum_congr rfl fun k _ => by ring
+        rw [hA]
+        have h1 : ∑ k ∈ Finset.range (n + 1), (if k = 0 then 0 else a (k - 1)) * x ^ k
+            = ∑ i ∈ Finset.range n, a i * x ^ (i + 1) := by
+          rw [Finset.sum_range_succ' (fun k => (if k = 0 then 0 else a (k - 1)) * x ^ k) n]
+          simp
+        have h2 : ∑ k ∈ Finset.range (n + 1), (c j * a k) * x ^ k
+            = c j * ∑ k ∈ Finset.range n, a k * x ^ k := by
+          rw [Finset.sum_range_succ, hvan n le_rfl, Finset.mul_sum]
+          simp only [mul_zero, zero_mul, add_zero]
+          exact Finset.sum_congr rfl fun k _ => by ring
+        have h3 : ∑ i ∈ Finset.range n, a i * x ^ (i + 1)
+            = (∑ k ∈ Finset.range n, a k * x ^ k) * x := by
+          rw [Finset.sum_mul]
+          exact Finset.sum_congr rfl fun i _ => by rw [pow_succ]; ring
+        rw [h1, h2, h3]
+        ring
+
+/-- How many ordinates carry mass exactly `j`.  `massCount_one` below identifies
+`massCount D 1` with `N_sc`. -/
+noncomputable def massCount (D : ZeroData) (j : ℕ) : ℕ :=
+  (D.ordinates.toFinset.filter fun γ => D.H γ = j).card
+
+/-- `massCount` at `1` is `N_sc`. -/
+lemma massCount_one (D : ZeroData) : massCount D 1 = D.Nsc := by
+  classical
+  rw [massCount, Nsc_eq_sum_mass_one_nat, ← Finset.sum_filter]
+  simp
+
+/-- **Any such product, summed over the atoms, is a `ℤ`-combination of moments.**
+The abstract form of `capWitness_eq_sum_moments`: the coefficients are whatever the
+expansion supplies, and the proof is one sum swap. -/
+lemma sum_prod_eq_sum_moments (D : ZeroData) (s : Finset ℕ) (c : ℕ → ℤ)
+    {n : ℕ} {a : ℕ → ℤ}
+    (hpoly : ∀ x : ℤ, ∏ i ∈ s, (x - c i) = ∑ k ∈ Finset.range n, a k * x ^ k) :
+    ∑ γ ∈ D.ordinates.toFinset, ∏ i ∈ s, ((D.H γ : ℤ) - c i)
+      = ∑ k ∈ Finset.range n, a k * ((momentK D k : ℕ) : ℤ) := by
+  classical
+  rw [Finset.sum_congr rfl fun γ _ => hpoly ((D.H γ : ℤ)), Finset.sum_comm]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  rw [momentK_cast, Finset.mul_sum]
+
+/-- The interpolation at a general node: erasing `j` from `{1, …, B}` gives a product
+that vanishes at every other admissible mass. -/
+lemma node_prod_pointwise {m j B : ℕ} (h1 : 1 ≤ m) (hB : m ≤ B) :
+    ∏ i ∈ (Finset.Icc 1 B).erase j, ((m : ℤ) - (i : ℤ))
+      = if m = j then ∏ i ∈ (Finset.Icc 1 B).erase j, ((j : ℤ) - (i : ℤ)) else 0 := by
+  classical
+  by_cases hm : m = j
+  · rw [if_pos hm, hm]
+  · rw [if_neg hm]
+    refine Finset.prod_eq_zero (i := m) ?_ (by ring)
+    exact Finset.mem_erase.2 ⟨hm, Finset.mem_Icc.2 ⟨h1, hB⟩⟩
+
+/-- …and the normalising constant is nonzero, because every erased factor is. -/
+lemma node_const_ne_zero {j B : ℕ} :
+    ∏ i ∈ (Finset.Icc 1 B).erase j, ((j : ℤ) - (i : ℤ)) ≠ 0 := by
+  classical
+  rw [Finset.prod_ne_zero_iff]
+  intro i hi
+  have hij : i ≠ j := (Finset.mem_erase.1 hi).1
+  intro hz
+  exact hij (by exact_mod_cast (sub_eq_zero.1 hz).symm)
+
+/-- **The node sum counts one mass.**  Under a cap at `B`, the erased product summed
+over the atoms is the normalising constant times `massCount D j`. -/
+theorem node_sum_eq (D : ZeroData) {j B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ B) :
+    ∑ γ ∈ D.ordinates.toFinset, ∏ i ∈ (Finset.Icc 1 B).erase j,
+        ((D.H γ : ℤ) - (i : ℤ))
+      = (∏ i ∈ (Finset.Icc 1 B).erase j, ((j : ℤ) - (i : ℤ)))
+        * (massCount D j : ℤ) := by
+  classical
+  have hstep : ∀ γ ∈ D.ordinates.toFinset,
+      ∏ i ∈ (Finset.Icc 1 B).erase j, ((D.H γ : ℤ) - (i : ℤ))
+        = if D.H γ = j then ∏ i ∈ (Finset.Icc 1 B).erase j, ((j : ℤ) - (i : ℤ))
+          else 0 :=
+    fun γ hγ => node_prod_pointwise (one_le_H_of_mem hγ) (h γ hγ)
+  rw [Finset.sum_congr rfl hstep, ← Finset.sum_filter, Finset.sum_const,
+    nsmul_eq_mul, massCount]
+  ring
+
+/-- **Under a common cap, the moments determine every mass count.**  Newton's
+recovery in this vocabulary.  The coefficients come from `exists_poly_of_prod` and
+are used only through a sum swap, so no formula for them appears in the proof. -/
+theorem massCount_determined_of_cap {D D' : ZeroData} {B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ B)
+    (h' : ∀ γ ∈ D'.ordinates.toFinset, D'.H γ ≤ B)
+    (hm : ∀ k, momentK D k = momentK D' k) (j : ℕ) :
+    massCount D j = massCount D' j := by
+  classical
+  obtain ⟨n, a, hvan, hpoly⟩ :=
+    exists_poly_of_prod (fun i => (i : ℤ)) ((Finset.Icc 1 B).erase j)
+  have e1 := node_sum_eq D (j := j) h
+  have e2 := node_sum_eq D' (j := j) h'
+  have b1 := sum_prod_eq_sum_moments D ((Finset.Icc 1 B).erase j)
+    (fun i => (i : ℤ)) hpoly
+  have b2 := sum_prod_eq_sum_moments D' ((Finset.Icc 1 B).erase j)
+    (fun i => (i : ℤ)) hpoly
+  have hsum : ∑ k ∈ Finset.range n, a k * ((momentK D k : ℕ) : ℤ)
+      = ∑ k ∈ Finset.range n, a k * ((momentK D' k : ℕ) : ℤ) :=
+    Finset.sum_congr rfl fun k _ => by rw [hm k]
+  have key : (∏ i ∈ (Finset.Icc 1 B).erase j, ((j : ℤ) - (i : ℤ)))
+        * (massCount D j : ℤ)
+      = (∏ i ∈ (Finset.Icc 1 B).erase j, ((j : ℤ) - (i : ℤ)))
+        * (massCount D' j : ℤ) := by
+    rw [← e1, ← e2, b1, b2, hsum]
+  exact_mod_cast mul_left_cancel₀ node_const_ne_zero key
+
+
 end Blindness
 end Riemann

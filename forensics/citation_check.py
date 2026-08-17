@@ -82,6 +82,7 @@ ALLOW = {
     "Finset.sum_multiset_map_count": "mathlib",
     "Multiset.filter": "mathlib", "Multiset.count_filter": "mathlib",
     "le_refl": "mathlib", "sub_div": "mathlib",
+    "List.replicate": "mathlib",
     "le_trans": "mathlib", "sub_mul": "mathlib",
     "finsum_mem_eq_finite_toFinset_sum": "mathlib",
     # `301`: the dead name, quoted by the correction that replaced it.  Its

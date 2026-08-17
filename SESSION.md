@@ -15352,3 +15352,55 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 from the profile, a configuration's entire position in the decomposition is now
 settled by `decide` on a list of pairs, so witness construction in this project
 has stopped being proof work.
+
+## Testing my own closing sentence against the witnesses it was about
+
+**Piece and wildcard, one target.** `321` closed on *"witness construction in
+this project has stopped being proof work."* The witnesses it was about are on
+disk, so the sentence is checkable.
+
+**Kill condition, filed first:** *if `atomCount_decomposition_all_inhabited` does
+not shorten with the complete dictionary — if reaching the five classes still
+needs the partitions — then `321`'s closing sentence is an overclaim and the
+correction is the deliverable.* **It did not fire.**
+
+Two collapses, both axiom-free and both to the same shape — `rw` the reading,
+`decide` on the profile:
+
+* `atomCount_decomposition_all_inhabited` (`314`): `23 → 17` lines, and the
+  structure changed more than the count. It used to compute three of the five
+  classes and *derive* the other two through the partitions and `omega`; now all
+  six quantities are read directly. Seventh collapse of this arc.
+* `evenOnAt_survives_Noff_zero` (`312`): `21 → 13`. `321` had compared its own
+  two-line witness against this one's fifteen; the comparison is now moot in the
+  right direction.
+
+**And the limit, which is the part worth keeping.** `three_mul_oddAtoms_eq_cap_witness`
+(`303`) does **not** collapse, and stays at `33` lines. Its profile is built with
+`List.replicate`, so `decide` would face `1321` entries rather than five. Recorded
+at the declaration. `321`'s sentence is true of witnesses whose profile is a
+small literal and false of the rest, which is a narrower claim than the one I
+shipped.
+
+**Snag, bin 3.** The collapse failed to build first: `evenOnAt_survives_Noff_zero`
+sits before the readings `321` had placed beside `314`'s witness, so the shorter
+proof cited a lemma defined later. `R23` names exactly this, and the fix was to
+move the two readings up to just after `evenOnAt`'s own bound. Placing a lemma
+next to its *first* consumer is not the same as placing it after its
+dependencies, and I have now made that mistake in both directions.
+
+**And the gate did its job.** `session_gate` came back `13/14` **before** the
+commit: `citation_check` red on `List.replicate`, cited in the limitation note I
+had just written and fail-closed because no earlier docstring had used the name.
+Kernel-checked (`{α} → ℕ → α → List α`), added to `ALLOW` as Mathlib, green.
+That is the first time the widened gate has stopped a commit rather than
+explained one afterwards — `318` shipped this same guard's red and corrected it
+the next cycle.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, `session_gate` `14/14` in its own call.
+
+**Might-mean, scoped to the three witnesses this cycle measured:** the profile
+readings turn a witness into a computation when its profile is a literal, so what
+now costs proof work in this project is the size of the configuration rather than
+the quantity being computed.

@@ -5141,6 +5141,35 @@ theorem onLineOrdinates_le_N (D : ZeroData) : onLineOrdinates D ≤ D.N := by
   have h2 := evenOnAt_add_atomCount_le_N D
   omega
 
+/-- `oddAbove` from the profile: `onAt` is `mass − off-line mass`. -/
+theorem oddAbove_from_profile (D : ZeroData) :
+    oddAbove D = Multiset.card ((profile D).filter
+      fun q => ¬ Even (q.1 - q.2) ∧ q.1 - q.2 ≠ 1) := by
+  classical
+  rw [oddAbove, profile, Multiset.filter_map, Multiset.card_map]
+  show Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+      = Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+  congr 1
+  refine Multiset.filter_congr fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  simp only [Function.comp_apply]
+  rw [show D.H γ - offAt D γ = onAt D γ by omega]
+
+/-- `evenOnAt` from the profile, the same way. -/
+theorem evenOnAt_from_profile (D : ZeroData) :
+    evenOnAt D = Multiset.card ((profile D).filter
+      fun q => Even (q.1 - q.2) ∧ q.1 - q.2 ≠ 0) := by
+  classical
+  rw [evenOnAt, profile, Multiset.filter_map, Multiset.card_map]
+  show Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+      = Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+  congr 1
+  refine Multiset.filter_congr fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  simp only [Function.comp_apply]
+  rw [show D.H γ - offAt D γ = onAt D γ by omega]
+
+
 /-! #### The last gap in the chain — `SESSION 310`
 
 `309`'s snag was that an inequality between two counts of subsets of one set is
@@ -5230,22 +5259,14 @@ theorem evenOnAt_survives_Noff_zero {a : ℝ} (ha : a ≠ 1/2) :
       ∧ oddAtoms (configAt 0 2 0 a) = 0
       ∧ onLineOrdinates (configAt 0 2 0 a) = 1 := by
   classical
-  have hfin : (configAt 0 2 0 a).ordinates.toFinset = {0} := by
-    rw [configAt_ordinates, Multiset.toFinset_replicate, if_neg (by norm_num)]
-  have hon : onAt (configAt 0 2 0 a) 0 = 2 := by
-    have h := H_eq_onAt_add_offAt (configAt 0 2 0 a) 0
-    rw [configAt_H, if_pos rfl, offAt_configAt_self ha] at h
-    omega
-  refine ⟨by rw [configAt_Noff ha], ?_, ?_, ?_⟩
-  · rw [evenOnAt, hfin, Finset.filter_singleton,
-      if_pos (by rw [hon]; exact ⟨⟨1, rfl⟩, by norm_num⟩)]
-    rfl
-  · rw [oddAtoms_eq_odd_onAt, hfin, Finset.filter_singleton,
-      if_neg (by rw [hon]; simp)]
-    rfl
-  · rw [onLineOrdinates, onOrd_toFinset, hfin, Finset.filter_singleton,
-      if_pos (by rw [hon]; norm_num)]
-    rfl
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 2) (j := 0) (by norm_num)
+  norm_num at hp
+  have he : evenOnAt (configAt 0 2 0 a) = 1 := by
+    rw [evenOnAt_from_profile, hp]; decide
+  have ho : oddAtoms (configAt 0 2 0 a) = 0 := by
+    rw [oddAtoms_from_profile, hp]; decide
+  have hl := onLineOrdinates_eq_oddAtoms_add_evenOnAt (configAt 0 2 0 a)
+  exact ⟨by rw [configAt_Noff ha], he, ho, by omega⟩
 
 /-- **And that is all of it.**  `SESSION 313`.
 
@@ -5326,34 +5347,6 @@ computation shorter — if a configuration's `oddAbove` still cannot be settled 
 without the claim.*  It did not fire: `oddAbove_survives_Noff_zero` below is
 `decide` on a one-entry profile. -/
 
-/-- `oddAbove` from the profile: `onAt` is `mass − off-line mass`. -/
-theorem oddAbove_from_profile (D : ZeroData) :
-    oddAbove D = Multiset.card ((profile D).filter
-      fun q => ¬ Even (q.1 - q.2) ∧ q.1 - q.2 ≠ 1) := by
-  classical
-  rw [oddAbove, profile, Multiset.filter_map, Multiset.card_map]
-  show Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
-      = Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
-  congr 1
-  refine Multiset.filter_congr fun γ _ => ?_
-  have h := H_eq_onAt_add_offAt D γ
-  simp only [Function.comp_apply]
-  rw [show D.H γ - offAt D γ = onAt D γ by omega]
-
-/-- `evenOnAt` from the profile, the same way. -/
-theorem evenOnAt_from_profile (D : ZeroData) :
-    evenOnAt D = Multiset.card ((profile D).filter
-      fun q => Even (q.1 - q.2) ∧ q.1 - q.2 ≠ 0) := by
-  classical
-  rw [evenOnAt, profile, Multiset.filter_map, Multiset.card_map]
-  show Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
-      = Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
-  congr 1
-  refine Multiset.filter_congr fun γ _ => ?_
-  have h := H_eq_onAt_add_offAt D γ
-  simp only [Function.comp_apply]
-  rw [show D.H γ - offAt D γ = onAt D γ by omega]
-
 /-- **`312`'s second surviving gap, exhibited.**
 
 That cycle proved two of the chain's four gaps survive `N_off = 0` and showed a
@@ -5382,20 +5375,14 @@ theorem atomCount_decomposition_all_inhabited {a : ℝ} (ha : a ≠ 1/2) :
   intro L
   have hp := chain_profile ha L (by decide)
   norm_num [L] at hp
-  have hA : atomCount (chain a L) = 5 := by
-    rw [atomCount_eq_card_profile, hp]; decide
-  have hsc : ((chain a L).Nsc : ℤ) = 1 := by rw [Nsc_from_profile, hp]; decide
-  have hsc' : (chain a L).Nsc = 1 := by exact_mod_cast hsc
-  have hst : ((chain a L).NscStd : ℤ) = 2 := by rw [NscStd_from_profile, hp]; decide
-  have hst' : (chain a L).NscStd = 2 := by exact_mod_cast hst
-  have hod : oddAtoms (chain a L) = 3 := by rw [oddAtoms_from_profile, hp]; decide
-  have hoo : offLineOnly (chain a L) = 1 := by
-    rw [offLineOnly_from_profile, hp]; decide
-  have p2 := NscStd_eq_Nsc_add_haunted (chain a L)
-  have p3 := oddAtoms_eq_NscStd_add_oddAbove (chain a L)
-  have p4 := onLineOrdinates_eq_oddAtoms_add_evenOnAt (chain a L)
-  have p5 := onLineOrdinates_add_offLineOnly (chain a L)
-  refine ⟨hsc', ?_, ?_, ?_, hoo, hA⟩ <;> omega
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+  · have : ((chain a L).Nsc : ℤ) = 1 := by rw [Nsc_from_profile, hp]; decide
+    exact_mod_cast this
+  · rw [hauntedCount_from_profile, hp]; decide
+  · rw [oddAbove_from_profile, hp]; decide
+  · rw [evenOnAt_from_profile, hp]; decide
+  · rw [offLineOnly_from_profile, hp]; decide
+  · rw [atomCount_eq_card_profile, hp]; decide
 
 /-! #### What each class costs — `SESSION 315`
 
@@ -5558,6 +5545,11 @@ theorem three_mul_oddAtoms_attained {a : ℝ} (ha : a ≠ 1/2) (n : ℕ) :
   omega
 
 /-- **Equality does not need pure triples.**  `SESSION 303`, correcting `302`.
+
+*(`322`: this proof stays long.  `321`'s profile readings collapse a witness whose
+profile is a small **literal** — `decide` settles five entries — but this one's
+profile is built with `List.replicate`, so `decide` would face `1321` of them.
+The readings shorten witnesses, not all witnesses.)*
 
 Every quantity in `three_mul_oddAtoms_le` is atom-additive, and the per-atom
 slack `mass + 2·[mass = 1] − 3·[mass odd]` vanishes at mass `1` as well as at

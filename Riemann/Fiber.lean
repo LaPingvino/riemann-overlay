@@ -3931,6 +3931,70 @@ theorem hauntedCount_from_profile (D : ZeroData) :
   rw [hauntedCount, profile, Multiset.filter_map, Multiset.card_map]
   rfl
 
+/-! #### The same profile in `(onAt, offAt)` coordinates — `SESSION 294`
+
+`profile` records `(mass, off-line mass)`; `292`/`293` read the ledger's counts
+as filters on `(onAt, offAt)` instead.  Those are two vocabularies for the same
+per-ordinate datum, and the project has been carrying both without writing the
+translation down.
+
+**Kill condition, filed first:** *if `NscStd` still needs truncated subtraction
+after the change of coordinates — if its predicate cannot become `q.1 = 1` —
+then the coordinate change buys nothing at the profile level and the identities
+below are bookkeeping.*  It did not fire; `NscStd`, `N_sc` and `hauntedCount` all
+lose the `q.1 - q.2`. -/
+
+/-- The per-ordinate datum in `293`'s coordinates: `(on-line count, off-line
+count)`. -/
+noncomputable def onProfile (D : ZeroData) : Multiset (ℕ × ℕ) :=
+  D.ordinates.toFinset.val.map fun γ => (onAt D γ, offAt D γ)
+
+/-- Each is a map-image of the other, forwards… -/
+theorem onProfile_eq_profile_map (D : ZeroData) :
+    onProfile D = (profile D).map fun q => (q.1 - q.2, q.2) := by
+  classical
+  rw [onProfile, profile, Multiset.map_map]
+  refine Multiset.map_congr rfl fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  simp only [Function.comp_apply]
+  rw [h]; simp
+
+/-- …and back.  The return trip uses `+`, so it needs no side condition. -/
+theorem profile_eq_onProfile_map (D : ZeroData) :
+    profile D = (onProfile D).map fun q => (q.1 + q.2, q.2) := by
+  classical
+  rw [onProfile, profile, Multiset.map_map]
+  refine Multiset.map_congr rfl fun γ _ => ?_
+  simp only [Function.comp_apply]
+  rw [H_eq_onAt_add_offAt]
+
+/-- `NscStd` in the new coordinates.  Compare `NscStd_from_profile`, whose
+predicate is `q.1 - q.2 = 1`. -/
+theorem NscStd_from_onProfile (D : ZeroData) :
+    D.NscStd = Multiset.card ((onProfile D).filter fun q => q.1 = 1) := by
+  classical
+  rw [NscStd_eq_onAt_one, onProfile, Multiset.filter_map, Multiset.card_map]
+  rfl
+
+/-- `hauntedCount` in the new coordinates.  Compare `hauntedCount_from_profile`,
+whose predicate is `q.1 - q.2 = 1 ∧ q.1 ≠ 1`. -/
+theorem hauntedCount_from_onProfile (D : ZeroData) :
+    hauntedCount D
+      = Multiset.card ((onProfile D).filter fun q => q.1 = 1 ∧ q.2 ≠ 0) := by
+  classical
+  rw [hauntedCount_eq_onAt_one_offAt_pos, onProfile, Multiset.filter_map,
+    Multiset.card_map]
+  rfl
+
+/-- `N_sc` in the new coordinates — the `hauntedCount` predicate with `q.2 = 0`
+in place of `q.2 ≠ 0`, which is `288`'s partition read off the entry. -/
+theorem Nsc_from_onProfile (D : ZeroData) :
+    D.Nsc = Multiset.card ((onProfile D).filter fun q => q.1 = 1 ∧ q.2 = 0) := by
+  classical
+  rw [Nsc_eq_onAt_one_offAt_zero, onProfile, Multiset.filter_map,
+    Multiset.card_map]
+  rfl
+
 /-- **`distinctZeros` is NOT a profile functional** — `SESSION 184`, settling the
 obligation `181` opened and `182`/`183` narrowed.
 

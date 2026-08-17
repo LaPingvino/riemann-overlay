@@ -224,3 +224,12 @@ it is, which is a fully certified `50.88%` with all its derivations proved tight
   (`forensics/banner_check.py`, six rows against the disk, one reported
   `UNCHECKED` rather than counted green). The prompt text itself is yours to
   edit.
+
+  `294` adds queue item 3 — *"is the profile minimal? look for a coarser
+  sufficient statistic or an argument that none exists"* — to the stale list.
+  `profile_not_minimal`, `profile_minimal_among_local` (with its own kill
+  condition, which did not fire), `mass_only_not_sufficient`,
+  `off_only_not_sufficient` and `distinctZeros_not_profile_functional` were all
+  on disk before the item was written. That is `S33`'s shape a fourth time;
+  `R26`'s statement-index query surfaced it in one command, before any Lean was
+  written, which is the intended cost.

@@ -13768,3 +13768,67 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 question since `161` is a partition of one set by two conditions, so the distance
 between the literature's row and ours is two configurations rather than a
 quantity to be estimated.
+
+## Queue item 3 was already on disk; the two profile vocabularies now translate
+
+**Piece — the queue item, checked before it was worked.** Item 3 asks after a
+coarser sufficient statistic for the ledger. `R26`'s statement index answered it
+in one command:
+
+* `profile_not_minimal` — the profile is not minimal outright;
+* `profile_minimal_among_local` — but no *ordinate-local* coarsening works,
+  because `N` and `N_off` force injectivity on realisable atoms (its own kill
+  condition, filed and did not fire);
+* `mass_only_not_sufficient`, `off_only_not_sufficient` — both components pull
+  their weight;
+* `distinctZeros_not_profile_functional` — and the dictionary's one gap is
+  recorded too.
+
+All of it predates the queue item. That is `S33`'s shape a fourth time, so it
+goes to `RULING.md` beside the other evidence for ruling 5 rather than into
+`SURPRISES.md` as a new entry. The cost of finding out was one query, before any
+Lean was written — which is what `R26` is for.
+
+**Wildcard — the translation nobody had written down.** `profile` records
+`(mass, off-line mass)`. `292` and `293` read the ledger's counts as filters on
+`(onAt, offAt)`. The project has been carrying both vocabularies.
+
+**Kill condition, filed first:** *if `NscStd` still needs truncated subtraction
+after the change of coordinates — if its predicate cannot become `q.1 = 1` —
+then the coordinate change buys nothing at the profile level and the identities
+are bookkeeping.* **It did not fire.**
+
+`onProfile`, and five theorems, all axiom-free:
+
+* `onProfile_eq_profile_map` / `profile_eq_onProfile_map` — each is a map-image
+  of the other. The return trip adds, so it carries no side condition; the
+  forward trip subtracts, and `H_eq_onAt_add_offAt` is what makes the truncation
+  harmless.
+* `NscStd_from_onProfile` — predicate `q.1 = 1`, against
+  `NscStd_from_profile`'s `q.1 - q.2 = 1`.
+* `hauntedCount_from_onProfile` — `q.1 = 1 ∧ q.2 ≠ 0`, against
+  `q.1 - q.2 = 1 ∧ q.1 ≠ 1`.
+* `Nsc_from_onProfile` — `q.1 = 1 ∧ q.2 = 0`, which is `288`'s partition read
+  off a single entry.
+
+Three of the ledger's readings lose the `-`, and `N_sc` and `hauntedCount` become
+one predicate with the two polarities of `q.2`.
+
+Minimality of the profile is not claimed here, and none of these five bear on
+it: a bijective relabelling of the entry changes neither what the statistic
+separates nor what it merges.
+
+**Snag, bin 2.** All five proofs compiled on the first attempt, in two scratch
+files, with no failed variant. When a cycle meets no resistance the usual
+explanation is that the work was small — but `293` also went clean, and two in a
+row is the point at which "it was easy" and "I picked only what I already knew
+how to do" stop being distinguishable from inside.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, axioms 2, thirteen guards green, both indices
+regenerated (`5,144` declarations).
+
+**Might-mean, unhedged:** the ledger's central quantities read the same pair of
+natural numbers through predicates that differ in the polarity of the second
+component, so what separates `N_sc` from `hauntedCount` is a sign rather than a
+construction.

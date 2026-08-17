@@ -278,6 +278,13 @@ import Riemann
 #check @Riemann.Blindness.Nsc_eq_onAt_one_offAt_zero
 -- SESSION 293: the bracket's upper gap — odd on-line count above one.
 #check @Riemann.Blindness.oddAtoms_eq_NscStd_add_oddAbove
+-- SESSION 294: the profile in 293's (onAt, offAt) coordinates.
+#check @Riemann.Blindness.onProfile
+#check @Riemann.Blindness.onProfile_eq_profile_map
+#check @Riemann.Blindness.profile_eq_onProfile_map
+#check @Riemann.Blindness.NscStd_from_onProfile
+#check @Riemann.Blindness.hauntedCount_from_onProfile
+#check @Riemann.Blindness.Nsc_from_onProfile
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

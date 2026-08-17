@@ -303,6 +303,9 @@ import Riemann
 #check @Riemann.proportion_of_oddAtoms
 -- SESSION 304: the crossover LEADS.md carried as prose since 098.
 #check @Riemann.starBound_delta_beats_baseline
+-- SESSION 305: the equality set of 302's bound, and that it is a new one.
+#check @Riemann.Blindness.three_mul_oddAtoms_eq_iff
+#check @Riemann.Blindness.three_mul_oddAtoms_eq_iff_separates
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

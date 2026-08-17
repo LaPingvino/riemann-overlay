@@ -5105,6 +5105,163 @@ theorem three_mul_oddAtoms_eq_cap_witness {a : ℝ} (ha : a ≠ 1/2) :
   have hs' : (chain a L).Nsc = 1000 := by exact_mod_cast hs
   rw [hN, hO, hs']
 
+/-! #### The equality set itself — `SESSION 305`
+
+`303` corrected `302`'s claim about when `three_mul_oddAtoms_le` is tight and
+backed the correction with one witness.  A witness is not a characterisation.
+This is the characterisation, and it is a **different** one from the sibling
+already on disk: `three_mul_NscStd_eq_iff` pins `H = 1 ∨ (H = 3 ∧ onAt = 1)`,
+while this pins `H = 1 ∨ H = 3` with no condition on the split.  The gap between
+the two is the ordinate of mass three carrying **three** on-line zeros — odd
+`onAt` above one, which is `293`'s upper gap.
+
+**Kill condition, filed first:** *if the multiset-sum route does not land, ship
+the pointwise slack lemma and the forward direction and report the
+characterisation as open.*  It did not fire. -/
+
+/-- The per-atom slack in `three_mul_oddAtoms_le`, in `ℤ` so it can be
+negative-free without truncation. -/
+private noncomputable def oddSlack (q : ℕ × ℕ) : ℤ :=
+  (q.1 : ℤ) + 2 * (if q.1 = 1 then 1 else 0) - 3 * (if ¬ Even q.1 then 1 else 0)
+
+/-- The slack is `0` at mass `1` and mass `3`, and positive elsewhere.  Mass `0`
+is excluded: it also gives `0`, and the hypothesis is what rules it out. -/
+private lemma oddSlack_spec (q : ℕ × ℕ) (h0 : q.1 ≠ 0) :
+    0 ≤ oddSlack q ∧ (oddSlack q = 0 ↔ q.1 = 1 ∨ q.1 = 3) := by
+  rw [oddSlack]
+  by_cases h1 : q.1 = 1
+  · rw [if_pos h1, if_pos (by rw [h1]; decide), h1]; norm_num
+  · rw [if_neg h1]
+    by_cases h2 : ¬ Even q.1
+    · have hm : q.1 % 2 = 1 := Nat.not_even_iff.mp h2
+      rw [if_pos h2]
+      refine ⟨by push_cast; omega, ⟨fun h => ?_, fun h => ?_⟩⟩
+      · right; push_cast at h; omega
+      · rcases h with h | h
+        · exact absurd h h1
+        · rw [h]; norm_num
+    · have hm : q.1 % 2 = 0 := Nat.even_iff.mp (not_not.mp h2)
+      rw [if_neg h2]
+      refine ⟨by push_cast; omega, ⟨fun h => ?_, fun h => ?_⟩⟩
+      · exfalso; push_cast at h; omega
+      · exfalso; rcases h with h | h <;> rw [h] at hm <;> simp at hm
+
+private lemma oddIndicator_sum (s : Multiset (ℕ × ℕ)) :
+    ((s.map fun q => if ¬ Even q.1 then (1:ℤ) else 0)).sum
+      = (Multiset.card (s.filter fun q => ¬ Even q.1) : ℤ) := by
+  classical
+  induction s using Multiset.induction_on with
+  | empty => simp
+  | cons q s ih =>
+      rw [Multiset.map_cons, Multiset.sum_cons, Multiset.filter_cons, ih]
+      by_cases h : ¬ Even q.1
+      · rw [if_pos h, if_pos h]; simp [add_comm]
+      · rw [if_neg h, if_neg h]; simp
+
+private lemma oddSlack_sum_spec (s : Multiset (ℕ × ℕ))
+    (hpos : ∀ q ∈ s, q.1 ≠ 0) :
+    0 ≤ (s.map oddSlack).sum
+      ∧ ((s.map oddSlack).sum = 0 ↔ ∀ q ∈ s, q.1 = 1 ∨ q.1 = 3) := by
+  induction s using Multiset.induction_on with
+  | empty => simp
+  | cons q s ih =>
+      have hq := hpos q (Multiset.mem_cons_self q s)
+      have hs : ∀ r ∈ s, r.1 ≠ 0 := fun r hr => hpos r (Multiset.mem_cons_of_mem hr)
+      obtain ⟨hn, hz⟩ := ih hs
+      obtain ⟨hqn, hqz⟩ := oddSlack_spec q hq
+      rw [Multiset.map_cons, Multiset.sum_cons]
+      refine ⟨by linarith, ⟨fun h => ?_, fun h => ?_⟩⟩
+      · have h1 : oddSlack q = 0 := by linarith
+        have h2 : (s.map oddSlack).sum = 0 := by linarith
+        intro r hr
+        rcases Multiset.mem_cons.1 hr with hr | hr
+        · rw [hr]; exact hqz.1 h1
+        · exact (hz.1 h2) r hr
+      · have h1 : oddSlack q = 0 := hqz.2 (h q (Multiset.mem_cons_self q s))
+        have h2 : (s.map oddSlack).sum = 0 :=
+          hz.2 fun r hr => h r (Multiset.mem_cons_of_mem hr)
+        rw [h1, h2]; ring
+
+private lemma sum_oddSlack (s : Multiset (ℕ × ℕ)) :
+    (s.map oddSlack).sum = ((s.map fun q => (q.1:ℤ)).sum)
+      + 2 * ((s.map fun q => if q.1 = 1 then (1:ℤ) else 0).sum)
+      - 3 * ((s.map fun q => if ¬ Even q.1 then (1:ℤ) else 0).sum) := by
+  induction s using Multiset.induction_on with
+  | empty => simp
+  | cons q s ih =>
+      simp only [Multiset.map_cons, Multiset.sum_cons, ih, oddSlack]
+      ring
+
+private lemma sum_fst_cast (s : Multiset (ℕ × ℕ)) :
+    ((s.map fun q => (q.1:ℤ)).sum) = ((s.map Prod.fst).sum : ℕ) := by
+  induction s using Multiset.induction_on with
+  | empty => simp
+  | cons q s ih =>
+      simp only [Multiset.map_cons, Multiset.sum_cons, ih]; push_cast; ring
+
+/-- **`302`'s bound is tight when every ordinate has mass one or three.**
+`SESSION 305`.
+
+Compare `three_mul_NscStd_eq_iff`, whose condition is
+`H = 1 ∨ (H = 3 ∧ onAt = 1)`.  This one drops the `onAt` clause: a mass-three
+ordinate carrying three on-line zeros satisfies this and fails that, and it is
+the configuration `293` named as the bracket's upper gap.
+
+`112`'s cap witness satisfies both, which is why `303`'s single witness could not
+tell the two characterisations apart. -/
+theorem three_mul_oddAtoms_eq_iff (D : ZeroData) :
+    3 * oddAtoms D = D.N + 2 * D.Nsc ↔
+      ∀ γ ∈ D.ordinates.toFinset, D.H γ = 1 ∨ D.H γ = 3 := by
+  classical
+  have hmem : ∀ q ∈ profile D, q.1 ≠ 0 := by
+    intro q hq
+    rw [profile, Multiset.mem_map] at hq
+    obtain ⟨γ, hγ, rfl⟩ := hq
+    have : 0 < D.H γ := by
+      rw [D.H_eq_count, Multiset.count_pos]
+      exact Multiset.mem_toFinset.1 (by simpa using hγ)
+    omega
+  obtain ⟨_, hz⟩ := oddSlack_sum_spec (profile D) hmem
+  have hval : ((profile D).map oddSlack).sum
+      = (D.N : ℤ) + 2 * (D.Nsc : ℤ) - 3 * (oddAtoms D : ℤ) := by
+    rw [sum_oddSlack, sum_fst_cast, ← N_from_profile, oddIndicator_sum,
+      ← oddAtoms_from_profile, ← Nsc_from_profile]
+  have hcond : (∀ q ∈ profile D, q.1 = 1 ∨ q.1 = 3) ↔
+      ∀ γ ∈ D.ordinates.toFinset, D.H γ = 1 ∨ D.H γ = 3 := by
+    constructor
+    · intro h γ hγ
+      exact h (D.H γ, offAt D γ)
+        (by rw [profile, Multiset.mem_map]; exact ⟨γ, by simpa using hγ, rfl⟩)
+    · intro h q hq
+      rw [profile, Multiset.mem_map] at hq
+      obtain ⟨γ, hγ, rfl⟩ := hq
+      exact h γ (by simpa using hγ)
+  rw [← hcond, ← hz, hval]
+  constructor <;> intro h <;> omega
+
+/-- **And the two characterisations are genuinely different.**  `SESSION 305`.
+
+One ordinate of mass three with all three zeros on the line: `N = 3`,
+`N_sc = 0`, `oddAtoms = 1`, `NscStd = 0`.  It satisfies
+`three_mul_oddAtoms_eq_iff`'s condition and fails `three_mul_NscStd_eq_iff`'s,
+so the pair is two theorems rather than one restated (`256`). -/
+theorem three_mul_oddAtoms_eq_iff_separates {a : ℝ} (ha : a ≠ 1/2) :
+    (3 * oddAtoms (configAt 0 3 0 a)
+        = (configAt 0 3 0 a).N + 2 * (configAt 0 3 0 a).Nsc)
+      ∧ ¬ (3 * (configAt 0 3 0 a).NscStd
+            = (configAt 0 3 0 a).N + 2 * (configAt 0 3 0 a).Nsc) := by
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 3) (j := 0) (by norm_num)
+  norm_num at hp
+  have hsc : ((configAt 0 3 0 a).Nsc : ℤ) = 0 := by
+    rw [Nsc_from_profile, hp]; decide
+  have h2 : (configAt 0 3 0 a).Nsc = 0 := by exact_mod_cast hsc
+  have hstd : ((configAt 0 3 0 a).NscStd : ℤ) = 0 := by
+    rw [NscStd_from_profile, hp]; decide
+  have h3 : (configAt 0 3 0 a).NscStd = 0 := by exact_mod_cast hstd
+  constructor
+  · rw [oddAtoms_from_profile, N_from_profile, hp, h2]; decide
+  · rw [N_from_profile, hp, h2, h3]; decide
+
 /-- **The haunted count converts from the distinct-zeros deficit:
 `2·hauntedCount + atomCount ≤ N`.**
 

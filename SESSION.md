@@ -14472,3 +14472,54 @@ baseline `69`.
 **Might-mean, unhedged:** this project's prose says `iff` in more ways than its
 gate knows, so the sentences most likely to be wrong are the ones whose logical
 form is carried by an adverb rather than a connective.
+
+## A witness is not a characterisation
+
+**Piece and wildcard, one target.** `303` corrected `302`'s claim about when
+`three_mul_oddAtoms_le` is tight and backed the correction with a single
+configuration. That is a witness. The characterisation was still missing, and
+`304`'s new gate shape guaranteed I would trip over the sentence again.
+
+**Kill condition, filed first:** *if the multiset-sum route does not land, ship
+the pointwise slack lemma and the forward direction and report the
+characterisation as open.* It did not fire.
+
+`three_mul_oddAtoms_eq_iff`: equality holds exactly when every ordinate has mass
+`1` or `3` — the phrase `304` taught the gate to catch, and the converse witness
+is `Riemann.Blindness.three_mul_oddAtoms_eq_iff` itself. Axiom-free.
+
+Route: a per-atom slack `mass + 2·[mass = 1] − 3·[mass odd]` in `ℤ`, which is `0`
+at `1` and `3` and positive elsewhere; `295`'s `ms_mod_four` pattern
+(`Multiset.induction_on`) to lift it; then transport along the `_from_profile`
+readings. Five private lemmas, all mechanical.
+
+**The kernel found the hypothesis I had missed.** The slack also vanishes at mass
+`0`, so the pointwise lemma is false without `q.1 ≠ 0`. `omega` refused it, and
+the fix is the fact that `H γ > 0` for `γ` in the ordinates — supplied where the
+profile's entries are unpacked. I had written the slack table by hand and my
+table started at `1`.
+
+**And the pair is two theorems, not one.** `three_mul_NscStd_eq_iff` pins
+`H = 1 ∨ (H = 3 ∧ onAt = 1)`; this pins `H = 1 ∨ H = 3` with no condition on the
+split. `three_mul_oddAtoms_eq_iff_separates` is the discriminating
+configuration — one ordinate of mass three with all three zeros **on** the line,
+which satisfies the new condition and fails the old. That configuration is
+`293`'s upper gap, so the arc closes: the difference between the two
+characterisations is the quantity `293` named.
+
+`112`'s cap witness satisfies both, which is why `303`'s single witness could
+not tell them apart. A witness distinguishes nothing it happens to lie in.
+
+**Snag, bin 3.** Two of the five private lemmas failed first on `simp` closing a
+goal to `1 + card = card + 1`, and once on `ring` where the residue was a
+`Multiset.card` identity rather than an algebraic one. Both cost a round trip.
+On a goal one `add_comm` from done, `ring` and `simp` each closed one of the two
+and left the other; I reached for `ring` first both times.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, `duplication_floor` at `23`.
+
+**Might-mean, unhedged:** the configuration that makes `302`'s bound tight but
+sits outside `110`'s extremal family is an ordinate whose zeros are all on the
+line and all at one height, so the last slack in this bracket is bought by
+multiplicity rather than by zeros off the line.

@@ -292,6 +292,9 @@ import Riemann
 -- SESSION 297: rung 3 is the last family-generic rung of the ladder.
 #check @Riemann.NoSmallHaunted.mono_le
 #check @Riemann.free_ladder_stops_at_three
+-- SESSION 299: the m = 7 rung's precision, prose until now.
+#check @Riemann.ladder_seven_exact_value
+#check @Riemann.ladder_seven_shortfall
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

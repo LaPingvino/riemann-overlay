@@ -6871,7 +6871,11 @@ to compare, not the number.
 
 **One precision detail, recorded at its location.** The exact `m = 7` ladder
 value is `7415/12000`, a repeating decimal; `certified_nsc_via_noSmallHaunted_seven`
-asserts the terminating `0.6179166`, which is `1/1500000` **below** it. The
+asserts the terminating `0.6179166`, which is `1/1500000` **below** it.
+*(**Correction, `299`:** the shortfall is `1/15000000` — this figure is ten
+times too large. Verified by the kernel and now carried by
+`ladder_seven_shortfall`. The slip is conservative, so nothing downstream of
+it moves.)* The
 theorem is deliberately, very slightly weaker than the ladder so its statement
 carries a readable numeral. Noted in the docstring; anything needing the exact
 value should use `certified_nsc_ladder` directly.
@@ -14085,3 +14089,67 @@ process index `178`.
 they are re-derived, so the failure that matters is a guard that reports on a
 narrower thing than its output implies, and the board has been doing that since
 `165`.
+
+## A precision figure was ten times too large, in prose, since `153`
+
+**Piece — the `m = 7` rung's shortfall.** `certified_nsc_via_noSmallHaunted_seven`
+asserts `0.6179166` where the ladder gives `7415/12000`, and its docstring has
+recorded the difference as `1/1500000` since `153`.
+
+**The kernel says `1/15000000`.** Ten times smaller. `norm_num` refuses
+`7415/12000 - 0.6179166 = 1/1500000` and accepts the other. The slip runs in the
+conservative direction — the statement is *closer* to the ladder than the prose
+claimed — so nothing downstream of it moves, and the `+10.917` in `PRICES.md` is
+unaffected either way.
+
+Per `R28` the search is named: `grep -rn '1500000'` over `*.md`, `*.lean`,
+`*.py`. Two copies, `Proportion.lean:475` and `SESSION.md:6874`, each corrected
+at its own location.
+
+**Two theorems replace the prose**, both axiom-free:
+`ladder_seven_exact_value` (`(7·0.6725 − 1)/6 = 7415/12000`) and
+`ladder_seven_shortfall`, stated additively as `0.6179166 + 1/15000000 =
+7415/12000`, which is the sentence the docstring was making.
+
+**I was wrong about the neighbours, cheaply.** I started this expecting rung `3`
+to be prose-only too. It is not: `certified_nsc_unconditional:78` carries
+`(3·0.6725 − 1)/2 = 0.50875` inline and `certified_nsc_via_noSmallHaunted:453`
+carries the rung-`5` identity the same way. `Gaps.lean:402`'s `407/800` restates
+a fact the kernel already has. Rung `7`'s value does not terminate, so its
+docstring reached for a second number, and that second number is the one that
+slipped.
+
+**Wildcard — is `S118` a one-off?**
+
+**Kill condition, filed first:** *if the sweep finds no other instrument
+recording a value it does not compare, `S118` is confined to `board.py` and the
+clean sweep is the result, not a failure.* **It fired clean.**
+
+The screen was an `ast` pass over `forensics/*.py` for module-level uppercase
+dict/list/set literals: `11` scripts, `29` tables. The screen alone would have
+missed `S118` — `board.py`'s `EXPECTED` *was* iterated, with its values unused
+in the comparison — so the real instrument was hand-reading the five
+multi-field tables it surfaced.
+
+* `provenance_lint.NODES` (`20` rows, `3` fields) — deps and range both read;
+  the third field is a free-text note and is read by people.
+* `NODES2`, `TARGET_VACUITY_DEPTH`, `DEATHS` — every field consumed.
+* `board.EXPECTED` — the one `298` fixed.
+
+Scope, stated: five multi-field tables hand-read, all clean; single-field tables
+and calibration corpora were not hand-read. `claims_gate`'s calibration was
+re-run and reports `6/6`; `S60` recorded that same calibration defined and not
+wired into `main`, and it is wired in now.
+
+**Snag, bin 3.** The insertion landed between a docstring's `-/` and its
+theorem, which is a parse error rather than a misplacement — the third
+scratch-to-project failure in four cycles, after line width (`297`) and before
+that namespace and scope. The pattern is that I choose an anchor by reading a
+`grep -A` window, which shows what follows a match and not what precedes it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, thirteen guards green, statement index `5,153`.
+
+**Might-mean, unhedged:** a number that appears once and is not needed twice is
+where this project's prose goes wrong, because everything cited more than once
+gets a theorem behind it sooner or later.

@@ -465,14 +465,31 @@ theorem certified_nsc_ladder {m : ℕ} (hm : 2 ≤ m)
     zetaFamily.toCounts.Proportion (((m : ℝ) * 0.6725 - 1) / ((m : ℝ) - 1)) :=
   proportion_of_noSmallHaunted hm hh certified_std
 
+/-- The exact `m = 7` rung value.  `SESSION 299`: this and the shortfall below
+were prose from `153` until now, and the prose had the shortfall wrong by a
+factor of ten.  Rungs `3` and `5` were never at risk — their arithmetic is
+already inline in `certified_nsc_unconditional` and
+`certified_nsc_via_noSmallHaunted`, which is why only `7` slipped. -/
+theorem ladder_seven_exact_value :
+    ((7 : ℝ) * 0.6725 - 1) / ((7 : ℝ) - 1) = 7415 / 12000 := by norm_num
+
+/-- Recorded numeral plus shortfall is the exact value: the additive form of the
+docstring's claim, re-checked by `norm_num` on every build. -/
+theorem ladder_seven_shortfall :
+    (0.6179166 : ℝ) + 1 / 15000000 = 7415 / 12000 := by norm_num
+
 /-- **The `m = 7` rung: `0.617917`, `+10.917` points — and it dominates the ξ′
 route in both currencies.**
 
 `(7·0.6725 − 1)/6 = 0.6179166…`.
 
-*Precision, stated (`SESSION 153`):* the exact ladder value is `7415/12000`, a
-repeating decimal, and the constant asserted here is the terminating `0.6179166`
-— **`1/1500000` below it**.  The theorem is therefore very slightly weaker than
+*Precision, stated (`SESSION 153`; figure corrected `SESSION 299`):* the exact
+ladder value is `7415/12000`, a repeating decimal, and the constant asserted here
+is the terminating `0.6179166` — **`1/15000000` below it**.  `153` wrote
+`1/1500000`, ten times too large; the slip was in the conservative direction, so
+"very slightly weaker" understated how slight.  Both figures are now theorems
+(`ladder_seven_exact_value`, `ladder_seven_shortfall`) rather than prose.
+The theorem is therefore very slightly weaker than
 `certified_nsc_ladder` at `m = 7`, deliberately, so the statement carries a
 readable numeral.  Anything needing the exact value should use the ladder
 directly.  The `+10.917` quoted in `PRICES.md` is the same to three decimals

@@ -738,6 +738,33 @@ theorem NscStd_determined_by_on_moments {D D' : ZeroData}
     (fun γ _ => le_trans (hon D γ) (le_max_left _ _))
     (fun γ _ => le_trans (hon D' γ) (le_max_right _ _)) hm 1
 
+/-- **The two moment families together determine every ledger row.**  `SESSION 351`.
+
+`N` and `N⊛` are the `H`-moments at `1` and `2`; `N_sc` is
+`Nsc_determined_by_all_moments`; `NscStd` is `NscStd_determined_by_on_moments`; and
+`N_off` closes by `Blindness.Noff_add_onMoment_one`, since `N` is an `H`-moment and
+`Σ onAt` is the on-moment at `1`.
+
+`Blindness.profile_not_determined_by_both_families` shows the profile still escapes,
+so this is the ledger's reach and not the profile's. -/
+theorem ledger_determined_by_both_moment_families {D D' : ZeroData}
+    (hH : ∀ k, Blindness.momentK D k = Blindness.momentK D' k)
+    (hon : ∀ p, Blindness.onMoment D p = Blindness.onMoment D' p) :
+    D.N = D'.N ∧ D.Nstar = D'.Nstar ∧ D.Nsc = D'.Nsc
+      ∧ D.NscStd = D'.NscStd ∧ D.Noff = D'.Noff := by
+  have hN : D.N = D'.N := by
+    have h1 := hH 1
+    rwa [Blindness.momentK_one, Blindness.momentK_one] at h1
+  have hStar : D.Nstar = D'.Nstar := by
+    have h2 := hH 2
+    rwa [Blindness.momentK_two, Blindness.momentK_two] at h2
+  refine ⟨hN, hStar, Nsc_determined_by_all_moments hH,
+    NscStd_determined_by_on_moments hon, ?_⟩
+  have e1 := Blindness.Noff_add_onMoment_one D
+  have e2 := Blindness.Noff_add_onMoment_one D'
+  have h1 := hon 1
+  omega
+
 /-- A **cheap constraint**: an upper bound on horizontal multiplicity.  This is
 the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, and
 it involves no multiplicative information whatever. -/

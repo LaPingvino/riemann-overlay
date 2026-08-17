@@ -773,3 +773,11 @@ import Riemann
 -- NscStd and not N_sc, nor N — which pays 349's unwitnessed docstring claim.
 #check @Riemann.Blindness.onMoment_from_onProfile
 #check @Riemann.Blindness.Nsc_not_determined_by_on_moments
+
+-- SESSION 351: the two families jointly.  Together they determine every ledger row
+-- (N_off closes via Noff + sum onAt = N) and still not the profile — two two-atom
+-- configurations share both marginals and differ in the joint.
+#check @Riemann.Blindness.Noff_eq_sum_offAt
+#check @Riemann.Blindness.Noff_add_onMoment_one
+#check @Riemann.Blindness.profile_not_determined_by_both_families
+#check @Riemann.Optimal.ledger_determined_by_both_moment_families

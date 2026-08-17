@@ -17093,3 +17093,53 @@ the new declarations are equalities on named configurations and a profile identi
 proportions and each is legible to a different summary of the zeros, so the reason the
 ledger has needed two rows since the beginning is not conservatism about definitions
 but that no single moment family sees both.
+
+## The two families together
+
+**Piece.** `350` left each family seeing one ledger row. The joint question has two
+halves and both land: **together they determine the whole ledger, and still not the
+profile.**
+
+**Kill condition, filed first:** *if computing the on-moments on a two-atom
+configuration needs new infrastructure, I report the reduction and state the profile
+question as open.* It did not fire — `twoAtom_profile` and `onMoment_from_onProfile`
+supply it.
+
+`Riemann.Optimal.ledger_determined_by_both_moment_families`: agreement on both families
+forces all five rows equal. `N` and `N⊛` are `H`-moments at `1` and `2`; `N_sc` is
+`346`; `NscStd` is `349`; and `N_off` closes by `Noff_add_onMoment_one` —
+**`N_off + Σ onAt = N`** — since the off-line mass is the difference of the two
+families' first moments.
+
+**`S140` — I expected three rows to be out of reach and none were.** `N` and `N⊛` are
+`H`-moments outright, which I had not counted, and `N_off` is a subtraction away. What
+looked like three unreached rows was two already-reached ones and one reachable by
+arithmetic. The fix was checking each row rather than trusting the count.
+
+**Wildcard — does the joint reach the profile?** No.
+`profile_not_determined_by_both_families`: two two-atom configurations with
+`(mass, off-line mass)` profiles `{(3,2),(5,2)}` and `{(3,0),(5,4)}`. The mass multiset
+is `{3,5}` on both sides, so every `H`-moment agrees; the on-line counts are `{1,3}` on
+both sides, so every on-moment agrees; the profiles differ. **Two marginals do not pin
+a joint** — the ordinary reason, in this vocabulary.
+
+And the pair has all five ledger rows equal, which the piece requires — so it is a
+statement about the joint distribution rather than about the ledger, and the two halves
+of this cycle check each other.
+
+**Snag, bin 2 — `duplication_floor` `25 → 26`, the fifth route to a row.** The new
+theorem shares its five-way conjunction with `Fiber.ledger_determined` (`651`), which
+reaches it from pointwise `(ordinates, offAt)` agreement. Neither implies the other: one
+assumes the configurations match ordinate by ordinate, this one assumes only two moment
+sequences. `256`'s rule calls that a route, so the floor is raised with the reason here.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203` — clean first pass, third cycle running.
+
+**Might-mean, scoped to the five rows and the two families:** the pair of marginals is
+enough for every ledger row and not enough for the profile, so the fiber structure the
+project spent sixty cycles mapping sits strictly below what the ledger reports — and
+`X` is the statement that the reporting stops a level above where the mathematics
+happens. (The reverse reading is not proved and not claimed: the ledger does not
+determine the marginals, as `oddAtoms_not_determined_by_ledger` already shows.)

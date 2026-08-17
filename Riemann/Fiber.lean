@@ -8202,5 +8202,72 @@ theorem Nsc_not_determined_by_on_moments {a : ℝ} (ha : a ≠ 1/2) :
   simp
 
 
+/-! #### The two families together — `SESSION 351`
+
+`350` closed the arc with each family seeing one ledger row.  The obvious next
+question is what they see *jointly*, and the answer is both halves of a pair:
+**together they determine the whole ledger, and still not the profile.**
+
+The reason the ledger falls is that each of its five rows is a functional of one
+marginal or of the two marginals' sums — `N` and `N⊛` are the `H`-moments at `1` and
+`2`, `N_sc` is `346`, `NscStd` is `349`, and `N_off` is the difference `N − Σ onAt`,
+which is the identity below.
+
+**Kill condition, filed first:** *if computing the on-moments on a two-atom
+configuration needs new infrastructure, I report the reduction and state the profile
+question as open.*  It did not fire: `twoAtom_profile` and `onMoment_from_onProfile`
+give it. -/
+
+/-- `N_off` as a sum over the atoms.  `Basic.Noff_eq_sum` is the `ℤ`-valued sum over
+`Z`; this is the `ℕ`-valued sum over ordinates, which is what the moment identities
+want. -/
+lemma Noff_eq_sum_offAt (D : ZeroData) :
+    D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+  classical
+  rw [Noff_from_profile, profile, Multiset.map_map]
+  rfl
+
+/-- **`N_off + Σ onAt = N`.**  The bridge that puts `N_off` inside the joint reach of
+the two families: `N` is an `H`-moment and `Σ onAt` is an on-moment. -/
+lemma Noff_add_onMoment_one (D : ZeroData) : D.Noff + onMoment D 1 = D.N := by
+  classical
+  rw [Noff_eq_sum_offAt, onMoment, N_eq_sum_H, ← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  rw [pow_one]
+  omega
+
+/-- **Both families together still do not determine the profile.**
+
+Two two-atom configurations with `(mass, off-line mass)` profiles `{(3,2),(5,2)}` and
+`{(3,0),(5,4)}`: the mass multiset is `{3,5}` on both sides, so every `H`-moment
+agrees, and the on-line counts are `{1,3}` on both sides, so every on-moment agrees.
+The profiles differ.
+
+So the two marginals do not pin the joint — and by
+`Riemann.Optimal.ledger_determined_by_both_moment_families` every ledger row
+nonetheless agrees on this pair, which is what makes it a statement about the profile
+rather than about the ledger. -/
+theorem profile_not_determined_by_both_families {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (∀ k, momentK (twoAtom γ a 1 1 3 1) k = momentK (twoAtom γ a 3 0 1 2) k)
+      ∧ (∀ p, onMoment (twoAtom γ a 1 1 3 1) p = onMoment (twoAtom γ a 3 0 1 2) p)
+      ∧ profile (twoAtom γ a 1 1 3 1) ≠ profile (twoAtom γ a 3 0 1 2) := by
+  classical
+  have pA := twoAtom_profile hγ ha (k₁ := 1) (j₁ := 1) (k₂ := 3) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 3) (j₁ := 0) (k₂ := 1) (j₂ := 2)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨fun k => ?_, fun p => ?_, ?_⟩
+  · rw [momentK_from_profile, momentK_from_profile, pA, pB]
+    simp
+  · rw [onMoment_from_onProfile, onMoment_from_onProfile,
+      onProfile_eq_profile_map, onProfile_eq_profile_map, pA, pB]
+    simp
+    ring
+  · rw [pA, pB]
+    decide
+
+
 end Blindness
 end Riemann

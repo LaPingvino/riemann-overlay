@@ -67,6 +67,7 @@ ALLOW = {
     "_from_profile": "name suffix, quoted as a family",
     # this repo's own tooling
     "provenance_lint": "forensics script",
+    "claims_gate": "forensics script",
     # dependency modules, named as modules rather than declarations
     "RiemannVonMangoldt.main": "zeta-23 module",
     "Zeta23.RiemannVonMangoldt.main": "zeta-23 module",

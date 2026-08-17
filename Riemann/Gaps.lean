@@ -823,6 +823,21 @@ theorem starBound_exchange_crossover {C : ℝ} :
     (0.6725 : ℝ) - (C - 1) / 6 ≤ 2 - C ↔ C ≤ 1.393 := by
   constructor <;> intro h <;> linarith
 
+/-- **The other crossover: when the star-bound `δ` beats the unconditional one.**
+`SESSION 304`.
+
+`LEADS.md` has carried *"`δ = (C−1)/6` beats the unconditional `0.16375`
+**exactly when** `C < 1.9825`"* as prose. It is a biconditional and it was true,
+but nothing on disk said so — `starBound_exchange_crossover` is a **different**
+crossover (`C ≤ 1.393`, against `2 − C`), and the numeral `1.9825` appears in
+`starBound_of_multiplicity_two`'s conclusion rather than in any comparison.
+
+Found by `claims_gate` after `304` taught it that *"exactly when"* is `iff`
+spelled as an adverb — a shape `302` had used to ship a wrong sentence. -/
+theorem starBound_delta_beats_baseline {C : ℝ} :
+    (C - 1) / 6 < 0.16375 ↔ C < 1.9825 := by
+  constructor <;> intro h <;> linarith
+
 /-- **The off-line exchange, fed the only `β` the machinery makes, strictly
 loses** — `SESSION 162`.
 

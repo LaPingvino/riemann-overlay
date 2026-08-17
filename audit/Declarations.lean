@@ -301,6 +301,8 @@ import Riemann
 -- SESSION 303: equality needs mass 1 or 3, not pure triples; and the rate-3/2 route.
 #check @Riemann.Blindness.three_mul_oddAtoms_eq_cap_witness
 #check @Riemann.proportion_of_oddAtoms
+-- SESSION 304: the crossover LEADS.md carried as prose since 098.
+#check @Riemann.starBound_delta_beats_baseline
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

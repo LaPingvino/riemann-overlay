@@ -50,6 +50,21 @@ POSITIVE = [
     r"\bminimal\b", r"\bthe unique\b", r"\bthe only\b",
     r"\bnothing else\b", r"\bnothing more\b", r"\bnothing beyond\b",
     r"\bif and only if\b", r"\biff\b",
+    # `304`: `302` wrote "the cap is reached **exactly when** every ordinate is
+    # a triple" — a set equality, wrong, and unflagged.  `\bexact\b` does not
+    # match "exactly", and `\bexactly the\b` wants a noun after it.  This is
+    # `iff` spelled as an adverb.
+    #
+    # **Narrowed after measuring, same cycle.**  The first attempt also carried
+    # `exactly where`, `precisely where`, `exactly those`, `precisely those`.
+    # Triage of what those added: `E.md`'s *"the plane appears precisely where
+    # arithmetic enters"*, `LOOP.md`'s *"improvements to the trusted base are
+    # precisely where vigilance relaxes"* (quoted again in `METHOD.md`), and
+    # `RULING.md`'s *"leaves the project exactly where it is"* — four idioms,
+    # no claims.  `where` and `those` are ordinary English; `when` and `if` are
+    # where the biconditional lives.  `S39`: the filter is fitted to a triage,
+    # and the triage is written down here.
+    r"\bexactly when\b", r"\bexactly if\b", r"\bprecisely when\b",
     r"\bcomplete(?:ly)? characteris", r"\bthe whole residue\b",
     r"\bnecessary and sufficient\b",
 ]
@@ -143,6 +158,9 @@ CALIBRATION = [
     ("A complete characterisation of the class is the only thing that would do.",
      True),
     ("In exact rationals, no floating point.", False),
+    # `304`: the shape `302` shipped a wrong sentence in.  Historical — the
+    # sentence was corrected at `303`, so this is not a live defect (`S89`).
+    ("The cap is reached exactly when every ordinate is a triple.", True),
     ("The exact m = 7 ladder value is 7415/12000, a repeating decimal.", False),
     ("Anything needing the exact value should use the ladder directly.", False),
 ]
@@ -166,6 +184,8 @@ DOWNGRADE = [
     ("nothing else", "possibly more"), ("nothing more", "possibly more"),
     ("minimal", "sufficient"), ("the unique", "a"), ("the only", "a"),
     ("if and only if", "if"), ("cannot be", "is not known to be"),
+    ("exactly when", "when"), ("exactly if", "if"),
+    ("precisely when", "when"),
     ("are the same", "are related"), ("is exactly the", "is a"),
     ("not a coincidence", "possibly a coincidence"),
     ("two readings of one", "two readings of related"),

@@ -14413,3 +14413,62 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 certified `N_sc` row on `0.50875`, and they land there because one theorem
 supplies both inputs — so what pins this row is its supplier rather than the
 argument consuming it.
+
+## The gate learns one shape, and the shape finds an unwitnessed `iff`
+
+**Piece — the blind spot `303` exposed.** `302` shipped *"the cap is reached
+**exactly when** every ordinate is a triple"*, which was wrong, and
+`claims_gate` passed it. The reason is mechanical: `POSITIVE` carries
+`\bexact\b`, which does not match `exactly`, and `\bexactly the\b`, which wants a
+noun. *"Exactly when"* is `iff` spelled as an adverb, and the gate had no
+pattern for it.
+
+**Kill condition, filed first:** *if adding the shape also flags sentences that
+are correct as written — if the calibration goes red or the register counts jump
+— the shape is too broad and I report the blind spot without widening the gate.*
+**It fired on half of the first draft.**
+
+The first draft added `exactly when|where|those|if` and
+`precisely when|where|those`. Register total went `194 → 206`. Triaging the
+visible new flags: **one claim and four idioms** — `E.md`'s *"the plane appears
+precisely where arithmetic enters"*, `LOOP.md`'s *"improvements to the trusted
+base are precisely where vigilance relaxes"* (quoted again in `METHOD.md`), and
+`RULING.md`'s *"leaves the project exactly where it is"*. `where` and `those`
+are ordinary English; the biconditional lives in `when` and `if`.
+
+Narrowed to `exactly when`, `exactly if`, `precisely when`: delta `+2`,
+calibration `7/7`, and the triage is written into the file beside the patterns
+per `S39`.
+
+**A second thing the measurement showed.** Part of the `+12` was not new
+sentences. The gate reports the first match per sentence, so a new pattern
+reorders which trigger speaks — `S52`'s masking shape, seen from the other side.
+A flag-count delta is not a count of newly-caught sentences, and I would have
+quoted it as one. Filed as `S120`.
+
+**Wildcard — what the narrowed shape caught.**
+
+`LEADS.md` has carried since `098`: *"`δ = (C−1)/6` beats the unconditional
+`0.16375` **exactly when** `C < 1.9825`."* A biconditional, true, and nothing on
+disk said so. `Riemann.starBound_exchange_crossover` is a **different**
+crossover (`C ≤ 1.393`, against `2 − C`); the numeral `1.9825` turns up in
+`Riemann.starBound_of_multiplicity_two`'s conclusion, which is a bound rather
+than a comparison.
+
+`starBound_delta_beats_baseline`: `(C − 1)/6 < 0.16375 ↔ C < 1.9825`,
+axiom-free, three lines, cited at the `LEADS.md` sentence so the gate clears
+there.
+
+**Snag, bin 2.** `python3 forensics/claims_gate.py` with no file argument lints
+**stdin**, so my calibration run blocked until the ten-minute timeout killed it.
+That is `S49` exactly — *"one of them scanned nothing"* — and the same property
+that made a guard silently no-op in `147` made a command hang in `304`. `R27`
+would have found it; the command felt too small to query.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, `LEADS.md` back to its
+baseline `69`.
+
+**Might-mean, unhedged:** this project's prose says `iff` in more ways than its
+gate knows, so the sentences most likely to be wrong are the ones whose logical
+form is carried by an adverb rather than a connective.

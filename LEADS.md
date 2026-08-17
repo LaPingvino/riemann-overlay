@@ -2190,7 +2190,8 @@ inequalities bounding that quantity, and they consume three different inputs:
 The third is the only one that consumes a star bound, and it is why the `/6`
 bridge exists. With a star bound `C` it gives `δ = (C−1)/6`, which beats the
 unconditional `0.16375` exactly when `C < 1.9825` — the threshold `098` recorded
-from the other direction.
+from the other direction, and since `304` a theorem,
+`Gaps.starBound_delta_beats_baseline`, rather than prose.
 
 **So `(★)`'s entire contribution to the `Nsc` row is a bound on the haunted
 count.** Route I and Route III exist to buy a `C`; what a `C` buys is `δ`.

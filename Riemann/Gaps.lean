@@ -992,6 +992,48 @@ theorem noSmallHaunted_strict {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j
       rw [Blindness.configAt_H] at h2'
       simp at h2'
 
+/-- `NoSmallHaunted.mono` iterated: a rung implies every rung below it. -/
+theorem NoSmallHaunted.mono_le {F : Family} {n m : ℕ} (h : n ≤ m) :
+    NoSmallHaunted F m → NoSmallHaunted F n := by
+  revert h
+  induction m with
+  | zero => intro h hm; rw [show n = 0 by omega]; exact hm
+  | succ k ih =>
+      intro h hm
+      rcases Nat.lt_or_ge n (k + 1) with hn | hn
+      · exact ih (by omega) hm.mono
+      · rw [show n = k + 1 by omega]; exact hm
+
+/-- **Rung `3` is the last free rung.**  `SESSION 297`.
+
+`noSmallHaunted_three` says every family clears rung `3`, which is why
+`certified_nsc_ladder 3 = 0.50875` needs no hypothesis and why it coincides with
+`certified_nsc_unconditional`.  This adds the other side:
+`noSmallHaunted_strict` at `j = 1` produces a family clearing rung `3` and
+failing rung `4`, so no rung above `3` holds of families in general.
+
+**Scope, stated plainly.**  This is a statement about the class `Family`, whose
+only requirement is that the window is eventually nonempty.  Whether
+`zetaFamily` clears rung `4` is untouched by `free_ladder_stops_at_three`; what
+the theorem settles is that a proof of it cannot be family-generic, in the way
+`noSmallHaunted_three`'s is.  The board's `0.590625` row rests on rung `5`, and
+`noSmallHaunted_even_iff` makes rung `4` and rung `5` equivalent, so this is the
+same obstruction sitting under that row too.
+
+**Kill condition, filed first:** *if the ceiling is already on disk under
+another name, this is a re-derivation and the deliverable is the pointer.*  The
+searches run were `statement_index --find 'mono_le|stops|last rung'`, which
+returned one unrelated row, and a grep of `Gaps.lean` and `SESSION.md` for
+`rung 4`, which returned nothing.  It did not fire. -/
+theorem free_ladder_stops_at_three :
+    (∀ F : Family, NoSmallHaunted F 3)
+      ∧ ∀ m : ℕ, 4 ≤ m → ¬ ∀ F : Family, NoSmallHaunted F m := by
+  refine ⟨noSmallHaunted_three, fun m hm hall => ?_⟩
+  obtain ⟨F, _, hno⟩ :=
+    noSmallHaunted_strict (a := (0 : ℝ)) (by norm_num) (j := 1) le_rfl
+  have h4 : NoSmallHaunted F 4 := NoSmallHaunted.mono_le hm (hall F)
+  exact hno (by simpa using h4)
+
 /-- **`111`'s witness, upgraded from `ZeroData` to `Family`.**
 
 The configuration of `Fiber.row_essentially_optimal` — `1000` simple atoms beside

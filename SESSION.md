@@ -13962,3 +13962,63 @@ process index `177` (`R28`).
 **Might-mean, unhedged:** this project's instruments answer questions about what
 exists and have no way to report that a query was malformed, so every absence
 they return is worth exactly as much as the pattern that produced it.
+
+## An obligation carried sixteen cycles because the answer was filed elsewhere
+
+**Piece — the absence queue's `PRICES.md` entry.** It read *"which is one cycle
+to measure and has not been measured"*, about `ThmD.Final`'s wall-clock.
+
+**It was measured, in `281`.** The numbers are in `PRICES.md`'s own table
+further down the same file: `18m12s` = `1092s` one-time, `15.4s` per elaboration
+against a `9.3s` baseline, so about `+6s` recurring; `282` then added
+`ThmD.Mult`, the correct supplier, at `+2m18s`. The queue kept listing the
+obligation because the answer sat at the table and not at the claim — `S36`'s
+shape, and the fix is a paragraph's position. Corrected at the location, dated;
+the queue drops `8 → 7`.
+
+The recommendation's substance survives the correction: the wall-clock is cheap,
+so cost is no longer the reason not to discharge. That ruling is Joop's and it is
+open.
+
+**Wildcard — where the free ladder stops.**
+
+**Kill condition, filed first:** *if the ceiling is already on disk under another
+name, this is a re-derivation and the deliverable is the pointer.* Per `R28` the
+searches are named: `statement_index --find 'mono_le|stops|last rung'` returned
+one unrelated row (`Ncount_mono_left`), and a grep of `Gaps.lean` and
+`SESSION.md` for `rung 4` returned nothing. **It did not fire.**
+
+`free_ladder_stops_at_three`, axiom-free, with `NoSmallHaunted.mono_le` as the
+two-line helper the file was missing:
+
+> every family clears rung `3`, and for every `m ≥ 4` some family does not clear
+> rung `m`.
+
+The first half is `noSmallHaunted_three` and is why `certified_nsc_ladder 3`
+returns `0.50875` with no hypothesis — the certified `N_sc` row **is** the
+ladder's first rung. The second half is `noSmallHaunted_strict` at `j = 1`,
+which builds a family clearing rung `3` and failing rung `4`.
+
+**Scope, stated plainly.** `Family` asks only that the window is eventually
+nonempty. Whether `zetaFamily` clears rung `4` is untouched by
+`Riemann.free_ladder_stops_at_three`; what that theorem settles is that a proof
+of rung `4` has to reach for something outside the `Family` structure, where
+`Riemann.noSmallHaunted_three` reaches for nothing. Since
+`noSmallHaunted_even_iff` makes rungs `4` and `5` equivalent, the same
+obstruction sits under the board's `0.590625` row.
+
+**Snag, bin 3.** The proof compiled in scratch and failed on the way in: a call
+that fitted one line in the scratch file wrapped across two under the project's
+margin, and `(by omega)` starting a line is a parse error rather than a
+continuation. The fix was a `have`. Scratch-to-project transfer has now failed
+on `open` scope (`276`), on namespace resolution (`286`), and on line width.
+Each time the scratch file was the permissive environment and the project file
+the strict one.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, thirteen guards green, statement index `5,151`.
+Hygiene run ends at one (`R20`).
+
+**Might-mean, unhedged:** the certified `N_sc` row sits at the last rung that
+costs nothing, so every further point on that row is bought with a hypothesis
+about zeta rather than with a better argument about counting.

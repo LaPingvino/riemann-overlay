@@ -289,6 +289,9 @@ import Riemann
 #check @Riemann.Blindness.oddAtoms_mod_four
 #check @Riemann.Blindness.hauntedCount_eq_NscStd_sub_Nsc
 #check @Riemann.Blindness.oddAtoms_not_determined_by_ledger
+-- SESSION 297: rung 3 is the last family-generic rung of the ladder.
+#check @Riemann.NoSmallHaunted.mono_le
+#check @Riemann.free_ladder_stops_at_three
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

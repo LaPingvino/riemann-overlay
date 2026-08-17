@@ -1036,6 +1036,18 @@ their theorem gives. That is a floating-point check and not a proof; what it
 establishes is the direction of the rounding, which is the thing that would have
 been alarming the other way.
 
+> **Re-check, `SESSION 297` (2026-08-17).** The recommendation below closes on
+> *"one cycle to measure and has not been measured"*. **It was measured, in
+> `281`**, and the numbers are in this file's own table further down: `ThmD.Final`
+> is `18m12s` = `1092s` one-time, and `15.4s` per elaboration (`15.6`, `17.3`,
+> `13.3`) against a `9.3s` baseline — about `+6s` recurring. `282` then added
+> `ThmD.Mult`, the correct supplier, at `+2m18s`. `absence_queue` carried this
+> obligation for sixteen cycles because the answer was filed at the table and not
+> here; that is `S36`'s shape, and the fix is this paragraph's position.
+>
+> The recommendation's *substance* stands: the wall-clock is cheap, so the reason
+> not to discharge is no longer cost. It is Joop's ruling, and it is open.
+
 **Recommendation.** Neither discharge now. Of the two, the `44,441`-line one is
 worth revisiting, and only if the build turns out cheap in wall-clock — which is
 one cycle to measure and has not been measured.

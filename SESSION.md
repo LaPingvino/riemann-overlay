@@ -13871,8 +13871,15 @@ size to look at, and a sweep over partitions found the witness at `N = 14`.
 *The witness.* `oddAtoms_not_determined_by_ledger`: five atoms of masses
 `6, 2, 2, 2, 2` against four of masses `5, 3, 3, 3`, all on the line.
 `N = 14` and `N⊛ = 52` on both, `N_off = N_sc = NscStd = 0` on both, `oddAtoms`
-`0` against `4`. Built with `chain`, which had been in the file since `183` and
-had no witness using it until now.
+`0` against `4`. Built with `chain`.
+
+> **Correction, `296`.** The sentence that stood here added *"which had been in
+> the file since `183` and had no witness using it until now."* That is false.
+> `chain` carries at least four prior witnesses — `bracket_tight_chain`,
+> `Noff_tight_chain`, `row_essentially_optimal` and the `lowMult` construction
+> at `2756` — and `bracket_tight_chain` computes `oddAtoms` on a chain, which is
+> the same quantity. The theorem is new; the claim about the builder was not
+> checked. `S117`.
 
 *And the converse.* `hauntedCount_eq_NscStd_sub_Nsc` — `hauntedCount` **is** a
 ledger functional, straight off `288`'s partition. So of the two quantities the
@@ -13900,3 +13907,58 @@ declarations.
 multiset only through a residue mod 4, so a family hypothesis that constrains
 `N⊛` constrains how many ordinates carry odd multiplicity in steps of four
 rather than one.
+
+## A zero result was an artefact of the pattern, and `295` shipped it
+
+**Piece — the correction.** `295` said its witness was the first built with
+`chain`. It is not. `chain` carries at least four prior witnesses —
+`bracket_tight_chain`, `Noff_tight_chain`, `row_essentially_optimal`, and the
+`lowMult` construction at `Fiber.lean:2756` — and `bracket_tight_chain`
+computes `oddAtoms` on a chain, the same quantity `295` was separating. The
+theorem `oddAtoms_not_determined_by_ledger` is new; the sentence about the
+builder was not checked. Corrected at its location in `295`; filed as `S117`.
+
+I found it by reading `Fiber.lean:4582` for an unrelated reason one cycle later,
+which is luck rather than process.
+
+**How the zero arose.** The check was `grep -n 'chain a \['` — a pattern that
+matches witnesses inlining a list literal. Every prior one binds the list with
+`set L := …` first. The grep returned nothing and nothing was read as an answer.
+
+**Wildcard, kill condition filed first:** *if `statement_index` would also have
+missed the prior `chain` witnesses, the lesson is an instrument blind spot and
+the deliverable is a guard change; if it would have caught them, the lesson is
+tool choice and the deliverable is a rule.*
+
+**It fired both ways, which is the useful outcome.**
+`statement_index --find 'chain a'` returns eight rows, two of them prior
+witnesses — so `R26`'s instrument was adequate and I used `grep` because the
+question felt too small to warrant it. But `row_essentially_optimal` states
+`∃ D : ZeroData, …` and names no builder, so no search of *statements* can reach
+it. Both halves are true and each gets its deliverable:
+
+* **`R28`** — *a search that returns nothing is a statement about the search.*
+  Before a zero carries a claim, the write-up names what was searched and over
+  what range. `295`'s bounded configuration sweep and `296`'s syntactic grep are
+  different failures with the same sentence as the fix, one cycle apart.
+* **`statement_index.py`** gains the blind spot in its docstring, measured
+  rather than guessed: an existential witness is findable by what it concludes,
+  and `row_essentially_optimal` shows the builder query under-reporting on a
+  witness whose statement names no builder.
+
+**Snag, bin 1.** The correction ran the same direction as `295`'s own bin-1
+snag — an empty search read as a result — and `295` wrote that snag up while
+committing the other instance of it in the same entry. Noticing a failure mode
+and instantiating it in one cycle is not a near miss; it is evidence the noticing
+was about the search I had just run rather than about searches.
+
+**Hygiene cycle, first of at most three** (`R20`). No new Lean; build and ledger
+unmoved by design.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, thirteen guards green, statement index `5,149`,
+process index `177` (`R28`).
+
+**Might-mean, unhedged:** this project's instruments answer questions about what
+exists and have no way to report that a query was malformed, so every absence
+they return is worth exactly as much as the pattern that produced it.

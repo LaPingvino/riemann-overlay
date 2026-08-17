@@ -154,6 +154,18 @@ degradations, not less.
   `git commit` in one shell call; `251d` wrote the rule and `277` broke it
   anyway, which is `S113`. A guard in the roster closes the window to one
   cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
+* **R28 — a search that returns nothing is a statement about the search.**
+  Before a zero result is allowed to carry a claim, the write-up names what was
+  searched and over what range; if that sentence cannot be written, the claim is
+  not available. Two instances one cycle apart. `295` swept configurations of
+  at most `5` atoms and total mass `≤ 12`, found no witness, and nearly reported
+  that `oddAtoms` was a ledger functional — the residue `oddAtoms ≡ N⊛ (mod 4)`
+  put every witness past the cap, and stating the bound was what exposed it.
+  `296` (`S117`) answered *"has `chain` been used as a witness before?"* with
+  `grep -n 'chain a \['`, which matches only witnesses that inline a list
+  literal; every prior one binds the list first, so the zero was an artefact of
+  the pattern and `295` shipped the false claim. The two failures differ —
+  a bounded region, a syntactic pattern — and the same sentence prevents both.
 * **R27 — query the process index before a long or unusual command, and
   before writing a snag up as new.**  `forensics/process_index.py` holds `175`
   entries: the `R`-rule table, the `S` table, and every `ISSUES`/`FAILURES`

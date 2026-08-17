@@ -32,6 +32,23 @@ rule this pairs with is: **search before assuming, and before fetching.**  An
 axiom or a literature request is the moment to run it; a new theorem about the
 ledger is not.
 
+**One blind spot, measured rather than guessed** (`S117`).  This indexes
+*statements*, so a declaration that names a construction only in its proof is
+invisible to a search for that construction.  `row_essentially_optimal` reads
+`∃ D : ZeroData, …` and builds its `D` with `chain` inside the proof; searching
+`chain a` returns eight rows and that is not one of them.  The rule the blind
+spot implies is narrow: **an existential witness cannot be found by what it is
+made of, only by what it concludes** — so search for the *conclusion* when
+asking "has anyone built one of these", and expect the builder query to
+under-report.
+
+`S117` also records the failure this does *not* excuse: `296` answered "has
+`chain` been used as a witness before?" with a grep for `chain a` followed by a
+bracket, which
+matches only witnesses that inline a list literal.  Every prior one binds the
+list with `set L := …` first, so the grep returned zero and the zero was read as
+an answer.  The index would have returned two of the four.
+
 **Staleness is checked, not trusted.**  Run with no arguments to verify the
 committed index still matches the sources; exit `1` if it drifted.  `--write`
 regenerates it.  `--find PATTERN` searches it.

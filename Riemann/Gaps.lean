@@ -1363,6 +1363,21 @@ theorem oddAtoms_input_beats_certified_row_iff {c : ℝ} :
     (0.50875 : ℝ) < (3 * c - 1) / 2 ↔ (0.6725 : ℝ) < c := by
   constructor <;> intro h <;> linarith
 
+/-- **And the `N0star` route is vacuous, not misdirected.**  `SESSION 309`.
+
+`Blindness.onLineOrdinates_eq_oddAtoms_add_evenOnAt` makes the dependency's
+`N0star` equal `oddAtoms` plus a gap, and
+`Blindness.evenOnAt_add_atomCount_le_N` caps the gap by the distinct-zeros
+deficit.  So `onLineOrdinates ≥ c₀·N` together with `atomCount ≥ a·N` gives
+`oddAtoms ≥ (c₀ − (1 − a))·N`, and at the certified `a = 0.6725` that clears `κ`
+only for `c₀ > 1` — while `Blindness.onLineOrdinates_le_N` caps `c₀` at `1`.
+
+The route is the right direction and dies on the arithmetic.  It becomes live if
+the deficit bound improves: at `a`, the threshold is `c₀ > 1.6725 − a`. -/
+theorem onLineOrdinates_route_threshold {c₀ : ℝ} :
+    (0.6725 : ℝ) < c₀ - (1 - 0.6725) ↔ (1 : ℝ) < c₀ := by
+  constructor <;> intro h <;> linarith
+
 /-- **A distinct-zeros proportion is a haunted-density bound, at rate `(1−c)/2`.**
 
 `N − atomCount` is the **distinct-zeros deficit** `N(T) − N_d(T)`, a quantity the

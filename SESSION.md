@@ -14667,3 +14667,56 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 bracket — they count the ordinates that have an on-line zero, we count the ones
 whose count is odd — so the gap between the projects is `#{onAt even and
 positive}`, a quantity neither side has ever bounded.
+
+## `308` closed a route that was open; the arithmetic closes it instead
+
+**Piece — correcting `308` at its location.** That entry wrote that a lower
+bound on `onLineOrdinates` *"bounds `oddAtoms` from below by nothing"* and that
+the next cycle *"should stop here"*. Both are too strong, and I wrote them
+having done the inequality and not the identity.
+
+`onLineOrdinates = oddAtoms + evenOnAt` is a **partition**, so a lower bound on
+the left plus an **upper** bound on the gap does bound `oddAtoms` below. The
+route is the right direction.
+
+**Kill condition, filed first:** *if the composite clears `κ` at an achievable
+`c₀`, then `307`'s and `308`'s "no supplier" are both wrong and the correction
+is the whole cycle; if it needs `c₀ > 1`, the route is right-direction-and-
+vacuous and I say exactly that.* **It needs `c₀ > 1`.**
+
+Four theorems, axiom-free:
+
+* `evenOnAt` — ordinates whose on-line count is even and positive, the quantity
+  `308`'s might-mean named as unbounded by either project;
+* `onLineOrdinates_eq_oddAtoms_add_evenOnAt` — the partition;
+* `evenOnAt_add_atomCount_le_N` — the gap costs mass: an even positive on-line
+  count is at least two, so each such ordinate contributes at least one to the
+  distinct-zeros deficit;
+* `onLineOrdinates_le_N`, and `onLineOrdinates_route_threshold` at the family
+  level.
+
+The composite: `onLineOrdinates ≥ c₀·N` with `atomCount ≥ a·N` gives
+`oddAtoms ≥ (c₀ − (1 − a))·N`. At the certified `a = 0.6725` that clears `κ`
+only for `c₀ > 1`, and `onLineOrdinates ≤ N`. **Vacuous rather than
+misdirected** — and it reopens if the distinct-zeros bound improves, at threshold
+`c₀ > 1.6725 − a`. `PRICES.md` carries that as a live conditional entry instead
+of `308`'s dead end.
+
+**Snag, bin 1.** `308` proved `oddAtoms ≤ onLineOrdinates` and concluded a
+direction from it, when the same cycle could have proved the partition and got
+the truth. An inequality between two counts of subsets of one set is a partition
+with the complement thrown away, and I threw it away and then reasoned from what
+was left.
+
+**Snag, bin 3.** `308` also told the reader to stop. Writing a *"stop here"* into
+a docstring is a load-bearing instruction to future cycles, and it was wrong one
+cycle later. The kill-condition discipline applies to prohibitions too: `308`
+should have said what it had checked, which was one inequality.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green.
+
+**Might-mean, unhedged:** the dependency's on-line count and our odd-atom count
+differ by `Riemann.Blindness.evenOnAt`, whose ordinates each carry a multiple
+zero on the critical line, so what makes this route vacuous is the distinct-zeros
+deficit — the same wall three other routes on this board run into.

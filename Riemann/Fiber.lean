@@ -5042,7 +5042,18 @@ deliverable.*  **It resolves the other way, and that is worth writing down:**
 `oddAtoms ≤ onLineOrdinates`, so bounding `onLineOrdinates` from below bounds
 `oddAtoms` from below by nothing.  `N0star_lower_explicit` and its siblings in
 `Zeta23.Assembly` are the wrong direction for `proportion_of_oddAtoms`, and the
-next cycle to reach for them should stop here. -/
+next cycle to reach for them should stop here.
+
+**Correction, `SESSION 309`.**  *"Bounds `oddAtoms` from below by nothing"* and
+*"should stop here"* are too strong.  A lower bound on `onLineOrdinates` plus an
+**upper** bound on the gap `evenOnAt` does bound `oddAtoms` below —
+`onLineOrdinates = oddAtoms + evenOnAt` is a partition, not an inequality.  The
+route is the right direction and fails on the arithmetic instead:
+`evenOnAt_add_atomCount_le_N` gives `evenOnAt ≤ N − atomCount`, and with the
+certified `atomCount ≥ 0.6725·N` the composite needs
+`onLineOrdinates ≥ c₀·N` with `c₀ > 1` (`onLineOrdinates_route_threshold`),
+while `onLineOrdinates ≤ N`.  Vacuous, not misdirected — and it becomes live if
+the deficit bound improves. -/
 
 /-- **The dependency's `N0star`, in our vocabulary**: ordinates carrying at least
 one on-line zero. -/
@@ -5088,6 +5099,61 @@ theorem onLineOrdinates_le_atomCount (D : ZeroData) :
   obtain ⟨p, hp, rfl⟩ := hγ
   exact Multiset.mem_toFinset.2
     (Multiset.mem_map_of_mem _ (Multiset.mem_of_mem_filter hp))
+
+/-- **The gap between the two vocabularies**: ordinates whose on-line count is
+even and positive.  `308`'s might-mean called this the quantity neither project
+had bounded; `SESSION 309` bounds it. -/
+noncomputable def evenOnAt (D : ZeroData) : ℕ :=
+  (D.ordinates.toFinset.filter fun γ => Even (onAt D γ) ∧ onAt D γ ≠ 0).card
+
+/-- **And the two vocabularies partition.**  Their `N0star` is our `oddAtoms`
+plus this gap — an equality, which is why `308`'s "wrong direction" was wrong. -/
+theorem onLineOrdinates_eq_oddAtoms_add_evenOnAt (D : ZeroData) :
+    onLineOrdinates D = oddAtoms D + evenOnAt D := by
+  classical
+  rw [onLineOrdinates, onOrd_toFinset, oddAtoms_eq_odd_onAt, evenOnAt]
+  have e1 : (D.ordinates.toFinset.filter fun γ => ¬ Even (onAt D γ))
+      = (D.ordinates.toFinset.filter fun γ => onAt D γ ≠ 0).filter
+          fun γ => ¬ Even (onAt D γ) := by
+    rw [Finset.filter_filter]
+    refine Finset.filter_congr fun γ _ => ?_
+    constructor
+    · intro h; exact ⟨fun h0 => h (by rw [h0]; decide), h⟩
+    · intro h; exact h.2
+  have e2 : (D.ordinates.toFinset.filter fun γ => Even (onAt D γ) ∧ onAt D γ ≠ 0)
+      = (D.ordinates.toFinset.filter fun γ => onAt D γ ≠ 0).filter
+          fun γ => ¬ ¬ Even (onAt D γ) := by
+    rw [Finset.filter_filter]
+    refine Finset.filter_congr fun γ _ => ?_
+    constructor
+    · intro h; exact ⟨h.2, by simpa using h.1⟩
+    · intro h; exact ⟨by simpa using h.2, h.1⟩
+  rw [e1, e2]
+  exact (Finset.card_filter_add_card_filter_not _).symm
+
+/-- **The gap costs mass.**  An even positive on-line count is at least two, so
+each such ordinate contributes at least one to the distinct-zeros deficit. -/
+theorem evenOnAt_add_atomCount_le_N (D : ZeroData) :
+    evenOnAt D + atomCount D ≤ D.N := by
+  classical
+  rw [evenOnAt, atomCount, N_eq_sum_H, Finset.card_filter,
+    Finset.card_eq_sum_ones, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [D.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  by_cases h : Even (onAt D γ) ∧ onAt D γ ≠ 0
+  · rw [if_pos h]
+    have h2 : 2 ≤ onAt D γ := by obtain ⟨k, hk⟩ := h.1; omega
+    have := H_eq_onAt_add_offAt D γ
+    omega
+  · rw [if_neg h]; omega
+
+/-- `onLineOrdinates ≤ N`, from the same bound. -/
+theorem onLineOrdinates_le_N (D : ZeroData) : onLineOrdinates D ≤ D.N := by
+  have h1 := onLineOrdinates_le_atomCount D
+  have h2 := evenOnAt_add_atomCount_le_N D
+  omega
 
 /-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
 

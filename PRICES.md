@@ -1074,6 +1074,14 @@ bound excludes `Gauge.pairOnly`. Neither is a supplier.
 Cost if a supplier appeared: **zero axioms** — `proportion_of_oddAtoms` is
 axiom-free and the composite adds nothing.
 
+**`309`: the one route that would have supplied it, priced and closed.** The
+dependency proves `N0star ≥ c₀·N` (`Zeta23.Assembly`, unreached). `309` shows
+`N0star = oddAtoms + evenOnAt` and `evenOnAt ≤ N − atomCount`, so that supply
+converts at `oddAtoms ≥ (c₀ − (1 − a))·N` for any `atomCount ≥ a·N`. At the
+certified `a = 0.6725` the threshold is `c₀ > 1` and `onLineOrdinates ≤ N` caps
+it at `1` — **vacuous**. Reopens if the distinct-zeros bound improves: at `a`,
+the threshold is `c₀ > 1.6725 − a`, so `a > 0.6725 + (1 − c₀)` is the ask.
+
 **`307`: the request, stated exactly, and searched for on both sides.**
 `oddAtoms_input_beats_certified_row_iff` fixes the threshold: a supplier must
 give `c > 0.6725`, because `0.50875` is the image of `κ` under the same

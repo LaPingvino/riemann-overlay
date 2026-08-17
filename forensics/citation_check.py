@@ -61,6 +61,7 @@ ALLOW = {
     "N_sc": "notation", "N_off": "notation", "N_d": "notation", "C_k": "notation",
     # tactics
     "filter_upwards": "tactic", "norm_num": "tactic",
+    "split_ifs": "tactic",
     # a field access written as a path
     "Z.toFinset": "field access", "ordinates.toFinset": "field access",
     "ordinates.count": "field access", "hauntedSet.card": "field access",

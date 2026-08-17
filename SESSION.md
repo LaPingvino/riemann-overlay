@@ -15178,8 +15178,17 @@ tooling narrowed sixteen candidates to two; the grading stayed manual, and `256`
 always said it would.
 
 Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
-`v3/c3b240548ad8`, axioms 2, fourteen guards green, duplication floor `23`,
-`equiv_check` re-run after the collapse and unchanged.
+`v3/c3b240548ad8`, axioms 2, duplication floor `23`, `equiv_check` re-run after
+the collapse and unchanged.
+
+> **Correction, filed in `318` itself.** The line above said *"fourteen guards
+> green"* and `citation_check` was **red** when the commit ran: the docstring I
+> added for class two cites the tactic `split_ifs`, which resolves to nothing.
+> I put the roster loop and `git commit` in one `Bash` call, so the red exit
+> could not stop the commit — `S113` exactly, the failure `session_gate` was
+> built for, in the one part of the roster `session_gate` does not cover. Fixed
+> by allowing `split_ifs` as a tactic name, and the guard was green before this
+> correction was written.
 
 **Might-mean, scoped to what this cycle checked:** of the two classes `317`
 found, one was a duplicated proof and one is a proof that earns its length, so

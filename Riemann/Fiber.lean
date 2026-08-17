@@ -7813,5 +7813,61 @@ theorem Nsc_determined_by_moments_of_cap {D D' : ZeroData} {b : ℕ}
   exact_mod_cast mul_left_cancel₀ hne key
 
 
+/-! #### The moment sequence and the ledger's own row — `SESSION 347`
+
+`346` proved the whole moment sequence determines `N_sc`.  `335` proved no function
+of the sequence computes `NscStd`, in the `¬∃ F` form.  Those are different
+currencies: one is determinacy, the other is non-computability, and `¬∃ F` follows
+from a separating pair rather than exhibiting one.
+
+Below is the pair, which puts both sides of the comparison into determinacy form.
+
+**Kill condition, filed first:** *if a separating pair for `NscStd` in this currency
+is already on disk, the deliverable is the pointer.*  Searched
+`statement_index --find 'not_determined_by_all_moments|momentK_determined|not_determined_by'`
+and read all seven rows: the `_not_determined_by_ledger` family separates
+quantities from the **five ledger counts**, which is a different hypothesis, and
+none of them is about the moment sequence.  It did not fire.
+
+**The witness is `X`'s founding example.**  `haunted_indistinguishable_from_triple`
+has said since the `170`s that a haunted ordinate and a pure triple share their
+ordinates; `momentK_eq_count_sum` turns that into identical moment sequences at
+every `k`.  So the configuration pair that motivated the blindness
+programme is one the moment family does not separate, which is what
+`Riemann.Blindness.NscStd_not_determined_by_all_moments` below records. -/
+
+/-- **The moment sequence does not determine `NscStd`.**  A haunted ordinate
+(`configAt 0 1 1 a`) and a pure on-line triple (`configAt 0 3 0 a`) have equal
+`momentK` at every `k`, and `NscStd` equal to `1` and `0`.
+
+Contrast `Riemann.Optimal.Nsc_determined_by_all_moments`, which says the same
+sequence *does* determine `N_sc` — and the difference between the two rows is
+`hauntedCount`, which is `1` on the left configuration and `0` on the right. -/
+theorem NscStd_not_determined_by_all_moments {a : ℝ} (ha : a ≠ 1/2) :
+    (∀ k, momentK (configAt 0 1 1 a) k = momentK (configAt 0 3 0 a) k)
+      ∧ (configAt 0 1 1 a).NscStd = 1 ∧ (configAt 0 3 0 a).NscStd = 0 := by
+  classical
+  refine ⟨fun k => ?_, (haunted_atom_counts ha).1, ?_⟩
+  · rw [momentK_eq_count_sum, momentK_eq_count_sum,
+      haunted_indistinguishable_from_triple (a := a)]
+  · rw [← config_eq_configAt, config_NscStd 3 0 ha]
+    norm_num
+
+/-- **`346` checked against the pair that breaks `NscStd`.**
+`Riemann.Optimal.Nsc_determined_by_all_moments` requires the two `N_sc` values to
+agree here, since the moment sequences agree.  They do: both are `0`.
+
+This is a test of that theorem rather than a new fact about the configurations — had
+the values differed, `346` would have been refuted rather than illustrated. -/
+theorem Nsc_agrees_on_the_moment_blind_pair {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 1 1 a).Nsc = 0 ∧ (configAt 0 3 0 a).Nsc = 0 := by
+  classical
+  refine ⟨(haunted_atom_counts ha).2.1, ?_⟩
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 3) (j := 0) (by norm_num)
+  norm_num at hp
+  rw [Nsc_from_onProfile, onProfile_eq_profile_map, hp]
+  norm_num
+
+
 end Blindness
 end Riemann

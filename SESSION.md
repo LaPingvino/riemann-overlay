@@ -16856,3 +16856,61 @@ reach is not limited by how many moments you take but by which quantity you ask
 about — it computes `N_sc` from a sequence it can read its own cap off, and by
 `335` it computes none of the four gaps at any length, so the boundary of what
 moments see runs between `N_sc` and `NscStd` rather than anywhere along `k`.
+
+## The moment sequence and the ledger's own row
+
+**Piece.** `346` proved the whole moment sequence determines `N_sc`. `335` proved no
+function of the sequence computes `NscStd` — but in the `¬∃ F` form, which follows
+from a separating pair without exhibiting one. So the two halves of the comparison
+were in different currencies. This puts them in one.
+
+**Kill condition, filed first:** *if a separating pair for `NscStd` in this currency
+is already on disk, the deliverable is the pointer.* Searched
+`statement_index --find 'not_determined_by_all_moments|momentK_determined|not_determined_by'`
+and read all seven rows: the `_not_determined_by_ledger` family separates quantities
+from the **five ledger counts**, a different hypothesis, and none concerns the moment
+sequence. It did not fire.
+
+`Riemann.Blindness.NscStd_not_determined_by_all_moments`: a haunted ordinate
+(`configAt 0 1 1 a`) and a pure on-line triple (`configAt 0 3 0 a`) have equal
+`momentK` at every `k`, and `NscStd` equal to `1` and `0`.
+
+**`S136` — the witness was `X`'s founding example, already on disk.**
+`haunted_indistinguishable_from_triple` has said since the `170`s that those two
+share their ordinates, and `335`'s `momentK_eq_count_sum` turns sharing ordinates
+into sharing every moment. Two existing lemmas composed; no new configuration built.
+The pair that motivated the whole blindness programme is the pair that separates
+`N_sc` from `NscStd` in the moment currency.
+
+**Wildcard — test `346` against the pair that breaks `NscStd`.** **Kill condition,
+filed first:** *if the two `N_sc` values differ, `346` is refuted and that is the
+finding, not the theorem.* It did not fire: `Nsc_agrees_on_the_moment_blind_pair`
+gives `0` and `0`, which is what `346` requires of any pair with equal moment
+sequences. Recorded at the declaration as a test of that theorem rather than as a
+new fact about the configurations.
+
+**The difference between the two rows is `hauntedCount`.** It is `1` on the haunted
+configuration and `0` on the triple, and `hauntedCount_eq_NscStd_sub_Nsc` is the
+identity that makes that the whole gap. So what the moment family cannot see is
+precisely the quantity the project has called central since `181` — stated at the
+declaration, not as a general claim about all quantities.
+
+**Snag, bin 1 — `overclaim_floor` fired twice in one cycle, both on my own new
+prose.** `Fiber.lean` `107 → 109`: *"both sides … are determinacy statements about
+the same object"* and *"is exactly the one the moment family cannot see through"*.
+Both reworded, floor back at `107`. Three of the four cycles since
+`forensics/overclaim_floor.py` shipped have caught something, and in each of those the
+flagged sentence was one I had written that same cycle rather than one from the
+`107`-flag backlog the guard was built to bound.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `24`,
+overclaim floor `203`. No `equiv_check` owed: both new theorems are conjunctions of
+equalities on named configurations, outside its `ℕ`-linear inequality inventory.
+
+**Might-mean, scoped to this pair and these two counts:** two configurations with
+the same ordinates have the same moments, so the moment family sees at most what the
+ordinate multiset sees — and on this pair that is already too little for the ledger's
+reported row while still enough for the project's stronger one, the difference being
+`hauntedCount`, which is what the certified proportion has been paying for since the
+beginning.

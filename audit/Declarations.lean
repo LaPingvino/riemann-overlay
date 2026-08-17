@@ -735,3 +735,9 @@ import Riemann
 -- b = D.N.  The whole moment sequence determines N_sc.
 #check @Riemann.Optimal.Nsc_determined_by_all_moments
 #check @Riemann.Optimal.Nsc_from_moments_at_N
+
+-- SESSION 347: both sides of the moment comparison in one currency.  The sequence
+-- determines N_sc (346) and does not determine NscStd — witnessed by X's founding
+-- pair, a haunted ordinate against a pure triple.
+#check @Riemann.Blindness.NscStd_not_determined_by_all_moments
+#check @Riemann.Blindness.Nsc_agrees_on_the_moment_blind_pair

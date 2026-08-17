@@ -754,3 +754,16 @@ import Riemann
 #check @Riemann.Blindness.node_sum_eq
 #check @Riemann.Blindness.massCount_determined_of_cap
 #check @Riemann.Optimal.massCount_determined_by_all_moments
+
+-- SESSION 349: what would suffice.  348's machinery run on onAt instead of H: the
+-- on-line moments determine NscStd, with no hypothesis.  Not a route (onAt is not a
+-- mu_T functional) but the exact name of the missing datum.
+#check @Riemann.Blindness.sum_prod_eq_sum_weight_moments
+#check @Riemann.Blindness.onCount
+#check @Riemann.Blindness.onMoment
+#check @Riemann.Blindness.node_prod_pointwise_range
+#check @Riemann.Blindness.node_const_range_ne_zero
+#check @Riemann.Blindness.on_node_sum_eq
+#check @Riemann.Blindness.onCount_determined_of_cap
+#check @Riemann.Blindness.NscStd_eq_onCount_one
+#check @Riemann.Optimal.NscStd_determined_by_on_moments

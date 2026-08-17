@@ -7951,6 +7951,20 @@ lemma massCount_one (D : ZeroData) : massCount D 1 = D.Nsc := by
   rw [massCount, Nsc_eq_sum_mass_one_nat, ← Finset.sum_filter]
   simp
 
+/-- **The bridge, for any `ℕ`-valued weight on the atoms.**  `SESSION 349`
+generalised this from the `H`-only form below, because the on-line count needs the
+same argument and copying it would have been a second proof of one sum swap. -/
+lemma sum_prod_eq_sum_weight_moments (D : ZeroData) (w : ℝ → ℕ)
+    (s : Finset ℕ) (c : ℕ → ℤ) {n : ℕ} {a : ℕ → ℤ}
+    (hpoly : ∀ x : ℤ, ∏ i ∈ s, (x - c i) = ∑ k ∈ Finset.range n, a k * x ^ k) :
+    ∑ γ ∈ D.ordinates.toFinset, ∏ i ∈ s, ((w γ : ℤ) - c i)
+      = ∑ k ∈ Finset.range n,
+          a k * ∑ γ ∈ D.ordinates.toFinset, ((w γ : ℤ)) ^ k := by
+  classical
+  rw [Finset.sum_congr rfl fun γ _ => hpoly ((w γ : ℤ)), Finset.sum_comm]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  rw [Finset.mul_sum]
+
 /-- **Any such product, summed over the atoms, is a `ℤ`-combination of moments.**
 The abstract form of `capWitness_eq_sum_moments`: the coefficients are whatever the
 expansion supplies, and the proof is one sum swap. -/
@@ -7959,10 +7973,8 @@ lemma sum_prod_eq_sum_moments (D : ZeroData) (s : Finset ℕ) (c : ℕ → ℤ)
     (hpoly : ∀ x : ℤ, ∏ i ∈ s, (x - c i) = ∑ k ∈ Finset.range n, a k * x ^ k) :
     ∑ γ ∈ D.ordinates.toFinset, ∏ i ∈ s, ((D.H γ : ℤ) - c i)
       = ∑ k ∈ Finset.range n, a k * ((momentK D k : ℕ) : ℤ) := by
-  classical
-  rw [Finset.sum_congr rfl fun γ _ => hpoly ((D.H γ : ℤ)), Finset.sum_comm]
-  refine Finset.sum_congr rfl fun k _ => ?_
-  rw [momentK_cast, Finset.mul_sum]
+  rw [sum_prod_eq_sum_weight_moments D (fun γ => D.H γ) s c hpoly]
+  exact Finset.sum_congr rfl fun k _ => by rw [momentK_cast]
 
 /-- The interpolation at a general node: erasing `j` from `{1, …, B}` gives a product
 that vanishes at every other admissible mass. -/
@@ -8030,6 +8042,113 @@ theorem massCount_determined_of_cap {D D' : ZeroData} {B : ℕ}
         * (massCount D' j : ℤ) := by
     rw [← e1, ← e2, b1, b2, hsum]
   exact_mod_cast mul_left_cancel₀ node_const_ne_zero key
+
+
+/-! #### What would suffice: the on-line moments — `SESSION 349`
+
+`348` closed the moment arc with a boundary: the moment sequence in `H` pins every
+mass count and cannot reach `NscStd` (`347`'s pair).  That says what is missing
+negatively.  This says it positively — **the same machinery, run on `onAt` instead of
+`H`, determines `NscStd`.**
+
+So what a theory would need is not more moments of the multiplicity but the first few
+moments of the *on-line* count.  That is not a route: `onAt` is not a `μ_T`
+functional, which is what `X` has said since the beginning.  What it does is name the
+missing datum exactly, in the same currency the negative result is stated in.
+
+**Kill condition, filed first:** *if `NscStd` is not already the count of ordinates
+with `onAt = 1` on disk, I report the reduction and stop rather than proving a new
+characterisation.*  It did not fire — `NscStd_eq_onAt_one` has been on disk since the
+fiber work.
+
+The node set here is `range (B+1)` rather than `348`'s `Icc 1 B`, because `onAt` can
+be `0`: an ordinate carrying only off-line zeros contributes nothing on the line. -/
+
+/-- How many ordinates have on-line count exactly `n`. -/
+noncomputable def onCount (D : ZeroData) (n : ℕ) : ℕ :=
+  (D.ordinates.toFinset.filter fun γ => onAt D γ = n).card
+
+/-- The `p`-th moment of the on-line count. -/
+noncomputable def onMoment (D : ZeroData) (p : ℕ) : ℕ :=
+  ∑ γ ∈ D.ordinates.toFinset, onAt D γ ^ p
+
+/-- `onMoment` in `ℤ`. -/
+lemma onMoment_cast (D : ZeroData) (p : ℕ) :
+    ((onMoment D p : ℕ) : ℤ)
+      = ∑ γ ∈ D.ordinates.toFinset, ((onAt D γ : ℤ)) ^ p := by
+  rw [onMoment]; push_cast; rfl
+
+/-- `348`'s node interpolation over `{0, …, B}`, which is the range `onAt` lives in. -/
+lemma node_prod_pointwise_range {m n B : ℕ} (hB : m ≤ B) :
+    ∏ i ∈ (Finset.range (B + 1)).erase n, ((m : ℤ) - (i : ℤ))
+      = if m = n then
+          ∏ i ∈ (Finset.range (B + 1)).erase n, ((n : ℤ) - (i : ℤ)) else 0 := by
+  classical
+  by_cases hm : m = n
+  · rw [if_pos hm, hm]
+  · rw [if_neg hm]
+    refine Finset.prod_eq_zero (i := m) ?_ (by ring)
+    exact Finset.mem_erase.2 ⟨hm, Finset.mem_range.2 (by omega)⟩
+
+/-- …with a nonzero normalising constant, for the same reason. -/
+lemma node_const_range_ne_zero {n B : ℕ} :
+    ∏ i ∈ (Finset.range (B + 1)).erase n, ((n : ℤ) - (i : ℤ)) ≠ 0 := by
+  classical
+  rw [Finset.prod_ne_zero_iff]
+  intro i hi
+  have hin : i ≠ n := (Finset.mem_erase.1 hi).1
+  intro hz
+  exact hin (by exact_mod_cast (sub_eq_zero.1 hz).symm)
+
+/-- The node sum counts one on-line value. -/
+theorem on_node_sum_eq (D : ZeroData) {n B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ B) :
+    ∑ γ ∈ D.ordinates.toFinset,
+        ∏ i ∈ (Finset.range (B + 1)).erase n, ((onAt D γ : ℤ) - (i : ℤ))
+      = (∏ i ∈ (Finset.range (B + 1)).erase n, ((n : ℤ) - (i : ℤ)))
+        * (onCount D n : ℤ) := by
+  classical
+  have hstep : ∀ γ ∈ D.ordinates.toFinset,
+      ∏ i ∈ (Finset.range (B + 1)).erase n, ((onAt D γ : ℤ) - (i : ℤ))
+        = if onAt D γ = n then
+            ∏ i ∈ (Finset.range (B + 1)).erase n, ((n : ℤ) - (i : ℤ)) else 0 :=
+    fun γ hγ => node_prod_pointwise_range (h γ hγ)
+  rw [Finset.sum_congr rfl hstep, ← Finset.sum_filter, Finset.sum_const,
+    nsmul_eq_mul, onCount]
+  ring
+
+/-- **Under a common cap, the on-line moments determine every on-line count.**
+`348`'s argument with `onAt` in place of `H`, through the weighted bridge. -/
+theorem onCount_determined_of_cap {D D' : ZeroData} {B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ B)
+    (h' : ∀ γ ∈ D'.ordinates.toFinset, onAt D' γ ≤ B)
+    (hm : ∀ p, onMoment D p = onMoment D' p) (n : ℕ) :
+    onCount D n = onCount D' n := by
+  classical
+  obtain ⟨m, a, hvan, hpoly⟩ :=
+    exists_poly_of_prod (fun i => (i : ℤ)) ((Finset.range (B + 1)).erase n)
+  have e1 := on_node_sum_eq D (n := n) h
+  have e2 := on_node_sum_eq D' (n := n) h'
+  have b1 := sum_prod_eq_sum_weight_moments D (fun γ => onAt D γ)
+    ((Finset.range (B + 1)).erase n) (fun i => (i : ℤ)) hpoly
+  have b2 := sum_prod_eq_sum_weight_moments D' (fun γ => onAt D' γ)
+    ((Finset.range (B + 1)).erase n) (fun i => (i : ℤ)) hpoly
+  have hsum : ∑ k ∈ Finset.range m,
+        a k * ∑ γ ∈ D.ordinates.toFinset, ((onAt D γ : ℤ)) ^ k
+      = ∑ k ∈ Finset.range m,
+        a k * ∑ γ ∈ D'.ordinates.toFinset, ((onAt D' γ : ℤ)) ^ k :=
+    Finset.sum_congr rfl fun k _ => by
+      rw [← onMoment_cast, ← onMoment_cast, hm k]
+  have key : (∏ i ∈ (Finset.range (B + 1)).erase n, ((n : ℤ) - (i : ℤ)))
+        * (onCount D n : ℤ)
+      = (∏ i ∈ (Finset.range (B + 1)).erase n, ((n : ℤ) - (i : ℤ)))
+        * (onCount D' n : ℤ) := by
+    rw [← e1, ← e2, b1, b2, hsum]
+  exact_mod_cast mul_left_cancel₀ node_const_range_ne_zero key
+
+/-- The ledger's reported row is the `onAt = 1` count. -/
+lemma NscStd_eq_onCount_one (D : ZeroData) : D.NscStd = onCount D 1 := by
+  rw [onCount, NscStd_eq_onAt_one]
 
 
 end Blindness

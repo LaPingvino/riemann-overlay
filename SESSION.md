@@ -16990,3 +16990,55 @@ moment sequence pins the mass distribution completely — `momentK_one` gives `N
 `347`'s pair shows it cannot reach `NscStd`, so the moment route's failure is not a
 shortage of moments but a mismatch of question: it measures how the zeros clump and
 the ledger's reported row asks which side of the line they sit on.
+
+## What would suffice: the on-line moments
+
+**Piece.** `348` closed the moment arc with a boundary — the `H`-moment sequence pins
+every mass count and cannot reach `NscStd` (`347`'s pair). That states what is missing
+negatively. This states it positively: **the same machinery, run on `onAt` instead of
+`H`, determines `NscStd`.**
+
+**Kill condition, filed first:** *if `NscStd` is not already the count of ordinates
+with `onAt = 1` on disk, I report the reduction and stop rather than proving a new
+characterisation.* It did not fire — `NscStd_eq_onAt_one` has been there since the
+fiber work.
+
+`Riemann.Optimal.NscStd_determined_by_on_moments`: two configurations agreeing on
+`onMoment p` at every `p` have equal `NscStd`. **No hypothesis at all** — `onAt ≤ H ≤ N`
+gives each a bound and `B = max D.N D'.N` a common one, so the two `N`s need not agree,
+which matters because the on-line moments do **not** determine `N`.
+
+**What this is and is not.** It is not a route: `onAt` is not a `μ_T` functional, which
+is what `X` has said from the beginning. What it is is the missing datum named exactly,
+in the same currency the negative result is stated in — a theory that could see the
+on-line count's moments would compute the ledger's reported row, and one that sees only
+the multiplicity's moments provably cannot.
+
+**One generalisation rather than one copy.** The bridge from a product over the atoms
+to a moment combination was stated at `348` for `H` only. Running it on `onAt` would
+have been a second proof of one sum swap, so it is now
+`sum_prod_eq_sum_weight_moments`, for any `ℕ`-valued weight, and `348`'s version is a
+two-line corollary of it. The node set also changed: `range (B+1)` rather than `348`'s
+`Icc 1 B`, because `onAt` can be `0` — an ordinate carrying only off-line zeros
+contributes nothing on the line.
+
+**`S138`.** A cycle spent saying what the moments cannot do carried the tools for
+saying what a different family can. The negative had a positive twin one substitution
+away, and I only found it by asking what the machinery would prove about a different
+weight rather than what the theorem was about.
+
+**Snag, bin 2 — `duplication_floor` `24 → 25`, the fourth route to a row.**
+`NscStd_determined_by_on_moments` shares its conclusion with `NscStd_determined`
+(`617`), which reaches it from `(ordinates, offAt)` agreement. Neither implies the
+other: that one assumes the ordinates match pointwise, this one assumes only a moment
+sequence. `256`'s rule calls that a route, so the floor is raised with the reason here.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `25`,
+overclaim floor `203` — nothing new flagged this cycle, which is the second time in
+six that the docstrings came out clean first pass.
+
+**Might-mean, scoped to the two families compared:** the ledger's reported row is
+computable from a moment family and it is the wrong one, so the obstruction the project
+has called `X` is not that `NscStd` resists summary statistics but that the statistic
+which summarises it is the one a `μ_T`-invariant theory cannot form.

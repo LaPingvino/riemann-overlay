@@ -711,6 +711,28 @@ theorem massCount_determined_by_all_moments {D D' : ZeroData}
     (fun γ _ => by have := H_le_N D' γ; omega)
     hm j
 
+/-- **The on-line moments determine `NscStd`, with no hypothesis.**  `SESSION 349`.
+
+`347` exhibited a pair with identical `H`-moment sequences and different `NscStd`;
+`348` showed the `H`-moments pin every mass count. This is the positive counterpart:
+swap `H` for `onAt` and `NscStd` becomes determined.
+
+No cap hypothesis is needed. `onAt ≤ H ≤ N` for each configuration, and taking
+`B = max D.N D'.N` supplies a common bound without assuming the two `N`s agree —
+which they need not, since the on-line moments do not determine `N`. -/
+theorem NscStd_determined_by_on_moments {D D' : ZeroData}
+    (hm : ∀ p, Blindness.onMoment D p = Blindness.onMoment D' p) :
+    D.NscStd = D'.NscStd := by
+  have hon : ∀ (E : ZeroData) (γ : ℝ), Blindness.onAt E γ ≤ E.N := by
+    intro E γ
+    have h := Blindness.H_eq_onAt_add_offAt E γ
+    have h2 := H_le_N E γ
+    omega
+  rw [Blindness.NscStd_eq_onCount_one, Blindness.NscStd_eq_onCount_one]
+  exact Blindness.onCount_determined_of_cap (B := max D.N D'.N)
+    (fun γ _ => le_trans (hon D γ) (le_max_left _ _))
+    (fun γ _ => le_trans (hon D' γ) (le_max_right _ _)) hm 1
+
 /-- A **cheap constraint**: an upper bound on horizontal multiplicity.  This is
 the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, and
 it involves no multiplicative information whatever. -/

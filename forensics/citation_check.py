@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Every declaration name a Lean docstring cites, resolved against the sources.
+"""Every declaration name the prose cites, resolved against the sources.
+
+**Scope, since `359`:** every `/-- … -/` in `Riemann/`, **and** `MAP.md` in full —
+see `EXTRA_PROSE` below.  The title said "a Lean docstring" until `359` added the
+second surface; the mechanism is unchanged and only the scan set grew.
 
 **Why this exists.**  `300` closed on *"the risk in this project is not
 arithmetic but the citations threaded through prose that no instrument can
@@ -14,7 +18,8 @@ name in the prose describing the fixed proof.  A wrong name from a failed
 attempt fossilised in the docstring of the attempt that succeeded.
 
 **What it does.**  Pulls backtick-quoted, identifier-shaped tokens out of every
-`/-- … -/` in `Riemann/`, and resolves each against declarations in `Riemann/`
+`/-- … -/` in `Riemann/` and out of every file in `EXTRA_PROSE`, and resolves each
+against declarations in `Riemann/`
 (theorem, lemma, def, abbrev, structure, axiom, instance, inductive), structure
 field names, and the vendored dependency's declarations and module paths.
 Namespace prefixes are tolerated on the way in — the project writes
@@ -145,8 +150,32 @@ def resolves(tok, known, dep_names, dep_modules):
     return False
 
 
+# `359`: `MAP.md` is a one-page synthesis whose every claim names a declaration.  It is
+# scanned here in full — not just docstring blocks — so the map cannot drift from the
+# names it cites.  The document was written to need no `ALLOW` entries: script names
+# carry their `forensics/…py` path and non-declarations like the `v1.0` tag are not
+# backticked, so every backticked identifier-shaped token in it is a declaration.
+EXTRA_PROSE = ("MAP.md",)
+
+
 def citations():
     out = {}
+    for name in EXTRA_PROSE:
+        p = os.path.join(ROOT, name)
+        if not os.path.exists(p):
+            die_harness(f"{name} is in EXTRA_PROSE but not on disk")
+        with open(p, encoding="utf-8") as fh:
+            s = fh.read()
+        for t in TICK.findall(s):
+            t = t.strip()
+            if not IDENT.match(t):
+                continue
+            if "_" not in t and "." not in t:
+                continue
+            if t.endswith(".md") or t.endswith(".lean") or t.endswith(".py") \
+                    or t.endswith(".json") or t.endswith(".go") or t.endswith(".tsv"):
+                continue
+            out.setdefault(t, name)
     for d, dirs, fs in os.walk(SRC):
         dirs[:] = [x for x in dirs if not x.startswith(".")]
         for f in sorted(fs):
@@ -187,7 +216,8 @@ def main():
                                               else "DANGL")
             print(f"  [{tag}] {t:44s} {loc}")
 
-    print("=== declaration names cited in Lean docstrings ===")
+    print("=== declaration names cited in Lean docstrings and " +
+          ", ".join(EXTRA_PROSE) + " ===")
     print(f"  cited          {len(cites)}")
     print(f"  allowed        {sum(1 for t in cites if t in ALLOW)}")
     print(f"  unresolved     {len(bad)}")

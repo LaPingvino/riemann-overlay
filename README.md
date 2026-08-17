@@ -1,5 +1,8 @@
 # riemann — Lean skeleton for the overlay program
 
+> **Start here:** [`MAP.md`](MAP.md) — what this project has established, in one
+> page, with a declaration name behind every claim (`SESSION 359`).
+
 A Lean 4 formalization of the *reduction structure* of the program document
 "Toward 100% of Zeta Zeros on the Critical Line". Not a proof of anything
 about `ζ`: the deliverable is the **interfaces**, and a machine check that the

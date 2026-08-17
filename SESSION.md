@@ -17546,3 +17546,53 @@ off-line zeros are added, and `Nsc_sensitive_to_offLine` says the project's stro
 does, so the paper's *"what the results are not"* and this project's `X` are one
 observation at two resolutions — and at the count level the certificate is not merely
 asymptotically blind to off-line zeros but blind to them outright.
+
+## The map, and it is guarded
+
+**Piece.** I have deferred a synthesis since `349` on the grounds that the arc was
+still moving. It stopped moving: the marginalisation survey closed at `354`, the
+provenance at `357`, and `358` formalised the last clause I had a formal shape for. So
+`MAP.md` — one page, what the project has established, with a declaration name behind
+every claim. Linked from `README.md` as the entry point.
+
+**Kill condition, filed first:** *if any cited name fails to resolve, the map is wrong
+and I fix it before shipping; if more than a few fail, the map is overreaching and I cut
+it back.* It fired, mildly and usefully: the first draft cited `57` identifier-shaped
+tokens and **nine** did not resolve. All nine were script names, a JSON field and a git
+tag — no defect, but nine reasons the page could not be checked mechanically.
+
+**So I made the page conform rather than widen the instrument.** Script names now carry
+their `forensics/…py` path and the tag is not backticked, which means `MAP.md` could be
+added to `forensics/citation_check.py`'s scan set with **zero** `ALLOW` entries. It now
+reports `383` citations across the Lean docstrings and the map, `0` unresolved,
+calibration `4/4`. The map cannot drift from the names it cites without the roster going
+red.
+
+**`S148` — the direction of fit is the transferable part.** `350` declined to widen a
+guard because the cost was eleven false positives; `352` widened one because the cost
+was zero. This is the third shape: **shape the prose to the instrument**. It is the
+cheapest of the three and it was available only because I ran the check before shipping
+the page rather than after.
+
+**Wildcard — does the guard's own description survive the change?** **Kill condition,
+filed first:** *if extending the scan set makes the guard's docstring or its printed
+header false, I correct them at their locations in the same commit — `S132`'s species.*
+It fired. The docstring said *"Every declaration name a Lean docstring cites"* and
+*"out of every `/-- … -/` in `Riemann/`"*, and the printed header said
+*"cited in Lean docstrings"*. All three now name `EXTRA_PROSE`, and the header prints
+its contents so a future addition cannot make it stale again.
+
+**What the map deliberately does not do.** It states no number the registers do not
+already carry, draws no conclusion about the paper's proof, and repeats at §7 that the
+proof is unread. `S88` is the reason: summarising verified material is exactly where a
+claim none of the sources makes gets introduced.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203`. No Lean changed — one new register page, one guard's scan set,
+and two corrections at their locations.
+
+**Might-mean, scoped to this page and the guard now checking it:** a summary that names
+its witnesses can be machine-checked against them, so the register that was most at risk
+of drifting is now the one with the tightest coupling to the source — and the reason no
+earlier cycle wrote it was that the arc kept moving, not that the page was hard.

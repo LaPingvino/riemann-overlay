@@ -779,6 +779,51 @@ theorem currencies_saturate_at_kappa {κ β m : ℝ} (hκ : κ < 1) (hm : 1 < m)
     κ - β / 2 ≤ κ ∧ (m * κ - 1) / (m - 1) < κ :=
   ⟨by linarith, ladder_lt_kappa hκ hm⟩
 
+/-! #### The `13/18` row against this project's ceilings — `SESSION 362`
+
+`361` read `arXiv:2608.13637` §7.3, which prices a conditional row of a kind
+`RULING.md`'s board does not list: under `HL*(k₀)` — Hardy–Littlewood on prime pairs —
+the paper's method gives `liminf N₀ˢ/N ≥ 13/18`. That is `0.7222…`, above this project's certified
+`0.6725`.
+
+The question the board asks of any new number is whether anything the project owns can
+reach it. It cannot, and the three statements below are the machine-checked form of
+that. **They are three-line consequences of `ladder_lt_kappa` and
+`currencies_saturate_at_kappa`; the content is the comparison, not the difficulty.**
+
+**Kill condition, filed first:** *if `13/18` is at or below a row this project already
+holds unconditionally, the comparison is not news and I say so.* It did not fire —
+`0.6725 < 13/18` — so the external row is an improvement on ours, conditional on a
+hypothesis `R5` forbids assuming. -/
+
+/-- **`13/18` on the board's scale.**  Above Route III's `2/3`, above the certified
+`0.6725`, below `[OPEN D]`'s `1 − ε`. -/
+theorem HL_row_on_the_board :
+    (2 / 3 : ℝ) < 13 / 18 ∧ (0.6725 : ℝ) < 13 / 18 ∧ (13 / 18 : ℝ) < 1 := by
+  refine ⟨by norm_num, by norm_num, by norm_num⟩
+
+/-- **No multiplicity hypothesis reaches it.**  Every ladder rung is strictly below
+`0.6725` by `ladder_lt_kappa`, and `0.6725 < 13/18`, so the whole multiplicity currency
+sits under the row at every `m`. -/
+theorem ladder_cannot_reach_HL_row {m : ℝ} (hm : 1 < m) :
+    (m * 0.6725 - 1) / (m - 1) < 13 / 18 := by
+  have h := ladder_lt_kappa (κ := (0.6725 : ℝ)) (by norm_num) hm
+  have h2 : (0.6725 : ℝ) < 13 / 18 := by norm_num
+  linarith
+
+/-- **Nor does off-line control.**  The off-line exchange's output is at most `κ`
+(`currencies_saturate_at_kappa`, first conjunct), and `κ < 13/18`.
+
+Trivial given that saturation, and stated because the board compares numbers: with
+`ladder_cannot_reach_HL_row` this puts the row outside both currencies the project owns
+rather than merely above its current best. -/
+theorem offLine_currency_cannot_reach_HL_row {β : ℝ} (h0 : 0 ≤ β) :
+    (0.6725 : ℝ) - β / 2 < 13 / 18 := by
+  have h := (currencies_saturate_at_kappa (κ := (0.6725 : ℝ)) (m := 2)
+    (by norm_num) (by norm_num) h0).1
+  have h2 : (0.6725 : ℝ) < 13 / 18 := by norm_num
+  linarith
+
 /-! ### What the odd-atom class does to `prop1`'s LP — `SESSION 249`
 
 `247` showed a bound `oddAtoms ≥ c·N` excludes `Gauge.pairOnly`, the

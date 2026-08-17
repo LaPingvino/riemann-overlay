@@ -97,6 +97,16 @@ Gains are on the `Nsc` row over the certified `0.50875`.
 | **Route I** | `> 0.6725` | `> +16.375` | **1** → **0** (`340`) | effective Fujii `c₀ ≤ 0.33` |
 | **[OPEN D]** | `1 − ε` | `+49.125` | **1** → **0** (`340`) | extended support |
 
+> **`362`: a row from outside, priced and placed.** `arXiv:2608.13637` §7.3 gives
+> `liminf N₀ˢ/N ≥ 13/18 = 0.7222…` under `HL*(k₀)`, Hardy–Littlewood on prime pairs.
+> `Riemann.HL_row_on_the_board` puts it above Route III's `2/3` and above the certified
+> `0.6725`, below `[OPEN D]`; `ladder_cannot_reach_HL_row` and
+> `offLine_currency_cannot_reach_HL_row` show **neither currency this project owns
+> reaches it**, at any `m` or `β`. **It is not on the board and should not be:** `HL*` is
+> an open conjecture, and `R5` forbids assuming one. What it changes is the shape of the
+> third currency — *statistics* now has a number attached, and the number is an
+> improvement on ours.
+
 **`340`: the `axioms` column above is superseded by the measurement at the top of
 this page.** Every entry in it is `0`. The hypothesis column is unchanged and is
 now the whole cost of every row.

@@ -815,3 +815,10 @@ import Riemann
 #check @Riemann.constFamily_proportionStd
 #check @Riemann.mixed_chain_counts
 #check @Riemann.proportionStd_admits_positive_offline_density
+
+-- SESSION 362: the 13/18 row of arXiv:2608.13637 section 7.3 against this project's
+-- proved ceilings.  Above Route III and above the certified row; out of reach of both
+-- currencies the project owns, at every m and every beta.
+#check @Riemann.HL_row_on_the_board
+#check @Riemann.ladder_cannot_reach_HL_row
+#check @Riemann.offLine_currency_cannot_reach_HL_row

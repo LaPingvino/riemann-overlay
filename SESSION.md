@@ -17703,3 +17703,54 @@ passes `forensics/citation_check.py` with `0` unresolved.
 and this project's certified row at `0.6725`, so the row is `0.0095` below a wall the
 source calls its own — and every remaining currency the board could spend, by the source's
 account, is a prime-pair conjecture rather than anything about the zeros.
+
+## The `13/18` row, placed
+
+**Piece.** `361` read §7.3 and came back with a number the board had no place for:
+under `HL*(k₀)`, the paper's method gives `liminf N₀ˢ/N ≥ 13/18 = 0.7222…`. The board's
+question about any new number is whether anything the project owns can reach it.
+
+**Kill condition, filed first:** *if `13/18` is at or below a row this project already
+holds unconditionally, the comparison is not news and I say so.* It did not fire:
+`0.6725 < 13/18`, so the external row improves on ours — conditional on a hypothesis
+`R5` forbids assuming.
+
+Three statements, and they are honest about being cheap:
+
+* `HL_row_on_the_board` — above Route III's `2/3`, above the certified `0.6725`, below
+  `[OPEN D]`'s `1 − ε`.
+* `ladder_cannot_reach_HL_row` — every ladder rung is below `0.6725 < 13/18`, at every
+  `m > 1`.
+* `offLine_currency_cannot_reach_HL_row` — the off-line exchange's output is at most `κ`,
+  hence below the row, at every `β ≥ 0`.
+
+**`S151` — the theorems are three lines each and that is the point.** They follow from
+`ladder_lt_kappa` and `currencies_saturate_at_kappa`, which have said since `240` that
+both currencies stop at `κ`. What did not exist was the *comparison*: sixty cycles of a
+board whose third currency had a hypothesis shape and no number. Cheap theorems are the
+useful ones when the register they serve is a table of numbers.
+
+**Wildcard — does the board need re-pricing, or only annotating?** **Kill condition,
+filed first:** *if the row belongs on the board, I add it and re-price; if it does not, I
+say why and annotate instead.* It fired toward annotation. `HL*` is an open conjecture,
+`R5` forbids assuming one, and `RULING.md`'s board is a menu of things the project could
+adopt — this is not one. Annotated at the board's location with the three witnesses and
+an explicit *"it is not on the board and should not be"*.
+
+**What it does change** is the shape of the third currency. `PRICES.md` has carried
+*statistics* as location-, statistics- and density-shaped hypotheses since `132`, with no
+constant attached to the middle one. It has one now, and the constant is an improvement
+on ours.
+
+**Snag, bin 1 — `overclaim_floor` fired on `has never carried`.** Cleared by naming
+`RULING.md` as the thing whose board does not list the row, which is both weaker and
+more useful than the absolute. Floor stays at `203`.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`,
+duplication floor `26`, overclaim floor `203`, `forensics/banner_check.py` `0` failing.
+
+**Might-mean, scoped to the three comparisons proved:** the first external number to
+land above this project's row is out of reach of everything the project can spend, so the
+board's real content is not a menu of purchasable rows but a boundary — and the row that
+crosses it is priced in a conjecture about primes rather than in anything about zeros.

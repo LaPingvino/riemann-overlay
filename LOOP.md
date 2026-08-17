@@ -154,6 +154,18 @@ degradations, not less.
   `git commit` in one shell call; `251d` wrote the rule and `277` broke it
   anyway, which is `S113`. A guard in the roster closes the window to one
   cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
+* **R29 — a bound between two counts on one carrier is a partition; name the
+  complement in the same cycle.**  `309`'s snag: `308` proved
+  `oddAtoms ≤ onLineOrdinates`, reasoned a *direction* from it, and was wrong —
+  the identity `onLineOrdinates = oddAtoms + evenOnAt` was one cycle away and
+  reversed the conclusion.  It is not an isolated slip.  Every gap in the chain
+  `N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount` was named **later**
+  than the inequality above it: `hauntedCount` at `292` against `287`'s bound,
+  the odd-above filter at `293`, `evenOnAt` at `309` against `308`'s, and the
+  last at `310`.  In each case the gap carried content the bound did not —
+  `293`'s filter separates two equality characterisations (`305`), `evenOnAt`
+  turned a closed route into a conditional one (`309`).  **The complement is
+  where the information is, and shipping the bound without it is shipping half.**
 * **R28a — and name the *vocabulary* it ran in.**  `R28` says a zero result must
   name what was searched and over what range.  `307` obeyed that and still shipped
   a claim twice: `303` and `306` both recorded *"no supplier on disk"* for the

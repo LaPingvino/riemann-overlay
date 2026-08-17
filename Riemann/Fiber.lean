@@ -5155,6 +5155,59 @@ theorem onLineOrdinates_le_N (D : ZeroData) : onLineOrdinates D ≤ D.N := by
   have h2 := evenOnAt_add_atomCount_le_N D
   omega
 
+/-! #### The last gap in the chain — `SESSION 310`
+
+`309`'s snag was that an inequality between two counts of subsets of one set is
+a partition with the complement thrown away.  Sweeping `Fiber.lean` for
+count-vs-count bounds on the ordinate carrier, the chain
+
+> `N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount`
+
+had three of its four gaps named — `hauntedCount` (`292`), the odd-above filter
+(`293`, inline in `oddAtoms_eq_NscStd_add_oddAbove`), `evenOnAt` (`309`) — and
+one not.
+
+**Kill condition, filed first:** *if the sweep finds no unnamed gap, the pattern
+is exhausted and I say so rather than manufacturing one.*  It found exactly one:
+the ordinates with **no** on-line zero at all. -/
+
+/-- **Ordinates every one of whose zeros is off the critical line.**  `RH` says
+there are none; `offLineOnly_le_Noff` is the unconditional half of that. -/
+noncomputable def offLineOnly (D : ZeroData) : ℕ :=
+  (D.ordinates.toFinset.filter fun γ => onAt D γ = 0).card
+
+/-- **The chain's last partition.** -/
+theorem onLineOrdinates_add_offLineOnly (D : ZeroData) :
+    onLineOrdinates D + offLineOnly D = atomCount D := by
+  classical
+  rw [onLineOrdinates, onOrd_toFinset, offLineOnly, atomCount]
+  have e : (D.ordinates.toFinset.filter fun γ => onAt D γ = 0)
+      = D.ordinates.toFinset.filter fun γ => ¬ (onAt D γ ≠ 0) := by
+    refine Finset.filter_congr fun γ _ => ?_
+    simp
+  rw [e]
+  exact Finset.card_filter_add_card_filter_not _
+
+/-- **Each costs two off-line zeros.**  Such an ordinate has `onAt = 0`, so its
+mass is `offAt`, which is even (`even_offAt`) and positive — hence at least two.
+So `N_off = 0` forces `offLineOnly = 0`: with no off-line mass, every ordinate
+carries an on-line zero. -/
+theorem offLineOnly_le_Noff (D : ZeroData) : 2 * offLineOnly D ≤ D.Noff := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  rw [offLineOnly, hoff, Finset.card_filter, Finset.mul_sum]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [D.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  by_cases h : onAt D γ = 0
+  · rw [if_pos h]
+    have hsum := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    omega
+  · rw [if_neg h]; omega
+
 /-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
 
 `295` showed `oddAtoms` is not a functional of the five ledger counts, and gave

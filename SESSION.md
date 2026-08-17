@@ -14720,3 +14720,54 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 differ by `Riemann.Blindness.evenOnAt`, whose ordinates each carry a multiple
 zero on the critical line, so what makes this route vacuous is the distinct-zeros
 deficit — the same wall three other routes on this board run into.
+
+## The chain, closed: every gap in it now has a name
+
+**Wildcard — sweeping for what `309`'s snag implies.** That snag said an
+inequality between two counts of subsets of one set is a partition with the
+complement thrown away. If that is a pattern rather than one mistake, the sweep
+should find more.
+
+**Kill condition, filed first:** *if the sweep finds no unnamed gap, the pattern
+is exhausted and I say so rather than manufacturing one.* **It found exactly
+one.**
+
+Thirteen count-vs-count bounds on a single `ZeroData` in the index. Restricting
+to the ordinate carrier — where a partition is meaningful — they form one chain:
+
+> `N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount`
+
+Three gaps were named: `hauntedCount` (`292`), the odd-above filter (`293`,
+inline in `oddAtoms_eq_NscStd_add_oddAbove`), `evenOnAt` (`309`). The fourth was
+not.
+
+`offLineOnly` — ordinates with **no** on-line zero, every one of their zeros off
+the critical line. Three theorems, axiom-free:
+`onLineOrdinates_add_offLineOnly` (the partition), and
+`offLineOnly_le_Noff`: `2·offLineOnly ≤ N_off`, because such an ordinate's mass
+**is** its off-line count, which is even and positive. So `N_off = 0` forces
+`offLineOnly = 0` — with no off-line mass every ordinate carries an on-line
+zero, which is the unconditional half of what RH asserts about this quantity.
+
+**Piece — `R29`.** Every gap in that chain was named *later* than the inequality
+above it, and in each case the gap carried content the bound did not: `293`'s
+filter is what separates two equality characterisations (`305`), and `evenOnAt`
+turned a closed route into a conditional one (`309`). The rule: **a bound between
+two counts on one carrier is a partition; name the complement in the same
+cycle.**
+
+**Snag, bin 2.** The sweep took one `ast`-free pass over the statement index and
+returned thirteen rows, of which the six on the ordinate carrier answered the
+question. Four cycles of this arc — `293`, `305`, `309`, `310` — each rediscovered
+one link of a chain that a single query displays end to end. The cost of the
+query is a minute; the cost of not running it was four cycles of finding the next
+link by tripping over it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green.
+
+**Might-mean, unhedged:** these five ordinate counts form a chain whose gaps are
+`hauntedCount`, odd-above, `Riemann.Blindness.evenOnAt` and
+`Riemann.Blindness.offLineOnly`, and `Riemann.Blindness.offLineOnly_le_Noff`
+sends the last of them to zero when `N_off` vanishes — so RH's content, read in
+this vocabulary, is that the chain's top link collapses.

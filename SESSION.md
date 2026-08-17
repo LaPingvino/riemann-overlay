@@ -15009,6 +15009,15 @@ non-negative, so they tighten the bound without loosening its consumer, and
 converting them into proportion would need an *upper* bound on `oddAbove`,
 `evenOnAt` or `offLineOnly` — none of which is on disk.
 
+> **Correction, `316`.** The last sentence's *"they tighten the bound"* is
+> wrong, and so is the implication that this is a new inequality. Substituting
+> the four partitions turns `mass_charges_every_class` into
+> `two_mul_atomCount_add_oddAtoms_le` and back, both by `omega` — they are one
+> inequality in two coordinate systems, and the older one predates this arc.
+> The extra terms tighten nothing. What the decomposition buys is a *reading*:
+> the existing bound **is** "each class charged its minimum mass", and `316`'s
+> `Nsc_add_gaps_le_N_tight` shows the weights `3, 3, 2, 2` cannot be raised.
+
 **Snag, bin 3.** The first attempt rewrote the four `if`s one at a time with
 `if_pos`/`if_neg` and produced a goal asking me to prove `offAt γ = 0` from
 `onAt γ = 1`, which is false. `split_ifs` over all four at once, with the parity
@@ -15022,3 +15031,55 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 `Riemann.Blindness.Nsc_add_gaps_le_N` prices all four gaps against `N` at once
 and specialises to the row's own engine, so what the certified `N_sc` row spends
 is one of four available charges and the other three have never been billed.
+
+## `315`'s new bound was an old one in new coordinates
+
+**Piece — `R25` on my own previous cycle.** `315` shipped
+`mass_charges_every_class` as a sharper mass bound, claimed two subsumptions, and
+said the extra terms *"tighten the bound without loosening its consumer."*
+
+**Kill condition, filed first:** *if `mass_charges_every_class` is equivalent to
+an existing bound after substituting the partitions — if the coordinates are the
+only new thing — then `315` shipped a re-coordinatisation and its docstring must
+say so; if it is strictly stronger, exhibit a configuration where it binds and
+the existing one does not.* **It fired.**
+
+Substituting `314`'s four partitions turns `mass_charges_every_class` into
+`two_mul_atomCount_add_oddAtoms_le` and back, both directions by `omega`. They
+are **one inequality in two coordinate systems**, and the older one predates this
+whole arc. The extra terms tighten nothing. Corrected at `315`'s location, in the
+docstring and the entry, with the two directions kept as `example`s so the build
+re-checks the claim.
+
+**Wildcard — then is the reading worth anything?**
+
+**Kill condition, filed first:** *if the weights are not attained — if no
+configuration meets the bound with equality — then some weight is below its
+class's true minimum and the reading is not even sharp.* It did not fire.
+
+`Nsc_add_gaps_le_N_tight`: `314`'s five-class configuration attains it. Masses
+`1, 3, 3, 2, 2` give `N = 11`, and `1 + 3·1 + 3·1 + 2·1 + 2·1 = 11`. So `3, 3, 2,
+2` are the largest weights their classes admit, and what the decomposition buys
+is a **sharp reading** of an existing inequality — that it *is* "each class
+charged its minimum mass" — rather than a new one.
+
+**Snag, bin 2.** `duplication_floor` went `23 → 24` on the tightness theorem, and
+the cause was a parser artifact: both it and
+`atomCount_decomposition_all_inhabited` opened with the same
+`let L : List (ℕ × ℕ) := …`, and the extractor takes the text after the *last*
+colon. Inlining the list fixed it. I raised no floor — the guard already carries
+two recorded parser artifacts, and adding a third by decree would have hidden a
+real duplicate later.
+
+**Snag, bin 1.** `263` recorded this trap in `Gaps.lean` — *"this is not a
+second derivation, and the twenty lines that used to be here have gone"* — and
+`303` applied `R25` and caught the same shape one cycle after writing the route. `315` did neither, and the reason is that its bound *looked* different:
+five terms against three, in variables the older theorem does not mention.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, duplication floor `23`.
+
+**Might-mean, scoped to what this cycle checked:**
+`Riemann.Blindness.Nsc_add_gaps_le_N_tight` shows the five-class weights are
+attained, so the decomposition of the last four cycles has bought this project a
+vocabulary and a sharpness proof rather than a new inequality.

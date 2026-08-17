@@ -5383,7 +5383,16 @@ disk. -/
 
 /-- **Every class charged its minimum mass.**  Subsumes
 `two_mul_haunted_add_atomCount_le_N` and `evenOnAt_add_atomCount_le_N`, which are
-this with the other classes' weights set to zero. -/
+this with the other classes' weights set to zero.
+
+**Correction, `SESSION 316`.**  It is **equivalent** to
+`two_mul_atomCount_add_oddAtoms_le`, which predates this whole arc — substituting
+the four partitions turns each into the other, and the `example` below runs both
+directions by `omega`.  So this is a **re-coordinatisation**, not a stronger
+bound, and `315`'s *"they tighten the bound without loosening its consumer"* is
+wrong: they tighten nothing.  What the decomposition buys is a reading — the
+existing inequality **is** "each class charged its minimum mass", and the weights
+`3, 3, 2, 2` are its content. -/
 theorem mass_charges_every_class (D : ZeroData) :
     2 * hauntedCount D + 2 * oddAbove D + evenOnAt D + offLineOnly D
       + atomCount D ≤ D.N := by
@@ -5411,6 +5420,47 @@ theorem Nsc_add_gaps_le_N (D : ZeroData) :
   have h1 := mass_charges_every_class D
   have h2 := atomCount_decomposition D
   omega
+
+/-! **The equivalence, kept as `example`s.**  `SESSION 316`, and `R25`: attempt
+the composite before believing two routes differ.  Both directions are `omega`
+over the four partitions, so `315`'s bound and `two_mul_atomCount_add_oddAtoms_le`
+are one inequality in two coordinate systems.  Unnamed, because a named theorem
+here would be a shared conclusion (`256`). -/
+example (D : ZeroData) :
+    2 * atomCount D + oddAtoms D ≤ D.N + 2 * D.Nsc := by
+  have m := mass_charges_every_class D
+  have p2 := NscStd_eq_Nsc_add_haunted D
+  have p3 := oddAtoms_eq_NscStd_add_oddAbove D
+  have p4 := onLineOrdinates_eq_oddAtoms_add_evenOnAt D
+  have p5 := onLineOrdinates_add_offLineOnly D
+  omega
+
+example (D : ZeroData) :
+    2 * hauntedCount D + 2 * oddAbove D + evenOnAt D + offLineOnly D
+      + atomCount D ≤ D.N := by
+  have e := two_mul_atomCount_add_oddAtoms_le D
+  have p2 := NscStd_eq_Nsc_add_haunted D
+  have p3 := oddAtoms_eq_NscStd_add_oddAbove D
+  have p4 := onLineOrdinates_eq_oddAtoms_add_evenOnAt D
+  have p5 := onLineOrdinates_add_offLineOnly D
+  omega
+
+/-- **The weights cannot be raised.**  `SESSION 316`.
+
+`314`'s five-class configuration attains `Nsc_add_gaps_le_N` with equality:
+masses `1, 3, 3, 2, 2` give `N = 11`, and `1 + 3 + 3 + 2 + 2 = 11`.  So each of
+`3, 3, 2, 2` is the largest weight its class admits, and the re-coordinatisation
+is at least a **sharp** reading rather than merely a different one. -/
+theorem Nsc_add_gaps_le_N_tight {a : ℝ} (ha : a ≠ 1/2) :
+    (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]).Nsc + 3 * hauntedCount (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)])
+      + 3 * oddAbove (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]) + 2 * evenOnAt (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)])
+      + 2 * offLineOnly (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]) = (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]).N := by
+  classical
+  obtain ⟨h1, h2, h3, h4, h5, -⟩ := atomCount_decomposition_all_inhabited ha
+  have hp := chain_profile ha [(1,0),(1,1),(3,0),(2,0),(0,1)] (by decide)
+  norm_num at hp
+  have hN : (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]).N = 11 := by rw [N_from_profile, hp]; decide
+  rw [h1, h2, h3, h4, h5, hN]
 
 /-! #### `oddAtoms`, bracketed by the ledger it does not belong to — `SESSION 302`
 

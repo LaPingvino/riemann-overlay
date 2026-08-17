@@ -15788,3 +15788,46 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 at `6 : 2` against `N⊛` and `24 : 6` against the third moment, so each moment
 reweights the same partition differently and the constraints they impose are
 independent rather than nested.
+
+## The general moment, and both copies collapse into it
+
+**Piece — `330`'s own snag, taken.** That cycle shipped a proof identical to
+`329`'s but for four constants, said so, and named the missing piece:
+`Hᵏ − H ≥ mᵏ − m` for `H ≥ m ≥ 1`.
+
+**Kill condition, filed first:** *if the general-`k` lemma cannot be proved
+without more machinery than the two copies it replaces — if it costs more lines
+than the hundred it saves — the copies stay and I report the cost.* **It did not
+fire.**
+
+`pow_excess_mono` is **thirteen lines and needs no induction**. Write `H = m + d`
+and factor `H^(j+1) = H^j·m + H^j·d`; then `m^(j+1) ≤ H^j·m` because `m ≤ H`, and
+`d ≤ H^j·d` because `H^j ≥ 1`, and `omega` closes it. Stating the goal as
+`mᵏ + H ≤ Hᵏ + m` rather than with a subtraction is what made it that short —
+`ℕ`-truncation was the whole difficulty in the shape `330` declined.
+
+`momentK_charges_every_class` at any `k ≥ 1`, axiom-free:
+`(3ᵏ − 3)·hauntedCount + (3ᵏ − 3)·oddAbove + (2ᵏ − 2)·evenOnAt + (2ᵏ − 2)·offLineOnly + N ≤ Σ Hᵏ`.
+
+**The collapse, measured.** `momentK_two` and `momentK_three` bridge the currency
+names, and both earlier theorems become **seven lines each** from roughly fifty:
+`star_charges_every_class` at `k = 2`, `thirdMoment_charges_every_class` at
+`k = 3`. Their statements are unchanged, so `duplication_floor` sits at `23` and
+every citation still resolves. Eighth collapse of this arc, and the first that
+replaced two proofs with one general theorem rather than routing one through
+another.
+
+**Snag, bin 2.** `330` wrote the second copy and its own snag in the same cycle,
+and the general version was thirteen lines away. The rule I would draw is
+narrower than "generalise early": both copies had to exist before the shared
+shape was visible as *four constants* rather than as *two proofs about different
+objects*, and `329` could not have known that. What `330` could have done is what
+it did — say so — and what this cycle adds is that the sentence was worth acting
+on immediately rather than at a fourth moment.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, warnings at the floor `54`, duplication floor `23`.
+
+**Might-mean, scoped to the three theorems now on disk:** the five-class charge
+holds at every moment with weights `3ᵏ − 3` and `2ᵏ − 2`, so the decomposition
+this arc built is not one constraint on the zeros but a countable family of them.

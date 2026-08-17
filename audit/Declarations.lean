@@ -349,6 +349,10 @@ import Riemann
 -- SESSION 329: the decomposition priced in the N* currency.
 #check @Riemann.Blindness.star_charges_every_class
 -- SESSION 330: the same classes at the third moment, and the weights do not scale.
+-- SESSION 331: the general moment; 329 and 330 are now corollaries.
+#check @Riemann.Blindness.momentK_charges_every_class
+#check @Riemann.Blindness.momentK_two
+#check @Riemann.Blindness.momentK_three
 #check @Riemann.Blindness.thirdMoment_charges_every_class
 #check @Riemann.Blindness.third_moment_weights_not_parallel
 #check @Riemann.Blindness.gauge_pair_separates_haunted_and_oddAbove

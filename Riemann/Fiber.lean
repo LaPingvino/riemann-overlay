@@ -5384,156 +5384,130 @@ theorem atomCount_decomposition_all_inhabited {a : ℝ} (ha : a ≠ 1/2) :
   · rw [offLineOnly_from_profile, hp]; decide
   · rw [atomCount_eq_card_profile, hp]; decide
 
-/-! #### The decomposition priced in `N⊛` — `SESSION 329`
+/-! #### The general moment — `SESSION 331`
 
-`315` charged each class its minimum mass against `N`, and `316` found that
-bound was `two_mul_atomCount_add_oddAtoms_le` in new coordinates.  The `N⊛`
-currency is the one the decomposition has not been priced in, and it is the
-currency `R16`'s regrouping works in: a class of minimum mass `m` contributes
-`m² − m` to `N⊛ − N`, so the weights are `6, 6, 2, 2` rather than `3, 3, 2, 2`.
+`330`'s snag: two nearly identical fifty-line proofs, `329`'s at `N⊛` and `330`'s
+at the third moment, differing in four constants.  Its docstring named the
+missing piece — `Hᵏ − H ≥ mᵏ − m` for `H ≥ m ≥ 1` — and declined to write it.
 
-Only the haunted class was priced there — `six_mul_NscStd_le` reads
-`6·NscStd + N ≤ 6·N_sc + N⊛`, which is `6·hauntedCount + N ≤ N⊛` through `288`'s
-partition.  The other three classes were unpriced.
+**Kill condition, filed first:** *if the general-`k` lemma cannot be proved
+without more machinery than the two copies it replaces — if it costs more lines
+than the hundred it saves — the copies stay and I report the cost.*  It did not
+fire: the excess lemma is thirteen lines, and both earlier theorems become
+two-line corollaries.
 
-**Kill condition, filed first:** *if the five-class bound is equivalent to an
-existing one modulo the partitions, it is `315`'s story again and I report the
-pointer.*  `317` built `forensics/equiv_check.py` for exactly this question, and
-`329` ran it after adding the theorem. -/
+The excess lemma's shape is what made it cheap.  Write `H = m + d` and factor
+`H^(j+1) = H^j·m + H^j·d`; then `m^(j+1) ≤ H^j·m` and `d ≤ H^j·d` because
+`H^j ≥ 1`, and `omega` closes it.  No induction, no subtraction. -/
 
-/-- The per-ordinate weight in the `N⊛` currency, isolated because a
-`split_ifs` over four classes explores sixteen branches and half are
-contradictory. -/
-private lemma star_weight (n f : ℕ) (hf : f % 2 = 0) (hpos : 0 < n + f) :
-    6 * (if n = 1 ∧ f ≠ 0 then 1 else 0)
-      + 6 * (if ¬ Even n ∧ n ≠ 1 then 1 else 0)
-      + 2 * (if Even n ∧ n ≠ 0 then 1 else 0)
-      + 2 * (if n = 0 then 1 else 0)
-      + (n + f) ≤ (n + f) * (n + f) := by
+
+-- H^k - H >= m^k - m for 1 <= m <= H, k >= 1, written without subtraction.
+private lemma pow_excess_mono {m H k : ℕ} (hm : 1 ≤ m) (h : m ≤ H) (hk : 1 ≤ k) :
+    m ^ k + H ≤ H ^ k + m := by
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+  obtain ⟨d, rfl⟩ : ∃ d, H = m + d := ⟨H - m, by omega⟩
+  have hH : 1 ≤ m + d := by omega
+  have hP : 1 ≤ (m + d) ^ j := Nat.one_le_pow _ _ hH
+  have h1 : m ^ (j + 1) ≤ (m + d) ^ j * m := by
+    rw [pow_succ]
+    exact Nat.mul_le_mul (Nat.pow_le_pow_left (by omega) j) le_rfl
+  have h2 : (m + d) ^ (j + 1) = (m + d) ^ j * m + (m + d) ^ j * d := by
+    rw [pow_succ]; ring
+  have h3 : d ≤ (m + d) ^ j * d := Nat.le_mul_of_pos_left d (by omega)
+  omega
+
+private lemma moment_weight (n f k : ℕ) (hf : f % 2 = 0) (hpos : 0 < n + f)
+    (hk : 1 ≤ k) :
+    (3 ^ k - 3) * (if n = 1 ∧ f ≠ 0 then 1 else 0)
+      + (3 ^ k - 3) * (if ¬ Even n ∧ n ≠ 1 then 1 else 0)
+      + (2 ^ k - 2) * (if Even n ∧ n ≠ 0 then 1 else 0)
+      + (2 ^ k - 2) * (if n = 0 then 1 else 0)
+      + (n + f) ≤ (n + f) ^ k := by
+  have h2le : 2 ≤ 2 ^ k := Nat.le_self_pow (by omega) 2
+  have h3le : 3 ≤ 3 ^ k := Nat.le_self_pow (by omega) 3
   rcases Nat.eq_zero_or_pos n with h0 | h0
   · subst h0
-    have h2 : 2 ≤ f := by omega
-    norm_num
-    nlinarith [h2]
+    have hkey := pow_excess_mono (m := 2) (H := 0 + f) (k := k) (by omega) (by omega) hk
+    rw [if_neg (by omega : ¬ ((0:ℕ) = 1 ∧ f ≠ 0)),
+      if_neg (by simp : ¬ (¬ Even 0 ∧ (0:ℕ) ≠ 1)),
+      if_neg (by simp : ¬ (Even 0 ∧ (0:ℕ) ≠ 0)), if_pos rfl]
+    omega
   · rcases eq_or_ne n 1 with h1 | h1
     · subst h1
       rcases eq_or_ne f 0 with hz | hz
-      · subst hz; norm_num
-      · have h2 : 2 ≤ f := by omega
-        norm_num [hz]
-        nlinarith [h2]
+      · subst hz
+        rw [if_neg (by simp), if_neg (by simp), if_neg (by simp), if_neg (by simp)]
+        simp
+      · have hkey := pow_excess_mono (m := 3) (H := 1 + f) (k := k) (by omega) (by omega) hk
+        rw [if_pos ⟨rfl, hz⟩, if_neg (by simp), if_neg (by simp), if_neg (by simp)]
+        omega
     · have h2 : 2 ≤ n := by omega
       by_cases he : Even n
-      · rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)),
+      · have hkey := pow_excess_mono (m := 2) (H := n + f) (k := k) (by omega) (by omega) hk
+        rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)),
           if_neg (by tauto : ¬ (¬ Even n ∧ n ≠ 1)),
           if_pos ⟨he, by omega⟩, if_neg (by omega : ¬ n = 0)]
-        nlinarith [h2]
+        omega
       · have h3 : 3 ≤ n := by
           rcases Nat.lt_or_ge n 3 with h | h
           · exfalso; interval_cases n; simp_all
           · exact h
+        have hkey := pow_excess_mono (m := 3) (H := n + f) (k := k) (by omega) (by omega) hk
         rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)), if_pos ⟨he, h1⟩,
           if_neg (by tauto : ¬ (Even n ∧ n ≠ 0)), if_neg (by omega : ¬ n = 0)]
-        nlinarith [h3]
+        omega
 
-/-- **Every class charged its minimum mass in the `N⊛` currency.**
-`6·hauntedCount + 6·oddAbove + 2·evenOnAt + 2·offLineOnly + N ≤ N⊛`.
+theorem momentK_charges_every_class (D : Riemann.ZeroData) {k : ℕ} (hk : 1 ≤ k) :
+    (3 ^ k - 3) * hauntedCount D + (3 ^ k - 3) * oddAbove D
+      + (2 ^ k - 2) * evenOnAt D + (2 ^ k - 2) * offLineOnly D
+      + D.N ≤ momentK D k := by
+  classical
+  rw [hauntedCount_eq_onAt_one_offAt_pos, oddAbove, evenOnAt, offLineOnly,
+    N_eq_sum_H, momentK, Finset.card_filter, Finset.card_filter,
+    Finset.card_filter, Finset.card_filter,
+    Finset.mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [D.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  have hsum := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have := moment_weight (onAt D γ) (offAt D γ) k (by omega) (by omega) hk
+  rw [← hsum] at this
+  convert this using 3
 
-The weights are `m² − m` at each class's minimum mass, which is what `R16`'s
-regrouping bills: `6` at mass three, `2` at mass two, nothing at mass one. -/
+/-- `momentK` at `2` is `N⊛`. -/
+lemma momentK_two (D : ZeroData) : momentK D 2 = D.Nstar := by
+  rw [momentK, Nstar_eq_sum_H_sq]
+  exact Finset.sum_congr rfl fun γ _ => by ring
+
+/-- `momentK` at `3` is the third moment. -/
+lemma momentK_three (D : ZeroData) : momentK D 3 = thirdMoment D := by
+  rw [momentK, thirdMoment]
+  exact Finset.sum_congr rfl fun γ _ => by ring
+
+/-- **Every class charged its minimum mass in the `N⊛` currency**, now a
+corollary of `momentK_charges_every_class` at `k = 2`.  `329` proved it directly
+in fifty lines. -/
 theorem star_charges_every_class (D : ZeroData) :
     6 * hauntedCount D + 6 * oddAbove D + 2 * evenOnAt D + 2 * offLineOnly D
       + D.N ≤ D.Nstar := by
-  classical
-  rw [hauntedCount_eq_onAt_one_offAt_pos, oddAbove, evenOnAt, offLineOnly,
-    N_eq_sum_H, Nstar_eq_sum_H_sq, Finset.card_filter, Finset.card_filter,
-    Finset.card_filter, Finset.card_filter,
-    Finset.mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
-    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
-    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
-  refine Finset.sum_le_sum fun γ hγ => ?_
-  have hpos : 0 < D.H γ := by
-    rw [D.H_eq_count, Multiset.count_pos]
-    exact Multiset.mem_toFinset.1 hγ
-  have hsum := H_eq_onAt_add_offAt D γ
-  obtain ⟨r, hr⟩ := even_offAt D γ
-  have := star_weight (onAt D γ) (offAt D γ) (by omega) (by omega)
-  rw [← hsum] at this
-  convert this using 3
+  have h := momentK_charges_every_class D (k := 2) (by omega)
+  rw [momentK_two] at h
+  norm_num at h
+  exact h
 
-/-! #### The next moment, and the weights do not saturate — `SESSION 330`
-
-`329` closed on the reading that what decides whether a decomposition earns its
-keep is which moment it is charged against.  `N⊛` gave weights `6, 6, 2, 2`; the
-third moment gives `24, 24, 6, 6`, since a class of minimum mass `m` contributes
-`m³ − m`.
-
-**Kill condition, filed first:** *if the third-moment weights are proportional to
-the `N⊛` weights, the ladder saturates at `N⊛` and higher moments add nothing but
-scale; if they are not, each moment is a different constraint.*  `24 · 2 = 48`
-and `6 · 6 = 36`, so **the vectors are not parallel and it did not fire** —
-`third_moment_weights_not_parallel` records the arithmetic.
-
-The pattern continues at every `k` — the weight is `m^k − m` — but only `k = 3`
-is proved here.  A general-`k` proof needs `Hᵏ − H ≥ mᵏ − m` for `H ≥ m ≥ 1`,
-which is a genuine lemma rather than a `nlinarith` per branch, and this cycle
-does not claim it. -/
-
-/-- The per-ordinate weight at the third moment, isolated for the same reason as
-`star_weight`. -/
-private lemma cube_weight (n f : ℕ) (hf : f % 2 = 0) (hpos : 0 < n + f) :
-    24 * (if n = 1 ∧ f ≠ 0 then 1 else 0)
-      + 24 * (if ¬ Even n ∧ n ≠ 1 then 1 else 0)
-      + 6 * (if Even n ∧ n ≠ 0 then 1 else 0)
-      + 6 * (if n = 0 then 1 else 0)
-      + (n + f) ≤ (n + f) * (n + f) * (n + f) := by
-  rcases Nat.eq_zero_or_pos n with h0 | h0
-  · subst h0
-    have h2 : 2 ≤ f := by omega
-    norm_num
-    nlinarith [h2]
-  · rcases eq_or_ne n 1 with h1 | h1
-    · subst h1
-      rcases eq_or_ne f 0 with hz | hz
-      · subst hz; norm_num
-      · have h2 : 2 ≤ f := by omega
-        norm_num [hz]
-        nlinarith [h2]
-    · have h2 : 2 ≤ n := by omega
-      by_cases he : Even n
-      · rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)),
-          if_neg (by tauto : ¬ (¬ Even n ∧ n ≠ 1)),
-          if_pos ⟨he, by omega⟩, if_neg (by omega : ¬ n = 0)]
-        nlinarith [h2]
-      · have h3 : 3 ≤ n := by
-          rcases Nat.lt_or_ge n 3 with h | h
-          · exfalso; interval_cases n; simp_all
-          · exact h
-        rw [if_neg (by tauto : ¬ (n = 1 ∧ f ≠ 0)), if_pos ⟨he, h1⟩,
-          if_neg (by tauto : ¬ (Even n ∧ n ≠ 0)), if_neg (by omega : ¬ n = 0)]
-        nlinarith [h3]
-
-/-- **Every class charged its minimum mass at the third moment.**
-`24·hauntedCount + 24·oddAbove + 6·evenOnAt + 6·offLineOnly + N ≤ Σ H³`. -/
+/-- **The same at the third moment**, a corollary at `k = 3`.  `330` proved it
+directly, and `331`'s snag is that the two proofs differed in four constants. -/
 theorem thirdMoment_charges_every_class (D : ZeroData) :
     24 * hauntedCount D + 24 * oddAbove D + 6 * evenOnAt D + 6 * offLineOnly D
       + D.N ≤ thirdMoment D := by
-  classical
-  rw [hauntedCount_eq_onAt_one_offAt_pos, oddAbove, evenOnAt, offLineOnly,
-    N_eq_sum_H, thirdMoment, Finset.card_filter, Finset.card_filter,
-    Finset.card_filter, Finset.card_filter,
-    Finset.mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
-    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
-    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
-  refine Finset.sum_le_sum fun γ hγ => ?_
-  have hpos : 0 < D.H γ := by
-    rw [D.H_eq_count, Multiset.count_pos]
-    exact Multiset.mem_toFinset.1 hγ
-  have hsum := H_eq_onAt_add_offAt D γ
-  obtain ⟨r, hr⟩ := even_offAt D γ
-  have := cube_weight (onAt D γ) (offAt D γ) (by omega) (by omega)
-  rw [← hsum] at this
-  convert this using 3
+  have h := momentK_charges_every_class D (k := 3) (by omega)
+  rw [momentK_three] at h
+  norm_num at h
+  exact h
 
 /-- **The two weight vectors are not parallel**, so the third moment is a
 different constraint rather than a rescaling of `N⊛`'s. -/

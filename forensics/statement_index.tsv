@@ -10,7 +10,10 @@ ours	Riemann.Basic	lemma	refl_refl	(p : ℝ × ℝ) : refl (refl p) = p	-
 ours	Riemann.Basic	lemma	refl_injective	: Function.Injective refl	-	
 ours	Riemann.Basic	lemma	refl_ne_self	{p : ℝ × ℝ} (h : p.1 ≠ 1 / 2) : refl p ≠ p	-	
 ours	Riemann.Basic	theorem	NscStd_le_NscAny	(D : ZeroData) : D.NscStd ≤ D.NscAny	-	**The dictionary entry: `NscStd ≤ NscAny`.** An on-line zero of multiplicity one *is* a zero of multiplicity one, so every zero our `NscStd` row counts is count
+ours	Riemann.Basic	theorem	NscStd_add_simpleOffLine	(D : ZeroData) : D.NscStd + simpleOffLine D = D.NscAny	-	**The partition `222` had and did not keep.**
+ours	Riemann.Basic	theorem	simpleOffLine_le_Noff	(D : ZeroData) : simpleOffLine D ≤ D.Noff	-	Each such zero is an off-line zero, so the gap costs off-line mass.
 ours	Riemann.Basic	theorem	NscAny_le_NscStd_add_Noff	(D : ZeroData) : D.NscAny ≤ D.NscStd + D.Noff	-	**The reverse dictionary entry: `NscAny ≤ NscStd + Noff`.** `SESSION 161`. `160` gave the forward direction (`NscStd ≤ NscAny`), which lets *our* row be read as
+ours	Riemann.Basic	theorem	NscAny_eq_NscStd_of_Noff_zero	{D : ZeroData} (h : D.Noff = 0) : D.NscAny = D.NscStd	-	**With no off-line mass the two notions of "simple" coincide.** `SESSION 311`. `CLAIMS.md`'s arXiv:2306.04799 comparison rests on `NscStd ≤ NscAny`; this says t
 ours	Riemann.Basic	theorem	NscAny_le_N	(D : ZeroData) : D.NscAny ≤ D.N	-	`NscAny` counts a sub-multiset of the zeros, so it never exceeds `N`.
 ours	Riemann.Basic	theorem	nscAny_import_transfer	(D : ZeroData) {κ c : ℝ} (hκ : κ * D.N ≤ D.NscAny) (hoff : (D.Noff : ℝ) ≤ c * D.N) : (κ - c) * D.N ≤ D.NscStd	-	**The genre wall, as arithmetic rather than as a paragraph.** `SESSION 197`. `NscAny_le_NscStd_add_Noff`'s docstring argues in prose that no lower bound on `Nsc
 ours	Riemann.Basic	theorem	nscAny_import_kappa_le_one	(D : ZeroData) {κ : ℝ} (hN : 0 < (D.N : ℝ)) (hκ : κ * D.N ≤ D.NscAny) : κ ≤ 1	-	**…and the import's own constant can never exceed `1`.** `SESSION 197`. `NscAny ≤ N`, so a hypothesis `NscAny ≥ κ·N` with `N > 0` forces `κ ≤ 1`. This is the ha

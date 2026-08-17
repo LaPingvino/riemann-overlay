@@ -14771,3 +14771,53 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 `Riemann.Blindness.offLineOnly`, and `Riemann.Blindness.offLineOnly_le_Noff`
 sends the last of them to zero when `N_off` vanishes — so RH's content, read in
 this vocabulary, is that the chain's top link collapses.
+
+## `R29` applied to the bounds `310` did not sweep, and one was already inside a proof
+
+**Piece — finishing `310`'s sweep.** That cycle restricted to the ordinate
+carrier and left seven count-vs-count bounds unswept. `R29` says name the
+complement, so I ran it on the rest.
+
+**Kill condition, filed first:** *if every remaining bound already has its
+complement named, `R29` has no backlog and the chain was the only debt it had.*
+It did not fire, and what it found is sharper than a missing name.
+
+`NscStd ≤ NscAny` — ours on the line, the literature's anywhere in the strip.
+Its complement is **simple zeros off the critical line**. `222` computed exactly
+that quantity, as an unnamed `have` inside `NscAny_le_NscStd_add_Noff`'s proof,
+used it once, and discarded it. The partition `R29` asks for had been written and
+thrown away.
+
+`simpleOffLine`, with three theorems, all axiom-free:
+
+* `NscStd_add_simpleOffLine` — the partition `222` had;
+* `simpleOffLine_le_Noff` — each such zero is off-line, so the gap costs off-line
+  mass;
+* `NscAny_eq_NscStd_of_Noff_zero` — **with no off-line mass the two notions of
+  "simple" coincide.** `CLAIMS.md`'s arXiv:2306.04799 comparison rests on
+  `NscStd ≤ NscAny`; this says where that inequality is an equality.
+
+And `NscAny_le_NscStd_add_Noff` collapses from twenty lines to three, because the
+bound is `omega` over the partition and the mass cost. That is the fifth collapse
+of this shape and the first where the discarded object was sitting inside the
+proof it would have shortened.
+
+The other six bounds: `Noff_le_N`'s complement is `card_onOrd_add_Noff`,
+`haunted_le_NscStd`'s is `292`'s partition, `onLineOrdinates_le_N` is mixed-carrier
+with no clean complement, and `NscAny_le_N`, `atomCount_le_distinctZeros`,
+`NscAny_le_distinctZeros` have complements on the distinct-zeros carrier that
+`distinctZeros_le_atomCount_add_Noff` already bounds. One debt, now paid.
+
+**Snag, bin 3.** The insertion landed between a docstring and its theorem for the
+second time in three cycles — `R24a` again, which `301` corrected `299` for and
+which I have now tripped over while writing the entry that cites it. The rule is
+in `LOOP.md` and in the process index; what it lacks is a check, and the build is
+doing that job by accident.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, duplication floor `23`.
+
+**Might-mean, unhedged:** both gaps this project has named against the critical
+line — `Riemann.Blindness.offLineOnly` and `Riemann.ZeroData.simpleOffLine` — are
+bounded by `N_off` and vanish with it, so the whole distance between our
+vocabulary and the literature's is priced in off-line mass.

@@ -232,6 +232,35 @@ theorem NscStd_le_NscAny (D : ZeroData) : D.NscStd ≤ D.NscAny := by
 /-- `N_off`: the number of zeros off the critical line — the zeros RH denies. -/
 noncomputable def Noff : ℕ := Multiset.card (D.Z.filter fun p => p.1 ≠ 1 / 2)
 
+/-- **Simple zeros off the critical line** — `SESSION 311`, applying `R29` to
+`NscStd_le_NscAny`.
+
+`222` computed this quantity inside `NscAny_le_NscStd_add_Noff`'s proof, as an
+unnamed `have`, and discarded it.  It is the gap between the literature's
+"simple" (`NscAny`, anywhere in the strip) and ours (`NscStd`, on the line), and
+`RH` sets it to zero. -/
+noncomputable def simpleOffLine (D : ZeroData) : ℕ :=
+  Multiset.card (D.Z.filter fun p => p.1 ≠ 1/2 ∧ D.Z.count p = 1)
+
+/-- **The partition `222` had and did not keep.** -/
+theorem NscStd_add_simpleOffLine (D : ZeroData) :
+    D.NscStd + simpleOffLine D = D.NscAny := by
+  classical
+  rw [ZeroData.NscStd, simpleOffLine, ZeroData.NscAny]
+  have e1 : (D.Z.filter fun p => p.1 = 1/2 ∧ D.Z.count p = 1)
+      = (D.Z.filter fun p => D.Z.count p = 1).filter fun p => p.1 = 1/2 := by
+    rw [Multiset.filter_filter]
+  have e2 : (D.Z.filter fun p => p.1 ≠ 1/2 ∧ D.Z.count p = 1)
+      = (D.Z.filter fun p => D.Z.count p = 1).filter fun p => ¬ (p.1 = 1/2) := by
+    rw [Multiset.filter_filter]
+  rw [e1, e2, ← Multiset.card_add, Multiset.filter_add_not]
+
+/-- Each such zero is an off-line zero, so the gap costs off-line mass. -/
+theorem simpleOffLine_le_Noff (D : ZeroData) : simpleOffLine D ≤ D.Noff := by
+  classical
+  rw [simpleOffLine, ZeroData.Noff]
+  exact Multiset.card_le_card (Multiset.monotone_filter_right _ fun p hp => hp.1)
+
 /-- **The reverse dictionary entry: `NscAny ≤ NscStd + Noff`.**
 
 `SESSION 161`.  `160` gave the forward direction (`NscStd ≤ NscAny`), which lets
@@ -250,23 +279,18 @@ there are zeros.**  No result of the arXiv:2306.04799 genre can improve the
 ledger this way, at any strength, unconditionally. -/
 theorem NscAny_le_NscStd_add_Noff (D : ZeroData) :
     D.NscAny ≤ D.NscStd + D.Noff := by
-  classical
-  have hsplit :
-      Multiset.card ((D.Z.filter fun p => D.Z.count p = 1).filter
-          fun p => p.1 = 1/2)
-        + Multiset.card ((D.Z.filter fun p => D.Z.count p = 1).filter
-          fun p => ¬ (p.1 = 1/2)) = D.NscAny := by
-    rw [← Multiset.card_add, Multiset.filter_add_not]; rfl
-  have h1 : Multiset.card ((D.Z.filter fun p => D.Z.count p = 1).filter
-      fun p => p.1 = 1/2) ≤ D.NscStd := by
-    rw [Multiset.filter_filter]
-    exact Multiset.card_le_card (Multiset.monotone_filter_right _
-      (by intro p hp; tauto))
-  have h2 : Multiset.card ((D.Z.filter fun p => D.Z.count p = 1).filter
-      fun p => ¬ (p.1 = 1/2)) ≤ D.Noff := by
-    rw [Multiset.filter_filter]
-    exact Multiset.card_le_card (Multiset.monotone_filter_right _
-      (by intro p hp; tauto))
+  have h1 := NscStd_add_simpleOffLine D
+  have h2 := simpleOffLine_le_Noff D
+  omega
+
+/-- **With no off-line mass the two notions of "simple" coincide.**
+`SESSION 311`.  `CLAIMS.md`'s arXiv:2306.04799 comparison rests on
+`NscStd ≤ NscAny`; this says the inequality is an equality exactly where `RH`
+puts us. -/
+theorem NscAny_eq_NscStd_of_Noff_zero {D : ZeroData} (h : D.Noff = 0) :
+    D.NscAny = D.NscStd := by
+  have h1 := NscStd_add_simpleOffLine D
+  have h2 := simpleOffLine_le_Noff D
   omega
 
 /-- `NscAny` counts a sub-multiset of the zeros, so it never exceeds `N`. -/

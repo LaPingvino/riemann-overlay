@@ -324,6 +324,11 @@ import Riemann
 #check @Riemann.Blindness.offLineOnly
 #check @Riemann.Blindness.onLineOrdinates_add_offLineOnly
 #check @Riemann.Blindness.offLineOnly_le_Noff
+-- SESSION 311: simple zeros off the line — the gap 222 computed and discarded.
+#check @Riemann.ZeroData.simpleOffLine
+#check @Riemann.ZeroData.NscStd_add_simpleOffLine
+#check @Riemann.ZeroData.simpleOffLine_le_Noff
+#check @Riemann.ZeroData.NscAny_eq_NscStd_of_Noff_zero
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

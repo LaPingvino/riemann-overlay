@@ -61,7 +61,7 @@ ALLOW = {
     "N_sc": "notation", "N_off": "notation", "N_d": "notation", "C_k": "notation",
     # tactics
     "filter_upwards": "tactic", "norm_num": "tactic",
-    "split_ifs": "tactic",
+    "split_ifs": "tactic", "interval_cases": "tactic",
     # a field access written as a path
     "Z.toFinset": "field access", "ordinates.toFinset": "field access",
     "ordinates.count": "field access", "hauntedSet.card": "field access",
@@ -85,6 +85,7 @@ ALLOW = {
     "List.replicate": "mathlib",
     "le_trans": "mathlib", "sub_mul": "mathlib",
     "finsum_mem_eq_finite_toFinset_sum": "mathlib",
+    "Finset.sum_eq_sum_iff_of_le": "mathlib, kernel-checked 333",
     # `301`: the dead name, quoted by the correction that replaced it.  Its
     # one appearance is inside that correction at `Zeta.lean:58`.  Allowing it
     # costs the guard the ability to catch a *new* use of the same dead name,

@@ -15871,3 +15871,63 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 mass-one, mass-three and mass-two ordinates saturate every moment inequality
 simultaneously, so the configuration that has bounded this project's `N_sc` row
 since `110` is extremal for the whole family rather than for one member of it.
+
+## The saturating condition is mass at most three, and it does not depend on the moment
+
+**Piece and wildcard, one target.** `332` showed the charge is an equality at every
+`k` on one configuration and gave the reason: its ordinates sit at their class
+minima. That reason names no configuration, so it should hold of a class.
+
+**Kill condition, filed first:** *if the equality condition differs between two
+moments — if some configuration is tight at `k = 2` and slack at `k = 3` — then
+the family's members have different equality sets and the characterisation is
+per-`k`.* **It did not fire.**
+
+`momentK_charges_eq_of_mult_le_three`, axiom-free: **mass at most three at every
+ordinate makes the charge an equality at every `k ≥ 1` at once.**
+
+The condition is one the project already names, and the classes line up with it
+exactly. At `H = 1` the ordinate is `N_sc` and its weight is `0`. At `H = 2` the
+on-line count is `0` or `2`, so the class is `offLineOnly` or `evenOnAt` and the
+minimum is `2`. At `H = 3` it is `1` or `3`, so `hauntedCount` or `oddAbove` and
+the minimum is `3`. **Mass at most three puts every class at its own minimum
+simultaneously, and `k` does not enter that** — which is why one hypothesis
+saturates a countable family.
+
+`332`'s configuration is the instance; this is the class. Its five masses are
+`1, 3, 3, 2, 2`.
+
+**Snag, bin 2.** The pointwise lemma is five cases and `interval_cases` takes
+them, once the two bounds are in scope — the general-`k` version needed
+`pow_excess_mono` and a branch each, and this one needs neither, because `H ≤ 3`
+makes the powers of `H` literal. The general lemma was the hard direction and the
+sharp case is the easy one, which is the reverse of how the last four cycles went.
+
+**The gate caught two citations and one thing I cannot yet explain.**
+`citation_check` went red on `interval_cases` — a tactic — and on
+`Finset.sum_eq_sum_iff_of_le`, which I named in the converse note without
+checking. It resolves, kernel-checked this cycle, so the note stands and both are
+in `ALLOW` with reasons; had it not resolved, that note would have been `301`'s
+`finsum_mem_finset` again.
+
+The unexplained part: the same run reported `HARNESS` for `banner_check` and
+`warning_floor`, the two guards that invoke `lake`, and both cleared on a rerun
+with no change in between. `329` saw this and I read it then as transient. Twice
+is not a diagnosis — recorded as unexplained, alongside the fact that each guard
+exits `0` when run on its own.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, warnings at the floor `54`, duplication floor `23`,
+`session_gate` `14/14` in its own call.
+
+**Only one direction is proved, and the entry says so.** `H ≤ 3` gives equality;
+whether equality forces `H ≤ 3` is not proved here. It should follow from strict
+monotonicity of `x ↦ xᵏ − x`, which `331`'s `pow_excess_mono` gives in
+non-strict form only, so the converse needs a strict variant and a pointwise
+argument off `Finset.sum_eq_sum_iff_of_le`. Recorded at the declaration rather
+than implied by the phrasing.
+
+**Might-mean, scoped to the direction proved:** mass at most three saturates every
+moment inequality at once, and that is the hypothesis `297`'s ladder rung and
+`110`'s cap both live under, so the family this arc built is sharp exactly where
+the certified row already argues.

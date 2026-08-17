@@ -5513,6 +5513,74 @@ theorem thirdMoment_charges_every_class (D : ZeroData) :
 different constraint rather than a rescaling of `N⊛`'s. -/
 theorem third_moment_weights_not_parallel : 24 * 2 ≠ 6 * 6 := by decide
 
+/-! #### Which configurations saturate the whole family — `SESSION 333`
+
+`332` showed the charge is an equality at every `k` on one configuration, and gave
+the reason: its five ordinates sit exactly at their class minima.  That reason
+does not mention the configuration, so it should hold of a class of them.
+
+**Kill condition, filed first:** *if the equality condition differs between two
+moments — if some configuration is tight at `k = 2` and slack at `k = 3` — then
+the family's members have different equality sets and the characterisation is
+per-`k`.*  **It did not fire**, and the condition turns out to be one the project
+already names: **mass at most three at every ordinate.**
+
+Why the classes line up with it: at `H = 1` the ordinate is `N_sc` and its weight
+is `0`; at `H = 2` the on-line count is `0` or `2`, so the class is `offLineOnly`
+or `evenOnAt` and the minimum is `2`; at `H = 3` it is `1` or `3`, so `hauntedCount`
+or `oddAbove` and the minimum is `3`.  Mass at most three **is** sitting at the
+class minimum, for every class at once, and the `k` never enters. -/
+
+/-- The pointwise equality, under mass at most three.  With `f` even and
+`n + f ≤ 3` there are five cases and `interval_cases` takes them. -/
+private lemma moment_weight_eq (n f k : ℕ) (hf : f % 2 = 0) (hpos : 0 < n + f)
+    (hk : 1 ≤ k) (h3 : n + f ≤ 3) :
+    (3 ^ k - 3) * (if n = 1 ∧ f ≠ 0 then 1 else 0)
+      + (3 ^ k - 3) * (if ¬ Even n ∧ n ≠ 1 then 1 else 0)
+      + (2 ^ k - 2) * (if Even n ∧ n ≠ 0 then 1 else 0)
+      + (2 ^ k - 2) * (if n = 0 then 1 else 0)
+      + (n + f) = (n + f) ^ k := by
+  have h2le : 2 ≤ 2 ^ k := Nat.le_self_pow (by omega) 2
+  have h3le : 3 ≤ 3 ^ k := Nat.le_self_pow (by omega) 3
+  have hn : n ≤ 3 := by omega
+  have hfb : f ≤ 3 := by omega
+  interval_cases n <;> interval_cases f <;>
+    (simp_all [Nat.even_iff]; try omega)
+
+/-- **Mass at most three saturates every moment at once.**  `SESSION 333`.
+
+`332`'s configuration is one instance; this is the class.  The condition does not
+depend on `k`, so a single hypothesis makes the whole countable family of `331`
+an equality.
+
+**The converse is not proved.**  Equality ought to force `H ≤ 3`, by strict
+monotonicity of `x ↦ xᵏ − x`; `pow_excess_mono` supplies the non-strict form
+only, so the converse wants a strict variant and a pointwise argument off
+`Finset.sum_eq_sum_iff_of_le`.  Left open rather than assumed. -/
+theorem momentK_charges_eq_of_mult_le_three (D : ZeroData) {k : ℕ} (hk : 1 ≤ k)
+    (h3 : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ 3) :
+    (3 ^ k - 3) * hauntedCount D + (3 ^ k - 3) * oddAbove D
+      + (2 ^ k - 2) * evenOnAt D + (2 ^ k - 2) * offLineOnly D
+      + D.N = momentK D k := by
+  classical
+  rw [hauntedCount_eq_onAt_one_offAt_pos, oddAbove, evenOnAt, offLineOnly,
+    N_eq_sum_H, momentK, Finset.card_filter, Finset.card_filter,
+    Finset.card_filter, Finset.card_filter,
+    Finset.mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [D.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  have hsum := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have hb := h3 γ hγ
+  have := moment_weight_eq (onAt D γ) (offAt D γ) k (by omega) (by omega) hk
+    (by omega)
+  rw [← hsum] at this
+  convert this using 3
+
 /-- `momentK` read off the profile. -/
 lemma momentK_from_profile (D : ZeroData) (k : ℕ) :
     momentK D k = ((profile D).map fun q => q.1 ^ k).sum := by

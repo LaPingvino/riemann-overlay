@@ -16295,3 +16295,75 @@ the distinct-zeros shelf `PRICES.md` has priced as convertible pays nothing at a
 input constant, because the deficit it measures is the deficit haunting hides in —
 so a better `δ` than `0.16375` will not come from a better distinct-zeros number,
 and looking for one there is priced work that cannot pay.
+
+## Why the on-line dictionary is an equality where the general one is not
+
+**Piece.** `338` closed the distinct-zeros route because their `Ndist` counts
+*points* and our `atomCount` counts *ordinates*, and the dictionary between them
+runs one way. But the project has been comparing our `onLineOrdinates` to their
+`N0star` in prose since `309` — *"their `N0star` is our `oddAtoms` plus this
+gap"* — and that comparison is between a point count and an ordinate count too.
+Why is one comparison sound and the other not?
+
+**Kill condition, filed first:** *if the bijection needs a hypothesis beyond
+`ZeroData`'s own structure — if `refl_inv` or a distinctness assumption has to be
+invoked — I report the obstruction rather than adding hypotheses until it works.*
+**It did not fire**, and the reason is one sentence: a zero on the critical line
+is `(1/2, γ)`, so its ordinate determines it. The map is `Prod.snd` and
+injectivity is `Prod.ext` on the first coordinate.
+
+`onLineOrdinates_eq_onLinePoints`: **our on-line ordinate count is also a count of
+distinct on-line zeros.** So the asymmetry `338` priced is not about counting
+styles in general — it is entirely a fact about off-line zeros, which come in
+conjugate pairs sharing an ordinate.
+
+**`R29`, so the complement is named in the same cycle.** `offLinePoints`, and
+`onLineOrdinates_add_offLinePoints` makes the point count a partition:
+`distinctZeros = onLineOrdinates + offLinePoints`, an equality.
+
+**And the slack in `338`'s bound turns out to be one inequality wide.**
+`point_slack_exact`: `distinctZeros + offLineOnly = atomCount + offLinePoints`.
+The two sides of `distinctZeros ≤ atomCount + N_off` differ only in *which*
+off-line count each uses, so the single inequality that bound spends is
+`offLinePoints_le_Noff` — and `offLineOnly` is what the ordinate count keeps that
+the point count does not separate out.
+
+**The bridge is still not proved and still not assumed.** `onLineOrdinates` being
+a point count says our quantity is *the kind of thing* `Zeta23.N0star` is. It
+does not say they are equal for `zetaZeroData`, no such theorem exists, and the
+docstring at `309`'s location now says so where it makes the comparison.
+
+**Wildcard — is there a reachable `N0star` constant worth having?** **Kill
+condition, filed first:** *if nothing in the newly reachable set beats what we
+already hold for the on-line distinct count, I report the search and close the
+supply side rather than building a bridge to a weaker number.* It fired.
+Searched `statement_index --find 'N0star'`, `61` matches, reading the
+`Zeta23.Final` rows: `thmA_cumulative` gives `2/3`, and `2/3 < 0.6725`. Per
+`S114`, `ThmD.Final`'s `HD 1 = 0.6725` is itself an `N0star` statement, and our
+`NscStd` row already carries `0.6725` for the smaller `N0simple` — so the best
+reachable `N0star` constant is one we hold rather than one we gain.
+
+That matches the demand side, which `313` already closed:
+`onLineOrdinates_route_threshold` says the route needs `c₀ > 1`. Both ends of it
+are now checked, from opposite directions.
+
+**Snag, bin 2 — `duplication_floor` caught a second proof, and the fix improved
+the theorem.** My first draft derived `distinctZeros ≤ atomCount + N_off` from the
+partition, which shares its conclusion with the theorem `338` cites; the floor
+went `23 → 24`. `256`'s rule for a second proof of a known fact is *collapse it*,
+not `--update`. Collapsing the original was blocked by `R23` — it precedes
+`onLineOrdinates` — so instead I asked what the partition gives that the bound
+does not, and got `point_slack_exact`, an equality. The guard turned a restatement
+into content.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor back
+at `23`.
+
+**Might-mean, scoped to the two counts checked — their `N0star` and their
+`Ndist`:** the difficulty in translating between zeta-23's counting and ours is
+located off the critical line, since on the line the two styles agree by
+`Riemann.Blindness.onLineOrdinates_eq_onLinePoints` — so an on-line count of
+theirs is in our vocabulary up to a bridge, while a count over all zeros carries
+the off-line deficit that `Riemann.distinctZeros_route_ties_at_one` prices at no
+gain for any input constant.

@@ -691,3 +691,12 @@ import Riemann
 #check @Riemann.zeta23_GD_eq_of_HD
 #check @Riemann.distinctZeros_route_dominated
 #check @Riemann.distinctZeros_route_ties_at_one
+
+-- SESSION 339: the on-line dictionary is an equality where 338's general one is
+-- one-way.  A zero on the line is (1/2, γ), so its ordinate determines it, and
+-- the point count partitions as on-line ordinates plus off-line points.
+#check @Riemann.Blindness.onLineOrdinates_eq_onLinePoints
+#check @Riemann.Blindness.offLinePoints
+#check @Riemann.Blindness.onLineOrdinates_add_offLinePoints
+#check @Riemann.Blindness.offLinePoints_le_Noff
+#check @Riemann.Blindness.point_slack_exact

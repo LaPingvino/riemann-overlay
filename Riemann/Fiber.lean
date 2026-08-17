@@ -2569,6 +2569,12 @@ noncomputable def distinctZeros (D : ZeroData) : ℕ := D.Z.toFinset.card
 /-- **The dictionary, and it runs the wrong way for us: `atomCount ≤
 distinctZeros`.**
 
+**`339`: the slack is named further down.**  `onLineOrdinates_add_offLinePoints`
+is the exact partition of `distinctZeros`, and the bound below is that identity
+plus `offLinePoints_le_Noff`, with `point_slack_exact` giving the difference as an
+identity.  Those sit further down rather than here because they need
+`onLineOrdinates`, which is defined later (`R23`).
+
 Two zeros sharing an ordinate but sitting at different `β` are one *ordinate* and
 two *distinct zeros*, so collapsing to ordinates can only lose count.  Hence a
 **lower** bound on `N_d` — which is what the literature proves — does not
@@ -5121,6 +5127,74 @@ theorem onLineOrdinates_le_atomCount (D : ZeroData) :
   exact Multiset.mem_toFinset.2
     (Multiset.mem_map_of_mem _ (Multiset.mem_of_mem_filter hp))
 
+/-! #### Why the on-line dictionary is an equality where the general one is not — `SESSION 339`
+
+`338` priced the general dictionary and found it one-way: their `Ndist` is the
+`ncard` of the zero *set*, ours is a count of *ordinates*, and
+`atomCount_le_distinctZeros` runs the wrong way.  On the critical line that
+asymmetry disappears, and the reason is trivial once said: a zero on the line is
+`(1/2, γ)`, so its ordinate determines it.  Below, that as a theorem.
+
+**Kill condition, filed first:** *if the bijection needs a hypothesis beyond
+`ZeroData`'s own structure — if `refl_inv` or a distinctness assumption has to be
+invoked — I report the obstruction rather than adding hypotheses until it works.*
+It did not fire: the map is `Prod.snd` and injectivity is `Prod.ext` on the first
+coordinate being `1/2` for both.
+
+This is what makes the docstring below — *"their `N0star` is our `oddAtoms` plus
+this gap"* — a statement about comparable quantities. **The bridge to
+`Zeta23.N0star` itself is still unproved and is not assumed anywhere.** -/
+
+/-- **`onLineOrdinates` is also a count of distinct on-line zeros.**  Counting
+on-line ordinates and counting on-line points give the same number, because
+`p ↦ p.2` is a bijection between them: a zero on the line is `(1/2, γ)`. -/
+theorem onLineOrdinates_eq_onLinePoints (D : ZeroData) :
+    onLineOrdinates D = (D.Z.toFinset.filter fun p => p.1 = 1/2).card := by
+  classical
+  rw [onLineOrdinates, onOrd_toFinset]
+  refine (Finset.card_bij (fun p _ => p.2) ?_ ?_ ?_).symm
+  · intro p hp
+    simp only [Finset.mem_filter, Multiset.mem_toFinset] at hp
+    obtain ⟨hpZ, hp1⟩ := hp
+    refine Finset.mem_filter.2 ⟨Multiset.mem_toFinset.2 ?_, ?_⟩
+    · exact Multiset.mem_map_of_mem _ hpZ
+    · rw [onAt]
+      have : p ∈ D.Z.filter fun q => q.2 = p.2 ∧ q.1 = 1/2 :=
+        Multiset.mem_filter.2 ⟨hpZ, rfl, hp1⟩
+      have := Multiset.card_pos_iff_exists_mem.2 ⟨p, this⟩
+      omega
+  · intro p hp q hq h
+    simp only [Finset.mem_filter, Multiset.mem_toFinset] at hp hq
+    exact Prod.ext (hp.2.trans hq.2.symm) h
+  · intro γ hγ
+    simp only [Finset.mem_filter, Multiset.mem_toFinset] at hγ
+    have hpos : 0 < Multiset.card (D.Z.filter fun q => q.2 = γ ∧ q.1 = 1/2) := by
+      rw [onAt] at hγ; omega
+    obtain ⟨p, hp⟩ := Multiset.card_pos_iff_exists_mem.1 hpos
+    obtain ⟨hpZ, hp2, hp1⟩ := Multiset.mem_filter.1 hp
+    exact ⟨p, Finset.mem_filter.2 ⟨Multiset.mem_toFinset.2 hpZ, hp1⟩, hp2⟩
+
+/-- The complement: distinct zeros **off** the line.  `R29` — the bound above is
+between two counts on one carrier, so the partition names what is left. -/
+noncomputable def offLinePoints (D : ZeroData) : ℕ :=
+  (D.Z.toFinset.filter fun p => ¬ (p.1 = 1/2)).card
+
+/-- **The point count partitions as on-line ordinates plus off-line points**, an
+equality.  This is the exact form of `distinctZeros_le_atomCount_add_Noff`: that
+bound is this identity followed by `onLineOrdinates_le_atomCount` and
+`offLinePoints_le_Noff`, and it names the slack those two inequalities spend. -/
+theorem onLineOrdinates_add_offLinePoints (D : ZeroData) :
+    onLineOrdinates D + offLinePoints D = distinctZeros D := by
+  classical
+  rw [onLineOrdinates_eq_onLinePoints, offLinePoints, distinctZeros]
+  exact Finset.card_filter_add_card_filter_not _
+
+/-- Off-line points are at most off-line zeros — `toFinset` can only lose. -/
+theorem offLinePoints_le_Noff (D : ZeroData) : offLinePoints D ≤ D.Noff := by
+  classical
+  rw [offLinePoints, ZeroData.Noff, ← Multiset.toFinset_filter]
+  exact Multiset.toFinset_card_le _
+
 /-- **The gap between the two vocabularies**: ordinates whose on-line count is
 even and positive.  `308`'s might-mean called this the quantity neither project
 had bounded; `SESSION 309` bounds it. -/
@@ -5128,7 +5202,13 @@ noncomputable def evenOnAt (D : ZeroData) : ℕ :=
   (D.ordinates.toFinset.filter fun γ => Even (onAt D γ) ∧ onAt D γ ≠ 0).card
 
 /-- **And the two vocabularies partition.**  Their `N0star` is our `oddAtoms`
-plus this gap — an equality, which is why `308`'s "wrong direction" was wrong. -/
+plus this gap — an equality, which is why `308`'s "wrong direction" was wrong.
+
+**`339`: why the two are comparable at all.**  `onLineOrdinates_eq_onLinePoints`
+above shows our on-line ordinate count *is* an on-line point count, which is the
+kind of quantity their `N0star` is — and `338` shows the same does not hold off
+the line.  The bridge from `onLineOrdinates` to `Zeta23.N0star` itself remains
+unproved; this sentence compares vocabularies, not theorems. -/
 theorem onLineOrdinates_eq_oddAtoms_add_evenOnAt (D : ZeroData) :
     onLineOrdinates D = oddAtoms D + evenOnAt D := by
   classical
@@ -5237,6 +5317,22 @@ theorem onLineOrdinates_add_offLineOnly (D : ZeroData) :
     simp
   rw [e]
   exact Finset.card_filter_add_card_filter_not _
+
+/-- **The exact slack in `338`'s conversion.**  `SESSION 339`.
+
+`distinctZeros ≤ atomCount + N_off` is one inequality wide, and this is the
+identity underneath it: combining `onLineOrdinates_add_offLinePoints` with the
+partition above, the two sides differ by naming *which* off-line count each uses
+— `offLinePoints` on the point side, `offLineOnly` on the ordinate side.
+
+So the only inequality the `338` bound spends is `offLinePoints_le_Noff`, and the
+`offLineOnly` term is what the ordinate count keeps that the point count does not
+see separately. -/
+theorem point_slack_exact (D : ZeroData) :
+    distinctZeros D + offLineOnly D = atomCount D + offLinePoints D := by
+  have h := onLineOrdinates_add_offLinePoints D
+  have h2 := onLineOrdinates_add_offLineOnly D
+  omega
 
 /-- **Each costs two off-line zeros.**  Such an ordinate has `onAt = 0`, so its
 mass is `offAt`, which is even (`even_offAt`) and positive — hence at least two.

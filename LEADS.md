@@ -2331,3 +2331,23 @@ comparable.
 
 **The recall is now supported by measurement**, not discharged: I have confirmed
 the *behaviour* the literature is said to report, not read the literature.
+
+## Does the whole moment sequence determine `N_sc`? (SESSION 335, open)
+
+`335` proved two things that leave a gap between them. Every `momentK D k` is a
+functional of `D.ordinates` (`momentK_ordinate_functional`), and `N_sc` is *also*
+an ordinate functional (`Nsc_eq_ordinate_functional`) — so the reduction that
+kills `hauntedCount`, `oddAbove`, `evenOnAt`, `offLineOnly` and `NscStd` says
+nothing against `N_sc`. And `single_momentK_not_determine_Nsc` shows one moment is
+not enough, at any `k`.
+
+**Open: is the full sequence enough?** The mathematical content is whether the
+multiset of masses is recovered from its power sums — the classical answer is yes
+(Newton's identities), which would give `N_sc` as the count of masses equal to
+one. **What is not priced is the Lean route**: the identities are over a ring
+while these are `ℕ`-valued sums over a `Multiset`, and no attempt has been made.
+
+**Kill condition for whoever takes it:** *if recovering the mass multiset needs
+the sequence at unboundedly many `k` with no `k` sufficing for a given
+configuration, the statement is a limit statement and does not belong in the
+`ℕ`-linear vocabulary the rest of the file uses — say so and stop.*

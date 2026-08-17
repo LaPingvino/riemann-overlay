@@ -15988,3 +15988,74 @@ then `14/14` in its own call.
 whole countable family of moment inequalities has a single equality set, the
 configurations of multiplicity at most three, so the moments constrain the zeros
 in different amounts but agree about which configurations are extremal.
+
+## What the whole moment family cannot compute
+
+**Piece.** `331`–`334` built `momentK` and settled its equality set. This asks
+the blindness question about the **family** rather than one member: given every
+moment at once, which of `314`'s five classes can be recovered?
+
+**Kill condition, filed first:** *if the reduction from "computable from the
+moment family" to "a functional of the ordinates" needs a choice of
+representative `ZeroData` per multiset — if the witnessing map cannot be written
+in the multiset alone — the reduction fails and the deliverable is the
+obstruction.* **It did not fire**, and the reason is definitional:
+`momentK_eq_count_sum` unfolds `momentK D k` to `∑ ordinates.count γ ^ k`, which
+mentions nothing but the ordinates.
+
+So `momentK_ordinate_functional` exhibits the functional, and
+`not_momentK_computable_of_not_ordinate_functional` is four lines. Five
+corollaries follow by `exact`, one per quantity already known not to be an
+ordinate functional: `hauntedCount`, `oddAbove`, `evenOnAt`, `offLineOnly` — the
+four gaps `314` named — and `NscStd`, the ledger row the project reports.
+
+**`moment_determined` already had the determinedness.** `SESSION 211` proved it
+in raw-sum form, general in `k`, and `thirdMoment_determined` is its `k = 3`
+case. What `335` adds is the packaging: the `∃`-form with the functional written
+out, the reduction it powers, and the corollaries. Searched
+`statement_index --find 'ordinate_functional'` before writing, which is also how
+`momentK_two` turned up — `momentK D 2 = N⊛` has been there since `331`, so the
+positive contrast is `momentK_zero` and `momentK_one` only.
+
+**The positive end is the low end, and it is small.** `k = 0` is `atomCount`,
+`k = 1` is `N`, `k = 2` is `N⊛`. Those are the three counts the ordinates already
+determine, so the family's whole positive content sits at `k ≤ 2` and every
+higher moment is, for these purposes, more of the same currency.
+
+**Wildcard — is one moment ever enough for `N_sc`?** `N_sc` *is* an ordinate
+functional (`Nsc_eq_ordinate_functional`), so the reduction says nothing against
+it and the question is open at this point. **Kill condition, filed first:** *if
+computing `momentK` and `N_sc` on a chain of `n` simple atoms needs
+infrastructure the file lacks, I report the gap rather than building it.* It did
+not fire: `chain_profile`, `momentK_from_profile` and `Nsc_from_onProfile` were
+all there, and `haunted_chain_attains_star_and_atoms` had the replicate-chain
+idiom.
+
+`single_momentK_not_determine_Nsc`: for **every** `k`, one atom of mass two and
+`2^k` simple atoms share their `k`-th moment and have `N_sc` equal to `0` and
+`2^k`. The pair is rebuilt per `k` to collide at that `k`, so this bounds one
+moment and says nothing about the family — the two halves of the cycle answer
+different questions and neither subsumes the other.
+
+**Snag, bin 1.** `momentK_two'` was written and then found by search, not by the
+compiler. `326` recorded the same shape (a fourth
+`hauntedCount_not_ordinate_functional`) and the response then was `R26`: search
+before proving. I did search — for `ordinate_functional`, which is where the
+piece was — and the collision was in the *garnish*, a lemma added for contrast
+rather than for the argument. The reading: the search covers what the cycle is
+about, and material added afterwards for exposition is outside it unless
+searched separately.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, warnings at the floor `54`, duplication floor `23`
+— no new shared conclusion, so none of the sixteen declarations restates one
+already on disk.
+
+**Might-mean, scoped to the five quantities checked and to `N_sc` at one `k`:**
+on the four gaps the countable family of moment inequalities `331`–`334` built
+does no better than one moment does, because all of it lives inside the
+ordinates — so any route to `NscStd` that hopes to gain from higher moments is
+spending effort in a currency that provably cannot carry the answer. Where the
+family might be stronger than one member is a different question and is **not**
+answered here: the wildcard shows one moment cannot determine `N_sc`, and whether
+the whole sequence can is left open.

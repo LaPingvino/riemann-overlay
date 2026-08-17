@@ -639,3 +639,23 @@ import Riemann
 #check @Riemann.Blindness.mul_NscStd_le_N_add_pred_mul_Nsc
 #check @Riemann.routeIII_with_narrowBox
 #check @Zeta23.PairCeiling.ceiling_law256
+
+-- SESSION 335: what the whole moment family can and cannot compute.  `momentK`
+-- is a functional of the ordinates with the functional exhibited, so nothing the
+-- ordinates hide survives the family; and no single moment determines `N_sc`.
+#check @Riemann.Blindness.momentK_eq_count_sum
+#check @Riemann.Blindness.momentK_ordinate_functional
+#check @Riemann.Blindness.not_momentK_computable_of_not_ordinate_functional
+#check @Riemann.Blindness.hauntedCount_not_momentK_computable
+#check @Riemann.Blindness.oddAbove_not_momentK_computable
+#check @Riemann.Blindness.evenOnAt_not_momentK_computable
+#check @Riemann.Blindness.offLineOnly_not_momentK_computable
+#check @Riemann.Blindness.NscStd_not_momentK_computable
+#check @Riemann.Blindness.momentK_zero
+#check @Riemann.Blindness.momentK_one
+#check @Riemann.Blindness.simple_chain_profile
+#check @Riemann.Blindness.simple_chain_momentK
+#check @Riemann.Blindness.simple_chain_Nsc
+#check @Riemann.Blindness.pure_chain_momentK
+#check @Riemann.Blindness.pure_chain_Nsc
+#check @Riemann.Blindness.single_momentK_not_determine_Nsc

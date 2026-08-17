@@ -7077,5 +7077,176 @@ theorem even_mass_NscStd_zero (k j : ℕ) {a : ℝ} (ha : a ≠ 1/2)
     (hk : k ≠ 1) : (config k j a).NscStd = 0 := by
   rw [config_NscStd k j ha, if_neg hk]
 
+/-! #### What the whole moment family can and cannot compute — `SESSION 335`
+
+`331`–`334` built the family `momentK D k` and settled its equality set.  This
+asks the blindness question about the family rather than about one member: given
+**every** moment at once, which of `314`'s five classes can be recovered?
+
+**Kill condition, filed first:** *if the reduction from "computable from the
+moment family" to "a functional of the ordinates" needs a choice of
+representative `ZeroData` per multiset — if the witnessing `f` cannot be written
+in the multiset alone — the reduction fails and the deliverable is that
+obstruction, not a theorem.*  It did not fire: `momentK` unfolds to a sum of
+powers of `ordinates.count`, which is a multiset expression outright.
+
+**`moment_determined` already had the determinedness** (`SESSION 211`, in
+raw-sum form, general in `k`).  What is new below is the packaging — an explicit
+functional, the reduction it powers, and the five corollaries. -/
+
+/-- **`Σm^k` in the ordinates alone.**  `momentK` is a sum of powers of
+`ordinates.count`, with no reference to the `Z` multiset's real parts. -/
+lemma momentK_eq_count_sum (D : ZeroData) (k : ℕ) :
+    momentK D k = ∑ γ ∈ D.ordinates.toFinset, D.ordinates.count γ ^ k := by
+  classical
+  refine Finset.sum_congr rfl fun γ _ => ?_
+  rw [D.H_eq_count]
+
+/-- **Every moment is an ordinate functional, with the functional exhibited.**
+The `∃` form is what the reduction below needs; `moment_determined` gives the
+same content as an equality between two configurations sharing their ordinates. -/
+theorem momentK_ordinate_functional :
+    ∃ f : ℕ → Multiset ℝ → ℕ, ∀ (D : ZeroData) (k : ℕ),
+      momentK D k = f k D.ordinates :=
+  ⟨fun k s => ∑ γ ∈ s.toFinset, s.count γ ^ k, fun D k => momentK_eq_count_sum D k⟩
+
+/-- **The reduction: nothing the ordinates hide is recoverable from the moments,
+all of them together.**  A quantity computed by some `F` from the whole sequence
+`fun k => momentK D k` is thereby a functional of `D.ordinates`, so anything
+already known *not* to be an ordinate functional is not moment-computable
+either. -/
+theorem not_momentK_computable_of_not_ordinate_functional {q : ZeroData → ℕ}
+    (hq : ¬ ∃ f : Multiset ℝ → ℕ, ∀ D : ZeroData, q D = f D.ordinates) :
+    ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, q D = F (momentK D) := by
+  rintro ⟨F, hF⟩
+  obtain ⟨f, hf⟩ := momentK_ordinate_functional
+  exact hq ⟨fun s => F fun k => f k s, fun D => by
+    rw [hF D]; exact congrArg F (funext fun k => hf D k)⟩
+
+/-- `hauntedCount` is not computable from the moment family. -/
+theorem hauntedCount_not_momentK_computable :
+    ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, hauntedCount D = F (momentK D) :=
+  not_momentK_computable_of_not_ordinate_functional hauntedCount_not_ordinate_functional
+
+/-- `oddAbove` is not computable from the moment family. -/
+theorem oddAbove_not_momentK_computable :
+    ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, oddAbove D = F (momentK D) :=
+  not_momentK_computable_of_not_ordinate_functional oddAbove_not_ordinate_functional
+
+/-- `evenOnAt` is not computable from the moment family. -/
+theorem evenOnAt_not_momentK_computable :
+    ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, evenOnAt D = F (momentK D) :=
+  not_momentK_computable_of_not_ordinate_functional evenOnAt_not_ordinate_functional
+
+/-- `offLineOnly` is not computable from the moment family. -/
+theorem offLineOnly_not_momentK_computable :
+    ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, offLineOnly D = F (momentK D) :=
+  not_momentK_computable_of_not_ordinate_functional offLineOnly_not_ordinate_functional
+
+/-- `NscStd` is not computable from the moment family either — the ledger row the
+project actually reports, not only the four gaps. -/
+theorem NscStd_not_momentK_computable :
+    ¬ ∃ F : (ℕ → ℕ) → ℕ, ∀ D : ZeroData, D.NscStd = F (momentK D) :=
+  not_momentK_computable_of_not_ordinate_functional NscStd_not_ordinate_functional
+
+/-- **The positive end of the family.**  `k = 0` counts atoms.  With
+`momentK_one` and `momentK_two` (`= N` and `= N⊛`), the first three moments are
+exactly the three ledger counts the ordinates already determine. -/
+lemma momentK_zero (D : ZeroData) : momentK D 0 = atomCount D := by
+  classical
+  rw [momentK, atomCount]
+  simp
+
+/-- `momentK` at `1` is `N`. -/
+lemma momentK_one (D : ZeroData) : momentK D 1 = D.N := by
+  classical
+  rw [momentK, N_eq_sum_H]
+  simp
+
+/-! **Wildcard — is one moment ever enough for `N_sc`?**
+
+`N_sc` *is* an ordinate functional (`Nsc_eq_ordinate_functional`), so the
+reduction above says nothing against it.  The question a single moment answers is
+narrower.
+
+**Kill condition, filed first:** *if computing `momentK` and `N_sc` on a chain of
+`n` simple atoms needs infrastructure the file lacks, I report the gap rather
+than building it.*  It did not fire — `chain_profile`, `momentK_from_profile` and
+`Nsc_from_onProfile` were all already there. -/
+
+/-- The profile of `n` simple on-line atoms is `n` copies of `(1, 0)`. -/
+lemma simple_chain_profile {a : ℝ} (ha : a ≠ 1/2) (n : ℕ) :
+    profile (chain a (List.replicate n ((1 : ℕ), (0 : ℕ))))
+      = Multiset.replicate n ((1 : ℕ), (0 : ℕ)) := by
+  classical
+  have hne : ∀ p ∈ List.replicate n ((1 : ℕ), (0 : ℕ)), p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    rw [List.eq_of_mem_replicate hp]
+    norm_num
+  rw [chain_profile ha _ hne]
+  simp [List.map_replicate, Multiset.coe_replicate]
+
+/-- Every moment of `n` simple atoms is `n` — the mass is `1`, so `k` never
+enters. -/
+lemma simple_chain_momentK {a : ℝ} (ha : a ≠ 1/2) (n k : ℕ) :
+    momentK (chain a (List.replicate n ((1 : ℕ), (0 : ℕ)))) k = n := by
+  classical
+  rw [momentK_from_profile, simple_chain_profile ha n, Multiset.map_replicate,
+    Multiset.sum_replicate, smul_eq_mul]
+  simp
+
+/-- `n` simple atoms have `N_sc = n`. -/
+lemma simple_chain_Nsc {a : ℝ} (ha : a ≠ 1/2) (n : ℕ) :
+    (chain a (List.replicate n ((1 : ℕ), (0 : ℕ)))).Nsc = n := by
+  classical
+  rw [Nsc_from_onProfile, onProfile_eq_profile_map, simple_chain_profile ha n,
+    Multiset.map_replicate,
+    Multiset.filter_eq_self.2 (fun q hq => by
+      rw [Multiset.eq_of_mem_replicate hq]; exact ⟨rfl, rfl⟩),
+    Multiset.card_replicate]
+
+/-- One pure on-line atom of mass `m` has `k`-th moment `m^k`.  The chain-level
+form of `config_momentK_pure`, and it does not need `1 ≤ k`. -/
+lemma pure_chain_momentK {a : ℝ} (ha : a ≠ 1/2) (m k : ℕ) (hm : m ≠ 0) :
+    momentK (chain a [((m : ℕ), (0 : ℕ))]) k = m ^ k := by
+  classical
+  have hne : ∀ p ∈ [((m : ℕ), (0 : ℕ))], p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    simp at hp
+    subst hp
+    simpa using hm
+  rw [momentK_from_profile, chain_profile ha _ hne]
+  simp
+
+/-- One pure on-line atom of mass at least two has `N_sc = 0`. -/
+lemma pure_chain_Nsc {a : ℝ} (ha : a ≠ 1/2) (m : ℕ) (hm : 2 ≤ m) :
+    (chain a [((m : ℕ), (0 : ℕ))]).Nsc = 0 := by
+  classical
+  have hne : ∀ p ∈ [((m : ℕ), (0 : ℕ))], p.1 + 2 * p.2 ≠ 0 := by
+    intro p hp
+    simp at hp
+    subst hp
+    omega
+  rw [Nsc_from_onProfile, onProfile_eq_profile_map, chain_profile ha _ hne]
+  simp
+  omega
+
+/-- **No single moment determines `N_sc`, at any `k`.**  One atom of mass two and
+`2^k` simple atoms have the same `k`-th moment and `N_sc` equal to `0` and `2^k`
+— the widest possible disagreement at that moment's value.
+
+The hypothesis is on the moment's *index*, not on the configurations: for each
+`k` the pair is built to collide at that `k` and nowhere else.  So this bounds
+what one moment can do and says nothing about the family, which is what
+`momentK_ordinate_functional` addresses. -/
+theorem single_momentK_not_determine_Nsc {a : ℝ} (ha : a ≠ 1/2) (k : ℕ) :
+    momentK (chain a [((2 : ℕ), (0 : ℕ))]) k
+        = momentK (chain a (List.replicate (2 ^ k) ((1 : ℕ), (0 : ℕ)))) k
+      ∧ (chain a [((2 : ℕ), (0 : ℕ))]).Nsc = 0
+      ∧ (chain a (List.replicate (2 ^ k) ((1 : ℕ), (0 : ℕ)))).Nsc = 2 ^ k := by
+  refine ⟨?_, pure_chain_Nsc ha 2 le_rfl, simple_chain_Nsc ha _⟩
+  rw [pure_chain_momentK ha 2 k (by norm_num), simple_chain_momentK ha _ k]
+
+
 end Blindness
 end Riemann

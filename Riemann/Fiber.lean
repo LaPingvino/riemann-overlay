@@ -2027,6 +2027,33 @@ theorem NscStd_le_oddAtoms (D : ZeroData) : D.NscStd ≤ oddAtoms D := by
   rw [Finset.mem_filter] at hγ ⊢
   exact ⟨hγ.1, by rw [hγ.2]; decide⟩
 
+/-- **The bracket's upper gap, named.**  `SESSION 293`.
+
+`287` made `NscStd ≤ oddAtoms` a subset relation but left the difference
+unnamed.  Both sides are filters on `onAt`, so the gap is the partition's other
+part: ordinates whose on-line count is **odd and above one**.
+
+With `288`'s `NscStd = N_sc + hauntedCount`, the bracket
+`N_sc ≤ NscStd ≤ oddAtoms` now has both gaps written down —
+`{onAt = 1, offAt ≠ 0}` below and `{onAt odd, onAt ≠ 1}` above — and neither is
+slack in an estimate. -/
+theorem oddAtoms_eq_NscStd_add_oddAbove (D : ZeroData) :
+    oddAtoms D
+      = D.NscStd + (D.ordinates.toFinset.filter
+          fun γ => ¬ Even (onAt D γ) ∧ onAt D γ ≠ 1).card := by
+  classical
+  rw [oddAtoms_eq_odd_onAt, NscStd_eq_onAt_one]
+  have hone : (D.ordinates.toFinset.filter fun γ => onAt D γ = 1)
+      = (D.ordinates.toFinset.filter fun γ => ¬ Even (onAt D γ)).filter
+          fun γ => onAt D γ = 1 := by
+    rw [Finset.filter_filter]
+    refine Finset.filter_congr fun γ _ => ?_
+    constructor
+    · intro h; exact ⟨by rw [h]; decide, h⟩
+    · intro h; exact h.2
+  rw [hone, ← Finset.filter_filter]
+  exact (Finset.card_filter_add_card_filter_not _).symm
+
 /-- **Both endpoints of the bracket are `μ_T` functionals.**  `Nsc` by
 `Nsc_eq_ordinate_functional`; `oddAtoms` because `H` is the ordinate count.
 This is what makes the bracket *computable by the class* rather than merely

@@ -13720,3 +13720,51 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 the same two-coordinate data, so the identities between them are set algebra and
 the summations that proved them were carrying a coordinate change nobody had
 written down.
+
+## Both collapse candidates were already short; the bracket's upper gap was not named
+
+`292` read the ledger's counts as filters on `(onAt, offAt)` and the identities
+between them as set algebra. Two neighbouring statements were the obvious next
+candidates.
+
+**Kill condition, filed first:** *if `Nsc ≤ NscStd` is already a one-liner — if
+there is nothing to collapse — then `292`'s set-algebra reading is decorative for
+this pair and I report the bracket as already shortest.* **It fired, on both
+candidates I checked.**
+
+* `Nsc_le_NscStd` is eleven lines in `Basic.lean`, where `onAt` and `offAt` do
+  not exist. A `Fiber`-level rewrite would be a second copy of a proof, which
+  `256`'s grading forbids, for a saving of six lines.
+* `Noff_add_NscStd_le_N` is ten lines and **already a partition** — it uses
+  `Multiset.filter_add_not` at the level of zeros rather than ordinates.
+
+**That second one is the useful part.** The project had been doing partition
+arguments all along, at the zero level; `292`'s collapse moved one to the
+ordinate level, where the `(onAt, offAt)` coordinates live. The seam of
+"sums that are partitions" is one deep, not many — `292` found the one that had
+not been done at either level.
+
+**What was missing, found while checking.** `287` made `NscStd ≤ oddAtoms` a
+subset relation and stopped there; the difference between the two sides went
+unnamed.
+
+`oddAtoms_eq_NscStd_add_oddAbove` — the gap is the ordinates whose on-line count
+is **odd and above one**. Axiom-free, `3757` jobs unchanged.
+
+So the bracket `N_sc ≤ NscStd ≤ oddAtoms` now has both gaps written down:
+`{onAt = 1, offAt ≠ 0}` below (`288`) and `{onAt odd, onAt ≠ 1}` above. Neither
+is slack in an estimate; both are counts of a configuration.
+
+**Snag, bin 3.** Two cycles in a row where the filed kill condition fired and the
+cycle's deliverable came from something noticed while checking. That is the
+kill condition working — it stopped me writing a collapse that would have been a
+duplicate — but it means the piece and the wildcard swapped roles twice, and the
+entry has to say which was which rather than presenting the find as the plan.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green, both indices regenerated.
+
+**Might-mean, unhedged:** the bracket that has framed this project's central
+question since `161` is a partition of one set by two conditions, so the distance
+between the literature's row and ours is two configurations rather than a
+quantity to be estimated.

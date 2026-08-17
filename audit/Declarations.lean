@@ -339,6 +339,10 @@ import Riemann
 -- SESSION 314: the decomposition without the hypothesis, and all five inhabited.
 #check @Riemann.Blindness.atomCount_decomposition
 #check @Riemann.Blindness.offLineOnly_from_profile
+-- SESSION 321: the profile dictionary completed, and 312's second witness.
+#check @Riemann.Blindness.oddAbove_from_profile
+#check @Riemann.Blindness.evenOnAt_from_profile
+#check @Riemann.Blindness.oddAbove_survives_Noff_zero
 #check @Riemann.Blindness.atomCount_decomposition_all_inhabited
 -- SESSION 315: each class charged its minimum mass.
 #check @Riemann.Blindness.mass_charges_every_class

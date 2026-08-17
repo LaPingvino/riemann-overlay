@@ -14853,6 +14853,12 @@ Three theorems, axiom-free:
   not close.** A double zero on the critical line: `N_off = 0`, `oddAtoms = 0`,
   `onLineOrdinates = 1`, `evenOnAt = 1`.
 
+> **Completed, `321`.** This entry said *two* gaps survive and exhibited one.
+> The other now has its witness too: `oddAbove_survives_Noff_zero`, an ordinate
+> of multiplicity three with all three zeros **on** the line — `305`'s separating
+> configuration. Asserting two and showing one is `R30`'s shape at the scale of a
+> bullet rather than a might-mean.
+
 So the chain under `N_off = 0` reads `N_sc = NscStd ≤ oddAtoms ≤ onLineOrdinates
 = atomCount`, with the outer two gaps closed and the inner two open. The part of
 the distance priced in off-line mass is `offLineOnly` and `hauntedCount`; the
@@ -15302,3 +15308,47 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 members fail on the thing their line names, one fails only on schema collapse and
 one is untested, so the roster's green line is now worth what it says for the
 first time since `278`.
+
+## The profile dictionary had two holes, and one of them was hiding a missing witness
+
+**Piece — completing the dictionary.** Four of `314`'s five classes could be read
+off the profile: `N_sc`, `NscStd`, `hauntedCount`, `offLineOnly`. `oddAbove` and
+`evenOnAt` could not, which is why `314`'s five-class witness reached them
+through three partitions instead of computing them.
+
+**Kill condition, filed first:** *if the two readings do not make a witness
+computation shorter — if a configuration's `oddAbove` still cannot be settled by
+`decide` on its profile — the dictionary is decorative and I ship the readings
+without the claim.* **It did not fire**, and the proof is the wildcard.
+
+`oddAbove_from_profile` and `evenOnAt_from_profile`, both axiom-free, both the
+same three-line shape as `314`'s `offLineOnly_from_profile`: `onAt` is
+`mass − off-line mass`, which the profile can see.
+
+**Wildcard — `312` said two gaps survive `N_off = 0` and exhibited one.**
+
+`Riemann.Blindness.oddAbove_survives_Noff_zero`: an ordinate of multiplicity
+three whose three zeros all sit on the line has `N_off = 0`, and `oddAbove`
+counts it. That is
+`305`'s separating configuration, and with the new reading the proof is `decide`
+on a one-entry profile — two lines, where `312`'s companion witness needed
+fifteen.
+
+Corrected at `312`'s location. Asserting two and showing one is `R30`'s shape at
+the scale of a bullet rather than a might-mean, which is the reason it survived
+nine cycles: the rule was written about the closing sentence, and this was in the
+middle of a list.
+
+**Snag, bin 3.** My first attempt inlined the reading as a `show … from by …`
+inside the witness, and Lean stopped on a stuck `DecidablePred` metavariable —
+the filter's predicate is not determined until the surrounding rewrite fixes it.
+Naming the lemma first and citing it by name is shorter, and it is what `R29`
+says about complements: a fact with no name gets re-derived at each use.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2.
+
+**Might-mean, scoped to what this cycle checked:** with all five classes readable
+from the profile, a configuration's entire position in the decomposition is now
+settled by `decide` on a list of pairs, so witness construction in this project
+has stopped being proof work.

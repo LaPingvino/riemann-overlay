@@ -5313,6 +5313,64 @@ theorem offLineOnly_from_profile (D : ZeroData) :
   simp only [Function.comp_apply]
   omega
 
+/-! #### The dictionary completed — `SESSION 321`
+
+Four of the five classes could already be read off the profile — `N_sc`,
+`NscStd`, `hauntedCount`, `offLineOnly`.  `oddAbove` and `evenOnAt` could not,
+which is why `314`'s five-class witness had to reach them through three
+partitions instead of computing them.
+
+**Kill condition, filed first:** *if the two readings do not make a witness
+computation shorter — if a configuration's `oddAbove` still cannot be settled by
+`decide` on its profile — the dictionary is decorative and I ship the readings
+without the claim.*  It did not fire: `oddAbove_survives_Noff_zero` below is
+`decide` on a one-entry profile. -/
+
+/-- `oddAbove` from the profile: `onAt` is `mass − off-line mass`. -/
+theorem oddAbove_from_profile (D : ZeroData) :
+    oddAbove D = Multiset.card ((profile D).filter
+      fun q => ¬ Even (q.1 - q.2) ∧ q.1 - q.2 ≠ 1) := by
+  classical
+  rw [oddAbove, profile, Multiset.filter_map, Multiset.card_map]
+  show Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+      = Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+  congr 1
+  refine Multiset.filter_congr fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  simp only [Function.comp_apply]
+  rw [show D.H γ - offAt D γ = onAt D γ by omega]
+
+/-- `evenOnAt` from the profile, the same way. -/
+theorem evenOnAt_from_profile (D : ZeroData) :
+    evenOnAt D = Multiset.card ((profile D).filter
+      fun q => Even (q.1 - q.2) ∧ q.1 - q.2 ≠ 0) := by
+  classical
+  rw [evenOnAt, profile, Multiset.filter_map, Multiset.card_map]
+  show Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+      = Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+  congr 1
+  refine Multiset.filter_congr fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  simp only [Function.comp_apply]
+  rw [show D.H γ - offAt D γ = onAt D γ by omega]
+
+/-- **`312`'s second surviving gap, exhibited.**
+
+That cycle proved two of the chain's four gaps survive `N_off = 0` and showed a
+witness for one of them.  This is the other: an ordinate of multiplicity three
+with **all three zeros on the line** has no off-line mass, and `oddAbove` counts
+it.  It is `305`'s separating configuration, reached here by `decide` on a
+one-entry profile. -/
+theorem oddAbove_survives_Noff_zero {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 3 0 a).Noff = 0 ∧ oddAbove (configAt 0 3 0 a) = 1
+      ∧ evenOnAt (configAt 0 3 0 a) = 0 := by
+  classical
+  have hp := configAt_profile (γ := (0:ℝ)) ha (k := 3) (j := 0) (by norm_num)
+  norm_num at hp
+  refine ⟨by rw [configAt_Noff ha], ?_, ?_⟩
+  · rw [oddAbove_from_profile, hp]; decide
+  · rw [evenOnAt_from_profile, hp]; decide
+
 /-- **No part of the decomposition is redundant** — one configuration puts a
 single ordinate in each of the five classes at once. -/
 theorem atomCount_decomposition_all_inhabited {a : ℝ} (ha : a ≠ 1/2) :

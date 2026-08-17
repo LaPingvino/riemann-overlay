@@ -14336,3 +14336,80 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 multiplicity, but it caps that number at a third of the mass, and the cap is
 reached exactly when every ordinate is a triple — which is the configuration the
 whole `N_sc` row has been fighting since `110`.
+
+> **Correction, `303`.** *"exactly when every ordinate is a triple"* is wrong.
+> Every quantity in `3·oddAtoms ≤ N + 2·N_sc` is atom-additive, and the per-atom
+> slack `mass + 2·[mass = 1] − 3·[mass odd]` is `0` at mass `1` **and** at mass
+> `3`, and positive elsewhere. Equality holds when every ordinate has mass `1`
+> or `3`. `112`'s cap witness — `1000` simple atoms beside `321` haunted
+> mass-`3` atoms — is a mixture and sits at equality, which
+> `three_mul_oddAtoms_eq_cap_witness` now records. The correct reading is
+> stronger, not weaker: the equality set of `302`'s bound is `104`/`110`'s
+> extremal family. `claims_gate` passed *"exactly when"* without a flag.
+
+## `302`'s might-mean was wrong about the equality set, and the route it implied has no supplier
+
+**Piece — correcting `302` at its location.** Its closing sentence said the cap
+`3·oddAtoms ≤ N + 2·N_sc` is reached *"exactly when every ordinate is a triple"*.
+
+**Wrong.** Every quantity in that bound is atom-additive, and the per-atom slack
+`mass + 2·[mass = 1] − 3·[mass odd]` is `0` at mass `1` as well as at mass `3`,
+and positive elsewhere. **Equality holds when every ordinate has mass `1` or
+`3`** — which is `104`/`110`'s extremal family, not only its all-triples end.
+`112`'s cap witness is the mixture, and `three_mul_oddAtoms_eq_cap_witness` now
+carries it: `1000` simple atoms beside `321` haunted mass-`3` atoms,
+`3 · 1321 = 3963 = 1963 + 2 · 1000`, checked by the kernel.
+
+The correct reading is stronger than the one I shipped. `claims_gate` passed
+*"exactly when"* without a flag, which is worth recording: the gate reads
+uniqueness language about **objects** and this was uniqueness about a **set of
+configurations**.
+
+Third cycle running in which a sentence I wrote needed correcting the next
+cycle. `301` called that the write-up running ahead of the checking; it still is.
+
+**Wildcard — the route `302` implies, and `R25` on it.**
+
+I dropped the kill condition I first drafted, because I already knew its answer —
+`294`'s lesson. The check that could fail is `R25`'s composite, run in scratch
+before anything shipped.
+
+`proportion_of_oddAtoms`: `oddAtoms ≥ c·N` gives `Proportion ((3c − 1)/2)`, rate
+`3/2`, axiom-free.
+
+**The composite typechecks, and that is the finding.** Fed
+`oddAtoms_ge_of_proportionStd` — the one supplier on disk — it returns
+`(3κ − 1)/2`, which at `κ = 0.6725` is `0.50875`: `certified_nsc_unconditional`.
+So this is **the certified row's engine run on a weaker input**, not a new row.
+`NscStd ≤ oddAtoms` means every `NscStd` supply is already an `oddAtoms` supply.
+
+**`duplication_floor` then made the point better than I had.** I first shipped
+the composite as a named theorem, `proportion_of_oddAtoms_via_std`, reasoning
+that recording it would stop the identity being mistaken for a route. The floor
+went `23 → 24` and named the pair: it shares its conclusion with
+`proportion_of_proportionStd`, **from the same hypothesis**. By `256`'s grading
+— corrected at `264` to *neither hypothesis implies the other* — that is a
+second proof, not a second route, and the guard was right. It is now an unnamed
+`example`, which the build still re-checks on every run. Floor back at `23`.
+
+`PRICES.md` gains the entry with its rate, its zero axiom cost, and its missing
+supplier stated.
+
+Per `R28` the searches: `statement_index --find 'proportion_of_'` returned fifteen
+rows and I read each one's input; a grep of `Gaps.lean` for `oddAtoms` found
+`247`/`249` studying the class as an LP constraint for `2 − c`, a different
+currency (`S53`); and a pass for a named `OddAtoms` family predicate returned
+nothing, so the inline hypothesis follows
+`hauntedDensity_of_distinctZeros`'s precedent.
+
+**Snag, bin 3.** The shipped proof failed on a `simp only` argument the linter had
+called unused *in a different `have`* of the same scratch file. I removed it from
+the wrong one. Linter hints name a line; I read the hint and not the line.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, board unchanged.
+
+**Might-mean, unhedged:** two quantities at two different rates both land the
+certified `N_sc` row on `0.50875`, and they land there because one theorem
+supplies both inputs — so what pins this row is its supplier rather than the
+argument consuming it.

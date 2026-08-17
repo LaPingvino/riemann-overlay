@@ -1241,6 +1241,55 @@ theorem oddAtoms_ge_of_proportionStd {F : Family} {κ : ℝ}
     exact_mod_cast this
   linarith
 
+/-- **An odd-atom proportion is an `N_sc` row, at rate `3/2`.**  `SESSION 303`.
+
+`302`'s `Blindness.three_mul_oddAtoms_le` reads `3·oddAtoms ≤ N + 2·N_sc`, so
+`oddAtoms ≥ c·N` gives `N_sc ≥ ((3c − 1)/2)·N`.  One point of odd atoms is worth
+one and a half points of `N_sc`.
+
+**What this does not do, checked rather than assumed (`R25`).**  Composing it
+with `oddAtoms_ge_of_proportionStd` — the one supplier on disk — typechecks and
+returns `(3κ − 1)/2`, which at `κ = 0.6725` is `0.50875`: exactly
+`certified_nsc_unconditional`.  So this is **the certified row's engine run on a
+weaker input**, not a new row.  `NscStd ≤ oddAtoms` means every `NscStd` supply
+is already an `oddAtoms` supply; what would move the board is an `oddAtoms`
+bound that does **not** route through `NscStd`, and none is on disk.
+
+The rate is not comparable to the off-line exchange's `1/2` or `249`'s `2 − c`
+from the same input — those consume different currencies, and `S53` is the record
+of comparing two routes whose currencies differ.
+
+Consistency with `row_essentially_optimal`: `0.50875 < 0.50943`, and `112`'s cap
+witness sits at equality in the underlying bound
+(`Blindness.three_mul_oddAtoms_eq_cap_witness`), so the cap and this route agree
+about the same configuration. -/
+theorem proportion_of_oddAtoms {F : Family} {c : ℝ}
+    (h : ∀ ε > 0, ∀ᶠ T in atTop, (c - ε) * F.Nz T ≤ F.oddAtoms T) :
+    F.toCounts.Proportion ((3 * c - 1) / 2) := by
+  intro ε hε
+  filter_upwards [h ((2/3) * ε) (by linarith), F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hbase : 3 * F.oddAtoms T ≤ F.Nz T + 2 * F.Nsc T := by
+    have := Blindness.three_mul_oddAtoms_le (F.D T)
+    unfold Family.oddAtoms Family.Nz Family.Nsc
+    exact_mod_cast this
+  show (3 * c - 1) / 2 - ε ≤ F.Nsc T / F.Nz T
+  rw [le_div_iff₀ hpos']
+  nlinarith [hT, hbase, hpos']
+
+/-! **The composite, kept as an `example`.**  `SESSION 303`.
+
+`R25` says attempt the composite before believing two routes differ, and it
+typechecks — which is the finding, since it means this reproduces
+`proportion_of_proportionStd` from the same hypothesis.  `duplication_floor`
+caught it as a **shared conclusion** when it was a named theorem, and by `256`'s
+grading it is a second proof rather than a second route: same input, same output.
+So it lives here unnamed.  The build re-checks it; the floor does not count it;
+and nobody can cite it as though it were a route. -/
+example {F : Family} {κ : ℝ}
+    (h : F.ProportionStd κ) : F.toCounts.Proportion ((3 * κ - 1) / 2) :=
+  proportion_of_oddAtoms (oddAtoms_ge_of_proportionStd h)
+
 /-- **A distinct-zeros proportion is a haunted-density bound, at rate `(1−c)/2`.**
 
 `N − atomCount` is the **distinct-zeros deficit** `N(T) − N_d(T)`, a quantity the

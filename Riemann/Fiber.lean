@@ -5062,6 +5062,49 @@ theorem three_mul_oddAtoms_attained {a : ℝ} (ha : a ≠ 1/2) (n : ℕ) :
   simp only [List.replicate_zero, List.nil_append, Nat.sub_zero] at hb hn
   omega
 
+/-- **Equality does not need pure triples.**  `SESSION 303`, correcting `302`.
+
+Every quantity in `three_mul_oddAtoms_le` is atom-additive, and the per-atom
+slack `mass + 2·[mass = 1] − 3·[mass odd]` vanishes at mass `1` as well as at
+mass `3`.  So the equality set is *every ordinate of mass one or three* — which
+is `104`/`110`'s extremal family, not only its all-triples end.
+
+`112`'s cap witness is the mixture: `1000` simple atoms beside `321` haunted
+mass-`3` atoms, `3 · 1321 = 3963 = 1963 + 2 · 1000`. -/
+theorem three_mul_oddAtoms_eq_cap_witness {a : ℝ} (ha : a ≠ 1/2) :
+    3 * oddAtoms (chain a (List.replicate 1000 ((1:ℕ),(0:ℕ))
+        ++ List.replicate 321 ((1:ℕ),(1:ℕ))))
+      = (chain a (List.replicate 1000 ((1:ℕ),(0:ℕ))
+          ++ List.replicate 321 ((1:ℕ),(1:ℕ)))).N
+        + 2 * (chain a (List.replicate 1000 ((1:ℕ),(0:ℕ))
+          ++ List.replicate 321 ((1:ℕ),(1:ℕ)))).Nsc := by
+  classical
+  set L := List.replicate 1000 ((1:ℕ),(0:ℕ)) ++ List.replicate 321 ((1:ℕ),(1:ℕ))
+    with hL
+  have hne : ∀ x ∈ L, x.1 + 2 * x.2 ≠ 0 := by
+    intro x hx; rw [hL, List.mem_append] at hx
+    rcases hx with hx | hx
+    · rw [List.eq_of_mem_replicate hx]; norm_num
+    · rw [List.eq_of_mem_replicate hx]; norm_num
+  have hp := chain_profile ha L hne
+  rw [hL] at hp
+  norm_num [List.map_append, List.map_replicate] at hp
+  have hN : (chain a L).N = 1963 := by
+    rw [N_from_profile, hp]
+    simp only [Multiset.map_coe, Multiset.sum_coe, List.map_append,
+      List.map_replicate, List.sum_append, List.sum_replicate, smul_eq_mul]
+  have hO : oddAtoms (chain a L) = 1321 := by
+    rw [oddAtoms_from_profile, hp]
+    simp only [Multiset.filter_coe, List.filter_append, List.filter_replicate]
+    norm_num
+  have hs : ((chain a L).Nsc : ℤ) = 1000 := by
+    rw [Nsc_from_profile, hp]
+    simp only [Multiset.map_coe, Multiset.sum_coe, List.map_append,
+      List.map_replicate, List.sum_append, List.sum_replicate]
+    norm_num
+  have hs' : (chain a L).Nsc = 1000 := by exact_mod_cast hs
+  rw [hN, hO, hs']
+
 /-- **The haunted count converts from the distinct-zeros deficit:
 `2·hauntedCount + atomCount ≤ N`.**
 

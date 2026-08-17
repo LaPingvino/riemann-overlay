@@ -1052,6 +1052,28 @@ been alarming the other way.
 worth revisiting, and only if the build turns out cheap in wall-clock — which is
 one cycle to measure and has not been measured.
 
+## A route with a rate and no supplier: odd atoms at `3/2` (`SESSION 303`)
+
+`302` proved `3·oddAtoms ≤ N + 2·N_sc`, so `oddAtoms ≥ c·N` buys
+`Proportion ((3c − 1)/2)`. That is `proportion_of_oddAtoms`, and the rate is
+`3/2` — one point of odd atoms for one and a half of `N_sc`.
+
+**It does not move the board, and the check is recorded rather than assumed.**
+`R25`'s composite — kept as an unnamed `example` in `Gaps.lean` — typechecks and
+returns
+`(3κ − 1)/2`, which at `κ = 0.6725` is `0.50875`, exactly
+`certified_nsc_unconditional`. Since `NscStd ≤ oddAtoms`, every `NscStd` supply
+is already an `oddAtoms` supply, so routing through `ProportionStd` reproduces
+the row the project already has.
+
+**What would move it:** an `oddAtoms ≥ c·N` with `c > κ` that does not factor
+through `NscStd`. Nothing on disk supplies one. `249` studied the odd-atom class
+as an LP constraint and got `2 − c` in a different currency; `247` showed such a
+bound excludes `Gauge.pairOnly`. Neither is a supplier.
+
+Cost if a supplier appeared: **zero axioms** — `proportion_of_oddAtoms` is
+axiom-free and the composite adds nothing.
+
 ## `baseline_zeta23`'s numeric step is not blocked on numerics (`SESSION 274`)
 
 `268` recorded a second cost for this axiom: `ThmD` proves the exact

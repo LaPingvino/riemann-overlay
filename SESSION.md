@@ -13832,3 +13832,71 @@ regenerated (`5,144` declarations).
 natural numbers through predicates that differ in the polarity of the second
 component, so what separates `N_sc` from `hauntedCount` is a sign rather than a
 construction.
+
+## `N⊛` pins `oddAtoms` mod 4, and the pin does not tighten
+
+**Piece — the queue, again.** `294` retired item 3. Two more went the same way,
+and both were checked before any work started:
+
+* Item 1 wants `claims_gate`'s **six** `CLAIMS.md` flags triaged and a
+  true-positive rate reported. The gate reports **four** flags on `CLAIMS.md`
+  today, and `149` already reported the rate — `1` in `14`, with `S52`
+  recording why the count did not move when the true positive was repaired.
+* Item 2's `W32` has been run and its table is in `FAILURES.md`, which `S33`
+  noted at `078`.
+
+Four of five items are discharged. Filed to `RULING.md` beside the ruling-5
+evidence, not to `SURPRISES.md` — `S33` already owns this shape.
+
+**Wildcard.** `292`–`294` promoted `hauntedCount` and `oddAtoms` to first-class
+readings of the per-ordinate entry. Each of the five ledger counts has had an
+independence witness since `217`; these two had none.
+
+**Kill condition, filed first:** *if `oddAtoms` is a functional of the five
+ledger counts, then `293`'s bracket sits inside the ledger and its upper gap
+carries nothing the ledger lacks.* **It did not fire — and the search that
+settled it is the content.**
+
+*The search, with its bounds stated.* A first sweep over configurations of at
+most `5` atoms with total mass `≤ 12` found **nothing**: no two configurations
+agreeing on `N`, `N⊛`, `N_off`, `N_sc`, `NscStd` and differing in `oddAtoms`.
+That is not a proof of determination, and it turned out not to be one.
+
+*Why it was empty.* `oddAtoms_mod_four`: an odd mass squares to `1` mod `4` and
+an even mass to `0`, so `N⊛ = Σ m²` counts the odd atoms mod `4`. A witness
+therefore needs the two `oddAtoms` values to differ by a multiple of `4`, which
+puts it past a mass-12 cap. Once the residue was in hand the search knew what
+size to look at, and a sweep over partitions found the witness at `N = 14`.
+
+*The witness.* `oddAtoms_not_determined_by_ledger`: five atoms of masses
+`6, 2, 2, 2, 2` against four of masses `5, 3, 3, 3`, all on the line.
+`N = 14` and `N⊛ = 52` on both, `N_off = N_sc = NscStd = 0` on both, `oddAtoms`
+`0` against `4`. Built with `chain`, which had been in the file since `183` and
+had no witness using it until now.
+
+*And the converse.* `hauntedCount_eq_NscStd_sub_Nsc` — `hauntedCount` **is** a
+ledger functional, straight off `288`'s partition. So of the two quantities the
+`286`–`293` arc introduced, one is inside the ledger and one is outside, and
+each now has its own declaration saying which.
+
+**Snag, bin 1.** The first search returned empty and I nearly read that as an
+answer. What saved it was asking why it was empty rather than what it meant —
+the residue was the reason, and the residue also told me where to look. A
+negative search result over a bounded region is a statement about the region;
+`R17`'s "no witness, no belief" covers the case where the missing witness is
+one I looked for and failed to find.
+
+**Snag, bin 3.** `hauntedCount_eq_NscStd_sub_Nsc` was written above its own
+dependency and the build caught it — `NscStd_eq_Nsc_add_haunted` is `186` lines
+further down. `R23` exists for this and I still placed by subject rather than by
+citation. No guard checks `R23`; the build catches it while every new
+declaration lands in one file, and would stop catching it if they did not.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, axioms 2, thirteen guards green, indices at `5,149`
+declarations.
+
+**Might-mean, unhedged:** the ledger sees the parity structure of the zero
+multiset only through a residue mod 4, so a family hypothesis that constrains
+`N⊛` constrains how many ordinates carry odd multiplicity in steps of four
+rather than one.

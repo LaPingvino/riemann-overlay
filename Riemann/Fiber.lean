@@ -3995,6 +3995,88 @@ theorem Nsc_from_onProfile (D : ZeroData) :
     Multiset.card_map]
   rfl
 
+/-! #### Where the two new quantities sit relative to the ledger — `SESSION 295`
+
+`292`–`294` promoted `hauntedCount` and `oddAtoms` to first-class readings of the
+per-ordinate entry. The five ledger counts each have an independence witness
+already (`N_not_determined_by_ledger` and its four siblings, `217`); these two
+had none.
+
+**Kill condition, filed first:** *if `oddAtoms` is a functional of the five
+ledger counts, then `293`'s bracket sits inside the ledger and its upper gap
+carries nothing the ledger lacks.* It did not fire — but the search that
+settled it is the content, and it is recorded in `SESSION 295`: nothing at five
+atoms and total mass `≤ 12`, because `N⊛` pins `oddAtoms` modulo `4` and a
+witness therefore needs a gap of at least `4`. -/
+
+private lemma sq_mod_four (m : ℕ) : m * m % 4 = (if Even m then 0 else 1) := by
+  have hlt : m % 4 < 4 := Nat.mod_lt _ (by norm_num)
+  have he : Even m ↔ m % 4 = 0 ∨ m % 4 = 2 := by
+    rw [Nat.even_iff]
+    have : m % 4 % 2 = m % 2 := Nat.mod_mod_of_dvd m (by norm_num)
+    omega
+  have hsq : m * m % 4 = (m % 4) * (m % 4) % 4 := by
+    conv_lhs => rw [← Nat.mod_add_div m 4]
+    ring_nf
+    omega
+  interval_cases h' : (m % 4) <;> simp_all
+
+private lemma ms_mod_four (s : Multiset (ℕ × ℕ)) :
+    ((s.map fun q => q.1 * q.1).sum) % 4
+      = Multiset.card (s.filter fun q => ¬ Even q.1) % 4 := by
+  classical
+  induction s using Multiset.induction_on with
+  | empty => simp
+  | cons q s ih =>
+      rw [Multiset.map_cons, Multiset.sum_cons, Multiset.filter_cons]
+      by_cases h : ¬ Even q.1
+      · rw [if_pos h]
+        simp only [Multiset.card_add, Multiset.card_singleton]
+        have : q.1 * q.1 % 4 = 1 := by rw [sq_mod_four]; simp [h]
+        omega
+      · rw [if_neg (by simpa using h)]
+        simp only [zero_add]
+        have : q.1 * q.1 % 4 = 0 := by rw [sq_mod_four]; simp at h; simp [h]
+        omega
+
+/-- **`N⊛` pins `oddAtoms` modulo `4`.**
+
+An odd mass squares to `1` mod `4` and an even mass to `0`, so the atom-wise sum
+`N⊛ = Σ m²` counts the odd atoms mod `4` and nothing else about them. This is
+why a witness separating `oddAtoms` from the ledger has to be as large as it is:
+the two sides must differ by a multiple of `4`. -/
+theorem oddAtoms_mod_four (D : ZeroData) : D.Nstar % 4 = oddAtoms D % 4 := by
+  rw [Nstar_from_profile, oddAtoms_from_profile, ms_mod_four]
+
+/-- **`oddAtoms` is not.** The pin of `oddAtoms_mod_four` does not tighten below
+`4`: five atoms of masses `6, 2, 2, 2, 2` against four of masses `5, 3, 3, 3`.
+All on the line, so `N_off = 0` and `N_sc = NscStd = 0` on both sides; `N = 14`
+and `N⊛ = 52` on both; `oddAtoms` is `0` against `4`.
+
+`293`'s upper gap separates them too, since `NscStd` vanishes on both and
+`oddAtoms = NscStd + oddAbove`. -/
+theorem oddAtoms_not_determined_by_ledger {a : ℝ} (ha : a ≠ 1/2) :
+    (chain a [(6,0),(2,0),(2,0),(2,0),(2,0)]).N = (chain a [(5,0),(3,0),(3,0),(3,0)]).N
+      ∧ (chain a [(6,0),(2,0),(2,0),(2,0),(2,0)]).Nstar = (chain a [(5,0),(3,0),(3,0),(3,0)]).Nstar
+      ∧ (chain a [(6,0),(2,0),(2,0),(2,0),(2,0)]).Noff = (chain a [(5,0),(3,0),(3,0),(3,0)]).Noff
+      ∧ (chain a [(6,0),(2,0),(2,0),(2,0),(2,0)]).Nsc = (chain a [(5,0),(3,0),(3,0),(3,0)]).Nsc
+      ∧ (chain a [(6,0),(2,0),(2,0),(2,0),(2,0)]).NscStd = (chain a [(5,0),(3,0),(3,0),(3,0)]).NscStd
+      ∧ oddAtoms (chain a [(6,0),(2,0),(2,0),(2,0),(2,0)]) ≠ oddAtoms (chain a [(5,0),(3,0),(3,0),(3,0)]) := by
+  have pA := chain_profile ha [(6,0),(2,0),(2,0),(2,0),(2,0)] (by decide)
+  have pB := chain_profile ha [(5,0),(3,0),(3,0),(3,0)] (by decide)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+  · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
+  · have : ((chain a [(6,0),(2,0),(2,0),(2,0),(2,0)]).Nsc : ℤ) = ((chain a [(5,0),(3,0),(3,0),(3,0)]).Nsc : ℤ) := by
+      rw [Nsc_from_profile, Nsc_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · have : ((chain a [(6,0),(2,0),(2,0),(2,0),(2,0)]).NscStd : ℤ) = ((chain a [(5,0),(3,0),(3,0),(3,0)]).NscStd : ℤ) := by
+      rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · rw [oddAtoms_from_profile, oddAtoms_from_profile, pA, pB]; decide
+
 /-- **`distinctZeros` is NOT a profile functional** — `SESSION 184`, settling the
 obligation `181` opened and `182`/`183` narrowed.
 
@@ -4155,6 +4237,13 @@ theorem NscStd_eq_Nsc_add_haunted (D : ZeroData) :
   rw [NscStd_eq_onAt_one, Nsc_eq_onAt_one_offAt_zero,
     hauntedCount_eq_onAt_one_offAt_pos, ← Finset.filter_filter, ← Finset.filter_filter]
   exact (Finset.card_filter_add_card_filter_not _).symm
+
+/-- **`hauntedCount` *is* a ledger functional** — immediately from `288`'s partition above,
+the converse direction to `295`'s `oddAtoms_not_determined_by_ledger`; `NscStd = N_sc + hauntedCount`. Natural subtraction is safe in this
+direction because `N_sc ≤ NscStd`. -/
+theorem hauntedCount_eq_NscStd_sub_Nsc (D : ZeroData) :
+    hauntedCount D = D.NscStd - D.Nsc := by
+  rw [NscStd_eq_Nsc_add_haunted]; omega
 
 /-- **`β = 1 − κ` is not a limitation of the producers — it is optimal.**
 `SESSION 169`.

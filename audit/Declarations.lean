@@ -285,6 +285,10 @@ import Riemann
 #check @Riemann.Blindness.NscStd_from_onProfile
 #check @Riemann.Blindness.hauntedCount_from_onProfile
 #check @Riemann.Blindness.Nsc_from_onProfile
+-- SESSION 295: where hauntedCount and oddAtoms sit relative to the ledger.
+#check @Riemann.Blindness.oddAtoms_mod_four
+#check @Riemann.Blindness.hauntedCount_eq_NscStd_sub_Nsc
+#check @Riemann.Blindness.oddAtoms_not_determined_by_ledger
 #check @Riemann.Blindness.noHaunted_bundle_computes_NscStd
 #check @Riemann.Blindness.noHaunted_bundle_excludes
 #check @Riemann.Blindness.hauntedCount_eq_hauntedSet_card

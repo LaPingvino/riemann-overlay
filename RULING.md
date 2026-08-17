@@ -233,3 +233,13 @@ it is, which is a fully certified `50.88%` with all its derivations proved tight
   on disk before the item was written. That is `S33`'s shape a fourth time;
   `R26`'s statement-index query surfaced it in one command, before any Lean was
   written, which is the intended cost.
+
+  `295` adds items 1 and 2. Item 1 asks for a triage of *"claims_gate's six
+  `CLAIMS.md` flags"* and a true-positive rate: the gate reports **four** flags
+  on `CLAIMS.md` today, and `149` already reported the rate — `1` true positive
+  in `14`, recorded at `S52` along with why the count did not move when the true
+  positive was fixed. Item 2's `W32` has been run; its table is in
+  `FAILURES.md` with the kill condition recorded, which `S33` noted at `078`.
+  **Four of the five queue items are now discharged.** Item 5 is the
+  consolidation fallback, so item 4 is the only live one, and the prompt itself
+  says item 4 cannot carry a conclusion alone.

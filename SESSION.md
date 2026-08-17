@@ -14022,3 +14022,66 @@ Hygiene run ends at one (`R20`).
 **Might-mean, unhedged:** the certified `N_sc` row sits at the last rung that
 costs nothing, so every further point on that row is bought with a hypothesis
 about zeta rather than with a better argument about counting.
+
+## The board printed its recorded constants and compared none of them
+
+**Piece — an audit of what the board actually guards.** `297` ended on the note
+that further points on the `N_sc` row are bought with hypotheses. That made the
+board's conditional rows worth reading closely, and reading `main` found
+something else.
+
+**`EXPECTED` maps each row to its constant, and `main` compared the key set
+only.** A row was marked `ok` on membership. Editing
+`certified_nsc_via_noSmallHaunted`'s recorded `0.590625` to `0.4` left the board
+green — `S60`'s shape, a check that exists and does not run, sitting inside the
+guard built against `S67`/`S69`, which are themselves about hand-assembled
+tables drifting silently. Filed as `S118`.
+
+**The first witness was invalid** and `R28` caught it. I copied `board.py` to
+the scratchpad and ran it: exit `1`, which I nearly read as the guard working.
+`HERE` is computed from the file's own path, so a copy outside `forensics/`
+resolves `SRC` to a nonexistent directory and every row reads `GONE`. The valid
+control puts the copy in `forensics/`, and there the exit is `0`.
+
+**Wildcard — the hypothesis column.**
+
+**Kill condition, filed first:** *if the stated binders cannot be extracted
+cleanly — if the depth-counted split to the first top-level colon misfires on
+any of the thirteen rows — I ship the constant comparison alone and report the
+column as unavailable.* It did not fire; all thirteen split correctly, including
+`routeI_closePairs_zeta`'s four binders and `conjectural_routeI`'s `c₀ : ℝ`.
+
+Both fields are now compared, and both controls were run: a wrong constant and a
+blanked binder each turn the row `DRIFT` and the exit `1`; unmodified stays `0`.
+
+**What the column is not.** It is not a conditionality column, and `S77` is the
+reason: `166` classified producers by the hypotheses in their statements and
+`171` found that unsound — `starBound_of_multiplicity_two` states no proportion
+and uses `certified_nsc_unconditional` inside its proof. The cone is the measure
+of what a row assumes, and `--cones` is where that is checked. This column
+guards drift in the stated signature, and the docstring says so.
+
+**The cross-check found agreement.** `PRICES.md`'s route table records
+`certified_nsc_via_xiPrime` as blocked on `OffTransfer` and `NzComparable`,
+which is what the signature carries. The hand-built table is accurate today;
+what `298` changes is that nothing was checking it.
+
+`297`'s two declarations joined `CONE_EXPECTED`: `32/32` cones as recorded.
+
+**Snag, bin 1.** Between `295`, `296` and this cycle, three of my own negative
+or green results were artefacts of how the check was run rather than facts about
+the object — a mass cap, a grep pattern, and now a file's location. `R28` was
+written after the first two and caught the third within a cycle of being
+adopted, which is the first time a rule here has paid off that fast.
+
+Python-only cycle; no Lean changed, build and ledger unmoved by design. Hygiene
+run at one (`R20`).
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, thirteen guards green, `board --cones` green,
+process index `178`.
+
+**Might-mean, unhedged:** this project's guards are read far more often than
+they are re-derived, so the failure that matters is a guard that reports on a
+narrower thing than its output implies, and the board has been doing that since
+`165`.

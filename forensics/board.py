@@ -32,20 +32,51 @@ SRC = os.path.join(ROOT, "Riemann")
 
 # Declarations concluding in a `zetaFamily` proportion, with the constant as
 # written.  `None` marks a bound stated existentially rather than as a numeral.
+# `SESSION 298`: the values were **printed and never compared** — `main` marked a
+# row `ok` on membership alone, so a recorded constant could drift from the
+# source and the board stayed green.  Witnessed by editing `0.590625` to `0.4`
+# in a copy inside this directory (the path matters: a copy elsewhere makes
+# `SRC` unresolvable and exits `1` for the wrong reason) and watching it exit
+# `0`.  That is `S60`'s shape — a check that exists and does not run — in the
+# guard built against `S67`/`S69`.  Both fields are compared now, and both
+# controls were run: editing the recorded constant, and blanking a recorded
+# binder, each turn the row `DRIFT` and the exit `1`; unmodified stays `0`.
+#
+# The second field is the declaration's **stated binders**, verbatim.
+#
+# ⚠️ It is NOT a conditionality column, and `S77` is why: `166` classified
+# producers by the hypotheses in their statements and `171` found that unsound —
+# `starBound_of_multiplicity_two` states no proportion and uses
+# `certified_nsc_unconditional` inside its proof.  **The cone is the measure of
+# what a row assumes**, and `--cones` is where that is checked.  What this column
+# guards is drift: a row silently gaining or losing a stated hypothesis.
 EXPECTED = {
-    "certified_nsc":                        "0",
-    "certified_nsc_unconditional":          "0.50875",
-    "certified_nsc_via_offline":            "0.50875",
-    "certified_nsc_via_haunted":            "0.50875",
-    "certified_nsc_via_noSmallHaunted":     "0.590625",
-    "certified_nsc_via_xiPrime":            "0.60169",
-    "certified_nsc_via_noSmallHaunted_seven": "0.6179166",
-    "proportion_of_mult_le_two":            "0.6725",
-    "proportion_of_noHaunted_zeta":         "0.6725",
-    "conjectural_routeIII":                 "2/3 - ε",
-    "conjectural_routeI":                   "∃ κ, 0.6725 < κ",
-    "conjectural_full":                     "1 - ε",
-    "routeI_closePairs_zeta":               "∃ κ > 0",
+    "certified_nsc":                        ("0", ""),
+    "certified_nsc_unconditional":          ("0.50875", ""),
+    "certified_nsc_via_offline":            ("0.50875", ""),
+    "certified_nsc_via_haunted":            ("0.50875", ""),
+    "certified_nsc_via_noSmallHaunted":     ("0.590625",
+        "(hh : NoSmallHaunted zetaFamily 5)"),
+    "certified_nsc_via_xiPrime":            ("0.60169",
+        "(htr : OffTransfer zetaFamily xiPrimeFamily) "
+        "(hcmp : NzComparable zetaFamily xiPrimeFamily)"),
+    "certified_nsc_via_noSmallHaunted_seven": ("0.6179166",
+        "(hh : NoSmallHaunted zetaFamily 7)"),
+    "proportion_of_mult_le_two":            ("0.6725",
+        "(hM : ∀ T γ, (zetaFamily.D T).H γ ≤ 2)"),
+    "proportion_of_noHaunted_zeta":         ("0.6725",
+        "(hh : NoHaunted zetaFamily)"),
+    "conjectural_routeIII":                 ("2/3 - ε",
+        "(hbg : BGSTNarrowBox zetaFamily) (h : ∀ b > 0, NarrowBox zetaFamily b)"),
+    "conjectural_routeI":                   ("∃ κ, 0.6725 < κ",
+        "(c₀ : ℝ) (hc0 : 0 ≤ c₀) (hc : c₀ ≤ 0.33) "
+        "(h : EffectiveFujii zetaFamily.toCounts c₀)"),
+    "conjectural_full":                     ("1 - ε",
+        "(h : ExtendedSupport zetaFamily)"),
+    "routeI_closePairs_zeta":               ("∃ κ > 0",
+        "(c₀ c₁ : ℝ) (h₀ : EffectiveFujii zetaFamily.toCounts c₀) "
+        "(h₁ : ClosePairLowerBound closePairsZeta zetaFamily (9/10) c₁) "
+        "(hgood : Cbound c₀ (9/10) - c₁ < 2)"),
 }
 
 # NOT on the board, and the first run of this file is why the distinction is
@@ -85,7 +116,28 @@ TRANSFER = {
 DECL = re.compile(r"^(?:theorem|lemma|axiom)\s+(\S+)((?:.|\n)*?):=", re.M)
 
 
+def binders(head, name):
+    """The declaration's stated binders: everything between the name and the
+    first TOP-LEVEL `:`.  Depth-counted, because binders contain colons."""
+    seg = head[head.index(name) + len(name):]
+    depth = 0
+    for i, ch in enumerate(seg):
+        if ch in "([{⟨":
+            depth += 1
+        elif ch in ")]}⟩":
+            depth -= 1
+        elif ch == ":" and depth == 0 and seg[i:i + 2] != ":=":
+            return " ".join(seg[:i].split())
+    return ""
+
+
 def extract():
+    """name -> (conclusion, binders).
+
+    The conclusion is computed exactly as before — `rsplit` on the last colon —
+    because the row-selection predicate keys on it and `S67`/`S69` are about
+    rows going missing.  The binder split is additive and cannot move a row on
+    or off the board."""
     out = {}
     for fn in sorted(os.listdir(SRC)):
         if not fn.endswith(".lean"):
@@ -96,7 +148,7 @@ def extract():
             concl = " ".join(head.rsplit(":", 1)[-1].split())
             if "zetaFamily" in concl and "Proportion" in concl \
                     and "ProportionStd" not in concl:
-                out[m.group(1)] = concl
+                out[m.group(1)] = (concl, binders(head, m.group(1)))
     return out
 
 
@@ -163,6 +215,8 @@ CONE_EXPECTED = {
     "NoSmallHaunted.mono": set(),
     "noHaunted_iff_forall_noSmallHaunted": set(),
     "noSmallHaunted_strict": set(),
+    "NoSmallHaunted.mono_le": set(),
+    "free_ladder_stops_at_three": set(),
     # one axiom
     "conjectural_routeIII": {"zetaNonempty"},
     "conjectural_routeI": {"zetaNonempty"},
@@ -239,15 +293,40 @@ def main():
         raise SystemExit(1 if check_cones() else 0)
     got = extract()
     print("=== the board: ζ-level `Proportion` declarations, extracted ===")
+    drift = []
     for name in sorted(got):
-        mark = "ok " if name in EXPECTED else "NEW"
-        print(f"  [{mark}] {name:42} {got[name][:58]}")
+        concl, hyps = got[name]
+        if name not in EXPECTED:
+            mark = "NEW"
+        else:
+            want_c, want_h = EXPECTED[name]
+            fields = []
+            if want_c not in concl:
+                fields.append(f"constant: recorded {want_c!r}")
+            if want_h != hyps:
+                fields.append(f"binders: recorded {want_h or '—'!r}")
+            mark = "ok " if not fields else "DRIFT"
+            if fields:
+                drift.append((name, fields, concl, hyps))
+        print(f"  [{mark}] {name:42} {concl[:52]}")
+        print(f"  {'':6} {'':42} hyp: {hyps[:52] if hyps else '—'}")
     missing = sorted(set(EXPECTED) - set(got))
     new = sorted(set(got) - set(EXPECTED))
     for n in missing:
         print(f"  [GONE] {n:42} (in EXPECTED, not found in sources)")
     print(f"\n  extracted {len(got)}, expected {len(EXPECTED)}, "
-          f"new {len(new)}, gone {len(missing)}")
+          f"new {len(new)}, gone {len(missing)}, drifted {len(drift)}")
+    for name, fields, concl, hyps in drift:
+        print(f"\n  ⚠️ {name} drifted from its record:")
+        for f in fields:
+            print(f"       {f}")
+        print(f"       source now: {concl}")
+        print(f"       binders now: {hyps or '—'}")
+    if drift:
+        print("\n  A recorded value that no longer matches the source is `S60`'s "
+              "shape — the check ran and compared nothing. Re-price in "
+              "`PRICES.md`, then update EXPECTED.")
+        return 1
     if new or missing:
         print("\n  ⚠️ the board has changed.  Re-price it in `PRICES.md` and "
               "update EXPECTED — a row appearing or vanishing unnoticed is the "

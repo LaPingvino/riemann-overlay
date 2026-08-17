@@ -13675,3 +13675,48 @@ is a negative result with its classification.
 **Might-mean, unhedged:** a proof gets long for one of three reasons here, and
 only one of them is fixable by later work, so the length of a proof says less
 about its age than about whether it was written across a vocabulary boundary.
+
+## A sixth collapse, and it refutes half of `291`'s classification
+
+`291` classified the ten longest `Fiber` proofs and concluded the seam was empty,
+on the reasoning that sum-to-pointwise proofs *"already reach the pointwise step
+where a characterisation would help"*. That is true and it is not the whole test.
+
+**Kill condition, filed first:** *if `H = 1` is not equivalent to
+`onAt = 1 ∧ offAt = 0` — if parity does not force it — then the partition is not
+clean and I report what the third part is.* It did not fire: `offAt` is even and
+at most `H`, so `H = 1` gives `offAt = 0` and then `onAt = 1`.
+
+* `Nsc_eq_onAt_one_offAt_zero` — `N_sc` joins `NscStd` (`287`) and
+  `hauntedCount` (`288`) in the `(onAt, offAt)` coordinates.
+* With all three, **`NscStd_eq_Nsc_add_haunted` is a partition**: `{onAt = 1}`
+  splits by whether `offAt` vanishes. Twenty-five lines of indicator summation
+  became five, via `Finset.card_filter_add_card_filter_not`.
+
+**Why `291` missed it, and what that corrects.** `291` said sum-to-pointwise
+proofs do not collapse from a characterisation. That holds — this one's pointwise
+step already called `H_eq_onAt_add_offAt` and `even_offAt`. But the collapse did
+not come from a better pointwise step; it came from **recognising the sum as a
+partition**, which is a third cause and neither of the two `290` named. `291`'s
+classification of the shapes was right and its conclusion from them was not.
+
+`291` also would not have seen it: at twenty-five indented lines this sits below
+the top ten its ranking printed, and `291` looked only at that top ten.
+
+**So the count is six, with three causes.** A characterisation arriving late
+(`256`, `287`, `289`), an intermediate theorem arriving late (`290`), and a sum
+that was a partition all along (`292`, `263`).
+
+**Snag, bin 2.** `Finset.filter_card_add_filter_neg_card_eq_card` does not exist
+under that name; it is `Finset.card_filter_add_card_filter_not`. I guessed the
+name from the shape of the statement, which cost a round. `R26`'s index covers
+this repo and the vendored dependency; Mathlib is outside it, so a name from
+there still has to be grepped.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8` unmoved, thirteen guards green, both indices regenerated.
+
+**Might-mean, unhedged:** three of the ledger's five counts are now filters on
+the same two-coordinate data, so the identities between them are set algebra and
+the summations that proved them were carrying a coordinate change nobody had
+written down.

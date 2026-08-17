@@ -3824,6 +3824,39 @@ theorem three_le_H_of_haunted_at (D : ZeroData) {γ : ℝ}
   obtain ⟨r, hr⟩ := even_offAt D γ
   omega
 
+/-- **`N_sc` counts ordinates with one on-line zero and no off-line mass.**
+`SESSION 292`.
+
+`H = 1` forces `offAt = 0` — `offAt` is even and at most `H` — and then
+`onAt = 1`; conversely those two give `H = 1`.  So `N_sc` joins `NscStd` (`287`)
+and `hauntedCount` (`288`) in having a reading in the `(onAt, offAt)`
+coordinates.
+
+Together the three are a **partition**: `{onAt = 1}` splits by whether `offAt`
+vanishes, which is `NscStd_eq_Nsc_add_haunted` below. -/
+theorem Nsc_eq_onAt_one_offAt_zero (D : ZeroData) :
+    D.Nsc = (D.ordinates.toFinset.filter fun γ => onAt D γ = 1 ∧ offAt D γ = 0).card := by
+  classical
+  have key : (D.Nsc : ℤ)
+      = ∑ γ ∈ D.ordinates.toFinset,
+        (if onAt D γ = 1 ∧ offAt D γ = 0 then (1:ℤ) else 0) := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    rw [hB]
+    refine Finset.sum_congr rfl fun γ _ => ?_
+    have h := H_eq_onAt_add_offAt D γ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    congr 1
+    simp only [eq_iff_iff]
+    omega
+  have hc : ((D.ordinates.toFinset.filter
+        fun γ => onAt D γ = 1 ∧ offAt D γ = 0).card : ℤ)
+      = ∑ γ ∈ D.ordinates.toFinset,
+        (if onAt D γ = 1 ∧ offAt D γ = 0 then (1:ℤ) else 0) := by
+    rw [Finset.card_filter]; push_cast; rfl
+  exact_mod_cast key.trans hc.symm
+
 /-- **A haunted ordinate is a lone on-line zero with off-line mass beside it.**
 `SESSION 288`.
 
@@ -4028,29 +4061,9 @@ project's is *exactly* the number of haunted ordinates. -/
 theorem NscStd_eq_Nsc_add_haunted (D : ZeroData) :
     D.NscStd = D.Nsc + hauntedCount D := by
   classical
-  have key : (D.NscStd : ℤ) = (D.Nsc : ℤ) + (hauntedCount D : ℤ) := by
-    have hA : (D.NscStd : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
-        (if D.H γ - offAt D γ = 1 then (1 : ℤ) else 0) := by
-      rw [NscStd_from_profile, profile, Multiset.map_map]; rfl
-    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
-        (if D.H γ = 1 then (1 : ℤ) else 0) := by
-      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
-    have hC : (hauntedCount D : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
-        (if D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1 then (1 : ℤ) else 0) := by
-      rw [hauntedCount, Finset.card_filter]; push_cast; rfl
-    rw [hA, hB, hC, ← Finset.sum_add_distrib]
-    refine Finset.sum_congr rfl fun γ _ => ?_
-    have h1 := H_eq_onAt_add_offAt D γ
-    obtain ⟨r, hr⟩ := even_offAt D γ
-    by_cases hone : D.H γ = 1
-    · rw [if_pos hone, if_pos (by omega : D.H γ - offAt D γ = 1),
-        if_neg (by simp [hone])]
-      norm_num
-    · rw [if_neg hone]
-      by_cases hsc : D.H γ - offAt D γ = 1
-      · rw [if_pos hsc, if_pos ⟨hsc, hone⟩]; norm_num
-      · rw [if_neg hsc, if_neg (by tauto)]; norm_num
-  exact_mod_cast key
+  rw [NscStd_eq_onAt_one, Nsc_eq_onAt_one_offAt_zero,
+    hauntedCount_eq_onAt_one_offAt_pos, ← Finset.filter_filter, ← Finset.filter_filter]
+  exact (Finset.card_filter_add_card_filter_not _).symm
 
 /-- **`β = 1 − κ` is not a limitation of the producers — it is optimal.**
 `SESSION 169`.

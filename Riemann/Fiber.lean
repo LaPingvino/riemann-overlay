@@ -8344,5 +8344,99 @@ theorem marginal_pair_separates_only_NscStd {γ a : ℝ} (hγ : γ ≠ 0) (ha : 
   · rw [Noff_from_profile, Noff_from_profile, pA, pB]; decide
 
 
+/-! #### The third pairing, and the survey closes — `SESSION 354`
+
+The profile's two coordinates are mass and off-line mass, and `on = mass − off`, so
+there are three ways to keep two of the three and forget the pairing.  `351` and `353`
+did two of them; this does the third, and the three together are the whole list.
+
+| kept | determines | misses |
+|---|---|---|
+| mass, on | all five rows (`351`) | — |
+| mass, off | four (`353`) | `NscStd` |
+| on, off | three (below) | `N⊛`, `N_sc` |
+
+**Kill condition, filed first:** *if any row I expect the `(on, off)` pair to keep needs
+the joint after all, I report which and leave the row's cell empty rather than filling
+it by assumption.*  It did not fire: `N` is the sum of the two marginals, `N_off` the
+sum of one, and `NscStd` a count in the other. -/
+
+/-- Profile entries have off-line mass at most total mass — the pointwise fact the
+marginal identities need. -/
+lemma profile_snd_le_fst (D : ZeroData) {q : ℕ × ℕ} (hq : q ∈ profile D) :
+    q.2 ≤ q.1 := by
+  classical
+  rw [profile, Multiset.mem_map] at hq
+  obtain ⟨γ, -, rfl⟩ := hq
+  have h := H_eq_onAt_add_offAt D γ
+  simp only
+  omega
+
+/-- `NscStd` is a count in the on-line marginal. -/
+lemma NscStd_from_on_marginal (D : ZeroData) :
+    D.NscStd = ((onProfile D).map Prod.fst).count 1 := by
+  classical
+  rw [NscStd_from_onProfile, Multiset.count_map]
+  simp [eq_comm]
+
+/-- `N_off` is the sum of the off-line marginal. -/
+lemma Noff_from_on_marginal (D : ZeroData) :
+    D.Noff = ((onProfile D).map Prod.snd).sum := by
+  classical
+  rw [Noff_from_profile, onProfile_eq_profile_map, Multiset.map_map]
+  rfl
+
+/-- `N` is the sum of both marginals — `mass = on + off` summed, which needs
+`profile_snd_le_fst` because the subtraction is in `ℕ`. -/
+lemma N_from_on_marginals (D : ZeroData) :
+    D.N = ((onProfile D).map Prod.fst).sum + ((onProfile D).map Prod.snd).sum := by
+  classical
+  rw [N_from_profile, onProfile_eq_profile_map, Multiset.map_map, Multiset.map_map,
+    ← Multiset.sum_map_add]
+  refine congrArg _ (Multiset.map_congr rfl fun q hq => ?_)
+  have h := profile_snd_le_fst D hq
+  simp only [Function.comp_apply]
+  omega
+
+/-- **The `(on, off)` pairing keeps three rows.**  Each is a functional of one marginal
+or of the two sums, so forgetting the pairing costs nothing for these. -/
+theorem ledger_partly_determined_by_on_off_marginals {D D' : ZeroData}
+    (hon : (onProfile D).map Prod.fst = (onProfile D').map Prod.fst)
+    (hoff : (onProfile D).map Prod.snd = (onProfile D').map Prod.snd) :
+    D.N = D'.N ∧ D.Noff = D'.Noff ∧ D.NscStd = D'.NscStd := by
+  refine ⟨?_, ?_, ?_⟩
+  · rw [N_from_on_marginals, N_from_on_marginals, hon, hoff]
+  · rw [Noff_from_on_marginal, Noff_from_on_marginal, hoff]
+  · rw [NscStd_from_on_marginal, NscStd_from_on_marginal, hon]
+
+/-- **…and loses the other two.**  Two configurations with on-line marginal `{1,3}` and
+off-line marginal `{0,2}`, paired the two ways: `N⊛` is `26` against `18` and `N_sc` is
+`1` against `0`.
+
+Both quantities need the mass, and mass is `on + off` *per ordinate* — which is the
+pairing this coarsening throws away. -/
+theorem Nstar_Nsc_not_determined_by_on_off_marginals {γ a : ℝ} (hγ : γ ≠ 0)
+    (ha : a ≠ 1/2) :
+    (onProfile (twoAtom γ a 1 0 3 1)).map Prod.fst
+        = (onProfile (twoAtom γ a 1 1 3 0)).map Prod.fst
+      ∧ (onProfile (twoAtom γ a 1 0 3 1)).map Prod.snd
+        = (onProfile (twoAtom γ a 1 1 3 0)).map Prod.snd
+      ∧ (twoAtom γ a 1 0 3 1).Nstar = 26 ∧ (twoAtom γ a 1 1 3 0).Nstar = 18
+      ∧ (twoAtom γ a 1 0 3 1).Nsc = 1 ∧ (twoAtom γ a 1 1 3 0).Nsc = 0 := by
+  classical
+  have pA := twoAtom_profile hγ ha (k₁ := 1) (j₁ := 0) (k₂ := 3) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 1) (j₁ := 1) (k₂ := 3) (j₂ := 0)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [onProfile_eq_profile_map, onProfile_eq_profile_map, pA, pB]; decide
+  · rw [onProfile_eq_profile_map, onProfile_eq_profile_map, pA, pB]; decide
+  · rw [Nstar_from_profile, pA]; decide
+  · rw [Nstar_from_profile, pB]; decide
+  · rw [Nsc_from_onProfile, onProfile_eq_profile_map, pA]; decide
+  · rw [Nsc_from_onProfile, onProfile_eq_profile_map, pB]; decide
+
+
 end Blindness
 end Riemann

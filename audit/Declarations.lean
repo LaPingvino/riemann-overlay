@@ -787,3 +787,13 @@ import Riemann
 -- NscStd is a functional of the on-line marginal alone (349).
 #check @Riemann.Blindness.NscStd_not_determined_by_profile_marginals
 #check @Riemann.Blindness.marginal_pair_separates_only_NscStd
+
+-- SESSION 354: the third pairing, and the survey of all three closes.  (on, off)
+-- keeps N, N_off, NscStd and loses N-star and N_sc — both need mass = on + off per
+-- ordinate, which is the pairing the coarsening discards.
+#check @Riemann.Blindness.profile_snd_le_fst
+#check @Riemann.Blindness.NscStd_from_on_marginal
+#check @Riemann.Blindness.Noff_from_on_marginal
+#check @Riemann.Blindness.N_from_on_marginals
+#check @Riemann.Blindness.ledger_partly_determined_by_on_off_marginals
+#check @Riemann.Blindness.Nstar_Nsc_not_determined_by_on_off_marginals

@@ -17247,3 +17247,58 @@ central object is the profile and the profile's own coordinates are the ones tha
 its reported row, so the difficulty `X` names is partly a choice of vocabulary — the
 same data written as `(mass, on)` instead of `(mass, off)` gives the ledger up to a
 marginal, and what stays hidden either way is the pairing.
+
+## The third pairing, and the survey closes
+
+**Piece.** The profile's coordinates are mass and off-line mass, and `on = mass − off`,
+so there are three ways to keep two of the three and forget the pairing. `351` did
+`(mass, on)`, `353` did `(mass, off)`; this does `(on, off)`, and those three are the
+list.
+
+| kept | determines | misses |
+|---|---|---|
+| mass, on | all five rows | — |
+| mass, off | four | `NscStd` |
+| on, off | three | `N⊛`, `N_sc` |
+
+**Kill condition, filed first:** *if any row I expect the `(on, off)` pair to keep needs
+the joint after all, I report which and leave the cell empty rather than filling it by
+assumption.* It did not fire. `N` is the sum of the two marginals
+(`N_from_on_marginals`), `N_off` the sum of one (`Noff_from_on_marginal`), and `NscStd`
+a count in the other (`NscStd_from_on_marginal`); `ledger_partly_determined_by_on_off_marginals`
+composes them.
+
+**Wildcard — how much does it lose?** **Kill condition, filed first:** *if the witness
+separates only one row, the third line of the table is weaker than the other two and I
+say so.* It did not fire: `Nstar_Nsc_not_determined_by_on_off_marginals` separates two.
+Two configurations with on-line marginal `{1,3}` and off-line marginal `{0,2}`, paired
+the two ways: `N⊛` is `26` against `18`, `N_sc` is `1` against `0`.
+
+**`S143` — I expected the wrong two rows to be at risk.** My guess was that sums survive
+marginalisation and counts do not, so `N` and `N⊛` would come through any coarsening.
+`N` does and `N⊛` does not. The difference is what they sum: `N` is `Σ(on + off)`, which
+splits into the two marginals' sums, while `N⊛` is `Σ mass²` and squaring needs
+`mass = on + off` *per ordinate* — the pairing this coarsening discards. So the rule is
+not counts-versus-sums but whether the quantity is additive in the coordinates kept.
+
+**One small lemma the file was missing.** `profile_snd_le_fst` — profile entries have
+off-line mass at most total mass. It is needed because `on = mass − off` is a truncated
+subtraction in `ℕ`, and three cycles of marginal work had gone without stating it.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor `26`,
+overclaim floor `203` — clean first pass. No `equiv_check` owed: the new declarations are
+multiset identities and equalities on named configurations.
+
+**Correction to my own first draft of this sentence, made before shipping.** I wrote
+that `NscStd` is the row surviving only one pairing. It is not: `NscStd` comes through
+`(mass, on)` and `(on, off)` and fails only on `(mass, off)`; `N_sc` and `N⊛` likewise
+come through two and fail on one; `N` and `N_off` come through all three. No row of the
+five survives only one pairing, and the draft asserted a shape the table does not have.
+
+**Might-mean, scoped to the three pairings and the five rows:** `N` and `N_off` come
+through all three coarsenings, and each of the other three rows fails on the one that
+drops the coordinate its definition names — `NscStd` when `on` goes,
+`Riemann.Blindness.Nstar_Nsc_not_determined_by_on_off_marginals` when `mass` does — so
+the row the project reports is the one whose coordinate the profile's own notation
+leaves out.

@@ -16439,3 +16439,69 @@ row that consumed them, so the board Joop has been deciding about is now a menu
 of hypotheses with no axiom prices attached at all except Route II's — and the
 thing being risked by adopting any of them is a property the project only
 acquired four cycles ago.
+
+## Where the ladder crosses the board
+
+**Piece.** `340` found the two ladder rungs axiom-free, which makes the ladder the
+cheapest thing on the board. Two questions follow that the rungs do not answer:
+how high can it go, and at which rung does it overtake each other row?
+
+**Kill condition, filed first:** *if a limit statement for the ladder already
+exists, this is a re-derivation and the deliverable is the pointer.* **It fired —
+on the first question, and after I had written the Lean.** `ladder_lt_kappa`
+(`240`) is "every rung is below `κ`". `ladder_approaches_kappa` (`254`) is the
+limit, in `ε`–`N` form over the odd rungs that actually exist — a better statement
+than the `Tendsto` over all `ℕ` I wrote, because the even rungs are not rungs.
+And `currencies_saturate_at_kappa` (`240`) already draws the board conclusion:
+a row promising more than `κ` is buying a third thing. All three deleted from my
+draft; the pointer is what that half delivered.
+
+**The second question was open, and one lemma answers it for every row at once.**
+`Gaps.ladder_beats_iff`: a rung beats a target `c < κ` exactly when
+`m > (1 − c)/(κ − c)`. So each competing row has a threshold computable from its
+constant alone.
+
+Located, each as a pair with the previous odd rung that fails — odd because
+`noSmallHaunted_even_iff` makes an even rung the same hypothesis as its successor,
+so the ladder's genuine steps are the odd `m`:
+
+* **Route II** (`0.60169`): threshold `39831/7081 ≈ 5.63`, so
+  `Riemann.ladder_beats_routeII_first_at_seven` — rung `7` beats it, rung `5` does
+  not. This is the arithmetic half of the domination `340` measured.
+* **Route III** (`2/3`): threshold exactly `400/7 ≈ 57.14`, so
+  `Riemann.ladder_beats_routeIII_first_at_fiftynine` — rung `59` beats it
+  (`0.666853…`), rung `57` does not (`0.666652…`).
+
+**Snag, bin 1 — I truncated my own search and the truncation read as an answer.**
+`statement_index --find 'ladder'` returns `26` rows; I piped it through `head -40`,
+which cut the list at row `13`. `ladder_lt_kappa` and `ladder_approaches_kappa`
+are rows `14` and `15`. What caught it was `duplication_floor` going `23 → 24` on
+the shared conclusion — after the Lean was written and building. `S130`, and it is
+`S117`/`296`'s shape exactly: the index had the answer and returned it. The rule
+`296` implies is the one I broke — a search's output is not an answer until it has
+been read to the end.
+
+**A second decimal slip, caught by `norm_num` rather than by me.** I computed
+Route II's threshold as `5.625`. It is `39831/7081`, and
+`0.07081 × 5.625 = 0.39830625` against `0.39831`. The conclusion was unaffected —
+both lie strictly between `5` and `6` — but this is the second time in one cycle
+that a decimal stood in for an exact rational and was wrong, the first being a
+`κ = 2689/4000` for `269/400` in the crossing algebra. Both thresholds now ship as
+exact fractions with the bracketing integers, per `PRICES.md`'s own rule about
+exact rationals.
+
+**Corrected at its location.** `Proportion.lean`'s `m = 7` docstring said *"against
+`certified_nsc_via_xiPrime`'s `0.60169` at **four** axioms, this is more proportion
+at **two**"*. Since `340`'s measurement those counts are `2` and `0`, so the trade
+is more proportion at *no* axioms against less at two.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0, warnings at the floor `54`, duplication floor back at
+`23`. No `equiv_check` owed: everything new is `ℝ`-valued or hypothesis-carrying,
+outside its `ℕ`-linear hypothesis-free inventory.
+
+**Might-mean, scoped to the two crossings computed and to `κ = 0.6725`:** the
+ladder is not a weaker relative of the other rows but a scale that passes them —
+rung `7` above Route II, rung `59` above Route III — so the board's real question
+is not which row buys most but at what multiplicity threshold a coincidence
+hypothesis becomes harder to believe than a location hypothesis.

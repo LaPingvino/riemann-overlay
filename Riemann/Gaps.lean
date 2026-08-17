@@ -627,6 +627,35 @@ theorem ladder_step {κ m : ℝ} (h1 : m ≠ 1) (h2 : m + 1 ≠ 0) :
   field_simp
   ring
 
+/-! #### Where the ladder crosses the board — `SESSION 341`
+
+`340` measured the board's cones and found the two ladder rungs axiom-free, which
+makes the ladder the cheapest thing on it.  That raises two questions the rungs
+themselves do not answer: how high can the ladder go, and at which rung does it
+overtake each of the other rows?
+
+**Kill condition, filed first:** *if a limit statement for the ladder already
+exists, this is a re-derivation and the deliverable is the pointer.*  **It fired,
+on the first question, and late** — `ladder_lt_kappa` (`240`) is exactly "every
+rung is below `κ`", `ladder_approaches_kappa` (`254`) is the limit in `ε`–`N` form
+over the odd rungs that actually exist, and `currencies_saturate_at_kappa` (`240`)
+already draws the board conclusion that Route I and `[OPEN D]` are buying a third
+thing.  All three are below in this file.  `341` wrote a `Tendsto` version and a
+strict bound before seeing them; both were deleted rather than kept, and the
+deliverable of that half is this pointer.
+
+The second question is open, and one lemma answers it for every row at once. -/
+
+/-- **The crossing law.**  A rung beats a target `c < κ` exactly when
+`m > (1 − c)/(κ − c)`.  So each competing row on the board has a threshold rung,
+computable from its constant alone. -/
+theorem ladder_beats_iff {κ c m : ℝ} (hc : c < κ) (hm : 1 < m) :
+    c < (m * κ - 1) / (m - 1) ↔ (1 - c) / (κ - c) < m := by
+  have h1 : (0:ℝ) < m - 1 := by linarith
+  have h2 : (0:ℝ) < κ - c := by linarith
+  rw [lt_div_iff₀ h1, div_lt_iff₀ h2]
+  constructor <;> intro h <;> nlinarith [h]
+
 /-- **The off-line bound `β = 1 − κ`, at both baselines.**  `SESSION 237`.
 
 `offLineImport_of_proportionStd` gives `β = 1 − κ` for any family, and the

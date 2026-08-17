@@ -478,6 +478,59 @@ docstring's claim, re-checked by `norm_num` on every build. -/
 theorem ladder_seven_shortfall :
     (0.6179166 : ℝ) + 1 / 15000000 = 7415 / 12000 := by norm_num
 
+/-! #### Where the ladder crosses the rest of the board — `SESSION 341`
+
+`Gaps.ladder_beats_iff` gives the threshold for any target `c < κ` as
+`m > (1 − c)/(κ − c)`.  With `κ = 0.6725` the two competing rows on the board have
+thresholds that fall between rungs, so the first rung to overtake each is the next
+*odd* one — odd because `Gaps.noSmallHaunted_even_iff` makes an even rung the same
+hypothesis as its successor, so the ladder's genuine steps are the odd `m`.
+
+Each crossing ships as a pair: the rung that beats the target and the previous odd
+rung that does not.
+
+**Kill condition, filed first:** *if either threshold lands below rung `3` — the
+rung `Gaps.noSmallHaunted_three` proves for free — then the row it belongs to was
+never a competitor and the crossing is not news.*  It did not fire: the thresholds
+are `400/7 ≈ 57.14` and `39831/7081 ≈ 5.63`. -/
+
+/-- **Route II's threshold: `39831/7081`, between `5` and `6`.**  The decimal
+`5.625` is *not* this number — `0.07081 × 5.625 = 0.39830625` against `0.39831` —
+and writing it as a decimal is how the first draft of this section got it wrong. -/
+theorem ladder_routeII_crossing_exact :
+    ((1 : ℝ) - 0.60169) / ((0.6725 : ℝ) - 0.60169) = 39831 / 7081
+      ∧ (5 : ℝ) < 39831 / 7081 ∧ (39831 : ℝ) / 7081 < 6 := by
+  refine ⟨by norm_num, by norm_num, by norm_num⟩
+
+/-- **Rung `7` is the first to beat Route II, and rung `5` does not.**  This is the
+witness for the domination `340` measured: `0.6179166…` against `0.60169`, and
+since `337` at no axiom cost against Route II's two. -/
+theorem ladder_beats_routeII_first_at_seven :
+    (0.60169 : ℝ) < ((7 : ℝ) * 0.6725 - 1) / ((7 : ℝ) - 1)
+      ∧ ¬ ((0.60169 : ℝ) < ((5 : ℝ) * 0.6725 - 1) / ((5 : ℝ) - 1)) := by
+  norm_num
+
+/-- **Route III's threshold: exactly `400/7`.**  `κ − 2/3 = 7/1200` and
+`1 − 2/3 = 1/3`. -/
+theorem ladder_routeIII_crossing_exact :
+    ((1 : ℝ) - 2 / 3) / ((0.6725 : ℝ) - 2 / 3) = 400 / 7 := by norm_num
+
+/-- **Rung `59` is the first to beat Route III's `2/3 − ε` target, and rung `57`
+does not.**  `0.666853…` against `0.666652…`, either side of `2/3`.  Both rows cost
+no axioms since `337`, so at rung `59` the ladder dominates the narrow box in the
+only currency left — the hypothesis itself. -/
+theorem ladder_beats_routeIII_first_at_fiftynine :
+    (2 / 3 : ℝ) < ((59 : ℝ) * 0.6725 - 1) / ((59 : ℝ) - 1)
+      ∧ ¬ ((2 / 3 : ℝ) < ((57 : ℝ) * 0.6725 - 1) / ((57 : ℝ) - 1)) := by
+  norm_num
+
+/-! **Route I and `[OPEN D]` need no new theorem here.**  `Gaps.ladder_lt_kappa`
+(`240`) puts every rung strictly below `κ` and
+`Gaps.currencies_saturate_at_kappa` (`240`) already says a row promising more than
+`κ` is buying a third thing.  `341` wrote an instance of the first at
+`κ = 0.6725` before finding it and deleted it; the ceiling is `certified_std`'s
+constant, so it moves only if that constant does. -/
+
 /-- **The `m = 7` rung: `0.617917`, `+10.917` points — and it dominates the ξ′
 route in both currencies.**
 
@@ -496,7 +549,12 @@ directly.  The `+10.917` quoted in `PRICES.md` is the same to three decimals
 either way.
 
 Against `certified_nsc_via_xiPrime`'s
-`0.60169` at **four** axioms, this is *more* proportion at **two**.  `150`
+`0.60169` at **four** axioms, this is *more* proportion at **two**. **`340`:
+measured with `board.py --cones`, those counts are `2` and `0` — the discharge at
+`337` removed `baseline_zeta23` and `zetaNonempty` from both cones, so the trade is
+now more proportion at *no* axioms against less at two.
+`ladder_beats_routeII_first_at_seven` is the arithmetic half of it, with rung `5`
+as the converse witness.  `150`
 compared ξ′ against the `m = 5` rung and read the trade-off as "1.106 points for
 two axioms"; at `m = 7` there is no trade-off left in either currency, and the
 only axis on which ξ′ can still win is **hypothesis strength** — which is a real

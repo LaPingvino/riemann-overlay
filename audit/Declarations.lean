@@ -700,3 +700,12 @@ import Riemann
 #check @Riemann.Blindness.onLineOrdinates_add_offLinePoints
 #check @Riemann.Blindness.offLinePoints_le_Noff
 #check @Riemann.Blindness.point_slack_exact
+
+-- SESSION 341: where the ladder crosses the board.  The ceiling and the limit
+-- were already on disk (ladder_lt_kappa 240, ladder_approaches_kappa 254); what is
+-- new is the crossing law and the two thresholds it locates.
+#check @Riemann.ladder_beats_iff
+#check @Riemann.ladder_routeII_crossing_exact
+#check @Riemann.ladder_beats_routeII_first_at_seven
+#check @Riemann.ladder_routeIII_crossing_exact
+#check @Riemann.ladder_beats_routeIII_first_at_fiftynine

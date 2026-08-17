@@ -15457,3 +15457,52 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, scoped to the three entries settled:** two of the seven standing
 absence claims had answers already on disk and a third was a past-tense record,
 so `absence_queue`'s count ran ahead of what was open by three.
+
+## The queue said seven; one is open
+
+**Piece and wildcard, one target — finishing `323`.** That cycle settled three of
+`absence_queue`'s seven and stopped. `R30`'s discipline says the sentence should
+match what was checked, and `323` checked three.
+
+**Kill condition, filed first:** *if the remaining four are genuinely open — if
+nothing on disk answers any — then `323`'s two finds were the backlog and the
+queue is now accurate; if another is answered, the queue's accuracy is worse than
+`323` reported.* **Three of the four.**
+
+* **`#27`, the gate** — its `changes-structurally` verdict is
+  `forensics/provenance_lint.py`'s, not prose. That script marks `GM_bridge`
+  RH-conditional, prints `tier RH : 3/11 [9, 10, 11]` with `11` being this entry,
+  and replays `#27` as `BLOCKED` on every run. It is in the roster `session_gate`
+  gates on, so the claim is re-verified each cycle. **Settled with its witness.**
+* **`T3(b)`'s rubric** — a **schema description**. Its third verdict is *named*
+  `changes-structurally (the failure does not exist as stated)`, and the section
+  is headed *answered mechanically* and then prints the answer table. `146`
+  listed schema descriptions among the mechanical false positives it declined to
+  filter, on `S39`'s ground. **Graded, not fixed.**
+* **`E.md`'s thesis** — *"the agreement between faces is the one thing no
+  single-natured instrument can certify"* has a **partial** witness:
+  `Blindness.no_muInvariant_theory_computes_NscStd` proves no `μ`-invariant
+  theory computes `NscStd` — one nature, one quantity, formalised. That is an
+  instance of the shape, not the sentence, and the scope is written into the
+  settle rather than glossed.
+* **`T3`, the solved-problem control** — *"Not started; needs FLT
+  (Kummer → Frey → Ribet → Wiles) and an open control."* Genuinely open, and it
+  wants literature outside the registers, which is the heartbeat's own queue item
+  `4`. **Left listed.**
+
+Queue `4 → 1`. Filed as `S126`.
+
+**Snag, bin 1.** Across `323` and `324` the queue reported `7`; the truth is `1`.
+Every one of the other six was answered, witnessed or graded on disk before the
+cycle started. The instrument was accurate on every listing — an absence claim
+with no dated re-check is exactly what it says — and the number it printed was
+still six times the open work, because *"awaiting re-check"* and *"open"* are
+different predicates and I read the first as the second for a hundred and thirty
+cycles.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2.
+
+**Might-mean, scoped to the seven entries now read:** the one genuinely open
+obligation in this register needs a history of solved problems rather than any
+theorem, so what this project is short of is not proof but reading.

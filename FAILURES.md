@@ -47,6 +47,12 @@ what W26's T1 taught about the historical sequence, now aimed at our own record.
 
 ## T3(b) — the ¬RH rubric, answered mechanically
 
+> **Graded, `SESSION 324` (2026-08-17).** `absence_queue` flags the sentence
+> below. It is a **schema description** — the third verdict's *name* contains
+> "does not exist as stated" — in a section headed *answered mechanically* that
+> then prints the answer. `146` listed schema descriptions among the mechanical
+> false positives it declined to filter (`S39`). Graded, not fixed.
+
 Three-valued per the amended schema: `survives` · `changes-numerically` (same
 failure, different constants) · `changes-structurally` (the failure does not
 exist as stated). **The authoritative answer is the lint's, not anyone's guess**
@@ -60,6 +66,13 @@ exist as stated). **The authoritative answer is the lint's, not anyone's guess**
 | 11 | `#27` the gate | `GM_bridge` | **changes-structurally** |
 
 **3/11 are bridge material.** The census is **73% instrument.**
+
+> **Re-check, `SESSION 324` (2026-08-17).** The `#27` verdict below is the
+> lint's, not prose: `forensics/provenance_lint.py` marks `GM_bridge`
+> RH-conditional and prints `tier RH : 3/11 [9, 10, 11]`, of which `11` is this
+> entry, and it replays `#27` as `BLOCKED` on every run. That script is in the
+> roster `session_gate` gates on, so the claim is re-verified each cycle rather
+> than awaiting a reader.
 
 **Scoring round 1: my sealed prediction was 2, the mechanical answer is 3,** and
 the extra entry is `#27` — the one I was most confident about. The gate's

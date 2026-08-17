@@ -78,6 +78,15 @@ generative, what remains when a process finishes running. Every instrument is
 manufactured from the first nature and aimed at questions posed in the second,
 so every instrument half-works, and the halves are canonical.
 
+> **Re-check, `SESSION 324` (2026-08-17).** The closing clause below — that the
+> agreement between faces is what no single-natured instrument certifies — has a
+> **partial machine witness**, and the scope matters.
+> `Riemann.Blindness.no_muInvariant_theory_computes_NscStd` and its bundle form
+> prove that no `μ`-invariant theory computes `NscStd`: one nature, one quantity,
+> formalised. That is an instance of the shape, not the sentence. The general
+> claim quantifies over instruments this project has not defined, and stays a
+> thesis rather than a theorem.
+
 **RH is the claim that the two natures agree** — that the process adds nothing
 to the atoms, to square-root precision, forever. And the half-failures are what
 a true-but-unproved agreement looks like from inside: every single-natured

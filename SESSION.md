@@ -14523,3 +14523,45 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 sits outside `110`'s extremal family is an ordinate whose zeros are all on the
 line and all at one height, so the last slack in this bracket is bought by
 multiplicity rather than by zeros off the line.
+
+## Sharpness stated over the equality set, because `305` said one witness is not enough
+
+**Piece and wildcard, one target.** `303` shipped `proportion_of_oddAtoms` — the
+rate-`3/2` conversion — and priced it with its supplier missing. What was not
+settled is whether `3/2` is the best rate. `305` supplied the equality set, so
+the question became answerable.
+
+**Kill condition, filed first:** *if `constFamily` on an equality configuration
+needs facts the `Blindness` layer does not expose — if the positivity or the
+`Family.oddAtoms` unfolding costs more than `219`'s precedent — I report the
+`ZeroData`-level tightness as all that transfers and leave the family level
+open.* It did not fire; both components are `rfl`.
+
+`proportion_of_oddAtoms_attained`, axiom-free: at **every** `D` where
+`three_mul_oddAtoms_le` is tight, the constant family supplies
+`oddAtoms ≥ c·N` at `c = oddAtoms/N`, and its true `N_sc/N` is `(3c − 1)/2` on
+the nose. The conversion returns the whole of what its input carries, so no rate
+above `3/2` can be correct. `PRICES.md` records that the route's price is settled
+and only its input is missing.
+
+**Stated over the set rather than at a point, and that choice is `305`'s.**
+`219`'s `Riemann.hauntedDensity_distinctZeros_attained` does this job for the
+distinct-zeros rate, and it picked one configuration. `305` learned why that is
+weaker: `112`'s cap witness satisfies two different characterisations and
+separates neither, so a single attainment witness leaves open whether the
+attaining set is a fluke of that configuration. Quantifying over the equality
+set — which `305`'s `three_mul_oddAtoms_eq_iff` describes exactly, as the
+ordinates of mass one or three — costs nothing here and says more.
+
+**Snag, bin 2.** The proof compiled first try and both `constFamily` projections
+were `rfl`, which is the third cycle in four where the family layer turned out to
+be free once the `Blindness` layer was right. The friction in this project sits
+below the transfer layer, and I keep budgeting for it above.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, fourteen guards green, board unchanged.
+
+**Might-mean, unhedged:** the odd-atom route now has a settled price and no
+supplier, which makes it the cleanest open request this project can hand to the
+literature — a lower bound on how many ordinates carry odd multiplicity, worth
+one and a half times its size.

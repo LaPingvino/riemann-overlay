@@ -1305,6 +1305,43 @@ example {F : Family} {κ : ℝ}
     (h : F.ProportionStd κ) : F.toCounts.Proportion ((3 * κ - 1) / 2) :=
   proportion_of_oddAtoms (oddAtoms_ge_of_proportionStd h)
 
+/-- **The rate `3/2` cannot be improved** — `SESSION 306`.
+
+At **every** configuration where `Blindness.three_mul_oddAtoms_le` is tight, the
+constant family supplies `oddAtoms ≥ c·N` at `c = oddAtoms/N` and its true
+`N_sc/N` is `(3c − 1)/2` on the nose.  So `proportion_of_oddAtoms` returns the
+whole of what its input carries at those configurations, and no conversion with a
+larger rate can be correct.
+
+`305`'s `Blindness.three_mul_oddAtoms_eq_iff` says which configurations those
+are: every ordinate of mass one or three.  `219`'s
+`hauntedDensity_distinctZeros_attained` is the same shape for the distinct-zeros
+rate, and it picked one configuration; `305` recorded why picking one is weaker —
+`112`'s cap witness satisfies two different characterisations and separates
+neither.  This is stated over the whole equality set instead. -/
+theorem proportion_of_oddAtoms_attained {D : ZeroData} (hpos : 0 < D.N)
+    (heq : 3 * Blindness.oddAtoms D = D.N + 2 * D.Nsc) :
+    (∀ ε > 0, ∀ᶠ T in atTop,
+        ((Blindness.oddAtoms D : ℝ) / (D.N : ℝ) - ε) * (constFamily D hpos).Nz T
+          ≤ (constFamily D hpos).oddAtoms T)
+      ∧ (D.Nsc : ℝ) / (D.N : ℝ)
+          = (3 * ((Blindness.oddAtoms D : ℝ) / (D.N : ℝ)) - 1) / 2 := by
+  have hN : (0:ℝ) < (D.N : ℝ) := by exact_mod_cast hpos
+  have hNz : ∀ T : ℝ, (constFamily D hpos).Nz T = (D.N : ℝ) := fun _ => rfl
+  have hOdd : ∀ T : ℝ, (constFamily D hpos).oddAtoms T
+      = ((Blindness.oddAtoms D : ℕ) : ℝ) := fun _ => rfl
+  have heq' : 3 * (Blindness.oddAtoms D : ℝ) = (D.N : ℝ) + 2 * (D.Nsc : ℝ) := by
+    exact_mod_cast heq
+  constructor
+  · intro ε hε
+    refine Filter.Eventually.of_forall fun T => ?_
+    rw [hNz, hOdd]
+    have : (Blindness.oddAtoms D : ℝ) / (D.N : ℝ) * (D.N : ℝ)
+        = (Blindness.oddAtoms D : ℝ) := by field_simp
+    nlinarith [hN, hε]
+  · field_simp
+    linarith [heq']
+
 /-- **A distinct-zeros proportion is a haunted-density bound, at rate `(1−c)/2`.**
 
 `N − atomCount` is the **distinct-zeros deficit** `N(T) − N_d(T)`, a quantity the

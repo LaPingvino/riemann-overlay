@@ -1074,6 +1074,12 @@ bound excludes `Gauge.pairOnly`. Neither is a supplier.
 Cost if a supplier appeared: **zero axioms** — `proportion_of_oddAtoms` is
 axiom-free and the composite adds nothing.
 
+**`306`: the rate is not improvable.** `proportion_of_oddAtoms_attained` shows
+that at every configuration where `Blindness.three_mul_oddAtoms_le` is tight,
+the constant family's true `N_sc/N` is `(3c − 1)/2` on the nose. So a supplier
+is worth `3/2` per point and no conversion with a larger rate can be correct;
+the price of this route is settled and only its input is missing.
+
 ## `baseline_zeta23`'s numeric step is not blocked on numerics (`SESSION 274`)
 
 `268` recorded a second cost for this axiom: `ThmD` proves the exact

@@ -15194,3 +15194,57 @@ the collapse and unchanged.
 found, one was a duplicated proof and one is a proof that earns its length, so
 equivalence modulo the partitions locates candidates for `256` without deciding
 any of them.
+
+## One call to remember instead of fifteen
+
+**Piece — `S122`'s fix.** `318` ran the roster and `git commit` in one `Bash`
+call, `citation_check` went red, and the commit ran anyway.
+`Riemann`'s `forensics/session_gate.py` gated `claims_gate` over the newest
+entry; the rest of the roster was left to the shell operator beside it, which is
+what `S113` says a rule cannot rest on.
+
+**Kill condition, filed first:** *if running the full roster inside
+`session_gate` makes it slow enough that a cycle would stop running it, the fix
+is worse than the failure and I report the timing instead of shipping.* Measured
+before writing: `55.0s` total, of which `banner_check` is `38.8s` and
+`warning_floor` `12.8s` because both invoke `lake`. A cycle already pays that for
+`lake build`, so the widening costs nothing it was not spending. **It did not
+fire.**
+
+`session_gate` now runs all fourteen, keeps the newest-entry check first, and
+takes `--entry-only` for the cheap path. Adopted as `R31`.
+
+**Shown to go red, per `S60`.** A fabricated row appended to
+`statement_index.tsv` produced `[FAIL] statement_index`, `13/14 green`, exit `1`
+— while `--entry-only` still exited `0`, which is what proves the roster half is
+doing the work. Row removed and the index re-verified.
+
+**Wildcard — is every roster member saying what its line implies?**
+
+**Kill condition, filed first:** *if each member's green light means what the
+roster line suggests, the widening is the whole cycle and I say so.* **It fired
+on the first one I checked.**
+
+Bare `claims_gate` with no file argument lints **stdin**. A roster loop closes
+stdin, so it scans **zero sentences** and exits `0`. Its `CALIBRATION` still
+runs, so the line is not inert — but *"claims_gate green"*, which I have printed
+every cycle for dozens of cycles, has meant *"the calibration passed"* and not
+*"the registers are clean"*. That is `147`'s `S49` reintroduced from the
+**caller's** side rather than the script's. `S123`.
+
+It cannot simply be pointed at the registers: `304` measured `194` flagged
+sentences across them, so a corpus gate would be red forever, which is `S89`. The
+scope is written beside the roster entry instead, where the next reader of a
+green line will see it.
+
+**Snag, bin 2.** The gate that exists to stop me trusting a green light was
+itself printing one. The two halves of this cycle rhyme: `318`'s roster ran and
+did not bind, and `claims_gate`'s roster line binds while scanning nothing.
+`R17` covers both — *no witness, no belief, including claims about live state.*
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2.
+
+**Might-mean, scoped to what this cycle checked:** of the fourteen roster
+members, the one I checked was reporting on an empty scan, so the cost of a
+guard is not writing it but keeping the sentence next to its green light true.

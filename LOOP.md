@@ -154,6 +154,16 @@ degradations, not less.
   `git commit` in one shell call; `251d` wrote the rule and `277` broke it
   anyway, which is `S113`. A guard in the roster closes the window to one
   cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
+* **R31 — `session_gate` is the call before the commit, and it is now the whole
+  roster.**  `251` and `277` shipped a flagged entry by putting the gate and
+  `git commit` in one shell call; `278` built `session_gate` so the window was one
+  cycle whatever the shell did.  `318` then failed the same way in the half that
+  guard did not cover — the roster ran, `citation_check` went red, the commit ran
+  anyway, and the entry said *"fourteen guards green"* (`S122`).  `319` widened
+  `session_gate` to run all fourteen: **one call to remember instead of fifteen**,
+  `55s`, of which `banner_check` and `warning_floor` are `52s` because they invoke
+  `lake` — which a cycle already pays for `lake build`.  Run it in its own `Bash`
+  call, read the exit code, then commit.
 * **R30 — the might-mean quantifies over what the cycle checked, and no more.**
   Three in five cycles were corrected the next cycle, and all three failed the
   same way.  `302`: *"the cap is reached exactly when every ordinate is a

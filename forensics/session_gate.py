@@ -23,11 +23,40 @@ so the boundary is unambiguous at the tail.  Older parts of the file use
 wrongly — it is deliberately only applied to the newest entry, which is the only
 one a cycle can still fix, and the only one this guard claims anything about.
 
-Exit: 0 the newest entry is clean · 1 it carries an unresolved flag ·
+**`SESSION 318` widened it, because it had closed one door of two.**  `318` ran
+the roster and `git commit` in a single `Bash` call; `citation_check` exited `1`
+and the commit ran anyway, with the entry asserting *"fourteen guards green"*.
+This file gated `claims_gate` over the newest entry and nothing else, so the rest
+of the roster was still only as good as the shell operator between it and the
+commit — which is the thing `S113` says a rule cannot rest on.  `S122`.
+
+So it now runs the whole roster.  One call to remember instead of fifteen, which
+is the entire point: `55s`, of which `banner_check` is `39s` and `warning_floor`
+`13s` because both invoke `lake`.  A cycle already pays that for `lake build`, so
+the widening costs nothing it was not spending.
+
+**One roster member is quieter than it looks, and `319` measured it.**  Bare
+`claims_gate` with no file argument lints **stdin**; called with stdin closed —
+which is how a roster loop calls it — it scans zero sentences and exits `0`.  Its
+`CALIBRATION` still runs, so the line is not inert, but *"claims_gate green"*
+has meant *"the calibration passed"* and not *"the registers are clean"*.  That
+is `S49` reintroduced from the caller's side.  It is listed below with that
+scope written down.  The corpus scan stays a triage tool rather than a gate:
+`304` measured `194` flagged sentences across the registers, so demanding a clean
+corpus would leave this red forever, which is `S89`.
+
+**Shown to go red, because `S60` says a guard that has never flagged is
+unproven.**  `319` appended a fabricated row to `statement_index.tsv` and ran
+this: `[FAIL] statement_index`, `13/14 green`, exit `1` — while `--entry-only`
+still exited `0`, which is what proves the roster half is doing the work.  The
+row was removed and the index re-verified afterwards.
+
+Exit: 0 the newest entry is clean and the roster is green · 1 something is red ·
 5 the harness could not run (`S40`, `S79`).
 
 Run:  python3 forensics/session_gate.py
       python3 forensics/session_gate.py --show   (print the entry it checked)
+      python3 forensics/session_gate.py --entry-only   (skip the roster)
 """
 
 import os
@@ -108,6 +137,63 @@ def main():
         return 1
 
     print("  [ok ] no unresolved flags")
+
+    if "--entry-only" in sys.argv:
+        return 0
+    return roster()
+
+
+# The guards, self excluded.  Instruments are NOT here — `prose_numerals`,
+# `dependency_profile` and `equiv_check` exit `0` by design or cost minutes, and
+# a roster member that cannot fail is worse than one outside it that can (`S50`).
+ROSTER = [
+    ("provenance_lint", "the flagship"),
+    ("claims_gate", "CALIBRATION only — bare, it lints stdin and scans nothing"),
+    ("absence_queue", "claims of absence awaiting re-check"),
+    ("board", "the ζ-level rows, their constants and their binders"),
+    ("surprises", "the S-table's own shape"),
+    ("window_opt", "the seven digits"),
+    ("banner_check", "LOOP.md's ⚠️ block against the disk — invokes lake"),
+    ("vendor_check", "vendor/zeta23 against the pin"),
+    ("warning_floor", "the build's warning count — invokes lake"),
+    ("duplication_floor", "shared conclusions"),
+    ("lawN256_shape", "the vendored enclosure table"),
+    ("statement_index", "index freshness"),
+    ("process_index", "index freshness"),
+    ("citation_check", "declaration names cited in docstrings"),
+]
+
+
+def roster():
+    print()
+    print("=== the roster, in this call rather than beside the commit (`S122`) ===")
+    bad = harness = 0
+    for name, why in ROSTER:
+        script = os.path.join(HERE, name + ".py")
+        if not os.path.exists(script):
+            die_harness(f"roster member {name}.py is missing")
+        try:
+            r = subprocess.run([sys.executable, script], cwd=ROOT,
+                               stdin=subprocess.DEVNULL, capture_output=True,
+                               text=True, timeout=1800).returncode
+        except OSError as exc:
+            die_harness(f"cannot run {name}.py: {exc}")
+        except subprocess.TimeoutExpired:
+            die_harness(f"{name}.py timed out")
+        tag = "ok  " if r == 0 else ("HARNESS" if r == 5 else "FAIL")
+        if r == 5:
+            harness += 1
+        elif r != 0:
+            bad += 1
+        print(f"  [{tag:7s}] {name:20s} {why}")
+    print(f"  {len(ROSTER) - bad - harness}/{len(ROSTER)} green")
+    if harness:
+        print("  A harness failure is not a verdict.  Check `lake` is on PATH.")
+        return 5
+    if bad:
+        print("  Red.  `S113`/`S122`: this is the call that is supposed to stop")
+        print("  the commit, so do not commit until it is green.")
+        return 1
     return 0
 
 

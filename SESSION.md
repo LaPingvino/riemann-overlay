@@ -14147,6 +14147,13 @@ scratch-to-project failure in four cycles, after line width (`297`) and before
 that namespace and scope. The pattern is that I choose an anchor by reading a
 `grep -A` window, which shows what follows a match and not what precedes it.
 
+> **Correction, `301`.** This was written up as a new snag and it is `R24a`,
+> which has been in `LOOP.md` since the cycle that adopted it and says exactly
+> this: *inserting a block between an existing docstring and the theorem it
+> documents gives `unexpected token '/--'`.* `R27`'s second trigger — query the
+> process index before writing a snag up as new — is the rule I did not follow,
+> and one query would have found it.
+
 Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 `v3/c3b240548ad8`, axioms 2, thirteen guards green, statement index `5,153`.
 
@@ -14220,3 +14227,66 @@ thirteen guards green plus the new instrument.
 machine reads, and the fourteen I checked were right, so the risk in this project
 is not arithmetic but the citations threaded through prose that no instrument
 can follow.
+
+## A dead lemma name survived in the docstring of the proof that fixed it
+
+**Piece — `300`'s closing sentence was half wrong, and the wrong half is the
+useful one.** It said the risk here is *"the citations threaded through prose
+that no instrument can follow."* The declaration-shaped half **can** be
+followed, so I followed it.
+
+`Riemann/Zeta.lean:58`, `zetaZeroData_N`'s docstring: *"…and
+`finsum_mem_finset` matches the right side."* That name does not resolve under
+this project's imports. `270` tried it, recorded at `SESSION.md:12645` that the
+rewrite failed on it, switched to `finsum_mem_eq_finite_toFinset_sum` on the
+proof's last line — and left the dead name in the prose describing the fixed
+proof. A wrong
+name from a failed attempt, fossilised in the docstring of the attempt that
+succeeded. Corrected at the location; filed as `S119`.
+
+**A second correction, at `299`.** That entry wrote up its bin-3 snag — an
+insertion landing between a docstring's `-/` and its theorem — as a new pattern.
+It is `R24a`, already in `LOOP.md`, and it says exactly that. `R27`'s second
+trigger is *query the process index before writing a snag up as new*, and one
+query would have found it. Corrected at `299`'s location.
+
+**Wildcard — a guard, not another instrument.**
+
+**Kill condition, filed first:** *if the backtick-quoted identifiers cannot be
+separated from ordinary prose — if the false-positive rate makes the output
+unreadable — I report the screen as unusable rather than triaging noise.* **It
+did not fire.** Of `266` cited names, `30` resolve to nothing, and `29` of those
+fall into six clean categories: notation (`N_sc`, `N_off`, `N_d`, `C_k`),
+tactics, field accesses written as paths, one forensics script, two dependency
+modules, one axiom deleted at `233` by a sentence that says so, and Mathlib
+names. The thirtieth was the finding.
+
+`forensics/citation_check.py` — the **fourteenth** guard, and unlike `300`'s
+`prose_numerals` it can return a failing exit code, which is what `S50` says a
+roster member must be able to do. It is **fail-closed**: a new Mathlib citation
+turns it red until someone checks the name against the kernel and adds it with a
+reason. That red is the mechanism — it is the step `270` skipped.
+
+Its `ALLOW` table carries a reason per entry rather than a mute list, and one
+entry is a genuine cost: `finsum_mem_finset` is allowed because the correction
+quotes the name it corrects, so the guard can no longer catch a *new* use of that
+same dead name. That is the price of letting a correction name what it fixes,
+and it is written down at the entry.
+
+`CALIBRATION` runs in-process, `4/4`: a fabricated dangling token flags; a
+declaration of ours, one of the dependency's, and an `ALLOW` entry clear. `S60`
+is why it is there and `S89` is why no live defect sits in it.
+
+**Snag, bin 1.** Both of this cycle's corrections were of my own recent text,
+and both were found by an instrument built to test a sentence I had written the
+cycle before. That is the loop working, but the interval is now short enough —
+one cycle — that the write-up is running ahead of the checking rather than
+behind it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, **fourteen** guards green.
+
+**Might-mean, unhedged:** the prose in this repo was written by someone with the
+build open, so its errors are not guesses but stale truths — names that were
+right about an earlier version of the proof standing beside the version that
+replaced it.

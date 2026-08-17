@@ -66,7 +66,14 @@ step, and it needs no import our build does not already have — `Ncount` and
 
 `ofMult_N` turns the left side into a `Finset.sum` over the image of
 `ρ ↦ (ρ.re, ρ.im)`; that map is injective, so `Finset.sum_image` moves the sum
-back to the zeros themselves, and `finsum_mem_finset` matches the right side. -/
+back to the zeros themselves, and `finsum_mem_eq_finite_toFinset_sum` matches
+the right side.
+
+*(**Name corrected, `SESSION 301`.** This sentence said `finsum_mem_finset`,
+which does not resolve under this project's imports — `270` tried that name,
+recorded at `SESSION.md:12645` that it does not exist, used the right one on
+line `81`, and left the wrong one in the prose describing the fixed proof.
+`forensics/citation_check.py` exists because of this.)* -/
 theorem zetaZeroData_N (T : ℝ) : (zetaZeroData T).N = Zeta23.Ncount 0 T := by
   classical
   have hinj : ∀ ρ ∈ (Zeta23.zerosIn_finite 0 T).toFinset,

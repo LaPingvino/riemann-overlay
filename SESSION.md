@@ -15248,3 +15248,57 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, scoped to what this cycle checked:** of the fourteen roster
 members, the one I checked was reporting on an empty scan, so the cost of a
 guard is not writing it but keeping the sentence next to its green light true.
+
+## A positive control on every guard, and one of them is a tally
+
+**Wildcard — finishing `319`.** That cycle found one roster line reporting on an
+empty scan and checked only the first member. `R17` says a green light needs a
+witness; thirteen were still unwitnessed.
+
+**Kill condition, filed first:** *if every remaining roster member both can fail
+and scans what its line implies, `S123` was isolated and I report the roster
+sound; if others are hollow, each is a finding.* **One more is hollow, in a
+different way.**
+
+The method was a positive control per guard: perturb what it watches, confirm
+red, restore, confirm green. Results, all run this cycle unless noted:
+
+* **fired on the perturbation** — `board` (a recorded constant), `window_opt` (a
+  recorded digit), `vendor_check` (a vendored byte), `lawN256_shape` (the table's
+  scale), `statement_index` and `process_index` (a fabricated row),
+  `banner_check` (the banner's ledger figure);
+* **fired from their own in-process controls, both polarities** —
+  `provenance_lint` (`5/5` replays, four that must block and one that must pass),
+  `absence_queue` (`9/9`), `citation_check` (`4/4`);
+* **fired live in earlier cycles** — `duplication_floor` (`303`, `316`);
+* **`surprises` fires only on total schema collapse.** Its one failure path is
+  `if not rs`. Renumbering a row, dropping a column, filing a contradictory
+  entry — all leave it green. `S124`.
+* **not controlled:** `warning_floor`, whose control needs a real Lean warning
+  and therefore a rebuild. Recorded as untested rather than assumed.
+
+**The interesting part is that nothing drifted.** `surprises.py`'s docstring
+opens *"Tally SURPRISES.md mechanically"* and has always said so. What went wrong
+is that **I put a tally in a guard roster and then read its exit code as a
+verdict** — `S123`'s caller-side error in a second form, one cycle later, in the
+file I had just widened. Labelled in the roster table rather than moved, because
+its one failure path is worth catching.
+
+**My first control on it was off-target and that mattered.** I renumbered
+`S123 → S999` and got green, which I could have written up as "surprises does not
+check numbering". Reading the script first showed numbering was outside its
+stated scope, and the on-target control — breaking the row syntax so nothing
+parses — fired. A control that misses tells you about the control.
+
+**Snag, bin 2.** Nine of the eleven perturbation controls took one command each,
+and I have run this roster every cycle for months without running any of them.
+The cost of knowing was minutes; the cost of not knowing was two cycles of
+findings.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2.
+
+**Might-mean, scoped to what this cycle checked:** twelve of fourteen roster
+members fail on the thing their line names, one fails only on schema collapse and
+one is untested, so the roster's green line is now worth what it says for the
+first time since `278`.

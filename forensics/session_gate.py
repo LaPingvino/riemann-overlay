@@ -45,6 +45,27 @@ scope written down.  The corpus scan stays a triage tool rather than a gate:
 `304` measured `194` flagged sentences across the registers, so demanding a clean
 corpus would leave this red forever, which is `S89`.
 
+**Every member controlled, `320`.**  `319` found one roster line reporting on an
+empty scan, so `320` ran a positive control on each: perturb the thing the guard
+watches, confirm red, restore, confirm green.
+
+* fired on the perturbation — `board` (recorded constant), `window_opt` (a
+  recorded digit), `vendor_check` (a vendored byte), `lawN256_shape` (the table's
+  scale), `statement_index` and `process_index` (a fabricated row),
+  `banner_check` (the banner's ledger figure);
+* fired from their own in-process controls, with both polarities —
+  `provenance_lint` (`5/5` replays, four that must block and one that must pass),
+  `absence_queue` (`9/9`), `citation_check` (`4/4`);
+* fired live in earlier cycles — `duplication_floor` (`303`, `316`);
+* **`surprises` fires only on total schema collapse.**  Its one failure path is
+  `if not rs`: it is a *tally*, and its green light means the table still parses,
+  not that the register is sound.  Its own docstring never claimed otherwise —
+  putting it in a guard roster was the caller's doing, as with `claims_gate`
+  (`S123`), so it is labelled here rather than moved.  `S124`.
+* **not controlled this cycle:** `warning_floor`, because a control needs a real
+  Lean warning and therefore a rebuild.  Recorded as untested rather than
+  assumed.
+
 **Shown to go red, because `S60` says a guard that has never flagged is
 unproven.**  `319` appended a fabricated row to `statement_index.tsv` and ran
 this: `[FAIL] statement_index`, `13/14 green`, exit `1` — while `--entry-only`
@@ -151,7 +172,7 @@ ROSTER = [
     ("claims_gate", "CALIBRATION only — bare, it lints stdin and scans nothing"),
     ("absence_queue", "claims of absence awaiting re-check"),
     ("board", "the ζ-level rows, their constants and their binders"),
-    ("surprises", "the S-table's own shape"),
+    ("surprises", "a TALLY — its one failure path is total schema collapse"),
     ("window_opt", "the seven digits"),
     ("banner_check", "LOOP.md's ⚠️ block against the disk — invokes lake"),
     ("vendor_check", "vendor/zeta23 against the pin"),

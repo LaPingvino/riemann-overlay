@@ -15639,3 +15639,45 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 commit message survived in the file it was about for seventy-five cycles, so the
 rule that corrections go at the location is one this project wrote after paying
 for it and has still not finished paying.
+
+## The floor rose four times and kept crediting the cycle that set it
+
+**Piece — is `327`'s find isolated?**
+
+**Kill condition, filed first:** *if no other forensics script cites a figure
+that disagrees with what it stores or computes, `327`'s find was isolated and I
+report the roster's prose sound; if others disagree, each is a correction.* **It
+fired twice.**
+
+**`duplication_floor` printed a breakdown that sums to `20` beside a floor of
+`23`.** Its stored `note` said `"256: hand-graded"` and its output said *"`256`
+listed and graded all of them: 16 deliberate routes, 2 parser artifacts, 2
+duplicates collapsed."*
+
+The floor's history says otherwise: `19` at `256`, then `20` at `261`, `21` at
+`272`, `22` at `280`, `23` at `283`. **Each raise was graded and explained in its
+own cycle's commit** — I read all four before touching anything, and the process
+held every time. What drifted is the attribution: four of the twenty-three were
+graded by later cycles, and the guard's sentence handed `256` the credit while
+reporting a total `256` did not measure. Corrected in the print, the
+docstring and the `note`; the floor is unchanged and the grading stands.
+
+**`statement_index`'s docstring advertised `~5,100` declarations**; the index
+holds `5,198`. That figure had drifted for dozens of cycles. The fix is not a new
+number — it would drift again — but to stop quoting a live count in prose that
+nothing re-reads. The *output* prints it on every run. `269`'s `5,114` stays,
+because it is a record of one run rather than a standing claim, and the docstring
+now says which kind each is.
+
+**Snag, bin 3.** My first edit fixed the breakdown and left the sentence above it
+— *"`256` listed and graded all of them"* — still on screen, so the guard printed
+a correction underneath the claim it corrected. Two lines apart, in output I had
+just read. `S36` records retractions filed away from their text; this one sat at a
+distance of a single `print`.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2.
+
+**Might-mean, scoped to the two guards corrected:** both stale figures were
+attributions to a cycle rather than measurements of an object, so what goes stale
+in this project's tooling is the credit rather than the number.

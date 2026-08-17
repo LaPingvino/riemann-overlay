@@ -24,6 +24,13 @@ the cycle that caused it is the one that can tell in a minute whether it is a
 fourth route or a second copy.  `--update` records the new floor once that
 judgement is written down.
 
+**The floor has risen four times, each with its own grading (`328`).**  `19` at
+`256`, then `20` at `261`, `21` at `272`, `22` at `280`, `23` at `283`.  Every
+raise carries a graded reason in its cycle's commit, so the process held — but
+the stored `note` and the printed breakdown both credited `256` with all of
+them, and `256` graded `20` of `483` declarations.  Attribution corrected; the
+floor is unchanged.
+
 **`264` revisited one of `256`'s gradings and found it too generous.**  The pair
 sharing `zetaFamily.toCounts.StarBound 1.9825` was graded "two deliberate
 routes".  It is not: `starBound_of_multiplicity_two` asks `H ≤ 2` and
@@ -165,8 +172,10 @@ def main():
     if n < want:
         print(f"  {n}, below the floor of {want}.  Re-run with --update to ratchet.")
     else:
-        print(f"  {n}, at the floor.  `256` listed and graded all of them:")
-        print("  16 deliberate routes, 2 parser artifacts, 2 duplicates collapsed.")
+        print(f"  {n}, at the floor.  Every one has been graded:")
+        print("  `256` graded the first 20 — 16 deliberate routes, 2 parser")
+        print("  artifacts, 2 duplicates collapsed — and 261, 272, 280, 283 each")
+        print("  graded one more before raising the floor (`328`).")
     return 0
 
 

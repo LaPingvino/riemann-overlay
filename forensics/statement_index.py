@@ -16,7 +16,7 @@ cost of redoing it.  `268` measured the scale of the second: we reach `3.0%` of
 case rather than the exception.
 
 **What this makes cheap.**  One `grep` over `forensics/statement_index.tsv`
-answers *"does anything already conclude this?"* across `~5,100` declarations in
+answers *"does anything already conclude this?"* across every declaration in
 both trees.  Columns are `tree`, `module`, `kind`, `name`, `statement`,
 `reachable`, `doc`.
 
@@ -48,6 +48,12 @@ bracket, which
 matches only witnesses that inline a list literal.  Every prior one binds the
 list with `set L := …` first, so the grep returned zero and the zero was read as
 an answer.  The index would have returned two of the four.
+
+**No live count is quoted here, and `328` is why.**  This paragraph used to say
+`~5,100`; the index holds `5,198` today and the figure had drifted for dozens of
+cycles.  A count that moves every cycle belongs in the *output*, which prints it,
+not in prose that nothing re-reads.  Dated measurements stay — `269`'s `5,114`
+below is a record of one run, not a standing claim.
 
 **Staleness is checked, not trusted.**  Run with no arguments to verify the
 committed index still matches the sources; exit `1` if it drifted.  `--write`

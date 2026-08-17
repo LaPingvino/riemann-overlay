@@ -5513,6 +5513,52 @@ theorem thirdMoment_charges_every_class (D : ZeroData) :
 different constraint rather than a rescaling of `N⊛`'s. -/
 theorem third_moment_weights_not_parallel : 24 * 2 ≠ 6 * 6 := by decide
 
+/-- `momentK` read off the profile. -/
+lemma momentK_from_profile (D : ZeroData) (k : ℕ) :
+    momentK D k = ((profile D).map fun q => q.1 ^ k).sum := by
+  classical
+  rw [momentK, profile, Multiset.map_map]
+  rfl
+
+/-- `314`'s five-class configuration has masses `1, 3, 3, 2, 2`, so its `k`-th
+moment is `1 + 2·3ᵏ + 2·2ᵏ`. -/
+lemma momentK_five_class {a : ℝ} (ha : a ≠ 1/2) (k : ℕ) :
+    momentK (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]) k = 1 + 2 * 3 ^ k + 2 * 2 ^ k := by
+  classical
+  have hp := chain_profile ha [(1,0),(1,1),(3,0),(2,0),(0,1)] (by decide)
+  norm_num at hp
+  rw [momentK_from_profile, hp]
+  simp only [Multiset.map_coe, Multiset.sum_coe, List.map_cons, List.map_nil,
+    List.sum_cons, List.sum_nil]
+  ring
+
+/-- **Every member of the family is sharp, and at the same configuration.**
+`SESSION 332`.
+
+`331` proved the charge at every `k`; this says it is an **equality** at `314`'s
+five-class configuration, for every `k ≥ 1` at once.  Each of its five ordinates
+sits exactly at its class minimum — masses `1, 3, 3, 2, 2` — so the weight
+`mᵏ − m` is what that ordinate actually contributes, at every order.
+
+So the countable family `331` produced is not a sequence in which later members
+are slack: they are simultaneously attained. -/
+theorem momentK_charges_tight {a : ℝ} (ha : a ≠ 1/2) {k : ℕ} (hk : 1 ≤ k) :
+    (3 ^ k - 3) * hauntedCount (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)])
+        + (3 ^ k - 3) * oddAbove (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)])
+        + (2 ^ k - 2) * evenOnAt (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)])
+        + (2 ^ k - 2) * offLineOnly (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)])
+        + (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]).N = momentK (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]) k := by
+  classical
+  obtain ⟨h1, h2, h3, h4, h5, -⟩ := atomCount_decomposition_all_inhabited ha
+  have hp := chain_profile ha [(1,0),(1,1),(3,0),(2,0),(0,1)] (by decide)
+  norm_num at hp
+  have hN : (chain a [(1,0),(1,1),(3,0),(2,0),(0,1)]).N = 11 := by
+    rw [N_from_profile, hp]; decide
+  have h2le : 2 ≤ 2 ^ k := Nat.le_self_pow (by omega) 2
+  have h3le : 3 ≤ 3 ^ k := Nat.le_self_pow (by omega) 3
+  rw [momentK_five_class ha, h1, h2, h3, h4, h5, hN] at *
+  omega
+
 /-! #### Blindness, extended to the decomposition — `SESSION 325`
 
 `324` settled `E.md`'s thesis with a **partial** witness:

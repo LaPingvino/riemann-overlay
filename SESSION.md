@@ -15831,3 +15831,43 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 **Might-mean, scoped to the three theorems now on disk:** the five-class charge
 holds at every moment with weights `3ᵏ − 3` and `2ᵏ − 2`, so the decomposition
 this arc built is not one constraint on the zeros but a countable family of them.
+
+## Every member of the family is sharp, and at the same configuration
+
+**Piece and wildcard, one target.** `331` produced a countable family of
+constraints, one per moment. Its closing sentence called them a family; what a
+family invites is the question whether later members are slack.
+
+**Kill condition, filed first:** *if the constraint is slack at some `k` on
+`314`'s five-class configuration, the family's members are not simultaneously
+sharp and I report which `k`.* **It did not fire, at any `k`.**
+
+`momentK_charges_tight`, axiom-free: on the five-class configuration the charge is
+an **equality** for every `k ≥ 1` at once. The reason is structural rather than
+arithmetic — each of its five ordinates sits exactly at its class minimum, masses
+`1, 3, 3, 2, 2`, so `mᵏ − m` is what that ordinate actually contributes at every
+order. `momentK_five_class` computes the moment as `1 + 2·3ᵏ + 2·2ᵏ`, and the
+weights plus `N = 11` come to the same.
+
+So the family is not a sequence with a strongest member. Every constraint in it is
+attained, and attained at one configuration — the same one that has been this
+arc's witness since `314`.
+
+`momentK_from_profile` was the piece needed. `decide` evaluates a closed term and
+`k` is a variable here, so the moment is read off the profile as a five-term sum
+and closed by `ring`.
+
+**Snag, bin 3.** `N = 11` on that configuration failed with the `simp only`
+set I copied from a neighbouring proof and went through with `decide`. Two
+computations of the same quantity on the same literal profile, one wanting `simp`
+and one wanting `decide`, and I reached for the copy rather than the shorter
+tactic. `322` recorded that a literal profile makes these decidable; I had the
+lesson and copied around it.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2, warnings at the floor `54`, duplication floor `23`.
+
+**Might-mean, scoped to the family proved and the one configuration tested:** the
+mass-one, mass-three and mass-two ordinates saturate every moment inequality
+simultaneously, so the configuration that has bounded this project's `N_sc` row
+since `110` is extremal for the whole family rather than for one member of it.

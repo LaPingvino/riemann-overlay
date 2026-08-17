@@ -355,6 +355,10 @@ import Riemann
 #check @Riemann.Blindness.momentK_three
 #check @Riemann.Blindness.thirdMoment_charges_every_class
 #check @Riemann.Blindness.third_moment_weights_not_parallel
+-- SESSION 332: every member of the family is sharp, at one configuration.
+#check @Riemann.Blindness.momentK_from_profile
+#check @Riemann.Blindness.momentK_five_class
+#check @Riemann.Blindness.momentK_charges_tight
 #check @Riemann.Blindness.gauge_pair_separates_haunted_and_oddAbove
 #check @Riemann.Blindness.gauge_pair_two_separates_even_and_offLine
 -- SESSION 326: the argument abstracted, and three new necessity theorems.

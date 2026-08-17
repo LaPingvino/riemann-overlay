@@ -1,8 +1,8 @@
 {
   "base": {
-    "version": 3,
-    "hash": "c3b240548ad8",
-    "note": "baseline_przz deleted \u2014 it was derivable from baseline_zeta23 by ProportionStd.mono (przz_of_zeta23); base v2 assumed a record it could prove, v3 assumes only zetaNonempty and the zeta-23 record",
+    "version": 4,
+    "hash": "3508643365fd",
+    "note": "baseline_zeta23 and zetaNonempty discharged — both are theorems in Riemann/Assumptions.lean as of SESSION 337, on Joop's standing ruling; the certified cone is empty and both ledger rows are unconditional. v3 assumed zetaNonempty and the zeta-23 record; v4 assumes neither",
     "context": "v2 (compacted)"
   },
   "comment": "Two-row ledger (ISSUES #13). Row NscStd is the literature's notion (multiplicity one, on the line = zeta-23's N0simple); row Nsc is the project's stronger notion (H=1: the ordinate carries nothing else). They are linked by ZeroData.two_NscStd_le at a cost of (C-1)/2, so the row gap is a certified function of C and closes exactly when (star) succeeds.",
@@ -25,22 +25,22 @@
       "row": "NscStd",
       "lean": "Riemann.certified_std",
       "value": 0.6725,
-      "binding": "Riemann.baseline_zeta23",
-      "note": "axiom placeholder; import is live (audit/Zeta23Link.lean), blocked only on discharging zetaFamily"
+      "binding": "Zeta23.ThmD.thmD₀_simple_mult_cumulative",
+      "note": "SESSION 337: no longer an axiom. certified_std is baseline_zeta23, which is now baseline_of_cumulative applied to Zeta23.ThmD.HD 1 with Zeta23.ThmD.HD_one and baseline_decimal_le_exact; raising 0.6725 now means raising zeta-23's own constant"
     },
     {
       "row": "Nsc",
       "lean": "Riemann.certified_nsc_unconditional",
       "value": 0.50875,
-      "binding": "Riemann.baseline_zeta23 (via Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc, no star bound)",
-      "note": "SESSION 084: 3*NscStd <= N + 2*Nsc is axiom-free, so ProportionStd 0.6725 gives Proportion (3*0.6725-1)/2 unconditionally; same axiom tier as the NscStd row"
+      "binding": "Zeta23.ThmD.thmD₀_simple_mult_cumulative (via Blindness.three_mul_NscStd_le_N_add_two_mul_Nsc, no star bound)",
+      "note": "SESSION 084: 3*NscStd <= N + 2*Nsc is axiom-free, so ProportionStd 0.6725 gives Proportion (3*0.6725-1)/2 unconditionally. SESSION 337: the 0.6725 input stopped being an axiom, so this row is unconditional end to end"
     }
   ],
   "conjectural": [
     {
       "lean": "Riemann.nsc_row_opens",
       "value": 0.1725,
-      "requires": "OPEN 0 with c0 <= 4.5 (C < 5.035) \u2014 cheapest route to the Nsc row",
+      "requires": "OPEN 0 with c0 <= 4.5 (C < 5.035) — cheapest route to the Nsc row",
       "binding": "Riemann.fujii_ineffective"
     },
     {

@@ -37,6 +37,9 @@ false for every `c₁ > 0`, so `fujii_closePair_bookkeeping` is vacuous; and
 -/
 import Riemann.Gaps
 import Riemann.Zeta
+import Zeta23.RvM.Statement
+import Zeta23.GammaFacts.Complete
+import Zeta23.ThmD.Mult
 
 namespace Riemann
 
@@ -133,8 +136,16 @@ example : forall-eventually T in atTop, 0 < (Riemann.zetaZeroData T).N := by
   exact <C, T0, fun T hT => by simpa using h T hT>
 ```
 
-Three lines, and the `simpa` is `zetaZeroConfig_N`. -/
-axiom zetaNonempty : ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N
+Three lines, and the `simpa` is `zetaZeroConfig_N`.
+
+**`337`: DISCHARGED.**  It is a theorem below, on Joop's standing ruling that
+the axiom discharges are mine to take.  `282`'s scratch verification is the
+proof verbatim; the price paid was `271`'s `34` modules and `11,710` lines, and
+`281`'s measurement says the recurring cost is nothing distinguishable. -/
+theorem zetaNonempty : ∀ᶠ T in Filter.atTop, 0 < (zetaZeroData T).N := by
+  refine zetaNonempty_of_rvm_main ?_
+  obtain ⟨C, T₀, h⟩ := (Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts).main
+  exact ⟨C, T₀, fun T hT => by simpa using h T hT⟩
 
 /-- The zeros of `ζ` as a `Family` — now a **construction**, not an axiom. -/
 noncomputable def zetaFamily : Family where
@@ -203,11 +214,39 @@ certified number moves, because nothing ever consumed the axiom — a repo-wide
 search before deleting found it only in its own declaration and two docstrings.
 -/
 
+/-- **The cumulative-to-`ProportionStd` bridge.**  Moved here from
+`Riemann/Proportion.lean` at `SESSION 337`: `baseline_zeta23` below is now a
+theorem and needs this, and every consumer of that name sits earlier than
+`Proportion.lean`.  The docstring at its old location keeps the pointer.
+
+Both count bridges are `270`'s `zetaZeroData_N` and `274`'s
+`zetaZeroData_NscStd`; neither costs a build. -/
+theorem baseline_of_cumulative {c : ℝ} (hc : (0.6725:ℝ) ≤ c)
+    (h : ∀ ε > 0, ∃ T₀ : ℝ, ∀ T : ℝ, T₀ ≤ T →
+      (c - ε) * (Zeta23.Ncount 0 T : ℝ) ≤ (Zeta23.N0simple 0 T : ℝ)) :
+    zetaFamily.ProportionStd 0.6725 := by
+  intro ε hε
+  obtain ⟨T₀, hT₀⟩ := h ε hε
+  filter_upwards [Filter.eventually_ge_atTop T₀] with T hT
+  have hb := hT₀ T hT
+  show ((0.6725:ℝ) - ε) * ((zetaZeroData T).N : ℝ)
+      ≤ ((zetaZeroData T).NscStd : ℝ)
+  rw [zetaZeroData_N, zetaZeroData_NscStd]
+  have hn : (0:ℝ) ≤ (Zeta23.Ncount 0 T : ℝ) := Nat.cast_nonneg _
+  nlinarith [hb, hn, hc]
+
 /-- zeta-23 (Anthropic, Aug 2026) Theorem D, formalised sorry-free in
 `zeta-23-lean`: `67.25%` of the zeros are simple and on the critical line.
 
-A placeholder for an **import**: the Lean proof exists, at toolchain
-`v4.33.0-rc2` (ISSUES.md #4). -/
-axiom baseline_zeta23 : zetaFamily.ProportionStd 0.6725
+**`337`: DISCHARGED.**  This was an axiom — *"a placeholder for an import"* —
+from `SESSION 001` until now.  `282` verified the discharge in scratch and
+`281`/`282` priced it: `ThmD.Final`'s `18m12s` plus `ThmD.Mult`'s `2m18s`, one
+time, and about six seconds per elaboration afterwards.  `S114` is why the
+supplier is `ThmD.Mult` and not `ThmD.Final`. -/
+theorem baseline_zeta23 : zetaFamily.ProportionStd 0.6725 := by
+  refine baseline_of_cumulative (c := Zeta23.ThmD.HD 1) ?_ ?_
+  · rw [Zeta23.ThmD.HD_one]
+    simpa [one_div, div_eq_mul_inv, mul_comm] using baseline_decimal_le_exact
+  · exact Zeta23.ThmD.thmD₀_simple_mult_cumulative
 
 end Riemann

@@ -675,3 +675,10 @@ import Riemann
 #check @Riemann.Blindness.cap_four_pointwise_lt
 #check @Riemann.Blindness.nine_mul_Nstar_add_atomCount_le
 #check @Riemann.Blindness.nine_mul_Nstar_add_atomCount_eq_iff
+
+-- SESSION 337: the two axioms are theorems.  `baseline_of_cumulative` moved from
+-- Riemann/Proportion.lean to Riemann/Assumptions.lean so it sits above every
+-- consumer of `baseline_zeta23`.  `go run tools/proportion.go` reports axioms: 0.
+#check @Riemann.zetaNonempty
+#check @Riemann.baseline_zeta23
+#check @Riemann.baseline_of_cumulative

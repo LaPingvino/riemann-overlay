@@ -69,12 +69,17 @@ is capped. Alongside it: the gauge/blindness/fiber cluster, which proves that
 no `μ_T`-invariant hypothesis — of any strength — computes `NscStd` or `N_off`,
 and locates that obstruction exactly on the atoms of mass `≥ 2`.
 
-**Assumed** — the trusted base is exactly the **nine axioms** of
-`Riemann/Assumptions.lean`, each carrying its source in a docstring: the two
-imported baselines (PRZZ 2019 at `0.4162`, zeta-23 Theorem D at `0.6725`), the
-`ξ'` proportion `0.85838`, Levinson–Montgomery, the ineffective Fujii bound,
-close-pair bookkeeping, `xiPrimeFamily`, `closePairsZeta`, and `zetaNonempty`.
-There are no axioms anywhere else in the repository.
+**Assumed** — the trusted base is exactly the **six axioms** of
+`Riemann/Assumptions.lean`, each carrying its source in a docstring: the `ξ'`
+proportion `0.85838`, Levinson–Montgomery, the ineffective Fujii bound,
+close-pair bookkeeping, `xiPrimeFamily`, and `closePairsZeta`. There are no
+axioms anywhere else in the repository.
+
+*Three axioms have been discharged rather than assumed:* `baseline_przz` at
+`SESSION 233` (derivable from the zeta-23 record), and **`baseline_zeta23` and
+`zetaNonempty` at `SESSION 337`** — both are now theorems, proved through the
+vendored `zeta-23` tree. **The certified cone is empty:** both ledger rows are
+unconditional, which `go run tools/proportion.go` reports as `axioms: 0`.
 
 **Conjectural** — the `Nsc` row opens at `c₀ ≤ 4.5`; Route I at `c₀ ≤ 0.33`;
 `100%` conditional on [OPEN D].
@@ -89,8 +94,10 @@ the gap between them is a certified function of `C` that closes exactly when
 `(★)` succeeds.
 
 > ⚠️ **The block below is a dated quote (2026-08-14), not the current line.**
-> The `Nsc` row is **50.88%** as of `SESSION 084`; everything else in it still
-> holds. Run `go run tools/proportion.go` for the live line and believe that.
+> The `Nsc` row is **50.88%** as of `SESSION 084`, and as of `SESSION 337` the
+> base is `v4`, the axiom count is `0`, and the binding is
+> `Zeta23.ThmD.thmD₀_simple_mult_cumulative` rather than an axiom of ours. Run
+> `go run tools/proportion.go` for the live line and believe that.
 
 A line of `PROPORTION.log`, as of 2026-08-14:
 

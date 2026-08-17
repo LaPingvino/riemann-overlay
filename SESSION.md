@@ -16133,3 +16133,80 @@ technical convenience that makes bounds nicer — under it `N_sc` is an explicit
 linear function of `atomCount`, `N` and `N⊛`, so any route that assumes bounded
 multiplicity is assuming enough to compute `N_sc` outright and should be priced
 as assuming that rather than as assuming a bound.
+
+## Both axioms discharged — the certified cone is empty
+
+**Joop's ruling, and it was standing rather than new.** He said he had already
+communicated that the parked rulings are mine to take, and asked c.ai to word the
+last dispatch that way. So the two discharges that have been reported to him each
+cycle since `282` were not waiting on him; they were waiting on me reading the
+answer he had given.
+
+**Piece — take both.** `zetaNonempty` and `baseline_zeta23` — the two names
+`tools/proportion.go`'s axiom audit printed in the certified cone before this
+cycle, and it prints none after.
+
+**Kill condition, filed first:** *if either discharge moves a certified number,
+it added content rather than removing an assumption, and I revert both rather
+than bank a number I did not earn.* **It did not fire.** `NscStd 67.25%` and
+`Nsc 50.88%`, unchanged to the digit, with `axioms: 2 → 0`.
+
+Neither proof was reconstructed. `282` verified both in scratch and
+`Riemann/Assumptions.lean` has carried them as quoted code blocks since; the
+work this cycle was the imports, one structural move, and the ceremony.
+
+* `Riemann.zetaNonempty` — `Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts`'s
+  `main` field into `zetaNonempty_of_rvm_main`, three lines, `simpa` on
+  `zetaZeroConfig_N`. Imports `Zeta23.RvM.Statement` and
+  `Zeta23.GammaFacts.Complete`.
+* `Riemann.baseline_zeta23` — `baseline_of_cumulative` at `c = Zeta23.ThmD.HD 1`,
+  with `Zeta23.ThmD.HD_one` and `279`'s `baseline_decimal_le_exact` for the
+  decimal and `Zeta23.ThmD.thmD₀_simple_mult_cumulative` for the row. Imports
+  `Zeta23.ThmD.Mult`, which `S114` is the reason for.
+
+**One structural move, forced.** `baseline_of_cumulative` lived in
+`Riemann/Proportion.lean`, but `certified_std` consumes `baseline_zeta23` at that
+file's line `39` — so the bridge had to move *up* into `Assumptions.lean` rather
+than the theorem move down. The old location keeps the pricing record and a
+pointer, and its *"Not axiom-free, and the reason is structural"* paragraph is
+corrected there: it was right that discharging `zetaNonempty` would clear this one
+too, and right about the order.
+
+**The ceremony, as `233` set it.** `tools/proportion.go` fingerprints the axiom
+statements, saw the hash move `c3b240548ad8 → 3508643365fd`, escalated, and
+refused to write a log line until `base.version` was bumped. Bumped `3 → 4` with
+the note. Declared axioms `8 → 6`; certified cone `2 → 0`; the `binding` field is
+now `Zeta23.ThmD.thmD₀_simple_mult_cumulative` — zeta-23's own constant, not an
+assumption of ours.
+
+**Wildcard — re-measure the price the ruling was waiting on.** **Kill condition,
+filed first:** *if the build costs materially more than `PRICES.md`'s `28m02s`,
+the table under-priced the discharge and that is the finding, not the theorem.*
+It did not fire, and it missed in the other direction: **`2m36s`**, `8862` jobs,
+almost all of them `Replayed`. `281` built `ThmD.Final` in order to time it and
+`282` built `ThmD.Mult` in order to check the scratch proof, so the one-time cost
+had been paid by the act of pricing it — twelve cycles before the decision that
+was blocked on the price. `S128`.
+
+**Snag, bin 1.** Splicing the discharge note into `zetaNonempty`'s docstring left
+a `-/` in the middle and a second `/--` with no declaration under it — the `R24a`
+shape, which `299` and `311` also hit. Caught by reading the region rather than by
+the compiler, because I looked before building; the compiler would have caught it
+too, at eighty seconds instead of five.
+
+**Corrections at their locations, not in a summary.** `LOOP.md`'s banner row on
+the binding constraint; five `CLAIMS.md` rows that quote a two-axiom cone;
+`README.md`'s *"nine axioms"* (stale since `233`) and its dated log quote;
+`ISSUES` `#4`, which calls this *"the top infrastructure task"*, and `#13`'s
+`246` note; `PRICES.md`'s ruling paragraph, where the measured price now sits.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, **axioms 0**, warnings at the floor `54`, duplication floor
+`23`.
+
+**Might-mean, scoped to the two rows the ledger reports:** `audit/PrintAxioms.lean`
+now returns an empty cone for both, so the project's certified proportion of
+simple on-line zeros rests on this repository and its vendored dependency, and
+the remaining gap between `50.88%` and `100%` is mathematics rather than
+assumption — the register that prices assumptions has, for these two rows,
+nothing left to price.

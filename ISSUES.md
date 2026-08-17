@@ -93,6 +93,13 @@ checked — cheap, not yet done).
 
 ## #4 — [bin 2, RESOLVED session 003] Toolchain split with zeta-23-lean
 
+> **`337`: the task this issue calls "the top infrastructure task" is done.**
+> `baseline_zeta23` is no longer axiomatised — it is a theorem proved through
+> `Zeta23.ThmD.Mult`, and `zetaNonempty` through `Zeta23.RvM.Statement` plus
+> `Zeta23.GammaFacts.Complete`. It *did* remove the axioms without moving the
+> score, exactly as the paragraph below predicted: `67.25%` and `50.88%`
+> unchanged, `axioms: 2 → 0`, base `v3 → v4`.
+
 `zeta-23-lean` is Lean `v4.33.0-rc2` / Mathlib `51e6992…`; this project is
 `v4.24.0`. Importing it (rather than axiomatising `baseline_zeta23`) means
 bumping this project, re-fetching the Mathlib cache and building `Zeta23`
@@ -309,7 +316,10 @@ being `correlated` is now measured rather than asserted.
 > still Joop's"* long after the restatement landed: `baseline_zeta23` and
 > `baseline_przz` are both stated on `ProportionStd` (the `NscStd` count) today.
 > (**`246`:** `baseline_przz` was deleted at `233`; `baseline_zeta23` remains,
-> still on `ProportionStd`, and `przz_of_zeta23` carries the `0.4162` figure.)
+> still on `ProportionStd`, and `przz_of_zeta23` carries the `0.4162` figure.
+> **`337`:** `baseline_zeta23` is a theorem now, still on `ProportionStd`, so
+> what this header records about the *count* is unchanged and only its status as
+> an assumption has changed.)
 > And the mathematical residue is now named: `Fiber.Nsc_eq_NscStd_iff_noHaunted`
 > proves the two notions coincide **iff** no ordinate is haunted, so `#13` is not
 > a convention question but the project's central open quantity.

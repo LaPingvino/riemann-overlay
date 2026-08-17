@@ -1236,6 +1236,15 @@ with the samples overlapping.
 `ThmD.Final` does cost about `+6s` per elaboration, which is real but is six
 seconds, not eighteen minutes.
 
+> **`337`: both rulings were taken, and the measured price was smaller again.**
+> Joop's standing answer is that the discharges are mine to make. `lake build`
+> after both edits reported **`2m36s`** and `8862` jobs, not the `28m02s` the
+> table below adds up to — because the vendored oleans from `270`/`281`/`282`'s
+> own measurement runs were still cached, so the one-time build had already been
+> paid for by the act of pricing it. The table is right about the cost of a cold
+> build; on this machine the build was not cold. Result: `axioms: 2 → 0`, base
+> `v3 → v4`, both ledger rows unmoved at `67.25%` and `50.88%`.
+
 **What this does to the two rulings.** The `zetaNonempty` discharge costs one
 build of seven and a half minutes and nothing measurable afterwards. The
 `baseline_zeta23` discharge costs one build of eighteen minutes and about six

@@ -18,7 +18,7 @@
 > | the prompt says | the truth, with its witness |
 > |---|---|
 > | `ledger Nsc 0.00%` | **`Nsc 50.88%`** — `certified_nsc_unconditional`, `SESSION 084`. Run `go run tools/proportion.go` and believe that. |
-> | `binding constraint = Fujii's implied constant` | binding is `baseline_zeta23`; Fujii binds nothing since the `Nsc` row opened |
+> | `binding constraint = Fujii's implied constant` | **`337`: `baseline_zeta23` is a theorem; the binding is now `Zeta23.ThmD.thmD₀_simple_mult_cumulative`, i.e. zeta-23's own constant.** Fujii has bound nothing since the `Nsc` row opened, which is what this row was for |
 > | *"Minimality of the profile is NOT proved and must not be claimed"* | settled **both** ways: `profile_not_minimal` (globally, `075`) and `profile_minimal_among_local` (locally, `077`) |
 > | queue items 1, 2, 3 | all discharged — `076`, `FAILURES.md`'s W32 table, `075`/`077` |
 > | queue item 4 — "W19 corridor … needs literature not in the registers" | **W19 is dead** (`144`): the error terms were fetched and the only identity precise enough is RH-conditional, which empties the target. `FAILURES.md` carries the autopsy. The GRH tier being empty has a standing mechanical witness — `provenance_lint` prints `tier GRH: 0/11`. |

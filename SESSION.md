@@ -15591,3 +15591,51 @@ Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 this project has cited since `#7` was a statement about a pair of configurations
 rather than about `NscStd`, so naming the decomposition turned one theorem into a
 lemma with four instances.
+
+## The last uncontrolled guard, and a number it retracted in the wrong place
+
+**Piece — closing `320`'s stated gap.** That cycle ran a positive control on
+thirteen roster guards and recorded `warning_floor` as untested, because its
+control needs a real Lean warning and therefore a rebuild.
+
+**Kill condition, filed first:** *if `warning_floor` does not go red on an
+introduced warning — if its floor absorbs one — then its green light is weaker
+than its name and I report the slack.* **It did not fire.** A theorem with an
+unused binder, appended to a leaf module: `55 warnings, floor is 54 — this cycle
+added 1`, exit `1`. Reverted, rebuilt, exit `0`. **All fourteen roster guards are
+now controlled**, and `session_gate`'s record says so at the entry.
+
+**Wildcard — is the floor's own history documented?**
+
+**Kill condition, filed first:** *if each rise since `252` has a `SESSION` entry
+saying why it stands, the floor is documented and I report that; if a rise was
+taken silently, that is a `--update` without the sentence it requires.* **It
+fired sideways: there has been no rise at all, and the guard's prose disagrees
+with its own floor.**
+
+`forensics/warning_floor.json` has exactly one commit, `252`'s, and reads `54`.
+The docstring written in that same commit says `252` found **`51`** — twice.
+`252`'s own commit message carries the answer: *"my hand count off `uniq -c` was
+`51`; the guard says `54`."* It filed that as a snag, wrote the correct floor,
+and left the retracted number in the file the floor belongs to.
+
+So the number the guard explains itself with has disagreed with the number it
+enforces since the cycle that wrote both. Corrected at the location. `S36`'s
+shape: a retraction that went to `SESSION.md` and the commit rather than to the
+text it retracts, which is the rule this project adopted *because* of `S36`.
+
+**Two things I planned this cycle and dropped, both to `R26`.** A theorem pairing
+the bracket's visible endpoints with the invisible position — `bracket_muInvariant`
+has had the endpoints half since `293`, and `326` shipped the other half. And a
+guard for the `R26`-skipped-then-compiler-caught pattern of `326` — unnecessary,
+because `duplication_floor` catches a re-proof under any name with the same
+conclusion, which is what saved `326`. Running the search first cost two commands
+and saved two cycles.
+
+Build green (3757 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v3/c3b240548ad8`, axioms 2.
+
+**Might-mean, scoped to this guard:** the figure `252` retracted in its own
+commit message survived in the file it was about for seventy-five cycles, so the
+rule that corrections go at the location is one this project wrote after paying
+for it and has still not finished paying.

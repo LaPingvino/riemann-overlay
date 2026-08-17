@@ -4,10 +4,17 @@
 **Why this exists.**  `251` recorded a snag: a `push_neg` deprecation warning
 had been sitting in `250`'s proof and I never saw it, because the way I check a
 build is `lake build 2>&1 | grep -E "^error"`.  Warnings are invisible to that,
-and `252` found `51` of them in `Riemann/*.lean` — none wrong, but none looked
+and `252` found `54` of them in `Riemann/*.lean` — none wrong, but none looked
 at either, which is the same relationship to evidence that `S103` punished.
 
-**What this is not.**  It is not a demand for zero warnings.  Most of the `51`
+*(**Corrected, `327`.** These two paragraphs said `51`. That was `252`'s hand
+count off `uniq -c`; its own snag reads *"my hand count was 51; the guard says
+54"*, and the floor it wrote is `54`. The retraction went into `SESSION.md` and
+the commit message and not into this file, so the number the guard explains
+itself with disagreed with the number it enforces, in the same cycle's prose.
+`S36`'s shape.)*
+
+**What this is not.**  It is not a demand for zero warnings.  Most of the `54`
 are `simp` arguments that became redundant when Mathlib moved underneath them,
 and rewriting proofs to silence them is churn against a moving dependency.  The
 useful invariant is weaker and enforceable: **the count must not grow.**  A new

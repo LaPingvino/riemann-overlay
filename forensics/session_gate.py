@@ -62,9 +62,10 @@ watches, confirm red, restore, confirm green.
   not that the register is sound.  Its own docstring never claimed otherwise —
   putting it in a guard roster was the caller's doing, as with `claims_gate`
   (`S123`), so it is labelled here rather than moved.  `S124`.
-* **not controlled this cycle:** `warning_floor`, because a control needs a real
-  Lean warning and therefore a rebuild.  Recorded as untested rather than
-  assumed.
+* **`warning_floor`, controlled at `327`** — `320` left it untested because its
+  control needs a real Lean warning.  `327` appended a theorem with an unused
+  binder to a leaf module: `55 warnings, floor is 54 — this cycle added 1`,
+  exit `1`; reverted, rebuilt, exit `0`.  **All fourteen are now controlled.**
 
 **Shown to go red, because `S60` says a guard that has never flagged is
 unproven.**  `319` appended a fabricated row to `statement_index.tsv` and ran

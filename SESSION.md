@@ -18406,3 +18406,56 @@ last time it was seen red — `forensics/surprises.py` has never been seen red a
 corruptions here — so the roster should carry a drill date per entry the way
 `vendor/PROVENANCE.md` carries a hash — and *"16/16 green"* as I have been writing it every
 cycle overstates by three.
+
+## The `Nsc` row's "no star bound" was a price, not a gap
+
+**Piece.** The ledger has annotated the `Nsc` row *"no star bound"* since it opened. I read
+that as an inequality being absent and set out to derive one from
+`star_charges_every_class`. **It has been on disk since `275`** as
+`ZeroData.six_mul_NscStd_le`, proof and all, its docstring already reading *"the row gap is at
+most `(N⊛ − N)/6`"*. What was missing was never the bound — `ZeroData.six_mul_NscStd_le` is the bound — it was the
+**price**.
+
+**Kill condition, filed first:** *if the required `c` is so close to `1` that the hypothesis is
+equivalent to assuming the conclusion, the channel is a dead price and I record it as such.* It
+did not fire: the threshold is `793/400`, comfortably inside `(1,2)`.
+
+* `Blindness.star_route_pointwise` — `N⊛ ≤ c·N` with `NscStd ≥ κ·N` gives `Nsc ≥ (κ−(c−1)/6)·N`.
+* `Blindness.star_route_beats_iff` — beats the certified `(3κ−1)/2` **exactly** below
+  `c = 4 − 3κ`, for every `κ`, both directions.
+* `Blindness.star_route_threshold_zeta` — at `κ = 269/400` that is `793/400`, bracketed
+  `1 < 793/400 < 2`, and the routes agree there at `407/800` — the value the row already carries.
+
+**The want-ad, unconditional only:** `N⊛ ≤ c·N` with `c < 793/400`, i.e. mean-square
+multiplicity below `1.9825`. **This is a different channel from the one `171` closed** — that
+was *maximum* multiplicity feeding `Proportion (2 − M)`; this is the mean square, and it is not
+on that table. Priced in `PRICES.md` with both caveats: under `H ≤ 2` the route is the wrong
+instrument, since `Blindness.Nsc_eq_NscStd_of_mult_le_two` kills `hauntedCount` and hands over
+`κ` directly.
+
+**Wildcard — is the `/6` improvable by sharpening the same argument?** **Kill condition, filed
+first:** *if I cannot exhibit equality, I record the tightness as open rather than asserting the
+constant is best.* It did not fire. `Blindness.star_route_attained`: the mass-`3` haunted atom
+gives `N = 3`, `N⊛ = 9`, `NscStd = 1`, `Nsc = 0`, both sides `9`. So by `Blindness.star_route_attained` the `/6` is exact,
+and only a different inequality can move it.
+
+**Snag, bin 1 — `S163`, the third search-vocabulary miss in four cycles.** I searched
+`hauntedCount_le`, `Nstar_le`, `star_charges` and `three_mul_NscStd`. The existing theorem is
+`six_mul_NscStd_le`, keyed to a coefficient none of those carry. `S159` and `S162` were the same
+failure, and `R28a`'s amended clause — *search the conclusion, not just the construction* — says
+precisely what I did not do: the conclusion `6 * D.NscStd + D.N ≤ …` was never searched.
+**`forensics/duplication_floor.py` caught it before `lake build`**, which is the only reason a
+second proof of a `275` theorem did not reach the commit. Grading the floor pre-build has now
+paid twice.
+
+**Snag, bin 3 — no new ledger row and `tools/proportion.go` untouched**, deliberately. The
+annotation *"no star bound"* remains true: there is no bound on `N⊛`, only a price for one.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%` unmoved, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings `54`, duplication floor `27`
+(back down after the duplicate was removed), overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to the `Nsc` row and this one inequality:** the row has been waiting on a
+second-moment input for a hundred cycles with the conversion already proved and no number
+attached to it, so what blocks this project is less often a missing theorem than a missing
+price on a theorem it already owns.

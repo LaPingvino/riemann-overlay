@@ -8999,5 +8999,83 @@ theorem ledgerCode_eq_iff {D D' : ZeroData} :
   tauto
 
 
+/-! #### The star route to the `Nsc` row — what a mean-square bound would buy
+
+`SESSION 374`.  The `Nsc` row is carried by
+`three_mul_NscStd_le_N_add_two_mul_Nsc`, whose ledger annotation has read *"no
+star bound"* since the row opened.  `star_charges_every_class` supplies one.
+-/
+
+/-! `275`'s `ZeroData.six_mul_NscStd_le` already carries the inequality this route
+needs — `6·NscStd + N ≤ 6·Nsc + N⊛`, and its docstring already reads *"the row gap
+is at most `(N⊛ − N)/6`"*.  `374` adds no bound; what was missing was the price.
+`374` first wrote a second proof of it from `star_charges_every_class` and
+`duplication_floor` refused the commit before the build. -/
+
+/-- **The sensitivity: what `N⊛ ≤ c·N` buys on top of `NscStd ≥ κ·N`.**
+`SESSION 374`. -/
+theorem star_route_pointwise {D : ZeroData} {κ c : ℝ}
+    (hstd : κ * (D.N : ℝ) ≤ (D.NscStd : ℝ))
+    (hstar : (D.Nstar : ℝ) ≤ c * (D.N : ℝ)) :
+    (κ - (c - 1) / 6) * (D.N : ℝ) ≤ (D.Nsc : ℝ) := by
+  have h := D.six_mul_NscStd_le
+  have h' : (6 : ℝ) * (D.NscStd : ℝ) + (D.N : ℝ) ≤ 6 * (D.Nsc : ℝ) + (D.Nstar : ℝ) := by
+    exact_mod_cast h
+  linarith
+
+/-- **The crossover, for every `κ`.**  `SESSION 374`.
+
+The certified route gives `(3κ − 1)/2`; the star route gives `κ − (c − 1)/6`.
+The second beats the first exactly below `c = 4 − 3κ`.
+
+This is a **different channel** from the one `171` closed.  That closure was
+about *maximum* multiplicity `M` feeding `Proportion (2 − M)`; this is the mean
+square, and the statement is for every `κ`. -/
+theorem star_route_beats_iff {κ c : ℝ} :
+    (3 * κ - 1) / 2 < κ - (c - 1) / 6 ↔ c < 4 - 3 * κ := by
+  constructor <;> intro h <;> linarith
+
+/-- **The ζ-level threshold, as an exact rational.**  `SESSION 374`.
+
+At `κ = 269/400` the crossover is `793/400`, bracketed between `1` and `2`, and
+the two routes agree there at `407/800` — the value the `Nsc` row already
+carries.
+
+**The want-ad is the unconditional one only.**  Under `H ≤ 2` this route is not
+the right instrument: `Nsc_eq_NscStd_of_mult_le_two` makes `hauntedCount` zero
+and hands over `κ` directly, far above anything the star route yields. -/
+theorem star_route_threshold_zeta :
+    (4 : ℝ) - 3 * (269 / 400) = 793 / 400
+      ∧ (1 : ℝ) < 793 / 400 ∧ (793 : ℝ) / 400 < 2
+      ∧ (3 * (269 / 400 : ℝ) - 1) / 2 = 407 / 800 := by
+  refine ⟨by norm_num, by norm_num, by norm_num, by norm_num⟩
+
+/-- **`ZeroData.six_mul_NscStd_le` is tight, at the minimal haunted
+configuration.**  `SESSION 374`.  Both sides are `9` on the mass-`3` haunted atom, which is the
+configuration `CLAIMS.md` records as extremal wherever `hauntedCount` is
+charged. -/
+theorem star_route_attained {a : ℝ} (ha : a ≠ 1/2) :
+    (configAt 0 1 1 a).N = 3 ∧ (configAt 0 1 1 a).Nstar = 9
+      ∧ (configAt 0 1 1 a).NscStd = 1 ∧ (configAt 0 1 1 a).Nsc = 0
+      ∧ 6 * (configAt 0 1 1 a).NscStd + (configAt 0 1 1 a).N
+          = 6 * (configAt 0 1 1 a).Nsc + (configAt 0 1 1 a).Nstar := by
+  have p := configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 1) (by norm_num)
+  norm_num at p
+  have hN : (configAt 0 1 1 a).N = 3 := by
+    rw [N_from_profile, p]; decide
+  have hS : (configAt 0 1 1 a).Nstar = 9 := by
+    rw [Nstar_from_profile, p]; decide
+  have hStd : (configAt 0 1 1 a).NscStd = 1 := by
+    have : ((configAt 0 1 1 a).NscStd : ℤ) = 1 := by
+      rw [NscStd_from_profile, p]; decide
+    exact_mod_cast this
+  have hsc : (configAt 0 1 1 a).Nsc = 0 := by
+    have : ((configAt 0 1 1 a).Nsc : ℤ) = 0 := by
+      rw [Nsc_from_profile, p]; decide
+    exact_mod_cast this
+  refine ⟨hN, hS, hStd, hsc, ?_⟩
+  rw [hN, hS, hStd, hsc]
+
+
 end Blindness
 end Riemann

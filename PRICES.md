@@ -242,6 +242,31 @@ on the corridor `(A, ∞)`. Where `F` is *known* there is no corridor, so the
 window contributes nothing below `A` — its payoff **grows with** `A`. Hence
 `θ`-progress and corridor-wall progress **multiply**.
 
+## The star channel — what a mean-square multiplicity bound would buy (`374`)
+
+**Distinct from the channel `171` closed.** That closure was about *maximum*
+multiplicity `M` feeding `Proportion (2 − M)`, empty above `M = 1`. This one is
+the **mean square**, `N⊛/N`, and it is not on that table.
+
+`ZeroData.six_mul_NscStd_le` has carried `6·NscStd + N ≤ 6·Nsc + N⊛` since `275`.
+So `N⊛ ≤ c·N` together with `NscStd ≥ κ·N` gives `Nsc ≥ (κ − (c−1)/6)·N`, against
+the certified route's `(3κ−1)/2`.
+
+| | value at `κ = 269/400` | witness |
+|---|---|---|
+| certified route | `407/800` | `Blindness.star_route_threshold_zeta` |
+| star route at `c` | `κ − (c−1)/6` | `Blindness.star_route_pointwise` |
+| **crossover** | **`c = 793/400`**, exactly | `Blindness.star_route_beats_iff` |
+
+**The want-ad:** an *unconditional* `N⊛ ≤ c·N` with `c < 793/400` — mean-square
+multiplicity below `1.9825`. Nobody has asked the literature for one.
+
+**Two caveats, load-bearing.** Under `H ≤ 2` this is the wrong instrument
+entirely: `Blindness.Nsc_eq_NscStd_of_mult_le_two` kills `hauntedCount` and hands
+over `κ` directly. And the inequality is tight — `Blindness.star_route_attained`
+gives equality at the mass-`3` haunted atom — so the `/6` cannot be improved by
+sharpening the same argument.
+
 ## Standing rule
 
 Every future escape claim gets a row here, with the theorem or computation that

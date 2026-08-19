@@ -872,3 +872,11 @@ import Riemann
 -- 372: minimality is class-relative.  Unrestricted, one number does it.
 #check @Riemann.Blindness.ledgerCode
 #check @Riemann.Blindness.ledgerCode_eq_iff
+
+-- 374: the Nsc row's "no star bound" annotation, priced.  An unconditional
+-- N* <= c*N with c < 793/400 beats the certified route; tight at the mass-3 haunted atom.
+#check @Riemann.ZeroData.six_mul_NscStd_le
+#check @Riemann.Blindness.star_route_pointwise
+#check @Riemann.Blindness.star_route_beats_iff
+#check @Riemann.Blindness.star_route_threshold_zeta
+#check @Riemann.Blindness.star_route_attained

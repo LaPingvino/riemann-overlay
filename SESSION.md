@@ -20018,3 +20018,38 @@ so where it stands: an input exists, what is missing is an input that **beats**
 **Might-mean:** `Riemann.moment_cap_rate_eq_star_rate` says the multiplicity cap
 is exhausted at the second moment, so the fourth supplier can only be made to
 earn by an input from outside the formalisation.
+
+## 408 — the unproved half of `407`, and it is the geometric sum
+
+**Kill condition, stated first (`R12`).** Piece: the `m < M` case `407`
+explicitly declined to claim. Wildcard: is the inequality strict there? Kill: if
+strictness needs a fight with powers, ship the non-strict inequality alone and
+leave the boundary cases to `407`.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Riemann.moment_cap_rate_ge_star_rate` — for `2 ≤ m ≤ M` and `2 ≤ k`, the
+  moment rate from a multiplicity cap is at least the star rate, and a smaller
+  rate is the better one.
+- `Riemann.moment_cap_rate_gt_star_rate` — the wildcard, and it survived: for
+  `m < M` and `3 ≤ k` the inequality is strict.
+
+**What the mechanism turned out to be.** Writing `x^(k−1) − 1 =
+(x−1)·Σ_{i<k−1} x^i` on both sides, everything cancels and the comparison is
+`Σ_{i<k−1} m^i ≤ Σ_{i<k−1} M^i` — monotonicity of a geometric sum in its base.
+Both hypotheses of the strict version are visible in that sum: at `m = M` the two
+sums are equal, and at `k = 2` each sum has a single term `1`, so it cannot
+separate anything. Those are exactly `407`'s equality and `406`'s
+`momentBound_two_iff_starBound`.
+
+**Snag, bin 2.** Making `M` implicit in the private casts lemma let Lean unify
+`k := m` at a later call site, producing `↑(m ^ m - m)` in the context and a
+rewrite that failed against a goal that looked identical. Named the arguments
+(`(m := m) (k := k)`) and it went through. The error message pointed at the
+rewrite, not at the unification that caused it.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** the whole multiplicity-cap channel is one geometric sum, so no
+choice of moment order can extract more from a cap than its second moment
+already does.

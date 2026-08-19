@@ -954,3 +954,7 @@ import Riemann
 #check @Riemann.Blindness.momentK_le_of_multiplicity_le
 #check @Riemann.momentBound_of_multiplicity_le
 #check @Riemann.moment_cap_rate_eq_star_rate
+
+-- 408: the cap family's moment rates against its star rate, both directions.
+#check @Riemann.moment_cap_rate_ge_star_rate
+#check @Riemann.moment_cap_rate_gt_star_rate

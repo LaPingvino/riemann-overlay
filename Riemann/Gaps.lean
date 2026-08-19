@@ -1569,6 +1569,101 @@ theorem moment_cap_rate_eq_star_rate {M k : ℕ} (hM : 2 ≤ M) (hk : 2 ≤ k) :
   rw [div_eq_div_iff (by positivity) (by nlinarith)]
   ring
 
+/-- Both rates, with their ℕ-subtraction casts resolved. -/
+private lemma cap_rate_casts (M : ℕ) {m k : ℕ} (hm : 2 ≤ m) (hk : 2 ≤ k) :
+    ((m ^ k - m : ℕ) : ℝ) = (m : ℝ) * ((m : ℝ) ^ (k - 1) - 1)
+      ∧ ((m * (m - 1) : ℕ) : ℝ) = (m : ℝ) * ((m : ℝ) - 1)
+      ∧ ((M ^ (k - 1) : ℕ) : ℝ) = (M : ℝ) ^ (k - 1) := by
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+  have hle : m ≤ m ^ (j + 1) := Nat.le_self_pow (by omega) m
+  refine ⟨?_, ?_, by push_cast; ring⟩
+  · rw [Nat.cast_sub hle]
+    push_cast
+    ring
+  · rw [Nat.cast_mul, Nat.cast_sub (by omega : 1 ≤ m)]
+    push_cast
+    ring
+
+/-- **A multiplicity cap's higher moments do not beat its star bound at any
+admissible rung** — `Riemann.moment_cap_rate_eq_star_rate` says where the two
+agree and `Riemann.moment_cap_rate_gt_star_rate` where the moment rate is
+strictly worse.  `SESSION 408`.
+
+`407` fed `Riemann.momentBound_of_multiplicity_le`'s constant `C = M^(k−1)` into
+`Riemann.hauntedDensity_of_momentBound_at_rung` and found the rate equal to the
+star rate at the rung `m = M`, leaving `m < M` open.  This settles it for every
+admissible rung: for `2 ≤ m ≤ M` the moment rate is at least the star rate, and a
+**smaller** rate is the better one.
+
+The mechanism is the geometric sum.  Writing `x^(k−1) − 1 = (x − 1)·Σ_{i<k−1} x^i`
+on both sides, the comparison collapses to `Σ_{i<k−1} m^i ≤ Σ_{i<k−1} M^i` —
+monotone in the base, and that is the whole content. -/
+theorem moment_cap_rate_ge_star_rate {m M k : ℕ} (hm : 2 ≤ m) (hmM : m ≤ M) (hk : 2 ≤ k) :
+    (((M : ℕ) : ℝ) - 1) / ((m * (m - 1) : ℕ) : ℝ)
+      ≤ (((M ^ (k - 1) : ℕ) : ℝ) - 1) / ((m ^ k - m : ℕ) : ℝ) := by
+  obtain ⟨hA, hB, hC⟩ := cap_rate_casts M hm hk
+  have hmR : (2:ℝ) ≤ (m : ℝ) := by exact_mod_cast hm
+  have hMR : (m : ℝ) ≤ (M : ℝ) := by exact_mod_cast hmM
+  have hppos : (1:ℝ) < (m : ℝ) ^ (k - 1) := by
+    have : (1:ℝ) < (m:ℝ) := by linarith
+    exact one_lt_pow₀ this (by omega)
+  have hden1 : (0:ℝ) < (m : ℝ) * ((m : ℝ) - 1) := by nlinarith
+  have hden2 : (0:ℝ) < (m : ℝ) * ((m : ℝ) ^ (k - 1) - 1) := by nlinarith
+  rw [hA, hB, hC, div_le_div_iff₀ hden1 hden2]
+  -- reduces to (M − 1)·m·(m^(k−1) − 1) ≤ (M^(k−1) − 1)·m·(m − 1)
+  have hSm := geom_sum_mul (m : ℝ) (k - 1)
+  have hSM := geom_sum_mul (M : ℝ) (k - 1)
+  have hmono : (∑ i ∈ Finset.range (k - 1), (m : ℝ) ^ i)
+      ≤ ∑ i ∈ Finset.range (k - 1), (M : ℝ) ^ i := by
+    refine Finset.sum_le_sum fun i _ => ?_
+    exact pow_le_pow_left₀ (by linarith) hMR i
+  have hMm1 : (0:ℝ) ≤ (M : ℝ) - 1 := by linarith
+  have hm1 : (0:ℝ) < (m : ℝ) - 1 := by linarith
+  have hmpos : (0:ℝ) < (m : ℝ) := by linarith
+  rw [← hSm, ← hSM]
+  have hdiff : (0:ℝ) ≤ ((∑ i ∈ Finset.range (k - 1), (M : ℝ) ^ i)
+      - ∑ i ∈ Finset.range (k - 1), (m : ℝ) ^ i) * (((M : ℝ) - 1) * ((m : ℝ) * ((m : ℝ) - 1))) :=
+    mul_nonneg (by linarith) (by nlinarith)
+  nlinarith [hdiff]
+
+/-- **Strictly worse below the cap, from the third moment on.**  `SESSION 408`.
+
+The strict half of `Riemann.moment_cap_rate_ge_star_rate`.  Two hypotheses are
+load-bearing and neither can go: at `m = M` the two rates are equal
+(`Riemann.moment_cap_rate_eq_star_rate`, `407`), and at `k = 2` the moment bound
+**is** the star bound (`Riemann.momentBound_two_iff_starBound`, `406`), so the
+geometric sum has one term on each side and cannot separate them.
+
+With `407`'s equality this gives the complete picture for the cap family: equal
+exactly on those two boundaries, strictly worse everywhere else. -/
+theorem moment_cap_rate_gt_star_rate {m M k : ℕ} (hm : 2 ≤ m) (hmM : m < M) (hk : 3 ≤ k) :
+    (((M : ℕ) : ℝ) - 1) / ((m * (m - 1) : ℕ) : ℝ)
+      < (((M ^ (k - 1) : ℕ) : ℝ) - 1) / ((m ^ k - m : ℕ) : ℝ) := by
+  obtain ⟨hA, hB, hC⟩ := cap_rate_casts (m := m) (k := k) M hm (by omega)
+  have hmR : (2:ℝ) ≤ (m : ℝ) := by exact_mod_cast hm
+  have hMR : (m : ℝ) < (M : ℝ) := by exact_mod_cast hmM
+  have hppos : (1:ℝ) < (m : ℝ) ^ (k - 1) := by
+    have : (1:ℝ) < (m:ℝ) := by linarith
+    exact one_lt_pow₀ this (by omega)
+  have hden1 : (0:ℝ) < (m : ℝ) * ((m : ℝ) - 1) := by nlinarith
+  have hden2 : (0:ℝ) < (m : ℝ) * ((m : ℝ) ^ (k - 1) - 1) := by nlinarith
+  rw [hA, hB, hC, div_lt_div_iff₀ hden1 hden2]
+  have hSm := geom_sum_mul (m : ℝ) (k - 1)
+  have hSM := geom_sum_mul (M : ℝ) (k - 1)
+  have hmono : (∑ i ∈ Finset.range (k - 1), (m : ℝ) ^ i)
+      < ∑ i ∈ Finset.range (k - 1), (M : ℝ) ^ i := by
+    refine Finset.sum_lt_sum (fun i _ => pow_le_pow_left₀ (by linarith) (le_of_lt hMR) i) ?_
+    refine ⟨1, Finset.mem_range.2 (by omega), ?_⟩
+    simpa using hMR
+  have hMm1 : (0:ℝ) < (M : ℝ) - 1 := by linarith
+  have hm1 : (0:ℝ) < (m : ℝ) - 1 := by linarith
+  have hmpos : (0:ℝ) < (m : ℝ) := by linarith
+  rw [← hSm, ← hSM]
+  have hdiff : (0:ℝ) < ((∑ i ∈ Finset.range (k - 1), (M : ℝ) ^ i)
+      - ∑ i ∈ Finset.range (k - 1), (m : ℝ) ^ i) * (((M : ℝ) - 1) * ((m : ℝ) * ((m : ℝ) - 1))) :=
+    mul_pos (by linarith) (by nlinarith)
+  nlinarith [hdiff]
+
 /-- **The ladder, transported: `ProportionStd κ` gives `Proportion ((m·κ−1)/(m−1))`.**
 
 At `m = 3` this is `084`'s `(3κ−1)/2`; each odd rung upward is worth real points.

@@ -18619,3 +18619,52 @@ Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%` unmoved,
 prices live in `RULING.md` while its theorems live in the index, so a search that covers only
 declarations will keep rediscovering decisions — and four of the last six cycles rediscovered
 something rather than found it.
+
+## T3's channel is open and one link of four is dated — the rest stays unwritten
+
+**Piece.** `377` opened zbMATH Open on Joop's ruling. This cycle exercises it against `T3`, the
+solved-problem control, blocked since `364` for want of a dated bibliographic source.
+
+**Kill condition, filed first:** *any record I cannot date unambiguously from the source leaves
+`T3` blocked rather than inferred — a chronology I cannot date is the failure mode `T3` was
+designed to detect in others.* **It fired, on three links of four.**
+
+**Verified, in full, from the source:**
+
+> Ribet, K. A. *On modular representations of `Gal(Q̄/Q)` arising from modular forms.*
+> Invent. Math. **100**, No. 2, 431–476 (**1990**). Zbl 0773.11039.
+
+That is one link of the Kummer → Frey → Ribet → Wiles chain, dated without recall.
+
+**Not verified:** Kummer, Frey, Wiles. Queries returned no hits, or the wrong person — `au:Frey
+& ti:stable` returned *Frey, Andrew R.* on anti-de Sitter spacetime, a different Frey in a
+different century. **`T3` remains not started.**
+
+**Why they failed, and it is the register's own warning demonstrating itself.** I built the
+queries from *recalled* titles and journal names. `T3`'s specification says every date is
+flagged `RECALL` and *"date verification is a prerequisite, not a formality"* — and the same
+applies one level up, to the search keys. A query keyed on a remembered title is a recall claim
+in the query string, and when it returns nothing that is not evidence of absence (`R28`).
+
+**What is now cheap for the next cycle, recorded so it is not re-derived** (`S115`): zbMATH's
+result markup puts the journal name and the volume/pages/year in **sibling** elements, so a
+parser reading only `class="source"` gets `Invent. Math.` and drops `100, No. 2, 431-476
+(1990)`. The year lives in the `(YYYY)` at the end of the citation sibling. Working query form is
+`au:Surname, I* & ti:keyword & so:Journal* & py:YYYY-YYYY`; quoted phrases return nothing.
+
+**Wildcard — is the channel itself sound, or did `377`'s probe overstate it?** **Kill condition,
+filed first:** *if retrieval works only for the one record I already had a Zbl number for, the
+allowlist entry has not been shown to help and I say so.* It did not fire: the Ribet record was
+reached by author-and-keyword search with no identifier, and the Frey miss was a wrong-person
+hit, not a network failure. **The channel is sound; my keys were not.**
+
+**Snag, bin 1 — I spent most of the cycle improvising a scraper.** Six calls of regex tuning for
+one verified record. The extractor should have been written once against a dumped page rather
+than guessed at incrementally.
+
+No Lean changed, no ledger movement, `absence_queue` unchanged — `T3` moves from *blocked* to
+*startable with one link dated*, which is not a discharge.
+
+**Might-mean, scoped to `T3` and this one retrieval:** the blocker `364` named was real but only
+half the obstacle, since an open channel still needs search keys that are not themselves recall —
+and for a chronology of four papers I could name but not cite, that second half is the larger one.

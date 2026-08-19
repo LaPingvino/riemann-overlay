@@ -873,6 +873,16 @@ the solution?**
 > needed. **The blocker is discharged; T3 itself is still not started**, and the
 > chronology remains unwritten rather than written from memory.
 >
+> **`378` exercised it: one link of four is dated.** Ribet, K. A., *On modular
+> representations of `Gal(Q̄/Q)` arising from modular forms*, Invent. Math. **100**,
+> No. 2, 431–476 (**1990**), Zbl 0773.11039 — reached by author-and-keyword search,
+> no identifier, no recall. Kummer, Frey and Wiles are **not** verified: those queries
+> were keyed on remembered titles and journals, and a remembered key is a recall claim
+> inside the query, so their zero hits are statements about the search (`R28`), not
+> about the record. Parser note for the next attempt: zbMATH puts the journal name and
+> the volume/pages/`(YYYY)` in *sibling* elements, so reading only `class="source"`
+> silently drops the year.
+>
 > Recorded as *blocked with a named blocker* rather than *not started*, which is the
 > difference between an obligation and an open question.
 

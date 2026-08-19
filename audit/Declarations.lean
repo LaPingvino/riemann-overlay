@@ -976,3 +976,7 @@ import Riemann
 #check @Riemann.Blindness.nAtom
 #check @Riemann.Blindness.nAtom_H
 #check @Riemann.Blindness.nAtom_profile
+
+-- 417: which multisets are profiles, and the first consequence.
+#check @Riemann.Blindness.profile_realisable
+#check @Riemann.Blindness.exists_atomCount_N

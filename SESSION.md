@@ -20463,3 +20463,45 @@ matches `412`'s rediscovery, which is the reason this cycle's piece is a map.
 **Might-mean:** every profile is realised, so any statement about ledgers that
 holds for all `ZeroData` is a statement about profiles with no side conditions
 left to check.
+
+## 417 — which multisets are profiles
+
+**Kill condition, stated first (`R12`).** Piece: characterise the image of the
+profile map, now that `416` makes realisability constructive. Wildcard: the first
+consequence — `atomCount` and `N` independent up to `atomCount ≤ N`. Kill: if the
+multiset/list seam costs more than a couple of attempts, ship list-realisability
+and leave the multiset wrapper for a follow-up.
+
+**Checked for prior art first.** `412` rewrote `098`'s theorem for want of that
+check. Grepped `∃ D : ZeroData` and the index for conclusions of the shape
+`profile ?D = ?P`: eight existentials, none of them realisability.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.profile_entry_admissible` — every entry of a profile has mass `≥ 1`,
+  off-line mass `≤` mass, off-line mass **even**.
+- `Blindness.exists_profile_of_list` — and every admissible list is a profile;
+  the first consumer of `416`'s `Blindness.nAtom`.
+- `Blindness.profile_realisable` — the two directions as one biconditional.
+- `Blindness.exists_atomCount_N` — the wildcard: for `1 ≤ c ≤ n` there is a
+  `ZeroData` with `atomCount = c` and `N = n`, from the profile
+  `(n−c+1, 0) :: (1,0)^(c−1)`, admissible by inspection.
+
+**What the pair says.** `370`–`373` proved the profile determines the ledger;
+`417` says which profiles occur. Together they describe the ledger's achievable
+set with nothing left implicit — and the wildcard shows the intended use: a
+separation argument can now prescribe a profile and appeal to admissibility,
+rather than building a configuration and computing its counts.
+
+**Snag, bin 2 — three names guessed, three wrong.** `List.map_id''` does not have
+the shape I used it in; `even_zero` is not the name; and the docstring cited
+`Blindness.atomCount_le_N`, which does not exist — the fact lives inside
+`Blindness.evenOnAt_add_atomCount_le_N`. The first two the compiler caught, the
+third `citation_check` caught. `409`'s finding again: the dangerous citation is
+the **plausible** name, and I generated three in one cycle.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** with `Blindness.profile_realisable` on one side and `370`–`373`
+on the other, a question about what the counts can do turns into a question about
+admissible multisets of pairs.

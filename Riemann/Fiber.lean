@@ -9996,5 +9996,97 @@ lemma nAtom_profile (a : ℝ) (ha : a ≠ 1/2) :
       configAt_profile ha (hne p (by simp))]
     simp
 
+/-- **Every entry of a profile is admissible.**  `SESSION 417`.
+
+Mass at least `1` (`Blindness.one_le_H_of_mem`), off-line mass at most the mass
+(`Blindness.H_eq_onAt_add_offAt`), off-line mass even (`Blindness.even_offAt` —
+zeros off the line come in conjugate pairs).  The forward half of
+`Blindness.profile_realisable`. -/
+lemma profile_entry_admissible (D : ZeroData) {q : ℕ × ℕ} (hq : q ∈ profile D) :
+    1 ≤ q.1 ∧ q.2 ≤ q.1 ∧ Even q.2 := by
+  classical
+  rw [profile, Multiset.mem_map] at hq
+  obtain ⟨γ, hγ, rfl⟩ := hq
+  refine ⟨one_le_H_of_mem hγ, ?_, even_offAt D γ⟩
+  have := H_eq_onAt_add_offAt D γ
+  simp only
+  omega
+
+/-- **Any admissible list is a profile.**  `SESSION 417`.
+
+The converse half, and the first consumer of `416`'s `Blindness.nAtom`: convert
+each `(mass, off-line mass)` pair to the `(on, off-pairs)` counts `nAtom` takes,
+fold, and `Blindness.nAtom_profile` returns the list unchanged. -/
+lemma exists_profile_of_list (a : ℝ) (ha : a ≠ 1/2) (L : List (ℕ × ℕ))
+    (hL : ∀ q ∈ L, 1 ≤ q.1 ∧ q.2 ≤ q.1 ∧ Even q.2) :
+    ∃ D : ZeroData, profile D = (L : Multiset (ℕ × ℕ)) := by
+  classical
+  refine ⟨nAtom a (L.map (fun q => (q.1 - q.2, q.2 / 2))) 0, ?_⟩
+  rw [nAtom_profile a ha _ 0 ?hne]
+  case hne =>
+    intro p hp
+    rw [List.mem_map] at hp
+    obtain ⟨q, hq, rfl⟩ := hp
+    obtain ⟨h1, h2, j, hj⟩ := hL q hq
+    simp only
+    omega
+  congr 1
+  rw [List.map_map]
+  refine (List.map_congr_left ?_).trans (List.map_id _)
+  intro q hq
+  obtain ⟨h1, h2, j, hj⟩ := hL q hq
+  have hdiv : q.2 / 2 = j := by omega
+  have e1 : q.1 - q.2 + 2 * j = q.1 := by omega
+  have e2 : 2 * j = q.2 := by omega
+  simp only [Function.comp_apply, hdiv, e2, id_eq]
+  have : q.1 - q.2 + q.2 = q.1 := by omega
+  rw [this]
+
+/-- **`Blindness.profile_realisable` says which multisets are profiles**: a
+multiset of `(mass, off-line mass)` pairs is `profile D` for some `ZeroData D`
+exactly when every entry has mass at least `1`, off-line mass at most the mass,
+and off-line mass even — in both directions.  `SESSION 417`.
+
+`370`–`373` showed the profile determines the ledger.  This says which profiles
+occur, so the two together describe the ledger's achievable set with no side
+condition left implicit: a separation argument may prescribe a profile and appeal
+to this, instead of building a configuration by hand and computing its counts. -/
+theorem profile_realisable {a : ℝ} (ha : a ≠ 1/2) (P : Multiset (ℕ × ℕ)) :
+    (∃ D : ZeroData, profile D = P)
+      ↔ ∀ q ∈ P, 1 ≤ q.1 ∧ q.2 ≤ q.1 ∧ Even q.2 := by
+  constructor
+  · rintro ⟨D, rfl⟩ q hq
+    exact profile_entry_admissible D hq
+  · intro hP
+    obtain ⟨L, rfl⟩ := Quotient.exists_rep P
+    exact exists_profile_of_list a ha L (fun q hq => hP q hq)
+
+/-- **`atomCount` and `N` are independent up to `atomCount ≤ N`.**  `SESSION 417`.
+
+The first consequence of `Blindness.profile_realisable`, and a demonstration of
+the intended use: the profile `(n−c+1, 0) :: (1,0)^(c−1)` is admissible by
+inspection, so no configuration has to be built.
+`Blindness.evenOnAt_add_atomCount_le_N` gives the constraint `atomCount ≤ N`;
+this realises every pair the constraint allows. -/
+theorem exists_atomCount_N {a : ℝ} (ha : a ≠ 1/2) {c n : ℕ} (hc : 1 ≤ c) (hcn : c ≤ n) :
+    ∃ D : ZeroData, atomCount D = c ∧ D.N = n := by
+  classical
+  set L : List (ℕ × ℕ) := (n - c + 1, 0) :: List.replicate (c - 1) (1, 0) with hLdef
+  have hadm : ∀ q ∈ L, 1 ≤ q.1 ∧ q.2 ≤ q.1 ∧ Even q.2 := by
+    intro q hq
+    rw [hLdef, List.mem_cons] at hq
+    rcases hq with rfl | hq
+    · exact ⟨by omega, by omega, (by decide : Even 0)⟩
+    · rw [List.eq_of_mem_replicate hq]
+      exact ⟨le_refl 1, by omega, (by decide : Even 0)⟩
+  obtain ⟨D, hD⟩ := exists_profile_of_list a ha L hadm
+  refine ⟨D, ?_, ?_⟩
+  · rw [atomCount_eq_card_profile, hD]
+    simp [hLdef]
+    omega
+  · rw [N_from_profile, hD]
+    simp [hLdef]
+    omega
+
 end Blindness
 end Riemann

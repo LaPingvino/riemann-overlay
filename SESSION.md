@@ -20383,3 +20383,40 @@ tactic. Restructured to case on `D.H γ = 1` and resolve the disjunction.
 **Might-mean:** the cap inputs are loose exactly where a cap has nothing to say,
 so no sharpening of the argument can improve them — only a hypothesis that
 separates the middle masses.
+
+## 415 — the lead `414` filed, cashed the next cycle
+
+**Kill condition, stated first (`R12`).** Piece: `Blindness.twoAtom_H`, the
+pointwise-mass lemma `414` found missing. Wildcard: use it for the mixed
+attainment witness `414` could not build. Kill: if the support computation needs
+more than `Multiset.count_add` and `Multiset.count_replicate`, stop at the mass
+lemmas and leave the witness in `LEADS.md`.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.twoAtom_H` — the mass at any point, `simp`.
+- `Blindness.twoAtom_H_zero`, `Blindness.twoAtom_H_at` — the two values.
+- `Blindness.twoAtom_ordinates_toFinset` — the support is `{0, γ}` when both
+  atoms are non-empty.
+- `Blindness.momentK_cap_bound_attained_mixed` — the wildcard, and it landed.
+  `twoAtom γ a 1 0 M 0` has one simple ordinate and one of mass `M`, and
+  `414`'s equality holds for it, for every `M ≥ 2` and every `k ≥ 2`.
+
+**Why the witness matters.** Every `Blindness.configAt` satisfies `414`'s
+condition by having a single ordinate, which demonstrates nothing about a
+condition of the form *every mass is `1` or `M`*. This one has both values
+present.
+
+**Snag, bin 2 — three tactic shapes for one goal.** The `if` produced by
+`Multiset.count_replicate` is oriented `if b = a`, the statement wants
+`if a = b`, and the mismatch surfaced as a stray goal `γ = γ' → 0 = k₂ + 2·j₂`
+in exactly one of four branches. `simp_all [eq_comm]` took it; two earlier
+attempts left either an unsolved branch or a linter warning about
+`<;>` where `;` suffices. `R33`'s clause about the tactic's view of the shape,
+again.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** a lead that names the missing lemma lets the next cycle open at
+the `#check` instead of the search, which is what turned `414`'s kill condition
+into `415`'s piece.

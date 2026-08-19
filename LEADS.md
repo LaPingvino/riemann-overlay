@@ -2635,3 +2635,7 @@ has `Blindness.twoAtom_ordinates` and `Blindness.twoAtom_profile` but no lemma
 giving `H` at each point. Getting it means counting over a sum of
 `Multiset.replicate`s. Cheap, and unbuilt because `414`'s kill condition said not
 to build a configuration API for one corollary.
+
+**`415`: built.** `Blindness.twoAtom_H` and friends are on disk, and
+`Blindness.momentK_cap_bound_attained_mixed` is the witness. This lead is
+closed.

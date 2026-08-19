@@ -9849,5 +9849,86 @@ theorem momentK_add_mul_Nsc_eq_iff (D : ZeroData) (M k : ℕ) (hk : 2 ≤ k)
       rw [Nat.add_sub_cancel, pow_succ]
       ring
 
+/-- **`Blindness.twoAtom_H`: the masses of a two-atom configuration.**
+`SESSION 415`.
+
+`414` wanted a witness carrying a simple ordinate *and* a heavy one and could not
+build it: the register had `Blindness.twoAtom_ordinates` and
+`Blindness.twoAtom_profile` but nothing giving `H` pointwise.  `414` filed that
+in `LEADS.md` rather than building a configuration API mid-cycle; this is that
+lead, three lemmas wide. -/
+@[simp] lemma twoAtom_H (γ a : ℝ) (k₁ j₁ k₂ j₂ : ℕ) (γ' : ℝ) :
+    (twoAtom γ a k₁ j₁ k₂ j₂).H γ'
+      = (if γ' = 0 then k₁ + 2 * j₁ else 0) + (if γ' = γ then k₂ + 2 * j₂ else 0) := by
+  classical
+  rw [ZeroData.H_eq_count, twoAtom_ordinates, Multiset.count_add,
+    Multiset.count_replicate, Multiset.count_replicate]
+  by_cases h1 : γ' = 0 <;> by_cases h2 : γ' = γ <;> simp_all [eq_comm]
+
+/-- The mass at `0`, when the second atom sits elsewhere. -/
+lemma twoAtom_H_zero {γ : ℝ} (hγ : γ ≠ 0) (a : ℝ) (k₁ j₁ k₂ j₂ : ℕ) :
+    (twoAtom γ a k₁ j₁ k₂ j₂).H 0 = k₁ + 2 * j₁ := by
+  simp [twoAtom_H, Ne.symm hγ]
+
+/-- The mass at `γ`, when the second atom sits there. -/
+lemma twoAtom_H_at {γ : ℝ} (hγ : γ ≠ 0) (a : ℝ) (k₁ j₁ k₂ j₂ : ℕ) :
+    (twoAtom γ a k₁ j₁ k₂ j₂).H γ = k₂ + 2 * j₂ := by
+  simp [twoAtom_H, hγ]
+
+/-- **The support is exactly `{0, γ}`** when both atoms are non-empty.  Needed to
+quantify over ordinates rather than over all of `ℝ`. -/
+lemma twoAtom_ordinates_toFinset {γ : ℝ} (hγ : γ ≠ 0) (a : ℝ)
+    {k₁ j₁ k₂ j₂ : ℕ} (h1 : k₁ + 2 * j₁ ≠ 0) (h2 : k₂ + 2 * j₂ ≠ 0) :
+    (twoAtom γ a k₁ j₁ k₂ j₂).ordinates.toFinset = {0, γ} := by
+  classical
+  ext x
+  simp only [Multiset.mem_toFinset, twoAtom_ordinates, Multiset.mem_add,
+    Multiset.mem_replicate, Finset.mem_insert, Finset.mem_singleton]
+  constructor
+  · rintro (⟨-, rfl⟩ | ⟨-, rfl⟩)
+    · exact Or.inl rfl
+    · exact Or.inr rfl
+  · rintro (rfl | rfl)
+    · exact Or.inl ⟨h1, rfl⟩
+    · exact Or.inr ⟨h2, rfl⟩
+
+/-- **`414`'s equality case, attained with both masses present.**  `SESSION 415`.
+
+`Blindness.momentK_add_mul_Nsc_eq_iff` says `412`'s cap bound closes exactly when
+every ordinate has mass `1` or `M`.  Every `Blindness.configAt` meets that
+condition by having a single ordinate, which shows nothing.  This exhibits a
+configuration with **one simple ordinate and one of mass `M`**, so the equality
+case is not an artefact of degenerate support.
+
+Together with `414`: the bound is tight, its slack is the masses strictly between
+`1` and `M`, and a configuration realising the tight case exists for every
+`M ≥ 2` and every order `k ≥ 2`. -/
+theorem momentK_cap_bound_attained_mixed {γ a : ℝ} (hγ : γ ≠ 0) {M k : ℕ}
+    (hM : 2 ≤ M) (hk : 2 ≤ k) :
+    (twoAtom γ a 1 0 M 0).H 0 = 1
+      ∧ (twoAtom γ a 1 0 M 0).H γ = M
+      ∧ momentK (twoAtom γ a 1 0 M 0) k
+          + M ^ (k - 1) * (twoAtom γ a 1 0 M 0).Nsc
+        = M ^ (k - 1) * (twoAtom γ a 1 0 M 0).N
+          + (twoAtom γ a 1 0 M 0).Nsc := by
+  classical
+  set D := twoAtom γ a 1 0 M 0 with hD
+  have h0 : D.H 0 = 1 := by rw [hD, twoAtom_H_zero hγ]
+  have hg : D.H γ = M := by rw [hD, twoAtom_H_at hγ]; omega
+  have hcap : ∀ γ', D.H γ' ≤ M := by
+    intro γ'
+    rw [hD, twoAtom_H]
+    by_cases e1 : γ' = 0 <;> by_cases e2 : γ' = γ <;> simp_all
+    omega
+  refine ⟨h0, hg, ?_⟩
+  rw [momentK_add_mul_Nsc_eq_iff D M k hk hcap]
+  intro x hx
+  rw [hD, twoAtom_ordinates_toFinset hγ a (by omega) (by omega)] at hx
+  rcases Finset.mem_insert.1 hx with rfl | hx'
+  · exact Or.inl h0
+  · rw [Finset.mem_singleton] at hx'
+    subst hx'
+    exact Or.inr hg
+
 end Blindness
 end Riemann

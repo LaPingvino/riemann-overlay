@@ -966,3 +966,8 @@ import Riemann
 
 -- 414: the cap bound's equality case.
 #check @Riemann.Blindness.momentK_add_mul_Nsc_eq_iff
+
+-- 415: twoAtom's masses, and 414's equality case attained with both present.
+#check @Riemann.Blindness.twoAtom_H
+#check @Riemann.Blindness.twoAtom_ordinates_toFinset
+#check @Riemann.Blindness.momentK_cap_bound_attained_mixed

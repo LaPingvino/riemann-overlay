@@ -316,4 +316,11 @@ catching a regression. Rostering also means the `30` currently-unverified live
 flags must be driven to zero or allowlisted first, which is a hygiene sweep, not
 a cycle.
 
+**`410` changes one side of this.** The live surface is now triaged to `0`
+dangling, not merely counted: every citation resolves or sits in a bucket with a
+reason. So the objection *"rostering means first driving 30 unverified flags to
+zero"* is discharged — that sweep happened — and a red from this screen would
+now mean a regression rather than a backlog. The `373` objection stands: it has
+still never caught a regression, because there has not been one since it existed.
+
 **Not taken.** Runs as a report until Joop rules.

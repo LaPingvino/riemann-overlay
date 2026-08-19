@@ -95,9 +95,58 @@ RETRACTED = {
 }
 
 
+# `410`: `STATEMENTS.md` carries the project's own rename table — three axioms
+# that became hypotheses at `ISSUES #8`.  Those names are *deliberately* kept in
+# the live registers, so they are witnessed history, not dangling citations.  The
+# bucket is sourced from that table rather than guessed, and each entry names
+# what replaced it.  Without this, `410`'s suggester would rank `farmer_ki`
+# against `FarmerKiTransfer` and report a kept name as a probable invention.
+FORMER = {
+    "fujii_with_closePairs": "ClosePairBookkeeping (STATEMENTS.md, ISSUES #8)",
+    "farmer_ki": "FarmerKiTransfer (STATEMENTS.md, ISSUES #8)",
+    "narrowBox_starBound": "BGSTNarrowBox (STATEMENTS.md, ISSUES #8)",
+    "baseline_przz": "deleted at SESSION 233 on Joop's ruling "
+                     "(Riemann/Assumptions.lean:207)",
+    "Assumptions.baseline_przz": "deleted at SESSION 233 (qualified form)",
+}
+
+
+# `410`: the residue after triage.  Each of these was checked by hand and is a
+# citation of something real that is simply not a declaration of ours — a bare
+# Mathlib lemma, a ledger field, a `forensics/` internal, or a label from the
+# provenance graph.  The entry is the reason; an unreasoned addition here would
+# turn the report back into a count.
+PROSE = {
+    "toFinset_add": "Mathlib, Multiset.toFinset_add — cited bare in LEADS.md",
+    "toFinset_replicate": "Mathlib, Multiset.toFinset_replicate — cited bare",
+    "base.version": "ledger field written by tools/proportion.go",
+    "base.hash": "ledger field written by tools/proportion.go",
+    "CONE_EXPECTED": "forensics/board.py internal",
+    "provenance_lint.NODES": "forensics/provenance_lint.py internal",
+    "str.replace": "Python, in METHOD.md's description of a script",
+    "Namespace.lemma": "a template placeholder in CLAIMS.md, not a name",
+    # `VERIFYING.md:291` lists provenance_lint's graph node labels; they are
+    # data in that script, not Lean declarations.
+    "class_closure": "provenance_lint node label (VERIFYING.md:291)",
+    "Lemma1_cap3": "provenance_lint node label (VERIFYING.md:291)",
+    "GGOS_floor": "provenance_lint node label (VERIFYING.md:291)",
+    "sieve_twin": "provenance_lint node label (VERIFYING.md:291)",
+    "MRT_corr": "provenance_lint node label (VERIFYING.md:291)",
+    "explicit_formula": "provenance_lint node label (VERIFYING.md)",
+    "residue_class": "paper-side term in LEADS.md, not a declaration",
+    "residue_source": "paper-side term in LEADS.md, not a declaration",
+    "exp_bound": "paper-side term in PRICES.md, not a declaration",
+    "sin_bound": "paper-side term in PRICES.md, not a declaration",
+}
+
+
 def bucket(t):
+    if t in PROSE:
+        return "prose-checked"
     if t in RETRACTED:
         return "retracted"
+    if t in FORMER:
+        return "former"
     if t in SCRIPTS:
         return "script"
     if HOST.search(t) or t in TACTICS:
@@ -132,9 +181,45 @@ def tokens(path):
     return seen, filtered
 
 
+def pieces(name):
+    """Tokens of a declaration name, lowercased.  `410`.
+
+    Names are split on `_` and `.` and on camelCase boundaries, because the
+    invention shape `409` found is a *permutation* of real tokens —
+    `configAt_offAt` against `offAt_configAt_self` — which edit distance ranks
+    nowhere and token overlap ranks first.
+    """
+    parts = re.split(r"[_.]", name)
+    out = []
+    for p in parts:
+        out += [w.lower() for w in re.findall(r"[A-Z]+(?![a-z])|[A-Z]?[a-z0-9]+", p)]
+    return set(w for w in out if w)
+
+
+def nearest(tok, known, n=3):
+    """The known names sharing the most tokens with `tok`.  An aid, not a verdict."""
+    want = pieces(tok)
+    if not want:
+        return []
+    scored = []
+    for k in known:
+        have = pieces(k)
+        inter = len(want & have)
+        if inter < 2:
+            continue
+        scored.append((inter / len(want | have), inter, k))
+    scored.sort(reverse=True)
+    return [(round(s, 2), k) for s, _, k in scored[:n]]
+
+
 def main():
     ours, fields, _ = cc.declarations(cc.SRC)
-    dep_names, _, dep_modules = cc.declarations(cc.DEP)
+    dep_names, dep_fields, dep_modules = cc.declarations(cc.DEP)
+    # `410`: the dependency's **structure fields** were being discarded here, so
+    # `FamilyHyps.lam_const` — a real field of a real vendored structure,
+    # `vendor/zeta23/Zeta23/XiPrime/ExplicitFormula.lean:147` — was reported
+    # dangling.  The first defect this script found was its own.
+    dep_names = dep_names | dep_fields
     known = ours | fields
 
     def dangling(path):
@@ -172,14 +257,19 @@ def main():
     live_bad = [(p, t) for p, _, _, bad in totals["live"] for t in bad]
     log_bad = [(p, t) for p, _, _, bad in totals["log "] for t in bad]
 
-    if "--list" in sys.argv:
-        for p, t in live_bad + log_bad:
-            print(f"  [DANGLING] {t:48s} {p}")
-    else:
-        for p, t in live_bad:
-            print(f"  [LIVE DANGLING] {t:44s} {p}")
+    show = live_bad + log_bad if "--list" in sys.argv else live_bad
+    for p, tok in show:
+        near = nearest(tok, known) if "--near" in sys.argv else []
+        tag = "DANGLING" if "--list" in sys.argv else "LIVE DANGLING"
+        print(f"  [{tag}] {tok:44s} {p}")
+        for score, k in near:
+            print(f"      ~{score:>4} {k}")
 
     print()
+    print(f"  prose-checked {len(PROSE)} — checked by hand at `410`; real "
+          f"things that are not declarations of ours, each with its reason.")
+    print(f"  former        {len(FORMER)} — names the project renamed or "
+          f"deleted on the record, kept deliberately (STATEMENTS.md).")
     print(f"  retracted     {len(RETRACTED)} — names the registers keep on the "
           f"page inside the correction that retracts them.")
     print(f"  live dangling {len(live_bad)} — these are findings: a register "

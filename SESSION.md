@@ -20121,3 +20121,53 @@ No Lean changed this cycle.
 **Might-mean:** the registers' citation defects are concentrated in names invented
 by symmetry with a real one, so the shape to screen for is a plausible name
 rather than a stale one.
+
+## 410 — finishing `409`'s number, and the first defect the screen found was its own
+
+**Kill condition, stated first (`R12`).** Piece: turn `409`'s *"30, classified
+not triaged"* into a triaged number. Wildcard: a nearest-real-name suggester, to
+test `409`'s might-mean that the defect shape is invention rather than decay.
+Kill: if the neighbour/no-neighbour split does not separate the residue into two
+piles that survive spot-checking, say so and triage by hand anyway.
+
+**Second instrument cycle in a row; `R20`'s cap is three.**
+
+**The suggester, and why not edit distance.** `409`'s two phantoms are
+`configAt_offAt` against `offAt_configAt_self` — a token *permutation* — and
+`proportion_of_noHaunted_three` against `proportion_of_noSmallHaunted` — a token
+*swap*. Levenshtein ranks neither. Splitting on `_`, `.` and camelCase and
+scoring by token overlap ranks both first. The suggester is an aid: a neighbour
+means read this one first, not defect confirmed.
+
+**It split the residue cleanly.** Of the `24` live names surviving `409`'s
+buckets, `4` had a neighbour and `20` had none, and the split agreed with the
+hand read in every case.
+
+**The wildcard found a defect in the screen itself.** `FamilyHyps.lam_const`
+scored a neighbour, and it turned out to be a **real field of a real vendored
+structure** (`vendor/zeta23/Zeta23/XiPrime/ExplicitFormula.lean:147`). The script
+called `citation_check.declarations` on the dependency and *discarded the
+structure-fields component*, keeping it only for our own tree. Fixed; the live
+residue fell and the log residue fell from `81` to `62` as corroboration.
+
+**Live dangling is now `0`, triaged rather than counted.** Every citation in the
+nine live registers resolves, or sits in one of four buckets each carrying its
+reason: `prose-checked` `18` (bare Mathlib names, ledger fields, `forensics/`
+internals, `provenance_lint` node labels, paper-side terms), `former` `5`
+(`STATEMENTS.md`'s own rename table — `ISSUES #8`'s three ex-axioms plus
+`baseline_przz`, deleted at `233`), `retracted` `3` (`409`'s phantoms, kept on
+the page by the corrections rule), `script`/`mathlib`/`prose` shapes filtered
+before the resolver.
+
+**`FORMER` is sourced, not guessed.** `STATEMENTS.md:59–61` carries the arrows
+`fujii_with_closePairs → ClosePairBookkeeping`, `farmer_ki → FarmerKiTransfer`,
+`narrowBox_starBound → BGSTNarrowBox`. Reading them beats fuzzy-matching them:
+the suggester would have scored `farmer_ki` against `FarmerKiTransfer` and
+reported a deliberately-kept historical name as a probable invention.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** the live registers are now a measured-clean surface rather than
+an unmeasured one, so a red from this screen would mean a regression — which is
+the property `409`'s ruling was missing.

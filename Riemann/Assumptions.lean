@@ -157,7 +157,12 @@ axiom xiPrimeFamily : Family
 
 /-- The close-pair functional `(2/λ)∫₀^λ 𝒩(α)dα` of the zeta zeros, as a
 function of `(λ, T)`.  Declared rather than defined: defining it needs the
-zero-counting integral, which is downstream of `zetaFamily`. -/
+zero-counting integral, which is downstream of `zetaFamily`.
+
+**`393`: half of that reason has expired.**  `zetaFamily` is a `def` since `337`,
+so "downstream of `zetaFamily`" no longer blocks anything; what remains is the
+zero-counting integral itself.  Recorded because `392` found `levinson_montgomery`
+carrying a blocker that had expired fifty-five cycles earlier. -/
 axiom closePairsZeta : ℝ → ℝ → ℝ
 
 /-! ### Route I -/

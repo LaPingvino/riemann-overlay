@@ -679,6 +679,22 @@ theorem certified_nsc_via_xiPrime
   -- The two axioms enter *here*, and nowhere in the argument above.
   certified_nsc_via_derivative_family zeta23_xiPrime htr hcmp
 
+/-- **What `fujii_ineffective` actually gives, and why nothing consumed it.**
+`SESSION 393`.
+
+The axiom asserts `∃ c₀ > 0, EffectiveFujii zetaFamily.toCounts c₀` and — before
+this theorem — **no Lean code used it**.  The reason is not a stale blocker
+(`392`'s case) but the ineffectivity itself: every consumer of `EffectiveFujii`
+needs an *upper* bound on `c₀` (`Proportion.lean` asks `c₀ ≤ 0.33`), and the
+axiom supplies none.  That gap is `[OPEN 0]`.
+
+What it does give, paired with `Fujii.c0_lower_bound`, is the bracket below.  The
+upper end is the thing the board is waiting for. -/
+theorem fujii_ineffective_bracketed :
+    ∃ c₀, 0.16 ≤ c₀ ∧ EffectiveFujii zetaFamily.toCounts c₀ := by
+  obtain ⟨c₀, hpos, h⟩ := fujii_ineffective
+  exact ⟨c₀, c0_lower_bound (le_of_lt hpos) h, h⟩
+
 /-! ### The binding constraint
 
 **`337`: this is no longer true and the paragraph below is kept as the record.**

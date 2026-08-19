@@ -19345,3 +19345,49 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 shows an axiom can sit unused for hundreds of cycles because the thing blocking its bridge was
 recorded once and never re-checked, so the axiom count
 has been measuring stale blockers as well as real assumptions.
+
+## The axiom audit `392` asked for — two of six were unconsumed, for different reasons
+
+**Piece.** `392` found `levinson_montgomery` used by nothing and asked whether the other five
+share the property. Measured, per axiom, counting only Lean code outside `Assumptions.lean`:
+
+| axiom | consumers | status |
+|---|---|---|
+| `xiPrimeFamily` | 12 | live — Route II's carrier |
+| `zeta23_xiPrime` | 6 | live |
+| `closePairsZeta` | 3 | live — Route I's carrier |
+| `fujii_closePair_bookkeeping` | 1 | live, at `routeI_closePairs_zeta` |
+| `levinson_montgomery` | 0 before `392` | **stale blocker**, bridged at `392` |
+| `fujii_ineffective` | **0** | **unconsumed, and not for a stale reason** |
+
+**Kill condition, filed first:** *if `fujii_ineffective`'s non-use has the same cause as
+`levinson_montgomery`'s — a blocker that expired — I bridge it; if the cause is real, I say so and
+do not build scaffolding to make the number look better.* **The cause is real.**
+
+Every consumer of `EffectiveFujii` needs an **upper** bound on `c₀` — `Proportion.lean` asks
+`c₀ ≤ 0.33` — and the axiom supplies existence with no bound at all. `Fujii.c0_lower_bound` gives
+`0.16 ≤ c₀` for free, so the useful window is `0.16 ≤ c₀ ≤ 0.33` and the axiom reaches only the
+end that was never in doubt. **That gap is `[OPEN 0]`**, the board's oldest open item, and no
+bridge crosses it.
+
+* `fujii_ineffective_bracketed` — `∃ c₀, 0.16 ≤ c₀ ∧ EffectiveFujii zetaFamily.toCounts c₀`. What
+  the axiom actually gives, so it is consumed by something rather than sitting inert. **This does
+  not move `[OPEN 0]` and is not progress on it.**
+
+**Wildcard — does `closePairsZeta` carry a stale blocker too?** **Kill condition, filed first:**
+*if its stated reason is still wholly true, say so and stop; a half-expired reason is worth
+recording only if I can say which half.* **Half expired.** Its docstring says defining it *"needs
+the zero-counting integral, which is downstream of `zetaFamily`"*. `zetaFamily` has been a `def`
+since `337`, so the dependency clause blocks nothing; the zero-counting integral remains. Corrected
+at its location with both halves separated.
+
+**So `392`'s worry generalises only partly.** One axiom carried an expired blocker, one is
+unconsumed for a live reason, and four are load-bearing. The audit is the answer, not a further
+worry.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, duplication floor `29`, overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to the six declared axioms:** the axiom count conflates three different
+things — carriers naming objects, properties nobody has proved, and results too weak for their
+own consumers — so a single number has been standing in for three separate kinds of debt.

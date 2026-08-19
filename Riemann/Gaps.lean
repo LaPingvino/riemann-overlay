@@ -1579,6 +1579,49 @@ theorem hauntedDensity_of_distinctZeros {F : Family} {c : ℝ}
   rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ (by norm_num : (0:ℝ) < 2)]
   nlinarith [hT, hbase, hpos']
 
+/-- **The distinct-zeros currency at a ladder rung.**  `SESSION 384`.
+
+`hauntedDensity_of_distinctZeros` pays at rate `(1−c)/2`; under `NoSmallHaunted m`
+the deficit a haunted ordinate creates is `m − 1`, so the rate is `(1−c)/(m−1)`.
+With `hauntedDensity_of_offLineImport_at_rung` and
+`hauntedDensity_of_starBound_at_rung` this completes the pattern: **all three
+non-ladder suppliers compose with the ladder.** -/
+theorem hauntedDensity_of_distinctZeros_at_rung {F : Family} {c : ℝ} {m : ℕ}
+    (hm : 2 ≤ m) (hh : NoSmallHaunted F m)
+    (h : ∀ ε > 0, ∀ᶠ T in atTop, (c - ε) * F.Nz T ≤ F.atomCount T) :
+    HauntedDensity F ((1 - c) / ((m - 1 : ℕ) : ℝ)) := by
+  classical
+  have hD1 : (1:ℝ) ≤ ((m - 1 : ℕ) : ℝ) := by
+    have : 1 ≤ m - 1 := by omega
+    exact_mod_cast this
+  have hDpos : (0:ℝ) < ((m - 1 : ℕ) : ℝ) := lt_of_lt_of_le zero_lt_one hD1
+  intro ε hε
+  filter_upwards [h ε hε, F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hmass : ∀ γ ∈ (F.D T).ordinates.toFinset.filter
+      (fun γ => (F.D T).H γ - Blindness.offAt (F.D T) γ = 1 ∧ (F.D T).H γ ≠ 1),
+      m ≤ (F.D T).H γ := by
+    intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    rcases hh T γ hγ.2.1 with h1 | h2
+    · exact absurd h1 hγ.2.2
+    · exact h2
+  have hbase : ((m - 1 : ℕ) : ℝ) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      + F.atomCount T ≤ F.Nz T := by
+    have := Blindness.haunted_rung_deficit (F.D T) (by omega : 1 ≤ m) hmass
+    unfold Family.atomCount Family.Nz
+    exact_mod_cast this
+  have hsplit : (1 - c) / ((m - 1 : ℕ) : ℝ) + ε
+      = (1 - c + ((m - 1 : ℕ) : ℝ) * ε) / ((m - 1 : ℕ) : ℝ) := by field_simp
+  have step1 : ((m - 1 : ℕ) : ℝ) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      ≤ (1 - c + ε) * F.Nz T := by nlinarith [hT, hbase]
+  have step2 : (1 - c + ε) * F.Nz T
+      ≤ (1 - c + ((m - 1 : ℕ) : ℝ) * ε) * F.Nz T := by
+    apply mul_le_mul_of_nonneg_right _ (le_of_lt hpos')
+    nlinarith [hD1, hε]
+  rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ hDpos]
+  nlinarith [step1, step2]
+
 /-- **The distinct-zeros rate `(1−c)/2` is attained.**  `SESSION 219`.
 
 `hauntedDensity_of_distinctZeros` converts a distinct-zeros proportion `c` into

@@ -209,3 +209,38 @@ The ones that have caught live defects, with the cycle: `forensics/citation_chec
   `Riemann.xiPrimeFamily` is itself an axiom with no construction, and `ISSUES` `#7`'s
   `Proportion`-versus-`ProportionStd` gap, whose content `283` names as
   `NoHaunted xiPrimeFamily`.
+
+## The exchange arithmetic — where the numbers live
+
+**`S171`: seven cycles between `374` and `383` re-derived results already here**, among them
+`Riemann.starBound_delta_beats_baseline` and `Riemann.starBound_exchange_crossover`. The cause
+is that these are theorems about *real inequalities*, so a search for a declaration **name** does
+not reach them. Search the conclusion.
+
+**The `HauntedDensity` hub.** Every supplier below feeds
+`Riemann.proportion_of_hauntedDensity`, which turns `HauntedDensity F δ` and `ProportionStd κ`
+into `Proportion (κ − δ)`.
+
+| supplier | rate | with `NoSmallHaunted m` |
+|---|---|---|
+| off-line control | `Riemann.hauntedDensity_of_offLineImport`, `β/2` | `..._at_rung`, `β/(m−1)` |
+| the ladder itself | `Riemann.hauntedDensity_of_noSmallHaunted`, `(1−κ)/(m−1)` | — |
+| star bound | `Riemann.hauntedDensity_of_starBound`, `(C−1)/6` | `..._at_rung` (`383`), `(C−1)/(m(m−1))` |
+| distinct zeros | `Riemann.hauntedDensity_of_distinctZeros`, `(1−c)/2` | `..._at_rung` (`384`), `(1−c)/(m−1)` |
+
+**All three non-ladder suppliers compose with the ladder** (`384`).
+
+**The crossovers, and the pairs that repeat one fact.** `Riemann.starBound_delta_beats_baseline`
+and `Riemann.starBound_exchange_crossover` are the canonical forms; the right-hand column names
+what re-derived each.
+
+| fact | canonical | re-derived at |
+|---|---|---|
+| `(C−1)/6 < 0.16375 ↔ C < 1.9825` | `Riemann.starBound_delta_beats_baseline` (`304`) | `Blindness.star_route_beats_iff` (`374`) |
+| `0.6725 − (C−1)/6 ≤ 2 − C ↔ C ≤ 1.393` | `Riemann.starBound_exchange_crossover` (`191`) | `Blindness.star_currency_crossover` (`377`) |
+
+Other exchange biconditionals on disk: `Riemann.ladder_beats_iff`,
+`Riemann.offLineImport_inverse`, `Riemann.offline_roundtrip_eq_iff`,
+`Riemann.oddAtoms_input_beats_certified_row_iff`, `Riemann.onLineOrdinates_route_threshold`,
+`Counts.starBound_ceiling_iff`, `Blindness.star_rung_threshold`.
+

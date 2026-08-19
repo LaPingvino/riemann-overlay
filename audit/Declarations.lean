@@ -894,3 +894,7 @@ import Riemann
 
 -- 383: the rung combination lifted to Family level; it joins the HauntedDensity hub.
 #check @Riemann.hauntedDensity_of_starBound_at_rung
+
+-- 384: the third rung combination.  All three non-ladder suppliers compose with the ladder.
+#check @Riemann.Blindness.haunted_rung_deficit
+#check @Riemann.hauntedDensity_of_distinctZeros_at_rung

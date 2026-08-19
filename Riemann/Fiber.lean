@@ -9208,5 +9208,35 @@ theorem star_rung_threshold_zeta :
   refine ⟨by norm_num, by norm_num, by norm_num⟩
 
 
+/-- **The distinct-zeros deficit at a ladder rung.**  `SESSION 384`.
+
+`two_mul_haunted_add_atomCount_le_N` charges a haunted ordinate `2` into
+`N − atomCount`, which is the mass-`3` atom's `H − 1`.  Under `NoSmallHaunted m`
+it is `m − 1`.  Third of the three rung combinations, after the off-line one
+(`Gaps.hauntedDensity_of_offLineImport_at_rung`) and the star one (`383`). -/
+theorem haunted_rung_deficit (D : ZeroData) {m : ℕ} (hm : 1 ≤ m)
+    (hmass : ∀ γ ∈ D.ordinates.toFinset.filter
+        (fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1), m ≤ D.H γ) :
+    (m - 1) * hauntedCount D + atomCount D ≤ D.N := by
+  classical
+  set G := D.ordinates.toFinset.filter
+    (fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1) with hGdef
+  have hsub : G ⊆ D.ordinates.toFinset := Finset.filter_subset _ _
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have hA : atomCount D = ∑ γ ∈ D.ordinates.toFinset, 1 := by
+    rw [atomCount]; simp
+  have key : ∑ γ ∈ D.ordinates.toFinset, (1 + if γ ∈ G then m - 1 else 0)
+      ≤ ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+    refine Finset.sum_le_sum fun γ hγ => ?_
+    by_cases h : γ ∈ G
+    · have hmH : m ≤ D.H γ := hmass γ h
+      simp only [h, if_pos]; omega
+    · simp only [h, if_neg, add_zero, not_false_iff]
+      exact one_le_H_of_mem hγ
+  rw [Finset.sum_add_distrib, Finset.sum_ite_mem, Finset.inter_eq_right.2 hsub,
+    Finset.sum_const] at key
+  rw [hN, hA]
+  simpa [hauntedCount, hGdef, smul_eq_mul, mul_comm, add_comm] using key
+
 end Blindness
 end Riemann

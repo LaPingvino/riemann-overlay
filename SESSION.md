@@ -18930,3 +18930,50 @@ duplication floor `27`, overclaim floor `203`, `citation_check` `0`.
 accumulated arithmetic is large enough that re-deriving it is now the *default* outcome of
 working on a familiar quantity, so the expensive step is no longer proving something but
 establishing that it is not already proved.
+
+## All three non-ladder currencies compose with the ladder, and the exchange arithmetic now has a map
+
+**Piece.** `S171` diagnosed seven rediscoveries in ten cycles: the exchange arithmetic —
+crossovers, thresholds, which route dominates where — lives in `Gaps.lean` as theorems about
+*real inequalities*, which no name-shaped query reaches. Rather than amend a rule for the third
+time, I harvested it and wrote it down.
+
+`MAP.md` gains **the exchange arithmetic** section: the `HauntedDensity` hub with its four
+suppliers and their rates, the rung column, the two crossover facts with their canonical
+declarations **and what re-derived each**, and the seven other exchange biconditionals on disk.
+`MAP.md` is already under `citation_check`, so every name in it is kernel-checked.
+
+**Kill condition, filed first:** *if writing the map needs a claim I cannot read straight off a
+theorem statement, I leave that cell empty rather than filling it from the surrounding prose.*
+It did not fire; every entry is a statement or a session number from a docstring.
+
+**Wildcard — does the ladder improve the fourth supplier too?** **Kill condition, filed first:**
+*if `hauntedDensity_of_distinctZeros`'s `/2` does not come from a per-haunted-ordinate cost, the
+rung does not apply and the pattern stops at two.* It did not fire. The `2` is
+`two_mul_haunted_add_atomCount_le_N` — a haunted ordinate contributes `H − 1 ≥ 2` to the
+distinct-zeros deficit — so under `NoSmallHaunted m` it contributes `m − 1`:
+
+* `Blindness.haunted_rung_deficit` — pointwise, `(m−1)·hauntedCount + atomCount ≤ N`.
+* `hauntedDensity_of_distinctZeros_at_rung` — `HauntedDensity F ((1−c)/(m−1))`.
+
+**So all three non-ladder suppliers compose with the ladder** — off-line at `β/(m−1)`, star at
+`(C−1)/(m(m−1))`, distinct zeros at `(1−c)/(m−1)`. The off-line one has been on disk since it
+was written; `383` added the star; this cycle adds the third and the pattern is complete.
+
+**The star is the one that gains quadratically.** Off-line and distinct-zeros both improve by
+`m−1`; the star improves by `m(m−1)`, because a haunted ordinate's cost into `N⊛ − N` is
+quadratic in its mass while its cost into `N − atomCount` is linear. That is why `382`'s
+thresholds move so far — `1.9825 → 4.275 → 7.8775` — while the other two currencies improve only
+in proportion to the rung.
+
+**Snag, bin 2 — the map is a register entry, not a guard.** Nothing forces a future cycle to
+read it, and `S160` is precisely the case where a machine-checked banner said the thing and I did
+not read it. I am recording that limitation rather than claiming the problem is fixed.
+
+Build green (8862 jobs), sorries 0, ledger unmoved, base `v4/3508643365fd`, warnings `54`,
+duplication floor `27`, overclaim floor `203`, `citation_check` `0` unresolved.
+
+**Might-mean, scoped to the four haunted-density suppliers:** the ladder is not a currency
+alongside the others but a *multiplier* on all of them, so `NoSmallHaunted m` is worth more than
+its own row suggests — it improves every other input the board holds, and the star bound most of
+all.

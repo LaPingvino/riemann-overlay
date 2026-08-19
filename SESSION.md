@@ -19436,3 +19436,54 @@ Build unchanged (no Lean touched), ledger unmoved at `NscStd 67.25% / Nsc 50.88%
 exact form and the index change — sit where this project's estimates keep failing, and the two failures here were both
 about *shape* — a lemma's exact form and an index change — rather than about the mathematics,
 which is the same class as `S159`, `S162` and `S163`.
+
+## `LogSmall zetaFamily` lands, axiom-free — and `OffTransfer` becomes purchasable
+
+**Piece.** `394` named two obstacles precisely; both were about shape, so this was a targeted
+retry rather than tuning. Both fixes went in and the proof landed.
+
+**Kill condition, filed first:** *one attempt with the two named fixes; if it does not land I
+leave `LogSmall` alone and do not return to it next cycle without a different approach.* It did
+not fire.
+
+* `logSmall_of_rvm_main` — `LogSmall zetaFamily` from the RvM main term, in the shape
+  `zetaNonempty_of_rvm_main` already takes. `Ncount_mono_left` puts the dyadic block `(T, 2T]`
+  inside `(0, 2T]`; `eventually_const_mul_log_lt` — **in its actual form `c·log T < T`**, which
+  `394` used as the divided form — absorbs the error term and then the `ε`; and the index change
+  `S = 2T` is a **filter map**, `394`'s second error.
+* `logSmall_zeta` — instantiated at the vendored `Zeta23.RvM.riemannVonMangoldt`, exactly as `337`
+  discharged `zetaNonempty`. **`#print axioms`: `propext`, `Classical.choice`, `Quot.sound` — no
+  project axiom.** `LogSmall zetaFamily` is unconditional.
+* `offTransfer_zeta_xiPrime` — `levinson_montgomery` plus `logSmall_zeta` gives
+  `OffTransfer zetaFamily xiPrimeFamily`.
+
+**And I have not spent it — that is a ruling, not a coding decision.** `OffTransfer` is a
+hypothesis on `certified_nsc_via_xiPrime`. It could now be discharged, removing a hypothesis from
+Route II's row. But the discharge **costs `levinson_montgomery`**, and `Assumptions.lean`'s own
+rules say raising a row by adding an axiom must be flagged rather than taken. So the board is
+unchanged: the row still takes `htr`, and `offTransfer_zeta_xiPrime` sits beside it, measured.
+
+**The trade, for Joop.** Route II's row currently reads *"two hypotheses, two axioms"*. Spending
+this makes it *"one hypothesis, three axioms"* — `levinson_montgomery` joins the cone.
+`levinson_montgomery` is Levinson–Montgomery 1974, a published classical result, so the trade is
+a real analytic input against a hypothesis nobody can currently discharge. **I am not taking it
+unilaterally.**
+
+**Wildcard — is `logSmall_zeta` itself axiom-free, or does RvM enter as an axiom?** **Kill
+condition, filed first:** *if it carries a project axiom the headline is much weaker and I report
+the weaker one.* It did not fire — the cone is the three Lean axioms only, because `337` wired
+RvM in as a real dependency rather than assuming it.
+
+**Snag, bin 2 — I put the theorem in `Gaps.lean` and the build failed on `Zeta23.Ncount`.**
+`Gaps.lean` does not import the dependency; `Proportion.lean` does. Second `R23` anchoring
+mistake in four cycles (`392` was the other), both from choosing a home by *topic* rather than by
+*imports*.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, duplication floor `30` (raised: `logSmall_of_rvm_main`/`logSmall_zeta` is the
+general/instantiation pair `337` used for `zetaNonempty`), overclaim floor `203`,
+`citation_check` `0`.
+
+**Might-mean, scoped to `OffTransfer` and the six axioms:** `337`'s import bought more than the
+two axioms it discharged, and the surplus has been sitting unclaimed for fifty-eight cycles
+because nobody re-derived what the dependency now makes reachable.

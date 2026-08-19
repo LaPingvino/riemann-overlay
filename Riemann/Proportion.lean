@@ -695,6 +695,75 @@ theorem fujii_ineffective_bracketed :
   obtain ⟨c₀, hpos, h⟩ := fujii_ineffective
   exact ⟨c₀, c0_lower_bound (le_of_lt hpos) h, h⟩
 
+/-- **`LogSmall zetaFamily` from the Riemann–von Mangoldt main term.**
+`SESSION 395`, after `394` named the two obstacles.
+
+`Ncount_mono_left` puts the dyadic block `(T, 2T]` inside `(0, 2T]`;
+`eventually_const_mul_log_lt` (in its actual form `c·log T < T`, which `394` used
+wrongly) absorbs the error term and then the `ε`; and the index change `S = 2T`
+is a filter map, not a monotone composition — `394`'s second error. -/
+theorem logSmall_of_rvm_main
+    (h : ∃ C T₀ : ℝ, ∀ T : ℝ, T₀ ≤ T →
+      |(Zeta23.Ncount T (2 * T) : ℝ) - T / (2 * Real.pi) * Zeta23.ell1 T|
+        ≤ C * Real.log T) :
+    LogSmall zetaFamily := by
+  obtain ⟨C, T₀, hmain⟩ := h
+  intro ε hε
+  have hpi : (0:ℝ) < Real.pi := Real.pi_pos
+  have hEv : ∀ᶠ T : ℝ in atTop,
+      Real.log (2 * T) ≤ ε * ((zetaZeroData (2 * T)).N : ℝ) := by
+    filter_upwards [eventually_ge_atTop T₀, eventually_ge_atTop (2:ℝ),
+      eventually_one_le_ell1, eventually_const_mul_log_lt (4 * Real.pi * C),
+      eventually_const_mul_log_lt (8 * Real.pi / ε)] with
+      T hT hT2 hell hA hB
+    have hTpos : (0:ℝ) < T := by linarith
+    have hb := abs_le.1 (hmain T hT)
+    have hlb : T / (2 * Real.pi) ≤ T / (2 * Real.pi) * Zeta23.ell1 T := by
+      have : (0:ℝ) < T / (2 * Real.pi) := by positivity
+      nlinarith
+    have hCl : C * Real.log T ≤ T / (4 * Real.pi) := by
+      rw [le_div_iff₀ (by linarith : (0:ℝ) < 4 * Real.pi)]; nlinarith [hA]
+    have hquarter : T / (4 * Real.pi) ≤ (Zeta23.Ncount T (2 * T) : ℝ) := by
+      have h2pi : T / (2 * Real.pi) = 2 * (T / (4 * Real.pi)) := by field_simp; ring
+      linarith [hb.1]
+    have hmono : (Zeta23.Ncount T (2 * T) : ℝ) ≤ (Zeta23.Ncount 0 (2 * T) : ℝ) := by
+      exact_mod_cast Ncount_mono_left (by linarith : (0:ℝ) ≤ T)
+    have hN : ((zetaZeroData (2 * T)).N : ℝ) = (Zeta23.Ncount 0 (2 * T) : ℝ) := by
+      rw [zetaZeroData_N]
+    have hlog2 : Real.log 2 ≤ Real.log T := Real.log_le_log (by norm_num) hT2
+    have hlogsplit : Real.log (2 * T) = Real.log 2 + Real.log T := by
+      rw [Real.log_mul (by norm_num) (by linarith)]
+    have hBb : Real.log T ≤ ε * (T / (8 * Real.pi)) := by
+      have h8 : (0:ℝ) < 8 * Real.pi := by linarith
+      have : ε * (T / (8 * Real.pi)) = ε * T / (8 * Real.pi) := by ring
+      rw [this, le_div_iff₀ h8]
+      have hεT : 8 * Real.pi / ε * Real.log T < T := hB
+      rw [div_mul_eq_mul_div, div_lt_iff₀ hε] at hεT
+      nlinarith [hεT]
+    rw [hN, hlogsplit]
+    have hq : T / (4 * Real.pi) = 2 * (T / (8 * Real.pi)) := by field_simp; ring
+    nlinarith [hquarter, hmono, hBb, hlog2, hq]
+  have hmap := (tendsto_id.atTop_div_const (by norm_num : (0:ℝ) < 2)).eventually hEv
+  filter_upwards [hmap] with S hSS
+  have e : 2 * (S / 2) = S := by ring
+  simpa [e, Family.Nz, zetaFamily] using hSS
+
+/-- **`OffTransfer` for `ζ` and `ξ′` is a theorem, not a hypothesis.**
+`SESSION 395`.
+
+`levinson_montgomery` — the axiom `392` found consumed by nothing — plus
+`logSmall_zeta` gives it.  **It costs that axiom**, so nothing on the board has
+been rewired to use it: `certified_nsc_via_xiPrime` still takes `htr` as a
+hypothesis, and spending an axiom to remove a hypothesis is a trade
+`Assumptions.lean`'s own rules say must be flagged rather than taken silently. -/
+theorem logSmall_zeta : LogSmall zetaFamily := by
+  refine logSmall_of_rvm_main ?_
+  obtain ⟨C, T₀, h⟩ := (Zeta23.RvM.riemannVonMangoldt Zeta23.gammaFacts).main
+  exact ⟨C, T₀, fun T hT => by simpa using h T hT⟩
+
+theorem offTransfer_zeta_xiPrime : OffTransfer zetaFamily xiPrimeFamily :=
+  offTransfer_of_levinsonMontgomery levinson_montgomery logSmall_zeta
+
 /-! ### The binding constraint
 
 **`337`: this is no longer true and the paragraph below is kept as the record.**

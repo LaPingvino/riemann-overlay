@@ -919,3 +919,8 @@ import Riemann
 -- 392: the bridge levinson_montgomery -> OffTransfer, modulo LogSmall.
 #check @Riemann.LogSmall
 #check @Riemann.offTransfer_of_levinsonMontgomery
+
+-- 395: LogSmall discharged from vendored RvM; OffTransfer for zeta/xi' is now a theorem.
+#check @Riemann.logSmall_of_rvm_main
+#check @Riemann.logSmall_zeta
+#check @Riemann.offTransfer_zeta_xiPrime

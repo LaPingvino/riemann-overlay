@@ -579,7 +579,10 @@ supplies `κ' = 0.85838` for `ξ'`.  Until now the two were never composed at th
 not as a theorem.  `SESSION 147` closes that gap.
 
 **The two hypotheses stay hypotheses.**  `OffTransfer` needs Riemann–von
-Mangoldt (`log T = o(N(T))`), which is not in the registers; `NzComparable`
+Mangoldt (`log T = o(N(T))`), which is not in the registers
+[**`396`: it is, since `337`.  `Riemann.logSmall_zeta` proves it axiom-free and
+`Riemann.offTransfer_zeta_xiPrime` discharges `OffTransfer` at the cost of
+`levinson_montgomery` — a trade parked with Joop at `395`, not taken**]; `NzComparable`
 needs a relation between `xiPrimeFamily` and `zetaFamily`, and `xiPrimeFamily`
 is an *opaque* axiom with no stated connection to `zetaFamily`.  Both are
 Conrey 1983, unread.  Discharging either by axiom would raise the certified

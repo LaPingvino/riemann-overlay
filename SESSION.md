@@ -19487,3 +19487,47 @@ general/instantiation pair `337` used for `zetaNonempty`), overclaim floor `203`
 **Might-mean, scoped to `OffTransfer` and the six axioms:** `337`'s import bought more than the
 two axioms it discharged, and the surplus has been sitting unclaimed for fifty-eight cycles
 because nobody re-derived what the dependency now makes reachable.
+
+## The surplus audit — one stale claim, and `#7` witnessed by a type
+
+**Piece.** `395` found that `337`'s import had made something reachable that the registers still
+called unavailable. This cycle asks systematically what else is in that state.
+
+**Kill condition, filed first:** *a claim is only "stale" if I can name the declaration that
+refutes it; anything I merely suspect stays recorded as suspected.* It fired twice — on the
+`0.92919` constant and on three of the four unavailability claims.
+
+**One stale claim, corrected at its location.** `Proportion.lean` said `OffTransfer` *"needs
+Riemann–von Mangoldt (`log T = o(N(T))`), which is not in the registers"* — the same sentence
+`392` corrected in `Gaps.lean` and `395` refuted with `logSmall_zeta`. It survived in a second
+place. Annotated with the refutation and with the fact that the trade is parked, not taken.
+
+**The other three are sound.** `Fiber.lean:858` is inside a kill condition that did not fire;
+`Fiber.lean:3426`'s *"it is not available"* is a mathematical fact witnessed by the mass-`3`
+haunted atom; `Proportion.lean:145` is a structural claim about routes, not about the dependency.
+
+**`XiPrime.Final` is still entirely out of reach, so `338` holds.** All **1664** of its
+declarations carry `reachable = no` in `forensics/statement_index.tsv`; the dependency's totals
+are `2345` reachable against `2282` not. So `zeta23_xiPrime` **cannot** be discharged by import,
+and the "big unbought one" assessment is current rather than stale.
+
+**And the find: `ISSUES #7` is now witnessed by a type.** The vendored theorem is
+`Zeta23.XiPrime.Final.xiDeriv_simple_on_line_flat_cumulative`, and its statement reads
+`0.85838 · Ncount 0 T ≤ N0simple 0 T`. **`N0simple` is the count `274` identified with our
+`NscStd`** — so the source proves the `NscStd` statement, while `zeta23_xiPrime` asserts
+`Proportion`, our `Nsc`. `#7` has argued this from the paper's prose since it was filed; it now
+has the vendored declaration's *type* as evidence, which is a stronger record than a reading.
+
+**Wildcard — is the second constant in that theorem new to us?** The same statement of
+`Zeta23.XiPrime.Final.xiDeriv_simple_on_line_flat_cumulative` carries
+`0.92919 · Ncount 0 T ≤ Ndist 0 T`, a distinct-zeros proportion for `ξ′`, and `PRICES.md` has a
+distinct-zeros want-ad. **Kill condition, filed first:** *check the registers before calling it
+new.* **It fired** — `LEADS.md:2387` records both constants from the paper reading at `361`.
+Not a find.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, floors `30`/`203`, `citation_check` `0`.
+
+**Might-mean, scoped to the four unavailability claims checked:** the registers' stale entries
+cluster where a claim was written twice, because correcting one instance feels like closing the
+issue — `392` and `395` both fixed this sentence and neither found its duplicate.

@@ -163,6 +163,13 @@ reading of §6" to "look at one displayed equation".
 > complaint stands whole:** the general theorem still takes `Proportion 0.85838`, the
 > over-strong reading, where the source proves `NscStd`.
 >
+> **`396`: witnessed by a type, not a reading.**
+> `Zeta23.XiPrime.Final.xiDeriv_simple_on_line_flat_cumulative` states
+> `0.85838 · Ncount 0 T ≤ N0simple 0 T`, and `274` identified `N0simple` with our `NscStd`.
+> `#7` has argued this from the paper's prose since it was filed; the vendored declaration's
+> type now says it. The module is still `reachable = no` — all `1664` of its declarations —
+> so this strengthens the record without discharging anything.
+>
 > **`391`: the gap is now a visible hypothesis.**
 > `Riemann.certified_nsc_via_derivative_std` takes `ProportionStd 0.85838` — what the
 > source proves — together with `NoHaunted F'`, the difference `283` named, and lands

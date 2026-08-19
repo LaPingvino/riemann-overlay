@@ -2456,7 +2456,13 @@ theorem Noff_le_N (D : ZeroData) : D.Noff ≤ D.N := by
   exact Multiset.card_le_card (Multiset.filter_le _ _)
 
 /-- **The unconditional form:** `2·NscStd ≤ 2·Nsc + N`, i.e.
-`Nsc ≥ NscStd − N/2`, with no hypothesis at all.  Axiom-free. -/
+`Nsc ≥ NscStd − N/2`, with no hypothesis at all.  Axiom-free.
+
+**`420`: the only one of `31` that is never tight.**
+`forensics/tightness.py` searched `3875` admissible profiles and found every
+other evaluable `ℕ`-linear `ZeroData` inequality attained, this one with a gap of
+at least `1` throughout.  That agrees with the note below saying it is subsumed —
+the instrument found the register's own verdict without being told it. -/
 theorem two_mul_NscStd_le_two_mul_Nsc_add_N (D : ZeroData) :
     2 * D.NscStd ≤ 2 * D.Nsc + D.N :=
   Nsc_ge_of_Noff_le (Noff_le_N D)

@@ -20577,3 +20577,41 @@ admissible `by decide` either way.
 to be a theorem the arc's own infrastructure could prove a hundred cycles later,
 so the registers' informal readings are worth re-reading as a source of
 statements.
+
+## 420 — which of our inequalities are sharp, mechanically
+
+**Kill condition, stated first (`R12`).** Piece: generalise `419`'s argument from
+one inequality to all of them — `417`'s realisability makes an attaining profile
+a **proof** that coefficients cannot be improved. Wildcard: does anything come
+out non-tight? Kill: report *"no witness in this box"*, never *"slack"* — `R17`
+says an absent witness in a bounded search is not a theorem.
+
+**`forensics/tightness.py`.** It reuses `equiv_check.facts()` — the same
+hypothesis-free `ℕ`-linear inventory, not a fork — evaluates both sides of each
+on every admissible profile in a box, and reports the smallest attaining profile
+or the smallest gap found. The box is printed with every run: masses `1..6`, up
+to `4` ordinates, **`3875`** admissible profiles, every one of which is a genuine
+profile by `Blindness.profile_realisable`.
+
+**The result.** Of `36` facts, `31` are evaluable and **`30` are attained** — so
+their coefficients are maximal, `419`'s theorem for
+`mass_charges_every_class` now being one of thirty. Five are named as skips
+(`thirdMoment`, `fourthMoment`, `offLinePoints` vocabulary this evaluator does
+not model); they are **counted and printed**, not dropped.
+
+**The wildcard found exactly one.** `Blindness.two_mul_NscStd_le_two_mul_Nsc_add_N`
+has a gap of at least `1` on all `3875` profiles. Its own docstring, twelve lines
+below, already said *"This subsumes …"* of the `(3,2)` form — so the instrument
+reached the register's verdict without being shown it. Annotated at the location,
+and phrased as *no witness in this box*, not as a proof of slack.
+
+**A cross-check nobody asked for.** The evaluator aborts as a harness failure if
+any inequality is **false** at any profile. It did not abort: `31` statements
+held at `3875` profiles each, an independent check of the statement index against
+a Python model of the counts.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** sharpness is now a search rather than a proof obligation, so the
+question *"can this coefficient be improved"* costs a script run instead of a
+cycle.

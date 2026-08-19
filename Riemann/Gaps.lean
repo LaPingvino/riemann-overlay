@@ -1345,6 +1345,49 @@ theorem hauntedDensity_of_starBound {F : Family} {C : ℝ}
   rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ (by norm_num : (0:ℝ) < 6)]
   nlinarith [hbase, hstar, hpos']
 
+/-- **The star bound at a ladder rung — the fifth supplier, combined.**
+`SESSION 383`.
+
+`hauntedDensity_of_starBound` charges a haunted ordinate `6`, which is the
+mass-`3` atom's cost into `N⊛ − N`.  Under `NoSmallHaunted m` the cost is
+`m(m−1)` (`Blindness.haunted_rung_star`), so the density falls by the same
+factor.  This is the star analogue of `hauntedDensity_of_offLineImport_at_rung`,
+and it puts the star bound on the same footing as the off-line currency: both
+compose with the ladder.
+
+At `m = 3` it reproduces `hauntedDensity_of_starBound`.  The thresholds it moves
+are in `Blindness.star_rung_threshold_zeta`. -/
+theorem hauntedDensity_of_starBound_at_rung {F : Family} {C : ℝ} {m : ℕ}
+    (hm : 2 ≤ m) (hh : NoSmallHaunted F m) (h : F.toCounts.StarBound C) :
+    HauntedDensity F ((C - 1) / ((m * (m - 1) : ℕ) : ℝ)) := by
+  classical
+  have hDpos : (0:ℝ) < ((m * (m - 1) : ℕ) : ℝ) := by
+    have : 0 < m * (m - 1) := Nat.mul_pos (by omega) (by omega)
+    exact_mod_cast this
+  intro ε hε
+  filter_upwards [h (((m * (m - 1) : ℕ) : ℝ) * ε) (by positivity), F.toCounts.pos]
+    with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hmass : ∀ γ ∈ (F.D T).ordinates.toFinset.filter
+      (fun γ => (F.D T).H γ - Blindness.offAt (F.D T) γ = 1 ∧ (F.D T).H γ ≠ 1),
+      m ≤ (F.D T).H γ := by
+    intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    rcases hh T γ hγ.2.1 with h1 | h2
+    · exact absurd h1 hγ.2.2
+    · exact h2
+  have hbase : ((m * (m - 1) : ℕ) : ℝ) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      + F.Nz T ≤ F.Ns T := by
+    have := Blindness.haunted_rung_star (F.D T) (by omega : 1 ≤ m) hmass
+    unfold Family.Ns Family.Nz
+    exact_mod_cast this
+  have hstar : F.Ns T ≤ (C + ((m * (m - 1) : ℕ) : ℝ) * ε) * F.Nz T := hT
+  have hsplit : (C - 1) / ((m * (m - 1) : ℕ) : ℝ) + ε
+      = (C - 1 + ((m * (m - 1) : ℕ) : ℝ) * ε) / ((m * (m - 1) : ℕ) : ℝ) := by
+    field_simp
+  rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ hDpos]
+  nlinarith [hbase, hstar, hpos']
+
 /-- **The ladder, transported: `ProportionStd κ` gives `Proportion ((m·κ−1)/(m−1))`.**
 
 At `m = 3` this is `084`'s `(3κ−1)/2`; each odd rung upward is worth real points.

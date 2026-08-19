@@ -9045,6 +9045,10 @@ theorem star_route_beats_iff {κ c : ℝ} :
 
 /-- **The ζ-level threshold, as an exact rational.**  `SESSION 374`.
 
+**`383`: this was already on disk.**  `Gaps.starBound_delta_beats_baseline`
+(`SESSION 304`) states `(C−1)/6 < 0.16375 ↔ C < 1.9825` — the same threshold as
+a biconditional, four cycles before `374` re-derived it in rationals.
+
 At `κ = 269/400` the crossover is `793/400`, bracketed between `1` and `2`, and
 the two routes agree there at `407/800` — the value the `Nsc` row already
 carries.
@@ -9094,7 +9098,12 @@ the same star bound *together with* the certified `NscStd ≥ κ·N`, and pays
 `κ − (C − 1)/6`.
 
 They are different trades, so they cross.  Below the crossover `241`'s route is
-better; above it `374`'s is. -/
+better; above it `374`'s is.
+
+**`383`: this crossover was already on disk too.**
+`Gaps.starBound_exchange_crossover` (`SESSION 191`) states
+`0.6725 − (C−1)/6 ≤ 2 − C ↔ C ≤ 1.393`.  `377` presented itself as the cycle
+that found `374`'s priority and re-derived `191`'s number while doing so. -/
 theorem star_currency_crossover {κ C : ℝ} :
     2 - C < κ - (C - 1) / 6 ↔ (11 - 6 * κ) / 5 < C := by
   constructor <;> intro h <;> linarith

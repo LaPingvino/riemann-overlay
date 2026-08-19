@@ -891,3 +891,6 @@ import Riemann
 #check @Riemann.Blindness.haunted_rung_star
 #check @Riemann.Blindness.star_rung_threshold
 #check @Riemann.Blindness.star_rung_threshold_zeta
+
+-- 383: the rung combination lifted to Family level; it joins the HauntedDensity hub.
+#check @Riemann.hauntedDensity_of_starBound_at_rung

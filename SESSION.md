@@ -18879,3 +18879,54 @@ Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%` unmoved,
 currencies were catalogued as alternatives when at least two of the five haunted-density
 suppliers compose, so the board's real question is which *pairs* combine and what each pair
 costs — a table nobody has drawn.
+
+## The rung lift lands, and `374`/`377` were both re-derivations
+
+**Piece.** `382` proved the star-at-rung combination pointwise and left it there while the other
+four `HauntedDensity` suppliers live at family level. Lifted:
+
+* `hauntedDensity_of_starBound_at_rung` — `NoSmallHaunted m` and `StarBound C` give
+  `HauntedDensity F ((C−1)/(m(m−1)))`. Green on the first attempt, mirroring
+  `hauntedDensity_of_starBound`'s proof with the coefficient generalised. At `m = 3` it
+  reproduces that theorem.
+
+**So the star bound now composes with the ladder at the level the project uses**, exactly as
+`hauntedDensity_of_offLineImport_at_rung` does for the off-line currency, and it feeds
+`proportion_of_hauntedDensity` like every other supplier. The thresholds are `382`'s:
+`793/400` at `m = 3`, `1710/400` at `5`, `3151/400` at `7`.
+
+**Kill condition, filed first:** *before lifting, check the rung generalisation is not itself on
+disk — `382` was the ninth cycle in a run where five turned out to be rediscoveries.* It did not
+fire: `--find 'm \* (m - 1)'` returns nothing, and no rung threshold numeral appears in the tree.
+**`382` stands.**
+
+**Wildcard — do `374`'s and `377`'s numbers survive the same check?** **Kill condition, filed
+first:** *if either is on disk, I correct it at its location and count it, rather than letting
+`377`'s partial correction stand.* **It fired on both.**
+
+* `374`'s `793/400` is `Gaps.starBound_delta_beats_baseline` (`SESSION 304`) —
+  `(C−1)/6 < 0.16375 ↔ C < 1.9825`, a biconditional, seventy cycles earlier.
+* `377`'s `1393/1000` is `Gaps.starBound_exchange_crossover` (`SESSION 191`) —
+  `0.6725 − (C−1)/6 ≤ 2 − C ↔ C ≤ 1.393`.
+
+**`377` was the cycle that announced it had found `374`'s priority, and it re-derived `191`'s
+number in the act of doing so.** Both corrected at their locations, and the `CLAIMS` row now
+opens by saying the row records a rediscovery.
+
+**Snag, bin 1 — that is seven in ten cycles, and the common factor is now clear.**
+`Gaps.lean` holds the *exchange arithmetic* — crossovers, thresholds, which route dominates
+where — and I have been searching `statement_index` for **declaration shapes** while the numbers
+live in **theorem statements about real inequalities** that no name-shaped query reaches. The one
+query that has worked twice running is the conclusion pattern (`HauntedDensity`, `m \* (m - 1)`).
+
+**What is actually new across `374`–`383`,** stated plainly so the ledger of this arc is honest:
+the `m(m−1)` coefficient and its rung thresholds (`382`), and the family-level lift (`383`).
+Everything else in those four cycles existed at `191`, `241`, `275` or `304`.
+
+Build green (8862 jobs), sorries 0, ledger unmoved, base `v4/3508643365fd`, warnings `54`,
+duplication floor `27`, overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to the star currency and the four cycles that worked on it:** this project's
+accumulated arithmetic is large enough that re-deriving it is now the *default* outcome of
+working on a familiar quantity, so the expensive step is no longer proving something but
+establishing that it is not already proved.

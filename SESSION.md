@@ -19791,8 +19791,9 @@ left for a later cycle to wonder about.
 **The one obstacle, and it is the same one twice.** `omega` cannot see a product of variables:
 the step `x·P + y < y·P + x` for `P = y^(k−1) ≥ 2` is exactly the multiplication `401`'s
 `Nat.mul_lt_mul_right` fight was also about. Naming it as a `have` and handing it to `nlinarith`
-closed it in one line. **`ℕ` subtraction and variable products are the two shapes that have cost
-this arc every one of its failed attempts** — `S182`, `S189`, and this.
+closed it in one line. **Statement shape, not mathematics, has cost this arc every one of its failed
+attempts** — `S182`, `S189`, and this. [**`403`: the shapes are three, not two** — `S182` was a
+lemma stated multiplied where I used it divided, plus a filter transport.]
 
 **Wildcard — is `mass_cost_eq_iff` now redundant?** **Kill condition, filed first:** *if the
 general version subsumes it with no consumer left, deleting it is the honest move and I should
@@ -19807,3 +19808,43 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 `Blindness.rung_coefficients_attained` together pin each of them to an equality on exactly one
 configuration at exactly one mass at every order, so the rung apparatus is
 completely characterised and nothing inside it can be sharpened — only replaced.
+
+## `S190` overstated, corrected — and the shapes written down as `R33`
+
+**Piece.** `402` closed with *"all three failed attempts were one of two tactic-shape
+obstacles"*. Checking that before generalising from it showed it is **wrong**.
+
+**Kill condition, filed first:** *if the three failures do not in fact share two shapes, correct
+`S190` at its location before writing any rule on top of it — a rule built on an overstatement
+inherits the overstatement.* **It fired.**
+
+`S182`'s obstacles were **not** `ℕ` subtraction or a variable product. They were a lemma stated
+multiplied where I used it divided (`eventually_const_mul_log_lt` gives `c·log T < T`, not
+`log T < T/c`), and a filter transport across `S = 2T`. So the count is **four shapes, not two**;
+what the three failures share is only that none was a mathematical gap. Corrected at `S190` and
+in `402`'s entry.
+
+**`R33` records the four, with their fixes.** `ℕ` subtraction → substitute `m = a+1`; a product of
+variables → name the step and hand it to `nlinarith`, since `omega` is linear; a lemma's form →
+`#check` before building on it; an index change → `Tendsto.eventually`, not a monotone
+composition. The diagnostic: **if the statement is one line of arithmetic you would accept on
+paper, the obstacle is shape.** `forensics/process_index.py --find 'R33'` reaches it, and
+`banner_check` stays `6/6`.
+
+**Wildcard — is this rule inflation?** `370` amended `R28a`, `375` added `R32`, and both were
+questioned at the time. **Kill condition, filed first:** *if `R33` restates something an existing
+rule already says, drop it and annotate that rule instead.* It did not fire — `R23`, `R24a`,
+`R28a` and `R32` are all about *where work goes* and *what gets gated*; none is about why a proof
+resists. `R33` is the first rule about tactics rather than process, which is also the honest
+reason to be cautious with it: one arc is a small sample, and it says so.
+
+**Snag, bin 1 — I nearly built a rule on my own overstatement.** `S190` was written the cycle
+before and read as settled. The check that caught it cost one `grep`.
+
+Build unchanged (no Lean touched), ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, floors `30`/`203`.
+
+**Might-mean, scoped to the four shapes named:** the arc's failures, now indexed together by
+`forensics/process_index.py` under `R33`, were all cases where I knew the mathematics and lost
+time to the encoding, so the marginal value of a Lean-technique register
+may now exceed that of another process rule — and `R33` is the first entry in one.

@@ -154,6 +154,23 @@ degradations, not less.
   `git commit` in one shell call; `251d` wrote the rule and `277` broke it
   anyway, which is `S113`. A guard in the roster closes the window to one
   cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
+* **R33 — when a Lean proof resists, suspect the *shape* of a statement before the
+  mathematics.**  Every failed attempt in the `382`–`402` arc was one of these, and
+  none was a mathematical gap:
+  * **`ℕ` subtraction** (`S189`).  `m * (m - 1)` and `m ^ k - m` are truncated;
+    `omega` and `nlinarith` both stall on them.  Substituting `m = a + 1` removes
+    the subtraction and the goal usually falls to `nlinarith` in one line.
+  * **A product of variables** (`S190`).  `omega` is linear and cannot see
+    `x * P < y * P`; name the step as a `have` and hand *that* to `nlinarith`.
+  * **A lemma's exact form** (`S182`).  `eventually_const_mul_log_lt` gives
+    `c * log T < T`, not `log T < T / c`, and rewriting against the form I
+    remembered matched nothing.  `#check` the lemma before building on it.
+  * **An index change** (`S182` again).  Transporting `∀ᶠ` across `T ↦ 2 * T` is
+    `Tendsto.eventually`, not a monotone composition.
+  The diagnostic is cheap: if the *statement* is one line of arithmetic you would
+  accept on paper, the obstacle is shape, and changing the shape beats pushing on
+  the tactic.  **`403`: recorded after `S190` overstated this as "two obstacles";
+  it is four, and the common factor is only that none of them is mathematics.**
 * **R32 — pipe new docstring prose through `claims_gate` before installing it, not
   after the build.**  `overclaim_floor` has fired on prose written that same cycle in
   `344`, `345`, `347`, `353`, `362` and `368` — six times since it shipped at `343`.

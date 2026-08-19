@@ -19020,3 +19020,47 @@ Build green (8862 jobs), sorries 0, ledger unmoved, base `v4/3508643365fd`, warn
 haunted atom is extremal for both currencies simultaneously, so the whole rung apparatus is
 governed by a single configuration — and any future improvement has to come from an inequality
 that configuration does not saturate.
+
+## The rung runs at every moment order, and one atom saturates all of them
+
+**Piece.** `382`'s `m(m−1)` is the `k = 2` case of a general fact: a haunted ordinate of mass
+`m` costs `m^k − m` into `momentK k − N`. `momentK_charges_every_class` is the `k`-general
+statement with the base fixed at mass `3`; this fixes the order and generalises the mass.
+
+**Kill condition, filed first:** *if the general-`k` bound needs a hypothesis beyond "haunted
+ordinates have mass `≥ m`", I ship `k = 3` and record the general case open.* It did not fire —
+`1 ≤ k` is the only extra condition, and it is needed because `momentK 0` is `atomCount`.
+
+* `Blindness.pow_sub_self_mono` — `x^k + y ≤ y^k + x` for `x ≤ y`, `k ≥ 1`: the monotonicity of
+  `t ↦ t^k − t`, subtraction-free so it survives `ℕ`.
+* `Blindness.mass_card_le_momentK_sub_N` — any finset of ordinates all of mass `≥ m` pays
+  `m^k − m` each into `momentK k − N`.
+* `Blindness.haunted_rung_momentK` — the same for `hauntedCount`.
+
+**Wildcard — is this the inequality `385` asked for?** `385` closed by saying an improvement must
+come from an inequality the mass-`m` haunted atom does not saturate. **Kill condition, filed
+first:** *if the atom saturates the whole moment family, the answer to `385` is negative and I
+state it as a closed door rather than leaving it open.* **It fired.**
+`Blindness.rung_momentK_attained`: for `configAt 0 1 j a`, `momentK k = m^k` and
+`(m^k − m)·1 + m = m^k` exactly, for **every** `k ≥ 1`. So the improvement `385` asked for
+**cannot come from a higher moment** — the atom closes every order at once.
+
+**What that leaves.** The moment family is exhausted as a source of better rung constants. Any
+improvement must use a functional that is *not* a moment of the multiplicity — the on-line
+family, the profile's second coordinate, or something outside the blindness apparatus entirely.
+That is a sharper statement of where to look than `385` could make.
+
+**Snag, bin 3 — `forensics/warning_floor.py` would have caught an unused hypothesis**, one cycle
+after the same thing with an unused `simp` argument. `mass_card_le_momentK_sub_N` did not need `1 ≤ m`;
+`Nat.le_self_pow` covers `m = 0`. Dropped before installing, floor unmoved at `54`.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, warnings at the floor `54`, duplication floor `27`, overclaim floor `203`,
+`citation_check` `0` unresolved. **Still conditional:** every result here rests on
+`NoSmallHaunted m`, which the project does not have.
+
+**Might-mean, scoped to the multiplicity moments and the haunted atom:** by
+`Blindness.rung_momentK_attained` the mass-`m` haunted atom is extremal for the entire moment
+family simultaneously, so the moments are one currency
+wearing `k` hats rather than a family of independent inputs — and buying a higher moment bound
+buys nothing the second moment did not already price.

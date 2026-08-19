@@ -9287,5 +9287,80 @@ theorem rung_coefficients_attained {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 
   · rw [hh, hA, hN]; show (1 + 2*j - 1) * 1 + 1 = 1 + 2*j
     omega
 
+/-! #### The rung, at every moment order — `SESSION 386`
+
+`382` charged a haunted ordinate `m(m−1)` into `N⊛ − N`, which is the `k = 2`
+case.  The same argument runs at every order: mass `m` costs `m^k − m` into
+`momentK k − N`.  `momentK_charges_every_class` is the `k`-general statement with
+the base fixed at mass `3`; this fixes the order and generalises the mass.
+
+**And the same atom saturates all of them** (`rung_momentK_attained`), which
+answers the question `385` left open: the improvement it asked for cannot come
+from a higher moment.
+-/
+
+theorem pow_sub_self_mono {k : ℕ} (hk : 1 ≤ k) :
+    ∀ x y : ℕ, x ≤ y → x ^ k + y ≤ y ^ k + x := by
+  intro x y hxy
+  induction y with
+  | zero => simp_all
+  | succ n ih =>
+      rcases Nat.lt_or_ge x (n + 1) with h | h
+      · have hxn : x ≤ n := by omega
+        have hstep : n ^ k < (n + 1) ^ k :=
+          Nat.pow_lt_pow_left (Nat.lt_succ_self n) (by omega)
+        have := ih hxn
+        omega
+      · have hx : x = n + 1 := by omega
+        subst hx; omega
+
+theorem mass_card_le_momentK_sub_N (D : ZeroData) (G : Finset ℝ) {m k : ℕ} (hk : 1 ≤ k)
+    (hG : ∀ γ ∈ G, m ≤ D.H γ) (hsub : G ⊆ D.ordinates.toFinset) :
+    (m ^ k - m) * G.card + D.N ≤ momentK D k := by
+  classical
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have key : ∑ γ ∈ D.ordinates.toFinset, (D.H γ + if γ ∈ G then m ^ k - m else 0)
+      ≤ ∑ γ ∈ D.ordinates.toFinset, D.H γ ^ k := by
+    refine Finset.sum_le_sum fun γ hγ => ?_
+    by_cases h : γ ∈ G
+    · have hmH : m ≤ D.H γ := hG γ h
+      have := pow_sub_self_mono hk m (D.H γ) hmH
+      have hmk : m ≤ m ^ k := Nat.le_self_pow (by omega) m
+      simp only [h, if_pos]; omega
+    · simp only [h, if_neg, add_zero, not_false_iff]
+      have h1 : 1 ≤ D.H γ := one_le_H_of_mem hγ
+      exact Nat.le_self_pow (by omega) _
+  rw [Finset.sum_add_distrib, Finset.sum_ite_mem, Finset.inter_eq_right.2 hsub,
+    Finset.sum_const] at key
+  rw [hN, momentK]
+  simpa [smul_eq_mul, mul_comm, add_comm] using key
+
+theorem haunted_rung_momentK (D : ZeroData) {m k : ℕ} (hk : 1 ≤ k)
+    (hmass : ∀ γ ∈ D.ordinates.toFinset.filter
+        (fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1), m ≤ D.H γ) :
+    (m ^ k - m) * hauntedCount D + D.N ≤ momentK D k := by
+  classical
+  have h := mass_card_le_momentK_sub_N D _ hk hmass (Finset.filter_subset _ _)
+  simpa [hauntedCount] using h
+
+theorem rung_momentK_attained {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j)
+    {k : ℕ} (hk : 1 ≤ k) :
+    let D := configAt 0 1 j a
+    let m := 1 + 2 * j
+    momentK D k = m ^ k
+      ∧ (m ^ k - m) * hauntedCount D + D.N = momentK D k := by
+  classical
+  intro D m
+  have p : profile D = {(1 + 2 * j, 2 * j)} := by
+    simpa using configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := j) (by omega)
+  have hM : momentK D k = m ^ k := by
+    show momentK D k = (1 + 2 * j) ^ k
+    rw [momentK_from_profile, p]; simp
+  obtain ⟨hN, -, -, hh, -, -⟩ := rung_coefficients_attained ha hj
+  refine ⟨hM, ?_⟩
+  rw [hh, hM, hN]
+  have hmk : m ≤ m ^ k := Nat.le_self_pow (by omega) m
+  omega
+
 end Blindness
 end Riemann

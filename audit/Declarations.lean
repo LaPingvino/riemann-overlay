@@ -901,3 +901,9 @@ import Riemann
 
 -- 385: both rung coefficients are attained at every odd rung by the mass-m haunted atom.
 #check @Riemann.Blindness.rung_coefficients_attained
+
+-- 386: the rung at every moment order, and one atom saturates the whole family.
+#check @Riemann.Blindness.pow_sub_self_mono
+#check @Riemann.Blindness.mass_card_le_momentK_sub_N
+#check @Riemann.Blindness.haunted_rung_momentK
+#check @Riemann.Blindness.rung_momentK_attained

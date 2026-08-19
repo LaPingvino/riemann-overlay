@@ -2643,3 +2643,14 @@ to build a configuration API for one corollary.
 **`415`: built.** `Blindness.twoAtom_H` and friends are on disk, and
 `Blindness.momentK_cap_bound_attained_mixed` is the witness. This lead is
 closed.
+
+## `423` — a Farkas step for `forensics/tightness.py`
+
+The three-term sweep's residue reduces, after basis normalisation and
+Pareto-minimality, to about thirty primitives, all of them non-negative
+combinations of `Blindness.mass_charges_every_class` and positivity. Deciding
+that mechanically is a small LP per candidate: *is `d` a non-negative
+combination of the known facts?* With it the sweep would report only genuinely
+new shapes; without it the output is a count. Nothing about it is conjectural,
+only unbuilt — and `416` is the precedent for how fast that kind of lead closes
+once someone takes it as a wildcard.

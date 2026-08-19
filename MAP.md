@@ -119,7 +119,9 @@ makes it a mass functional), miss `onLineOrdinates`
 `Riemann.Blindness.momentK_two_cannot_be_dropped`,
 `Riemann.Blindness.massCount_one_cannot_be_dropped` and
 `Riemann.Fiber.Noff_not_determined_by_ledger`. That is minimality under inclusion, not a
-claim that five is the smallest count. `Riemann.Fiber.profile_not_minimal` (`075`/`077`) is
+claim that five is the smallest count — and unrestricted there is no such claim to make, since
+`Riemann.Blindness.ledgerCode_eq_iff` packs the whole ledger into one natural number. A
+minimality statement here is always relative to a declared class of statistics. `Riemann.Fiber.profile_not_minimal` (`075`/`077`) is
 the older, weaker negative.
 
 **Each family's reach is exactly its own count family.**

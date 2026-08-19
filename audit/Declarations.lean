@@ -868,3 +868,7 @@ import Riemann
 #check @Riemann.Blindness.momentK_one_cannot_be_dropped
 #check @Riemann.Blindness.momentK_two_cannot_be_dropped
 #check @Riemann.Blindness.massCount_one_cannot_be_dropped
+
+-- 372: minimality is class-relative.  Unrestricted, one number does it.
+#check @Riemann.Blindness.ledgerCode
+#check @Riemann.Blindness.ledgerCode_eq_iff

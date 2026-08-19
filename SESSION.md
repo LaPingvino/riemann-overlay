@@ -18160,7 +18160,11 @@ cannot serve. The gap was structural, not an oversight.
 `onCount_one_cannot_be_dropped` that is all five, so no proper subset of the five determines
 the ledger. **This is not a claim
 that five is the smallest possible count** — some different set of four is not ruled out by
-anything here, and I am not claiming otherwise. Four locations that said *"the other four are
+anything here, and I am not claiming otherwise.
+
+> **Answered at `372`, and downward.** A set of *one* suffices —
+> `Blindness.ledgerCode_eq_iff` — so the smallest-count question is empty unless a class of
+> statistics is named. The minimality proved here is within the five. Four locations that said *"the other four are
 open"* corrected at their locations: the `ledger_determined_by_five_scalars` docstring, `369`'s
 `CLAIMS` row, `MAP.md`, and `369`'s own entry.
 
@@ -18261,3 +18265,71 @@ is low and concentrated in stale counts rather than false arguments, so what the
 is not more linting of their reasoning but a re-run of every mechanical enumeration they
 contain — and `forensics/statement_index.py` could check those against the tree the way
 `banner_check` checks the banner.
+
+## The question `370` left open was empty — minimality needs a class
+
+**Piece.** `370` closed by putting a new question on the board: whether some *other* set of
+four scalars determines the ledger. It has an answer, it is not four, and by
+`Blindness.ledgerCode_eq_iff` the question as posed has no content.
+
+**Kill condition, filed first:** *if the encoding needs choice, noncomputability, or anything
+that makes it a curiosity rather than a functional of the same kind as the five, I record it as
+a remark and leave the question open.* It did not fire — `Nat.pair` is a computable bijection
+`ℕ × ℕ → ℕ` and `Nat.pair_eq_pair` is an iff, so the proof is `simp only` and `tauto`.
+
+* `Blindness.ledgerCode` — nest `Nat.pair` four times over `N`, `N⊛`, `Nsc`, `NscStd`, `N_off`.
+* `Blindness.ledgerCode_eq_iff` — two configurations share the code exactly when they share all
+  five rows. **One natural number carries the whole ledger.**
+
+**So over unrestricted `ℕ`-valued functionals the smallest sufficient set has one element**, and
+"how few scalars does the ledger cost" is answered before it is asked. `369`'s five and `370`'s
+inclusion-minimality are untouched: what they establish is minimality **within the five named
+moment-and-count scalars**, which is a claim about a class. Three classes are now on the board
+with three different answers — unrestricted collapses to one by
+`Blindness.ledgerCode_eq_iff`; the five named scalars are
+minimal under inclusion; ordinate-local statistics floor at the profile (`077`) — and there is
+no tension between them because each names its class.
+
+**`ledgerCode` buys no information.** Recovering a row means running `Nat.unpair`; the encoding
+moves the cost rather than removing it, which is exactly why the useful minimality questions
+are the restricted ones.
+
+**Wildcard — does the same collapse empty `QUEUE (3)`, *"is the profile minimal?"*?** **Kill
+condition, filed first:** *if the registers already carry the class restriction that saves it,
+the finding is that I did not read them and I report it that way rather than as a discovery.*
+**It fired.** `LOOP.md`'s banner row `22` has recorded profile minimality as settled *"both
+ways: `profile_not_minimal` (globally, `075`) and `profile_minimal_among_local` (locally,
+`077`)"*. The word doing the work is **locally** — `Fiber.profile_minimal_among_local`
+quantifies over *ordinate-local* statistics, which is precisely the class restriction this
+cycle is about, and it has been there since `077`. `QUEUE (3)`'s unrestricted phrasing is the
+ill-posed one; the register's answer is not.
+
+**Snag, bin 1 — `S161`.** My `370` claims were correctly scoped and none was false. The
+*question* I advertised was not, and a reader taking it up would have spent a cycle finding
+that out. Scoping a claim and posing a well-formed question are different obligations; the
+first has `forensics/claims_gate.py` behind it and the second has no guard at all.
+
+**Snag, bin 2 — `R32` covered the drafts and `forensics/overclaim_floor.py` caught the edits,
+three times.** I piped every drafted
+docstring through `claims_gate` and it came back clean; then I reworded while installing, wrote
+three corrections directly into files, and `overclaim_floor` went to `204` three separate times
+on sentences that never saw the gate. Each fix was one dotted name. The rule is right and I
+applied it to the wrong artefact: **the thing to gate is the file after editing, not the draft
+before.** No amendment — `R32` already says "before installing"; what it cannot say is that I
+kept editing afterwards.
+
+**Snag, bin 3 — two new Mathlib citations turned `citation_check` red**, as designed:
+`Nat.pair` and `Nat.unpair` resolve under `import Riemann` but not in our tree. Kernel-checked
+both and added them to `ALLOW` with the reason and the cycle number, which is the step `270`
+skipped and `301` built this for.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`, duplication
+floor `27` unmoved — the iff's conclusion is a new shape, graded by
+`forensics/duplication_floor.py` before the build — overclaim floor `203` unmoved after the
+three repairs, `citation_check` `0` unresolved.
+
+**Might-mean, scoped to the ledger and the three statistic classes now on the board:** what a
+sufficient statistic costs is not a number of scalars but a choice of class, so every future
+"can we do better than X" question in this project needs its class named in the same sentence
+or it will collapse the way this one did.

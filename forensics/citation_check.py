@@ -92,6 +92,8 @@ ALLOW = {
     "finsum_mem_eq_finite_toFinset_sum": "mathlib",
     "Finset.sum_eq_sum_iff_of_le": "mathlib, kernel-checked 333",
     "Finset.sum_lt_sum": "mathlib, kernel-checked 334",
+    "Nat.pair": "mathlib, kernel-checked 372 — ℕ → ℕ → ℕ",
+    "Nat.unpair": "mathlib, kernel-checked 372 — ℕ → ℕ × ℕ",
     # `301`: the dead name, quoted by the correction that replaced it.  Its
     # one appearance is inside that correction at `Zeta.lean:58`.  Allowing it
     # costs the guard the ability to catch a *new* use of the same dead name,

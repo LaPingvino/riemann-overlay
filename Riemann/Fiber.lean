@@ -8839,7 +8839,13 @@ the five determines the ledger — `onCount_one_cannot_be_dropped` (`369`),
 `momentK_one_cannot_be_dropped`, `momentK_two_cannot_be_dropped`,
 `massCount_one_cannot_be_dropped` and `Noff_not_determined_by_ledger`.  That is
 minimality of this set under inclusion; it does *not* say five is the smallest
-possible count, and no result here rules out some different set of four. -/
+possible count.
+
+**`372`:** and the smallest-count question has no content unrestricted — one
+number does it, by `Fiber.ledgerCode_eq_iff`.  The clause below about "some
+different set of four" is answered, and downward: a set of *one* exists outside
+the named class.  A minimality claim needs a class, and by
+`Fiber.ledgerCode_eq_iff` this one's class is these five. -/
 theorem ledger_determined_by_five_scalars {D D' : ZeroData}
     (hN : momentK D 1 = momentK D' 1)
     (hstar : momentK D 2 = momentK D' 2)
@@ -8956,6 +8962,41 @@ theorem massCount_one_cannot_be_dropped {γ δ a : ℝ} (hγ : γ ≠ 0) (hδ : 
   have e1 := Noff_add_onMoment_one (threeAtom γ δ a 1 0 1 0 0 2)
   have e2 := Noff_add_onMoment_one (twoAtom γ a 1 1 1 1)
   omega
+
+
+/-- **One natural number carries the whole ledger.**  `SESSION 372`.
+
+`Nat.pair` is a bijection `ℕ × ℕ → ℕ`, so nesting it four times encodes the five
+ledger rows in a single natural number with nothing lost. -/
+noncomputable def ledgerCode (D : ZeroData) : ℕ :=
+  Nat.pair (Nat.pair (Nat.pair (Nat.pair D.N D.Nstar) D.Nsc) D.NscStd) D.Noff
+
+/-- **A minimality claim is a claim inside a declared class of statistics** — this
+theorem is what makes the unrestricted version empty.  `SESSION 372`.
+
+`369` exhibited five scalars that determine the ledger and `370` showed none of
+the five can be dropped; that is minimality under inclusion *within those five*.
+Over **arbitrary** `ℕ`-valued functionals the smallest sufficient set has one
+element, namely `ledgerCode`, so asking for "the fewest scalars" without naming a
+class is answered before it is asked.
+
+Three classes, three answers, and no tension between them:
+
+* unrestricted functionals collapse to one, by this theorem;
+* the five named moment-and-count scalars are minimal under inclusion — see
+  `Fiber.momentK_one_cannot_be_dropped` and its four companions;
+* ordinate-local statistics have the profile as their floor, by
+  `profile_minimal_among_local` (`077`).
+
+`ledgerCode` is an encoding and buys no information: recovering a row from it
+means running `Nat.unpair`, which is why the useful minimality questions are the
+restricted ones. -/
+theorem ledgerCode_eq_iff {D D' : ZeroData} :
+    ledgerCode D = ledgerCode D'
+      ↔ (D.N = D'.N ∧ D.Nstar = D'.Nstar ∧ D.Nsc = D'.Nsc
+          ∧ D.NscStd = D'.NscStd ∧ D.Noff = D'.Noff) := by
+  simp only [ledgerCode, Nat.pair_eq_pair]
+  tauto
 
 
 end Blindness

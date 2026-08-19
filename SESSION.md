@@ -18459,3 +18459,54 @@ Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%` unmoved,
 second-moment input for a hundred cycles with the conversion already proved and no number
 attached to it, so what blocks this project is less often a missing theorem than a missing
 price on a theorem it already owns.
+
+## The search that could not find it — `statement_index` was truncating the conclusions
+
+**Piece.** Three of the last five cycles filed a surprise about re-deriving something already on
+disk (`S159`, `S162`, `S163`), and I had written all three off as my own search vocabulary. For
+`S159` that reading was wrong: **the conclusion was not in the index to find.**
+
+**Kill condition, filed first:** *if lifting the cap makes the index unwieldy — more than double
+its size, or slow enough to change the gate's cost — I record the blind spot and decline the
+change.* It did not fire: `1.3M` → `1.4M`, longest statement `1,445` characters.
+
+* `forensics/statement_index.py` capped the statement column at `240` characters.
+  `Nstar_not_determined_by_ledger` measures **exactly `240`**, so its `.Nstar ≠` conjunct — the
+  one that discriminates — was cut off. `--find 'Nstar ≠'` returned **`0` matches**. Uncapped, it
+  returns the theorem `370` re-derived by hand.
+* The cap fell on **`8.5%` of our own declarations** (`61` of `720`) as counted from
+  `forensics/statement_index.tsv`, and truncation lands on the long multi-conjunct
+  witness-pair theorems — the genre where a duplicate hides.
+* Worse, the script **printed advice against the search on every run**: *"search it before adding
+  an axiom or fetching literature; not before proving something about the ledger."* That
+  contradicts its own docstring, which promises the index answers *"does anything already
+  conclude this?"*. Both corrected at their locations, the footer now naming the conclusion
+  search and the cycle that reversed it.
+
+**Wildcard — was `duplication_floor` blind too?** **Kill condition, filed first:** *if the guard
+turns out to have been reading the truncated index, the defect is much larger and this cycle
+becomes an audit rather than a repair.* **It did not fire, and the negative is the useful part.**
+`forensics/duplication_floor.py` reads the Lean sources directly, not the index — which is why it
+caught `374`'s second proof pre-build while `--find` was missing it. So the truncation blinded
+**search, not the guard**, and the post-hoc net was sound the whole time. `S159` slipped because
+its duplicate was a witness pair I had only *designed*, never installed — nothing for
+`forensics/duplication_floor.py` to see.
+
+**So the repair is narrow and I am not claiming more.** No latent duplicate was uncovered by
+uncapping; the `27` graded groups are unchanged. What changed is that pre-flight conclusion
+search now works on the `8.5%` of declarations where it silently did not.
+
+**Snag, bin 1 — I diagnosed the same failure three times without checking
+`forensics/statement_index.py` itself.**
+`S159`, `S162` and `S163` all concluded "search the conclusion, not the name", and `370` amended
+`R28a` to say so. Not one of those cycles asked whether the search *could* have worked. The
+instrument printed its own contradictory advice on every run of every cycle since it shipped.
+
+Build untouched (no Lean changed); index regenerated, `5347` rows. Ledger
+`NscStd 67.25% / Nsc 50.88%`, base `v4/3508643365fd`, warnings `54`, duplication floor `27`,
+overclaim floor `203`, `citation_check` `0` unresolved.
+
+**Might-mean, scoped to `forensics/statement_index.py` and the three surprises:** when the same
+diagnosis repeats, the cheapest next move is to doubt the instrument rather than the habit,
+because a habit that fails three times against a tool that silently cannot answer is not a habit
+problem at all.

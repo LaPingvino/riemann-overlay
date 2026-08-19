@@ -171,9 +171,17 @@ def reachable_dep(dep):
     return seen
 
 
-def flat(s, n=240):
+# `375`: the cap was `240`, and it truncated `8.5%` of our own declarations —
+# landing on exactly the long multi-conjunct witness-pair theorems where a
+# duplicate hides.  `Nstar_not_determined_by_ledger` measured exactly `240`, so
+# its `.Nstar ≠` conjunct — the discriminating one — was absent from the index,
+# and `S159` re-derived that witness pair by hand.  This file's own docstring
+# promises the index answers *"does anything already conclude this?"*; a cap
+# below the longest statement (`1,445` chars) breaks that promise for the rows
+# that need it most.  Uncapped costs about `250KB`.
+def flat(s, n=None):
     s = re.sub(r"\s+", " ", s).strip()
-    return s[:n]
+    return s if n is None else s[:n]
 
 
 def build():
@@ -255,8 +263,8 @@ def main():
     print(f"  ours              {ours:>5}")
     print(f"  dependency        {len(rows) - ours:>5}  "
           f"of which reachable today: {reach}")
-    print("  search it before adding an axiom or fetching literature;")
-    print("  not before proving something about the ledger.")
+    print("  search the CONCLUSION before proving anything — `--find '6 \\* D.NscStd'`,")
+    print("  not just a name.  `375`: the old line here said the opposite.")
     return 0
 
 

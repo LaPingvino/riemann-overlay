@@ -228,7 +228,10 @@ into `Proportion (κ − δ)`.
 | star bound | `Riemann.hauntedDensity_of_starBound`, `(C−1)/6` | `..._at_rung` (`383`), `(C−1)/(m(m−1))` |
 | distinct zeros | `Riemann.hauntedDensity_of_distinctZeros`, `(1−c)/2` | `..._at_rung` (`384`), `(1−c)/(m−1)` |
 
-**All three non-ladder suppliers compose with the ladder** (`384`).
+**All three non-ladder suppliers compose with the ladder** (`384`), and **both rung
+coefficients are exact** — `Riemann.Blindness.rung_coefficients_attained` (`385`) makes the
+mass-`m` haunted atom an equality in each, so neither can be improved by sharpening the same
+argument.
 
 **The crossovers, and the pairs that repeat one fact.** `Riemann.starBound_delta_beats_baseline`
 and `Riemann.starBound_exchange_crossover` are the canonical forms; the right-hand column names

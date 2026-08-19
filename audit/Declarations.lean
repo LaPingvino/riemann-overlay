@@ -898,3 +898,6 @@ import Riemann
 -- 384: the third rung combination.  All three non-ladder suppliers compose with the ladder.
 #check @Riemann.Blindness.haunted_rung_deficit
 #check @Riemann.hauntedDensity_of_distinctZeros_at_rung
+
+-- 385: both rung coefficients are attained at every odd rung by the mass-m haunted atom.
+#check @Riemann.Blindness.rung_coefficients_attained

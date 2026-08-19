@@ -18977,3 +18977,46 @@ duplication floor `27`, overclaim floor `203`, `citation_check` `0` unresolved.
 alongside the others but a *multiplier* on all of them, so `NoSmallHaunted m` is worth more than
 its own row suggests — it improves every other input the board holds, and the star bound most of
 all.
+
+## Both rung coefficients are exact — the mass-`m` haunted atom attains each
+
+**Piece.** `382`–`384` charge a haunted ordinate `m(m−1)` into `N⊛ − N` and `m − 1` into
+`N − atomCount` under `NoSmallHaunted m`. Those are upper bounds on the cost; nothing said they
+were the *right* cost.
+
+**Kill condition, filed first:** *if attainment holds only at `m = 3` — if the general atom
+leaves slack at higher rungs — the coefficients are valid but not tight and I say so rather than
+claiming they cannot be improved.* It did not fire. Both are equalities at **every** odd rung.
+
+* `Blindness.rung_coefficients_attained` — for `configAt 0 1 j a` with `j ≥ 1`, one on-line zero
+  shadowed by `j` off-line pairs: mass `m = 1 + 2j`, `onAt = 1`, so haunted. Then
+  `N = m`, `N⊛ = m²`, `atomCount = 1`, `hauntedCount = 1`, and both inequalities close:
+  `m(m−1)·1 + m = m²` and `(m−1)·1 + 1 = m`.
+
+`374`'s `star_route_attained` is the `j = 1` case. **So neither coefficient can be improved by
+sharpening the same argument** — only a different inequality could move them.
+
+**Why both close at once.** By `Blindness.rung_coefficients_attained` the atom's whole cost is
+carried by one ordinate of mass `m`: it contributes `m² − m` to `N⊛ − N` and `m − 1` to `N − atomCount`,
+and those are exactly `m(m−1)` and `m − 1`. The quadratic-versus-linear gap `384` found is
+visible here as `m² − m` against `m − 1` — a factor of `m` — which is why the star currency gains
+a factor the other two do not.
+
+**Wildcard — does the certified board move?** **Kill condition, filed first:** *`NoSmallHaunted m`
+is a hypothesis, not a theorem, so if no rung is certified then nothing here moves a row and I
+must not imply otherwise.* **It fired, as expected and worth stating.** Every rung result in
+`382`–`385` is conditional on a ladder hypothesis the project does not have. The ledger is
+unmoved at `NscStd 67.25% / Nsc 50.88%` and `tools/proportion.go` was not touched. What changed
+across these four cycles is the **price list**, not the board.
+
+**Snag, bin 3 — the unused `simp` argument nearly cost a floor.** The first green compile carried
+a `linter.unusedSimpArgs` warning, which `warning_floor` counts; removing it kept the floor at
+`54`. Compiling is not the same as landing clean, and the floor is what says so.
+
+Build green (8862 jobs), sorries 0, ledger unmoved, base `v4/3508643365fd`, warnings at the floor
+`54`, duplication floor `27`, overclaim floor `203`, `citation_check` `0` unresolved.
+
+**Might-mean, scoped to the two rung coefficients and their attaining atom:** the mass-`m`
+haunted atom is extremal for both currencies simultaneously, so the whole rung apparatus is
+governed by a single configuration — and any future improvement has to come from an inequality
+that configuration does not saturate.

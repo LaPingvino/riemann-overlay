@@ -9238,5 +9238,54 @@ theorem haunted_rung_deficit (D : ZeroData) {m : ℕ} (hm : 1 ≤ m)
   rw [hN, hA]
   simpa [hauntedCount, hGdef, smul_eq_mul, mul_comm, add_comm] using key
 
+/-- **`Blindness.rung_coefficients_attained`: both rung coefficients are exact, at
+every odd rung.**  `SESSION 385`.
+
+`382`–`384` charge a haunted ordinate `m(m−1)` into `N⊛ − N` and `m − 1` into
+`N − atomCount` under `NoSmallHaunted m`.  The mass-`m` haunted atom makes **both
+equalities**, so neither coefficient can be improved by sharpening the same
+argument.  `374`'s `star_route_attained` is the `j = 1` case.
+
+`configAt 0 1 j a` is one on-line zero shadowed by `j` off-line pairs: mass
+`m = 1 + 2j`, `onAt = 1`, so it is haunted for every `j ≥ 1`. -/
+theorem rung_coefficients_attained {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j) :
+    let D := configAt 0 1 j a
+    let m := 1 + 2 * j
+    D.N = m ∧ D.Nstar = m * m ∧ atomCount D = 1 ∧ hauntedCount D = 1
+      ∧ (m * (m - 1)) * hauntedCount D + D.N = D.Nstar
+      ∧ (m - 1) * hauntedCount D + atomCount D = D.N := by
+  classical
+  intro D m
+  have p : profile D = {(1 + 2 * j, 2 * j)} := by
+    simpa using configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := j) (by omega)
+  have hN : D.N = m := by
+    show D.N = 1 + 2 * j
+    rw [configAt_N]
+  have hS : D.Nstar = m * m := by
+    show D.Nstar = (1 + 2 * j) * (1 + 2 * j)
+    rw [Nstar_from_profile, p]; simp
+  have hA : atomCount D = 1 := by
+    rw [atomCount, configAt_ordinates]
+    rw [Multiset.toFinset_replicate]
+    simp
+  have hH : ∀ γ, D.H γ = if γ = 0 then 1 + 2 * j else 0 := fun γ => configAt_H 0 γ 1 j a
+  have hoff : offAt D (0:ℝ) = 2 * j := offAt_configAt_self ha 0 1 j
+  have hh : hauntedCount D = 1 := by
+    rw [hauntedCount, configAt_ordinates, Multiset.toFinset_replicate]
+    simp only [show 1 + 2 * j ≠ 0 by omega, if_neg, not_false_iff]
+    rw [Finset.filter_singleton]
+    rw [if_pos]
+    · simp
+    · refine ⟨?_, ?_⟩
+      · rw [hH, if_pos rfl, hoff]; omega
+      · rw [hH, if_pos rfl]; omega
+  refine ⟨hN, hS, hA, hh, ?_, ?_⟩
+  · rw [hh, hN, hS]
+    show (1 + 2*j) * (1 + 2*j - 1) * 1 + (1+2*j) = (1+2*j) * (1+2*j)
+    have hsub : 1 + 2*j - 1 = 2*j := by omega
+    rw [hsub]; ring
+  · rw [hh, hA, hN]; show (1 + 2*j - 1) * 1 + 1 = 1 + 2*j
+    omega
+
 end Blindness
 end Riemann

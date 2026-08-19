@@ -101,6 +101,9 @@ TRANSFER = {
     "OffLineImport": {
         "offLineImport_of_proportionStd", "offLineImport_of_derivative",
         "certified_offline", "offline_via_xiPrime",
+        # `389`: the general form of `offline_via_xiPrime`.  Same `β = 1 − κ'`
+        # shape, family left as a variable, cone empty.
+        "offline_via_derivative_family",
     },
     # SESSION 171: `170` claimed the StarBound channel is unwalled because its
     # producers do not consume a proportion.  Classifying by input confirmed it —
@@ -245,6 +248,8 @@ CONE_EXPECTED = {
     "certified_nsc_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime"},
     # `388`: the same row, generalised — the cone difference is the finding.
     "certified_nsc_via_derivative_family": set(),
+    # `389`: the off-line step, likewise general and likewise axiom-free.
+    "offline_via_derivative_family": set(),
     "offline_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime"},
 }
 

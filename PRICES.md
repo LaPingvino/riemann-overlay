@@ -303,6 +303,10 @@ one-line instantiation at `ξ′` and is where `xiPrimeFamily` and `zeta23_xiPri
 | `Riemann.certified_nsc_via_derivative_family` | `0.60169` | **none** |
 | `Riemann.certified_nsc_via_xiPrime` | `0.60169` | `xiPrimeFamily`, `zeta23_xiPrime` |
 
+**`389`: this is Route I's convention.** `Riemann.routeI_closePairs` is general and axiom-free,
+`Riemann.routeI_closePairs_zeta` is its instantiation, and `Riemann.conjectural_routeI` carries
+no project axiom. Route II now matches. `Riemann.offline_via_derivative_family` completes it.
+
 **What this changes and what it does not.** The board's *"Route II at two axioms"* has been
 read as a price on the mathematics; it is a price on identifying `ξ′`. No row moves, nothing
 is discharged, and `ISSUES #7`'s first blocker — the `Proportion`-vs-`ProportionStd` gap — is

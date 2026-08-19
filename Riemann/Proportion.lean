@@ -600,17 +600,29 @@ axioms enter only when the general family is *instantiated* at `ξ′`.
 Measured with `#print axioms`: this theorem's cone is `[propext,
 Classical.choice, Quot.sound]`, while `certified_nsc_via_xiPrime`'s adds
 `xiPrimeFamily` and `zeta23_xiPrime`.  So the board's *"Route II costs two
-axioms"* prices the **identification** of `ξ′`, not the argument. -/
+axioms"* prices the **identification** of `ξ′`, not the argument.
+
+**`389`: this is Route I's convention, not a new one.** `Program.lean`'s
+`routeI_closePairs` is general and axiom-free, `routeI_closePairs_zeta` is its
+one-line instantiation carrying `closePairsZeta` and
+`fujii_closePair_bookkeeping`, and `conjectural_routeI` is axiom-free. `388`
+brought Route II up to that standard rather than discovering it. -/
+theorem offline_via_derivative_family {F' : Family}
+    (hp : F'.toCounts.Proportion 0.85838)
+    (htr : OffTransfer zetaFamily F') (hcmp : NzComparable zetaFamily F') :
+    OffLineImport zetaFamily 0.14162 := by
+  have h := offLineImport_of_derivative (κ' := (0.85838 : ℝ))
+    (by norm_num) (by norm_num) hp htr hcmp
+  have e : (1 : ℝ) - 0.85838 = 0.14162 := by norm_num
+  rwa [e] at h
+
+/-- `388`/`389`: Route II's row with the family general.  Cone measured empty. -/
 theorem certified_nsc_via_derivative_family {F' : Family}
     (hp : F'.toCounts.Proportion 0.85838)
     (htr : OffTransfer zetaFamily F') (hcmp : NzComparable zetaFamily F') :
     zetaFamily.toCounts.Proportion 0.60169 := by
-  have hoff : OffLineImport zetaFamily 0.14162 := by
-    have h := offLineImport_of_derivative (κ' := (0.85838 : ℝ))
-      (by norm_num) (by norm_num) hp htr hcmp
-    have e : (1 : ℝ) - 0.85838 = 0.14162 := by norm_num
-    rwa [e] at h
-  have h := proportion_of_offLineImport certified_std hoff
+  have h := proportion_of_offLineImport certified_std
+    (offline_via_derivative_family hp htr hcmp)
   have e : (0.6725 : ℝ) - 0.14162 / 2 = 0.60169 := by norm_num
   rwa [e] at h
 
@@ -619,11 +631,10 @@ theorem certified_nsc_via_derivative_family {F' : Family}
 theorem offline_via_xiPrime
     (htr : OffTransfer zetaFamily xiPrimeFamily)
     (hcmp : NzComparable zetaFamily xiPrimeFamily) :
-    OffLineImport zetaFamily 0.14162 := by
-  have h := offLineImport_of_derivative (κ' := (0.85838 : ℝ))
-    (by norm_num) (by norm_num) zeta23_xiPrime htr hcmp
-  have e : (1 : ℝ) - 0.85838 = 0.14162 := by norm_num
-  rwa [e] at h
+    OffLineImport zetaFamily 0.14162 :=
+  -- `389`: the instantiation at `ξ′`, completing what `388` began.  The axioms
+  -- enter here and nowhere in `offline_via_derivative_family`.
+  offline_via_derivative_family zeta23_xiPrime htr hcmp
 
 /-- **Route II priced, as a theorem rather than a docstring: `0.60169`.**
 

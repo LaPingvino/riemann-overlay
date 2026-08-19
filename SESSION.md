@@ -19166,3 +19166,53 @@ duplication floor `28` (raised, reason above), overclaim floor `203`, `citation_
 asserting a property costs nothing mathematically and everything presentationally, so the
 project's axiom count has been measuring how many objects it cannot construct rather than how much
 it is assuming.
+
+## Route I already had `388`'s structure, and `388` left half its own job undone
+
+**Piece.** `388` restructured Route II so the mathematics is axiom-free and the axioms enter at
+the instantiation. I flagged whether Route I deserves the same. **It has had it all along.**
+
+**Kill condition, filed first:** *if Route I's board row already carries no carrier axiom, `388`
+was applying an existing convention rather than finding something, and I say that plainly instead
+of extending a claim of novelty.* **It fired.** Measured with `#print axioms`:
+
+| declaration | cone |
+|---|---|
+| `routeI_closePairs` (general, in `Program.lean`) | no project axiom |
+| `routeI_closePairs_zeta` (instantiation) | `closePairsZeta`, `fujii_closePair_bookkeeping` |
+| `conjectural_routeI` (the board row) | **no project axiom** |
+
+General theorem, one-line instantiation, axioms only at the instantiation — that is exactly
+`388`'s pattern, written into `Program.lean` long before. **`388` brought Route II up to Route I's
+standard; it did not discover the standard.** Corrected at `388`'s location.
+
+**And `388` left half its own job undone.** `board --cones` reports only two declarations on the
+whole board carrying axioms: `certified_nsc_via_xiPrime` and **`offline_via_xiPrime`**. `388`
+generalised the first and inlined the off-line step, leaving the second with its own proof.
+Completed:
+
+* `offline_via_derivative_family` — the off-line step for any family with `Proportion 0.85838`.
+  Cone measured empty.
+* `offline_via_xiPrime` — now its one-line instantiation.
+* `certified_nsc_via_derivative_family` — now calls it instead of inlining, so a proof copy was
+  **removed** in the same edit.
+
+**So every board row that can be axiom-free is**, and the two carrier axioms appear exactly twice,
+both at identifications of `ξ′` — which is where an axiom naming an object belongs.
+
+**Snag, bin 2 — duplication floor `28 → 29`, the second raise in two cycles for the same class.**
+Both are general-theorem-plus-instantiation pairs sharing a conclusion. Each is individually
+correct under `256` — the instantiation is one line, and the cone difference is the point — but
+`forensics/duplication_floor.py` will climb once per application of a convention the project
+adopted deliberately. **If it recurs a third time the instrument needs the exemption, not the
+floor.** Recorded, not fixed: `371` and `385` both establish that measuring and fixing in one
+cycle is how a filter gets fitted to its own measurement.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, warnings `54`, duplication floor `29` (raised, reason above), overclaim floor
+`203`, `citation_check` `0`, `board --cones` `34/34`.
+
+**Might-mean, scoped to the four Route I and Route II declarations measured:** the project already
+had a convention separating what it proves from what it names, and `388`'s value was compliance
+rather than insight — which is the same shape as the seven rediscoveries, one level up: not a
+theorem re-proved but a *practice* re-invented.

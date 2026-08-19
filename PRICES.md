@@ -302,6 +302,7 @@ one-line instantiation at `ξ′` and is where `xiPrimeFamily` and `zeta23_xiPri
 |---|---|---|
 | `Riemann.certified_nsc_via_derivative_family` | `0.60169` | **none** |
 | `Riemann.certified_nsc_via_xiPrime` | `0.60169` | `xiPrimeFamily`, `zeta23_xiPrime` |
+| `Riemann.certified_nsc_via_derivative_std` (`391`) | `0.60169` | **none** — takes `ProportionStd` + `NoHaunted F'` |
 
 **`389`: this is Route I's convention.** `Riemann.routeI_closePairs` is general and axiom-free,
 `Riemann.routeI_closePairs_zeta` is its instantiation, and `Riemann.conjectural_routeI` carries

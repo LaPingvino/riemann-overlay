@@ -162,6 +162,13 @@ reading of §6" to "look at one displayed equation".
 > `xiPrimeFamily` to exist. The two axioms enter only at the instantiation. **`#7`'s own
 > complaint stands whole:** the general theorem still takes `Proportion 0.85838`, the
 > over-strong reading, where the source proves `NscStd`.
+>
+> **`391`: the gap is now a visible hypothesis.**
+> `Riemann.certified_nsc_via_derivative_std` takes `ProportionStd 0.85838` — what the
+> source proves — together with `NoHaunted F'`, the difference `283` named, and lands
+> the same `0.60169` row with an empty cone. **`#7` is not closed:** `NoHaunted` for
+> `ξ′` is still unsupplied and nothing here asserts it. What changed is that the
+> over-strong reading is no longer baked into a statement — a reader sees the gap.
 
 `zeta23_xiPrime` converts "0.85838 of `ξ′`-zeros are simple and critical"
 into `(★)` for `ξ′` with `C' = 1.14162`. That is Proposition 1 read

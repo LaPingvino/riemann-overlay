@@ -626,6 +626,23 @@ theorem certified_nsc_via_derivative_family {F' : Family}
   have e : (0.6725 : ℝ) - 0.14162 / 2 = 0.60169 := by norm_num
   rwa [e] at h
 
+/-- **Route II on the inputs the source actually proves, with `ISSUES #7`'s gap
+as a visible hypothesis.**  `SESSION 391`.
+
+`certified_nsc_via_derivative_family` takes `Proportion 0.85838` — the count
+`#7` objects to, since `arXiv:2608.13637` Remark 7.1 proves the statement for
+`N0simple`, our `NscStd`.  This version takes what the source proves and carries
+the difference explicitly: `NoHaunted F'`, which is the content `283` named.
+
+**`#7` is not closed by this.** The gap is still open and still unsupplied; what
+changes is that it is now a hypothesis a reader can see rather than a reading
+baked into the statement.  Nothing here asserts `NoHaunted` for `ξ′`. -/
+theorem certified_nsc_via_derivative_std {F' : Family}
+    (hstd : F'.ProportionStd 0.85838) (hnh : NoHaunted F')
+    (htr : OffTransfer zetaFamily F') (hcmp : NzComparable zetaFamily F') :
+    zetaFamily.toCounts.Proportion 0.60169 :=
+  certified_nsc_via_derivative_family (proportion_of_noHaunted hnh hstd) htr hcmp
+
 /-- **The `ξ'` off-line import, conditional on the two transfer hypotheses.**
 `1 − 0.85838 = 0.14162`. -/
 theorem offline_via_xiPrime

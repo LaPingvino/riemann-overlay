@@ -19263,3 +19263,41 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 **Might-mean, scoped to the five internal channels now enumerated:** the blindness apparatus is
 closed under its own operations for this question, so the `Nsc` row cannot move on anything the
 project can compute from a `ZeroData` — every remaining route is an import.
+
+## `ISSUES #7`'s gap, made visible
+
+**Piece.** `388` and `389` left Route II's general theorem taking `Proportion 0.85838` — the
+count `#7` has objected to since it was filed, because `arXiv:2608.13637` Remark 7.1 proves the
+statement for `N0simple`, our `NscStd`. `Gaps.proportion_of_noHaunted` is the general bridge and
+`283` named the difference. Nobody had wired them.
+
+**Kill condition, filed first:** *if the restatement lets `NoHaunted` slip in as an assertion
+rather than a hypothesis, it closes `#7` by fiat and I must not ship it.* It did not fire —
+`NoHaunted F'` is a binder, nothing asserts it, and the cone is empty.
+
+* `certified_nsc_via_derivative_std` — `ProportionStd 0.85838` (what the source proves) **plus**
+  `NoHaunted F'` (the gap), with `OffTransfer` and `NzComparable`, gives the same `0.60169`.
+  `#print axioms`: `propext`, `Classical.choice`, `Quot.sound` — no project axiom.
+
+**`#7` is not closed and I am not claiming it is.** `NoHaunted` for `ξ′` is unsupplied and this
+cycle supplies nothing. What changed is that the over-strong reading is no longer baked into a
+statement: the gap is a hypothesis a reader can see, which is what `283` asked for and what `#7`
+has been waiting on. Annotated at `#7`'s location and priced in `PRICES.md`.
+
+**Wildcard — does this trip `389`'s pre-registered condition on the duplication floor?** `389`
+recorded that a *third* general/instantiation pair sharing a conclusion should be answered by an
+instrument exemption rather than another raise. **Kill condition, filed first:** *if the floor
+rises, I follow that rule; if it does not, I say why my `389` reasoning was wrong rather than
+quietly dropping it.* **It did not rise, and my reasoning was wrong.**
+`forensics/duplication_floor.py` counts **groups**, not declarations, so joining an existing group
+is free — `29` before and after. The raises at `388` and `389` happened because each *created* a
+group. So the ratchet does not climb per application of the convention, and no exemption is
+needed. `389`'s concern is withdrawn.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, duplication floor `29` unmoved, overclaim floor `203`, `citation_check` `0`,
+board `15/15` rows.
+
+**Might-mean, scoped to Route II's three general forms:** the project's over-strong readings
+survive because they are cheaper to state than the honest version, not because anyone defends
+them — and the honest version here cost one line once the bridge and the gap already existed.

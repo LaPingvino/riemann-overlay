@@ -65,6 +65,10 @@ EXPECTED = {
     "certified_nsc_via_derivative_family":  ("0.60169",
         "{F' : Family} (hp : F'.toCounts.Proportion 0.85838) "
         "(htr : OffTransfer zetaFamily F') (hcmp : NzComparable zetaFamily F')"),
+    # `391`: `ProportionStd` — what the source proves — plus `NoHaunted`, the gap.
+    "certified_nsc_via_derivative_std":     ("0.60169",
+        "{F' : Family} (hstd : F'.ProportionStd 0.85838) (hnh : NoHaunted F') "
+        "(htr : OffTransfer zetaFamily F') (hcmp : NzComparable zetaFamily F')"),
     "certified_nsc_via_noSmallHaunted_seven": ("0.6179166",
         "(hh : NoSmallHaunted zetaFamily 7)"),
     "proportion_of_mult_le_two":            ("0.6725",
@@ -250,6 +254,9 @@ CONE_EXPECTED = {
     "certified_nsc_via_derivative_family": set(),
     # `389`: the off-line step, likewise general and likewise axiom-free.
     "offline_via_derivative_family": set(),
+    # `391`: the same row on the inputs the source proves, with `#7`'s gap
+    # (`NoHaunted F'`) as a visible hypothesis.  Also axiom-free.
+    "certified_nsc_via_derivative_std": set(),
     "offline_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime"},
 }
 

@@ -51,6 +51,15 @@ SRC = os.path.join(ROOT, "Riemann")
 # what a row assumes**, and `--cones` is where that is checked.  What this column
 # guards is drift: a row silently gaining or losing a stated hypothesis.
 EXPECTED = {
+    # `413`: these two were never absent from the tree, only from this board —
+    # their conclusions carry `(m : ℝ)` casts and the old last-colon parser
+    # truncated them out of the row-selection predicate.  Both are *families of
+    # rows*, parameterised by a rung or a multiplicity cap, which is why neither
+    # is a numeral.
+    "certified_nsc_ladder":                 ("(((m : ℝ) * 0.6725 - 1) / ((m : ℝ) - 1))",
+        "{m : ℕ} (hm : 2 ≤ m) (hh : NoSmallHaunted zetaFamily m)"),
+    "proportion_of_mult_le_zeta":           ("(2 - ((M : ℝ) - ((M : ℝ) - 1) * 0.50875))",
+        "{M : ℕ} (hM1 : 1 ≤ M) (hM : ∀ T γ, (zetaFamily.D T).H γ ≤ M)"),
     "certified_nsc":                        ("0", ""),
     "certified_nsc_unconditional":          ("0.50875", ""),
     "certified_nsc_via_offline":            ("0.50875", ""),
@@ -168,10 +177,12 @@ def binders(head, name):
 def extract():
     """name -> (conclusion, binders).
 
-    The conclusion is computed exactly as before — `rsplit` on the last colon —
-    because the row-selection predicate keys on it and `S67`/`S69` are about
-    rows going missing.  The binder split is additive and cannot move a row on
-    or off the board."""
+    **`413`:** the conclusion was computed with `rsplit` on the last colon until
+    `412` found that truncates any conclusion carrying a type ascription.  The
+    old comment here defended that as safe *because* the row-selection predicate
+    keys on the conclusion; the opposite was true, and `certified_nsc_ladder` and
+    `proportion_of_mult_le_zeta` were off the board.  Now depth-counted, like
+    `binders`."""
     out = {}
     for fn in sorted(os.listdir(SRC)):
         if not fn.endswith(".lean"):
@@ -179,7 +190,12 @@ def extract():
         src = open(os.path.join(SRC, fn), encoding="utf-8").read()
         for m in DECL.finditer(src):
             head = m.group(0).split(":=")[0]
-            concl = " ".join(head.rsplit(":", 1)[-1].split())
+            # `413`: fixed here too.  The docstring below used to say the
+            # conclusion is computed "exactly as before — `rsplit` on the last
+            # colon — because the row-selection predicate keys on it".  That
+            # reasoning was backwards: keying on it is exactly why the bug
+            # mattered.  Two ζ-level rows were off the board.
+            concl = " ".join(after_top_colon(head, m.group(1)).split())
             if "zetaFamily" in concl and "Proportion" in concl \
                     and "ProportionStd" not in concl:
                 out[m.group(1)] = (concl, binders(head, m.group(1)))

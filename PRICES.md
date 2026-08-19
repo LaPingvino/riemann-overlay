@@ -751,6 +751,8 @@ quite different.
 > |---|---|---|---|
 > | ξ′ (`certified_nsc_via_xiPrime`) | **+9.294** → `0.60169` | `OffTransfer`, `NzComparable` — analytic, Conrey 1983, unread | **4** — adds `xiPrimeFamily`, `zeta23_xiPrime` |
 > | `m = 5` ladder (`certified_nsc_via_noSmallHaunted`) | **+8.188** → `0.590625` | `NoSmallHaunted zetaFamily 5` — combinatorial, about ζ's own zeros | **2** — `baseline_zeta23`, `zetaNonempty`, i.e. **no increase at all** |
+> | **`413`, newly priced:** the ladder as one row (`certified_nsc_ladder`) | `(m·0.6725 − 1)/(m − 1)` for every `m ≥ 2` — the `m = 5` and `m = 7` rows above are two of its instances | `NoSmallHaunted zetaFamily m` | **2** — same as its instances. It was off the board until `413`; the parser, not the price, was the reason |
+> | **`413`, newly priced:** multiplicity cap at the `Nsc` row (`proportion_of_mult_le_zeta`) | `2 − (M − (M−1)·0.50875)`: `0.50875` at `M = 2`, `0.0175` at `M = 3`, negative from `M = 4` | `∀ T γ, H γ ≤ M` | **2**. Priced and found empty in a precise sense — at `M = 2` it **reproduces** the certified row exactly, at `M = 3` it yields `0.0175`, and above that it says nothing. The one cap the row could use is the one already spent |
 >
 > **The cheaper route costs `1.106` points and buys back two axioms.** The
 > register called the ξ′ route "the cheapest nine points on the board" and "the

@@ -20293,3 +20293,51 @@ the real file did not, because `Fiber` does not know `Family` (`R23` again).
 **Might-mean:** the guard that checks which declarations reach a transfer had a
 parser bug that hid a third of them, and the cost of that blindness was not a
 wrong claim but a rewritten theorem.
+
+## 413 — the same bug one function up: two rows were off the board itself
+
+**Kill condition, stated first (`R12`).** Piece: `412` fixed `board`'s *transfer*
+parser; the same file's **row-selection** parser still split on the last colon.
+Check it. Wildcard: does any other `forensics/` script share the bug? Kill: if
+only `board` had it, say so in one line and stop — do not refactor the other
+scripts for symmetry.
+
+**Two ζ-level rows were missing from the board.** `extract()` — the function that
+decides what is *on* the board at all — used `head.rsplit(":", 1)[-1]`, and its
+docstring defended that as safe **because** the row-selection predicate keys on
+the conclusion. The reasoning was backwards: keying on it is exactly why the
+truncation mattered. Fixed depth-counted; extracted went `15 → 17`, nothing
+vanished, nothing drifted.
+
+The two:
+
+- `Riemann.certified_nsc_ladder` — `Proportion ((m·0.6725 − 1)/(m − 1))` for
+  every `m ≥ 2`. The board already carried the `m = 5` and `m = 7` rows,
+  which instantiate it; the run before this cycle's fix did not list the general
+  row.
+- `Riemann.proportion_of_mult_le_zeta` — `Proportion (2 − (M − (M−1)·0.50875))`.
+
+Both have `(m : ℝ)` casts in their conclusions. Neither was ever absent from the
+tree — only from the board.
+
+**Priced, and one of them is empty.** `proportion_of_mult_le_zeta` gives
+`0.50875` at `M = 2` — it **reproduces** the certified row rather than adding to
+it — `0.0175` at `M = 3`, and a negative number from `M = 4`. `PRICES.md` carries
+both rows now.
+
+**Snag, bin 3 — I priced it wrong first.** I wrote "`1.50875`, therefore vacuous
+at `M = 2`", having evaluated `M − (M−1)κ` and forgotten the outer `2 − ·`.
+Corrected before the gate; the arithmetic is now in the entry so the next reader
+can check it in one line.
+
+**Wildcard, and it died as specified.** `forensics/warning_floor.py` is the only
+other script that splits on a colon and it splits **log messages**, not Lean
+heads. No other parser shares the bug. One line, no refactor.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** the board's own membership test had the defect its transfer
+enumerations had, so for two cycles running the instrument that exists to notice
+rows appearing and vanishing could not see rows whose constants are written with
+a cast.

@@ -9507,5 +9507,72 @@ theorem pow_cost_eq_iff {m c k : ℕ} (hm : 1 ≤ m) (hk : 2 ≤ k) (hc : m ≤ 
     omega
   · intro h; subst h; omega
 
+/-- **`c = c^k` only at `c = 1`**, for `k ≥ 2` — the non-`G` half of the
+characterisation.  `SESSION 404`. -/
+theorem self_eq_pow_iff {c k : ℕ} (hc : 1 ≤ c) (hk : 2 ≤ k) : c = c ^ k ↔ c = 1 := by
+  constructor
+  · intro h
+    by_contra hne
+    have h2 : 1 < c := by omega
+    have := pow_sub_self_strict hk (le_refl 1) h2
+    simp only [one_pow] at this
+    omega
+  · intro h; subst h; simp
+
+/-- **When the rung bound is an equality — the global characterisation.**
+`SESSION 404`.
+
+`401` and `402` settled this termwise: an ordinate pays exactly `m^k − m` only at
+mass `m`.  Summing, `Blindness.mass_card_le_momentK_sub_N` is an **equality**
+exactly when every ordinate in `G` has mass `m` and every ordinate outside it is
+simple.
+
+Specialise at `G` = the haunted filter, whose card is `hauntedCount` by
+definition, to read it as: the rung bound closes iff every haunted ordinate has
+mass exactly `m` and nothing else carries multiplicity — which is the
+configuration `Blindness.rung_coefficients_attained` exhibits. -/
+theorem mass_card_eq_momentK_iff (D : ZeroData) (G : Finset ℝ) {m k : ℕ}
+    (hm : 1 ≤ m) (hk : 2 ≤ k)
+    (hG : ∀ γ ∈ G, m ≤ D.H γ) (hsub : G ⊆ D.ordinates.toFinset) :
+    (m ^ k - m) * G.card + D.N = momentK D k
+      ↔ (∀ γ ∈ G, D.H γ = m) ∧ (∀ γ ∈ D.ordinates.toFinset, γ ∉ G → D.H γ = 1) := by
+  classical
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have hterm : ∀ γ ∈ D.ordinates.toFinset,
+      D.H γ + (if γ ∈ G then m ^ k - m else 0) ≤ D.H γ ^ k := by
+    intro γ hγ
+    by_cases h : γ ∈ G
+    · have hmH : m ≤ D.H γ := hG γ h
+      have := pow_sub_self_mono (by omega : 1 ≤ k) m (D.H γ) hmH
+      have hmk : m ≤ m ^ k := Nat.le_self_pow (by omega) m
+      simp only [h, if_pos]; omega
+    · simp only [h, if_neg, add_zero, not_false_iff]
+      exact Nat.le_self_pow (by omega) _
+  have hsum : (m ^ k - m) * G.card + D.N
+      = ∑ γ ∈ D.ordinates.toFinset, (D.H γ + if γ ∈ G then m ^ k - m else 0) := by
+    rw [Finset.sum_add_distrib, Finset.sum_ite_mem, Finset.inter_eq_right.2 hsub,
+      Finset.sum_const, hN]
+    simp [smul_eq_mul, mul_comm, add_comm]
+  rw [hsum, momentK, Finset.sum_eq_sum_iff_of_le hterm]
+  constructor
+  · intro h
+    refine ⟨fun γ hγ => ?_, fun γ hγ hnot => ?_⟩
+    · have hs := h γ (hsub hγ)
+      simp only [hγ, if_pos] at hs
+      have hmk : m ≤ m ^ k := Nat.le_self_pow (by omega) m
+      exact (pow_cost_eq_iff hm hk (hG γ hγ)).1 (by omega)
+    · have hs := h γ hγ
+      simp only [hnot, if_neg, add_zero, not_false_iff] at hs
+      exact (self_eq_pow_iff (one_le_H_of_mem hγ) hk).1 hs
+  · rintro ⟨h1, h2⟩ γ hγ
+    by_cases h : γ ∈ G
+    · have hEq := h1 γ h
+      simp only [h, if_pos, hEq]
+      have hmk : m ≤ m ^ k := Nat.le_self_pow (by omega) m
+      omega
+    · have hEq := h2 γ hγ h
+      simp only [h, if_neg, add_zero, not_false_iff, hEq]
+      simp
+
 end Blindness
 end Riemann

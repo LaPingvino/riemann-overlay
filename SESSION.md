@@ -19848,3 +19848,45 @@ Build unchanged (no Lean touched), ledger unmoved at `NscStd 67.25% / Nsc 50.88%
 `forensics/process_index.py` under `R33`, were all cases where I knew the mathematics and lost
 time to the encoding, so the marginal value of a Lean-technique register
 may now exceed that of another process rule — and `R33` is the first entry in one.
+
+## When the rung bound is an equality — the global characterisation
+
+**Piece.** `401` and `402` settled the rung's tightness **termwise**: an ordinate pays exactly
+`m^k − m` only at mass `m`. The global statement — when the summed bound is an equality — was not on disk;
+`Blindness.mass_card_eq_momentK_iff` supplies it.
+
+**Kill condition, filed first:** *`R33` applies to its own first use — if a lemma's form or a
+`simp` normalisation fights me, I change the shape rather than push on the tactic, and if that
+means shipping less I ship less.* It fired once, usefully.
+
+* `Blindness.self_eq_pow_iff` — `c = c^k ↔ c = 1` for `1 ≤ c`, `2 ≤ k`: the non-`G` half.
+* `Blindness.mass_card_eq_momentK_iff` — `mass_card_le_momentK_sub_N` is an **equality** exactly
+  when every ordinate of `G` has mass `m` and every ordinate outside `G` is simple.
+
+Specialised at `G` = the haunted filter, whose card is `hauntedCount` by definition,
+`Blindness.mass_card_eq_momentK_iff` reads: the rung bound closes iff every haunted ordinate has
+mass exactly `m` and nothing else carries multiplicity — the configuration
+`Blindness.rung_coefficients_attained` exhibits.
+
+**`R33` used, on the cycle after it was written.** Two obstacles, both handled by its diagnostic
+rather than by pushing:
+
+* `Finset.sum_eq_sum_iff_of_le`'s exact form — `#check`ed first, per `R33`'s third clause, and it
+  was the shape I needed on the first try.
+* A convenience corollary specialising to `hauntedCount` **did not land**: `simpa` normalised the
+  filter memberships into an equivalent but differently-shaped statement. Rather than fight it I
+  **dropped the corollary** and recorded the specialisation in the docstring, since the general
+  theorem already carries the content.
+
+**Snag, bin 3 — `hsum` needed `add_comm` in its `simp` set**, the same omission as `386`'s
+`simpa [smul_eq_mul, mul_comm, add_comm]`. Copying a proof skeleton and dropping one `simp`
+lemma is a cheap error with an expensive-looking failure.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, duplication floor `30`, overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to the rung bound at every order:** the inequality `382`–`386` built is now
+known on both sides — `Blindness.mass_card_le_momentK_sub_N` gives it,
+`Blindness.mass_card_eq_momentK_iff` says precisely when it is an equality, and
+`Blindness.rung_momentK_attained` exhibits a configuration attaining it — so the only thing left to
+learn about it is what would replace it.

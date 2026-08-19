@@ -931,3 +931,7 @@ import Riemann
 -- 402: the strict monotonicity 401 named, and the general-k uniqueness it unlocks.
 #check @Riemann.Blindness.pow_sub_self_strict
 #check @Riemann.Blindness.pow_cost_eq_iff
+
+-- 404: the rung bound's global equality characterisation.
+#check @Riemann.Blindness.self_eq_pow_iff
+#check @Riemann.Blindness.mass_card_eq_momentK_iff

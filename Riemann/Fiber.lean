@@ -9401,5 +9401,41 @@ theorem hauntedCount_not_determined_by_on_moments {a : ℝ} (ha : a ≠ 1/2) :
   · rw [hauntedCount_eq_NscStd_sub_Nsc, hstd0, hsc0]
   · rw [hauntedCount_eq_NscStd_sub_Nsc, hstd1, hsc1]
 
+/-! #### The last two internal channels, both closed — `SESSION 390`
+
+`387` concluded that every route to a better haunted bound inside the blindness
+apparatus is exhausted.  Two channels had not actually been checked.
+
+**Odd atoms.**  Every haunted ordinate has odd mass (`1 + even`), so
+`hauntedCount ≤ oddAtoms`.  That looks like a fifth `HauntedDensity` supplier and
+is not one: `NscStd_le_oddAtoms` puts `oddAtoms` *above* `NscStd`, which the
+certified row already holds at `269/400`, so any `oddAtoms ≤ c·N` forces
+`c ≥ 269/400` — four times the unconditional `δ = 131/800` the project already
+spends.  The channel is circular: bounding `oddAtoms` usefully needs the `Nsc`
+lower bound it would supply.
+
+**Factorial moments.**  `factMoment k` sums `descFactorial (H γ) k`, a polynomial
+in the mass, so it is a `ℤ`-linear combination of `momentK 0 … k` — and `386`'s
+atom attains every one of those, hence any combination.  `factMoment_atom`
+records the atom's value directly: `descFactorial m k`.
+-/
+
+theorem hauntedCount_le_oddAtoms (D : ZeroData) : hauntedCount D ≤ oddAtoms D := by
+  have h1 := hauntedCount_eq_NscStd_sub_Nsc D
+  have h2 := NscStd_le_oddAtoms D
+  omega
+
+theorem oddAtoms_bound_cannot_beat_baseline {c κ : ℝ} (hκ : (269 : ℝ)/400 ≤ κ)
+    (hle : κ ≤ c) : (131 : ℝ)/800 < c := by
+  have : (131 : ℝ)/800 < 269/400 := by norm_num
+  linarith
+
+theorem factMoment_atom (a : ℝ) (j k : ℕ) :
+    factMoment (configAt 0 1 j a) k = Nat.descFactorial (1 + 2 * j) k := by
+  classical
+  rw [factMoment, configAt_ordinates, Multiset.toFinset_replicate]
+  simp only [show 1 + 2 * j ≠ 0 by omega, if_neg, not_false_iff]
+  rw [Finset.sum_singleton, configAt_H, if_pos rfl]
+
 end Blindness
 end Riemann

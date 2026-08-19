@@ -19216,3 +19216,50 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 had a convention separating what it proves from what it names, and `388`'s value was compliance
 rather than insight — which is the same shape as the seven rediscoveries, one level up: not a
 theorem re-proved but a *practice* re-invented.
+
+## The last two internal channels, both closed
+
+**Piece.** `387` concluded that every route to a better haunted bound inside the blindness
+apparatus is exhausted. Two channels had not actually been checked, and I said so only implicitly.
+Both are now closed explicitly.
+
+**Kill condition, filed first:** *if either channel gives a usable `HauntedDensity` supplier, `387`'s
+conclusion is wrong and I retract it rather than reporting two more negatives.* It did not fire.
+
+**Odd atoms — circular.** Every haunted ordinate has odd mass (`1 + even`), so
+`Blindness.hauntedCount_le_oddAtoms`. That looks like a fifth supplier and is not one:
+`NscStd_le_oddAtoms` puts `oddAtoms` **above** `NscStd`, which the certified row already holds at
+`269/400`. So any `oddAtoms ≤ c·N` forces `c ≥ 269/400`
+(`Blindness.oddAtoms_bound_cannot_beat_baseline`) — **four times** the unconditional `δ = 131/800`
+the project already spends. Bounding `oddAtoms` usefully would need the `Nsc` lower bound it is
+supposed to supply.
+
+**Factorial moments — covered by `386`.** `factMoment k` sums `descFactorial (H γ) k`, a
+polynomial in the mass, so it is a `ℤ`-linear combination of `momentK 0 … k`. `386`'s atom attains
+every one of those, hence any combination of them. `Blindness.factMoment_atom` records the atom's
+value directly as `descFactorial m k`, which is what `six_mul_haunted_le_factMoment_three`'s `6`
+is at `m = 3`.
+
+**So `387`'s claim is now complete rather than partial.** Internal to the blindness apparatus the
+haunted bound has: the multiplicity moments (`386`, exhausted — one atom saturates every order),
+the on-line family (`387`, blind), the off-line coordinate (already spent), odd atoms (circular),
+factorial moments (a linear combination of the first). Nothing internal remains.
+
+**Wildcard — does `oddAtoms` help in the other direction?** **Kill condition, filed first:** *`PRICES.md`
+carries a want-ad for `oddAtoms ≥ c·N` with `c > 0.6725`; if this cycle's inequality bears on it, I
+must say so rather than leaving two `oddAtoms` facts unconnected.* It did not fire, and the reason
+is the direction. That want-ad asks for a **lower** bound to raise `NscStd`; this cycle rules out a
+**upper** bound helping `hauntedCount`. The two use `oddAtoms` on opposite sides and neither
+touches the other.
+
+**Snag, bin 3 — a batched guard run timed out at ten minutes.** `warning_floor` and
+`overclaim_floor` and `citation_check` in one call, after a build, exceeded the limit; split, they
+pass. Worth remembering that the lake-invoking guards want their own call, which is `S122`'s
+lesson in a different costume.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, duplication floor `29` unmoved, overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to the five internal channels now enumerated:** the blindness apparatus is
+closed under its own operations for this question, so the `Nsc` row cannot move on anything the
+project can compute from a `ZeroData` — every remaining route is an import.

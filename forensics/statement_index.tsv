@@ -510,6 +510,9 @@ ours	Riemann.Fiber	theorem	mass_card_le_momentK_sub_N	(D : ZeroData) (G : Finset
 ours	Riemann.Fiber	theorem	haunted_rung_momentK	(D : ZeroData) {m k : ℕ} (hk : 1 ≤ k) (hmass : ∀ γ ∈ D.ordinates.toFinset.filter (fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1), m ≤ D.H γ) : (m ^ k - m) * hauntedCount D + D.N ≤ momentK D k	-	
 ours	Riemann.Fiber	theorem	rung_momentK_attained	{a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j) {k : ℕ} (hk : 1 ≤ k) : let D	-	
 ours	Riemann.Fiber	theorem	hauntedCount_not_determined_by_on_moments	{a : ℝ} (ha : a ≠ 1/2) : (∀ p, onMoment (configAt 0 1 0 a) p = onMoment (configAt 0 1 1 a) p) ∧ (configAt 0 1 0 a).NscStd = (configAt 0 1 1 a).NscStd ∧ hauntedCount (configAt 0 1 0 a) = 0 ∧ hauntedCount (configAt 0 1 1 a) = 1	-	**The on-line family cannot see haunting at all.** `SESSION 387`. `386` left three places an improved haunted bound could come from: the on-line family, the pro
+ours	Riemann.Fiber	theorem	hauntedCount_le_oddAtoms	(D : ZeroData) : hauntedCount D ≤ oddAtoms D	-	
+ours	Riemann.Fiber	theorem	oddAtoms_bound_cannot_beat_baseline	{c κ : ℝ} (hκ : (269 : ℝ)/400 ≤ κ) (hle : κ ≤ c) : (131 : ℝ)/800 < c	-	
+ours	Riemann.Fiber	theorem	factMoment_atom	(a : ℝ) (j k : ℕ) : factMoment (configAt 0 1 j a) k = Nat.descFactorial (1 + 2 * j) k	-	
 ours	Riemann.Fujii	lemma	sqrt_le_of_sq	{x y : ℝ} (hy : 0 ≤ y) (h : x ≤ y ^ 2) : Real.sqrt x ≤ y	-	
 ours	Riemann.Fujii	lemma	log_two_add_le	{lam : ℝ} (h : 0 ≤ lam) : Real.log (2 + lam) ≤ 0.6931471808 + lam / 2	-	`log (2 + λ) ≤ log 2 + λ/2 ≤ 0.6931471808 + λ/2`.
 ours	Riemann.Fujii	lemma	log_two_add_nonneg	{lam : ℝ} (h : 0 ≤ lam) : 0 ≤ Real.log (2 + lam)	-	

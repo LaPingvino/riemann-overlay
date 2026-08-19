@@ -910,3 +910,8 @@ import Riemann
 
 -- 387: the on-line family cannot see haunting; 386's first direction is closed.
 #check @Riemann.Blindness.hauntedCount_not_determined_by_on_moments
+
+-- 390: the last two internal channels closed — odd atoms circular, factorial moments covered.
+#check @Riemann.Blindness.hauntedCount_le_oddAtoms
+#check @Riemann.Blindness.oddAtoms_bound_cannot_beat_baseline
+#check @Riemann.Blindness.factMoment_atom

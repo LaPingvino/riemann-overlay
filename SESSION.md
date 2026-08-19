@@ -18510,3 +18510,60 @@ overclaim floor `203`, `citation_check` `0` unresolved.
 diagnosis repeats, the cheapest next move is to doubt the instrument rather than the habit,
 because a habit that fails three times against a tool that silently cannot answer is not a habit
 problem at all.
+
+## The star bound is not in the vendored tree — a named negative, and it sharpens the ask
+
+**Piece.** `374` priced the `Nsc` row: an unconditional `N⊛ ≤ c·N` with `c < 793/400` beats the
+certified route. The obvious first supplier is the artifact we already vendor, whose headline is
+an unconditional `67.25%` — a `100k`-line formalisation does not usually prove its headline as
+one opaque block. `375` uncapped the search index; this is its first real query.
+
+**Kill condition, filed first:** *if the vendored tree exposes only the composite and not a
+multiplicity ingredient, I record the negative with its search vocabulary and do **not** soften
+it into "probably somewhere in the unreached mass".* **It fired.**
+
+**What was searched, and in what vocabulary** (`R28`, and `R28a`'s amended clause — conclusions,
+not constructions):
+
+* `NII`, which sits beside `N0star` throughout `Zeta23.Assembly` and enters `thmA`/`thmB` as
+  `NII =o[atTop] N`. **It is not a multiplicity count.**
+  `Zeta23.Assembly.Inputs` defines `NII := Z.N (T − D0 T) T + Z.N (2T) (2T + D0 T)` — zeros in
+  two *edge windows*. A boundary term. My reading of it as multiplicity-excess was wrong.
+* `Z.S2`, which **is** the right object: `Zeta23.ZeroSide.S2_eq` gives
+  `S2 T = card (filter (fun ρ => ρ.re = 1/2 ∧ 2 ≤ Z.mult ρ))` — on-line zeros of multiplicity at
+  least two. It occurs in exactly one other place in the index, an unrelated residue lemma.
+  **No bound on `S2` is proved anywhere in the vendored tree.**
+* every dependency statement pairing `mult` with `≤`. All run the wrong way —
+  `Zeta23.Defs.Counting.ncard_le_finsum_mult` and
+  `Zeta23.WeilEF.GoodHeights.card_le_sum_mult` are `atomCount ≤ N`, which we already have. The
+  direction needed is `∑ mult² ≤ c · ∑ mult`, and nothing concludes it.
+
+**So the vendor is not the supplier, and the want-ad stands as an outside ask.** I am recording
+this as a bounded negative: three vocabularies over `5,347` indexed declarations, `4,627` of them
+the dependency's. It is not a claim that no such lemma exists in the unreached `97%` of that
+tree — it is a claim about what the index contains.
+
+**Wildcard — was the prior wrong for an interesting reason?** **Kill condition, filed first:**
+*if `NII` turns out to be the multiplicity term after all, the piece collapses and I say so.* It
+did not fire, and the reason the prior was attractive is worth keeping: the artifact's argument
+shape really does need multiplicity control, and it gets it — but as a **hypothesis discharged
+elsewhere**, `hNII : ∃ C, ∀ᶠ T, NII Z T ≤ C·√T·l T`, a windowing estimate rather than a
+mean-square bound. The headline is not one block; it is just that the block I wanted is not one
+of its pieces.
+
+**Snag, bin 1 — I read `NII` as "multiplicity" from its position, not its definition,** and built
+one search around that reading before checking `def NII`. Same shape as `374`'s
+*"no star bound"*, where `ZeroData.six_mul_NscStd_le` had been the answer all along: an
+annotation read for what it sounded like rather than what it said.
+
+**This sharpens the escalation rather than closing it.** The literature ask is now concrete —
+unconditional mean-square multiplicity below `1.9825` — and reaching it needs sources outside the
+registers, which is the allowlist ruling parked with Joop. That ruling now blocks a priced item,
+not a vague wish.
+
+No Lean changed; no ledger movement. Build as `375` left it, `session_gate` green.
+
+**Might-mean, scoped to the vendored tree and these three vocabularies:** the artifact buys its
+unconditional headline without ever bounding mean-square multiplicity, so that quantity is not a
+prerequisite for `67.25%` and our need for it is a consequence of the ledger's shape rather than
+of the mathematics.

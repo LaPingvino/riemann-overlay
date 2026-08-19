@@ -367,6 +367,13 @@ zeta-23's `ξ'` value `κ' = 0.85838`, `β = 0.14162` and the row would read
 
 **a gain of 9.29 points, from results the project already holds.**
 
+> ⚠️ **Count corrected at `371`.** *"four"* is stale: `proportionAny_wall_attained`
+> (`Riemann.Gaps`) carries `OffLineImport … (2/3)` in its conclusion too, so there are
+> **five**. The claim below survives, per `Gaps.proportionAny_wall_attained` — `2/3 = 1 − 1/3` and `1/3` is that
+> family's own `ProportionStd`, asserted in the adjacent conjunct of the same theorem — so
+> the fifth declaration is one more instance of the shape, not a counterexample to it. The
+> table's four rows are still the four *producers*; the fifth is an attainment witness.
+>
 > ### `SESSION 162` — the off-line genre has one shape, and it loses
 >
 > Enumerated mechanically: **four** declarations in the development conclude in
@@ -946,8 +953,8 @@ until the search is done.
 > `atomCount` — *distinct ordinates* — because that is what
 > `two_mul_haunted_add_atomCount_le_N` is about. Theirs is `Ndist`, the `ncard`
 > of the zero *set*: distinct points in the strip. `atomCount_le_distinctZeros`
-> runs the wrong way, and `distinctZeros_le_atomCount_add_Noff` is the only
-> conversion on disk. Priced: `distinctZeros_route_dominated` gives `0.50875` for
+> runs the wrong way, and `distinctZeros_le_atomCount_add_Noff` was the only
+> conversion on disk — **corrected at `371`:** `atomCount_of_distinctZeros_and_Noff` (`Riemann.Fiber`) is a second one, turning a distinct-zeros bound plus an off-line bound into an `atomCount` bound. Priced: `distinctZeros_route_dominated` gives `0.50875` for
 > `atomCount` from `0.83625` and `certified_offline`'s `0.3275`, which is below
 > the `0.6725` already held — and `distinctZeros_route_ties_at_one` shows even a
 > point-count proportion of `1` only ties it. **No input constant makes that

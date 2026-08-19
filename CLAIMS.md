@@ -57,6 +57,7 @@ grade A.**
 | **The distinct-zeros deficit is the convertible currency, at rate `1/2`** — `2·hauntedCount + atomCount ≤ N`, so `N_d ≥ c·N` gives `δ = (1−c)/2`; the project's own `N_d ≥ 0.6725·N` reproduces `δ = 0.16375` exactly | all families; ζ instance at baseline tier | `Fiber.two_mul_haunted_add_atomCount_le_N`, `hauntedDensity_of_distinctZeros`, `certified_haunted_via_distinctZeros` | **A** |
 | **Mean vertical multiplicity of `ζ`'s zeros is at most `≈ 1.487`** — a **corollary** of the odd-ordinate row below, via `Fiber.oddAtoms_le_atomCount`; `130` listed the two as independent and they are not | `zetaFamily`, baseline tier | `certified_atomCount`, `Fiber.oddAtoms_le_atomCount` | **A** |
 | **`claims_gate`'s flags on `ISSUES.md` are 97.4% noise** — all 39 triaged (`173` five, `174` the remaining 34): 1 true positive, the rest rhetorical "exactly", historical records with citations, directives, dated corrections, and two claims mechanically verified this cycle | full-register triage, not a sample | `forensics/claims_gate.py`; `SESSION 173`/`174` | **N** (measurement) |
+| **`claims_gate`'s flags on `PRICES.md` are 92% noise** — all 27 triaged at `371`: **2 true positives in 25 judgeable**, both stale mechanical counts over our own tree rather than wrong mathematics; 2 excluded as not judgeable from the registers (`R17`). The register had never been triaged, and `QUEUE (1)` had been asking for `CLAIMS.md`, done at `076` and `342` | full-register triage, not a sample | `forensics/claims_gate.py`; `SESSION 371` | **N** (measurement) |
 | **Proximity to the critical line places no bound on the off-line count** — for every `ε > 0` a configuration exists with all zeros within `ε` of the line and `Noff = N`, so `NarrowBox` supplies no `OffLineImport` | any `ZeroData`; axiom-free | `Blindness.offLine_count_not_bounded_by_proximity` | **A** |
 | **The extremal configuration scales completely: ALL SIX route bounds are equalities at every `n`** — the chain of `n` haunted mass-`3` atoms has `N = 3n, N⊛ = 9n, Nsc = 0, NscStd = n, Noff = 2n, haunted = n, atomCount = n` | any `Family`; axiom-free | `Blindness.haunted_chain_attains`, `Blindness.haunted_chain_attains_star_and_atoms` | **A** |
 | **The extremal configuration scales: four of the six route bounds are equalities at every `n`** — the chain of `n` haunted mass-`3` atoms has `N = 3n, NscStd = n, Nsc = 0, Noff = 2n, haunted = n`, so no route bound improves asymptotically. The `N⊛` and `atomCount` bounds are lifted only to `n = 1` | any `Family`; axiom-free | `Blindness.haunted_chain_attains` | **A** |
@@ -540,6 +541,55 @@ it must not be quoted as a defect rate.
 > please the gate would be fitting prose to the instrument (`S39`), while a flag
 > added tomorrow is one nobody has read. In the roster since `343`, controlled the
 > same cycle. Floor `203`; the live figure is what the script prints.
+
+### `SESSION 371` — the twenty-seven `PRICES.md` flags, triaged
+
+**The queue asked the wrong register.** `QUEUE (1)` has asked for *"claims_gate's
+six `CLAIMS.md` flags"* every cycle since the instrument shipped. `CLAIMS.md` was
+fully triaged at `076` and again at `342`, it carries **four** flags today rather
+than six, and all four are in this file's commentary about its own past triages
+(`342`). The register that had **never** been triaged is `PRICES.md`, at `27` — see the `forensics/claims_gate.py` per-register counts in the entry.
+
+**Two true positives in twenty-five judgeable — `8.0%`**, by the table below.  Two flags are claims
+about the literature (`:33` BHB13 as the field's only certified over-ceiling
+result; `:81` the value side as the only tradition past the wall) which cannot be
+judged from the registers at all — neither `forensics/board.py` nor any
+`Blindness.ledger_determined` -style declaration bears on either; per `R17` they are excluded from **both** columns rather than guessed into
+either.
+
+| flag | verdict |
+|---|---|
+| `:370` *"four declarations … conclude in `OffLineImport`"* | **TRUE** — five. `Gaps.proportionAny_wall_attained` carries `OffLineImport … (2/3)` in its conclusion. The *claim* survives (`2/3 = 1 − 1/3`, and `1/3` is that family's own `ProportionStd`, in the adjacent conjunct); the *count* was stale. Corrected above the text |
+| `:410` *"`distinctZeros_le_atomCount_add_Noff` is the only conversion on disk"* | **TRUE** — `Fiber.atomCount_of_distinctZeros_and_Noff` is a second, taking a distinct-zeros bound plus an off-line bound to an `atomCount` bound. Corrected at the sentence |
+| `:33`, `:81` | **not judgeable from the registers** — claims about the state of a field. Neither carries a `[RECALL, UNVERIFIED]` label, which `QUEUE (4)` asks for; filed as a lead, not scored |
+| `:85`, `:916` | **false** — `exact` as a term of art (Motohashi's spectral expansion; "exact-height pattern") |
+| `:203`, `:194` | **false** — both sit inside a **Caveats** list and a **RETRACTED as a bound** block; the sentences limit scope, which is what the gate is asking for |
+| `:256`, `:258` | **false** — `μ_T` having no `β` coordinate is a fact about our own definition, checkable from it; the witness is a definition, not a declaration name |
+| `:50`, `:198`, `:223`, `:239`, `:696` | **false** — each concludes from a screen, duality argument or table stated in the immediately preceding lines; witnesses are `W`-numbers, cycle numbers and tables, none of which `WITNESS` can read |
+| `:397`, `:800`, `:1159`, `:520`, `:666`, `:882` | **false** — absence and history claims about our own tree; `:1159` names both searches and both results in the sentence, which is exactly `R28` |
+| `:426`, `:427` | **false** — the arithmetic (`N_d/N > 1` against `distinctZeros ≤ N`) is in the same sentence |
+| `:434`-area, `:465`-area | **false** — *"cannot be improved"* cites `171`; *"never been shown tight"* is itself a disclaimer |
+| `:994` | **false** — inside a **quotation from the paper**, leaked by the mechanism below |
+| remaining | **false** — self-scoping remarks (*"Nothing else here depends on it"*) |
+
+**Both true positives are one shape** — `Gaps.proportionAny_wall_attained` and
+`Fiber.atomCount_of_distinctZeros_and_Noff` each falsify a count, not an argument: a
+mechanically-verifiable enumeration over our own tree that was right when written and went
+stale as the tree grew. Neither is a
+wrong claim about mathematics. That is `S115`'s decay pattern showing up in a
+*priced* register, and it says which register content needs re-checking: not the
+arguments, the enumerations.
+
+**The quote-fragment mechanism, measured and left unfixed.** `:994` is inside a
+multi-sentence quotation from `arXiv:2608.13637`. `QUOTED` handles `*"…"*` and
+`"…"`, but `scan` splits into sentences **before** `unquoted` runs, so a quotation
+spanning more than one sentence leaks every sentence after its first. Across all
+eighteen registers the class is **3 flags in 242 (1.2%)** — `ISSUES.md`,
+`PRICES.md`, `RULING.md`, one each. Reordering the split would change the flag
+count on every register, including the one just measured, so it is declined on
+`S39`'s ground, the same ground `342` declined its three classes on: a filter
+fitted to its own measurement proves nothing. The mechanism is recorded here so
+the next reader does not re-derive it.
 
 ### `SESSION 342` — the four `CLAIMS.md` flags, triaged
 

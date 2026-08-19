@@ -18194,3 +18194,70 @@ floor `27` unmoved, overclaim floor `203` unmoved, `citation_check` `0` unresolv
 `Blindness.momentK_one_cannot_be_dropped` and its four companions, so what the ledger costs is
 a set that cannot be trimmed rather than a list that happened to be convenient — though
 whether some other four would do is untouched.
+
+## The queue's oldest item was discharged five years of cycles ago — the triage that was owed is `PRICES.md`
+
+**Piece.** `QUEUE (1)` asks every cycle for *"`claims_gate`'s six `CLAIMS.md` flags,
+triaged"*. `CLAIMS.md` was triaged at `076` and again at `342`; it carries **four** flags
+today, not six, and all four are its own commentary about those triages. The register that had
+never been triaged is `PRICES.md` — `forensics/claims_gate.py` puts it at `27` — and it is the
+register that prices what future cycles do.
+
+**Kill condition, filed first:** *a flag I cannot judge without reading a source outside the
+registers is marked not judgeable and excluded from **both** numerator and denominator, rather
+than guessed into either (`R17`).* It fired twice, on the two literature claims.
+
+**Twenty-seven flags, two true positives in twenty-five judgeable — `8.0%`.** The per-flag
+table is in `CLAIMS.md` under `SESSION 371`, with a summary row at the top beside `174`'s
+`ISSUES.md` measurement. **Both true positives are the same shape** — `Gaps.proportionAny_wall_attained` and
+`Fiber.atomCount_of_distinctZeros_and_Noff` each falsify a count rather than an argument:
+
+* *"four declarations conclude in `OffLineImport`"* (`162`) — there are **five**;
+  `Gaps.proportionAny_wall_attained` carries `OffLineImport … (2/3)` in its conclusion. The
+  *claim* survives, because `2/3 = 1 − 1/3` and `1/3` is that family's own `ProportionStd`,
+  asserted in the adjacent conjunct — so the fifth is one more instance of the shape. The
+  count was stale, the argument was not.
+* *"`distinctZeros_le_atomCount_add_Noff` is the only conversion on disk"* —
+  `Fiber.atomCount_of_distinctZeros_and_Noff` is a second.
+
+Both corrected at their locations. **So what decays in a priced register is not the arguments
+but the enumerations** — counts that were mechanically true when written and went stale as the
+tree grew under them, which is `S115`'s pattern in a register nobody re-checks.
+
+**Wildcard — is the quoted-source false-positive class worth fixing?** **Kill condition, filed
+first:** *if the fix cannot be made without changing the flag count on registers other than the
+one just measured, decline it and record the mechanism.* **It fired.** The mechanism: `QUOTED`
+handles `*"…"*` and `"…"`, but `scan` splits into sentences **before** `unquoted` runs, so a
+quotation spanning more than one sentence leaks every sentence after its first — that is why a
+line quoted from `arXiv:2608.13637` is flagged as our claim. Reordering would move the count on
+every register. The class is **3 flags in 242 across eighteen registers, `1.2%`** — `ISSUES.md`,
+`PRICES.md`, `RULING.md`, one each. Declined on `S39`'s ground, the same ground `342` declined
+its three classes on; the mechanism is written down so it is not re-derived.
+
+**Snag, bin 1 — `S160`, and it is the worst shape of the run.** `LOOP.md`'s ⚠️ banner has said
+*"queue items 1, 2, 3 — all discharged"* in row `23` since `195`. That banner exists precisely
+so a compacted instance does not act on a stale prompt, and `forensics/banner_check.py` runs it
+green in the roster **every cycle**. I found the same fact by reading `CLAIMS.md`'s triage
+records by hand instead of running `forensics/banner_check.py` and reading row `23`. `forensics/banner_check.py` was passing in the roster while I re-derived its
+content by hand. Row `23` extended with `371`'s numbers, anchor intact, `banner_check` `6/6`.
+
+**Snag, bin 2 — the report flagged itself, exactly as `342` predicted.** Installing the triage
+took `CLAIMS.md` from `4` flags to `7`: verdict prose like *"both are one shape"* and *"two true
+positives in twenty-five"* carries the same unwitnessed absolutes it is grading. Witnessed each
+against the declarations they concern; back to `4`, so the write-up's net contribution is zero.
+
+**Every per-register count in this cycle is a count, not a defect rate.** `LEADS.md` `72`,
+`ISSUES.md` `41`, `FAILURES.md` `20`, `E.md` `14` and the rest are untriaged, and `174`'s
+`97.4%` figure for `ISSUES.md` was measured at `39` flags — the register has grown past its own
+triage. Filed as a lead, not chased.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`, duplication
+floor `27` and overclaim floor `203` both unmoved — no Lean changed this cycle.
+`citation_check` `0` unresolved, `banner_check` `6/6`.
+
+**Might-mean, scoped to the eighteen registers and this one triage:** the gate's yield on prose
+is low and concentrated in stale counts rather than false arguments, so what the registers need
+is not more linting of their reasoning but a re-run of every mechanical enumeration they
+contain — and `forensics/statement_index.py` could check those against the tree the way
+`banner_check` checks the banner.

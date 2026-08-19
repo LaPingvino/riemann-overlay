@@ -9765,5 +9765,89 @@ theorem momentK_add_mul_Nsc_le (D : ZeroData) (M k : ℕ) (hk : 1 ≤ k)
       rw [hsplit]
       nlinarith [hpow, hH0, hMpow0]
   exact_mod_cast key
+/-- **`Blindness.momentK_add_mul_Nsc_eq_iff`: the cap bound closes exactly on the
+two-valued configurations.**  `SESSION 414`.
+
+`412`'s `Blindness.momentK_add_mul_Nsc_le` charges a simple ordinate `1` and any
+other one `M^(k−1)·H`.  This states when it is an
+**equality**: when every ordinate has mass `1` or mass `M`, and only then.
+
+Termwise, `momentK_add_mul_Nsc_eq_iff` splits into the `H = 1` case, where the
+charge already matches, and the `H ≥ 2` case, where `H^k ≤ M^(k−1)·H` becomes an
+equation just for `H = M`.  The slack is the ordinates whose mass lies strictly between `1` and
+`M`, about which a cap says nothing.
+
+Same shape as `404`'s `Blindness.mass_card_eq_momentK_iff` and `405`'s
+companions — an inequality this project spends, characterised on both sides. -/
+theorem momentK_add_mul_Nsc_eq_iff (D : ZeroData) (M k : ℕ) (hk : 2 ≤ k)
+    (h : ∀ γ, D.H γ ≤ M) :
+    momentK D k + M ^ (k - 1) * D.Nsc = M ^ (k - 1) * D.N + D.Nsc
+      ↔ ∀ γ ∈ D.ordinates.toFinset, D.H γ = 1 ∨ D.H γ = M := by
+  classical
+  have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+      (if D.H γ = 1 then (1 : ℤ) else 0) := by
+    rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+  have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+    rw [N_from_profile, profile, Multiset.map_map]; rfl
+  have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+    rw [hN0, Nat.cast_sum]
+  have hS : (momentK D k : ℤ)
+      = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ) ^ k) := by
+    rw [momentK, Nat.cast_sum]; push_cast; rfl
+  have hterm : ∀ γ ∈ D.ordinates.toFinset,
+      (D.H γ : ℤ) ^ k + (M : ℤ) ^ (k - 1) * (if D.H γ = 1 then 1 else 0)
+        ≤ (M : ℤ) ^ (k - 1) * (D.H γ : ℤ) + (if D.H γ = 1 then 1 else 0) := by
+    intro γ _
+    have hHM : (D.H γ : ℤ) ≤ (M : ℤ) := by exact_mod_cast h γ
+    have hH0 : (0 : ℤ) ≤ (D.H γ : ℤ) := Int.natCast_nonneg _
+    have hpow : (D.H γ : ℤ) ^ (k - 1) ≤ (M : ℤ) ^ (k - 1) :=
+      pow_le_pow_left₀ hH0 hHM _
+    have hsplit : (D.H γ : ℤ) ^ k = (D.H γ : ℤ) ^ (k - 1) * (D.H γ : ℤ) := by
+      obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+      rw [Nat.add_sub_cancel, pow_succ]
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, hone]; simp [add_comm]
+    · rw [if_neg hone, mul_zero, add_zero, hsplit]
+      nlinarith [hpow, hH0]
+  have hcast : (momentK D k + M ^ (k - 1) * D.Nsc = M ^ (k - 1) * D.N + D.Nsc)
+      ↔ ((momentK D k : ℤ) + (M : ℤ) ^ (k - 1) * D.Nsc
+          = (M : ℤ) ^ (k - 1) * D.N + D.Nsc) := by
+    constructor <;> intro hh
+    · exact_mod_cast congrArg (fun n : ℕ => (n : ℤ)) hh
+    · exact_mod_cast hh
+  rw [hcast, hS, hB, hN, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    Finset.sum_eq_sum_iff_of_le hterm]
+  constructor
+  · intro hall γ hγ
+    by_cases hone : D.H γ = 1
+    · exact Or.inl hone
+    refine Or.inr ?_
+    have hs := hall γ hγ
+    rw [if_neg hone, mul_zero, add_zero] at hs
+    have hHM : (D.H γ : ℤ) ≤ (M : ℤ) := by exact_mod_cast h γ
+    have hH1 : (1 : ℤ) ≤ (D.H γ : ℤ) := by
+      exact_mod_cast one_le_H_of_mem hγ
+    have hsplit : (D.H γ : ℤ) ^ k = (D.H γ : ℤ) ^ (k - 1) * (D.H γ : ℤ) := by
+      obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+      rw [Nat.add_sub_cancel, pow_succ]
+    rw [hsplit] at hs
+    have hH2 : (2 : ℤ) ≤ (D.H γ : ℤ) := by
+      rcases lt_or_ge (D.H γ) 2 with hlt | hge
+      · exact absurd (by omega : D.H γ = 1) hone
+      · exact_mod_cast hge
+    have hpow : (D.H γ : ℤ) ^ (k - 1) = (M : ℤ) ^ (k - 1) := by
+      nlinarith [hs, hH2]
+    have hnat : D.H γ ^ (k - 1) = M ^ (k - 1) := by exact_mod_cast hpow
+    exact Nat.pow_left_injective (n := k - 1) (by omega) hnat
+  · intro hall γ hγ
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, hone]; simp [add_comm]
+    · have hM : D.H γ = M := (hall γ hγ).resolve_left hone
+      rw [if_neg hone, mul_zero, add_zero, hM]
+      obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+      rw [Nat.add_sub_cancel, pow_succ]
+      ring
+
 end Blindness
 end Riemann

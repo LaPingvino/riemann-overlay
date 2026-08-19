@@ -2625,3 +2625,13 @@ while these are `ℕ`-valued sums over a `Multiset`, and no attempt has been mad
 the sequence at unboundedly many `k` with no `k` sufficing for a given
 configuration, the statement is a limit statement and does not belong in the
 `ℕ`-linear vocabulary the rest of the file uses — say so and stop.*
+
+## `414` — a `twoAtom_H` lemma, if a mixed witness is ever wanted
+
+`Blindness.momentK_add_mul_Nsc_eq_iff` is attained by any `Blindness.configAt`,
+but only trivially: those put all mass on one ordinate. A witness carrying a
+simple ordinate **and** a mass-`M` one is `twoAtom γ a 1 0 M 0`, and the register
+has `Blindness.twoAtom_ordinates` and `Blindness.twoAtom_profile` but no lemma
+giving `H` at each point. Getting it means counting over a sum of
+`Multiset.replicate`s. Cheap, and unbuilt because `414`'s kill condition said not
+to build a configuration API for one corollary.

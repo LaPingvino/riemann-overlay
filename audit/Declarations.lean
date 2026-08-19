@@ -963,3 +963,6 @@ import Riemann
 #check @Riemann.Blindness.momentK_add_mul_Nsc_le
 #check @Riemann.momentBound_of_multiplicity_and_proportion
 #check @Riemann.moment_proportion_rate_independent_of_order
+
+-- 414: the cap bound's equality case.
+#check @Riemann.Blindness.momentK_add_mul_Nsc_eq_iff

@@ -20341,3 +20341,45 @@ No Lean changed this cycle.
 enumerations had, so for two cycles running the instrument that exists to notice
 rows appearing and vanishing could not see rows whose constants are written with
 a cast.
+
+## 414 — where the cap bound closes
+
+**Kill condition, stated first (`R12`).** Piece: `412`'s
+`Blindness.momentK_add_mul_Nsc_le` was shipped without a converse; supply it.
+Wildcard: a witness with **both** masses present, so the bound is seen attained
+non-trivially rather than on a single atom. Kill: if the mixed witness needs a
+`twoAtom_H` lemma that is not on disk, state the characterisation and stop —
+do not build a configuration API for one corollary.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+`Blindness.momentK_add_mul_Nsc_eq_iff` — `momentK k + M^(k−1)·Nsc =
+M^(k−1)·N + Nsc` **iff** every ordinate has mass `1` or mass `M`. `Blindness.momentK_add_mul_Nsc_eq_iff` splits termwise into the `H = 1` case,
+where the charge already matches, and the `H ≥ 2` case, which becomes an equation
+for `H = M` by injectivity of `· ^ (k−1)`.
+
+**What that says about the input.** Read the other way,
+`Blindness.momentK_add_mul_Nsc_eq_iff` says the bound fails to close when some
+ordinate's mass lies strictly between `1` and `M` — and a multiplicity cap is
+silent about those. So `407`'s and `412`'s inputs to the fourth supplier are not loose
+for want of a better argument; they are loose because the hypothesis does not
+distinguish a mass-`2` ordinate from a mass-`M` one.
+
+**Wildcard, killed as specified.** `Blindness.configAt` puts all its mass on one
+ordinate, so it satisfies the condition trivially. A witness carrying both a
+simple ordinate and a mass-`M` one is `twoAtom γ a 1 0 M 0`, but the register has
+`twoAtom_ordinates` and `twoAtom_profile` and **no** `twoAtom_H`; getting the
+masses out means counting over a sum of `Multiset.replicate`s. Filed as a lead,
+not built.
+
+**Snag, bin 2 — `R33` paid twice.** `Nat.pow_left_injective` takes `n ≠ 0`, not
+`1 ≤ n`, and is stated on `fun a => a ^ n`; `#check` first, as `403` wrote down.
+And the backward branch had `if_neg (by omega : ¬ D.H γ = 1)` under a hypothesis
+`D.H γ = M`, which is **false when `M = 1`** — the shape was wrong, not the
+tactic. Restructured to case on `D.H γ = 1` and resolve the disjunction.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** the cap inputs are loose exactly where a cap has nothing to say,
+so no sharpening of the argument can improve them — only a hypothesis that
+separates the middle masses.

@@ -19391,3 +19391,48 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 **Might-mean, scoped to the six declared axioms:** the axiom count conflates three different
 things — carriers naming objects, properties nobody has proved, and results too weak for their
 own consumers — so a single number has been standing in for three separate kinds of debt.
+
+## `LogSmall zetaFamily` attempted and not landed — the obstacle, precisely
+
+**Piece attempted.** `392` left `LogSmall zetaFamily` as the one named step between
+`levinson_montgomery` and a discharged `OffTransfer` on Route II's row, with its witness
+identified. This cycle attempted it.
+
+**Kill condition, filed first:** *if the proof does not land in one structured attempt, I stop
+and record the obstacle rather than tuning it across calls — that is `379`/`380`'s lesson, where
+two cycles went to incremental regex repair.* **It fired.**
+
+**What is confirmed available**, and this part is worth keeping:
+
+* `Zeta.Ncount_mono_left` — `a ≤ b → Ncount b T ≤ Ncount a T`, so the dyadic block `(T, 2T]`
+  sits inside `(0, 2T]` and `Ncount T (2T) ≤ Ncount 0 (2T)`.
+* `Zeta.zetaZeroData_N` — `(zetaZeroData T).N = Ncount 0 T`, so `zetaFamily.Nz` is that count.
+* `Zeta.eventually_const_mul_log_lt (c) : ∀ᶠ T, c · log T < T`.
+* The RvM main bound in the shape `zetaNonempty_of_rvm_main` already takes.
+
+So the route is: RvM gives `Ncount T (2T) ≥ T/(2π) − C·log T`; monotonicity lifts it to
+`Ncount 0 (2T)`; two applications of the log helper absorb the `C·log T` and then the `ε`.
+
+**Where it failed, precisely.** Two things, neither deep:
+
+1. `eventually_const_mul_log_lt` gives `c · log T < T`, and I used it as though it gave the
+   divided form `log T < T/c`; the `le_div_iff₀` rewrites had nothing to match.
+2. The statement is `∀ᶠ S`, but the RvM bound is indexed by `T` with `S = 2T`. Transporting the
+   eventuality across `T ↦ 2T` needs a filter-map argument, and the ad-hoc
+   `tendsto_atTop_atTop_of_monotone'` composition I wrote is not it.
+
+**Nothing was installed and nothing is claimed.** `LogSmall zetaFamily` remains open, the
+`OffTransfer` hypothesis remains a hypothesis, and the axiom count is unchanged at six.
+
+**Snag, bin 1 — I mis-scoped the piece.** `392` called this *"one named step"*, which was true
+about the mathematical content and misleading about the Lean cost: it is a two-variable
+asymptotic with a change of index, not a rewrite. A step being *named* is not evidence it is
+*small*, and I carried that inference from `392` into this cycle's plan without testing it.
+
+Build unchanged (no Lean touched), ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, floors `29`/`203`.
+
+**Might-mean, scoped to this one reduction:** the two failures — `Zeta.eventually_const_mul_log_lt`'s
+exact form and the index change — sit where this project's estimates keep failing, and the two failures here were both
+about *shape* — a lemma's exact form and an index change — rather than about the mathematics,
+which is the same class as `S159`, `S162` and `S163`.

@@ -17924,6 +17924,13 @@ It did not fire.
 * `Riemann.Optimal.chain_upper_four_determined_by_on_moments` — `NscStd`, `oddAtoms`,
   `onLineOrdinates`, `atomCount`, all four.
 
+> **Corrected at `367`.** *"the split is complete"* is wrong. `even_offAt` makes `oddAtoms`
+> a functional of the mass counts as well, so the `H`-family reaches the chain's third term
+> while missing its second — its reach alternates rather than forming an interval, and there
+> is no boundary. See `Riemann.Optimal.oddAtoms_determined_by_all_moments` and
+> `Blindness.onLineOrdinates_not_determined_by_all_moments`. The on-line family's reach *is*
+> an interval; that asymmetry is the finding.
+
 **So the chain splits by family and the split is complete.** The on-line moments reach
 `N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount` from `NscStd` upward and stop
 below it — `350`'s pair, a simple atom against a haunted one with equal on-moments and
@@ -17947,7 +17954,64 @@ Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
 duplication floor `26`, overclaim floor `203` — clean first pass. `365`'s *"not done"* note
 corrected at its location; `MAP.md` gained the split and still reports `0` unresolved.
 
+> **Corrected at `367`.** There is no such boundary — see the note above.
+
 **Might-mean, scoped to the five chain terms and the two families:** the chain's boundary
 between the families falls exactly at the project's own two reported rows, so the reason the
 ledger needs both is that no single summary statistic straddles the one step from `N_sc` to
 `NscStd` — and that step is `hauntedCount`.
+
+## `366`'s split is not a cut — the `H`-family's reach alternates
+
+**Piece.** `366` closed on *"the chain splits by family and the split is complete"*, with the
+boundary at the project's two reported rows. That is wrong, and the register text is
+corrected at its location. `even_offAt` — already on disk — says every ordinate's off-line
+mass is even. With `H = onAt + offAt` that makes `H` and `onAt` share parity, so `oddAtoms`,
+defined by the parity of `onAt`, counts the **odd-mass** ordinates and is a functional of the
+mass counts too.
+
+**Kill condition, filed first:** *if the parity step needs anything beyond `even_offAt` and
+`H_eq_onAt_add_offAt` — a bound, a positivity hypothesis, a new definition — then `oddAtoms`
+is genuinely on-line only and `366`'s picture stands.* It did not fire: two `omega` calls
+after `Nat.even_iff` on both sides.
+
+* `Blindness.oddAtoms_eq_odd_H` — the parity step. `oddAtoms` is the count of ordinates with
+  odd `H`.
+* `Blindness.oddAtoms_eq_sum_massCount` — `365`'s fiberwise partition, run on `H` instead of
+  `onAt`.
+* `Riemann.Optimal.oddAtoms_determined_by_all_moments` — so the `H`-moments reach the chain's
+  third term.
+
+**Wildcard — does the `H`-family also reach `onLineOrdinates`?** **Kill condition, filed
+first:** *if I cannot build a separating pair inside two cycles, I record the question open
+rather than guessing which way it goes.* It did not fire, and the answer is no.
+`Blindness.onLineOrdinates_not_determined_by_all_moments` puts a pure on-line pair
+`configAt 0 2 0 a` against a single off-line pair `configAt 0 0 1 a`: mass multiset `{2}` on
+both sides, so every `momentK` agrees, while `onLineOrdinates` is `1` against `0`.
+
+**So the `H`-family's reach along the chain alternates.** Along
+`N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount` the multiplicity moments have
+`N_sc` (`348`), miss `NscStd` (`347`), have `oddAtoms` (this cycle), miss `onLineOrdinates`
+(this cycle), have `atomCount` (`momentK 0`). It is not an interval, so it is not a boundary,
+so `366`'s reading of the chain as *"a boundary between two kinds of statistic"* does not
+hold. The on-line family's reach is still an interval — `NscStd` upward, stopping below
+`N_sc` — and that asymmetry between the two families is the actual finding.
+
+**Snag, bin 2 — the duplication floor rose to `27` and the reason is the cycle's own
+result.** `duplication_floor --list` reports `oddAtoms_determined_by_on_moments` and
+`oddAtoms_determined_by_all_moments` sharing the conclusion
+`Blindness.oddAtoms D = Blindness.oddAtoms D'`. Neither implies the other — one assumes the
+on-line moments agree, the other the `H`-moments — and that *both* hold is the thing this
+cycle establishes. `256`: a fourth route to a row is fine; a second copy of a proof is not.
+Raised with the reason recorded, the same judgement as `346`, `349` and `351`.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`, duplication
+floor `27` (raised, reason above), overclaim floor `203` — clean first pass. `366`'s closing
+paragraph and `MAP.md`'s split entry both corrected at their locations; `citation_check`
+reports `0` unresolved.
+
+**Might-mean, scoped to the five chain terms and the two families:** a summary statistic's
+reach along the chain is not governed by the chain's order at all — parity lets the
+`H`-moments jump over the one term they cannot see — so the ledger needs both families not
+because they divide the chain but because each is blind at a different, non-adjacent place.

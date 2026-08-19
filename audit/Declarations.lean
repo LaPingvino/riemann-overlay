@@ -842,3 +842,11 @@ import Riemann
 #check @Riemann.Blindness.onLineOrdinates_eq_sum_onCount
 #check @Riemann.Optimal.onLineOrdinates_determined_by_on_moments
 #check @Riemann.Optimal.chain_upper_four_determined_by_on_moments
+
+-- SESSION 367: 366's picture corrected.  even_offAt makes H and onAt share parity, so
+-- oddAtoms counts odd-MASS ordinates and both families reach it.  With 347 below and the
+-- new negative above, the H-family's reach along the chain alternates.
+#check @Riemann.Blindness.oddAtoms_eq_odd_H
+#check @Riemann.Blindness.oddAtoms_eq_sum_massCount
+#check @Riemann.Blindness.onLineOrdinates_not_determined_by_all_moments
+#check @Riemann.Optimal.oddAtoms_determined_by_all_moments

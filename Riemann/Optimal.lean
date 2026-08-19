@@ -833,6 +833,24 @@ theorem chain_upper_four_determined_by_on_moments {D D' : ZeroData}
     onLineOrdinates_determined_by_on_moments hm, ?_⟩
   rw [Blindness.atomCount_eq_onMoment_zero, Blindness.atomCount_eq_onMoment_zero, hm 0]
 
+/-- **`oddAtoms` is determined by the `H`-moments too.**  Through
+`Blindness.oddAtoms_eq_sum_massCount` and `348`'s mass-count determinacy, at a common
+bound.
+
+With `Optimal.oddAtoms_determined_by_on_moments` (`365`) this puts `oddAtoms` in **both**
+families' reach — and with `Blindness.NscStd_not_determined_by_all_moments` (`347`) below
+it and `Blindness.onLineOrdinates_not_determined_by_all_moments` above it, the
+`H`-family's reach along the chain alternates rather than forming an interval. -/
+theorem oddAtoms_determined_by_all_moments {D D' : ZeroData}
+    (hm : ∀ k, Blindness.momentK D k = Blindness.momentK D' k) :
+    Blindness.oddAtoms D = Blindness.oddAtoms D' := by
+  rw [Blindness.oddAtoms_eq_sum_massCount D (B := max D.N D'.N)
+        (fun γ _ => le_trans (H_le_N D γ) (le_max_left _ _)),
+      Blindness.oddAtoms_eq_sum_massCount D' (B := max D.N D'.N)
+        (fun γ _ => le_trans (H_le_N D' γ) (le_max_right _ _))]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  rw [massCount_determined_by_all_moments hm n]
+
 /-- A **cheap constraint**: an upper bound on horizontal multiplicity.  This is
 the shape every Jensen/argument-principle/Riemann–von Mangoldt bound takes, and
 it involves no multiplicative information whatever. -/

@@ -8690,5 +8690,98 @@ lemma onLineOrdinates_eq_sum_onCount (D : ZeroData) {B : ℕ}
       rw [hx.2]; exact hn
 
 
+/-! #### `oddAtoms` is a mass functional, and the chain's split is not a cut —
+`SESSION 367`
+
+`366` closed on the chain splitting between the two moment families, with the boundary
+at the project's two reported rows. **That picture is wrong, and this section is the
+correction.**
+
+`even_offAt` says every ordinate's off-line mass is even, so `H = onAt + offAt` makes
+`H` and `onAt` share their parity. Hence `oddAtoms` — defined by the parity of `onAt` —
+counts the ordinates of **odd mass**, and is therefore a functional of the mass counts
+as well as of the on-line ones.
+
+**So the `H`-family's reach along `N_sc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount`
+is not an interval.** It has `N_sc` (`348`), misses `NscStd` (`347`), has `oddAtoms`
+(below), misses `onLineOrdinates` (below), and has `atomCount` (`momentK 0`). It
+alternates.
+
+**Kill condition, filed first:** *if the parity step needs more than `even_offAt`, I
+report what it needs rather than adding hypotheses.*  It did not fire. -/
+
+/-- **`oddAtoms` counts the odd-mass ordinates.**  `even_offAt` makes `H` and `onAt`
+share their parity, so the two filters coincide. -/
+lemma oddAtoms_eq_odd_H (D : ZeroData) :
+    oddAtoms D = (D.ordinates.toFinset.filter fun γ => ¬ Even (D.H γ)).card := by
+  classical
+  rw [oddAtoms_eq_odd_onAt]
+  congr 1
+  refine Finset.filter_congr fun γ _ => ?_
+  obtain ⟨k, hk⟩ := even_offAt D γ
+  have h := H_eq_onAt_add_offAt D γ
+  rw [Nat.even_iff, Nat.even_iff]
+  constructor
+  · intro h1; omega
+  · intro h1; omega
+
+/-- …hence a sum of mass counts, by `365`'s partition run on `H`. -/
+lemma oddAtoms_eq_sum_massCount (D : ZeroData) {B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ B) :
+    oddAtoms D = ∑ n ∈ Finset.range (B + 1), if Odd n then massCount D n else 0 := by
+  classical
+  have hmaps : ∀ γ ∈ D.ordinates.toFinset.filter (fun γ => ¬ Even (D.H γ)),
+      D.H γ ∈ Finset.range (B + 1) := by
+    intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    exact Finset.mem_range.2 (by have := h γ hγ.1; omega)
+  have hfib := Finset.card_eq_sum_card_fiberwise hmaps
+  rw [oddAtoms_eq_odd_H, hfib]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  by_cases hn : Odd n
+  · rw [if_pos hn, massCount]
+    congr 1
+    ext γ
+    simp only [Finset.mem_filter, Multiset.mem_toFinset]
+    constructor
+    · intro hx; exact ⟨hx.1.1, hx.2⟩
+    · intro hx
+      refine ⟨⟨hx.1, ?_⟩, hx.2⟩
+      rw [hx.2]
+      exact Nat.not_even_iff_odd.2 hn
+  · rw [if_neg hn, Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+    intro γ hγ h2
+    rw [Finset.mem_filter] at hγ
+    exact hn (Nat.not_even_iff_odd.1 (h2 ▸ hγ.2))
+
+/-- **The `H`-family misses `onLineOrdinates`, which is what makes its reach
+alternate.**  A pure on-line pair and a single off-line pair both have mass multiset
+`{2}`, so every `momentK` agrees; `onLineOrdinates` is `1` against `0`.
+
+This is `mass_only_not_sufficient`'s configuration pair used for a different count. -/
+theorem onLineOrdinates_not_determined_by_all_moments {a : ℝ} (ha : a ≠ 1/2) :
+    (∀ k, momentK (configAt 0 2 0 a) k = momentK (configAt 0 0 1 a) k)
+      ∧ onLineOrdinates (configAt 0 2 0 a) = 1
+      ∧ onLineOrdinates (configAt 0 0 1 a) = 0 := by
+  classical
+  have p1 := configAt_profile (γ := (0:ℝ)) ha (k := 2) (j := 0) (by norm_num)
+  have p2 := configAt_profile (γ := (0:ℝ)) ha (k := 0) (j := 1) (by norm_num)
+  norm_num at p1 p2
+  refine ⟨fun k => ?_, ?_, ?_⟩
+  · rw [momentK_from_profile, momentK_from_profile, p1, p2]; simp
+  · have hA := onLineOrdinates_add_offLineOnly (configAt 0 2 0 a)
+    have h1 : atomCount (configAt 0 2 0 a) = 1 := by
+      rw [atomCount_eq_card_profile, p1]; decide
+    have h2 : offLineOnly (configAt 0 2 0 a) = 0 := by
+      rw [offLineOnly_from_profile, p1]; decide
+    omega
+  · have hA := onLineOrdinates_add_offLineOnly (configAt 0 0 1 a)
+    have h1 : atomCount (configAt 0 0 1 a) = 1 := by
+      rw [atomCount_eq_card_profile, p2]; decide
+    have h2 : offLineOnly (configAt 0 0 1 a) = 1 := by
+      rw [offLineOnly_from_profile, p2]; decide
+    omega
+
+
 end Blindness
 end Riemann

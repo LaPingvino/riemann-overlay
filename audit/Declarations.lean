@@ -880,3 +880,8 @@ import Riemann
 #check @Riemann.Blindness.star_route_beats_iff
 #check @Riemann.Blindness.star_route_threshold_zeta
 #check @Riemann.Blindness.star_route_attained
+
+-- 377: 374's star route reconciled with 241's.  Same currency, different trades; they cross
+-- at C = 1393/1000, both paying 607/1000.
+#check @Riemann.Blindness.star_currency_crossover
+#check @Riemann.Blindness.star_currency_crossover_zeta

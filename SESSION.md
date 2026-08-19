@@ -18567,3 +18567,55 @@ No Lean changed; no ledger movement. Build as `375` left it, `session_gate` gree
 unconditional headline without ever bounding mean-square multiplicity, so that quantity is not a
 prerequisite for `67.25%` and our need for it is a consequence of the ledger's shape rather than
 of the mathematics.
+
+## `374`'s star route was a second trade in a currency `241` had already priced
+
+**Piece.** `374` presented its star-bound price as the first one. It was not.
+`Transfer.proportion_of_starBound` has paid `2 − C` from `StarBound C` **alone** since `241`,
+with `Transfer.one_le_of_starBound` and `Transfer.starBound_ceiling` capping that currency at
+`1`, and `RULING.md` carries a three-currency ceiling table saying so.
+
+**Kill condition, filed first:** *if the two routes turn out to be the same trade in different
+clothes, `374` is redundant and I retract it rather than reconciling it.* It did not fire — they
+take different inputs, so they cross.
+
+* `241`'s trade: star bound alone → `2 − C`.
+* `374`'s trade: star bound **plus** the certified `NscStd ≥ κ·N` → `κ − (C−1)/6`.
+* `Blindness.star_currency_crossover` — the second beats the first exactly above
+  `C = (11 − 6κ)/5`, for every `κ`.
+* `Blindness.star_currency_crossover_zeta` — at `κ = 269/400` that is `1393/1000`, where both
+  pay `607/1000`. `241`'s route meets the certified row at `1193/800`; `374`'s at `793/400`.
+
+**So `374`'s contribution is narrower than it claimed and still real:** it widens the star
+currency's useful range from `C < 1193/800` to `C < 793/400`, and it does not discover the
+currency. Corrected at three locations — the `374` docstring, its `CLAIMS` row, and the
+`PRICES.md` section.
+
+**Wildcard — Joop's ruling on the allowlist, taken while the cycle ran.** `zbmath.org` added as
+the fifth allowlisted host, JSON validated, and **verified live in-session** — `https://zbmath.org/`
+returns `200` with the sandbox back on, so no restart was needed. `T3`'s blocker, open since
+`364`, is discharged at its location in `LEADS.md` and in `MAP.md`. **`T3` itself is still not
+started**: the chronology remains unwritten rather than written from memory, which is the whole
+point of the blocker.
+
+**Snag, bin 1 — the fourth "already on disk" in six cycles, and the first one a register named
+outright.** `RULING.md` line `224` says *"the third thing is the star bound"* and names
+`proportion_of_starBound`, `one_le_of_starBound` and `Counts.starBound_ceiling`. I found it this
+cycle only because a search for something else (`data floor`) returned `RULING.md` as a
+by-catch. `374` searched `forensics/statement_index.py` and never opened `RULING.md`, which is where
+the project keeps its *decisions* about currencies — a register that index does not cover.
+
+**Snag, bin 2 — `c.ai`'s framing did not check out and I nearly built on it.** The brief cited a
+data-floor rule *"ruled weeks ago"*, owed beats including a haunted near-gap census and `W36`.
+None is on disk: `process_index --find` returns nothing for `data floor`, `near-gap` or `W36`,
+and `FAILURES.md`'s highest entry is `W34d`. I checked before building the guard. The `data_floor`
+proposal may still be worth adopting **as a new rule**, but not as enforcement of an existing one.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%` unmoved, base
+`v4/3508643365fd`, warnings `54`, duplication floor `27`, overclaim floor `203`,
+`citation_check` `0`.
+
+**Might-mean, scoped to the star currency and the three registers that hold it:** the project's
+prices live in `RULING.md` while its theorems live in the index, so a search that covers only
+declarations will keep rediscovering decisions — and four of the last six cycles rediscovered
+something rather than found it.

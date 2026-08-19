@@ -244,6 +244,13 @@ window contributes nothing below `A` — its payoff **grows with** `A`. Hence
 
 ## The star channel — what a mean-square multiplicity bound would buy (`374`)
 
+> ⚠️ **Reframed at `377`.** This is not the star bound's first price — `241` priced
+> the same currency (`Transfer.proportion_of_starBound`, `2 − C`, ceiling table in
+> `RULING.md`). `374` adds a second *trade*: star bound **plus** the certified `κ`.
+> The two cross at `C = 1393/1000`, both paying `607/1000`
+> (`Blindness.star_currency_crossover_zeta`). Net effect: the currency's useful
+> range widens from `C < 1193/800` to `C < 793/400`.
+
 **Distinct from the channel `171` closed.** That closure was about *maximum*
 multiplicity `M` feeding `Proportion (2 − M)`, empty above `M = 1`. This one is
 the **mean square**, `N⊛/N`, and it is not on that table.

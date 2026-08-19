@@ -867,6 +867,12 @@ the solution?**
 > allowlist entry for one. **Joop's call, and small** — it is one host, not a
 > project.
 >
+> ✅ **Ruled and done at `377`.** Joop authorised the edit; `zbmath.org` — zbMATH
+> Open, free, indexing from the nineteenth century — is now the fifth allowlisted
+> host. Verified live in-session (`https://zbmath.org/` → `200`), no restart
+> needed. **The blocker is discharged; T3 itself is still not started**, and the
+> chronology remains unwritten rather than written from memory.
+>
 > Recorded as *blocked with a named blocker* rather than *not started*, which is the
 > difference between an obligation and an open question.
 

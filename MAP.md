@@ -196,7 +196,7 @@ The ones that have caught live defects, with the cycle: `forensics/citation_chec
   `[RECALL, UNVERIFIED]`; `355` names the three searches that did not reach it.
 * **`T3`, the solved-problem control** — **blocked at `364`, with the blocker named.**
   Its content is a chronology, and the register's own rule is that date verification is a
-  prerequisite; none of the sandbox's four allowlisted hosts is a bibliographic database,
+  prerequisite; none of the sandbox's four allowlisted hosts was a bibliographic database (**`377`: zbMATH Open is now the fifth allowlisted host, ruled by Joop**),
   and writing the chain from memory is what `S27` forbids. One allowlist entry would
   unblock it. `forensics/absence_queue.py` now reports **`0`** live obligations.
 * **The rung-0 certificate file** — `cert_N256_blk_b128m.json`, absent from the

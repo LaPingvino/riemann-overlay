@@ -9004,6 +9004,14 @@ theorem ledgerCode_eq_iff {D D' : ZeroData} :
 `SESSION 374`.  The `Nsc` row is carried by
 `three_mul_NscStd_le_N_add_two_mul_Nsc`, whose ledger annotation has read *"no
 star bound"* since the row opened.  `star_charges_every_class` supplies one.
+
+**Corrected at `377`.**  `374` presented this as the star bound's first price.
+It is not: `241` priced the same currency, `Transfer.proportion_of_starBound`
+paying `2 − C` from `StarBound C` alone, with a ceiling table in `RULING.md`.
+What `374` adds is a *second trade* in that currency — star bound **plus** the
+certified `NscStd ≥ κ·N` — which pays worse below `C = 1393/1000` and better
+above it (`star_currency_crossover`).  The useful range of the star currency
+widens from `C < 1193/800` to `C < 793/400`; the price was not missing.
 -/
 
 /-! `275`'s `ZeroData.six_mul_NscStd_le` already carries the inequality this route
@@ -9075,6 +9083,36 @@ theorem star_route_attained {a : ℝ} (ha : a ≠ 1/2) :
     exact_mod_cast this
   refine ⟨hN, hS, hStd, hsc, ?_⟩
   rw [hN, hS, hStd, hsc]
+
+
+/-- **`374`'s route against `241`'s, in the same currency.**  `SESSION 377`.
+
+`241` already priced the star bound: `Transfer.proportion_of_starBound` pays
+`2 − C` from `StarBound C` **alone**, with `Transfer.one_le_of_starBound` and
+`Transfer.starBound_ceiling` capping that currency at `1`.  `374`'s route spends
+the same star bound *together with* the certified `NscStd ≥ κ·N`, and pays
+`κ − (C − 1)/6`.
+
+They are different trades, so they cross.  Below the crossover `241`'s route is
+better; above it `374`'s is. -/
+theorem star_currency_crossover {κ C : ℝ} :
+    2 - C < κ - (C - 1) / 6 ↔ (11 - 6 * κ) / 5 < C := by
+  constructor <;> intro h <;> linarith
+
+/-- **The ζ-level numbers for both star routes.**  `SESSION 377`.
+
+Crossover at `1393/1000`, where both pay `607/1000`.  `241`'s route meets the
+certified `Nsc` row at `C = 1193/800`; `374`'s meets it at `793/400`
+(`star_route_threshold_zeta`).  So the star currency pays *something* above the
+certified row for every `C < 793/400`, and which route to use switches at
+`1393/1000`. -/
+theorem star_currency_crossover_zeta :
+    (11 - 6 * (269 / 400 : ℝ)) / 5 = 1393 / 1000
+      ∧ (2 : ℝ) - 1393 / 1000 = 607 / 1000
+      ∧ (269 / 400 : ℝ) - (1393 / 1000 - 1) / 6 = 607 / 1000
+      ∧ (2 : ℝ) - 1193 / 800 = 407 / 800
+      ∧ (1 : ℝ) < 1393 / 1000 ∧ (1393 : ℝ) / 1000 < 1193 / 800 := by
+  refine ⟨by norm_num, by norm_num, by norm_num, by norm_num, by norm_num, by norm_num⟩
 
 
 end Blindness

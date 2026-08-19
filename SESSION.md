@@ -18716,3 +18716,59 @@ No Lean changed, no ledger movement, `session_gate` green.
 that under-reports silently is worse than one that fails, because its output is indistinguishable
 from a real negative — and I have now built one of those myself, three cycles after writing up
 the last one.
+
+## Three of four `T3` links dated, and the parser validated against ground truth
+
+**Piece.** `379` found my zbMATH extractor was reading one row of ten. This cycle rewrote it
+once with a **validator**: zbMATH prints its own result count, so a correct parser must return
+exactly that many rows.
+
+**Kill condition, filed first:** *if the rewritten parser does not validate against the printed
+count on three separate queries, `T3` is parked with the obstacle named and I stop scraping —
+this is the third cycle on it and `R20`'s cap is in view.* It did not fire: `10/10`, `3/3`,
+`2/2`.
+
+**The validator earned its place immediately**, in the sense `forensics/session_gate.py` earns
+its own: it failed the first run and named two concrete bugs — the row tag carries further attributes so `<div class="list">` never matched, and the
+header regex was case-sensitive. Both were invisible without ground truth, and both fall in the
+class `S164` and `S167a` describe — silent under-reporting.
+
+**Dated from the source, no recall — three of four links:**
+
+> **Kummer, E. E.** *Allgemeiner Beweis des Fermatschen Satzes, daß die Gleichung
+> `x^λ + y^λ = z^λ` …* J. Reine Angew. Math. **40**, 131–138 (**1850**).
+>
+> **Ribet, K. A.** *On modular representations of `Gal(Q̄/Q)` arising from modular forms.*
+> Invent. Math. **100**, No. 2, 431–476 (**1990**). Zbl 0773.11039.
+>
+> **Wiles, A.** *Modular elliptic curves and Fermat's Last Theorem.*
+> Ann. Math. (2) **141**, No. 3, 443–551 (**1995**). Zbl 0823.11029.
+>
+> — with **Taylor, R.; Wiles, A.** *Ring-theoretic properties of certain Hecke algebras*,
+> Ann. Math. (2) **141**, No. 3, 553–572 (**1995**), Zbl 0823.11030, in the same issue.
+
+**Frey is identified but not dated.** The record is *Links between stable elliptic curves and
+certain diophantine equations*, Zbl 0586.10010 — title and identifier verified from search, year
+unparsed, and an `an:` lookup returns no row. **So `T3` is still not started**: the chronology is
+three-quarters dated and one link short, and a chain with a hole is what `T3` exists to catch.
+
+**Wildcard — does the Kummer result change the chain's shape?** **Kill condition, filed first:**
+*if the search surfaces several Kummer papers that could each be "the" FLT link, I record the
+ambiguity rather than choosing.* It fired, usefully. The ten Kummer records include **both** the
+`1847` *Zur Theorie der complexen Zahlen* / *Über die Zerlegung der aus Wurzeln der Einheit
+gebildeten complexen Zahlen* (`35`, 319–326 and 327–367) **and** the `1850` *Allgemeiner Beweis
+des Fermatschen Satzes* (`40`, 131–138). Those are two different beats — the ideal-number
+machinery and the FLT theorem for regular primes — three years apart, and `T3`'s question is
+about which restatement came first. **Which of the two is the chain's first link is a judgement
+`T3` must make explicitly, not a lookup.**
+
+**Snag, bin 2 — this is the third consecutive cycle on the same scraper**, and `R20` caps hygiene
+at three. The parser is now validated and I am not touching it again; if the Frey year needs
+another fetch, it is one query with an existing tool, not an instrument cycle.
+
+No Lean changed, no ledger movement, `session_gate` green.
+
+**Might-mean, scoped to `T3`'s four links and this parser:** the obstacle `364` called *needs
+literature* and `378` called *recall-based keys* was, per `S167a` and this cycle's two validator
+failures, three separate instrument bugs and one genuine judgement call — so *"blocked on literature"* described it less well than *"deciding which paper counts as the
+restatement"* does.

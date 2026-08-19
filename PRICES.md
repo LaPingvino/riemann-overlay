@@ -1178,6 +1178,10 @@ as dominated by the `m = 7` rung — fewer points *and* two more axioms. Paying
 > **`80s`** per `XiPrime` module, `74` of `108` remaining ≈ **`98` minutes** of compute.
 > The struck text follows.
 >
+> **`400`: the build is partial — `34` of `108` `XiPrime` oleans in the live path.** A later
+> cycle finding oleans there must not infer the import is available; that is `399`'s mistake
+> with a different directory.
+>
 > ~~**`398`: the compile is already done.**~~ `Zeta23/XiPrime/Final.olean` and `107` siblings
 > (`91M`) are on disk, built against the current pin roughly six days before `398` looked;
 > `lake` replays rather than rebuilds them and `forensics/vendor_check.py` still reports the

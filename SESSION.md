@@ -19672,3 +19672,53 @@ the build artifacts are in the vendored package's own build directory. Ledger un
 **Might-mean, scoped to the `XiPrime` import and these three build attempts:** every measurement
 I made about this import was wrong in the direction that made the decision look easier, which is
 worth more caution than the number itself.
+
+## Re-verifying the last twelve cycles' measured claims, by different methods
+
+**Piece.** `S164`, `S186` and `S187` are three instrument misreadings in four cycles, and `399`
+retracted a whole cycle's conclusion. Since `388`–`399` rest heavily on tool output, this cycle
+re-checks the load-bearing claims **by a different method than produced them**.
+
+**Kill condition, filed first:** *any claim I cannot re-derive independently gets marked
+unverified in the register, not quietly dropped.* It did not fire — all four groups checked out.
+
+**Axiom cones, asked of the kernel** (`388`–`395` claimed these from `#print axioms` at the time;
+re-run now against the current tree):
+
+| claim | cycle | verified |
+|---|---|---|
+| `certified_nsc_via_derivative_std` axiom-free | `391` | ✔ |
+| `fujii_ineffective_bracketed` consumes `fujii_ineffective` | `393` | ✔ |
+| `offTransfer_zeta_xiPrime` consumes `levinson_montgomery` | `392`/`395` | ✔ |
+| `logSmall_zeta` axiom-free | `395` | ✔ |
+
+**`397`'s line counts, by a second route.** My import-walker gave `118` marginal modules /
+`37,149` lines. Counting the tree directly: `Zeta23/XiPrime` is **`108` modules / `31,705`
+lines**, and the ten extra modules the walker found outside `XiPrime` (`Zeta23.Taper.Gevrey` and
+siblings) account for the remaining `5,444`. **Consistent.**
+
+**The board's cone table.** `board --cones` reports `35/35` as recorded, with exactly two
+axiom-carrying rows — `certified_nsc_via_xiPrime` and `offline_via_xiPrime`, both ξ′
+identifications. That matches `393`'s audit and `396`'s reading.
+
+**So of the recent measured claims, exactly one was wrong** — `398`'s — and it is the one where I
+reasoned about artifacts on disk instead of asking the tool what it resolves. The others, all
+produced by asking a tool directly, hold.
+
+**State of the `XiPrime` build, recorded so a later cycle does not misread it.** The live path
+`vendor/zeta23/.lake` now holds `186` oleans of which **`34`** are `XiPrime`, out of `108`.
+**The build is partial.** A future cycle finding `XiPrime` oleans there must not infer the import
+is available — `399` is exactly that mistake with a different directory.
+
+**Wildcard — does anything in `CLAIMS.md` still rest on `398`?** **Kill condition, filed first:**
+*if a `CLAIMS` row inherited the withdrawn "already compiled" figure, it needs striking too, not
+just the `PRICES` line.* It did not fire: `398` never reached `CLAIMS.md`, and `PRICES.md` carries
+the retraction struck at its location from `399`.
+
+Build green, sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base `v4/3508643365fd`,
+floors `30`/`203`, `board --cones` `35/35`.
+
+**Might-mean, scoped to the twelve cycles re-checked:** the four cone claims re-run through
+`forensics/board.py --cones` and `#print axioms` all came from asking a tool a direct question and
+all held, while the one that failed came from inferring state from artifacts —
+which is a sharper rule than "check your instruments" and cheaper to follow.

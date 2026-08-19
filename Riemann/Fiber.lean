@@ -9362,5 +9362,44 @@ theorem rung_momentK_attained {a : ℝ} (ha : a ≠ 1/2) {j : ℕ} (hj : 1 ≤ j
   have hmk : m ≤ m ^ k := Nat.le_self_pow (by omega) m
   omega
 
+/-- **The on-line family cannot see haunting at all.**  `SESSION 387`.
+
+`386` left three places an improved haunted bound could come from: the on-line
+family, the profile's second coordinate, or outside the blindness apparatus.
+**This closes the first.**
+
+A haunted ordinate has `onAt = 1` by definition, which is exactly what a simple
+zero has — so the on-line statistics cannot separate them.  `350`'s pair witnesses
+it: `configAt 0 1 0 a` (mass `1`, simple) and `configAt 0 1 1 a` (mass `3`,
+haunted) agree on **every** `onMoment` and on `NscStd`, while `hauntedCount` is
+`0` against `1`.
+
+So no bound of the form `hauntedCount ≤ δ·N` can be derived from on-line data,
+however much of it is supplied.  The second place is not open either — the
+profile's second coordinate *is* `Noff`, and
+`Gaps.hauntedDensity_of_offLineImport` has been spending it since it was written. -/
+theorem hauntedCount_not_determined_by_on_moments {a : ℝ} (ha : a ≠ 1/2) :
+    (∀ p, onMoment (configAt 0 1 0 a) p = onMoment (configAt 0 1 1 a) p)
+      ∧ (configAt 0 1 0 a).NscStd = (configAt 0 1 1 a).NscStd
+      ∧ hauntedCount (configAt 0 1 0 a) = 0
+      ∧ hauntedCount (configAt 0 1 1 a) = 1 := by
+  classical
+  obtain ⟨hm, hsc0, hsc1, -⟩ := Nsc_not_determined_by_on_moments ha
+  have hstd0 : (configAt 0 1 0 a).NscStd = 1 := by
+    have p0 : profile (configAt 0 1 0 a) = {(1, 0)} := by
+      simpa using configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 0) (by omega)
+    have : ((configAt 0 1 0 a).NscStd : ℤ) = 1 := by
+      rw [NscStd_from_profile, p0]; decide
+    exact_mod_cast this
+  have hstd1 : (configAt 0 1 1 a).NscStd = 1 := by
+    have p1 : profile (configAt 0 1 1 a) = {(3, 2)} := by
+      simpa using configAt_profile (γ := (0:ℝ)) ha (k := 1) (j := 1) (by omega)
+    have : ((configAt 0 1 1 a).NscStd : ℤ) = 1 := by
+      rw [NscStd_from_profile, p1]; decide
+    exact_mod_cast this
+  refine ⟨hm, by rw [hstd0, hstd1], ?_, ?_⟩
+  · rw [hauntedCount_eq_NscStd_sub_Nsc, hstd0, hsc0]
+  · rw [hauntedCount_eq_NscStd_sub_Nsc, hstd1, hsc1]
+
 end Blindness
 end Riemann

@@ -907,3 +907,6 @@ import Riemann
 #check @Riemann.Blindness.mass_card_le_momentK_sub_N
 #check @Riemann.Blindness.haunted_rung_momentK
 #check @Riemann.Blindness.rung_momentK_attained
+
+-- 387: the on-line family cannot see haunting; 386's first direction is closed.
+#check @Riemann.Blindness.hauntedCount_not_determined_by_on_moments

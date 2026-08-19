@@ -19064,3 +19064,51 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 family simultaneously, so the moments are one currency
 wearing `k` hats rather than a family of independent inputs — and buying a higher moment bound
 buys nothing the second moment did not already price.
+
+## The on-line family cannot see haunting — `386`'s first direction is closed
+
+**Piece.** `386` ended by naming three places an improved haunted bound could come from: the
+on-line family, the profile's second coordinate, or outside the blindness apparatus. This cycle
+closes the first with `Blindness.hauntedCount_not_determined_by_on_moments` and observes that the
+second was never open.
+
+**Kill condition, filed first:** *if the on-line family can bound `hauntedCount` even weakly, the
+direction stays open and I record the bound rather than a negative.* It did not fire, and the
+reason is definitional: **a haunted ordinate has `onAt = 1`, which is exactly what a simple zero
+has.** The on-line statistics cannot separate them at any order.
+
+* `Blindness.hauntedCount_not_determined_by_on_moments` — `350`'s pair does it.
+  `configAt 0 1 0 a` (mass `1`, simple) and `configAt 0 1 1 a` (mass `3`, haunted) agree on
+  **every** `onMoment` and on `NscStd`, while `hauntedCount` is `0` against `1`.
+
+So no bound `hauntedCount ≤ δ·N` follows from on-line data, however much is supplied.
+
+**And the second direction was never open.** The profile's second coordinate *is* `Noff`, and
+`Gaps.hauntedDensity_of_offLineImport` has been spending it since it was written — it is one of
+the four suppliers `384` mapped, not a new place to look.
+
+**So `386`'s three directions are one.** The moment family is exhausted (`386`), the on-line
+family is blind by `Blindness.hauntedCount_not_determined_by_on_moments`, the off-line coordinate is already in use — what remains is *outside the
+blindness apparatus*, which is where `PRICES.md`'s want-ads already point.
+
+**Wildcard — does this weaken the `HauntedDensity` hub's standing?** **Kill condition, filed
+first:** *if some existing supplier turns out to be on-line-derived, it is refuted by this
+theorem and I must retract it rather than reconcile it.* It did not fire. All four suppliers take
+`Noff`, a multiplicity moment, `NoSmallHaunted`, or `atomCount` — none is a functional of the
+on-line data alone, so the hub is consistent with the negative. `Gaps.hauntedDensity_of_starBound`
+uses `N⊛`, a multiplicity moment; `hauntedDensity_of_distinctZeros` uses `atomCount`, which
+`382`–`386` showed is the `k = 0` moment.
+
+**Snag, bin 1 — I nearly proved this from scratch.** `Nsc_not_determined_by_on_moments` (`350`)
+already carries the pair and its `Nsc` values; the haunted version is that theorem plus
+`hauntedCount_eq_NscStd_sub_Nsc` and two profile computations. Searching the *pair* rather than
+the conclusion is what found it.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, warnings at the floor `54`, duplication floor `27`, overclaim floor `203`,
+`citation_check` `0` unresolved.
+
+**Might-mean, scoped to `hauntedCount` and the two statistic families:** by
+`Blindness.hauntedCount_not_determined_by_on_moments` haunting is invisible to the on-line data and priced only through multiplicity or off-line mass, so every
+route to the `Nsc` row must pay in one of those two currencies — and the project has been buying
+in exactly those two because there is nothing else to buy.

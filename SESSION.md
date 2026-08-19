@@ -19531,3 +19531,50 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 **Might-mean, scoped to the four unavailability claims checked:** the registers' stale entries
 cluster where a claim was written twice, because correcting one instance feels like closing the
 issue — `392` and `395` both fixed this sentence and neither found its duplicate.
+
+## `XiPrime.Final` re-priced — `37,149` marginal lines, not `82,256`
+
+**Piece.** `396` confirmed `Zeta23.XiPrime.Final` is entirely unreachable and that this is the
+biggest single move available on the axiom count. The recorded price is `268`'s `82,256` lines,
+carried in three places. **Nobody has re-priced it since `337` imported a third of the
+dependency.**
+
+**Kill condition, filed first:** *if the marginal cost is within a few thousand lines of the
+recorded figure, the record stands and I say so rather than manufacturing a finding.* It did not
+fire — the gap is `45,107` lines.
+
+Measured by walking the transitive `import` closure:
+
+| | modules | lines |
+|---|---|---|
+| `XiPrime.Final`, full closure | `254` | `83,502` |
+| already built, from `337`'s five imports | `140` | `47,593` |
+| **marginal** | **`118`** | **`37,149`** |
+
+So `337` already paid for `57%` of it. Corrected at all three locations — `PRICES.md`,
+`LOOP.md`, and `forensics/statement_index.py`'s docstring.
+
+**Build time is not measured, and I am not guessing it.** Line count is a proxy `268` chose;
+whether `37,149` lines of this kind cost minutes or an hour is unknown, and the `10`-minute
+`Bash` cap makes a speculative trial a poor way to find out.
+
+**Wildcard — would the import discharge `zeta23_xiPrime`?** **Kill condition, filed first:** *if
+it would not, say so plainly, because a re-priced route that does not reach its target is worth
+less than the number suggests.* **It fired.** `396` established that
+`xiDeriv_simple_on_line_flat_cumulative` gives `N0simple` — our `NscStd` by `274` — while the
+axiom asserts `Proportion`, our `Nsc`. **That gap is `ISSUES #7` and the import does not touch
+it.** What the import *would* buy is the honest `ProportionStd 0.85838` input that
+`certified_nsc_via_derivative_std` (`391`) already accepts — so the route would land `0.60169`
+from a proved input plus `NoHaunted xiPrimeFamily`, instead of from an axiom.
+
+**That is the real shape of the offer**, and it is a ruling rather than a coding step: `37,149`
+marginal lines to convert one axiom into one open hypothesis (`NoHaunted ξ′`), with the `Nsc`
+row unmoved either way.
+
+Build unchanged (no Lean touched), ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, floors `30`/`203`.
+
+**Might-mean, scoped to this one import:** `forensics/statement_index.py`'s own docstring carried
+a price computed before the project's largest dependency purchase and never recomputed, so `PRICES.md`'s figures age exactly like
+the blockers `392` and `396` found — and a price nobody re-derives is a decision made once and
+inherited.

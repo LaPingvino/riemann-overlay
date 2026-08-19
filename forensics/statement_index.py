@@ -29,7 +29,8 @@ both trees.  Columns are `tree`, `module`, `kind`, `name`, `statement`,
 `reachable` is the column that matters for the dependency: `yes` means our build
 already imports it and it can be cited today; `no` means the proof exists but
 would need a build (`268` prices those — `RvM.Statement` `9,148` lines,
-`ThmD.Final` `44,441`, `XiPrime.Final` `82,256`).  **`338`: the first two of those
+`ThmD.Final` `44,441`, `XiPrime.Final` `82,256`; **`397`: that last figure is the full
+closure — the *marginal* cost after `337` is `37,149`**).  **`338`: the first two of those
 three are `yes` now**, taken at `337`; `XiPrime.Final` is still the big unbought
 one.
 

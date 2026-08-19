@@ -1156,6 +1156,7 @@ bridge we already wrote in `Riemann/Zeta.lean`:
 | discharge | extra modules | extra lines |
 |---|---|---|
 | `zeta23_xiPrime` from `Zeta23.XiPrime.Final` | `247` | `82,256` |
+| — *marginal after `337`* (`397`) | | **`37,149`** |
 | `baseline_zeta23` from `Zeta23.ThmD.Final` | `125` | `44,441` |
 
 Neither area has ever been compiled here — the vendored `.lake` holds only what
@@ -1165,6 +1166,17 @@ missing `olean` rather than on any error.
 **And `zeta23_xiPrime` is the wrong one to buy.** `RULING.md` already strikes ξ′
 as dominated by the `m = 7` rung — fewer points *and* two more axioms. Paying
 `82,256` lines of build to strengthen a struck row is a bad trade at any price.
+
+> **`397`: the number was stale; the conclusion may not be.** The full transitive closure of
+> `Zeta23.XiPrime.Final` is `254` modules / `83,502` lines, but `337`'s imports already build
+> `140` of them / `47,593` lines, so the **marginal** cost is `118` modules / **`37,149`**
+> lines — under half the recorded figure. **Build time is not measured.**
+>
+> And it would **not** discharge `zeta23_xiPrime` as written:
+> `Zeta23.XiPrime.Final.xiDeriv_simple_on_line_flat_cumulative` gives `N0simple` — our
+> `NscStd` (`274`) — while the axiom asserts `Proportion`, our `Nsc`. That is `ISSUES #7`.
+> What the import *would* buy is the honest `ProportionStd` input that
+> `Riemann.certified_nsc_via_derivative_std` (`391`) already accepts.
 
 **`baseline_zeta23` is the interesting one, and it carries a second cost that
 went unpriced until now.** Their theorem states `2 − 1/c₁* = HD 1 = 3/2 − cot(1/√2)/√2` in

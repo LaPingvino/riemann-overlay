@@ -244,7 +244,7 @@ degradations, not less.
   declarations across this repo and the vendored dependency, with a `reachable`
   column saying whether a dependency theorem can be cited today or would need a
   build (`268`: `RvM.Statement` `9,148` lines, `ThmD.Final` `44,441`,
-  `XiPrime.Final` `82,256`). `255` re-proved two `181` theorems (`S111`) and
+  `XiPrime.Final` `82,256`; **`397`: marginal after `337` is `37,149`**). `255` re-proved two `181` theorems (`S111`) and
   `267` found an axiom standing over a sorry-free proof we vendor; both queries
   return the answer in one command, and `269` replayed both to check it.
   **The rule is bounded on purpose.** An axiom or a literature request is the

@@ -19578,3 +19578,51 @@ Build unchanged (no Lean touched), ledger unmoved at `NscStd 67.25% / Nsc 50.88%
 a price computed before the project's largest dependency purchase and never recomputed, so `PRICES.md`'s figures age exactly like
 the blockers `392` and `396` found — and a price nobody re-derives is a decision made once and
 inherited.
+
+## The `XiPrime.Final` build cost is already paid — `108` oleans, `91M`, on disk
+
+**Piece.** `397` re-priced the import at `37,149` marginal lines and left build time explicitly
+unmeasured, which was the one gap in the ruling I put to Joop. This cycle measured it.
+
+**Kill condition, filed first:** *if the build exceeds forty minutes or fails, I record the
+partial measurement and stop rather than chase it.* It did not fire, and the reason is better
+than a fast build.
+
+**The artifacts already exist.** `lake build zeta23/Zeta23.XiPrime.Final` ran to `8796/8886`
+jobs and produced **nothing new**:
+
+* `Zeta23/XiPrime/Final.olean` is present, with mtime `~5.9 days` before this cycle's build
+  started;
+* **zero** `XiPrime` oleans are newer than the build start;
+* `108` `XiPrime` oleans totalling `91M` are on disk, and `lake` **replayed** rather than
+  rebuilt them, which is its own judgement that they are current for the pin;
+* `forensics/vendor_check.py` still reports the vendoring intact, so the pin those artifacts
+  were built against has not moved.
+
+**So `397`'s open figure closes at approximately zero.** The `37,149` marginal lines are already
+compiled. Adding `import Zeta23.XiPrime.Final` would consume existing oleans; what remains is
+our own modules recompiling against a wider import, which is the ordinary `8862`-job build.
+
+**This changes the offer I put to Joop at `397`.** It read *"`37,149` marginal lines, build time
+unknown"*. It now reads: **the compile is done; the cost is an import line and a rebuild of our
+own tree.** What the import buys is unchanged and still limited — by `396` the vendored theorem
+gives `N0simple`, our `NscStd`, so it supplies the honest `ProportionStd 0.85838` input to
+`certified_nsc_via_derivative_std` and does **not** discharge `zeta23_xiPrime`, whose gap is
+`ISSUES #7`.
+
+**Snag, bin 2 — my first invocation measured nothing and I nearly reported it as a result.**
+`lake build Zeta23.XiPrime.Final` resolved to no target: it replayed `3619/3627` jobs, exited
+without a completion line, and touched zero `XiPrime` modules. The dependency needs the
+package-qualified form `zeta23/Zeta23.XiPrime.Final`. A build that silently builds nothing looks
+exactly like a build that finishes fast, which is `S164`'s shape — silent under-reporting that
+formats as a clean result.
+
+**Snag, bin 3 — the package directory is `.lake/packages/zeta23.AWAY`** and there is no
+`zeta23` beside it. I spent two calls establishing that the `.AWAY` path is the live one rather
+than a leftover, because I assumed the plain name existed.
+
+No Lean changed; build and ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, floors `30`/`203`.
+
+**Might-mean, scoped to this one import:** the largest unbought item on the board has been fully
+compiled on this machine for days, so what has kept `zeta23_xiPrime` an axiom is not compute but
+the fact that nobody asked what was already built.

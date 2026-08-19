@@ -1170,7 +1170,13 @@ as dominated by the `m = 7` rung — fewer points *and* two more axioms. Paying
 > **`397`: the number was stale; the conclusion may not be.** The full transitive closure of
 > `Zeta23.XiPrime.Final` is `254` modules / `83,502` lines, but `337`'s imports already build
 > `140` of them / `47,593` lines, so the **marginal** cost is `118` modules / **`37,149`**
-> lines — under half the recorded figure. **Build time is not measured.**
+> lines — under half the recorded figure.
+>
+> **`398`: the compile is already done.** `Zeta23/XiPrime/Final.olean` and `107` siblings
+> (`91M`) are on disk, built against the current pin roughly six days before `398` looked;
+> `lake` replays rather than rebuilds them and `forensics/vendor_check.py` still reports the
+> vendoring intact. So the marginal build cost is **approximately zero** — an `import` line
+> and our own tree recompiling.
 >
 > And it would **not** discharge `zeta23_xiPrime` as written:
 > `Zeta23.XiPrime.Final.xiDeriv_simple_on_line_flat_cumulative` gives `N0simple` — our

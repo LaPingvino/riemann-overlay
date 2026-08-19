@@ -885,3 +885,9 @@ import Riemann
 -- at C = 1393/1000, both paying 607/1000.
 #check @Riemann.Blindness.star_currency_crossover
 #check @Riemann.Blindness.star_currency_crossover_zeta
+
+-- 382: the star bound at a ladder rung.  Coefficient m(m-1), not the fixed 6.
+#check @Riemann.Blindness.mass_card_le_Nstar_sub_N
+#check @Riemann.Blindness.haunted_rung_star
+#check @Riemann.Blindness.star_rung_threshold
+#check @Riemann.Blindness.star_rung_threshold_zeta

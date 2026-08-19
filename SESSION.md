@@ -18829,3 +18829,53 @@ No Lean changed, no ledger movement, `session_gate` green.
 solution in a sequence of restatements and nobody noticed for the fifty-odd cycles `T3` sat in
 the queue, so the specification's own membership list was the unverified claim — not the dates it
 warned about.
+
+## The star bound at a ladder rung — the two currencies combine
+
+**Piece.** `377` left three currencies in `RULING.md`'s ceiling table treated as separate.
+`Gaps.hauntedDensity_of_offLineImport_at_rung` already combines two of them — off-line control
+with the multiplicity ladder — and pays `β/(m−1)` instead of `β/2`. **The star currency has the
+same combination and nobody had written it.**
+
+**Kill condition, filed first:** *if the coefficient does not actually improve with the rung —
+if a haunted ordinate of mass `m` costs the same `6` regardless — the combination is empty and I
+record that instead.* It did not fire. `ZeroData.six_mul_card_le_Nstar_sub_N`'s `6` is
+`3 × 2`, the mass-`3` haunted atom's cost; at mass `m` the cost is `m(m−1)`.
+
+* `Blindness.mass_card_le_Nstar_sub_N` — the general coefficient: any finset of ordinates all of
+  mass `≥ m` pays `m(m−1)` each into `N⊛ − N`. `275`'s lemma is the `m = 3` case.
+* `Blindness.haunted_rung_star` — the same for `hauntedCount`, which is that filter's card by
+  definition, so no bridge is needed.
+* `Blindness.star_rung_threshold` — with an abstract positive denominator, the star route beats
+  the certified `(3κ−1)/2` exactly when `2(C−1) < D(1−κ)`.
+* `Blindness.star_rung_threshold_zeta` — at `κ = 269/400`, rungs `3`, `5`, `7` give thresholds
+  `793/400`, `1710/400`, `3151/400`.
+
+**So the ask weakens sharply with the rung.** Unconditionally the star bound must beat
+`C < 1.9825`; under `NoSmallHaunted 5` it need only beat `4.275`, and under rung `7`, `7.8775`.
+Priced in `PRICES.md` beside the unconditional row. **It is a combination and not a new
+currency** — it needs a star bound *and* a rung, so it does not move any certified row on its
+own.
+
+**Wildcard — is `374`'s pointwise star route itself already on disk at family level?** **Kill
+condition, filed first:** *if it is, `374` was a rediscovery twice over and I say so plainly
+rather than letting `377`'s partial correction stand as the whole story.* **It fired.**
+`Gaps.hauntedDensity_of_starBound : StarBound C → HauntedDensity F ((C−1)/6)` exists, and with
+`Gaps.proportion_of_hauntedDensity` it gives `Proportion (κ − (C−1)/6)` — exactly `374`'s trade,
+at the level the project actually uses. `374` proved the pointwise shadow of a family-level
+theorem, and `377` corrected only its *priority* claim, not its novelty.
+
+**Snag, bin 1 — fifth rediscovery in nine cycles, and the register that would have prevented it
+is the one I keep not reading.** The `HauntedDensity` hub has **five** suppliers in `Gaps.lean` —
+off-line, off-line-at-rung, `NoSmallHaunted`, star bound, distinct zeros — all feeding
+`proportion_of_hauntedDensity`. That structure is richer than `RULING.md`'s three-currency table
+and I found it only by searching a conclusion shape this cycle.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%` unmoved, base
+`v4/3508643365fd`, warnings `54`, duplication floor `27`, overclaim floor `203`,
+`citation_check` `0`.
+
+**Might-mean, scoped to the two currencies and the three rungs computed:** the project's
+currencies were catalogued as alternatives when at least two of the five haunted-density
+suppliers compose, so the board's real question is which *pairs* combine and what each pair
+costs — a table nobody has drawn.

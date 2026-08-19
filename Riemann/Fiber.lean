@@ -9115,5 +9115,89 @@ theorem star_currency_crossover_zeta :
   refine ⟨by norm_num, by norm_num, by norm_num, by norm_num, by norm_num, by norm_num⟩
 
 
+/-! #### The star bound at a ladder rung — `SESSION 382`
+
+`ZeroData.six_mul_card_le_Nstar_sub_N` fixes the coefficient at `6`, which is the
+mass-`3` haunted atom's cost.  Under `NoSmallHaunted m` a haunted ordinate carries
+mass at least `m`, and the cost is `m(m−1)`.  This is the star analogue of
+`Gaps.hauntedDensity_of_offLineImport_at_rung`, which does the same for the
+off-line currency.
+-/
+
+
+theorem mass_card_le_Nstar_sub_N (D : ZeroData) (G : Finset ℝ) {m : ℕ} (hm : 1 ≤ m)
+    (hG : ∀ γ ∈ G, m ≤ D.H γ) (hsub : G ⊆ D.ordinates.toFinset) :
+    (m * (m - 1)) * G.card + D.N ≤ D.Nstar := by
+  classical
+  have hcount : ∀ γ ∈ G, m ≤ D.ordinates.count γ := by
+    intro γ hγ; rw [← ZeroData.H_eq_count]; exact hG γ hγ
+  have hNstar : D.Nstar = ∑ γ ∈ D.ordinates.toFinset,
+      D.ordinates.count γ * D.ordinates.count γ := by
+    obtain ⟨-, h2⟩ := ZeroData.N_Nstar_ordinate_functional D
+    rw [h2, Finset.sum_multiset_map_count]
+    simp [smul_eq_mul]
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.ordinates.count γ := by
+    obtain ⟨h1, -⟩ := ZeroData.N_Nstar_ordinate_functional D
+    rw [h1, ← Multiset.toFinset_sum_count_eq]
+  have key : ∑ γ ∈ D.ordinates.toFinset,
+      (D.ordinates.count γ + if γ ∈ G then m * (m - 1) else 0)
+      ≤ ∑ γ ∈ D.ordinates.toFinset, D.ordinates.count γ * D.ordinates.count γ := by
+    refine Finset.sum_le_sum fun γ _ => ?_
+    by_cases hγ : γ ∈ G
+    · have h3 : m ≤ D.ordinates.count γ := hcount γ hγ
+      simp only [hγ, if_pos]
+      have hc1 : 1 ≤ D.ordinates.count γ := le_trans hm h3
+      have hmono : m * (m - 1) ≤ D.ordinates.count γ * (D.ordinates.count γ - 1) :=
+        Nat.mul_le_mul h3 (Nat.sub_le_sub_right h3 1)
+      have hsplit : D.ordinates.count γ * (D.ordinates.count γ - 1) + D.ordinates.count γ
+          = D.ordinates.count γ * D.ordinates.count γ := by
+        obtain ⟨k, hk⟩ := Nat.exists_eq_add_of_le hc1
+        rw [hk]; simp; ring
+      omega
+    · simp only [hγ, if_neg, add_zero, not_false_iff]
+      nlinarith [Nat.zero_le (D.ordinates.count γ)]
+  rw [Finset.sum_add_distrib, Finset.sum_ite_mem, Finset.inter_eq_right.2 hsub,
+    Finset.sum_const] at key
+  rw [hNstar, hN]
+  simpa [smul_eq_mul, mul_comm, add_comm] using key
+
+
+
+theorem haunted_rung_star (D : ZeroData) {m : ℕ} (hm : 1 ≤ m)
+    (hmass : ∀ γ ∈ D.ordinates.toFinset.filter
+        (fun γ => D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1), m ≤ D.H γ) :
+    (m * (m - 1)) * hauntedCount D + D.N ≤ D.Nstar := by
+  classical
+  have h := mass_card_le_Nstar_sub_N D _ hm hmass (Finset.filter_subset _ _)
+  simpa [hauntedCount] using h
+
+/-- **The star cost at rung `m`, and the threshold it moves.**  `SESSION 382`.
+
+The star currency spends `(C − 1)/(m(m−1))` instead of `(C − 1)/6`, so it beats
+the certified `(3κ − 1)/2` for every `C` below `1 + m(m−1)(1 − κ)/2`.  At
+`m = 3` that reproduces `374`'s `793/400`; the ladder's own rungs move it far
+out. -/
+theorem star_rung_threshold {κ C D : ℝ} (hD : 0 < D) :
+    (3 * κ - 1) / 2 < κ - (C - 1) / D ↔ 2 * (C - 1) < D * (1 - κ) := by
+  have h2 : (0:ℝ) < 2 := by norm_num
+  constructor
+  · intro h
+    have h' : (C - 1) / D < (1 - κ) / 2 := by linarith
+    rw [div_lt_div_iff₀ hD h2] at h'
+    linarith
+  · intro h
+    have h' : (C - 1) / D < (1 - κ) / 2 := by
+      rw [div_lt_div_iff₀ hD h2]; linarith
+    linarith
+
+/-- **`Blindness.star_rung_threshold` at ζ's `κ`, in exact rationals.**
+`SESSION 382`.  Rungs `3`, `5`, `7`. -/
+theorem star_rung_threshold_zeta :
+    (1 : ℝ) + 3 * 2 * (1 - 269 / 400) / 2 = 793 / 400
+      ∧ (1 : ℝ) + 5 * 4 * (1 - 269 / 400) / 2 = 1710 / 400
+      ∧ (1 : ℝ) + 7 * 6 * (1 - 269 / 400) / 2 = 3151 / 400 := by
+  refine ⟨by norm_num, by norm_num, by norm_num⟩
+
+
 end Blindness
 end Riemann

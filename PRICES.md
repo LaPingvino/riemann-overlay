@@ -265,6 +265,23 @@ the certified route's `(3κ−1)/2`.
 | star route at `c` | `κ − (c−1)/6` | `Blindness.star_route_pointwise` |
 | **crossover** | **`c = 793/400`**, exactly | `Blindness.star_route_beats_iff` |
 
+**`382`: the ask is far weaker at a ladder rung.** `ZeroData.six_mul_card_le_Nstar_sub_N`
+fixes the coefficient at `6`, the mass-`3` haunted atom's cost. Under `NoSmallHaunted m` a
+haunted ordinate carries mass `≥ m` and the cost is `m(m−1)`
+(`Blindness.mass_card_le_Nstar_sub_N`, `Blindness.haunted_rung_star`), so the star route pays
+`κ − (C−1)/(m(m−1))` and beats the certified row below `1 + m(m−1)(1−κ)/2`
+(`Blindness.star_rung_threshold`). At `κ = 269/400`:
+
+| rung | coefficient | star beats the certified row below |
+|---|---|---|
+| `m = 3` | `6` | `793/400` = `1.9825` |
+| `m = 5` | `20` | `1710/400` = `4.275` |
+| `m = 7` | `42` | `3151/400` = `7.8775` |
+
+This is the star analogue of `Gaps.hauntedDensity_of_offLineImport_at_rung`, which does the
+same for the off-line currency. **It is a combination, not a new currency** — it needs both a
+star bound and a ladder rung.
+
 **The want-ad:** an *unconditional* `N⊛ ≤ c·N` with `c < 793/400` — mean-square
 multiplicity below `1.9825`. Nobody has asked the literature for one.
 

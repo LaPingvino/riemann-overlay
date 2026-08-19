@@ -110,6 +110,13 @@ interval. The `H`-moments do **not** form one: they have `N_sc`
 makes it a mass functional), miss `onLineOrdinates`
 (`Riemann.Blindness.onLineOrdinates_not_determined_by_all_moments`), and have `atomCount`.
 
+**Each family's reach is exactly its own count family.**
+`Riemann.Optimal.moment_blind_iff_massCount` and
+`Riemann.Optimal.on_moment_blind_iff_onCount` are equivalences, not implications — the
+converses being the weighted fiberwise sums `Riemann.Blindness.momentK_eq_sum_massCount` and
+`Riemann.Blindness.onMoment_eq_sum_onCount`. So "determined by the moments" and "a functional
+of the counts" are one predicate per family, and the chain's order does not enter.
+
 **Swapping the weight fixes it.** `Riemann.Optimal.NscStd_determined_by_on_moments`:
 the moments of the *on-line* count determine `NscStd`, with no hypothesis. And
 `Riemann.Blindness.Nsc_not_determined_by_on_moments` shows that family misses the

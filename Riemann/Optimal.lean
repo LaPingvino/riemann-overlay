@@ -1125,5 +1125,59 @@ theorem moment_route_walled {k : ℕ} (hk : 3 ≤ k) :
       Blindness.factMoment Gauge.pairOnly k = 0 :=
   ⟨single_factMoment hk, pairOnly_factMoment hk⟩
 
+/-- **`Optimal.moment_blind_iff_massCount`: agreeing on every `momentK` is the same
+condition as agreeing on every mass count.**  `SESSION 368`.
+
+`massCount_determined_by_all_moments` (`346`) is the forward half.  The converse
+is `Blindness.momentK_eq_sum_massCount` at a common cap, and having both makes
+"determined by the multiplicity moments" and "a functional of the mass multiset"
+the same predicate.
+
+This is why `367`'s reach alternates: by `Blindness.momentK_eq_sum_massCount` the
+`H`-family sees a quantity exactly when the mass multiset does, and the chain's
+order has no say in it.  `NscStd`
+(`347`) and `onLineOrdinates` (`367`) are refuted by pairs with *equal* mass
+multisets, while `N_sc` (`348`) and `oddAtoms` (`367`) are mass functionals. -/
+theorem moment_blind_iff_massCount {D D' : ZeroData} :
+    (∀ k, Blindness.momentK D k = Blindness.momentK D' k)
+      ↔ ∀ n, Blindness.massCount D n = Blindness.massCount D' n := by
+  constructor
+  · intro hm n
+    exact massCount_determined_by_all_moments hm n
+  · intro hc k
+    rw [Blindness.momentK_eq_sum_massCount D k (B := max D.N D'.N)
+          (fun γ _ => le_trans (H_le_N D γ) (le_max_left _ _)),
+        Blindness.momentK_eq_sum_massCount D' k (B := max D.N D'.N)
+          (fun γ _ => le_trans (H_le_N D' γ) (le_max_right _ _))]
+    exact Finset.sum_congr rfl fun n _ => by rw [hc n]
+
+/-- **The on-line twin: agreeing on every `onMoment` is agreeing on every
+`onCount`.**  `SESSION 368`.
+
+Forward half `onCount_determined_by_on_moments` (`365`), converse
+`Blindness.onMoment_eq_sum_onCount`.  With `moment_blind_iff_massCount` this
+places both families on the same footing: each is exactly its own count family,
+and the asymmetry recorded at `367` — the on-line reach an interval, the
+`H`-reach not — is a fact about the five chain terms, not about the two
+statistics. -/
+theorem on_moment_blind_iff_onCount {D D' : ZeroData} :
+    (∀ p, Blindness.onMoment D p = Blindness.onMoment D' p)
+      ↔ ∀ n, Blindness.onCount D n = Blindness.onCount D' n := by
+  have hon : ∀ (E : ZeroData) (γ : ℝ), Blindness.onAt E γ ≤ E.N := by
+    intro E γ
+    have h := Blindness.H_eq_onAt_add_offAt E γ
+    have h2 := H_le_N E γ
+    omega
+  constructor
+  · intro hm n
+    exact onCount_determined_by_on_moments hm n
+  · intro hc p
+    rw [Blindness.onMoment_eq_sum_onCount D p (B := max D.N D'.N)
+          (fun γ _ => le_trans (hon D γ) (le_max_left _ _)),
+        Blindness.onMoment_eq_sum_onCount D' p (B := max D.N D'.N)
+          (fun γ _ => le_trans (hon D' γ) (le_max_right _ _))]
+    exact Finset.sum_congr rfl fun n _ => by rw [hc n]
+
+
 end Optimal
 end Riemann

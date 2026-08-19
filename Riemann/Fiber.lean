@@ -8783,5 +8783,41 @@ theorem onLineOrdinates_not_determined_by_all_moments {a : ℝ} (ha : a ≠ 1/2)
     omega
 
 
+/-- **`momentK` is a weighted sum of the mass counts.**  `SESSION 368`.
+
+Partition the ordinates by their multiplicity: the fibre over `n` has
+`massCount D n` elements and each contributes `n ^ k`.  `oddAtoms_eq_sum_massCount`
+is the same partition with a `0/1` weight; this is the general weight, and it is
+what makes `Riemann.Optimal.moment_blind_iff_massCount` an equivalence rather
+than a one-way implication.
+
+The cap `B` is discharged at `max D.N D'.N` wherever this is used. -/
+lemma momentK_eq_sum_massCount (D : ZeroData) (k : ℕ) {B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, D.H γ ≤ B) :
+    momentK D k = ∑ n ∈ Finset.range (B + 1), massCount D n * n ^ k := by
+  classical
+  have hmaps : ∀ γ ∈ D.ordinates.toFinset, D.H γ ∈ Finset.range (B + 1) :=
+    fun γ hγ => Finset.mem_range.2 (by have := h γ hγ; omega)
+  rw [momentK, ← Finset.sum_fiberwise_of_maps_to' hmaps (fun n => n ^ k)]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  simp only [massCount, Finset.sum_const, smul_eq_mul]
+
+/-- **`onMoment` is a weighted sum of the on-line counts.**  `SESSION 368`.
+
+The on-line twin of `momentK_eq_sum_massCount`, and the reason
+`Riemann.Optimal.on_moment_blind_iff_onCount` is an equivalence too.  Note that
+no term is excluded: `onCount D 0` may be positive, and `0 ^ 0 = 1` is exactly
+what makes `atomCount_eq_onMoment_zero` come out right. -/
+lemma onMoment_eq_sum_onCount (D : ZeroData) (p : ℕ) {B : ℕ}
+    (h : ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ B) :
+    onMoment D p = ∑ n ∈ Finset.range (B + 1), onCount D n * n ^ p := by
+  classical
+  have hmaps : ∀ γ ∈ D.ordinates.toFinset, onAt D γ ∈ Finset.range (B + 1) :=
+    fun γ hγ => Finset.mem_range.2 (by have := h γ hγ; omega)
+  rw [onMoment, ← Finset.sum_fiberwise_of_maps_to' hmaps (fun n => n ^ p)]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  simp only [onCount, Finset.sum_const, smul_eq_mul]
+
+
 end Blindness
 end Riemann

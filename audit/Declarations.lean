@@ -850,3 +850,10 @@ import Riemann
 #check @Riemann.Blindness.oddAtoms_eq_sum_massCount
 #check @Riemann.Blindness.onLineOrdinates_not_determined_by_all_moments
 #check @Riemann.Optimal.oddAtoms_determined_by_all_moments
+
+-- 368: the H-family's reach IS the mass multiset, and the on-line family's IS the on-counts.
+-- Two equivalences; each converse is the weighted fiberwise sum.  Explains 367.
+#check @Riemann.Blindness.momentK_eq_sum_massCount
+#check @Riemann.Blindness.onMoment_eq_sum_onCount
+#check @Riemann.Optimal.moment_blind_iff_massCount
+#check @Riemann.Optimal.on_moment_blind_iff_onCount

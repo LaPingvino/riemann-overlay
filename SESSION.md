@@ -18015,3 +18015,61 @@ reports `0` unresolved.
 reach along the chain is not governed by the chain's order at all — parity lets the
 `H`-moments jump over the one term they cannot see — so the ledger needs both families not
 because they divide the chain but because each is blind at a different, non-adjacent place.
+
+## Each family's reach is exactly its own count family
+
+**Piece.** `367` left the two families' reaches described term by term. The reason for the
+alternation is one equivalence per family, and both were one lemma short.
+
+**Kill condition, filed first:** *if the converse direction needs a cap that cannot be
+discharged from `H_le_N` at a common bound, I ship the capped implication and state that the
+cap-free equivalence is not proved.* It did not fire — `max D.N D'.N` discharges both sides,
+so both equivalences are cap-free in their statements.
+
+* `Blindness.momentK_eq_sum_massCount` — `momentK D k = ∑ n, massCount D n * n ^ k`. This is
+  `365`'s fiberwise partition with a general weight instead of `0/1`;
+  `Finset.sum_fiberwise_of_maps_to'` does the work and every term stays in `ℕ`.
+* `Riemann.Optimal.moment_blind_iff_massCount` — **agreeing on every `momentK` is the same
+  condition as agreeing on every `massCount`.** Forward half is `346`, converse the lemma
+  above.
+
+**Wildcard — does the on-line side admit the same equivalence?** **Kill condition, filed
+first:** *if `onCount D 0` being positive forces an excluded term or a side hypothesis, the
+two families are not symmetric here and I say so.* It did not fire, and no term is excluded:
+`0 ^ 0 = 1` is exactly what makes the `p = 0` case come out as `atomCount`.
+`Blindness.onMoment_eq_sum_onCount` and `Riemann.Optimal.on_moment_blind_iff_onCount`.
+
+**So `367`'s alternation was never about the chain.** Each family's blindness *is* its count
+family — by `Optimal.moment_blind_iff_massCount` the `H`-moments see a quantity precisely when
+the mass multiset does. `347`'s and `367`'s negatives are pairs with equal mass multisets;
+`348`'s and `367`'s positives are mass functionals. The chain's order plays no part, which is
+why the reach could jump a term.
+
+**Snag, bin 1 — `overclaim_floor` fired on my own new prose for the sixth time, and the fix
+was again one word.** `344`, `345`, `347`, `353`, `362`, now `368`: name the witnessing
+declaration inside the flagging sentence so the dotted name satisfies `WITNESS`. Two
+sentences, `205` against floor `203`, reworded to `203` with no raise. What it cost was
+ordering — the flag arrived after a full `lake build`. `claims_gate` reads stdin, so a draft
+docstring can be piped in a second. Written up as **`R32`**.
+
+**Snag, bin 2 — and then `R32` exposed `S157`.** I added the rule, ran
+`process_index --find 'R32'`, and got nothing. `forensics/process_index.py` matches
+`LOOP.md`'s `| R<n> | … |` **table** only, and every rule from `R25` on was written as a
+bullet — so
+`R25`–`R31` had never been indexed, including `R26`'s search rule, `R28`'s vocabulary rule and
+`R31`'s own gate rule. Silently, for the whole span since `R25`. This is `S115` — knowledge on
+disk that no instrument reads — committed by the instrument built to prevent it, and `269`'s
+silent omission repeated. Parser widened to take the bullet span from `* **R<n> —` to the next
+top-level bullet: rows `216` → `225`, rules indexed `26` → `34`. The count moving is the
+witness; the eight names now print.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`, duplication
+floor `27` unmoved, overclaim floor `203` unmoved after the rewording, `citation_check` `0`
+unresolved.
+
+**Might-mean, scoped to the two moment families and the five chain terms:** by
+`Optimal.moment_blind_iff_massCount` a summary statistic's blindness is a property of the
+statistic alone and not of the quantity it is asked about, so the right question for the ledger was never "how far up the chain does this family
+reach" but "which of the five terms is a functional of these counts" — and those are different
+questions that happen to coincide only on the on-line side.

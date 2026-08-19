@@ -154,6 +154,16 @@ degradations, not less.
   `git commit` in one shell call; `251d` wrote the rule and `277` broke it
   anyway, which is `S113`. A guard in the roster closes the window to one
   cycle whatever the shell does. Replayed against `0ae75b9` — it catches `277`.
+* **R32 — pipe new docstring prose through `claims_gate` before installing it, not
+  after the build.**  `overclaim_floor` has fired on prose written that same cycle in
+  `344`, `345`, `347`, `353`, `362` and `368` — six times since it shipped at `343`.
+  The repair has been identical every time: name the witnessing declaration inside the
+  flagging sentence, so the dotted name satisfies `WITNESS`.  What made it cost
+  anything was ordering — the flag surfaced after a full `lake build`, so a
+  one-word fix arrived minutes late.  `claims_gate` reads stdin and scans nothing
+  on its own, so `python3 forensics/claims_gate.py <<'EOF' … EOF` over a draft
+  docstring costs a second.  Draft, pipe, then install.  `368` paid the build
+  first and then did exactly this; the floor did not have to move.
 * **R31 — `session_gate` is the call before the commit, and it is now the whole
   roster.**  `251` and `277` shipped a flagged entry by putting the gate and
   `git commit` in one shell call; `278` built `session_gate` so the window was one

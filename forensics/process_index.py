@@ -74,8 +74,19 @@ def build():
     rows = []
 
     # LOOP.md — the rule table.  Bold markers around the id are optional.
+    loop = read("LOOP.md")
     for m in re.finditer(r"^\|\s*\*{0,2}(R\d+[a-z]?)\*{0,2}\s*\|(.*)$",
-                         read("LOOP.md"), re.M):
+                         loop, re.M):
+        rows.append(("rule", m.group(1), "LOOP.md", flat(m.group(2))))
+
+    # `368`: the rules are not all in the table.  Everything from `R25` on was
+    # written as a bullet, so seven rules — `R25`–`R31` — were never indexed,
+    # while this script reported "index current" and a row count that looked
+    # healthy.  That is `S115`'s defect committed by the instrument built to
+    # prevent it, and `269`'s silent omission again.  A bullet runs from
+    # `* **R<n>` to the next top-level `* `, so take that span.
+    for m in re.finditer(r"^\* \*\*(R\d+[a-z]?) —(.*?)(?=^\* |\Z)",
+                         loop, re.M | re.S):
         rows.append(("rule", m.group(1), "LOOP.md", flat(m.group(2))))
 
     # SURPRISES.md — the surprise table.

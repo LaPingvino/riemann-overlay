@@ -19626,3 +19626,49 @@ No Lean changed; build and ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, floor
 **Might-mean, scoped to this one import:** the largest unbought item on the board has been fully
 compiled on this machine for days, so what has kept `zeta23_xiPrime` an axiom is not compute but
 the fact that nobody asked what was already built.
+
+## `398` was wrong — the build cost is real, and I measured it: about two hours
+
+**Piece.** `398` concluded the `XiPrime.Final` compile was already paid, on the evidence of `108`
+oleans in `.lake/packages/zeta23.AWAY` predating the build. **That directory is not the one
+`lake` uses.** Attempting the import in scratch produced the decisive error:
+
+> `object file '/home/joop/riemann/vendor/zeta23/.lake/build/lib/lean/Zeta23/XiPrime/Final.olean'
+> of module Zeta23.XiPrime.Final does not exist`
+
+**Corrected count.** The live path `vendor/zeta23/.lake` holds `152` oleans of which **`2`** were
+`XiPrime`; `zeta23.AWAY` holds `313` and is a leftover from before the vendoring at `231`. `398`
+read the leftover's timestamps and concluded the opposite of the truth — and it spent two calls
+"establishing" that `.AWAY` was live, reaching the wrong answer both times.
+
+**Kill condition, filed first:** *the scratch import is reversible and touches no repo file; if
+making it work needs a repo change, I stop and report rather than wire it in without the ruling.*
+It did not fire — the error came before any change was needed.
+
+**The measurement, from the live path.** Resuming `lake build zeta23/Zeta23.XiPrime.Final`:
+
+* `32` `XiPrime` modules compiled and timed this run — mean **`80s`**, max `164s`;
+* `34` of `108` now built in the live path;
+* **`74` remaining at that mean is about `98` minutes** of compute.
+
+So the honest price for the ruling is **roughly two hours of compile**, not zero. `397`'s
+`37,149` marginal lines stand; `398`'s "approximately zero" is withdrawn.
+
+**Why it took several attempts to see.** Background builds do not survive the call that starts
+them — each window advanced the build by eight or nine minutes and then the process was gone,
+with no error and no completion line. Three separate runs each looked like "finished quickly"
+because `lake` exits silently when killed mid-target.
+
+**Snag, bin 1 — the same defect `S186` records, one cycle later and with the polarity
+reversed.** At `398` I mistook a build that did nothing for a build that finished; here I
+mistook a leftover directory for the live one. Both times the surface said *"done"* and I did not
+check what the tool actually resolves. `S164`'s class again: a clean-looking result that reports
+nothing.
+
+**No repo change.** Nothing was imported, nothing wired; the scratch file is outside the repo and
+the build artifacts are in the vendored package's own build directory. Ledger unmoved at
+`NscStd 67.25% / Nsc 50.88%`, floors `30`/`203`.
+
+**Might-mean, scoped to the `XiPrime` import and these three build attempts:** every measurement
+I made about this import was wrong in the direction that made the decision look easier, which is
+worth more caution than the number itself.

@@ -1172,7 +1172,13 @@ as dominated by the `m = 7` rung — fewer points *and* two more axioms. Paying
 > `140` of them / `47,593` lines, so the **marginal** cost is `118` modules / **`37,149`**
 > lines — under half the recorded figure.
 >
-> **`398`: the compile is already done.** `Zeta23/XiPrime/Final.olean` and `107` siblings
+> **`399` retracts `398`: the compile is NOT done.** `lake` resolves the dependency at
+> `vendor/zeta23/.lake`, which held `2` `XiPrime` oleans; the `108` `398` counted were in
+> `.lake/packages/zeta23.AWAY`, a pre-vendoring leftover. Measured from the live path: mean
+> **`80s`** per `XiPrime` module, `74` of `108` remaining ≈ **`98` minutes** of compute.
+> The struck text follows.
+>
+> ~~**`398`: the compile is already done.**~~ `Zeta23/XiPrime/Final.olean` and `107` siblings
 > (`91M`) are on disk, built against the current pin roughly six days before `398` looked;
 > `lake` replays rather than rebuilds them and `forensics/vendor_check.py` still reports the
 > vendoring intact. So the marginal build cost is **approximately zero** — an `import` line

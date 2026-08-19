@@ -941,3 +941,11 @@ import Riemann
 #check @Riemann.Blindness.mass_card_eq_N_sub_atomCount_iff
 #check @Riemann.Blindness.mass_card_eq_Nstar_sub_N_iff
 #check @Riemann.Blindness.rung_currencies_agree
+
+-- 406: the k-th moment bound as a HauntedDensity supplier.
+#check @Riemann.Blindness.momentK_mono_order
+#check @Riemann.Family.MomentBound
+#check @Riemann.momentBound_two_iff_starBound
+#check @Riemann.starBound_of_momentBound
+#check @Riemann.hauntedDensity_of_momentBound_at_rung
+#check @Riemann.moment_rung_beats_star_rung_iff

@@ -117,6 +117,12 @@ TRANSFER = {
         "starBound_of_mult_le_two", "routeIII_with_narrowBox", "routeIII_via_A''",
         "starBound_of_multiplicity_two", "starBound_of_mult_le_two_zeta",
         "starBound_of_mult_le_three",
+        # SESSION 406: `Family.MomentBound k C` implies `StarBound C` for
+        # `k ≥ 2` (`starBound_of_momentBound`) and *is* it at `k = 2`
+        # (`momentBound_two_iff_starBound`).  Neither consumes a proportion,
+        # so `171`'s count of proportion-free producers goes four-of-eight to
+        # six-of-ten.
+        "starBound_of_momentBound", "momentBound_two_iff_starBound",
     },
     "HauntedDensity": {
         "hauntedDensity_of_offLineImport", "hauntedDensity_of_starBound",

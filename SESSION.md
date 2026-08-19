@@ -19933,3 +19933,49 @@ tight on exactly the same configurations
 (`Blindness.rung_currencies_agree`), choosing among them is arithmetic on their
 coefficients and nothing else — there is no configuration on which the weaker
 coefficient buys something the stronger one misses.
+
+## 406 — the `k`-th moment bound becomes a predicate, and a fourth supplier
+
+**Kill condition, stated first (`R12`).** Piece: give `[OPEN D]`'s currency a
+definition and hang a `HauntedDensity` supplier on it. Wildcard: when does a
+higher moment beat the star bound at the same rung? Kill: if deciding it needs a
+value for `C′` at some `k > 2`, state the criterion as a biconditional and stop —
+do not assert a winner.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.momentK_mono_order` — `momentK j ≤ momentK k` for `j ≤ k`, since
+  every mass is at least `1`.
+- `Family.MomentBound k C` — `momentK k (T) ≤ (C + o(1)) N(T)`. It sits on
+  `Family`, not `Counts`, because `Counts` carries only `Nz`, `Ns`, `Nsc` and
+  `momentK` is not a functional of those three.
+- `Riemann.momentBound_two_iff_starBound` — at `k = 2` the new predicate **is**
+  `Counts.StarBound`, by `Blindness.momentK_two`.
+- `Riemann.starBound_of_momentBound` — for `k ≥ 2` a moment bound implies the
+  star bound with the same constant, so everything keyed on `StarBound` accepts
+  it unchanged.
+- `Riemann.hauntedDensity_of_momentBound_at_rung` — `HauntedDensity
+  ((C−1)/(m^k−m))`. Fourth supplier of the hub, and the **first whose input the
+  repo does not have**.
+- `Riemann.moment_rung_beats_star_rung_iff` — the wildcard, shipped in its
+  killed form: the criterion is `m(m−1)(C′−1) < (m^k−m)(C−1)`, and which side
+  wins is undecidable here because no `C′` for `k > 2` exists in the registers.
+
+**Snag, bin 3 — a polarity I had backwards.** Drafting the wildcard I wrote
+"beats iff the rate is larger". A **smaller** haunted density is the better one,
+since `Riemann.proportion_of_hauntedDensity` subtracts it. Caught before the
+lemma was named; had it been named the wrong way the docstring and the `S`-row
+would both have recorded the wrong claim.
+
+**Snag, bin 1 — `board` went red, correctly.** The `StarBound` transfer
+enumeration grew by two (`Riemann.starBound_of_momentBound`,
+`Riemann.momentBound_two_iff_starBound`) and `forensics/board.py`'s roster is
+what makes `PRICES.md`'s claims about that channel checkable. Registered both,
+with `171`'s proportion-free count updated four-of-eight → six-of-ten. This is
+the guard doing its job on the first cycle that could trip it.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** `[OPEN D]` is no longer a prose target — it is a named predicate
+with a supplier already wired to the hub, so the whole remaining distance is one
+external constant.

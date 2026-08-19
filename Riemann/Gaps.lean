@@ -1388,6 +1388,129 @@ theorem hauntedDensity_of_starBound_at_rung {F : Family} {C : ℝ} {m : ℕ}
   rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ hDpos]
   nlinarith [hbase, hstar, hpos']
 
+/-- **`(★k)`: `momentK k (T) ≤ (C + o(1)) N(T)`.**  `SESSION 406`.
+
+The `k`-th moment analogue of `Counts.StarBound`, which is the case `k = 2`
+(`Riemann.momentBound_two_iff_starBound`).  `ISSUES` already said that
+third-moment data is `[OPEN D]`'s currency; this is that sentence given a
+definition, and like `StarBound` before Fujii it is a **shape waiting for an
+input** — nothing in the repo supplies a `MomentBound k C` for `k > 2`.
+
+It lives on `Family` rather than on `Counts` because `Counts` carries only
+`Nz`, `Ns` and `Nsc`, and `momentK` is not a functional of those three. -/
+def Family.MomentBound (F : Family) (k : ℕ) (C : ℝ) : Prop :=
+  ∀ ε > 0, ∀ᶠ T in atTop, ((Blindness.momentK (F.D T) k : ℕ) : ℝ) ≤ (C + ε) * F.Nz T
+
+/-- **`Riemann.momentBound_two_iff_starBound`: at `k = 2` the new predicate *is*
+the star bound.**  `SESSION 406`.
+
+`Blindness.momentK_two` says `N⊛ = momentK 2`, so the two definitions unfold to
+the same statement.  Recorded so that the moment predicate is pinned to the
+existing lattice rather than floating beside it — the failure mode `S171`
+diagnosed. -/
+theorem momentBound_two_iff_starBound {F : Family} {C : ℝ} :
+    F.MomentBound 2 C ↔ F.toCounts.StarBound C := by
+  constructor
+  · intro h ε hε
+    filter_upwards [h ε hε] with T hT
+    show F.Ns T ≤ (C + ε) * F.Nz T
+    simpa [Family.Ns, Blindness.momentK_two] using hT
+  · intro h ε hε
+    filter_upwards [h ε hε] with T hT
+    have hT' : F.Ns T ≤ (C + ε) * F.Nz T := hT
+    simpa [Family.Ns, Blindness.momentK_two] using hT'
+
+/-- **`Riemann.starBound_of_momentBound`: a higher-moment bound implies the star
+bound with the same constant.**  `SESSION 406`.
+
+By `Blindness.momentK_mono_order`.  So `MomentBound k C` for `k > 2` is at least
+as strong an input as `StarBound C`, and everything already keyed on
+`StarBound` — `Riemann.proportion_of_starBound`, the whole `2 − C` row —
+accepts it unchanged. -/
+theorem starBound_of_momentBound {F : Family} {C : ℝ} {k : ℕ} (hk : 2 ≤ k)
+    (h : F.MomentBound k C) : F.toCounts.StarBound C := by
+  intro ε hε
+  filter_upwards [h ε hε] with T hT
+  have hmono := Blindness.momentK_mono_order (F.D T) hk
+  have : ((Blindness.momentK (F.D T) 2 : ℕ) : ℝ)
+      ≤ ((Blindness.momentK (F.D T) k : ℕ) : ℝ) := by exact_mod_cast hmono
+  have h2 : F.Ns T = ((Blindness.momentK (F.D T) 2 : ℕ) : ℝ) := by
+    simp [Family.Ns, Blindness.momentK_two]
+  show F.Ns T ≤ (C + ε) * F.Nz T
+  rw [h2]
+  linarith
+
+/-- **The `k`-th moment bound at a ladder rung: `HauntedDensity ((C−1)/(m^k−m))`.**
+`SESSION 406`.
+
+Built on the template of `hauntedDensity_of_starBound_at_rung` (`383`), with
+`Blindness.haunted_rung_momentK` (`386`) in place of
+`Blindness.haunted_rung_star`.  At `k = 2` it reproduces that theorem, since
+`Blindness.momentK_two` gives `N⊛ = momentK 2` and `m(m−1) = m² − m` — the same
+bridge `405` used.
+
+Fourth supplier of the `HauntedDensity` hub, and the first whose input the repo
+does not have. -/
+theorem hauntedDensity_of_momentBound_at_rung {F : Family} {C : ℝ} {m k : ℕ}
+    (hm : 2 ≤ m) (hk : 2 ≤ k) (hh : NoSmallHaunted F m) (h : F.MomentBound k C) :
+    HauntedDensity F ((C - 1) / ((m ^ k - m : ℕ) : ℝ)) := by
+  classical
+  have hDpos : (0:ℝ) < ((m ^ k - m : ℕ) : ℝ) := by
+    have hlt : m < m ^ k := by
+      calc m = m ^ 1 := (pow_one m).symm
+        _ < m ^ k := Nat.pow_lt_pow_right (by omega) (by omega)
+    have : 0 < m ^ k - m := by omega
+    exact_mod_cast this
+  intro ε hε
+  filter_upwards [h (((m ^ k - m : ℕ) : ℝ) * ε) (by positivity), F.toCounts.pos]
+    with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hmass : ∀ γ ∈ (F.D T).ordinates.toFinset.filter
+      (fun γ => (F.D T).H γ - Blindness.offAt (F.D T) γ = 1 ∧ (F.D T).H γ ≠ 1),
+      m ≤ (F.D T).H γ := by
+    intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    rcases hh T γ hγ.2.1 with h1 | h2
+    · exact absurd h1 hγ.2.2
+    · exact h2
+  have hbase : ((m ^ k - m : ℕ) : ℝ) * ((Blindness.hauntedCount (F.D T) : ℕ) : ℝ)
+      + F.Nz T ≤ ((Blindness.momentK (F.D T) k : ℕ) : ℝ) := by
+    have := Blindness.haunted_rung_momentK (F.D T) (by omega : 1 ≤ k) hmass
+    unfold Family.Nz
+    exact_mod_cast this
+  have hsplit : (C - 1) / ((m ^ k - m : ℕ) : ℝ) + ε
+      = (C - 1 + ((m ^ k - m : ℕ) : ℝ) * ε) / ((m ^ k - m : ℕ) : ℝ) := by
+    field_simp
+  rw [hsplit, div_mul_eq_mul_div, le_div_iff₀ hDpos]
+  nlinarith [hbase, hT, hpos']
+
+/-- **`Riemann.moment_rung_beats_star_rung_iff`: the criterion for a higher
+moment to buy more than the star bound at the same rung.**  `SESSION 406`.
+
+A **smaller** haunted density is the better one, since
+`Riemann.proportion_of_hauntedDensity` subtracts it.  So `Riemann.moment_rung_beats_star_rung_iff` reads: the
+`k`-th moment rung beats the star rung when `m(m−1)(C′−1) < (m^k−m)(C−1)`, and
+only then.
+
+**This names a criterion; it does not say which side wins.**  Deciding that
+needs a value for `C′` at some `k > 2`, and there is none in the registers —
+`Family.MomentBound` is a shape waiting for an input. -/
+theorem moment_rung_beats_star_rung_iff {C C' : ℝ} {m k : ℕ}
+    (hm : 2 ≤ m) (hk : 2 ≤ k) :
+    (C' - 1) / ((m ^ k - m : ℕ) : ℝ) < (C - 1) / ((m * (m - 1) : ℕ) : ℝ)
+      ↔ ((m * (m - 1) : ℕ) : ℝ) * (C' - 1) < ((m ^ k - m : ℕ) : ℝ) * (C - 1) := by
+  have h1 : (0:ℝ) < ((m ^ k - m : ℕ) : ℝ) := by
+    have hlt : m < m ^ k := by
+      calc m = m ^ 1 := (pow_one m).symm
+        _ < m ^ k := Nat.pow_lt_pow_right (by omega) (by omega)
+    have : 0 < m ^ k - m := by omega
+    exact_mod_cast this
+  have h2 : (0:ℝ) < ((m * (m - 1) : ℕ) : ℝ) := by
+    have : 0 < m * (m - 1) := Nat.mul_pos (by omega) (by omega)
+    exact_mod_cast this
+  rw [div_lt_div_iff₀ h1 h2]
+  constructor <;> intro h <;> linarith
+
 /-- **The ladder, transported: `ProportionStd κ` gives `Proportion ((m·κ−1)/(m−1))`.**
 
 At `m = 3` this is `084`'s `(3κ−1)/2`; each odd rung upward is worth real points.

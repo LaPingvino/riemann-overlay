@@ -9690,5 +9690,18 @@ theorem rung_currencies_agree (D : ZeroData) (G : Finset ℝ) {m k : ℕ}
   · rw [mass_card_eq_Nstar_sub_N_iff D G hm hG hsub,
       mass_card_eq_momentK_iff D G hm hk hG hsub]
 
+/-- **`Blindness.momentK_mono_order`: the moment family is monotone in the
+order.**  `SESSION 406`.
+
+Every ordinate has mass at least `1`, so `H^j ≤ H^k` termwise for `j ≤ k`.  This
+is what makes a `k`-th moment bound at least as strong an input as the star
+bound — see `Riemann.starBound_of_momentBound`. -/
+lemma momentK_mono_order (D : ZeroData) {j k : ℕ} (hjk : j ≤ k) :
+    momentK D j ≤ momentK D k := by
+  classical
+  rw [momentK, momentK]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  exact Nat.pow_le_pow_right (one_le_H_of_mem hγ) hjk
+
 end Blindness
 end Riemann

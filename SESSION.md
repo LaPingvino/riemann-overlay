@@ -20171,3 +20171,63 @@ No Lean changed this cycle.
 **Might-mean:** the live registers are now a measured-clean surface rather than
 an unmeasured one, so a red from this screen would mean a regression — which is
 the property `409`'s ruling was missing.
+
+## 411 — searching the vendor for the star bound, and finding out why it is not there
+
+**Kill condition, stated first (`R12`).** Piece: `406`–`408` proved the fourth
+supplier needs a constant from outside the formalisation; the nearest outside is
+on disk. Search `vendor/zeta23` for a second moment of multiplicities. Wildcard:
+if one exists, what would connect it? Kill: if the vendor's second moments are
+about something other than `Σ H²`, **say so and stop** — do not manufacture a
+route, and do not let a matrix-side square be read as a multiplicity-side one.
+
+**Third non-Lean cycle; `409` and `410` were instruments and this is a reading
+cycle, so `R20`'s hygiene cap is not what is being spent, but the counter is on
+the page.**
+
+**The measurement.** `forensics/statement_index.tsv` carries `4627` vendored
+declarations with **uncapped** statements (`375`). Of those, `44` mention
+`mult` — and **`0`** carry it squared, under any of `mult ^ 2`, `mult * mult`, or
+a square applied within `40` characters of it. Every occurrence is **linear**:
+`Zeta23.Defs.Counting.ncard_le_finsum_mult` (`card ≤ Σ mult`),
+`Zeta23.Defs.Counting.finsum_mult_mono`, `Zeta23.RvM.Halving.N_le_two_mul_half`,
+`Zeta23.WeilEF.GoodHeights.card_le_sum_mult`, and the explicit-formula summands
+where `mult` weights a rank-one matrix (`Zeta23.Tail.Gsummand_eq`).
+
+**Where the squares actually are.** `63` statements mention `frobSq` or `normSq`,
+and `Zeta23.Assembly.frobSq_eq_sum_norm_sq` says what that is: the Frobenius
+square of a **matrix**, `Σᵢ Σⱼ ‖Aᵢⱼ‖²`. `Zeta23.FinalMult.moments_of_traces`
+bounds it by `(kfun P.lam + δ)·N` with `kfun lam = 1/lam + lam/3`
+(`vendor/zeta23/Zeta23/FinalMult.lean:34`), and
+`Zeta23.Assembly.Certificate.N0star_lower_moment` turns that into a `(2 − κ)·N`
+lower bound on `N0star`. That is the vendor's **own** `2 − C` transfer, in the
+mollifier's coordinates — and what it yields is `N0simple`, which this repo
+already consumes as `baseline_zeta23`'s `0.6725`.
+
+**The answer to the standing prior.** The prior on the board was that the vendor
+might expose a star bound. The measurement above says otherwise, and points at a
+reason: in all `44` indexed statements the vendor's multiplicity appears
+linearly, while its second moment is of the mollified matrix, where multiplicity
+is the weight on a rank-one term. A `StarBound` is a bound on `Σ H²` over
+ordinates; the sweep found no statement of that shape.
+
+**Scope, stated so it cannot be over-read.** This is a measurement over
+**statements as indexed**, not a theorem about the vendor's mathematics. A
+squared multiplicity folded inside a definition — `Z.Gz`, `Z.Ez` — would not
+show. What is established is that no vendored *statement* asserts a bound on a
+sum of squared multiplicities.
+
+**Wildcard, and it died in the good way.** The vendor does carry two links of our
+counting chain — `ncard_le_finsum_mult` is `atomCount ≤ N` and
+`Zeta23.Defs.Counting.N0star_le_Nd` is `NscStd ≤ distinctZeros`. I found no vendored
+counterpart to the middle of our chain (`oddAtoms`, `onLineOrdinates`) in the
+same index sweep. Connecting
+them in Lean needs the vendor's `ZeroConfig` structures imported, which is the
+`XiPrime.Final` ruling's two hours; per the kill condition it stays prose.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** the star bound is absent from the vendor because the mollifier
+method does not produce one, so `[OPEN D]`'s constant will not come from the
+artifact this project already trusts.

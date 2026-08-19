@@ -2389,6 +2389,15 @@ Remark 7.1 applies §§4–6 to `ξ′` and gets, **unconditionally**,
 `N₀ˢ_{ξ′}/N_{ξ′} ≥ 0.85838` and `N_{d,ξ′}/N_{ξ′} ≥ 0.92919` (flat window; `0.86864`
 and `0.93432` with a quartic window).
 
+**`411`: the vendor has no star bound, and the reason is structural.** Of `4627`
+vendored declarations, `44` mention `mult` and none square it; the `63` squares in
+the tree are Frobenius norms of the mollified matrix
+(`Zeta23.Assembly.frobSq_eq_sum_norm_sq`). The vendor's own `2 − C` transfer,
+`Zeta23.Assembly.Certificate.N0star_lower_moment`, runs on that matrix moment and
+lands on `N0simple` — the `0.6725` this repo already consumes. So a search of the
+vendor for `[OPEN D]`'s constant is closed. *Scope: a measurement over statements
+as indexed, not a theorem about the vendor's mathematics.*
+
 **`0.85838` is the constant of `Riemann.zeta23_xiPrime`**, one of the six axioms still
 declared here. `267` already found `Zeta23/XiPrime/Final.lean` proving it sorry-free in
 lines we vendor and never import.

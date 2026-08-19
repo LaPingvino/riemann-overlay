@@ -36,7 +36,9 @@ as the shape of an explanation for why `167`/`168`'s dictionary had to be an
 > profile `{(4, 4)}` for both, while `distinctZeros` is `2` and `4`.
 >
 > **The profile half is easy** — `H_superpose` and `offAt_superpose` are additive
-> and `configAt_H` / `configAt_offAt` give the values. **The `distinctZeros` half
+> and `configAt_H` / `offAt_configAt_self` / `offAt_configAt_other` give the
+> values. **`409` corrects this line**: it said `configAt_offAt`, a name formed by
+> symmetry with `configAt_H` that has never existed on disk. **The `distinctZeros` half
 > did not close**: it needs `Finset` cardinalities over multiset literals
 > (`toFinset_add`, `toFinset_replicate`, pairwise distinctness of four points in
 > `ℝ × ℝ`), and the attempt was reverted rather than left half-built.

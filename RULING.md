@@ -300,3 +300,20 @@ it is, which is a fully certified `50.88%` with all its derivations proved tight
   **Four of the five queue items are now discharged.** Item 5 is the
   consolidation fallback, so item 4 is the only live one, and the prompt itself
   says item 4 cannot carry a conclusion alone.
+
+## `409` — roster `forensics/register_citations.py`, or leave it a report?
+
+It follows declaration names cited in the registers, the surface
+`forensics/citation_check.py` does not cover. First run: `3` true positives in
+`33` examined on the live registers, all fixed.
+
+**For rostering:** the defect class is real and nothing else catches it; `406`
+and `407` both shipped stale register rows.
+
+**Against:** `373` established that a guard nobody has seen fail is a tally, and
+this one has failed exactly once — on its own first run, which is not the same as
+catching a regression. Rostering also means the `30` currently-unverified live
+flags must be driven to zero or allowlisted first, which is a hygiene sweep, not
+a cycle.
+
+**Not taken.** Runs as a report until Joop rules.

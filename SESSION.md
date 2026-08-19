@@ -20053,3 +20053,71 @@ rewrite, not at the unification that caused it.
 **Might-mean:** the whole multiplicity-cap channel is one geometric sum, so no
 choice of moment order can extract more from a cap than its second moment
 already does.
+
+## 409 — an instrument for the surface nothing was watching
+
+**Kill condition, stated first (`R12`).** Piece: follow the declaration names the
+*registers* cite, the way `citation_check` follows the ones in docstrings.
+Wildcard: does it find anything? Kill: if the dangling list runs past a page
+after bucketing, report the rate and ship a **report** rather than a guard — and do not roster it either way.
+
+**Why now.** `371`'s might-mean, unadopted for thirty-eight cycles: *what the
+registers need is not more linting of their reasoning but a re-run of every
+mechanical enumeration they contain.* `406` and `407` each shipped with a stale
+register row that no instrument caught — `board`'s `StarBound` roster and
+`MAP.md`'s supplier table. Three Lean cycles in a row had just closed an arc,
+and `R20`'s cap had not been touched.
+
+**`forensics/register_citations.py`.** The resolver is **imported** from
+`citation_check`, not forked, so a fix to name resolution lands in one place.
+What is new is the surface and one distinction:
+
+- **live** registers (`CLAIMS`, `ISSUES`, `LEADS`, `PRICES`, `RULING`,
+  `STATEMENTS`, `README`, `METHOD`, `VERIFYING`) describe what is true now — a
+  name resolving to nothing is a defect;
+- **logs** (`SESSION`, `SURPRISES`, `FAILURES`, `E`, `A`, `S`, `NIGHT`, `LOOP`,
+  `FRAMING`, `F`) may name a declaration that has since been renamed, and that
+  is not a defect. Reported, not scored.
+
+It prints a coverage footer per register — cited, filtered, dangling — so a zero
+reads as *measured* zero rather than *did not look*.
+
+**The triage, honestly (`R17`).** First run: `910` identifier-shaped citations in
+the live registers, `33` unresolved after bucketing scripts, hostnames, module
+paths, tactic names and subscript-shaped mathematics. I triaged the `33`:
+
+- **`3` true positives**, all the same two phantom names, all fixed at their
+  locations: `configAt_offAt` (`LEADS.md`, and `CLAIMS.md` twice as
+  `Blindness.configAt_offAt`) — a name formed by symmetry with `configAt_H` that
+  has never existed; the real ones are `Blindness.offAt_configAt_self` and
+  `Blindness.offAt_configAt_other`. And `proportion_of_noHaunted_three`
+  (`CLAIMS.md`) — the general-`m` statement is
+  `Riemann.proportion_of_noSmallHaunted`.
+- **`30` remain**, and I classified rather than fully verified them: former
+  axiom names the prose deliberately keeps (`farmer_ki`,
+  `fujii_with_closePairs`, `narrowBox_starBound`, `Assumptions.baseline_przz`),
+  paper-side labels in `VERIFYING.md`, ledger field names (`base.version`) and
+  script internals (`CONE_EXPECTED`, `provenance_lint.NODES`). **That is a
+  classification, not a triage**, and the `30` is a count.
+
+So the measured rate is `3` confirmed in `33` examined, in the same range as
+`371`'s `2` in `25` on `PRICES.md`.
+
+**Snag, bin 2 — the instrument fought the corrections rule.** Fixing a dangling
+citation *at its location* leaves the wrong name on the page, inside the
+retraction naming it, so the report kept flagging what had just been fixed. Added
+a `RETRACTED` bucket, each entry carrying the cycle that retracted it. A rule
+about where corrections go and an instrument that reads the page had to be told
+about each other.
+
+**Not rostered, deliberately.** `373` found that a green light nobody has seen go
+red is a tally. This one has been red exactly once, on its first run, and adding
+a seventeenth roster entry changes the gate every cycle runs. **Ruling for
+Joop:** roster it or leave it a report.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** the registers' citation defects are concentrated in names invented
+by symmetry with a real one, so the shape to screen for is a plausible name
+rather than a stale one.

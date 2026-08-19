@@ -924,3 +924,6 @@ import Riemann
 #check @Riemann.logSmall_of_rvm_main
 #check @Riemann.logSmall_zeta
 #check @Riemann.offTransfer_zeta_xiPrime
+
+-- 401: the star rung's termwise charge is exact only at mass m.
+#check @Riemann.Blindness.mass_cost_eq_iff

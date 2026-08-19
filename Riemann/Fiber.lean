@@ -9437,5 +9437,30 @@ theorem factMoment_atom (a : ℝ) (j k : ℕ) :
   simp only [show 1 + 2 * j ≠ 0 by omega, if_neg, not_false_iff]
   rw [Finset.sum_singleton, configAt_H, if_pos rfl]
 
+/-- **`Blindness.mass_cost_eq_iff`: the star rung's termwise charge closes at
+mass `m` and nowhere above it.**  `SESSION 401`.
+
+`382`'s `Blindness.mass_card_le_Nstar_sub_N` charges an ordinate of mass `≥ m`
+the amount `m(m−1)` into `N⊛ − N`, and `Blindness.rung_coefficients_attained`
+showed the mass-`m` haunted atom makes that an equality.  The statement below
+adds the converse termwise: for `m ≤ c`, `c + m(m−1) = c²` holds precisely when
+`c = m`, so an ordinate strictly heavier than the rung pays strictly more —
+`Blindness.rung_coefficients_attained`'s mass is the only tight one. -/
+theorem mass_cost_eq_iff {m c : ℕ} (hm : 1 ≤ m) (hc : m ≤ c) :
+    c + m * (m - 1) = c * c ↔ c = m := by
+  obtain ⟨a, rfl⟩ : ∃ a, m = a + 1 := ⟨m - 1, by omega⟩
+  obtain ⟨d, rfl⟩ : ∃ d, c = d + 1 := ⟨c - 1, by omega⟩
+  have had : a ≤ d := by omega
+  simp only [Nat.add_sub_cancel]
+  constructor
+  · intro h
+    have hq : a * a + a = d * d + d := by ring_nf at h ⊢; omega
+    by_contra hne
+    have hlt : a < d := by omega
+    nlinarith [hq, hlt]
+  · intro h
+    have : d = a := by omega
+    subst this; ring
+
 end Blindness
 end Riemann

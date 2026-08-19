@@ -19722,3 +19722,47 @@ floors `30`/`203`, `board --cones` `35/35`.
 `forensics/board.py --cones` and `#print axioms` all came from asking a tool a direct question and
 all held, while the one that failed came from inferring state from artifacts —
 which is a sharper rule than "check your instruments" and cheaper to follow.
+
+## The rung's charge closes at mass `m` and nowhere above it
+
+**Piece.** `385` showed the mass-`m` haunted atom makes the rung charge an equality; `386` showed
+it saturates every moment order. Neither said the mass was *unique*. This closes that termwise.
+
+**Kill condition, filed first:** *if the general-`k` strictness needs more than
+`pow_sub_self_mono`, I narrow to `k = 2` — the case `382` actually spends — and record the
+general case open rather than forcing it.* **It fired.** The general `k` needs strict
+monotonicity of `t ↦ t^k − t`, which my `386` lemma gives only non-strictly, and the chain I
+tried does not close. Narrowed.
+
+* `Blindness.mass_cost_eq_iff` — for `1 ≤ m ≤ c`, `c + m(m−1) = c·c` **iff** `c = m`.
+
+So an ordinate strictly heavier than the rung pays strictly more, and
+`Blindness.rung_coefficients_attained`'s mass is the only tight one rather than merely one of
+them.
+
+**Two shape fights, both from `ℕ` subtraction.** The first attempt used
+`Nat.mul_lt_mul_right`, which is an iff rather than a function, and left `omega` with a
+truncated-subtraction goal it could not close. Substituting `m = a+1`, `c = d+1` removes the
+subtraction entirely and the statement becomes `a² + a = d² + d ↔ a = d`, which `nlinarith`
+closes. **That is `S182`'s lesson applied rather than re-learned:** the obstacle was the shape,
+so I changed the shape instead of pushing on the tactic.
+
+**Wildcard — does the general `k` version follow from what is now on disk?** **Kill condition,
+filed first:** *if it needs a new lemma, name it and stop; do not start a second proof this
+cycle.* It fired. The missing piece is strict monotonicity of `t ↦ t^k − t` on `t ≥ 2` for
+`k ≥ 2` — `Blindness.pow_sub_self_mono` is the non-strict version and a strict companion would
+give the general statement immediately. **Named, not attempted.**
+
+**Snag, bin 3 — `overclaim_floor` went to `205` and I mis-targeted the repair twice.** The two
+flags were both in the new docstring; my first fix edited a sentence that had already been
+reworded, and my second used a `rindex` that landed inside the docstring headline because the
+declaration's own name appears there. Fixed by printing the region and matching it exactly. Floor
+back to `203`.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, duplication floor `30`, overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to the rung charge at `k = 2`:** the rung apparatus is governed by a single
+atom *and* a single mass, so every bound in `382`–`386` is an equality on exactly one
+configuration and strict everywhere else — which is why no rearrangement of those inequalities
+can improve them.

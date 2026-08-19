@@ -10144,5 +10144,64 @@ theorem chain_all_collapse {a : ℝ} (ha : a ≠ 1/2) :
     rw [onLineOrdinates_eq_oddAtoms_add_evenOnAt, h3, h4]
   exact ⟨D, by omega, by omega, by omega, by omega, by omega, by omega⟩
 
+/-- **`Blindness.mass_charges_every_class` is attained, with every class
+occupied.**  `SESSION 419`.
+
+`316` read that inequality as *"each class charged its minimum mass"* and said
+the weights `2, 2, 1, 1` are its content.  This is the witness that reading
+predicts: the profile `{(1,0), (3,2), (3,0), (2,0), (2,2)}` puts exactly one
+ordinate in each of the four classes plus one simple zero, every ordinate carries
+precisely its class's charge plus one, and the inequality is an equality at
+`11 = 11`.
+
+The same profile `418` used for `Blindness.chain_all_strict` — one configuration
+answering two questions, which is what admissibility-by-`decide` makes cheap. -/
+theorem mass_charges_sharp {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData,
+      2 * hauntedCount D + 2 * oddAbove D + evenOnAt D + offLineOnly D
+        + atomCount D = D.N
+      ∧ 0 < hauntedCount D ∧ 0 < oddAbove D ∧ 0 < evenOnAt D
+      ∧ 0 < offLineOnly D := by
+  classical
+  obtain ⟨D, hD⟩ := exists_profile_of_list a ha
+    [(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] (by decide)
+  have h1 : hauntedCount D = 1 := by rw [hauntedCount_from_profile, hD]; decide
+  have h2 : oddAbove D = 1 := by rw [oddAbove_from_profile, hD]; decide
+  have h3 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
+  have h4 : offLineOnly D = 1 := by rw [offLineOnly_from_profile, hD]; decide
+  have h5 : atomCount D = 5 := by rw [atomCount_eq_card_profile, hD]; decide
+  have h6 : D.N = 11 := by rw [N_from_profile, hD]; decide
+  exact ⟨D, by omega, by omega, by omega, by omega, by omega⟩
+
+/-- **And no coefficient can be raised.**  `SESSION 419`.
+
+Because `Blindness.mass_charges_sharp` attains equality with every class
+occupied, raising **any** of the five weights breaks the inequality at that same
+`ZeroData`.  So the weights `2, 2, 1, 1, 1` are maximal, not merely sufficient —
+which is the claim `316` made informally when it called them the theorem's
+content. -/
+theorem mass_charges_coefficients_maximal {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData,
+      ¬ (3 * hauntedCount D + 2 * oddAbove D + evenOnAt D + offLineOnly D
+          + atomCount D ≤ D.N)
+      ∧ ¬ (2 * hauntedCount D + 3 * oddAbove D + evenOnAt D + offLineOnly D
+          + atomCount D ≤ D.N)
+      ∧ ¬ (2 * hauntedCount D + 2 * oddAbove D + 2 * evenOnAt D + offLineOnly D
+          + atomCount D ≤ D.N)
+      ∧ ¬ (2 * hauntedCount D + 2 * oddAbove D + evenOnAt D + 2 * offLineOnly D
+          + atomCount D ≤ D.N)
+      ∧ ¬ (2 * hauntedCount D + 2 * oddAbove D + evenOnAt D + offLineOnly D
+          + 2 * atomCount D ≤ D.N) := by
+  classical
+  obtain ⟨D, hD⟩ := exists_profile_of_list a ha
+    [(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] (by decide)
+  have h1 : hauntedCount D = 1 := by rw [hauntedCount_from_profile, hD]; decide
+  have h2 : oddAbove D = 1 := by rw [oddAbove_from_profile, hD]; decide
+  have h3 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
+  have h4 : offLineOnly D = 1 := by rw [offLineOnly_from_profile, hD]; decide
+  have h5 : atomCount D = 5 := by rw [atomCount_eq_card_profile, hD]; decide
+  have h6 : D.N = 11 := by rw [N_from_profile, hD]; decide
+  exact ⟨D, by omega, by omega, by omega, by omega, by omega⟩
+
 end Blindness
 end Riemann

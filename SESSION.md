@@ -20541,3 +20541,39 @@ in the index before writing.
 **Might-mean:** `417`'s realisability turns questions about what the counts can do
 into `decide` calls on small explicit profiles, and this cycle's two theorems are
 the first evidence of what that costs — nothing.
+
+## 419 — `316` said the weights were the content; `419` proves they are maximal
+
+**Kill condition, stated first (`R12`).** Piece: attain
+`Blindness.mass_charges_every_class` with every class occupied. Wildcard: show
+no weight can be raised. Kill: if the attaining profile leaves a class empty, say
+so and claim maximality only for the weights the witness actually exercises.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.mass_charges_sharp` — the profile `{(1,0), (3,2), (3,0), (2,0),
+  (2,2)}` puts exactly one ordinate in each of the four classes plus one simple
+  zero, every ordinate carries its class's charge plus one, and the inequality
+  is an equality at `11 = 11`. No class is empty.
+- `Blindness.mass_charges_coefficients_maximal` — the wildcard, and it is free:
+  because equality is attained with every class occupied, raising **any** of the
+  five weights breaks the inequality at that same `ZeroData`. All five
+  refutations, one witness.
+
+**What this settles.** `316` corrected `315` by saying the theorem is a
+*re-coordinatisation* of `two_mul_atomCount_add_oddAtoms_le`, and that the
+weights `2, 2, 1, 1` are its content — the reading being *each class charged its
+minimum mass*. That was a reading, not a theorem. It is now a theorem: the
+weights are maximal, and the configuration the reading predicts exists.
+
+**The same profile as `418`.** One five-element list answered the chain-strictness
+question and the charge-maximality question. `417`'s realisability is what makes
+reusing a witness across unrelated questions cost nothing — the profile is
+admissible `by decide` either way.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** an informal reading recorded three cycles into an arc turned out
+to be a theorem the arc's own infrastructure could prove a hundred cycles later,
+so the registers' informal readings are worth re-reading as a source of
+statements.

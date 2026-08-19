@@ -984,3 +984,7 @@ import Riemann
 -- 418: the counting chain is sharp in both directions.
 #check @Riemann.Blindness.chain_all_strict
 #check @Riemann.Blindness.chain_all_collapse
+
+-- 419: mass_charges_every_class is attained and its weights are maximal.
+#check @Riemann.Blindness.mass_charges_sharp
+#check @Riemann.Blindness.mass_charges_coefficients_maximal

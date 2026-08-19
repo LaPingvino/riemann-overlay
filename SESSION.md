@@ -20231,3 +20231,65 @@ No Lean changed this cycle.
 **Might-mean:** the star bound is absent from the vendor because the mollifier
 method does not produce one, so `[OPEN D]`'s constant will not come from the
 artifact this project already trusts.
+
+## 412 — charge a simple zero `1`, and a guard that had been reading the wrong colon
+
+**Kill condition, stated first (`R12`).** Piece: sharpen the multiplicity-cap
+input by charging simple zeros `1` instead of `M`, at every order. Wildcard: does
+the sharper input make the moment order matter, where `407`'s crude one did not?
+Kill: if the comparison spans two proportion rows, state the criterion and
+instantiate only at certified constants on the correct row.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.momentK_add_mul_Nsc_le` — `momentK k + M^(k−1)·Nsc ≤ M^(k−1)·N +
+  Nsc`, stated subtraction-free so no ℕ truncation appears (`R33`).
+- `Riemann.momentBound_of_multiplicity_and_proportion` — the same at every order,
+  `C = M^(k−1) − (M^(k−1)−1)κ`.
+- `Riemann.moment_proportion_rate_independent_of_order` — the wildcard. At the
+  rung `m = M` the rate is `(1−κ)/M`, **flat in `k` again**. Sharpening the input
+  moved the rate from `1/M` to `(1−κ)/M` and did not make the order matter.
+
+**Row discipline.** These consume `Counts.Proportion` — the `Nsc` row, certified
+`0.50875` — not `Family.ProportionStd`'s `0.6725`. At `M = 2` the formula reads
+`2 − κ`, the shape `starBound_of_mult_le_two` also has; that theorem consumes
+`Family.ProportionStd`, so the two agree in form and differ in row. The docstring says so where someone would confuse
+them.
+
+**Snag, bin 1 — `board`'s enumeration was reading the wrong colon, and had been
+since `162`.** `extract_concluding` took `head.rsplit(":", 1)[-1]`: everything
+after the **last** colon. Any conclusion containing a type ascription — mine has
+`((M : ℝ) - 1) * κ` — was truncated to a fragment, and the declaration silently
+left the enumeration. Fixed with the same depth-counted scan `binders` in the
+same file already used. **Nine declarations appeared**: two `StarBound` producers,
+one `OffLineImport` witness, and **six `HauntedDensity` suppliers** — including
+every rung variant (`383`, `384`, `406`) and the ladder supplier (`263`), all of
+which `MAP.md` has listed for cycles. The guard `PRICES.md`'s channel claims lean
+on was enumerating `20` of `29`. All nine registered.
+
+**Snag, bin 1, and the two snags are one snag.** The `k = 2` case I set out to
+prove — `C ≤ M − (M−1)κ` — **was already on disk**, as
+`Riemann.starBound_of_mult_le` (`098`), with `Blindness.Nstar_add_pred_mul_Nsc_le`
+underneath it and a docstring already noting it beats
+`starBound_of_multiplicity_and_proportion` by exactly `1 − κ`. I wrote it again.
+`duplication_floor` caught it at `31`, and the duplicate is collapsed — the
+general-`k` lemma and its two corollaries are what remain.
+
+**And the reason I did not see it is the bug this same cycle fixed.**
+`starBound_of_mult_le` is one of the nine declarations `board`'s broken extractor
+had been hiding — its conclusion carries the very cast that truncated the parse.
+I read the `StarBound` enumeration, saw ten names, and none of them was the
+theorem I was about to rewrite. **An instrument's blind spot produced the
+redundant work, and fixing the instrument surfaced the redundancy in the same
+cycle.**
+
+**Snag, bin 2.** My install script inserted the `Family`-level theorems into
+`Fiber.lean` by replacing the first `"\nend Riemann"`, which matched
+`end Riemann.Blindness`. The scratch file had compiled because namespaces nest;
+the real file did not, because `Fiber` does not know `Family` (`R23` again).
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** the guard that checks which declarations reach a transfer had a
+parser bug that hid a third of them, and the cost of that blindness was not a
+wrong claim but a rewritten theorem.

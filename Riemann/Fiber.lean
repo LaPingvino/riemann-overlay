@@ -9719,5 +9719,51 @@ lemma momentK_le_of_multiplicity_le (D : ZeroData) (M k : ℕ) (hk : 1 ≤ k)
   rw [Nat.add_sub_cancel, pow_succ]
   exact Nat.mul_le_mul_right _ (Nat.pow_le_pow_left (h γ) j)
 
+/-- **`Blindness.momentK_add_mul_Nsc_le`: charge simple zeros `1` and the rest
+`M^(k−1)`, at every order.**  `SESSION 412`.
+
+`096`'s `Blindness.Nstar_add_mul_Nsc_le` does this at `k = 2` and charges the
+crowded ordinates `M·H`; this charges them `M^(k−1)·H`, which is the same idea
+one order up.  At `k = 2` it is `Blindness.Nstar_add_pred_mul_Nsc_le` (`098`),
+already on disk and already known to beat `Nstar_add_mul_Nsc_le`; `412` rewrote
+that case before `forensics/duplication_floor.py` said so, and kept only the
+general `k`.
+
+Stated subtraction-free (`M^(k−1)·Nsc` on the left rather than `(M^(k−1)−1)·Nsc`)
+so no ℕ truncation appears; `R33`. -/
+theorem momentK_add_mul_Nsc_le (D : ZeroData) (M k : ℕ) (hk : 1 ≤ k)
+    (h : ∀ γ, D.H γ ≤ M) :
+    momentK D k + M ^ (k - 1) * D.Nsc ≤ M ^ (k - 1) * D.N + D.Nsc := by
+  classical
+  have key : (momentK D k : ℤ) + (M : ℤ) ^ (k - 1) * D.Nsc
+      ≤ (M : ℤ) ^ (k - 1) * D.N + D.Nsc := by
+    have hB : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have hN0 : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+      rw [N_from_profile, profile, Multiset.map_map]; rfl
+    have hN : (D.N : ℤ) = ∑ γ ∈ D.ordinates.toFinset, (D.H γ : ℤ) := by
+      rw [hN0, Nat.cast_sum]
+    have hS : (momentK D k : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset, ((D.H γ : ℤ) ^ k) := by
+      rw [momentK, Nat.cast_sum]; push_cast; rfl
+    rw [hS, hB, hN, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
+      ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun γ _ => ?_
+    have hHM : (D.H γ : ℤ) ≤ (M : ℤ) := by exact_mod_cast h γ
+    have hH0 : (0 : ℤ) ≤ (D.H γ : ℤ) := Int.natCast_nonneg _
+    have hpow : (D.H γ : ℤ) ^ (k - 1) ≤ (M : ℤ) ^ (k - 1) :=
+      pow_le_pow_left₀ hH0 hHM _
+    have hMpow0 : (0 : ℤ) ≤ (M : ℤ) ^ (k - 1) := by positivity
+    have hsplit : (D.H γ : ℤ) ^ k = (D.H γ : ℤ) ^ (k - 1) * (D.H γ : ℤ) := by
+      obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+      rw [Nat.add_sub_cancel, pow_succ]
+    by_cases hone : D.H γ = 1
+    · rw [if_pos hone, hone]
+      simp [add_comm]
+    · rw [if_neg hone]
+      rw [hsplit]
+      nlinarith [hpow, hH0, hMpow0]
+  exact_mod_cast key
 end Blindness
 end Riemann

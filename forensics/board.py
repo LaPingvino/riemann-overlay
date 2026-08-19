@@ -108,6 +108,9 @@ TRANSFER = {
         # `389`: the general form of `offline_via_xiPrime`.  Same `β = 1 − κ'`
         # shape, family left as a variable, cone empty.
         "offline_via_derivative_family",
+        # `412`: made visible by the extractor fix — an attainment witness, not
+        # a new producer.
+        "proportionAny_wall_attained",
     },
     # SESSION 171: `170` claimed the StarBound channel is unwalled because its
     # producers do not consume a proportion.  Classifying by input confirmed it —
@@ -123,11 +126,24 @@ TRANSFER = {
         # so `171`'s count of proportion-free producers goes four-of-eight to
         # six-of-ten.
         "starBound_of_momentBound", "momentBound_two_iff_starBound",
+        # `412` fixed the conclusion extractor (see `after_top_colon`) and nine
+        # declarations that had been silently outside these enumerations
+        # appeared.  Two here.  `starBound_of_mult_le` was never absent from the
+        # tree — only from this list, since `162`.
+        "starBound_of_mult_le",
     },
     "HauntedDensity": {
         "hauntedDensity_of_offLineImport", "hauntedDensity_of_starBound",
         "hauntedDensity_of_distinctZeros", "certified_haunted",
         "certified_haunted_via_distinctZeros",
+        # `412`: six more, all documented in `MAP.md`'s supplier table and none
+        # of them ever in this enumeration — the rung variants (`383`, `384`,
+        # `406`), the ladder supplier (`263`), and two attainment witnesses.
+        "hauntedDensity_of_noSmallHaunted", "hauntedDensity_of_starBound_at_rung",
+        "hauntedDensity_of_offLineImport_at_rung",
+        "hauntedDensity_of_distinctZeros_at_rung",
+        "hauntedDensity_of_momentBound_at_rung",
+        "hauntedDensity_distinctZeros_attained",
     },
 }
 
@@ -170,6 +186,21 @@ def extract():
     return out
 
 
+def after_top_colon(head, name):
+    """Everything after the declaration's first TOP-LEVEL `:` — the conclusion.
+    Depth-counted; `412`."""
+    seg = head[head.index(name) + len(name):]
+    depth = 0
+    for i, ch in enumerate(seg):
+        if ch in "([{⟨":
+            depth += 1
+        elif ch in ")]}⟩":
+            depth -= 1
+        elif ch == ":" and depth == 0 and seg[i:i + 2] != ":=":
+            return seg[i + 1:]
+    return seg
+
+
 def extract_concluding(pred):
     """Declarations whose stated conclusion mentions `pred` (and not a longer
     predicate containing it)."""
@@ -180,7 +211,12 @@ def extract_concluding(pred):
         src = open(os.path.join(SRC, fn), encoding="utf-8").read()
         for m in DECL.finditer(src):
             head = m.group(0).split(":=")[0]
-            concl = " ".join(head.rsplit(":", 1)[-1].split())
+            # `412`: this was `head.rsplit(":", 1)[-1]`, which takes everything
+            # after the **last** colon — so any conclusion containing a type
+            # ascription, `((M : ℝ) - 1) * κ`, was truncated to a fragment and
+            # the declaration silently left the enumeration.  Now depth-counted,
+            # the way `binders` above already did it.
+            concl = " ".join(after_top_colon(head, m.group(1)).split())
             if re.search(r"\b" + pred + r"\b", concl):
                 out.add(m.group(1))
     return out

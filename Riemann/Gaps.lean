@@ -1664,6 +1664,77 @@ theorem moment_cap_rate_gt_star_rate {m M k : ℕ} (hm : 2 ≤ m) (hmM : m < M) 
     mul_pos (by linarith) (by nlinarith)
   nlinarith [hdiff]
 
+/-- **The same input, at every order: `MomentBound k (M^(k−1) − (M^(k−1)−1)κ)`.**
+`SESSION 412`.
+
+`407` gave `Family.MomentBound` its first input, `M^(k−1)` from a multiplicity
+cap alone, and `408` showed it never beats the star bound.  This is the
+proportion-assisted version: strictly smaller whenever `κ > 0`.  What it buys is
+`Riemann.moment_proportion_rate_independent_of_order`. -/
+theorem momentBound_of_multiplicity_and_proportion {F : Family} {M k : ℕ}
+    (hM1 : 1 ≤ M) (hk : 1 ≤ k) {κ : ℝ}
+    (hM : ∀ T γ, (F.D T).H γ ≤ M) (hp : F.toCounts.Proportion κ) :
+    F.MomentBound k (((M ^ (k - 1) : ℕ) : ℝ) - (((M ^ (k - 1) : ℕ) : ℝ) - 1) * κ) := by
+  intro ε hε
+  set A : ℝ := ((M ^ (k - 1) : ℕ) : ℝ) with hA
+  have hA1 : (1 : ℝ) ≤ A := by
+    have : 1 ≤ M ^ (k - 1) := Nat.one_le_pow _ _ (by omega)
+    rw [hA]; exact_mod_cast this
+  have hδ : 0 < ε / (A + 1) := by positivity
+  filter_upwards [hp _ hδ, F.toCounts.pos] with T hT hpos
+  have hpos' : 0 < F.Nz T := hpos
+  have hNsc : (κ - ε / (A + 1)) * F.Nz T ≤ F.Nsc T := by
+    have h' : κ - ε / (A + 1) ≤ F.Nsc T / F.Nz T := hT
+    rw [le_div_iff₀ hpos'] at h'
+    exact h'
+  have hbase : ((Blindness.momentK (F.D T) k : ℕ) : ℝ) + A * F.Nsc T
+      ≤ A * F.Nz T + F.Nsc T := by
+    have hraw := Blindness.momentK_add_mul_Nsc_le (F.D T) M k hk (hM T)
+    unfold Family.Nsc Family.Nz
+    rw [hA]
+    exact_mod_cast hraw
+  have hA1' : (0 : ℝ) < A + 1 := by linarith
+  have hkey : (A - 1) * (ε / (A + 1)) ≤ ε := by
+    rw [mul_div_assoc', div_le_iff₀ hA1']
+    nlinarith [hε.le]
+  show ((Blindness.momentK (F.D T) k : ℕ) : ℝ) ≤ (A - (A - 1) * κ + ε) * F.Nz T
+  nlinarith [hNsc, hbase, hpos', hkey]
+
+/-- **And it is order-independent too: the rate is `(1−κ)/M` at every `k`.**
+`SESSION 412`.
+
+Feeding `Riemann.momentBound_of_multiplicity_and_proportion` to
+`Riemann.hauntedDensity_of_momentBound_at_rung` at the rung `m = M`, the constant
+excess is `(M^(k−1)−1)(1−κ)` and the denominator is `M(M^(k−1)−1)` — the
+geometric factor cancels exactly, as it did in `407` for the unassisted input.
+
+So sharpening the input moved the rate from `1/M` to `(1−κ)/M` and did **not**
+make the order matter.  Two different inputs to the same supplier, both flat in
+`k`. -/
+theorem moment_proportion_rate_independent_of_order {M k : ℕ} (hM : 2 ≤ M)
+    (hk : 2 ≤ k) {κ : ℝ} :
+    ((((M ^ (k - 1) : ℕ) : ℝ) - (((M ^ (k - 1) : ℕ) : ℝ) - 1) * κ) - 1)
+        / ((M ^ k - M : ℕ) : ℝ)
+      = (1 - κ) / (M : ℝ) := by
+  have hlt : M < M ^ k := by
+    calc M = M ^ 1 := (pow_one M).symm
+      _ < M ^ k := Nat.pow_lt_pow_right (by omega) (by omega)
+  have hp1 : 1 < M ^ (k - 1) := by
+    calc (1:ℕ) = M ^ 0 := (pow_zero M).symm
+      _ < M ^ (k - 1) := Nat.pow_lt_pow_right (by omega) (by omega)
+  have hid : M ^ k - M = M * (M ^ (k - 1) - 1) := by
+    obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+    rw [Nat.add_sub_cancel, Nat.mul_sub, pow_succ, Nat.mul_one, mul_comm]
+  have hA : (1:ℝ) < ((M ^ (k - 1) : ℕ) : ℝ) := by exact_mod_cast hp1
+  have hMR : (1:ℝ) < (M : ℝ) := by exact_mod_cast (by omega : 1 < M)
+  have hcast : ((M ^ k - M : ℕ) : ℝ) = (M : ℝ) * (((M ^ (k - 1) : ℕ) : ℝ) - 1) := by
+    rw [hid]
+    push_cast [Nat.cast_sub (le_of_lt hp1)]
+    ring
+  rw [hcast]
+  rw [div_eq_div_iff (by nlinarith) (by linarith)]
+  ring
+
 /-- **The ladder, transported: `ProportionStd κ` gives `Proportion ((m·κ−1)/(m−1))`.**
 
 At `m = 3` this is `084`'s `(3κ−1)/2`; each odd rung upward is worth real points.

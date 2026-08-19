@@ -958,3 +958,8 @@ import Riemann
 -- 408: the cap family's moment rates against its star rate, both directions.
 #check @Riemann.moment_cap_rate_ge_star_rate
 #check @Riemann.moment_cap_rate_gt_star_rate
+
+-- 412: simple zeros charged 1 at every order; the sharpened star bound.
+#check @Riemann.Blindness.momentK_add_mul_Nsc_le
+#check @Riemann.momentBound_of_multiplicity_and_proportion
+#check @Riemann.moment_proportion_rate_independent_of_order

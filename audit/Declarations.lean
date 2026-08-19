@@ -862,3 +862,9 @@ import Riemann
 -- is shown necessary; the other four are open.
 #check @Riemann.Blindness.ledger_determined_by_five_scalars
 #check @Riemann.Blindness.onCount_one_cannot_be_dropped
+
+-- 370: 369's open necessity question.  Three of the four were already on disk; only the
+-- N case needed a new pair, because N moving is what breaks the Noff -> onMoment 1 bridge.
+#check @Riemann.Blindness.momentK_one_cannot_be_dropped
+#check @Riemann.Blindness.momentK_two_cannot_be_dropped
+#check @Riemann.Blindness.massCount_one_cannot_be_dropped

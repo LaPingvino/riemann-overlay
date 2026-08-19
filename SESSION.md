@@ -18099,6 +18099,10 @@ them — while `363` already gives equal `onMoment 1` and `NscStd` splits `0` ag
 whole `H`-family plus `onMoment 1` is not enough. **Necessity of the other four is open and I
 am not claiming minimality.**
 
+> **Settled at `370`.** All four followed — three of them from theorems already on disk. The
+> set of five is minimal under inclusion; whether five is the smallest possible count is still
+> untouched.
+
 **Snag, bin 1 — I nearly filed this as answering the queue's open minimality question, and it
 does not.** `CLAIMS.md` has carried *"the profile is **not** a minimal sufficient statistic for
 the ledger"* since `075`/`077`, witnessed by `Fiber.profile_not_minimal`; `CLAIMS.md` line
@@ -18125,3 +18129,68 @@ floor `27` unmoved, overclaim floor `203` unmoved, `citation_check` `0` unresolv
 how `350` asked the question rather than a cost the ledger imposes, so what the project needs
 from a configuration is a fixed finite read — five numbers — and every result phrased as
 "determined by the moments" is over-strong in its hypotheses by an infinite amount.
+
+## `369`'s four open necessities — three were already proved
+
+**Piece.** `369` closed with necessity of four of its five scalars open. Three of the four
+were on disk in the `070`s–`080`s and needed no new witness; the fourth needed one pair, for a
+structural reason.
+
+**Kill condition, filed first:** *if any of the four needs a witness pair I cannot construct
+and verify arithmetically inside the cycle, I ship the ones that land and name the ones still
+open rather than calling the set minimal.* It did not fire.
+
+* `Blindness.momentK_one_cannot_be_dropped` — the genuinely missing one. Profiles `{(5,0)}`
+  against `{(3,0),(4,2)}`: `Nstar` equal at `25`, `Nsc` and `NscStd` equal at `0`,
+  `onMoment 1` equal at `5`, `N` of `5` against `7`.
+* `Blindness.momentK_two_cannot_be_dropped`, `Blindness.massCount_one_cannot_be_dropped` —
+  `Nstar_not_determined_by_ledger` and `Nsc_not_determined_by_ledger` restated in five-scalar
+  form, the conversion being `Noff_add_onMoment_one`. For `onMoment 1` no restatement was
+  needed: `Noff_not_determined_by_ledger` is already in the right form, since the row it moves
+  *is* `Noff`, and I shipped no wrapper for it.
+
+**Why the `N` case was the one that did not follow.** The conversion from an equal-`Noff`
+conjunct to an equal-`onMoment 1` conjunct runs through `Noff + onMoment 1 = N`, so it needs
+`N` to agree. `N_not_determined_by_ledger` holds `Noff` fixed while `N` moves — so
+`onMoment 1` moves with it, and the one row whose own theorem moves `N` is the one the bridge
+cannot serve. The gap was structural, not an oversight.
+
+**So the set of five is minimal under inclusion**, by
+`Blindness.momentK_one_cannot_be_dropped` and its four companions. With `369`'s
+`onCount_one_cannot_be_dropped` that is all five, so no proper subset of the five determines
+the ledger. **This is not a claim
+that five is the smallest possible count** — some different set of four is not ruled out by
+anything here, and I am not claiming otherwise. Four locations that said *"the other four are
+open"* corrected at their locations: the `ledger_determined_by_five_scalars` docstring, `369`'s
+`CLAIMS` row, `MAP.md`, and `369`'s own entry.
+
+**Wildcard — did the four need four new pairs, as I had planned?** **Kill condition, filed
+first:** *if the disk turns out to supply any of them, the finding is the near-miss and I
+report it as such rather than shipping what already exists.* **It fired, and this is `S159`.**
+I had designed and arithmetic-checked four pairs before writing any Lean. Three were
+redundant, and one — `twoAtom γ a 2 0 4 0` against `twoAtom γ a 3 0 3 0` — was
+character-for-character the pair inside `Nstar_not_determined_by_ledger`. I also wrote and
+compiled an `onMoment_one_cannot_be_dropped` whose whole proof was
+`exact Noff_not_determined_by_ledger hγ ha`, then deleted it: an alias is the second copy of a
+proof that `256` forbids, not a route.
+
+**Snag, bin 1 — the search vocabulary, not the search.** I ran `R26`'s statement-index search
+and it returned nothing useful, because I searched `configAt` and `twoAtom` — what the
+configurations are *built from*. Searching `not_determined` — what the theorems *assert* —
+returned all five at once. Both spellings were ours, so `R28a`'s two-codebases clause did not
+cover it. **`R28a` amended at its location:** search the conclusion, not just the
+construction.
+
+**Snag, bin 3 — `R32` clean this cycle.** All docstrings and the might-mean piped through
+`claims_gate` before installing; nothing to fix, `overclaim_floor` unmoved at `203` on the
+first check. `duplication_floor` graded before `lake build`: `27`, unmoved, and the alias above
+is the reason it stayed there.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`, duplication
+floor `27` unmoved, overclaim floor `203` unmoved, `citation_check` `0` unresolved.
+
+**Might-mean, scoped to the five scalars of `369`:** every one of the five is load-bearing by
+`Blindness.momentK_one_cannot_be_dropped` and its four companions, so what the ledger costs is
+a set that cannot be trimmed rather than a list that happened to be convenient — though
+whether some other four would do is untouched.

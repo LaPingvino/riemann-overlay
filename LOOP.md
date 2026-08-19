@@ -209,6 +209,15 @@ degradations, not less.
   axiomatised `0.85838` while `Zeta23.XiPrime.Final` proved it, unreached.  So a
   negative search across two codebases owes the reader both spellings, and if only
   one was tried the claim is about one tree.
+
+  **`370` extends this inside one tree.** `369` left four necessity questions open
+  and `370` searched `configAt` and `twoAtom` — the *constructors* — and found
+  nothing, then searched `not_determined` — the *claim shape* — and found five
+  matching theorems, one of which used the identical witness pair already designed
+  by hand (`S159`). Both spellings were ours; the difference was implementation
+  vocabulary against claim vocabulary. So the rule is not only "both codebases'
+  words" but **both kinds of word: what the thing is built from, and what it
+  asserts.** Search the conclusion, not just the construction.
 * **R28 — a search that returns nothing is a statement about the search.**
   Before a zero result is allowed to carry a claim, the write-up names what was
   searched and over what range; if that sentence cannot be written, the claim is

@@ -8832,9 +8832,14 @@ That the profile is *not* a minimal sufficient statistic for the ledger has been
 on disk since `075`/`077` as `Fiber.profile_not_minimal`, a pair of configurations with
 distinct profiles and one ledger.  What is new here is the positive direction: a
 named coarse statistic, universally quantified, rather than a witness that some
-coarsening exists.  Whether five is the fewest is not proved here;
-`onCount_one_cannot_be_dropped` settles one of the five and the other four are
-open. -/
+coarsening exists.
+
+**Settled at `370`:** every one of the five is necessary, so no proper subset of
+the five determines the ledger — `onCount_one_cannot_be_dropped` (`369`),
+`momentK_one_cannot_be_dropped`, `momentK_two_cannot_be_dropped`,
+`massCount_one_cannot_be_dropped` and `Noff_not_determined_by_ledger`.  That is
+minimality of this set under inclusion; it does *not* say five is the smallest
+possible count, and no result here rules out some different set of four. -/
 theorem ledger_determined_by_five_scalars {D D' : ZeroData}
     (hN : momentK D 1 = momentK D' 1)
     (hstar : momentK D 2 = momentK D' 2)
@@ -8875,6 +8880,82 @@ theorem onCount_one_cannot_be_dropped {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 
     twoAtom_profile hγ ha (by norm_num) (by norm_num),
     twoAtom_profile hγ ha (by norm_num) (by norm_num)]
   norm_num
+
+
+/-- **The last of `369`'s five scalars that was genuinely open.**  `SESSION 370`.
+
+`369` left necessity of four of the five scalars open.  Three of those four were
+already on disk — `Nstar_not_determined_by_ledger`,
+`Nsc_not_determined_by_ledger` and `Noff_not_determined_by_ledger` from the
+`070`s–`080`s each give one, once `Noff_add_onMoment_one` converts an
+equal-`Noff` conjunct into an equal-`onMoment 1` one.  That conversion needs `N`
+to agree, which is exactly why the `N` case does not follow:
+`N_not_determined_by_ledger` holds `Noff` fixed while `N` moves, so
+`onMoment 1` moves with it.
+
+This pair fixes that.  Profiles `{(5,0)}` against `{(3,0),(4,2)}`: equal `Nstar`
+at `25`, equal `Nsc` and `NscStd` at `0`, equal `onMoment 1` at `5`, and `N` of
+`5` against `7`. -/
+theorem momentK_one_cannot_be_dropped {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (configAt 0 5 0 a).Nstar = (twoAtom γ a 3 0 2 1).Nstar
+      ∧ (configAt 0 5 0 a).Nsc = (twoAtom γ a 3 0 2 1).Nsc
+      ∧ (configAt 0 5 0 a).NscStd = (twoAtom γ a 3 0 2 1).NscStd
+      ∧ onMoment (configAt 0 5 0 a) 1 = onMoment (twoAtom γ a 3 0 2 1) 1
+      ∧ (configAt 0 5 0 a).N ≠ (twoAtom γ a 3 0 2 1).N := by
+  have pA := configAt_profile (γ := (0:ℝ)) ha (k := 5) (j := 0) (by norm_num)
+  have pB := twoAtom_profile hγ ha (k₁ := 3) (j₁ := 0) (k₂ := 2) (j₂ := 1)
+    (by norm_num) (by norm_num)
+  norm_num at pA pB
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · rw [Nstar_from_profile, Nstar_from_profile, pA, pB]; decide
+  · have : ((configAt 0 5 0 a).Nsc : ℤ) = ((twoAtom γ a 3 0 2 1).Nsc : ℤ) := by
+      rw [Nsc_from_profile, Nsc_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · have : ((configAt 0 5 0 a).NscStd : ℤ) = ((twoAtom γ a 3 0 2 1).NscStd : ℤ) := by
+      rw [NscStd_from_profile, NscStd_from_profile, pA, pB]; decide
+    exact_mod_cast this
+  · rw [onMoment_from_onProfile, onMoment_from_onProfile,
+      onProfile_eq_profile_map, onProfile_eq_profile_map, pA, pB]; decide
+  · rw [N_from_profile, N_from_profile, pA, pB]; decide
+
+/-- **`369`'s four-scalar hypothesis restated so the `onMoment 1` conjunct is
+explicit.**  `SESSION 370`.
+
+Nothing new is proved — `Nstar_not_determined_by_ledger` supplies four of the
+five conjuncts and `Noff_add_onMoment_one` supplies the fifth.  It is recorded
+separately because the five-scalar question asks about `onMoment 1`, not `Noff`,
+and a reader checking minimality should not have to redo the conversion.
+
+`onMoment 1` itself needs no restatement: `Noff_not_determined_by_ledger` is
+already in the right form, since the row it moves *is* `Noff`. -/
+theorem momentK_two_cannot_be_dropped {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (twoAtom γ a 2 0 4 0).N = (twoAtom γ a 3 0 3 0).N
+      ∧ (twoAtom γ a 2 0 4 0).Nsc = (twoAtom γ a 3 0 3 0).Nsc
+      ∧ (twoAtom γ a 2 0 4 0).NscStd = (twoAtom γ a 3 0 3 0).NscStd
+      ∧ onMoment (twoAtom γ a 2 0 4 0) 1 = onMoment (twoAtom γ a 3 0 3 0) 1
+      ∧ (twoAtom γ a 2 0 4 0).Nstar ≠ (twoAtom γ a 3 0 3 0).Nstar := by
+  obtain ⟨hN, hsc, hstd, hoff, hne⟩ := Nstar_not_determined_by_ledger hγ ha
+  refine ⟨hN, hsc, hstd, ?_, hne⟩
+  have e1 := Noff_add_onMoment_one (twoAtom γ a 2 0 4 0)
+  have e2 := Noff_add_onMoment_one (twoAtom γ a 3 0 3 0)
+  omega
+
+/-- **The `Nsc` companion, in five-scalar form.**  `SESSION 370`.
+
+Same conversion as `momentK_two_cannot_be_dropped`, over
+`Nsc_not_determined_by_ledger`. -/
+theorem massCount_one_cannot_be_dropped {γ δ a : ℝ} (hγ : γ ≠ 0) (hδ : δ ≠ 0)
+    (hγδ : γ ≠ δ) (ha : a ≠ 1/2) :
+    (threeAtom γ δ a 1 0 1 0 0 2).N = (twoAtom γ a 1 1 1 1).N
+      ∧ (threeAtom γ δ a 1 0 1 0 0 2).Nstar = (twoAtom γ a 1 1 1 1).Nstar
+      ∧ (threeAtom γ δ a 1 0 1 0 0 2).NscStd = (twoAtom γ a 1 1 1 1).NscStd
+      ∧ onMoment (threeAtom γ δ a 1 0 1 0 0 2) 1 = onMoment (twoAtom γ a 1 1 1 1) 1
+      ∧ (threeAtom γ δ a 1 0 1 0 0 2).Nsc ≠ (twoAtom γ a 1 1 1 1).Nsc := by
+  obtain ⟨hN, hstar, hstd, hoff, hne⟩ := Nsc_not_determined_by_ledger hγ hδ hγδ ha
+  refine ⟨hN, hstar, hstd, ?_, hne⟩
+  have e1 := Noff_add_onMoment_one (threeAtom γ δ a 1 0 1 0 0 2)
+  have e2 := Noff_add_onMoment_one (twoAtom γ a 1 1 1 1)
+  omega
 
 
 end Blindness

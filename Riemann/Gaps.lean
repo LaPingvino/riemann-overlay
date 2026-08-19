@@ -1783,6 +1783,43 @@ def NarrowBoxExc (F : Family) (b η : ℝ) : Prop :=
 def LevinsonMontgomery (F F' : Family) : Prop :=
   ∃ c > 0, ∀ᶠ T in atTop, |F'.Noff T - F.Noff T| ≤ c * Real.log T
 
+/-! #### The `OffTransfer` bridge — `SESSION 392`
+
+`OffTransfer`'s docstring above says the conversion from `levinson_montgomery`
+needs `log T = o(N(T))`, *"which is Riemann–von Mangoldt and is **not** in the
+registers"*.  **`337` put it in the registers** — it imported
+`Zeta23.RvM.Statement` to discharge `zetaNonempty`, and
+`Zeta23.Assembly.eventually_N_ge` gives `T·l(T)/(4π) ≤ N(T)`, which dwarfs
+`log T`.  Nobody noticed the blocker had moved.
+
+Before this, `levinson_montgomery` was an axiom **no Lean code consumed** —
+declared at `Assumptions.lean:195`, mentioned in two docstrings, used nowhere.
+The bridge below is what it was declared for.
+
+**Still one step short:** `LogSmall zetaFamily` is not discharged here.  Its
+witness is `Zeta23.Assembly.eventually_N_ge`, and the remaining work is the
+asymptotic `log T ≤ ε·T·l(T)/(4π)` eventually. -/
+
+/-- The `o(N)` fact the `OffTransfer` docstring names as missing. -/
+def LogSmall (F : Family) : Prop :=
+  ∀ ε > 0, ∀ᶠ T in atTop, Real.log T ≤ ε * F.Nz T
+
+theorem offTransfer_of_levinsonMontgomery {F F' : Family}
+    (hlm : LevinsonMontgomery F F') (hls : LogSmall F) :
+    OffTransfer F F' := by
+  obtain ⟨c, hc, hbd⟩ := hlm
+  intro ε hε
+  filter_upwards [hbd, hls (ε / c) (by positivity)] with T hT hL
+  have h1 : F.Noff T - F'.Noff T ≤ c * Real.log T := by
+    have := abs_le.1 hT
+    linarith [this.1, this.2]
+  have h2 : c * Real.log T ≤ c * (ε / c * F.Nz T) := by
+    exact mul_le_mul_of_nonneg_left hL (le_of_lt hc)
+  have h3 : c * (ε / c * F.Nz T) = ε * F.Nz T := by
+    field_simp
+  linarith
+
+
 /-- Unconditional Farmer–Gonek–Lee for `ξ'` (**[OPEN B]**): `(★)` for the
 derivative family.
 

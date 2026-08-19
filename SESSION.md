@@ -19301,3 +19301,47 @@ board `15/15` rows.
 **Might-mean, scoped to Route II's three general forms:** the project's over-strong readings
 survive because they are cheaper to state than the honest version, not because anyone defends
 them — and the honest version here cost one line once the bridge and the gap already existed.
+
+## `levinson_montgomery` was an axiom nothing used, and its blocker moved at `337`
+
+**Piece.** Auditing the six declared axioms after `391`, one is consumed by no Lean code at all:
+`levinson_montgomery`, declared at `Assumptions.lean:195`, mentioned in two docstrings and used
+nowhere. It was declared for the bridge `Riemann.offTransfer_of_levinsonMontgomery` now supplies, which
+until this cycle did not exist.
+
+**Why it was never built, and why that reason expired.** `Riemann.OffTransfer`'s own docstring
+says the conversion needs `log T = o(N(T))`, *"which is Riemann–von Mangoldt and is **not** in the
+registers"*. **`337` put it in the registers** — it imported `Zeta23.RvM.Statement` to discharge
+`zetaNonempty`, and `Zeta23.Assembly.eventually_N_ge` gives `T·l(T)/(4π) ≤ N(T)`, which dwarfs
+`log T`. The blocker moved fifty-five cycles ago and the docstring still names it.
+
+**Kill condition, filed first:** *if the bridge needs anything beyond the `o(N)` fact — a second
+comparability, an effective constant — I ship what lands and name the extra rather than implying
+one step remains.* It did not fire.
+
+* `Riemann.LogSmall` — the `o(N)` fact, named as a `Prop`.
+* `Riemann.offTransfer_of_levinsonMontgomery` — `LevinsonMontgomery F F'` and `LogSmall F` give
+  `OffTransfer F F'`, for any two families. Green on the first attempt.
+
+**Still one step short, and I am not claiming otherwise.** `LogSmall zetaFamily` is **not**
+discharged here. Its witness is identified — `Zeta23.Assembly.eventually_N_ge` — and the
+remaining work is the asymptotic `log T ≤ ε·T·l(T)/(4π)` eventually. So `levinson_montgomery`
+moves from *used by nothing* to *one named step from paying for `OffTransfer`*, which is a
+hypothesis on Route II's row.
+
+**Wildcard — is the axiom removable instead?** **Kill condition, filed first:** *if nothing can
+ever consume it, the honest move is deletion, and I should propose that rather than build
+scaffolding around it.* It did not fire: the bridge above consumes it, so it is a live axiom with
+a purpose rather than a dead one. Had the bridge failed, deletion would have been the finding.
+
+**Snag, bin 2 — I inserted the block before `LevinsonMontgomery` was defined** and the build
+failed with `Function expected`. `R23` says anchor new work after its dependencies; I anchored on
+a docstring string match instead and landed `97` lines early. Moved and rebuilt.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, duplication floor `29`, overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to the six declared axioms:** `Riemann.offTransfer_of_levinsonMontgomery`
+shows an axiom can sit unused for hundreds of cycles because the thing blocking its bridge was
+recorded once and never re-checked, so the axiom count
+has been measuring stale blockers as well as real assumptions.

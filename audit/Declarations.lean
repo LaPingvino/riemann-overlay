@@ -915,3 +915,7 @@ import Riemann
 #check @Riemann.Blindness.hauntedCount_le_oddAtoms
 #check @Riemann.Blindness.oddAtoms_bound_cannot_beat_baseline
 #check @Riemann.Blindness.factMoment_atom
+
+-- 392: the bridge levinson_montgomery -> OffTransfer, modulo LogSmall.
+#check @Riemann.LogSmall
+#check @Riemann.offTransfer_of_levinsonMontgomery

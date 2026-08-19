@@ -980,3 +980,7 @@ import Riemann
 -- 417: which multisets are profiles, and the first consequence.
 #check @Riemann.Blindness.profile_realisable
 #check @Riemann.Blindness.exists_atomCount_N
+
+-- 418: the counting chain is sharp in both directions.
+#check @Riemann.Blindness.chain_all_strict
+#check @Riemann.Blindness.chain_all_collapse

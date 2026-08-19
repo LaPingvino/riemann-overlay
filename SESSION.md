@@ -20505,3 +20505,39 @@ the **plausible** name, and I generated three in one cycle.
 **Might-mean:** with `Blindness.profile_realisable` on one side and `370`–`373`
 on the other, a question about what the counts can do turns into a question about
 admissible multisets of pairs.
+
+## 418 — the counting chain is sharp in both directions
+
+**Kill condition, stated first (`R12`).** Piece: a single `ZeroData` making every
+link of `Nsc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount ≤ N` strict at
+once. Wildcard: one collapsing every link. Kill: if the literal-multiset counts
+do not fall to `decide`, ship the sub-chain that does and file the rest.
+
+**Both landed, and neither needed a hand-built configuration.**
+
+- `Blindness.chain_all_strict` — the profile `{(1,0), (3,2), (3,0), (2,0),
+  (2,2)}` gives `1 < 2 < 3 < 4 < 5 < 11`. One entry per link, each chosen to be
+  counted by one side and not the other: `(3,2)` is standard-simple but not
+  simple, `(3,0)` is odd but not standard-simple, `(2,0)` is on-line but not odd,
+  `(2,2)` is an atom with no on-line mass, and any mass `≥ 2` separates
+  `atomCount` from `N`.
+- `Blindness.chain_all_collapse` — the profile `{(1,0)}` collapses the chain to
+  `1`. Together: the five inequalities are exactly inequalities — none is
+  secretly an equation, none is forced strict.
+
+**This is what `416`–`417` were for.** Admissibility is `by decide`; every count
+is read off its `_from_profile` lemma; no multiset is manipulated by hand and no
+configuration is constructed. `Blindness.onLineOrdinates` has no `_from_profile`
+lemma of its own, but `Blindness.onLineOrdinates_eq_oddAtoms_add_evenOnAt` plus
+`Blindness.evenOnAt_from_profile` covers it — the one place the sweep needed a
+detour.
+
+**Both compiled on the first attempt.** After `417`'s three wrong names, this
+cycle guessed none: every lemma used came from the `_from_profile` battery listed
+in the index before writing.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** `417`'s realisability turns questions about what the counts can do
+into `decide` calls on small explicit profiles, and this cycle's two theorems are
+the first evidence of what that costs — nothing.

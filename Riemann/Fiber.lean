@@ -10088,5 +10088,61 @@ theorem exists_atomCount_N {a : ℝ} (ha : a ≠ 1/2) {c n : ℕ} (hc : 1 ≤ c)
     simp [hLdef]
     omega
 
+/-- **Every link of the counting chain can be strict at once.**  `SESSION 418`.
+
+The chain is `Nsc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount ≤ N`.  The
+profile `{(1,0), (3,2), (3,0), (2,0), (2,2)}` gives `1 < 2 < 3 < 4 < 5 < 11`:
+one entry per link, each chosen to be counted by one side and not the other.
+
+Built entirely through `417`'s `Blindness.profile_realisable` — the profile is
+admissible by `decide`, and every count is read off its `_from_profile` lemma.
+No configuration is constructed and no multiset is manipulated by hand, which is
+what `416`–`417` were for. -/
+theorem chain_all_strict {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData, D.Nsc < D.NscStd ∧ D.NscStd < oddAtoms D
+      ∧ oddAtoms D < onLineOrdinates D ∧ onLineOrdinates D < atomCount D
+      ∧ atomCount D < D.N := by
+  classical
+  obtain ⟨D, hD⟩ := exists_profile_of_list a ha
+    [(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] (by decide)
+  refine ⟨D, ?_, ?_, ?_, ?_, ?_⟩
+  · have h1 : (D.Nsc : ℤ) = 1 := by rw [Nsc_from_profile, hD]; decide
+    have h2 : (D.NscStd : ℤ) = 2 := by rw [NscStd_from_profile, hD]; decide
+    omega
+  · have h2 : (D.NscStd : ℤ) = 2 := by rw [NscStd_from_profile, hD]; decide
+    have h3 : oddAtoms D = 3 := by rw [oddAtoms_from_profile, hD]; decide
+    omega
+  · have h3 : oddAtoms D = 3 := by rw [oddAtoms_from_profile, hD]; decide
+    have h4 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
+    rw [onLineOrdinates_eq_oddAtoms_add_evenOnAt, h3, h4]; omega
+  · have h3 : oddAtoms D = 3 := by rw [oddAtoms_from_profile, hD]; decide
+    have h4 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
+    have h5 : atomCount D = 5 := by rw [atomCount_eq_card_profile, hD]; decide
+    rw [onLineOrdinates_eq_oddAtoms_add_evenOnAt, h3, h4, h5]; omega
+  · have h5 : atomCount D = 5 := by rw [atomCount_eq_card_profile, hD]; decide
+    have h6 : D.N = 11 := by rw [N_from_profile, hD]; decide
+    omega
+
+/-- **And every link can be an equality at once.**  `SESSION 418`.
+
+The profile `{(1,0)}` — a single simple zero — collapses the whole chain to `1`.
+With `Blindness.chain_all_strict` this says the chain's five inequalities are
+exactly inequalities: none is secretly an equation, and none is forced strict. -/
+theorem chain_all_collapse {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData, 0 < D.N ∧ D.Nsc = D.NscStd ∧ D.NscStd = oddAtoms D
+      ∧ oddAtoms D = onLineOrdinates D ∧ onLineOrdinates D = atomCount D
+      ∧ atomCount D = D.N := by
+  classical
+  obtain ⟨D, hD⟩ := exists_profile_of_list a ha [(1, 0)] (by decide)
+  have h1 : (D.Nsc : ℤ) = 1 := by rw [Nsc_from_profile, hD]; decide
+  have h2 : (D.NscStd : ℤ) = 1 := by rw [NscStd_from_profile, hD]; decide
+  have h3 : oddAtoms D = 1 := by rw [oddAtoms_from_profile, hD]; decide
+  have h4 : evenOnAt D = 0 := by rw [evenOnAt_from_profile, hD]; decide
+  have h5 : atomCount D = 1 := by rw [atomCount_eq_card_profile, hD]; decide
+  have h6 : D.N = 1 := by rw [N_from_profile, hD]; decide
+  have h7 : onLineOrdinates D = 1 := by
+    rw [onLineOrdinates_eq_oddAtoms_add_evenOnAt, h3, h4]
+  exact ⟨D, by omega, by omega, by omega, by omega, by omega, by omega⟩
+
 end Blindness
 end Riemann

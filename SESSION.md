@@ -20615,3 +20615,40 @@ a Python model of the counts.
 **Might-mean:** sharpness is now a search rather than a proof obligation, so the
 question *"can this coefficient be improved"* costs a script run instead of a
 cycle.
+
+## 421 — the box as a search, not only a check
+
+**Kill condition, stated first (`R12`).** Piece: `420`'s box verifies known
+bounds; make it **search** — the extremal coefficient of a shape, and the least
+`c` with `X ≤ c·Y`, over all `3875` admissible profiles. Wildcard: does the
+search find an inequality the tree does not have? Kill: if every row is a
+consequence of the four ordinate partitions, say so plainly and do not dress a
+rediscovery as a finding.
+
+**`--frontier`, two searches.**
+
+- **The bridge frontier.** Largest `a` with `a·NscStd ≤ N + b·Nsc`: `1, 2, 3, 3,
+  3` for `b = 0…4`. That is `Riemann.bridge_optimal` exactly — `c ≤ 3`, and
+  `c = 3` forces `d ≥ 2` — reproduced from profiles by a program that was never
+  shown the theorem. Widening the box to mass `9` does not move it.
+- **The ratio table.** For each ordered pair, the least `c` with `X ≤ c·Y`.
+
+**The wildcard died, and cleanly.** Every row of the ratio table is a consequence
+of the four partitions already on disk — `Nsc ≤ NscStd ≤ oddAtoms ≤
+onLineOrdinates ≤ atomCount ≤ N` and its companions. The search found **no**
+inequality of this shape that the tree lacks. At the shape searched, the
+inventory is complete.
+
+**Three rows carry `c = 6`, the box's largest mass, and the tool now labels
+them.** `N ≤ 6·atomCount`, `Noff ≤ 6·atomCount` and `Nstar ≤ 6·N` report the
+box's ceiling rather than a property of `ZeroData`: widen the box and the
+coefficient follows it. Any coefficient reaching the box ceiling now prints
+`[BOX ARTEFACT]`. Without that flag the run would have read as three findings,
+which is `S49`'s family: an output that implies more than the check covered.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** the search reproduced `Riemann.bridge_optimal` and returned
+nothing past it, which is the first evidence this project has that its inventory
+of linear count bounds is finished rather than merely long.

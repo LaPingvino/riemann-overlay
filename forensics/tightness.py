@@ -98,6 +98,59 @@ def profiles(max_mass, max_atoms):
             yield list(combo)
 
 
+FRONTIER_DOC = """`421`: the box does more than check known bounds.
+
+Because every profile in it is realised (`417`), a shape that **fails** on the box
+is refuted outright, and the extremal coefficient found on the box is an upper
+bound for the true one.  A shape that *holds* on the box is a **conjecture** —
+`R17` — and is printed as one.
+"""
+
+
+def frontier(box, lhs, rhs_const, rhs_var, hi=8):
+    """Largest integer `a` with `a·lhs ≤ rhs_const + b·rhs_var` on the box,
+    for each `b`.  Returns {b: a}."""
+    out = {}
+    for b in range(0, 5):
+        best = hi
+        for p in box:
+            c = counts(p)
+            L, R0, R1 = c[lhs], c[rhs_const], c[rhs_var]
+            if L == 0:
+                continue
+            best = min(best, (R0 + b * R1) // L)
+            if best == 0:
+                break
+        out[b] = best
+    return out
+
+
+def ratio_table(box, hi=9):
+    """For each ordered pair, the least integer `c` with `X ≤ c·Y` on the box."""
+    names = sorted(NAMES)
+    rows = []
+    for x in names:
+        for y in names:
+            if x == y:
+                continue
+            need = 0
+            ok = True
+            for p in box:
+                c = counts(p)
+                if c[y] == 0:
+                    if c[x] > 0:
+                        ok = False
+                        break
+                    continue
+                need = max(need, -(-c[x] // c[y]))
+                if need > hi:
+                    ok = False
+                    break
+            if ok:
+                rows.append((x, y, need))
+    return rows
+
+
 def main():
     argv = sys.argv[1:]
     def opt(flag, default):
@@ -161,6 +214,24 @@ def main():
           f"rather than dropped")
     for name in sorted(set(skipped)):
         print(f"          {name}")
+
+    if "--frontier" in argv:
+        print()
+        print("=== the bridge frontier, searched ===")
+        print(FRONTIER_DOC)
+        fr = frontier(box, "NscStd", "N", "Nsc")
+        for b, a_ in sorted(fr.items()):
+            print(f"  largest a with a·NscStd ≤ N + {b}·Nsc on the box: {a_}")
+        print()
+        print("=== least c with X ≤ c·Y on the box (c ≤ 9) ===")
+        print("  a CONJECTURE per row (`R17`); a missing pair is refuted by the box")
+        for x, y, c_ in ratio_table(box):
+            # `421`: a coefficient equal to the box's largest mass is an
+            # ARTEFACT of the box, not a conjecture — `N ≤ 6·atomCount` says
+            # only that no ordinate here has mass above `6`.  Flagged, not
+            # printed as a finding.
+            tag = "  [BOX ARTEFACT]" if c_ >= max_mass else ""
+            print(f"  {x:18s} ≤ {c_} * {y}{tag}")
     return 0
 
 

@@ -18668,3 +18668,51 @@ No Lean changed, no ledger movement, `absence_queue` unchanged — `T3` moves fr
 **Might-mean, scoped to `T3` and this one retrieval:** the blocker `364` named was real but only
 half the obstacle, since an open channel still needs search keys that are not themselves recall —
 and for a chronology of four papers I could name but not cite, that second half is the larger one.
+
+## `378`'s zero hits were my extractor, not my keys — a correction
+
+**Piece.** `378` reported that three of four `T3` queries returned nothing and concluded the
+cause was recall-based search keys (`S167`). **That was half right, and the half I published was
+the wrong one.**
+
+**Kill condition, filed first:** *if I cannot finish the chronology this cycle either, I stop
+scraping and report the obstacle rather than tuning regexes a second time — that was `378`'s own
+bin-1 snag.* **It fired, and I stopped.**
+
+**The measurement.** zbMATH's own result header says `3 Documents` for the Wiles query and
+`10 Documents` for the Kummer query. My extractor keyed on `class="content-result"`, which wraps
+the **whole list**, not each row — so it saw exactly one record every time. The per-record
+wrapper is `<div class="list">`, which occurs ten times on that page. **Every "no hits" and every
+"one hit" in `378` was a report about my parser.** Corrected at `S167`'s location.
+
+**So `378`'s Frey and Kummer conclusions do not stand.** `au:Frey & ti:stable` returning the
+wrong Frey was real — that hit was rank 1 — but "Kummer: no hits" and "Wiles: only the ICM talk"
+were artefacts: there were ten and three records respectively, and I read one of each.
+
+**What is still verified, unchanged:** the Ribet record, which was rank 1 and complete —
+Invent. Math. **100**, No. 2, 431–476 (**1990**), Zbl 0773.11039. **`T3` remains not started**,
+one link of four dated.
+
+**Wildcard — is this the same shape as `375`?** **Kill condition, filed first:** *if the two
+defects differ in mechanism, saying "same shape" is pattern-matching and I drop the claim.* It
+did not fire. `375`: the statement index truncated at `240` characters and returned `0 matches`
+for a theorem on disk. `379`: the extractor read one row of ten and returned `no hits` for
+records on the page. **Both are silent under-reporting that formats as a clean negative** — a
+truthful-looking zero. `375` was an instrument I inherited; this one I wrote three cycles later,
+which is the part worth keeping.
+
+**Snag, bin 1 — I tuned the parser incrementally again, across two cycles.** `378` filed exactly
+this snag and prescribed the fix — write the extractor once against a dumped page. I wrote it
+once this cycle, validated it against the known-good Ribet record, and it passed **because that
+record is rank 1**. A validation set of one cannot detect a rank-1-only bug.
+
+**Not done:** Kummer, Frey, Wiles remain undated, and the extractor still does not parse the
+rows it can now see — the language-marker heuristic that locates the title fails inside
+`<div class="list">`.
+
+No Lean changed, no ledger movement, `session_gate` green.
+
+**Might-mean, scoped to the two instruments and the four dated-source queries:** an instrument
+that under-reports silently is worse than one that fails, because its output is indistinguishable
+from a real negative — and I have now built one of those myself, three cycles after writing up
+the last one.

@@ -879,7 +879,10 @@ the solution?**
 > no identifier, no recall. Kummer, Frey and Wiles are **not** verified: those queries
 > were keyed on remembered titles and journals, and a remembered key is a recall claim
 > inside the query, so their zero hits are statements about the search (`R28`), not
-> about the record. Parser note for the next attempt: zbMATH puts the journal name and
+> about the record. **`379` corrects this:** the zero hits were the *parser* — zbMATH
+> reported `3` and `10` documents while it read one row each time. Kummer, Frey and
+> Wiles are undated because they are unparsed, not because they are unfound.
+> Parser note for the next attempt: zbMATH puts the journal name and
 > the volume/pages/`(YYYY)` in *sibling* elements, so reading only `class="source"`
 > silently drops the year.
 >

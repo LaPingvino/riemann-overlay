@@ -988,3 +988,6 @@ import Riemann
 -- 419: mass_charges_every_class is attained and its weights are maximal.
 #check @Riemann.Blindness.mass_charges_sharp
 #check @Riemann.Blindness.mass_charges_coefficients_maximal
+
+-- 422: found by the three-term search — haunted and off-line-only both cost two.
+#check @Riemann.Blindness.two_mul_haunted_add_two_mul_offLineOnly_le_Noff

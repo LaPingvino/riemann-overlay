@@ -10209,5 +10209,40 @@ theorem mass_charges_coefficients_maximal {a : ℝ} (ha : a ≠ 1/2) :
   have h6 : D.N = 11 := by rw [N_from_profile, hD]; decide
   exact ⟨D, by omega, by omega, by omega, by omega, by omega⟩
 
+/-- **Haunted and off-line-only ordinates each cost two off-line zeros, and they
+are disjoint.**  `SESSION 422`.
+
+`2·hauntedCount + 2·offLineOnly ≤ N_off`, with **no hypothesis**.  A haunted
+ordinate has `onAt = 1` and mass `≥ 2`, so its off-line mass is `≥ 1` and even,
+hence `≥ 2`; an off-line-only ordinate has `onAt = 0`, so its off-line mass is
+its whole mass, again `≥ 2`; and no ordinate is both.
+
+**Found by search, not by hand.**  `421`'s `forensics/tightness.py --frontier`
+was widened to three-term shapes; after filtering the survivors implied by two
+pairwise bounds, this was one of the few that named a fact the tree did not have.
+It strengthens two things at once: `Blindness.offLineOnly_le_Noff` is the case
+with no haunted ordinates, and `Blindness.pred_mul_haunted_le_Noff` at `m = 3` is
+the haunted half **under a hypothesis** this version does not need. -/
+theorem two_mul_haunted_add_two_mul_offLineOnly_le_Noff (D : ZeroData) :
+    2 * hauntedCount D + 2 * offLineOnly D ≤ D.Noff := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  rw [hauntedCount, offLineOnly, hoff, Finset.card_filter, Finset.card_filter,
+    Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have hpos : 0 < D.H γ := by
+    rw [D.H_eq_count, Multiset.count_pos]
+    exact Multiset.mem_toFinset.1 hγ
+  have hsum := H_eq_onAt_add_offAt D γ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  by_cases h1 : D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1
+  · rw [if_pos h1, if_neg (by omega : ¬ onAt D γ = 0)]
+    omega
+  · rw [if_neg h1]
+    by_cases h2 : onAt D γ = 0
+    · rw [if_pos h2]; omega
+    · rw [if_neg h2]; omega
+
 end Blindness
 end Riemann

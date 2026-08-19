@@ -20652,3 +20652,42 @@ No Lean changed this cycle.
 **Might-mean:** the search reproduced `Riemann.bridge_optimal` and returned
 nothing past it, which is the first evidence this project has that its inventory
 of linear count bounds is finished rather than merely long.
+
+## 422 — widen the shape, and the search earns its keep
+
+**Kill condition, stated first (`R12`).** Piece: widen `421`'s search from
+`X ≤ c·Y` to `a·X + b·Y ≤ c·Z`. Wildcard: prove whatever it finds. Kill: if the
+survivor list stays longer than a page after filtering, report the **count**
+and stop — an untriageable page is `S49`'s failure, not a result.
+
+**The kill condition nearly fired.** The raw sweep checks `27378` shapes and
+returns `1352` tight survivors; a crude dominance filter leaves `729`, which is
+a page nobody can read. The filter that made it readable is principled rather
+than cosmetic: drop any `a·X + b·Y ≤ c·Z` that follows from two pairwise bounds
+`X ≤ p·Z`, `Y ≤ q·Z` with `a·p + b·q ≤ c`. That leaves `980` survivors in `127`
+distinct functional triples — still long, and **most of them are the four
+ordinate partitions themselves** (`Nsc + hauntedCount ≤ NscStd` is
+`NscStd_eq_Nsc_add_haunted`, and so on).
+
+**But a few named facts the tree did not have, and one is worth proving.**
+
+`Blindness.two_mul_haunted_add_two_mul_offLineOnly_le_Noff` — unconditionally,
+`2·hauntedCount + 2·offLineOnly ≤ N_off`. A haunted ordinate has `onAt = 1` and
+mass `≥ 2`, so its off-line mass is `≥ 1` and even, hence `≥ 2`; an
+off-line-only ordinate has `onAt = 0`, so its off-line mass is its whole mass,
+again `≥ 2`; and no ordinate is both.
+
+It strengthens two things at once. `Blindness.offLineOnly_le_Noff` is its
+no-haunted case, and `Blindness.pred_mul_haunted_le_Noff` at `m = 3` is its
+haunted half **under a hypothesis this version does not need**.
+
+**Checked before proving.** `0` violations and `506` tight profiles among
+`20474` admissible ones at masses `1..8` — so the coefficients are maximal
+before a line of Lean was written.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+`duplication_floor` `30`, unchanged: the new conclusion is shared with nothing.
+
+**Might-mean:** the search's value is not the shapes it returns but the two or
+three it returns that name a fact nobody wrote down, and reaching them required
+a filter justified by mathematics rather than by output length.

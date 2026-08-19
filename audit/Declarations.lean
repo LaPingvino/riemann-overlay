@@ -971,3 +971,8 @@ import Riemann
 #check @Riemann.Blindness.twoAtom_H
 #check @Riemann.Blindness.twoAtom_ordinates_toFinset
 #check @Riemann.Blindness.momentK_cap_bound_attained_mixed
+
+-- 416: the arbitrary-arity configuration builder and its profile.
+#check @Riemann.Blindness.nAtom
+#check @Riemann.Blindness.nAtom_H
+#check @Riemann.Blindness.nAtom_profile

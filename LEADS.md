@@ -1894,6 +1894,10 @@ is the same shape as `twoAtom_profile` but at arbitrary arity, and it needs
 injectivity of `(· : ℕ → ℝ)` to keep the heights distinct. Filed as the next
 Lean-shaped item in this thread; nothing about it is conjectural, only unbuilt.
 
+**`416`: built.** `Blindness.nAtom`, `Blindness.nAtom_H`,
+`Blindness.nAtom_mem_ordinates`, `Blindness.nAtom_profile`. Heights are the
+integer casts, exactly as this paragraph guessed. This lead is closed.
+
 
 ## After `S084`: what could still improve the `Nsc` row
 

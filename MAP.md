@@ -263,3 +263,50 @@ Other exchange biconditionals on disk: `Riemann.ladder_beats_iff`,
 `Riemann.oddAtoms_input_beats_certified_row_iff`, `Riemann.onLineOrdinates_route_threshold`,
 `Counts.starBound_ceiling_iff`, `Blindness.star_rung_threshold`.
 
+## The moment channel — `406`–`415`, and why it cannot be pushed
+
+`[OPEN D]`'s currency is a **`k`-th moment bound**, `Family.MomentBound k C`:
+`momentK k (T) ≤ (C + o(1))·N(T)`.  Twelve cycles built it, wired it, fed it
+everything the repo has, and characterised exactly why that is not enough.  This
+section exists because `412` **rewrote a theorem from `098`** for want of a map;
+search the conclusion, not the name (`S171`).
+
+**The predicate and its place in the lattice.**
+
+| fact | declaration |
+|---|---|
+| `MomentBound 2 C` **is** `StarBound C` | `Riemann.momentBound_two_iff_starBound` (`406`) |
+| `MomentBound k C → StarBound C` for `k ≥ 2` | `Riemann.starBound_of_momentBound`, via `Blindness.momentK_mono_order` |
+| the supplier | `Riemann.hauntedDensity_of_momentBound_at_rung`, rate `(C−1)/(m^k−m)` |
+| the comparison criterion | `Riemann.moment_rung_beats_star_rung_iff` — a **smaller** rate is better |
+
+**The two inputs the repo can manufacture, and what each pays at the rung
+`m = M`.**
+
+| input | constant `C` | rate at `m = M` | witness |
+|---|---|---|---|
+| cap alone | `M^(k−1)` | `1/M`, every `k` | `Riemann.momentBound_of_multiplicity_le` (`407`), `Riemann.moment_cap_rate_eq_star_rate` |
+| cap + the `Nsc` row | `M^(k−1) − (M^(k−1)−1)κ` | `(1−κ)/M`, every `k` | `Riemann.momentBound_of_multiplicity_and_proportion` (`412`), `Riemann.moment_proportion_rate_independent_of_order` |
+
+**Both are flat in `k`, and the reason is one identity**: `M^k − M =
+M·(M^(k−1) − 1)`, so the geometric factor cancels.  Below the cap the moment rate
+is strictly *worse* — `Riemann.moment_cap_rate_ge_star_rate` and
+`Riemann.moment_cap_rate_gt_star_rate` (`408`), whose whole content is
+`Σ_{i<k−1} m^i ≤ Σ_{i<k−1} M^i`.
+
+**Why no sharper argument helps.** `Blindness.momentK_add_mul_Nsc_le` (`412`) is
+an equality exactly on configurations whose masses are all `1` or `M`
+(`Blindness.momentK_add_mul_Nsc_eq_iff`, `414`), attained with both values
+present by `Blindness.momentK_cap_bound_attained_mixed` (`415`).  The slack is
+the masses strictly between `1` and `M` — which is precisely what a cap does not
+see.
+
+**So the fourth supplier waits on an external constant**, and `411` measured that
+the vendor does not carry one: of `4627` vendored declarations, `44` mention
+`mult` and none square it.
+
+**The `k = 2` row is `098`'s.** `Riemann.starBound_of_mult_le` gives
+`C ≤ M − (M−1)κ` on the `Nsc` row and beats
+`Riemann.starBound_of_multiplicity_and_proportion` by `1 − κ`.  Do not confuse it
+with `Riemann.starBound_of_mult_le_two`, which is the `ProportionStd` row.
+

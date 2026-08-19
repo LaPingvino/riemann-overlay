@@ -20420,3 +20420,46 @@ again.
 **Might-mean:** a lead that names the missing lemma lets the next cycle open at
 the `#check` instead of the search, which is what turned `414`'s kill condition
 into `415`'s piece.
+
+## 416 — the moment channel, mapped; and the builder the thread has wanted since `profile_superpose_disjoint`
+
+**Kill condition, stated first (`R12`).** Piece: write the `406`–`415` moment
+channel into `MAP.md`. Wildcard: the arbitrary-arity configuration builder
+`LEADS.md` has called *"the next Lean-shaped item in this thread"*. Kill: if the
+profile lemma needs more than `Blindness.profile_superpose_disjoint` and an
+induction, ship the builder and its `H` lemma and leave the profile in `LEADS`.
+
+**Why the map, and why now.** `412` **rewrote `098`'s
+`Riemann.starBound_of_mult_le`** because the enumeration it consulted did not
+list it. That is `S171`'s rediscovery failure with a measured cost, in this arc,
+five cycles ago. `MAP.md` now carries the whole channel: the predicate's place in
+the lattice, the two inputs the repo can manufacture, what each pays, why both
+are flat in `k`, why no sharper argument helps, and the `411` measurement that
+the vendor supplies nothing. It ends by naming the `k = 2` row as `098`'s and
+warning off the `ProportionStd` twin.
+
+**The wildcard landed, and on the first attempt.**
+
+- `Blindness.nAtom` — a fold of `superpose` over `Blindness.configAt` at the
+  integer heights `0, 1, 2, …`, one atom per list entry.
+- `Blindness.nAtom_H` — the mass at any point.
+- `Blindness.nAtom_mem_ordinates` — every ordinate of a fold started at `i` is an
+  integer height `≥ i`, which is the disjointness hypothesis at every step.
+- `Blindness.nAtom_profile` — the profile **is** the prescribed list.
+
+So every multiset of `(mass, off-line mass)` pairs with non-zero mass is realised
+by a `ZeroData`. With `370`–`373`'s result that the profile determines the
+ledger, the map from profiles to ledgers is defined on all of its apparent
+domain, and a separation argument can prescribe a profile instead of
+hand-building a configuration.
+
+**Snag, bin 2, and small.** I wrote `ordinates_superpose` as `rfl` and it is not
+one; `Blindness.add_ordinates` was already on disk, `@[simp]`, twenty lines under
+the definition of `superpose`. Two lines of waste, caught by the compiler. The shape
+matches `412`'s rediscovery, which is the reason this cycle's piece is a map.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** every profile is realised, so any statement about ledgers that
+holds for all `ZeroData` is a statement about profiles with no side conditions
+left to check.

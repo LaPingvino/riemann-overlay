@@ -9930,5 +9930,71 @@ theorem momentK_cap_bound_attained_mixed {γ a : ℝ} (hγ : γ ≠ 0) {M k : �
     subst hx'
     exact Or.inr hg
 
+/-- **`Blindness.nAtom`: a configuration realising any prescribed profile.**
+`SESSION 416`.
+
+`LEADS.md` has asked since the `profile_superpose_disjoint` thread for *"a
+builder taking a multiset of ordinates plus a per-atom on/off choice to a
+`ZeroData` — a fold of `superpose` over `configAt` at distinct heights — plus a
+lemma that the profile of such a fold is the multiset of the chosen pairs"*, and
+recorded that nothing about it is conjectural, only unbuilt.  This is it.
+
+Heights are the integer casts `0, 1, 2, …`, which is where the distinctness comes
+from; `l` gives each atom its `(on, off-pairs)` counts.  `twoAtom` is the arity-2
+case done by hand. -/
+noncomputable def nAtom (a : ℝ) : List (ℕ × ℕ) → ℕ → ZeroData
+  | [], _ => configAt 0 0 0 a
+  | p :: t, i => superpose (configAt (i : ℝ) p.1 p.2 a) (nAtom a t (i + 1))
+
+/-- The mass at any point: the sum over entries sitting at that height. -/
+lemma nAtom_H (a : ℝ) (l : List (ℕ × ℕ)) (i : ℕ) (γ : ℝ) :
+    (nAtom a l i).H γ
+      = (l.zipIdx i).foldr (fun q s => (if γ = (q.2 : ℝ) then q.1.1 + 2 * q.1.2 else 0) + s) 0 := by
+  induction l generalizing i with
+  | nil => simp [nAtom, configAt_H]
+  | cons p t ih =>
+    simp only [nAtom, H_superpose, configAt_H, List.zipIdx_cons, List.foldr_cons, ih]
+
+/-- Every ordinate of a fold started at `i` is an integer height `≥ i`.  This is
+the disjointness `profile_superpose_disjoint` asks for, at every step. -/
+lemma nAtom_mem_ordinates (a : ℝ) (l : List (ℕ × ℕ)) (i : ℕ) {γ : ℝ}
+    (h : γ ∈ (nAtom a l i).ordinates) : ∃ n : ℕ, i ≤ n ∧ γ = (n : ℝ) := by
+  induction l generalizing i with
+  | nil => simp [nAtom, configAt_ordinates] at h
+  | cons p t ih =>
+    rw [nAtom, add_ordinates, Multiset.mem_add] at h
+    rcases h with h | h
+    · rw [configAt_ordinates, Multiset.mem_replicate] at h
+      exact ⟨i, le_refl i, h.2⟩
+    · obtain ⟨n, hn, rfl⟩ := ih (i + 1) h
+      exact ⟨n, by omega, rfl⟩
+
+/-- **The profile of `Blindness.nAtom` is the prescribed list.**  `SESSION 416`.
+
+So any multiset of `(mass, off-line mass)` pairs with non-zero mass is realised by
+a `ZeroData`.  Since `370`–`373` established that the profile determines the
+ledger, this says the map from profiles to ledgers is defined on **all** of its
+apparent domain: a separation argument may now prescribe a profile instead of
+hand-building a configuration for it. -/
+lemma nAtom_profile (a : ℝ) (ha : a ≠ 1/2) :
+    ∀ (l : List (ℕ × ℕ)) (i : ℕ), (∀ p ∈ l, p.1 + 2 * p.2 ≠ 0) →
+      profile (nAtom a l i) = (l.map (fun p => (p.1 + 2 * p.2, 2 * p.2)) : List (ℕ × ℕ)) := by
+  intro l
+  induction l with
+  | nil => intro i _; simp [nAtom, profile, configAt_ordinates]
+  | cons p t ih =>
+    intro i hne
+    have hdis : ∀ γ, γ ∈ (configAt (i : ℝ) p.1 p.2 a).ordinates →
+        γ ∉ (nAtom a t (i + 1)).ordinates := by
+      intro γ hγ hmem
+      rw [configAt_ordinates, Multiset.mem_replicate] at hγ
+      obtain ⟨n, hn, hγn⟩ := nAtom_mem_ordinates a t (i + 1) hmem
+      have : (i : ℝ) = (n : ℝ) := by rw [← hγ.2, hγn]
+      have : i = n := by exact_mod_cast this
+      omega
+    rw [nAtom, profile_superpose_disjoint hdis, ih (i + 1) (fun q hq => hne q (by simp [hq])),
+      configAt_profile ha (hne p (by simp))]
+    simp
+
 end Blindness
 end Riemann

@@ -835,7 +835,21 @@ successively better addresses, converging on A9c.
 
 **T3 — the solved-problem control.** Not started; needs FLT (Kummer → Frey →
 Ribet → Wiles) and an open control (twin primes, or Goldbach if that chronology
-is disputed). The diagnostic question is sharp: **is the final restatement of a
+is disputed).
+
+> ⚠️ **Membership corrected at `381`.** The chain of *restatements* is **Frey →
+> Ribet → Wiles**, three links. Kummer's verified titles are machinery (`1847`,
+> J. Reine Angew. Math. **35**, 319–326 and 327–367) and a **partial solution**
+> (`1850`, **40**, 131–138) — neither restates FLT as a different problem, so he
+> is not the chain's first link. He is the *control on the other arm*: a lineage
+> that reached a partial solution without emptying the residue, which is the
+> comparison this entry needs. `380`'s *"two candidate first links"* asked the
+> wrong question.
+>
+> **And the diagnostic question is a reading task.** *"Is the final restatement
+> the first whose residue is empty"* follows from the chain's logic; *"was that
+> visible before the solution"* asks what was known in `1986` and no date settles
+> it. `364` recorded the chronological prerequisite only. The diagnostic question is sharp: **is the final restatement of a
 solved problem the first whose residue is empty, and was that visible *before*
 the solution?**
 

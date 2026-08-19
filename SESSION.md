@@ -18772,3 +18772,60 @@ No Lean changed, no ledger movement, `session_gate` green.
 literature* and `378` called *recall-based keys* was, per `S167a` and this cycle's two validator
 failures, three separate instrument bugs and one genuine judgement call — so *"blocked on literature"* described it less well than *"deciding which paper counts as the
 restatement"* does.
+
+## `T3`'s chain has the wrong first link — Kummer is not a restatement
+
+**Piece.** `T3`'s specification names the chain **Kummer → Frey → Ribet → Wiles** and asks
+whether *"the final restatement of a solved problem is the first whose residue is empty"*.
+`380` dated three of the four. This cycle makes the judgement `380` flagged as owed, and it
+turns out to be about the chain's membership rather than its dates.
+
+**Kill condition, filed first:** *if the judgement cannot be made from the verified records
+alone — if it needs a claim about what any of these papers says, rather than what it is — I
+record the question and do not answer it from recall.* It did not fire: the distinction below is
+about paper *kind*, readable from titles I have verified.
+
+**The chain is a chain of restatements. Kummer's papers are not restatements.**
+
+* Kummer `1847`, *Zur Theorie der complexen Zahlen* and *Über die Zerlegung der aus Wurzeln der
+  Einheit gebildeten complexen Zahlen in ihre Primfactoren* (J. Reine Angew. Math. **35**,
+  319–326 and 327–367) — machinery.
+* Kummer `1850`, *Allgemeiner Beweis des Fermatschen Satzes, daß die Gleichung
+  `x^λ + y^λ = z^λ` …* (**40**, 131–138) — a **partial solution**, FLT for a class of exponents.
+
+Neither restates the problem as a different problem. **Frey, Ribet and Wiles do:** Frey sends a
+counterexample to an elliptic curve, Ribet turns modularity into FLT, Wiles proves modularity.
+So the restatement chain has **three** links, not four, and `380`'s *"two candidate first
+links"* was the wrong question — neither candidate is a first link.
+
+**What Kummer is instead, and it is the more useful role:** a control on the *other* arm.
+`T3` exists to test whether an empty residue precedes a solution. Kummer's two `1850`
+titles are a partial solution reached without restating the problem — a lineage where the
+residue was not emptied and the problem was attacked directly, so far as the verified titles show. That is
+the comparison `T3` needs, and it was in the specification as a chain member by mistake.
+
+**So `T3` is still not started, and the reason has changed.** It is one date short — Frey, Zbl
+0586.10010, title verified — and the chain's shape is now `3 + 1` rather than `4`. The
+specification's own line is corrected at its location in `LEADS.md`.
+
+**Wildcard — is the diagnostic question answerable once Frey is dated?** **Kill condition, filed
+first:** *if answering it needs the content of the papers rather than their order, `T3` is a
+reading task and not a chronology task, and I say so rather than implying the dates finish it.*
+**It fired.** The question has two halves. *"Is the final restatement the first whose residue is
+empty"* is about what each restatement leaves open — Frey's leaves the epsilon conjecture,
+Ribet's leaves modularity, Wiles's leaves nothing — and that is readable from the chain's logic.
+But *"was that visible before the solution"* asks what was **known in 1986**, which no date
+settles. **`T3` is a reading task with a chronological prerequisite**, and `364` recorded only
+the prerequisite.
+
+**Snag, bin 1 — three fetch attempts on one date, and the record moved.** The row carrying Zbl
+0586.10010 appeared in `380`'s results for `au:Frey, G* & py:1985-1988 & cc:11` and is absent
+from the same query today. Two of this cycle's three Frey queries returned header `None`, which
+the validator correctly refuses to read as *"no results"*. I stopped rather than tune further.
+
+No Lean changed, no ledger movement, `session_gate` green.
+
+**Might-mean, scoped to `T3`'s four named papers:** a chain assembled from memory put a partial
+solution in a sequence of restatements and nobody noticed for the fifty-odd cycles `T3` sat in
+the queue, so the specification's own membership list was the unverified claim — not the dates it
+warned about.

@@ -9574,5 +9574,121 @@ theorem mass_card_eq_momentK_iff (D : ZeroData) (G : Finset ℝ) {m k : ℕ}
       simp only [h, if_neg, add_zero, not_false_iff, hEq]
       simp
 
+/-- **`Blindness.mass_card_le_N_sub_atomCount`: the deficit rung's charge, at a
+general set.**  `SESSION 405`.
+
+`384`'s `Blindness.haunted_rung_deficit` charges an ordinate of mass `≥ m` the
+amount `m − 1` into `N − atomCount`, but only at the haunted filter.  This is
+the same charge at an arbitrary `G`, matching the shape
+`Blindness.mass_card_le_Nstar_sub_N` and `Blindness.mass_card_le_momentK_sub_N`
+already had; `Blindness.haunted_rung_deficit` is its specialisation. -/
+theorem mass_card_le_N_sub_atomCount (D : ZeroData) (G : Finset ℝ) {m : ℕ}
+    (hm : 1 ≤ m) (hG : ∀ γ ∈ G, m ≤ D.H γ) (hsub : G ⊆ D.ordinates.toFinset) :
+    (m - 1) * G.card + atomCount D ≤ D.N := by
+  classical
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have hA : atomCount D = ∑ γ ∈ D.ordinates.toFinset, 1 := by
+    rw [atomCount]; simp
+  have key : ∑ γ ∈ D.ordinates.toFinset, (1 + if γ ∈ G then m - 1 else 0)
+      ≤ ∑ γ ∈ D.ordinates.toFinset, D.H γ := by
+    refine Finset.sum_le_sum fun γ hγ => ?_
+    by_cases h : γ ∈ G
+    · have hmH : m ≤ D.H γ := hG γ h
+      have h1 : 1 ≤ D.H γ := one_le_H_of_mem hγ
+      simp only [h, if_pos]
+      omega
+    · simp only [h, if_neg, add_zero, not_false_iff]
+      exact one_le_H_of_mem hγ
+  rw [Finset.sum_add_distrib, Finset.sum_ite_mem, Finset.inter_eq_right.2 hsub,
+    Finset.sum_const] at key
+  rw [hN, hA]
+  simpa [smul_eq_mul, mul_comm, add_comm] using key
+
+/-- **`Blindness.mass_card_eq_N_sub_atomCount_iff`: when the deficit rung is an
+equality.**  `SESSION 405`.
+
+`Blindness.mass_card_le_N_sub_atomCount` is an equality exactly when every
+ordinate of `G` has mass `m` and every ordinate outside `G` is simple — the same
+right-hand side `404`'s `Blindness.mass_card_eq_momentK_iff` produced for the
+moment currency.  The last of the three rung currencies to get its converse. -/
+theorem mass_card_eq_N_sub_atomCount_iff (D : ZeroData) (G : Finset ℝ) {m : ℕ}
+    (hm : 1 ≤ m) (hG : ∀ γ ∈ G, m ≤ D.H γ) (hsub : G ⊆ D.ordinates.toFinset) :
+    (m - 1) * G.card + atomCount D = D.N
+      ↔ (∀ γ ∈ G, D.H γ = m) ∧ (∀ γ ∈ D.ordinates.toFinset, γ ∉ G → D.H γ = 1) := by
+  classical
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have hterm : ∀ γ ∈ D.ordinates.toFinset,
+      1 + (if γ ∈ G then m - 1 else 0) ≤ D.H γ := by
+    intro γ hγ
+    by_cases h : γ ∈ G
+    · have hmH : m ≤ D.H γ := hG γ h
+      have h1 : 1 ≤ D.H γ := one_le_H_of_mem hγ
+      simp only [h, if_pos]
+      omega
+    · simp only [h, if_neg, add_zero, not_false_iff]
+      exact one_le_H_of_mem hγ
+  have hsum : (m - 1) * G.card + atomCount D
+      = ∑ γ ∈ D.ordinates.toFinset, (1 + if γ ∈ G then m - 1 else 0) := by
+    rw [Finset.sum_add_distrib, Finset.sum_ite_mem, Finset.inter_eq_right.2 hsub,
+      Finset.sum_const, atomCount]
+    simp [smul_eq_mul, mul_comm, add_comm]
+  rw [hsum, hN, Finset.sum_eq_sum_iff_of_le hterm]
+  constructor
+  · intro h
+    refine ⟨fun γ hγ => ?_, fun γ hγ hnot => ?_⟩
+    · have hs := h γ (hsub hγ)
+      simp only [hγ, if_pos] at hs
+      have := hG γ hγ
+      omega
+    · have hs := h γ hγ
+      simp only [hnot, if_neg, add_zero, not_false_iff] at hs
+      omega
+  · rintro ⟨h1, h2⟩ γ hγ
+    by_cases h : γ ∈ G
+    · have hEq := h1 γ h
+      simp only [h, if_pos, hEq]; omega
+    · have hEq := h2 γ hγ h
+      simp only [h, if_neg, add_zero, not_false_iff, hEq]
+
+/-- **`Blindness.mass_card_eq_Nstar_sub_N_iff`: when the star rung is an
+equality.**  `SESSION 405`.
+
+Not a new argument: `Blindness.momentK_two` says `N⊛` **is** `momentK 2`, and
+`m(m−1)` is `m² − m`, so this is `404`'s `Blindness.mass_card_eq_momentK_iff` at
+`k = 2` rewritten.  `405` looked for the bridge before writing a second sum
+argument and found it already on disk — the reason this proof is four lines. -/
+theorem mass_card_eq_Nstar_sub_N_iff (D : ZeroData) (G : Finset ℝ) {m : ℕ}
+    (hm : 1 ≤ m) (hG : ∀ γ ∈ G, m ≤ D.H γ) (hsub : G ⊆ D.ordinates.toFinset) :
+    (m * (m - 1)) * G.card + D.N = D.Nstar
+      ↔ (∀ γ ∈ G, D.H γ = m) ∧ (∀ γ ∈ D.ordinates.toFinset, γ ∉ G → D.H γ = 1) := by
+  have hcoef : m ^ 2 - m = m * (m - 1) := by
+    rw [Nat.mul_sub, pow_two, Nat.mul_one]
+  rw [← momentK_two D, ← hcoef]
+  exact mass_card_eq_momentK_iff D G hm (le_refl 2) hG hsub
+
+/-- **`Blindness.rung_currencies_agree`: the three rung currencies are tight
+together.**  `SESSION 405`.
+
+`Blindness.mass_card_eq_N_sub_atomCount_iff`,
+`Blindness.mass_card_eq_Nstar_sub_N_iff` and
+`Blindness.mass_card_eq_momentK_iff` have the *same* right-hand side, so the
+three inequalities `382`–`386` built are equalities on exactly the same
+configurations.  Choosing among the currencies is therefore a question about
+their coefficients alone, with no configuration-dependent trade — the
+configuration `Blindness.rung_coefficients_attained` exhibits saturates all
+three at once. -/
+theorem rung_currencies_agree (D : ZeroData) (G : Finset ℝ) {m k : ℕ}
+    (hm : 1 ≤ m) (hk : 2 ≤ k) (hG : ∀ γ ∈ G, m ≤ D.H γ)
+    (hsub : G ⊆ D.ordinates.toFinset) :
+    ((m - 1) * G.card + atomCount D = D.N
+        ↔ (m * (m - 1)) * G.card + D.N = D.Nstar)
+      ∧ ((m * (m - 1)) * G.card + D.N = D.Nstar
+        ↔ (m ^ k - m) * G.card + D.N = momentK D k) := by
+  refine ⟨?_, ?_⟩
+  · rw [mass_card_eq_N_sub_atomCount_iff D G hm hG hsub,
+      mass_card_eq_Nstar_sub_N_iff D G hm hG hsub]
+  · rw [mass_card_eq_Nstar_sub_N_iff D G hm hG hsub,
+      mass_card_eq_momentK_iff D G hm hk hG hsub]
+
 end Blindness
 end Riemann

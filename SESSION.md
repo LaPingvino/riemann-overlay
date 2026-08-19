@@ -19890,3 +19890,46 @@ known on both sides — `Blindness.mass_card_le_momentK_sub_N` gives it,
 `Blindness.mass_card_eq_momentK_iff` says precisely when it is an equality, and
 `Blindness.rung_momentK_attained` exhibits a configuration attaining it — so the only thing left to
 learn about it is what would replace it.
+
+## 405 — the other two currencies' converses, and the fact that all three close together
+
+**Kill condition, stated first (`R12`).** Piece: the deficit currency's global
+equality case. Wildcard: do the three rung currencies close on the *same*
+configurations? Kill: if the three converses' right-hand sides do not coincide,
+say where they part and stop rather than manufacturing a correspondence.
+(They do coincide — `Blindness.rung_currencies_agree` is the witness.)
+
+**Before writing, I looked for the bridge.** `404` proved
+`Blindness.mass_card_eq_momentK_iff` and left the other two currencies without
+converses. The obvious plan was two more sum arguments. `Blindness.momentK_two`
+was already on disk — `N⊛ = momentK 2` — and `m(m−1) = m² − m`, so the star
+converse is `404`'s theorem at `k = 2` and needs no sum argument at all. That is
+`S159`/`S170`'s rediscovery lesson applied *before* the duplicate rather than
+after it; `Blindness.mass_card_eq_Nstar_sub_N_iff` is four lines because of it.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.mass_card_le_N_sub_atomCount` — `384`'s deficit charge `m − 1` at a
+  general `G` rather than only at the haunted filter, matching the shape the
+  other two currencies already had.
+- `Blindness.mass_card_eq_N_sub_atomCount_iff` — its converse.
+- `Blindness.mass_card_eq_Nstar_sub_N_iff` — the star converse, via
+  `Blindness.momentK_two`.
+- `Blindness.rung_currencies_agree` — the wildcard, and it survived: the three
+  converses have the *same* right-hand side, so the three inequalities are
+  equalities on the same configurations.
+
+**Snag, bin 2.** `mass_card_le_N_sub_atomCount` first went in without the
+`1 ≤ m` hypothesis, on the reasoning that `m − 1` truncates harmlessly. It does
+not: at `m = 0` the charge is `0` but the baseline `1` still has to be paid, and
+`omega` produced a counterexample with no `m` in it at all. `R33`'s first clause
+again — the shape, here ℕ subtraction at the boundary, not the tactic.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`,
+`citation_check` `0`.
+
+**Might-mean, scoped to the rung apparatus:** because the three currencies are
+tight on exactly the same configurations
+(`Blindness.rung_currencies_agree`), choosing among them is arithmetic on their
+coefficients and nothing else — there is no configuration on which the weaker
+coefficient buys something the stronger one misses.

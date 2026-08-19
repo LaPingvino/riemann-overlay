@@ -233,6 +233,21 @@ coefficients are exact** — `Riemann.Blindness.rung_coefficients_attained` (`38
 mass-`m` haunted atom an equality in each, so neither can be improved by sharpening the same
 argument.
 
+**The three rung currencies and where they bite** (`401`–`405`). Underneath the suppliers sit
+three charges, one per counting coordinate. Each has a general-`G` bound, a termwise cost
+identity, and — since `405` — a converse saying exactly when the summed bound is an equality.
+
+| currency | charge | general-`G` bound | converse |
+|---|---|---|---|
+| `N − atomCount` | `m − 1` | `Blindness.mass_card_le_N_sub_atomCount` (`405`) | `Blindness.mass_card_eq_N_sub_atomCount_iff` |
+| `N⊛ − N` | `m(m−1)` | `Blindness.mass_card_le_Nstar_sub_N` (`382`) | `Blindness.mass_card_eq_Nstar_sub_N_iff` |
+| `momentK k − N` | `m^k − m` | `Blindness.mass_card_le_momentK_sub_N` (`386`) | `Blindness.mass_card_eq_momentK_iff` (`404`) |
+
+The star row is the moment row at `k = 2`: `Blindness.momentK_two` says `N⊛ = momentK 2` and
+`m(m−1) = m² − m`. **All three converses have the same right-hand side** —
+`Blindness.rung_currencies_agree` (`405`) — so the currencies differ in what they charge, not in
+where they bite.
+
 **The crossovers, and the pairs that repeat one fact.** `Riemann.starBound_delta_beats_baseline`
 and `Riemann.starBound_exchange_crossover` are the canonical forms; the right-hand column names
 what re-derived each.

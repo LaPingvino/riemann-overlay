@@ -935,3 +935,9 @@ import Riemann
 -- 404: the rung bound's global equality characterisation.
 #check @Riemann.Blindness.self_eq_pow_iff
 #check @Riemann.Blindness.mass_card_eq_momentK_iff
+
+-- 405: the other two rung currencies' equality cases, and their agreement.
+#check @Riemann.Blindness.mass_card_le_N_sub_atomCount
+#check @Riemann.Blindness.mass_card_eq_N_sub_atomCount_iff
+#check @Riemann.Blindness.mass_card_eq_Nstar_sub_N_iff
+#check @Riemann.Blindness.rung_currencies_agree

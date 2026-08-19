@@ -227,7 +227,7 @@ into `Proportion (κ − δ)`.
 | the ladder itself | `Riemann.hauntedDensity_of_noSmallHaunted`, `(1−κ)/(m−1)` | — |
 | star bound | `Riemann.hauntedDensity_of_starBound`, `(C−1)/6` | `..._at_rung` (`383`), `(C−1)/(m(m−1))` |
 | distinct zeros | `Riemann.hauntedDensity_of_distinctZeros`, `(1−c)/2` | `..._at_rung` (`384`), `(1−c)/(m−1)` |
-| `k`-th moment (`406`) | — | `Riemann.hauntedDensity_of_momentBound_at_rung`, `(C−1)/(m^k−m)`. **Input not in the repo**: `Family.MomentBound k C` is a shape waiting for a constant |
+| `k`-th moment (`406`) | — | `Riemann.hauntedDensity_of_momentBound_at_rung`, `(C−1)/(m^k−m)`. **`407` corrects this row**: the repo *can* manufacture an input — `Riemann.momentBound_of_multiplicity_le` gives `C = M^(k−1)` from a multiplicity cap — but `Riemann.moment_cap_rate_eq_star_rate` shows it pays `1/M` at the rung `m = M`, the same as the star bound at `k = 2`. What is missing is an input that **beats** `k = 2` |
 
 **All three non-ladder suppliers compose with the ladder** (`384`), and **both rung
 coefficients are exact** — `Riemann.Blindness.rung_coefficients_attained` (`385`) makes the

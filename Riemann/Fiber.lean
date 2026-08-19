@@ -9703,5 +9703,21 @@ lemma momentK_mono_order (D : ZeroData) {j k : ℕ} (hjk : j ≤ k) :
   refine Finset.sum_le_sum fun γ hγ => ?_
   exact Nat.pow_le_pow_right (one_le_H_of_mem hγ) hjk
 
+/-- **`Blindness.momentK_le_of_multiplicity_le`: a multiplicity cap bounds every
+moment.**  `SESSION 407`.
+
+`H^k = H·H^(k−1) ≤ H·M^(k−1)` termwise, so `momentK k ≤ M^(k−1)·N`.  The
+`k`-th-moment companion to `Blindness.Nstar_le_of_multiplicity_le`, which is the
+case `k = 2`. -/
+lemma momentK_le_of_multiplicity_le (D : ZeroData) (M k : ℕ) (hk : 1 ≤ k)
+    (h : ∀ γ, D.H γ ≤ M) : momentK D k ≤ M ^ (k - 1) * D.N := by
+  classical
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  rw [momentK, hN, Finset.mul_sum]
+  refine Finset.sum_le_sum fun γ _ => ?_
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+  rw [Nat.add_sub_cancel, pow_succ]
+  exact Nat.mul_le_mul_right _ (Nat.pow_le_pow_left (h γ) j)
+
 end Blindness
 end Riemann

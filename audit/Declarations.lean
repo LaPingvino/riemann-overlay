@@ -949,3 +949,8 @@ import Riemann
 #check @Riemann.starBound_of_momentBound
 #check @Riemann.hauntedDensity_of_momentBound_at_rung
 #check @Riemann.moment_rung_beats_star_rung_iff
+
+-- 407: the multiplicity cap as a MomentBound input, and what it buys.
+#check @Riemann.Blindness.momentK_le_of_multiplicity_le
+#check @Riemann.momentBound_of_multiplicity_le
+#check @Riemann.moment_cap_rate_eq_star_rate

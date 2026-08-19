@@ -19979,3 +19979,42 @@ the guard doing its job on the first cycle that could trip it.
 **Might-mean:** `[OPEN D]` is no longer a prose target — it is a named predicate
 with a supplier already wired to the hub, so the whole remaining distance is one
 external constant.
+
+## 407 — the fourth supplier gets an input, and the input turns out to be spent
+
+**Kill condition, stated first (`R12`).** Piece: give `406`'s
+`Family.MomentBound` an input the repo can actually supply. Wildcard: does that
+input beat the star bound? Kill: if the comparison only closes at the rung equal
+to the cap, say so and claim it **only** there — do not let the `m < M` case ride
+along unproved.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.momentK_le_of_multiplicity_le` — `H ≤ M` gives
+  `momentK k ≤ M^(k−1)·N`, the `k`-th-moment companion to
+  `Blindness.Nstar_le_of_multiplicity_le`.
+- `Riemann.momentBound_of_multiplicity_le` — hence `MomentBound k (M^(k−1))`.
+  `406` said the fourth supplier had no input; it has one, from the same
+  hypothesis `starBound_of_multiplicity_le` already consumes.
+- `Riemann.moment_cap_rate_eq_star_rate` — the wildcard, and it landed on the
+  kill boundary in the good way. At the rung `m = M`,
+  `M^k − M = M(M^(k−1) − 1)`, so the haunted-density rate is
+  `(M^(k−1)−1)/(M^k−M) = 1/M` — **the same number** the star bound already pays
+  from the same hypothesis at `k = 2`. Claimed at `m = M` only; the `m < M` case
+  is not proved and is not asserted.
+
+**Snag, bin 2.** `positivity` could not see `(M:ℝ)·((M:ℝ)−1) > 0`. The
+hypothesis `2 ≤ M` was in ℕ; the goal was in ℝ. One `have hM1 :
+(1:ℝ) < M` and `nlinarith` closed it. Third cycle running where the obstacle was
+the shape of what the tactic can see rather than the mathematics (`R33`).
+
+**Correction, at the location.** `MAP.md`'s supplier table said of the `k`-th
+moment row "**Input not in the repo**". That is now half-wrong and the row says
+so where it stands: an input exists, what is missing is an input that **beats**
+`k = 2`.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** `Riemann.moment_cap_rate_eq_star_rate` says the multiplicity cap
+is exhausted at the second moment, so the fourth supplier can only be made to
+earn by an input from outside the formalisation.

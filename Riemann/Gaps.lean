@@ -1511,6 +1511,64 @@ theorem moment_rung_beats_star_rung_iff {C C' : ℝ} {m k : ℕ}
   rw [div_lt_div_iff₀ h1 h2]
   constructor <;> intro h <;> linarith
 
+/-- **A multiplicity supremum gives a `k`-th moment bound at constant
+`M^(k−1)`.**  `SESSION 407`.
+
+`406` left `Family.MomentBound` with no input at any `k > 2`.  This is one: the
+same hypothesis `starBound_of_multiplicity_le` consumes, at every order.  What
+it buys is settled by `Riemann.moment_cap_rate_eq_star_rate`. -/
+theorem momentBound_of_multiplicity_le {F : Family} {M k : ℕ} (hk : 1 ≤ k)
+    (h : ∀ T γ, (F.D T).H γ ≤ M) : F.MomentBound k ((M ^ (k - 1) : ℕ) : ℝ) := by
+  intro ε hε
+  filter_upwards with T
+  have hb : ((Blindness.momentK (F.D T) k : ℕ) : ℝ)
+      ≤ ((M ^ (k - 1) : ℕ) : ℝ) * F.Nz T := by
+    have := Blindness.momentK_le_of_multiplicity_le (F.D T) M k hk (h T)
+    unfold Family.Nz
+    exact_mod_cast this
+  have hnn := F.Nz_nonneg T
+  nlinarith [hb, hnn]
+
+/-- **A multiplicity cap is fully spent at `k = 2`: at the rung equal to the cap
+the haunted-density rate is `1/M` at every order.**  `SESSION 407`.
+
+`Riemann.hauntedDensity_of_momentBound_at_rung` pays `(C−1)/(m^k−m)`.  Feeding it
+`Riemann.momentBound_of_multiplicity_le`'s constant `C = M^(k−1)` at the rung
+`m = M` gives `(M^(k−1)−1)/(M^k−M)`, and `M^k − M = M(M^(k−1)−1)`, so the rate is
+`1/M` — the same number
+`Riemann.hauntedDensity_of_starBound_at_rung` already pays from the same
+hypothesis at `k = 2`.
+
+So at `m = M` the one input family the repo can currently manufacture for the
+fourth supplier buys nothing beyond the star bound — that is what the equality
+`Riemann.moment_cap_rate_eq_star_rate` says, in both directions.  **Scope:** the
+case `m < M` is not proved here. -/
+theorem moment_cap_rate_eq_star_rate {M k : ℕ} (hM : 2 ≤ M) (hk : 2 ≤ k) :
+    (((M ^ (k - 1) : ℕ) : ℝ) - 1) / ((M ^ k - M : ℕ) : ℝ)
+      = (((M : ℕ) : ℝ) - 1) / ((M * (M - 1) : ℕ) : ℝ) := by
+  have hid : M ^ k - M = M * (M ^ (k - 1) - 1) := by
+    obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+    rw [Nat.add_sub_cancel, Nat.mul_sub, pow_succ, Nat.mul_one, mul_comm]
+  have hp : 1 < M ^ (k - 1) := by
+    calc (1:ℕ) = M ^ 0 := (pow_zero M).symm
+      _ < M ^ (k - 1) := Nat.pow_lt_pow_right (by omega) (by omega)
+  have hMR : (0:ℝ) < (M : ℝ) := by positivity
+  have hA : (0:ℝ) < ((M ^ (k - 1) : ℕ) : ℝ) - 1 := by
+    have : (1:ℝ) < ((M ^ (k - 1) : ℕ) : ℝ) := by exact_mod_cast hp
+    linarith
+  have hcast1 : ((M ^ k - M : ℕ) : ℝ)
+      = (M : ℝ) * (((M ^ (k - 1) : ℕ) : ℝ) - 1) := by
+    rw [hid]
+    push_cast [Nat.cast_sub (le_of_lt hp)]
+    ring
+  have hcast2 : ((M * (M - 1) : ℕ) : ℝ) = (M : ℝ) * ((M : ℝ) - 1) := by
+    push_cast [Nat.cast_sub (by omega : 1 ≤ M)]
+    ring
+  have hM1 : (1:ℝ) < (M : ℝ) := by exact_mod_cast hM
+  rw [hcast1, hcast2]
+  rw [div_eq_div_iff (by positivity) (by nlinarith)]
+  ring
+
 /-- **The ladder, transported: `ProportionStd κ` gives `Proportion ((m·κ−1)/(m−1))`.**
 
 At `m = 3` this is `084`'s `(3κ−1)/2`; each odd rung upward is worth real points.

@@ -18333,3 +18333,76 @@ three repairs, `citation_check` `0` unresolved.
 sufficient statistic costs is not a number of scalars but a choice of class, so every future
 "can we do better than X" question in this project needs its class named in the same sentence
 or it will collapse the way this one did.
+
+## What the guards can actually fail on — thirteen of sixteen, drilled
+
+**Piece.** `LOOP.md`'s banner row `26` has warned since `195` that re-running the guards proves
+less than it looks, on `148`'s measurement that **9 of 16 scripts cannot return a failing exit
+code at all**. I quote *"16/16 green"* at the end of every cycle. That measurement is `225`
+cycles old and the roster has been rebuilt under it — `overclaim_floor`, `board --cones` and
+`duplication_floor` all joined after it — so the warning was live and unaddressed.
+
+**Kill condition, filed first:** *a script whose failure path I cannot reach by mutating its
+**input** is recorded as unverified, not assumed either way; and if the only way to force a red
+is editing the guard itself, the honest classification is that no external input can fail it —
+a finding, not a drill.* It fired on three entries.
+
+**Drill protocol, run with the tree clean and verified clean between each:** mutate one input,
+run one script, record the exit code, `git checkout --` the file, confirm `git status` empty
+before the next. No guard was modified. Five drills, five reds:
+
+| script | mutation | exit |
+|---|---|---|
+| `forensics/banner_check.py` | one anchor word in a `LOOP.md` row | `1` |
+| `forensics/vendor_check.py` | one line prepended to a vendored file | `1` |
+| `forensics/warning_floor.py` | the documented control — an unused binder in `Transfer.lean` | `1` |
+| `forensics/lawN256_shape.py` | one digit of one enclosure entry | `1` |
+| `forensics/statement_index.py` | one new declaration in `Fiber.lean` | `1` |
+
+With eight more red in the record — `duplication_floor` (`367`), `process_index` (`368`),
+`board --cones` (`340`), `citation_check` (`372`), `overclaim_floor` (`368`, `369`, `372`), and
+`provenance_lint`, `claims_gate`, `absence_queue` carrying calibrations that assert their own
+failure paths on known-bad input — **thirteen of the sixteen roster entries have an observed
+red.** `148`'s figure measured a roster that no longer exists; corrected at banner row `26`,
+anchor intact, `banner_check` `6/6`.
+
+**The three without one, and they are not alike.** `forensics/window_opt.py` reads no external
+file: it recomputes the sweep and compares against digits written into its own source, so it
+fails if the mathematics changes and never if a register drifts. `forensics/board.py` bare was
+not drilled — forcing it needs a ζ-level constant changed in Lean and a rebuild, which I judged
+disproportionate; classified from its source, where `return 1` guards drift, appearance and
+disappearance of rows, and **labelled source-read rather than observed**.
+`forensics/surprises.py` was drilled twice — one mangled row, then every `S1xx` row deleted —
+and exited `0` both times. Its roster note already says it is a TALLY whose one failure path is
+total schema collapse, so this is not a defect in the script. **It means its green light carries
+no information about the register it tallies, and counting it in *"16/16"* is the error.**
+
+**Snag, bin 1 — `S162`, and it is `R28a` again, one cycle after I amended `R28a` for it.** My
+first pass grepped the roster for `sys.exit` and found none in six scripts, which read as *six
+guards that cannot report failure*. They all use `raise SystemExit(...)`. That is the
+implementation-vocabulary error `S159` produced and `372` wrote into the rule — searching one
+*spelling* of a behaviour rather than the behaviour — and this time it would have shipped a
+false and alarming claim about the guard set rather than a redundant proof. Two cycles, two
+instances: the amended rule is load-bearing.
+
+**Snag, bin 2 — two of the five drills passed on the first attempt for the wrong reason.**
+`lawN256_shape` and `statement_index` both exited `0` at first: I had mutated a decimal in a
+*comment* of a file whose table is big integers, and appended a *comment* to a Lean file whose
+index counts declarations. Both went red the moment the mutation touched what the script reads.
+A drill that fails to provoke is not evidence the guard is deaf — it is evidence the mutation
+missed, and the two look identical in the exit code.
+
+**Measurement only — no guard was changed this cycle**, deliberately, as at `371`. Whether
+`surprises` should be demoted out of the roster or given a real failure path is next cycle's
+question if it matters.
+
+Build green (8862 jobs) after restoring the `warning_floor` control, sorries 0, ledger
+`NscStd 67.25% / Nsc 50.88%`, base `v4/3508643365fd`, axioms 0 certified and 6 declared,
+warnings back at the floor `54`, duplication floor `27` and overclaim floor `203` unmoved,
+`citation_check` `0` unresolved, `banner_check` `6/6`.
+
+**Might-mean, scoped to the sixteen roster entries:** a guard's green light is worth exactly the
+last time it was seen red — `forensics/surprises.py` has never been seen red and passed two
+corruptions here — so the roster should carry a drill date per entry the way
+`vendor/PROVENANCE.md` carries a hash — and *"16/16 green"* as I have been writing it every
+cycle overstates by three.

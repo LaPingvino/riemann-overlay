@@ -19766,3 +19766,44 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 atom *and* a single mass, so every bound in `382`–`386` is an equality on exactly one
 configuration and strict everywhere else — which is why no rearrangement of those inequalities
 can improve them.
+
+## The strict lemma `401` named, and the general-`k` uniqueness it unlocks
+
+**Piece.** `401` narrowed `mass_cost_eq_iff` to `k = 2` and named exactly what was missing: a
+strict form of `386`'s `pow_sub_self_mono`. Following through rather than starting something new.
+
+**Kill condition, filed first:** *one structured attempt plus targeted fixes for errors it names;
+if the strict lemma needs an induction I cannot close, I record it as open a second time and stop
+returning to it.* It did not fire.
+
+* `Blindness.pow_sub_self_strict` — `x^k + y < y^k + x` for `1 ≤ x < y`, `2 ≤ k`.
+* `Blindness.pow_cost_eq_iff` — `c + (m^k − m) = c^k` **iff** `c = m`, for `1 ≤ m ≤ c`, `2 ≤ k`.
+
+So by `Blindness.rung_momentK_attained` and `Blindness.pow_cost_eq_iff` together, that mass is
+the unique tight one at **every** moment order, not only the second — completing `401`'s
+statement to the generality `386` works in.
+
+**Both `mass_cost_eq_iff` and `pow_cost_eq_iff` are kept.** They carry the coefficient in
+different shapes — `m(m−1)` for `mass_card_le_Nstar_sub_N`, `m^k − m` for
+`mass_card_le_momentK_sub_N` — and their consumers differ. Recorded in the docstring rather than
+left for a later cycle to wonder about.
+
+**The one obstacle, and it is the same one twice.** `omega` cannot see a product of variables:
+the step `x·P + y < y·P + x` for `P = y^(k−1) ≥ 2` is exactly the multiplication `401`'s
+`Nat.mul_lt_mul_right` fight was also about. Naming it as a `have` and handing it to `nlinarith`
+closed it in one line. **`ℕ` subtraction and variable products are the two shapes that have cost
+this arc every one of its failed attempts** — `S182`, `S189`, and this.
+
+**Wildcard — is `mass_cost_eq_iff` now redundant?** **Kill condition, filed first:** *if the
+general version subsumes it with no consumer left, deleting it is the honest move and I should
+propose that rather than keep a decorative theorem.* It did not fire: the two coefficient shapes
+are not definitionally equal, and `382`'s bound is stated with `m*(m−1)`, so the `k = 2` form is
+the one that composes there without a rewrite.
+
+Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, duplication floor `30`, overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to `382`–`402`'s inequalities:** `Blindness.pow_cost_eq_iff` and
+`Blindness.rung_coefficients_attained` together pin each of them to an equality on exactly one
+configuration at exactly one mass at every order, so the rung apparatus is
+completely characterised and nothing inside it can be sharpened — only replaced.

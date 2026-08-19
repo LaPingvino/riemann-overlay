@@ -927,3 +927,7 @@ import Riemann
 
 -- 401: the star rung's termwise charge is exact only at mass m.
 #check @Riemann.Blindness.mass_cost_eq_iff
+
+-- 402: the strict monotonicity 401 named, and the general-k uniqueness it unlocks.
+#check @Riemann.Blindness.pow_sub_self_strict
+#check @Riemann.Blindness.pow_cost_eq_iff

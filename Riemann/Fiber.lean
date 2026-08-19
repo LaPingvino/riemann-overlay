@@ -9462,5 +9462,50 @@ theorem mass_cost_eq_iff {m c : ℕ} (hm : 1 ≤ m) (hc : m ≤ c) :
     have : d = a := by omega
     subst this; ring
 
+/-- **Strict form of `Blindness.pow_sub_self_mono`.**  `SESSION 402`.
+
+`386`'s lemma gives `x^k + y ≤ y^k + x` for `x ≤ y`.  `401` needed the strict
+version and did not have it, which is why `Blindness.mass_cost_eq_iff` was
+narrowed to `k = 2`.  The step that was missing is `x·P + y < y·P + x` for
+`P = y^(k−1) ≥ 2` — a product of variables, which `omega` cannot see and
+`nlinarith` closes once it is named. -/
+theorem pow_sub_self_strict {k : ℕ} (hk : 2 ≤ k) {x y : ℕ} (hx : 1 ≤ x) (hxy : x < y) :
+    x ^ k + y < y ^ k + x := by
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 2 := ⟨k - 2, by omega⟩
+  have hy : 2 ≤ y := by omega
+  -- x^(j+2) ≤ x * y^(j+1) and y^(j+2) = y * y^(j+1)
+  have h1 : x ^ (j + 2) ≤ x * y ^ (j + 1) := by
+    rw [pow_succ']
+    exact Nat.mul_le_mul_left x (Nat.pow_le_pow_left (le_of_lt hxy) _)
+  have h2 : y ^ (j + 2) = y * y ^ (j + 1) := by rw [pow_succ']
+  have h4 : 2 ≤ y ^ (j + 1) := by
+    calc 2 = 2 ^ 1 := by norm_num
+    _ ≤ y ^ 1 := Nat.pow_le_pow_left hy 1
+    _ ≤ y ^ (j + 1) := Nat.pow_le_pow_right (by omega) (by omega)
+  have h5 : x * y ^ (j + 1) + y < y * y ^ (j + 1) + x := by
+    nlinarith [hxy, h4]
+  omega
+
+/-- **`Blindness.mass_cost_eq_iff` at every order.**  `SESSION 402`.
+
+`Blindness.mass_cost_eq_iff` (`401`) is the `k = 2` case, with the coefficient
+written `m(m−1)` — the shape `Blindness.mass_card_le_Nstar_sub_N` spends.  This
+is the same statement at every `k ≥ 2` with the coefficient `m^k − m`, the shape
+`Blindness.mass_card_le_momentK_sub_N` spends.  Both are kept because their
+consumers differ.
+
+By `Blindness.rung_momentK_attained` together with the statement below, that
+atom's mass is the unique tight one at every moment order, not only the
+second. -/
+theorem pow_cost_eq_iff {m c k : ℕ} (hm : 1 ≤ m) (hk : 2 ≤ k) (hc : m ≤ c) :
+    c + (m ^ k - m) = c ^ k ↔ c = m := by
+  have hmk : m ≤ m ^ k := Nat.le_self_pow (by omega) m
+  constructor
+  · intro h
+    by_contra hne
+    have := pow_sub_self_strict hk hm (lt_of_le_of_ne hc (Ne.symm hne))
+    omega
+  · intro h; subst h; omega
+
 end Blindness
 end Riemann

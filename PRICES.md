@@ -291,6 +291,23 @@ over `κ` directly. And the inequality is tight — `Blindness.star_route_attain
 gives equality at the mass-`3` haunted atom — so the `/6` cannot be improved by
 sharpening the same argument.
 
+## Route II's two axioms price the identification, not the argument (`388`)
+
+`Riemann.certified_nsc_via_derivative_family` proves the same `0.60169` row for **any**
+family with `Proportion 0.85838`, and `#print axioms` gives it `[propext,
+Classical.choice, Quot.sound]` — no project axiom. `certified_nsc_via_xiPrime` is its
+one-line instantiation at `ξ′` and is where `xiPrimeFamily` and `zeta23_xiPrime` enter.
+
+| statement | row | project axioms |
+|---|---|---|
+| `Riemann.certified_nsc_via_derivative_family` | `0.60169` | **none** |
+| `Riemann.certified_nsc_via_xiPrime` | `0.60169` | `xiPrimeFamily`, `zeta23_xiPrime` |
+
+**What this changes and what it does not.** The board's *"Route II at two axioms"* has been
+read as a price on the mathematics; it is a price on identifying `ξ′`. No row moves, nothing
+is discharged, and `ISSUES #7`'s first blocker — the `Proportion`-vs-`ProportionStd` gap — is
+untouched, because the general theorem assumes the same over-strong reading.
+
 ## Standing rule
 
 Every future escape claim gets a row here, with the theorem or computation that

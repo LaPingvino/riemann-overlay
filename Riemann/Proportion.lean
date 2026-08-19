@@ -590,6 +590,30 @@ changes is that the mathematics is now done, and the parked ruling is reduced to
 a pure doctrine question — *may these two be assumed?* — with no derivation left
 inside it. -/
 
+/-- **Route II's mathematics is axiom-free; the axioms only say `ξ′` is such a
+family.**  `SESSION 388`.
+
+`offLineImport_of_derivative` is general in both families, so nothing in the
+exchange needs `xiPrimeFamily` to exist or `zeta23_xiPrime` to hold — those two
+axioms enter only when the general family is *instantiated* at `ξ′`.
+
+Measured with `#print axioms`: this theorem's cone is `[propext,
+Classical.choice, Quot.sound]`, while `certified_nsc_via_xiPrime`'s adds
+`xiPrimeFamily` and `zeta23_xiPrime`.  So the board's *"Route II costs two
+axioms"* prices the **identification** of `ξ′`, not the argument. -/
+theorem certified_nsc_via_derivative_family {F' : Family}
+    (hp : F'.toCounts.Proportion 0.85838)
+    (htr : OffTransfer zetaFamily F') (hcmp : NzComparable zetaFamily F') :
+    zetaFamily.toCounts.Proportion 0.60169 := by
+  have hoff : OffLineImport zetaFamily 0.14162 := by
+    have h := offLineImport_of_derivative (κ' := (0.85838 : ℝ))
+      (by norm_num) (by norm_num) hp htr hcmp
+    have e : (1 : ℝ) - 0.85838 = 0.14162 := by norm_num
+    rwa [e] at h
+  have h := proportion_of_offLineImport certified_std hoff
+  have e : (0.6725 : ℝ) - 0.14162 / 2 = 0.60169 := by norm_num
+  rwa [e] at h
+
 /-- **The `ξ'` off-line import, conditional on the two transfer hypotheses.**
 `1 − 0.85838 = 0.14162`. -/
 theorem offline_via_xiPrime
@@ -622,11 +646,10 @@ off-line mass from the baseline itself and importing it from `ξ'`. -/
 theorem certified_nsc_via_xiPrime
     (htr : OffTransfer zetaFamily xiPrimeFamily)
     (hcmp : NzComparable zetaFamily xiPrimeFamily) :
-    zetaFamily.toCounts.Proportion 0.60169 := by
-  have h := proportion_of_offLineImport certified_std
-    (offline_via_xiPrime htr hcmp)
-  have e : (0.6725 : ℝ) - 0.14162 / 2 = 0.60169 := by norm_num
-  rwa [e] at h
+    zetaFamily.toCounts.Proportion 0.60169 :=
+  -- `388`: the instantiation of `certified_nsc_via_derivative_family` at `ξ′`.
+  -- The two axioms enter *here*, and nowhere in the argument above.
+  certified_nsc_via_derivative_family zeta23_xiPrime htr hcmp
 
 /-! ### The binding constraint
 

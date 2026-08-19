@@ -60,6 +60,11 @@ EXPECTED = {
     "certified_nsc_via_xiPrime":            ("0.60169",
         "(htr : OffTransfer zetaFamily xiPrimeFamily) "
         "(hcmp : NzComparable zetaFamily xiPrimeFamily)"),
+    # `388`: Route II with the family left general.  Same row, **no project
+    # axiom** — the two axioms enter only at the instantiation above.
+    "certified_nsc_via_derivative_family":  ("0.60169",
+        "{F' : Family} (hp : F'.toCounts.Proportion 0.85838) "
+        "(htr : OffTransfer zetaFamily F') (hcmp : NzComparable zetaFamily F')"),
     "certified_nsc_via_noSmallHaunted_seven": ("0.6179166",
         "(hh : NoSmallHaunted zetaFamily 7)"),
     "proportion_of_mult_le_two":            ("0.6725",
@@ -238,6 +243,8 @@ CONE_EXPECTED = {
     "starBound_of_mult_le_two_zeta": set(),
     # was four, Route II — now two, and they are the only axioms left on the board
     "certified_nsc_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime"},
+    # `388`: the same row, generalised — the cone difference is the finding.
+    "certified_nsc_via_derivative_family": set(),
     "offline_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime"},
 }
 

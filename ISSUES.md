@@ -155,6 +155,13 @@ reading of §6" to "look at one displayed equation".
 > `NscStd`), and the gap is `NoHaunted xiPrimeFamily`, which `283` named. The second
 > blocker is that `xiPrimeFamily` is itself an axiom, so unlike `337`'s two there is no
 > construction to prove anything about. Quotes in `LEADS.md`.
+>
+> **`388`: the second blocker is reframed, the first is not.**
+> `Riemann.certified_nsc_via_derivative_family` runs Route II for *any* family with the
+> proportion, and `#print axioms` gives it no project axiom — the exchange never needed
+> `xiPrimeFamily` to exist. The two axioms enter only at the instantiation. **`#7`'s own
+> complaint stands whole:** the general theorem still takes `Proportion 0.85838`, the
+> over-strong reading, where the source proves `NscStd`.
 
 `zeta23_xiPrime` converts "0.85838 of `ξ′`-zeros are simple and critical"
 into `(★)` for `ξ′` with `C' = 1.14162`. That is Proposition 1 read

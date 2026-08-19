@@ -19112,3 +19112,57 @@ Build green (8862 jobs), sorries 0, ledger unmoved at `NscStd 67.25% / Nsc 50.88
 `Blindness.hauntedCount_not_determined_by_on_moments` haunting is invisible to the on-line data and priced only through multiplicity or off-line mass, so every
 route to the `Nsc` row must pay in one of those two currencies — and the project has been buying
 in exactly those two because there is nothing else to buy.
+
+## Route II's mathematics is axiom-free — the two axioms price the identification, not the argument
+
+**Piece.** `ISSUES #7` records two blockers on `zeta23_xiPrime`: the `Proportion`-vs-`ProportionStd`
+gap, and *"`xiPrimeFamily` is itself an axiom, so there is no construction to prove anything
+about"*. The registers treat that second blocker as a wall. It is not one: `Riemann.certified_nsc_via_derivative_family` runs the whole
+argument without it.
+
+**Kill condition, filed first:** *if `offLineImport_of_derivative` is stated only for
+`xiPrimeFamily`, generalising it is real work and I ship whatever lands rather than claiming the
+axioms are inessential.* It did not fire — that theorem is already general in both families and
+in `κ'`.
+
+* `certified_nsc_via_derivative_family` — for **any** family `F'` with
+  `Proportion 0.85838`, plus `OffTransfer` and `NzComparable` against `ζ`,
+  `zetaFamily.toCounts.Proportion 0.60169`.
+* `certified_nsc_via_xiPrime` is now its **one-line instantiation** at `ξ′`, with `zeta23_xiPrime`
+  supplied as the proportion argument. No proof body was duplicated; the old body is gone.
+
+**Measured, not asserted** (`#print axioms`):
+
+| theorem | cone |
+|---|---|
+| `certified_nsc_via_derivative_family` | `propext`, `Classical.choice`, `Quot.sound` — **no project axiom** |
+| `certified_nsc_via_xiPrime` | those three **plus** `xiPrimeFamily`, `zeta23_xiPrime` |
+
+**So the board's *"Route II costs two axioms"* prices the identification of `ξ′`, not the
+mathematics.** The exchange — a derivative-family proportion converted to off-line import and
+spent against the certified `κ` — is axiom-free and always was. What the two axioms buy is the
+claim that `ξ′` *is* a family with that proportion.
+
+**This does not move any row and does not discharge anything.** `certified_nsc_via_xiPrime` still
+carries both axioms, because instantiating is exactly where they enter. The ledger is unmoved and
+`tools/proportion.go` was not touched.
+
+**Wildcard — does this shrink `ISSUES #7`?** **Kill condition, filed first:** *if the
+`Proportion`-vs-`ProportionStd` gap is untouched by the generalisation, `#7` stands whole and I
+say so rather than implying progress.* **It fired: `#7` stands.** The general theorem takes
+`Proportion 0.85838` as a hypothesis, which is the *same over-strong reading* the axiom makes —
+the source proves `NscStd`. Generalising the family does nothing about the count. `#7`'s first
+blocker is untouched; only its second is reframed.
+
+**Snag, bin 2 — duplication floor `27 → 28`.** The general theorem and its instantiation share
+the conclusion `Proportion 0.60169`. Graded before the build: this is not a second copy of a
+proof — the instantiation is one line — and **the cone difference between the two is the
+finding**, so both must exist. `256`'s rule applied, reason recorded.
+
+Build green (8862 jobs), sorries 0, ledger unmoved, base `v4/3508643365fd`, warnings `54`,
+duplication floor `28` (raised, reason above), overclaim floor `203`, `citation_check` `0`.
+
+**Might-mean, scoped to Route II and its two axioms:** an axiom that names an object rather than
+asserting a property costs nothing mathematically and everything presentationally, so the
+project's axiom count has been measuring how many objects it cannot construct rather than how much
+it is assuming.

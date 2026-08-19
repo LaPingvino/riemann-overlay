@@ -18073,3 +18073,55 @@ unresolved.
 statistic alone and not of the quantity it is asked about, so the right question for the ledger was never "how far up the chain does this family
 reach" but "which of the five terms is a functional of these counts" — and those are different
 questions that happen to coincide only on the on-line side.
+
+## The ledger costs five scalars, not two families
+
+**Piece.** `350`'s `ledger_determined_by_both_moment_families` asks for two whole infinite
+families. Each ledger row is one identity in one scalar, and all five identities were already
+on disk.
+
+**Kill condition, filed first:** *if any of the five rows needs more than one scalar from
+either family — if `Noff` or `Nstar` turns out not to be a single named moment — I ship the
+rows that do and state which ones still need a family.* It did not fire.
+
+* `Blindness.ledger_determined_by_five_scalars` — `momentK 1`, `momentK 2`, `massCount 1`,
+  `onMoment 1`, `onCount 1` determine `N`, `N⊛`, `Nsc`, `NscStd`, `N_off`. Five rewrites and
+  one `omega`, over `momentK_one`, `momentK_two`, `massCount_one`, `NscStd_eq_onCount_one` and
+  `Noff_add_onMoment_one`.
+
+**Wildcard — is any of the five actually necessary?** **Kill condition, filed first:** *if I
+cannot produce a separating pair for at least one of the five inside the cycle, I record all
+five as unresolved rather than calling the set minimal.* It did not fire for `onCount 1`.
+`Blindness.onCount_one_cannot_be_dropped`: `363`'s pair carries masses `3` and `5` on both
+sides, so *every* `momentK` agrees — proved here from `momentK_from_profile` and
+`twoAtom_profile`, and by `368`'s `Optimal.moment_blind_iff_massCount` every `massCount` with
+them — while `363` already gives equal `onMoment 1` and `NscStd` splits `0` against `1`. The
+whole `H`-family plus `onMoment 1` is not enough. **Necessity of the other four is open and I
+am not claiming minimality.**
+
+**Snag, bin 1 — I nearly filed this as answering the queue's open minimality question, and it
+does not.** `CLAIMS.md` has carried *"the profile is **not** a minimal sufficient statistic for
+the ledger"* since `075`/`077`, witnessed by `Fiber.profile_not_minimal`; `CLAIMS.md` line
+`630` even records that exact rediscovery once before. Caught by searching for a coarse
+positive before writing the docstring. What is new is the *positive* direction — a named
+universally-quantified coarse statistic rather than a witness that some coarsening exists — and
+the docstring now says so and cites the older negative. **`S27` again, and the search is what
+stopped it.**
+
+**Snag, bin 3 — `R32` earned itself on its first live cycle, twice.** Piping the drafted
+docstrings through `claims_gate` on stdin caught one unwitnessed headline before any file was
+touched. Then I edited a docstring directly rather than piping, and `overclaim_floor` went to
+`204` on that one edit — the rule's own failure mode, one cycle after writing it. Fixed by
+naming `Fiber.profile_not_minimal` with its dot; floor back to `203` and unmoved for the cycle.
+Also graded `duplication_floor` before `lake build` rather than after: the ledger conclusion's
+group went `2` → `3` and the floor counts groups, so `27` did not move — but grading it first
+is what made that a fact rather than a hope.
+
+Build green (8862 jobs), sorries 0, ledger `NscStd 67.25% / Nsc 50.88%`, base
+`v4/3508643365fd`, axioms 0 certified and 6 declared, warnings at the floor `54`, duplication
+floor `27` unmoved, overclaim floor `203` unmoved, `citation_check` `0` unresolved.
+
+**Might-mean, scoped to the ledger's five rows:** the two moment families were an artefact of
+how `350` asked the question rather than a cost the ledger imposes, so what the project needs
+from a configuration is a fixed finite read — five numbers — and every result phrased as
+"determined by the moments" is over-strong in its hypotheses by an infinite amount.

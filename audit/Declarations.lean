@@ -857,3 +857,8 @@ import Riemann
 #check @Riemann.Blindness.onMoment_eq_sum_onCount
 #check @Riemann.Optimal.moment_blind_iff_massCount
 #check @Riemann.Optimal.on_moment_blind_iff_onCount
+
+-- 369: the ledger needs five named scalars, not two infinite families.  One of the five
+-- is shown necessary; the other four are open.
+#check @Riemann.Blindness.ledger_determined_by_five_scalars
+#check @Riemann.Blindness.onCount_one_cannot_be_dropped

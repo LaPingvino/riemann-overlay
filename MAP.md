@@ -110,6 +110,14 @@ interval. The `H`-moments do **not** form one: they have `N_sc`
 makes it a mass functional), miss `onLineOrdinates`
 (`Riemann.Blindness.onLineOrdinates_not_determined_by_all_moments`), and have `atomCount`.
 
+**The ledger costs five scalars, not two families.**
+`Riemann.Blindness.ledger_determined_by_five_scalars`: `momentK 1`, `momentK 2`,
+`massCount 1`, `onMoment 1` and `onCount 1` determine `N`, `N⊛`, `Nsc`, `NscStd` and
+`N_off`. `Riemann.Blindness.onCount_one_cannot_be_dropped` shows one of the five is
+necessary — the whole `H`-family together with `onMoment 1` still leaves `NscStd` split.
+Necessity of the other four is open, and `Riemann.Fiber.profile_not_minimal` (`075`/`077`)
+is the older, weaker negative.
+
 **Each family's reach is exactly its own count family.**
 `Riemann.Optimal.moment_blind_iff_massCount` and
 `Riemann.Optimal.on_moment_blind_iff_onCount` are equivalences, not implications — the

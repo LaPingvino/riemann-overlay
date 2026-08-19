@@ -8819,5 +8819,63 @@ lemma onMoment_eq_sum_onCount (D : ZeroData) (p : ℕ) {B : ℕ}
   simp only [onCount, Finset.sum_const, smul_eq_mul]
 
 
+/-- **The ledger is a functional of five named scalars.**  `SESSION 369`.
+
+`350`'s `Riemann.Optimal.ledger_determined_by_both_moment_families` asks for two
+whole infinite families.  It does not need them: each row is one identity in one
+scalar — `momentK 1` is `N` (`momentK_one`), `momentK 2` is `Nstar`
+(`momentK_two`), `massCount 1` is `Nsc` (`massCount_one`), `onCount 1` is
+`NscStd` (`NscStd_eq_onCount_one`), and `Noff` is `N` minus `onMoment 1`
+(`Noff_add_onMoment_one`).
+
+That the profile is *not* a minimal sufficient statistic for the ledger has been
+on disk since `075`/`077` as `Fiber.profile_not_minimal`, a pair of configurations with
+distinct profiles and one ledger.  What is new here is the positive direction: a
+named coarse statistic, universally quantified, rather than a witness that some
+coarsening exists.  Whether five is the fewest is not proved here;
+`onCount_one_cannot_be_dropped` settles one of the five and the other four are
+open. -/
+theorem ledger_determined_by_five_scalars {D D' : ZeroData}
+    (hN : momentK D 1 = momentK D' 1)
+    (hstar : momentK D 2 = momentK D' 2)
+    (hsc : massCount D 1 = massCount D' 1)
+    (hon1 : onMoment D 1 = onMoment D' 1)
+    (honc : onCount D 1 = onCount D' 1) :
+    D.N = D'.N ∧ D.Nstar = D'.Nstar ∧ D.Nsc = D'.Nsc
+      ∧ D.NscStd = D'.NscStd ∧ D.Noff = D'.Noff := by
+  have hn : D.N = D'.N := by rw [← momentK_one D, ← momentK_one D', hN]
+  refine ⟨hn, ?_, ?_, ?_, ?_⟩
+  · rw [← momentK_two D, ← momentK_two D', hstar]
+  · rw [← massCount_one D, ← massCount_one D', hsc]
+  · rw [NscStd_eq_onCount_one D, NscStd_eq_onCount_one D', honc]
+  · have e1 := Noff_add_onMoment_one D
+    have e2 := Noff_add_onMoment_one D'
+    omega
+
+/-- **`Blindness.onCount_one_cannot_be_dropped`: `onCount 1` cannot be dropped
+from the five.**  `SESSION 369`.
+
+`363`'s pair has equal mass multisets — both profiles carry masses `3` and `5` —
+so by `Riemann.Optimal.moment_blind_iff_massCount` every `massCount` agrees, and
+with it every `momentK`; that equality is proved here directly from
+`momentK_from_profile` and `twoAtom_profile`.  `363` already gives equal
+`onMoment 1`.  Yet `NscStd` is `0` against `1`, so the whole `H`-family plus
+`onMoment 1` leaves the ledger split.
+
+This is necessity for one of the five scalars, not minimality of the set. -/
+theorem onCount_one_cannot_be_dropped {γ a : ℝ} (hγ : γ ≠ 0) (ha : a ≠ 1/2) :
+    (∀ k, momentK (twoAtom γ a 3 0 3 1) k = momentK (twoAtom γ a 1 1 5 0) k)
+      ∧ onMoment (twoAtom γ a 3 0 3 1) 1 = onMoment (twoAtom γ a 1 1 5 0) 1
+      ∧ (twoAtom γ a 3 0 3 1).NscStd = 0
+      ∧ (twoAtom γ a 1 1 5 0).NscStd = 1 := by
+  obtain ⟨-, -, -, hon1, hS0, hS1⟩ :=
+    NscStd_not_determined_by_two_moments_and_split hγ ha
+  refine ⟨fun k => ?_, hon1, hS0, hS1⟩
+  rw [momentK_from_profile, momentK_from_profile,
+    twoAtom_profile hγ ha (by norm_num) (by norm_num),
+    twoAtom_profile hγ ha (by norm_num) (by norm_num)]
+  norm_num
+
+
 end Blindness
 end Riemann

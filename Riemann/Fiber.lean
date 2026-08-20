@@ -10244,5 +10244,33 @@ theorem two_mul_haunted_add_two_mul_offLineOnly_le_Noff (D : ZeroData) :
     · rw [if_pos h2]; omega
     · rw [if_neg h2]; omega
 
+/-- **`N_off + onLineOrdinates ≤ N`.**  `SESSION 424`.
+
+Per ordinate: its off-line mass plus `1` if it has any on-line mass at all is at
+most its total mass — because *"has on-line mass"* costs `1` and it has `onAt`
+of it.  Summing is the theorem.
+
+**Found by the Farkas step, not by hand.**  `423` filed an LP as the missing
+filter for the three-term sweep; `424` built it, seeded the cone with the whole
+`32`-fact inventory, and `18` residues survived.  This is the simplest.  It
+**strengthens** `Blindness.Noff_add_oddAtoms_le_N`, since
+`Blindness.oddAtoms_le_onLineOrdinates`. -/
+theorem Noff_add_onLineOrdinates_le_N (D : ZeroData) :
+    D.Noff + onLineOrdinates D ≤ D.N := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have hon : onLineOrdinates D
+      = ∑ γ ∈ D.ordinates.toFinset, (if onAt D γ ≠ 0 then 1 else 0) := by
+    rw [onLineOrdinates, onOrd_toFinset, Finset.card_filter]
+  rw [hoff, hon, hN, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  by_cases hz : onAt D γ = 0
+  · simp [hz]; omega
+  · simp only [hz, ne_eq, not_false_iff, if_true]
+    omega
+
 end Blindness
 end Riemann

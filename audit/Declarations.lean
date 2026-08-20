@@ -991,3 +991,6 @@ import Riemann
 
 -- 422: found by the three-term search — haunted and off-line-only both cost two.
 #check @Riemann.Blindness.two_mul_haunted_add_two_mul_offLineOnly_le_Noff
+
+-- 424: found by the Farkas step — strengthens Noff_add_oddAtoms_le_N.
+#check @Riemann.Blindness.Noff_add_onLineOrdinates_le_N

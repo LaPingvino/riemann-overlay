@@ -2654,3 +2654,7 @@ combination of the known facts?* With it the sweep would report only genuinely
 new shapes; without it the output is a count. Nothing about it is conjectural,
 only unbuilt — and `416` is the precedent for how fast that kind of lead closes
 once someone takes it as a wildcard.
+
+**`424`: built** (`forensics/farkas.py`), and it produced
+`Blindness.Noff_add_onLineOrdinates_le_N` on its first run. `17` further
+residues remain undecided against the tree; they are candidates, not findings.

@@ -53,6 +53,14 @@ def counts(profile):
     return {
         "N": sum(h for h, _ in profile),
         "Nstar": sum(h * h for h, _ in profile),
+        # `426`: the moment functionals are sums over the profile like the
+        # rest, so they belong here.  `offLinePoints` does **not** — it counts
+        # distinct off-line *points*, and a profile entry `(h, o)` records the
+        # off-line mass `o` without saying across how many distinct `β` it is
+        # spread.  It stays out for the same reason `distinctZeros` is excluded
+        # from `equiv_check`: it is not a functional of the profile.
+        "thirdMoment": sum(h ** 3 for h, _ in profile),
+        "fourthMoment": sum(h ** 4 for h, _ in profile),
         "Noff": sum(o for _, o in profile),
         "Nsc": sum(1 for h, _ in profile if h == 1),
         "NscStd": sum(1 for (h, o) in profile if h - o == 1),

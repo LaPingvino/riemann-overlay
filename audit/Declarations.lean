@@ -997,3 +997,6 @@ import Riemann
 
 -- 425: the off-line analogue of mass_charges_every_class, found by the LP.
 #check @Riemann.Blindness.Noff_add_onLine_charges_le_N
+
+-- 426: the moment ladder pays the off-line mass at every step.
+#check @Riemann.Blindness.momentK_add_Noff_le_momentK_succ

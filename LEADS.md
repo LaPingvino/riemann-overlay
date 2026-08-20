@@ -2661,3 +2661,13 @@ once someone takes it as a wildcard.
 **`425`: closed.** `Blindness.Noff_add_onLine_charges_le_N` took the undecided
 residue to `0`. The three-term sweep is now entirely explained by the inventory;
 widening the shape again is the only way to ask it for more.
+
+## `426` — let `equiv_check` read quantified statements
+
+`equiv_check.facts()` matches the shape `(D : ZeroData) : …`, so every theorem
+with a numeric parameter is invisible to it and to everything downstream —
+`forensics/tightness.py`, `forensics/farkas.py`. `426`'s
+`Blindness.momentK_add_Noff_le_momentK_succ` is the first find the apparatus
+cannot then absorb. Instantiating such theorems at the small values the box
+uses (`k = 1, 2, 3, 4`) before adding them to the inventory would fix it, and is
+the same shape of work `416` and `424` turned out to be.

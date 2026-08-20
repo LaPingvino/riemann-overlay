@@ -91,8 +91,8 @@ def in_cone(cols, d):
     return -cost[width] == 0
 
 
-BASIS = ["N", "Noff", "Nstar", "Nsc", "hauntedCount", "oddAbove",
-         "evenOnAt", "offLineOnly"]
+BASIS = ["N", "Noff", "Nstar", "thirdMoment", "fourthMoment", "Nsc",
+         "hauntedCount", "oddAbove", "evenOnAt", "offLineOnly"]
 
 
 def unit_cols():
@@ -149,19 +149,19 @@ def inventory():
 # `inventory()`.
 KNOWN = {
     "mass_charges_every_class":
-        [1, 0, 0, -1, -3, -3, -2, -2],
+        [1, 0, 0, 0, 0, -1, -3, -3, -2, -2],
     "two_mul_haunted_add_two_mul_offLineOnly_le_Noff":
-        [0, 1, 0, 0, -2, 0, 0, -2],
+        [0, 1, 0, 0, 0, 0, -2, 0, 0, -2],
     "Noff_le_N":
-        [1, -1, 0, 0, 0, 0, 0, 0],
+        [1, -1, 0, 0, 0, 0, 0, 0, 0, 0],
     "two_mul_N_le_Nstar_add_Nsc":
-        [-2, 0, 1, 1, 0, 0, 0, 0],
+        [-2, 0, 1, 0, 0, 1, 0, 0, 0, 0],
 }
 
 CALIBRATION = [
     ("a known fact is in its own cone", KNOWN["mass_charges_every_class"], True),
-    ("positivity is in the cone", [0, 0, 0, 1, 0, 0, 0, 0], True),
-    ("`0 ≤ −N` is not", [-1, 0, 0, 0, 0, 0, 0, 0], False),
+    ("positivity is in the cone", [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], True),
+    ("`0 ≤ −N` is not", [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], False),
 ]
 
 

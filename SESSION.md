@@ -20805,3 +20805,44 @@ itself.
 **Might-mean:** three cycles of search produced exactly three theorems and then
 stopped producing any, which is what a finished search looks like from the
 inside.
+
+## 426 — teach the sweep the moments, and it names a ladder
+
+**Kill condition, stated first (`R12`).** Piece: `425` left `5` facts skipped by
+`forensics/tightness.py` for vocabulary it does not model. Model what can be
+modelled. Wildcard: prove whatever the widened sweep names. Kill: if a modelled
+functional disagrees with the tree's definition, drop it and say so.
+
+**Four of the five skips were modellable; the fifth is not, and that is the
+finding.** `thirdMoment` and `fourthMoment` are `∑ H³` and `∑ H⁴` — profile sums
+like every other functional, so they belong. `offLinePoints` counts distinct
+off-line **points**, and a profile entry `(h, o)` records off-line *mass* without
+saying across how many distinct `β` it is spread. It is **not a functional of the
+profile**, which is why `distinctZeros` is excluded from `equiv_check` too. It
+stays skipped, now with that reason on the page rather than as an unexplained
+name.
+
+The inventory went `33 → 38` facts and the skip list `5 → 1`.
+
+**The widened sweep named a ladder.**
+
+`Blindness.momentK_add_Noff_le_momentK_succ` — `momentK k + N_off ≤
+momentK (k+1)` for every `k ≥ 1`. The proof charges per ordinate: a simple zero has off-line
+mass `0`, and an ordinate of mass `≥ 2` has `H^(k+1) − H^k = H^k·(H−1) ≥ H ≥
+offAt`. The sweep named the case `k = 3`; `Blindness.N_add_Noff_le_Nstar` is the
+case `k = 1` and has been on disk for hundreds of cycles. This is the ladder they
+both sit on.
+
+**Snag, bin 1 — the instrument cannot see its own find.** `equiv_check.facts()`
+matches the shape `(D : ZeroData) : …`, so a theorem quantified over `k` with a
+hypothesis is invisible to it. The ladder therefore cannot enter the cone, and
+`35` residues stay undecided that are all `fourthMoment`/`thirdMoment`/`N_off`
+shapes **stronger** than its `k = 3` case — true, since `H³(H−1) ≥ 4H` for
+`H ≥ 2`, but out of reach of a sweep whose coefficients stop at `3`. Filed, not
+chased.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** the search keeps finding the `k = 3` instance of things the tree
+already has at `k = 1`, which says the instrument's blind spot is not the
+mathematics but the arity of the statements it can read.

@@ -10317,5 +10317,36 @@ theorem Noff_add_onLine_charges_le_N (D : ZeroData) :
           ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
       omega
 
+/-- **Each step up the moment ladder pays for the whole off-line mass.**
+`SESSION 426`.
+
+`momentK k + N_off ≤ momentK (k+1)` for every `k ≥ 1`.  Per ordinate: a simple
+zero has off-line mass `0`, and an ordinate of mass `≥ 2` has
+`H^(k+1) − H^k = H^k·(H−1) ≥ H ≥ offAt`.
+
+**Found by search.**  `426` taught `forensics/tightness.py` the moment
+functionals — they are profile sums like the rest — and the sweep's undecided
+residue named `thirdMoment + N_off ≤ fourthMoment`.  That is the case `k = 3`;
+`Blindness.N_add_Noff_le_Nstar` is the case `k = 1`, on disk since long before,
+and this is the ladder both sit on. -/
+theorem momentK_add_Noff_le_momentK_succ (D : ZeroData) {k : ℕ} (hk : 1 ≤ k) :
+    momentK D k + D.Noff ≤ momentK D (k + 1) := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  rw [momentK, momentK, hoff, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have h1 : 1 ≤ D.H γ := one_le_H_of_mem hγ
+  have hle : offAt D γ ≤ D.H γ := by
+    have := H_eq_onAt_add_offAt D γ; omega
+  by_cases hone : D.H γ = 1
+  · have hz : offAt D γ = 0 := by
+      obtain ⟨r, hr⟩ := even_offAt D γ; omega
+    simp [hone, hz]
+  · have h2 : 2 ≤ D.H γ := by omega
+    have hpow : D.H γ ≤ D.H γ ^ k := Nat.le_self_pow (by omega) _
+    have hstep : D.H γ ^ (k + 1) = D.H γ ^ k * D.H γ := pow_succ _ _
+    nlinarith [hpow, hle, hstep, h2]
+
 end Blindness
 end Riemann

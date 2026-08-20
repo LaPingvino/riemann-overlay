@@ -21118,3 +21118,42 @@ half of a failed `omega`.
 **Might-mean:** one profile chosen to occupy every class has now settled three
 unrelated questions, so the expensive object in this apparatus is the witness
 rather than the argument.
+
+## 434 — name the witness
+
+**Kill condition, stated first (`R12`).** Piece: `433`'s might-mean — the
+expensive object in this apparatus is the witness, and three cycles have rebuilt
+the same five-element profile with its counts re-derived each time. Name it.
+Wildcard: route an existing proof through the name. Kill: if doing so changes any
+**statement**, stop and ship the definition alone — a consolidation that moves a
+theorem is not a consolidation.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.pentad` — one ordinate per class, each carrying exactly its class's
+  minimum on-line mass. Written in `Blindness.nAtom`'s `(on, off-pairs)`
+  coordinates, so the list reads `(1,0), (1,1), (3,0), (2,0), (0,1)`.
+- `Blindness.pentad_profile` — its profile in `(mass, off-line mass)`
+  coordinates: `{(1,0), (3,2), (3,0), (2,0), (2,2)}`, the list `418`, `419` and
+  `433` each wrote out.
+- `Blindness.pentad_counts` — **ten counts in one lemma**: `N = 11`,
+  `N_off = 4`, the five classes at `1` each, `atomCount = 5`, `oddAtoms = 3`,
+  `NscStd = 2`.
+
+**The wildcard held.** `Blindness.Noff_add_every_class_charge_sharp` now proves
+from `pentad_counts` in three lines instead of eight, and **its statement is
+byte-identical** — `duplication_floor` unmoved at `30`, `citation_check` clean.
+
+**Snag, bin 1 — `R23` again, and it is the fourth time.** I appended the
+definition at the end of `Fiber.lean`, where every recent piece has gone, and its
+first consumer is two hundred lines **above** it. `392` put a theorem before the
+definition it used; `395` put one in a file that did not import what it named;
+`412`'s install landed `Family`-level theorems in a file that does not know
+`Family`. Relocated above the consumer. The build caught it, as it caught the
+other three.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** `434` treats the three sharpness theorems as one configuration
+asked three questions, which makes the fourth question cost a `rw`.
+question cost a `rw`.

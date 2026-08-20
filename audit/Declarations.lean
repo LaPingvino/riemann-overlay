@@ -1013,3 +1013,8 @@ import Riemann
 -- 433: 430's inequality attained, and all six weights maximal.
 #check @Riemann.Blindness.Noff_add_every_class_charge_sharp
 #check @Riemann.Blindness.Noff_add_every_class_charge_maximal
+
+-- 434: the five-class witness, named once, with all its counts.
+#check @Riemann.Blindness.pentad
+#check @Riemann.Blindness.pentad_profile
+#check @Riemann.Blindness.pentad_counts

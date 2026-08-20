@@ -310,3 +310,12 @@ the vendor does not carry one: of `4627` vendored declarations, `44` mention
 `Riemann.starBound_of_multiplicity_and_proportion` by `1 − κ`.  Do not confuse it
 with `Riemann.starBound_of_mult_le_two`, which is the `ProportionStd` row.
 
+## The five-class witness — `Blindness.pentad`
+
+One `ZeroData` with one ordinate in each of the five classes, each carrying that
+class's minimum on-line mass: profile `{(1,0), (3,2), (3,0), (2,0), (2,2)}`,
+`N = 11`. It has answered three unrelated questions —
+`Blindness.chain_all_strict` (`418`), `Blindness.mass_charges_sharp` (`419`),
+`Blindness.Noff_add_every_class_charge_sharp` (`433`) — and
+`Blindness.pentad_counts` (`434`) gives all ten of its counts in one lemma. If a
+question is *"is this charge inequality sharp"*, try it here first.

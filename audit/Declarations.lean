@@ -1018,3 +1018,6 @@ import Riemann
 #check @Riemann.Blindness.pentad
 #check @Riemann.Blindness.pentad_profile
 #check @Riemann.Blindness.pentad_counts
+
+-- 436: 430's inequality closes iff every ordinate has onAt <= 3.
+#check @Riemann.Blindness.Noff_add_every_class_charge_eq_iff

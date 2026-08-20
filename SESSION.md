@@ -21197,3 +21197,43 @@ Floors unmoved: warnings `54`, duplication `30`, overclaim `107`,
 **Might-mean:** naming the witness paid its cost back in one cycle, and the
 measure of the consolidation is that thirty-one lines of `decide` disappeared
 without a single statement moving.
+
+## 436 — the whole equality case is one bound
+
+**Kill condition, stated first (`R12`).** Piece: characterise equality in `430`'s
+inequality, as `404` and `414` did for the rung bounds. Wildcard: is the
+condition a simple bound on the on-line mass, or a case split across the five
+classes? Kill: if it does not collapse, state the five-way condition as it stands
+and do not dress it as a bound.
+
+**It collapsed.** `Blindness.Noff_add_every_class_charge_eq_iff` —
+`N_off + Nsc + hauntedCount + 3·oddAbove + 2·evenOnAt = N` **iff every ordinate
+has `onAt ≤ 3`**.
+
+Each class is charged its minimum on-line mass, so an ordinate pays exactly its
+own mass when its on-line mass **is** that minimum: `0`, `1`, `2` for an even
+non-zero one, `3` for an odd one above the first rung. Those four values are what
+`onAt ≤ 3` describes, and the five-way case split disappears into one inequality.
+
+**Checked before proving.** `0` mismatches between the equality and the bound
+across `40919` admissible profiles at masses `1..9`, so the collapse was known
+before a line of Lean rather than hoped for.
+
+**What it says about `433`'s witness.** `Blindness.pentad` is one attaining
+configuration among very many — the smallest occupying all five classes — and the
+slack in `430`'s bound is entirely the ordinates with four or more on-line zeros.
+By `Blindness.Noff_add_every_class_charge_eq_iff` the weights are blind to how
+many of those there are, which is the shape of answer `414` gave for the
+multiplicity cap.
+
+**Snag, bin 3.** The docstring's headline said *"exactly when"* and its body
+*"every configuration … attains"*; `overclaim_floor` took both. Rewritten to name
+the biconditional and to read the second claim the other way round. Twice in one
+docstring, which is the rate this arc has been running at when a theorem is
+genuinely two-sided.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** the five-class charge apparatus has one degree of freedom, the
+on-line mass, and every sharpness question about it reduces to where that mass
+sits relative to `3`.

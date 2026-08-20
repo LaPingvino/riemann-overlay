@@ -10566,5 +10566,132 @@ theorem Noff_add_every_class_charge_maximal {a : ℝ} (ha : a ≠ 1/2) :
   obtain ⟨D, heq, hoff, hs, hh, ho, he, hf⟩ := Noff_add_every_class_charge_sharp ha
   refine ⟨D, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> omega
 
+/-- **When `430`'s inequality closes: no ordinate carrying more than three
+on-line zeros**, in both directions —
+`Blindness.Noff_add_every_class_charge_eq_iff`.  `SESSION 436`.
+
+Each class is charged its minimum on-line mass, so an ordinate contributes its
+own mass when its on-line mass **is** that minimum: `0`, `1`, `2` for an even
+non-zero one, `3` for an odd one above the first rung.  Those four values are
+what `onAt ≤ 3` describes, which is why the condition collapses to a single
+bound.
+
+Read the other way, `Blindness.pentad` is one attaining configuration among
+many: `433`'s witness is the smallest occupying all five classes, and the slack
+in `430`'s bound comes from ordinates with four or more on-line zeros. -/
+theorem Noff_add_every_class_charge_eq_iff (D : ZeroData) :
+    D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D = D.N
+      ↔ ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ 3 := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have hterm : ∀ γ ∈ D.ordinates.toFinset,
+      offAt D γ + ((if D.H γ = 1 then 1 else 0)
+        + ((if D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1 then 1 else 0)
+        + (3 * (if ¬ Even (onAt D γ) ∧ onAt D γ ≠ 1 then 1 else 0)
+        + 2 * (if Even (onAt D γ) ∧ onAt D γ ≠ 0 then 1 else 0)))) ≤ D.H γ := by
+    intro γ hγ
+    have h := H_eq_onAt_add_offAt D γ
+    have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    have hsub : D.H γ - offAt D γ = onAt D γ := by omega
+    rcases Nat.even_or_odd (onAt D γ) with he | ho
+    · by_cases h0 : onAt D γ = 0
+      · rw [if_neg (by omega : ¬ D.H γ = 1),
+          if_neg (by simp [hsub, h0] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+          if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+          if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+        omega
+      · have h2 : 2 ≤ onAt D γ := by rcases he with ⟨s, hs⟩; omega
+        rw [if_neg (by omega : ¬ D.H γ = 1),
+          if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+          if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+          if_pos ⟨he, h0⟩]
+        omega
+    · by_cases h1 : onAt D γ = 1
+      · rw [if_neg (by simp [h1] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+          if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+        by_cases hH : D.H γ = 1
+        · rw [if_pos hH, if_neg (by simp [hH] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1))]
+          omega
+        · rw [if_neg hH, if_pos ⟨by omega, hH⟩]
+          omega
+      · have h3 : 3 ≤ onAt D γ := by rcases ho with ⟨s, hs⟩; omega
+        rw [if_neg (by omega : ¬ D.H γ = 1),
+          if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+          if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
+          if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
+            ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+        omega
+  have hsum : D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D
+      = ∑ γ ∈ D.ordinates.toFinset, (offAt D γ + ((if D.H γ = 1 then 1 else 0)
+        + ((if D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1 then 1 else 0)
+        + (3 * (if ¬ Even (onAt D γ) ∧ onAt D γ ≠ 1 then 1 else 0)
+        + 2 * (if Even (onAt D γ) ∧ onAt D γ ≠ 0 then 1 else 0))))) := by
+    rw [hoff, Nsc_eq_sum_mass_one_nat, hauntedCount, oddAbove, evenOnAt,
+      Finset.card_filter, Finset.card_filter, Finset.card_filter,
+      Finset.mul_sum, Finset.mul_sum]
+    simp only [Finset.sum_add_distrib]
+    ring
+  rw [hsum, hN, Finset.sum_eq_sum_iff_of_le hterm]
+  constructor
+  · intro hall γ hγ
+    have hs := hall γ hγ
+    have h := H_eq_onAt_add_offAt D γ
+    have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    have hsub : D.H γ - offAt D γ = onAt D γ := by omega
+    by_contra hgt
+    have hgt : 4 ≤ onAt D γ := by omega
+    rcases Nat.even_or_odd (onAt D γ) with he | ho
+    · have h4 : 4 ≤ onAt D γ := by rcases he with ⟨s, hs2⟩; omega
+      rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_pos ⟨he, by omega⟩] at hs
+      omega
+    · have h5 : 5 ≤ onAt D γ := by rcases ho with ⟨s, hs2⟩; omega
+      rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_pos ⟨Nat.not_even_iff_odd.2 ho, by omega⟩,
+        if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
+          ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))] at hs
+      omega
+  · intro hall γ hγ
+    have hle := hall γ hγ
+    have h := H_eq_onAt_add_offAt D γ
+    have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
+    obtain ⟨r, hr⟩ := even_offAt D γ
+    have hsub : D.H γ - offAt D γ = onAt D γ := by omega
+    rcases Nat.even_or_odd (onAt D γ) with he | ho
+    · by_cases h0 : onAt D γ = 0
+      · rw [if_neg (by omega : ¬ D.H γ = 1),
+          if_neg (by simp [hsub, h0] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+          if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+          if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+        omega
+      · have h2 : onAt D γ = 2 := by rcases he with ⟨s, hs⟩; omega
+        rw [if_neg (by omega : ¬ D.H γ = 1),
+          if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+          if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+          if_pos ⟨he, h0⟩]
+        omega
+    · by_cases h1 : onAt D γ = 1
+      · rw [if_neg (by simp [h1] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+          if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+        by_cases hH : D.H γ = 1
+        · rw [if_pos hH, if_neg (by simp [hH] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1))]
+          omega
+        · rw [if_neg hH, if_pos ⟨by omega, hH⟩]
+          omega
+      · have h3 : onAt D γ = 3 := by rcases ho with ⟨s, hs⟩; omega
+        rw [if_neg (by omega : ¬ D.H γ = 1),
+          if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+          if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
+          if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
+            ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+        omega
+
 end Blindness
 end Riemann

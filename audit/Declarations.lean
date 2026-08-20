@@ -1037,3 +1037,6 @@ import Riemann
 
 -- 440: the bridge 439 filed — the family at k = 1 is the five-class charge.
 #check @Riemann.Blindness.onCharge_one_eq_class_charge
+
+-- 441: the family at k = 2 is 437's charge.
+#check @Riemann.Blindness.onCharge_two_eq_class_charge

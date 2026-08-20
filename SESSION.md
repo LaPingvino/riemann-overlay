@@ -21381,3 +21381,40 @@ Floors unmoved: warnings `54`, duplication `30`, overclaim `107`.
 
 **Might-mean:** the bridge cost one case split and retired two, so the price of
 the general statement was paid by the second special case rather than the first.
+
+## 441 — the second bridge, and the last split goes
+
+**Kill condition, stated first (`R12`).** Piece: `440`'s companion — the family
+at `k = 2` is `437`'s charge. Wildcard: derive `437`'s bound and `438`'s equality
+case from it, then remove `438`'s private case split if nothing still calls it.
+Kill: if any statement changes, revert that one; checked mechanically as at
+`435` and `440`.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+`Blindness.onCharge_two_eq_class_charge` — `onCharge D 2 = Nsc + hauntedCount +
+3·oddAbove + 2·evenOnAt + 2·bigOn`. The `bigOn` bonus is the truncation's second
+step written per class: an ordinate with four or more on-line zeros gets two more
+than `k = 1` allowed it, and no more.
+
+**Both wildcards landed.** `437`'s bound is now
+`Noff_add_onCharge_le_N D 2` plus a rewrite plus `omega`; `438`'s equality case is
+`Noff_add_onCharge_eq_iff D 2` plus the same rewrite. `438`'s `charge_term_le` —
+the eight-way split that returned bound and converse together — has **no
+remaining caller and is deleted**.
+
+**Measured: `103` lines removed against `43` added**, `0` statements changed, one
+declaration gone (`charge_term_le`, private), one new (the bridge).
+
+**Snag, bin 1 — `R23`, fifth time, and the first that was my own new dependency
+rather than a stale habit.** I inserted the `k = 2` bridge where `440` had put
+the `k = 1` one, which is **above** `Blindness.bigOn`'s definition. `440`'s
+lesson was *move the block above its consumers*; this one also has a
+**dependency** above it. Relocated between the two.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+Floors unmoved.
+
+**Might-mean:** four theorems and two equality characterisations now rest on one
+`min`, and the case analysis that used to carry them exists in exactly two
+places, one per bridge.

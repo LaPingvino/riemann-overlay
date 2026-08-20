@@ -319,3 +319,19 @@ class's minimum on-line mass: profile `{(1,0), (3,2), (3,0), (2,0), (2,2)}`,
 `Blindness.Noff_add_every_class_charge_sharp` (`433`) — and
 `Blindness.pentad_counts` (`434`) gives all ten of its counts in one lemma. If a
 question is *"is this charge inequality sharp"*, try it here first.
+
+## The on-line charge family — `Blindness.onCharge`
+
+`onCharge D k` charges each ordinate its on-line mass truncated at the largest
+value of its own parity not exceeding `2k + 1`.  Two theorems cover every `k`:
+`Riemann.Blindness.Noff_add_onCharge_le_N` (`N_off + onCharge k ≤ N`) and
+`Riemann.Blindness.Noff_add_onCharge_eq_iff` (equality iff `onAt ≤ 2k + 1`).
+
+The class-form theorems are instances, each reached by one bridge:
+
+| `k` | class form | bridge |
+|---|---|---|
+| `1` | `Blindness.Noff_add_every_class_charge_le_N` (`430`) and `Blindness.Noff_add_every_class_charge_eq_iff` (`436`) | `Blindness.onCharge_one_eq_class_charge` (`440`) |
+| `2` | `Blindness.Noff_add_class_charge_add_bigOn_le_N` (`437`) and `Blindness.Noff_add_class_charge_add_bigOn_eq_iff` (`438`) | `Blindness.onCharge_two_eq_class_charge` (`441`) |
+
+The per-ordinate case analysis lives in the two bridges and nowhere else.

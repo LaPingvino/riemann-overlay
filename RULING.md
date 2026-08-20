@@ -323,4 +323,13 @@ zero"* is discharged — that sweep happened — and a red from this screen woul
 now mean a regression rather than a backlog. The `373` objection stands: it has
 still never caught a regression, because there has not been one since it existed.
 
+**`442` drills it, and halves the question.** Injecting
+`Blindness.no_such_lemma_at_all` into `CLAIMS.md` made the screen name it and the
+count go `0 → 1` — **and the exit code stayed `0`.** Rostered as written it would
+have reported green on that injection, `373`'s category exactly. Added `--gate`,
+which exits `1` on live dangling; drilled both ways, `1` with the injection and
+`0` without. So the `373` objection is now about **whether you want a
+seventeenth roster entry**, not about whether the thing can fail. Live dangling
+has been `0` for thirty cycles of heavy register editing.
+
 **Not taken.** Runs as a report until Joop rules.

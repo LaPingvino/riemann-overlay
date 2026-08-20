@@ -278,6 +278,15 @@ def main():
     print(f"  log  dangling {len(log_bad)} — these are context, NOT findings. "
           f"A log entry may name a declaration that has since been renamed; "
           f"`R17` cuts both ways and a count here is not a defect rate.")
+    # `442`: drilled by injecting `Blindness.no_such_lemma_at_all` into
+    # `CLAIMS.md`.  The screen **named** it and the count went `0 → 1`, but the
+    # exit code stayed `0` — so as written it could be rostered and never go
+    # red, which is exactly `373`'s category.  `--gate` is the failing path;
+    # without it the tool stays a report, which is what `RULING.md` has open.
+    if "--gate" in sys.argv and live_bad:
+        print()
+        print("  Live registers name declarations that do not exist.  Exit 1.")
+        return 1
     return 0
 
 

@@ -21418,3 +21418,38 @@ Floors unmoved.
 **Might-mean:** four theorems and two equality characterisations now rest on one
 `min`, and the case analysis that used to carry them exists in exactly two
 places, one per bridge.
+
+## 442 — drill the guard nobody has ruled on, and brief Joop
+
+**Kill condition, stated first (`R12`).** Piece: four rulings have been open
+about forty-five cycles and the picture has changed under them; brief Joop.
+Wildcard: **drill** `forensics/register_citations.py` the way `373` drilled five
+guards, so its ruling stops resting on *"it has never gone red"*. Kill: if the
+drill does not make it fail, that is a defect in the screen — report it and do
+not roster.
+
+**The kill condition fired, and it was the finding.** I injected
+`Blindness.no_such_lemma_at_all` into `CLAIMS.md`. The screen **named it** and
+the live count went `0 → 1` — **and the process exited `0`.** Rostered as
+written it would have reported green on that injection. That is `373`'s category
+precisely, discovered on the one guard whose rostering was under discussion.
+
+Added `--gate`: exits `1` when a live register names something that resolves to
+nothing. Drilled both ways — `1` with the injection, `0` without, `CLAIMS.md`
+restored byte-identical.
+
+**`RULING.md` updated at its location.** The `373` objection is now about whether
+Joop wants a seventeenth roster entry, not about whether the thing can fail.
+
+**The brief.** Sent: what changed since `406` — the search apparatus built and
+closed twice, the charge family collapsing four theorems and two equality
+characterisations into one `min`, `411`'s negative on the vendor — and the four
+rulings with current status. Its ask is narrow: rulings `2` and `4` are the ones
+I can see moving the ledger, and both are purchases rather than discoveries.
+`claims_gate` `0` flags before sending.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** a guard's ruling was resting on evidence the guard could not have
+produced, and one drill turned that from an argument into a two-line fix.

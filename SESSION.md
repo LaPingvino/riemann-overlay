@@ -21237,3 +21237,42 @@ genuinely two-sided.
 **Might-mean:** the five-class charge apparatus has one degree of freedom, the
 on-line mass, and every sharpness question about it reduces to where that mass
 sits relative to `3`.
+
+## 437 — charge the ordinates `436` said the bound cannot see
+
+**Kill condition, stated first (`R12`).** Piece: `436` located `430`'s slack
+exactly — the ordinates with four or more on-line zeros — so charge them.
+Wildcard: is the extra coefficient maximal? Kill: if the maximality witness has
+to occupy all five classes, use the simplest profile that refutes and name the
+classes it leaves empty.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.bigOn` — the count of ordinates with `onAt ≥ 4`, which is exactly
+  what `Blindness.Noff_add_every_class_charge_eq_iff` names as the obstruction.
+- `Blindness.Noff_add_class_charge_add_bigOn_le_N` — `430`'s inequality with
+  `2·bigOn` added. Such an ordinate is either even-on-line, charged `2` against a
+  mass of at least `4`, or odd-above, charged `3` against at least `5` — two
+  spare either way.
+- `Blindness.bigOn_from_profile`, so a witness can `decide` it.
+- `Blindness.bigOn_coefficient_maximal` — the wildcard. The single ordinate
+  `(4,0)` attains the sharpened bound at `4 = 4`, so `3·bigOn` fails there. It
+  occupies two classes and no more, which is all this one coefficient needs.
+
+**Checked before proving.** `c = 1` and `c = 2` have `0` violations across
+`40919` profiles; `c = 3` has `13301`. So the coefficient was pinned from both
+sides first, and `c = 2` had `17549` tight profiles rather than a handful.
+
+**Not found by search.** `422`–`430` mined sweeps; this came from reading the
+previous cycle's equality characterisation, which said where the bound is loose.
+`436` named the slack and `437` priced it.
+
+**Snag, bin 2.** My `bigOn_from_profile` invented a `← Finset.card_filter` route
+that does not fire. `Blindness.oddAbove_from_profile`, four lines away in the
+same file, does the same job with `show` plus `Multiset.filter_congr`. Copied it;
+`R33`'s clause about checking the shape on disk before writing one.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** an equality characterisation is a map of where a bound is loose,
+so the cycle after one should be the cycle that charges what it names.

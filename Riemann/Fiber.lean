@@ -10693,5 +10693,115 @@ theorem Noff_add_every_class_charge_eq_iff (D : ZeroData) :
             ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
         omega
 
+/-- **The ordinates `436` says the charge inequality cannot see.**  `SESSION 437`.
+
+`Blindness.Noff_add_every_class_charge_eq_iff` says `430`'s bound closes when no
+ordinate carries more than three on-line zeros; `bigOn` counts the ones that do. -/
+noncomputable def bigOn (D : ZeroData) : ℕ :=
+  (D.ordinates.toFinset.filter fun γ => 4 ≤ onAt D γ).card
+
+/-- **And each of them can be charged two more.**  `SESSION 437`.
+
+`430`'s inequality with `2·bigOn` added.  An ordinate with `onAt ≥ 4` is either
+even-on-line, charged `2` against a mass of at least `4`, or odd-above, charged
+`3` against at least `5` — two spare either way.
+
+Found by reading `436`'s slack rather than by search: `436` named where the bound
+is loose and this is what that room is worth. -/
+theorem Noff_add_class_charge_add_bigOn_le_N (D : ZeroData) :
+    D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D
+      + 2 * bigOn D ≤ D.N := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  rw [hoff, Nsc_eq_sum_mass_one_nat, hauntedCount, oddAbove, evenOnAt, bigOn,
+    Finset.card_filter, Finset.card_filter, Finset.card_filter,
+    Finset.card_filter, hN, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have hsub : D.H γ - offAt D γ = onAt D γ := by omega
+  rcases Nat.even_or_odd (onAt D γ) with he | ho
+  · by_cases h0 : onAt D γ = 0
+    · rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub, h0] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0)),
+        if_neg (by omega : ¬ 4 ≤ onAt D γ)]
+      omega
+    · have h2 : 2 ≤ onAt D γ := by rcases he with ⟨s, hs⟩; omega
+      rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_pos ⟨he, h0⟩]
+      by_cases h4 : 4 ≤ onAt D γ
+      · rw [if_pos h4]; omega
+      · rw [if_neg h4]; omega
+  · by_cases h1 : onAt D γ = 1
+    · rw [if_neg (by simp [h1] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0)),
+        if_neg (by omega : ¬ 4 ≤ onAt D γ)]
+      by_cases hH : D.H γ = 1
+      · rw [if_pos hH, if_neg (by simp [hH] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1))]
+        omega
+      · rw [if_neg hH, if_pos ⟨by omega, hH⟩]
+        omega
+    · have h3 : 3 ≤ onAt D γ := by rcases ho with ⟨s, hs⟩; omega
+      rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
+        if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
+          ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      by_cases h4 : 4 ≤ onAt D γ
+      · have h5 : 5 ≤ onAt D γ := by rcases ho with ⟨s, hs⟩; omega
+        rw [if_pos h4]; omega
+      · rw [if_neg h4]; omega
+
+/-- `bigOn` from the profile, so a witness can `decide` it. -/
+lemma bigOn_from_profile (D : ZeroData) :
+    bigOn D = Multiset.card ((profile D).filter fun q => 4 ≤ q.1 - q.2) := by
+  classical
+  rw [bigOn, profile, Multiset.filter_map, Multiset.card_map]
+  show Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+      = Multiset.card (Multiset.filter _ D.ordinates.toFinset.val)
+  congr 1
+  refine Multiset.filter_congr fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  simp only [Function.comp_apply]
+  rw [show D.H γ - offAt D γ = onAt D γ by omega]
+
+/-- **The `2` is maximal.**  `SESSION 437`.
+
+The single ordinate `(4, 0)` — mass `4`, all on the line — attains the sharpened
+bound at `4 = 4`, so `3·bigOn` fails there.  It occupies only two classes, which
+is all this coefficient needs; the other five weights are `433`'s business. -/
+theorem bigOn_coefficient_maximal {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData,
+      D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D
+        + 2 * bigOn D = D.N
+      ∧ ¬ (D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D
+        + 3 * bigOn D ≤ D.N) := by
+  classical
+  obtain ⟨D, hD⟩ := exists_profile_of_list a ha [(4, 0)] (by decide)
+  have h1 : D.N = 4 := by rw [N_from_profile, hD]; decide
+  have h2 : D.Noff = 0 := by rw [Noff_from_profile, hD]; decide
+  have h3 : D.Nsc = 0 := by
+    rw [Nsc_eq_sum_mass_one_nat,
+      show (∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then 1 else 0))
+        = Multiset.card ((profile D).filter fun q => q.1 = 1) from ?_, hD]
+    · decide
+    · rw [profile, Multiset.filter_map, Multiset.card_map, ← Finset.card_filter]
+      rfl
+  have h4 : hauntedCount D = 0 := by rw [hauntedCount_from_profile, hD]; decide
+  have h5 : oddAbove D = 0 := by rw [oddAbove_from_profile, hD]; decide
+  have h6 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
+  have h7 : bigOn D = 1 := by rw [bigOn_from_profile, hD]; decide
+  exact ⟨D, by omega, by omega⟩
+
 end Blindness
 end Riemann

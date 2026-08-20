@@ -1021,3 +1021,8 @@ import Riemann
 
 -- 436: 430's inequality closes iff every ordinate has onAt <= 3.
 #check @Riemann.Blindness.Noff_add_every_class_charge_eq_iff
+
+-- 437: the ordinates 436's bound cannot see, and what they are worth.
+#check @Riemann.Blindness.bigOn
+#check @Riemann.Blindness.Noff_add_class_charge_add_bigOn_le_N
+#check @Riemann.Blindness.bigOn_coefficient_maximal

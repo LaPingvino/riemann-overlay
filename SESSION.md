@@ -21453,3 +21453,42 @@ No Lean changed this cycle.
 
 **Might-mean:** a guard's ruling was resting on evidence the guard could not have
 produced, and one drill turned that from an argument into a two-line fix.
+
+## 443 — drill the rest of the arc's instruments
+
+**Kill condition, stated first (`R12`).** Piece: `442` found an instrument that
+**names a defect and exits `0`**. Four instruments were built in this arc; drill
+the other three. Wildcard: does `session_gate` itself have the systemic version
+of that bug? Kill: if a plausible injection leaves an instrument green, record
+it as unfalsifiable rather than inventing an exotic trigger.
+
+**Three drills, three reds, one each.**
+
+| instrument | injection | exit |
+|---|---|---|
+| `forensics/farkas.py` | flip a calibration case's expected answer | `5` |
+| `forensics/preflight.py` | break a calibration declaration's name | `5` |
+| `forensics/tightness.py` | corrupt `Nsc` so an indexed inequality becomes false | `5` |
+
+Each was restored and the tree is byte-identical. So of the four instruments
+built at `420`–`431`, three had a reachable failing path on the first plausible
+injection, and the fourth — `forensics/register_citations.py` — had the
+findings-without-failure gap `442` closed.
+
+**The wildcard, and it is the systemic answer.** `forensics/session_gate.py`
+judges a guard by its **`returncode`**: `5` is a harness failure, non-zero is
+red, `0` is green, and the guard's output is not consulted.
+That is exactly why `442`'s bug was invisible for thirty cycles — a guard that
+lists defects and returns `0` is, to the gate, a guard with nothing to say.
+A central fix would have to read output; instead **each guard decides for itself
+what makes it red**, which is what `--gate` did for one of them.
+
+**Not a rule.** `409`'s brief warned about the reflex, and the answer here is
+what it was there: the drill is a thing you run, and this cycle ran it four
+times.
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** the gate reads exit codes and instruments print findings, so
+every new instrument arrives with the `442` gap by default and only loses it when
+someone drills it.

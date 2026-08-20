@@ -514,3 +514,13 @@ Its three calibration cases are the arc's three rediscoveries — `412`'s
 surfacing. A high score is a prompt to read, not a verdict. **`432`: prospective only** —
 run backwards it flags `62` pairs that are the project's own habit of stating a
 family at several constants.
+
+## `443` — drill a new instrument before trusting it
+
+`forensics/session_gate.py` judges a guard by its exit code and never reads its
+output, so an instrument that prints findings and returns `0` reads as green.
+A new instrument is therefore assumed to have that gap until someone injects a
+fault and watches it fail. The four built at `420`–`431` were drilled at `442`
+and `443`: `farkas`, `preflight` and `tightness` returned `5` on a corrupted
+calibration or a falsified inequality; `register_citations` named the defect and
+returned `0`, which is why it now has `--gate`.

@@ -121,7 +121,22 @@ def derived(v):
 
 QUANT = re.compile(
     r"^\(D : (?:Riemann\.)?ZeroData\) \{k : ℕ\} \(hk : (\d) ≤ k\) : (.+)$")
+# `429`: and the same statement with the order **explicit and unconstrained** —
+# `(D : ZeroData) (k : ℕ) : …`.  Missing this shape cost `429` its own find, the
+# third cycle running that the reader could not read the newest theorem.
+QUANT_FREE = re.compile(
+    r"^\(D : (?:Riemann\.)?ZeroData\) \(k : ℕ\) : (.+)$")
 ORDERS = (1, 2, 3, 4)
+
+# `429`: the guard `428`'s might-mean asked for.  Each entry is a declaration a
+# recent cycle proved and that this reader must be able to instantiate.  A cycle
+# that proves a parameterised theorem adds its name here; if the reader stops
+# seeing it, the run fails instead of quietly shrinking the cone.
+READS = (
+    "momentK_add_Noff_le_momentK_succ",            # 426
+    "momentK_add_pow_mul_Noff_le_momentK_succ",    # 428
+    "momentK_add_pow_mul_atomCount_le",            # 429
+)
 
 
 def quantified():
@@ -143,9 +158,10 @@ def quantified():
         if len(r) < 5 or r[0] != "ours":
             continue
         m = QUANT.match(r[4].strip())
-        if not m:
+        mf = None if m else QUANT_FREE.match(r[4].strip())
+        if not m and not mf:
             continue
-        lo, body = int(m.group(1)), m.group(2)
+        lo, body = (int(m.group(1)), m.group(2)) if m else (0, mf.group(1))
         if "≤" not in body:
             continue
         for k in ORDERS:
@@ -258,6 +274,11 @@ def main():
             if sum(k * c[b] for b, k in zip(BASIS, v)) < 0:
                 die_harness(f"generator {n} is false at profile {prof}")
     print(f"  all {len(inv)} generators verified on {len(box)} profiles.")
+    missing = [n for n in READS
+               if not any(g == n or g.startswith(n + "@") for g in inv)]
+    if missing:
+        die_harness(f"the reader cannot see {missing} — see READS")
+    print(f"  reader sees all {len(READS)} declarations it is required to.")
     bad = [n for n, v in inv.items() if not in_cone(list(inv.values()) + unit_cols(), v)]
     if bad:
         die_harness(f"a fact is not in the cone it generates: {bad}")

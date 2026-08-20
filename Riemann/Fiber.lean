@@ -10394,5 +10394,51 @@ theorem momentK_add_pow_mul_Noff_le_momentK_succ (D : ZeroData) {k : ℕ} (hk : 
         _ = D.H γ ^ (j + 1) * D.H γ := by ring
     omega
 
+/-- **Every non-simple ordinate pays `2^k` for a step up the moment ladder.**
+`SESSION 429`.
+
+`momentK k + 2^k·atomCount ≤ momentK (k+1) + 2^k·Nsc` — subtraction-free, and
+read with the `Nsc` moved across it says the non-simple ordinates, `atomCount −
+Nsc` of them, each cost `2^k`.
+
+Per ordinate: a simple zero gives equality outright, and one of mass `≥ 2` has
+`2^k ≤ H^k` and `H^k + H^k ≤ H^(k+1)`.  The mass-`2` atom attains it.
+
+**The last fourteen residues of the three-term sweep were instances of this** —
+all of the form `momentK 3 + c·oddAbove ≤ momentK 4` or the same with
+`evenOnAt`, both of which count ordinates of mass `≥ 2`.  `2^k` is maximal:
+`2^k + 1` is refuted on `427`'s box at every order `k = 1…4`. -/
+theorem momentK_add_pow_mul_atomCount_le (D : ZeroData) (k : ℕ) :
+    momentK D k + 2 ^ k * atomCount D ≤ momentK D (k + 1) + 2 ^ k * D.Nsc := by
+  classical
+  have hA : atomCount D = ∑ γ ∈ D.ordinates.toFinset, 1 := by
+    rw [atomCount]; simp
+  have hS : D.Nsc = ∑ γ ∈ D.ordinates.toFinset,
+      (if D.H γ = 1 then 1 else 0) := by
+    have h : (D.Nsc : ℤ) = ∑ γ ∈ D.ordinates.toFinset,
+        (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nsc_from_profile, profile, Multiset.map_map]; rfl
+    have h2 : ((∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then 1 else 0) : ℕ) : ℤ)
+        = ∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then (1 : ℤ) else 0) := by
+      rw [Nat.cast_sum]; refine Finset.sum_congr rfl fun γ _ => ?_
+      by_cases hx : D.H γ = 1 <;> simp [hx]
+    exact_mod_cast h.trans h2.symm
+  rw [momentK, momentK, hA, hS, Finset.mul_sum, Finset.mul_sum,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have h1 : 1 ≤ D.H γ := one_le_H_of_mem hγ
+  by_cases hone : D.H γ = 1
+  · simp [hone]
+  · have h2 : 2 ≤ D.H γ := by omega
+    have hpow : 2 ^ k ≤ D.H γ ^ k := Nat.pow_le_pow_left h2 k
+    have hstep : D.H γ ^ k + D.H γ ^ k ≤ D.H γ ^ (k + 1) := by
+      have he : D.H γ ^ (k + 1) = D.H γ ^ k * D.H γ := pow_succ _ _
+      rw [he]
+      calc D.H γ ^ k + D.H γ ^ k = 2 * D.H γ ^ k := by ring
+        _ ≤ D.H γ * D.H γ ^ k := Nat.mul_le_mul_right _ h2
+        _ = D.H γ ^ k * D.H γ := by ring
+    simp only [hone, if_false, mul_one, mul_zero, add_zero]
+    omega
+
 end Blindness
 end Riemann

@@ -20926,3 +20926,42 @@ undecided residue `19 → 14`.
 **Might-mean:** twice now the instrument has failed to read a theorem the
 the previous cycle proved, which suggests the reader should be tested against the
 last find rather than against the corpus.
+
+## 429 — the last fourteen, and a guard for the thing that keeps happening
+
+**Kill condition, stated first (`R12`).** Piece: the `14` residues `428` left,
+all of the form `momentK 3 + c·oddAbove ≤ momentK 4` or the same with `evenOnAt`.
+Wildcard: the guard `428`'s might-mean asked for — test the reader against the
+newest find. Kill: if the guard needs a hand-maintained list, say so plainly
+rather than pretending it is automatic.
+
+**One theorem covered all fourteen.** `oddAbove` and `evenOnAt` both count
+ordinates of mass `≥ 2`, so the general statement is about **every** non-simple
+ordinate:
+
+`Blindness.momentK_add_pow_mul_atomCount_le` — `momentK k + 2^k·atomCount ≤
+momentK (k+1) + 2^k·Nsc`, subtraction-free; moved across, it says the
+`atomCount − Nsc` non-simple ordinates each cost `2^k` for a step up the ladder.
+A simple zero gives equality outright; one of mass `≥ 2` has `2^k ≤ H^k` and
+`H^k + H^k ≤ H^(k+1)`. `2^k + 1` is refuted on the box at every order.
+
+**And the reader could not read it — the third cycle running.** Its shape is
+`(D : ZeroData) (k : ℕ) : …`: the order explicit and unconstrained, matching
+neither `equiv_check`'s `(D : ZeroData) :` nor `427`'s
+`{k : ℕ} (hk : c ≤ k)`. `426`, `428` and now `429` each proved a theorem the
+apparatus then could not absorb, for three different reasons.
+
+**So the wildcard is now mandatory rather than tidy.** `forensics/farkas.py`
+gains `READS`: declarations this reader must be able to instantiate, checked on
+every run, `die_harness` if one goes missing. **It is hand-maintained, and that
+is stated in the file** — a cycle proving a parameterised theorem adds its name.
+What it buys is that the failure becomes loud instead of a silently smaller cone.
+
+**The sweep closes again.** Inventory `48 → 51`; undecided residue `14 → 0`.
+Every residue of the moment-widened three-term sweep is now a consequence of the
+inventory.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** the same failure three times in three cycles was not carelessness
+but a missing test, and the test costs four lines.

@@ -1003,3 +1003,6 @@ import Riemann
 
 -- 428: the sharpened moment ladder, coefficient 2^(k-1).
 #check @Riemann.Blindness.momentK_add_pow_mul_Noff_le_momentK_succ
+
+-- 429: every non-simple ordinate pays 2^k for a moment step.
+#check @Riemann.Blindness.momentK_add_pow_mul_atomCount_le

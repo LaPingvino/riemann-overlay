@@ -158,6 +158,11 @@ def quantified():
             s = s0.replace("momentK D k", f"momentK_{k}")
             s = _re.sub(r"\bk\b", str(k), s)
             # constant-fold `a ^ b` so the evaluator never meets `^`
+            # `428`: fold `A ^ (a - b)` as well as `A ^ a` — the sharpened
+            # ladder's coefficient is `2 ^ (k - 1)`, and folding only the bare
+            # form left it carrying a `^` and therefore skipped.
+            s = _re.sub(r"(\d+) \^ \((\d+) - (\d+)\)",
+                        lambda mm: str(int(mm.group(1)) ** (int(mm.group(2)) - int(mm.group(3)))), s)
             s = _re.sub(r"(\d+) \^ (\d+)", lambda mm: str(int(mm.group(1)) ** int(mm.group(2))), s)
             # `427`: the guard is that no *un-instantiated* `momentK D` is
             # left, not that the string is free of the word — the first version

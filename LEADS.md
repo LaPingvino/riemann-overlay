@@ -2676,3 +2676,8 @@ the same shape of work `416` and `424` turned out to be.
 undecided residue `35 → 19`. What remains is one theorem: a **sharpened ladder**,
 `momentK k + c·N_off ≤ momentK (k+1)` with `c > 1` for `k ≥ 2`. The box says
 `c = 3` holds; nothing is conjectural about it, only unproved.
+
+**`428`: proved, and the coefficient is `2^(k−1)`, not `3`** —
+`Blindness.momentK_add_pow_mul_Noff_le_momentK_succ`. The `c = 3` guess above was
+read off a residue whose coefficients stop at `3`; the true one is exact and
+tight at the mass-`2` atom. Undecided residue `19 → 14`.

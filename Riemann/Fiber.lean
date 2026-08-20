@@ -10348,5 +10348,51 @@ theorem momentK_add_Noff_le_momentK_succ (D : ZeroData) {k : ℕ} (hk : 1 ≤ k)
     have hstep : D.H γ ^ (k + 1) = D.H γ ^ k * D.H γ := pow_succ _ _
     nlinarith [hpow, hle, hstep, h2]
 
+/-- **The sharpened moment ladder: each step pays `2^(k−1)` times the off-line
+mass.**  `SESSION 428`.
+
+`momentK k + 2^(k−1)·N_off ≤ momentK (k+1)` for every `k ≥ 1`, subsuming `426`'s
+`Blindness.momentK_add_Noff_le_momentK_succ`, which is the case `k = 1`.
+
+Per ordinate, with `H ≥ 2`: `2^(k−1) ≤ H^(k−1)` and `offAt ≤ H`, so the charge is
+at most `H^k`; and `H^k + H^k ≤ H^(k+1)` because `H ≥ 2`.  A simple zero has
+off-line mass `0` and the step is an equality there.
+
+**The coefficient is maximal**, and `427`'s box says so before the proof: at
+`k = 1…4`, `2^(k−1)` has `0` violations among `40919` admissible profiles at
+masses `1..9` with `14` attaining equality, while `2^(k−1) + 1` is refuted at
+each order.  The tight configuration is the mass-`2` atom, where
+`2^(k−1)·offAt = 2^k = H^k`. -/
+theorem momentK_add_pow_mul_Noff_le_momentK_succ (D : ZeroData) {k : ℕ} (hk : 1 ≤ k) :
+    momentK D k + 2 ^ (k - 1) * D.Noff ≤ momentK D (k + 1) := by
+  classical
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  rw [momentK, momentK, hoff, Nat.add_sub_cancel, Finset.mul_sum,
+    ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have h1 : 1 ≤ D.H γ := one_le_H_of_mem hγ
+  have hle : offAt D γ ≤ D.H γ := by
+    have := H_eq_onAt_add_offAt D γ; omega
+  by_cases hone : D.H γ = 1
+  · have hz : offAt D γ = 0 := by
+      obtain ⟨r, hr⟩ := even_offAt D γ; omega
+    simp [hone, hz]
+  · have h2 : 2 ≤ D.H γ := by omega
+    have hpow : 2 ^ j ≤ D.H γ ^ j := Nat.pow_le_pow_left h2 j
+    have hmul : 2 ^ j * offAt D γ ≤ D.H γ ^ (j + 1) := by
+      calc 2 ^ j * offAt D γ ≤ D.H γ ^ j * D.H γ :=
+            Nat.mul_le_mul hpow hle
+        _ = D.H γ ^ (j + 1) := (pow_succ _ _).symm
+    have hdouble : D.H γ ^ (j + 1) + D.H γ ^ (j + 1) ≤ D.H γ ^ (j + 1 + 1) := by
+      have : D.H γ ^ (j + 1 + 1) = D.H γ ^ (j + 1) * D.H γ := pow_succ _ _
+      rw [this]
+      have hp : 1 ≤ D.H γ ^ (j + 1) := Nat.one_le_pow _ _ (by omega)
+      calc D.H γ ^ (j + 1) + D.H γ ^ (j + 1) = 2 * D.H γ ^ (j + 1) := by ring
+        _ ≤ D.H γ * D.H γ ^ (j + 1) := Nat.mul_le_mul_right _ h2
+        _ = D.H γ ^ (j + 1) * D.H γ := by ring
+    omega
+
 end Blindness
 end Riemann

@@ -20889,3 +20889,40 @@ No Lean changed this cycle.
 **Might-mean:** the apparatus can now absorb the theorems it produces, so the
 loop between search and proof closes without a person carrying statements across
 it.
+
+## 428 — the sharpened ladder, and its coefficient is exactly `2^(k−1)`
+
+**Kill condition, stated first (`R12`).** Piece: `427`'s filed lead — the moment
+ladder with a coefficient better than `1`. Wildcard: find the largest
+coefficient the box allows, not merely a better one. Kill: if the ℕ powers fight, ship the
+`k ≥ 2` case at coefficient `2` and leave the general form filed.
+
+**The box named the coefficient before the proof.** At `k = 1…4`, `2^(k−1)` has
+`0` violations among `40919` admissible profiles at masses `1..9` with `14`
+attaining equality, and `2^(k−1) + 1` is refuted at every order. So the
+coefficient was pinned from both sides on the box, with the mass-`2` atom
+attaining it, before a line of Lean.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+`Blindness.momentK_add_pow_mul_Noff_le_momentK_succ` —
+`momentK k + 2^(k−1)·N_off ≤ momentK (k+1)` for every `k ≥ 1`. It subsumes
+`426`'s ladder, which is its case `k = 1`. Per ordinate with `H ≥ 2`:
+`2^(k−1) ≤ H^(k−1)` and `offAt ≤ H` make the charge at most `H^k`, and
+`H^k + H^k ≤ H^(k+1)` because `H ≥ 2`.
+
+**Snag, bin 2.** `nlinarith` would not close `2·H^(j+1) ≤ H^(j+1)·H` from
+`2 ≤ H`; the `calc` that does it is three lines and needs no search. `R33`: the
+tactic was not the obstacle, the shape of what it had to see was.
+
+**Snag, bin 1 — the reader needed one more fold.** `427`'s instantiator folds
+`A ^ a` but not `A ^ (a − b)`, so this theorem's `2 ^ (k − 1)` kept a `^` and the
+statement was skipped: the apparatus again could not read its own find, one cycle
+after `427` fixed the previous version of that. Folded; inventory `45 → 48`,
+undecided residue `19 → 14`.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** twice now the instrument has failed to read a theorem the
+the previous cycle proved, which suggests the reader should be tested against the
+last find rather than against the corpus.

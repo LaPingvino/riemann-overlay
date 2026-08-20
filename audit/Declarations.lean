@@ -1000,3 +1000,6 @@ import Riemann
 
 -- 426: the moment ladder pays the off-line mass at every step.
 #check @Riemann.Blindness.momentK_add_Noff_le_momentK_succ
+
+-- 428: the sharpened moment ladder, coefficient 2^(k-1).
+#check @Riemann.Blindness.momentK_add_pow_mul_Noff_le_momentK_succ

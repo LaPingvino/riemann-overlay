@@ -994,3 +994,6 @@ import Riemann
 
 -- 424: found by the Farkas step — strengthens Noff_add_oddAtoms_le_N.
 #check @Riemann.Blindness.Noff_add_onLineOrdinates_le_N
+
+-- 425: the off-line analogue of mass_charges_every_class, found by the LP.
+#check @Riemann.Blindness.Noff_add_onLine_charges_le_N

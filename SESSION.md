@@ -20767,3 +20767,41 @@ unfixed text — a fix that silently did not apply. Back to the floor `54`.
 
 **Might-mean:** `423` was wrong that `422` was the last cheap find — it was the
 last one findable *without* the LP, and the LP's first run produced another.
+
+## 425 — the sweep closes: `0` residues undecided
+
+**Kill condition, stated first (`R12`).** Piece: decide `424`'s remaining
+residues and prove what is real. Wildcard: a single theorem covering several of
+them. Kill: if the combined form needs a rewriting of `NscStd` that is not on
+disk, ship the separate weaker facts instead.
+
+**The kill condition fired, and the fallback was better than the plan.** The
+combined form I wanted included `NscStd` at weight `1`, and `NscStd` has no
+`card (filter (onAt = 1))` lemma on disk — only a `ℤ`-valued profile sum, which
+put the whole proof in `ℤ` and fought the `Finset` rewriting. Dropping the
+`NscStd` term gave a theorem that needs only the two class definitions, proves in
+ℕ, and still covers four of the six residues.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+`Blindness.Noff_add_onLine_charges_le_N` — `N_off + 3·oddAbove + 2·evenOnAt ≤ N`.
+Off-line mass charged in full, and each on-line class charged its **minimum
+on-line** mass: `oddAbove` means odd on-line mass other than `1`, hence `≥ 3`;
+`evenOnAt` means even non-zero, hence `≥ 2`; the classes are disjoint. The
+off-line analogue of `Blindness.mass_charges_every_class`, which charges total
+mass instead.
+
+`0` violations and `5984` tight profiles among `40919` at masses `1..9` — the
+coefficients were known maximal before the proof.
+
+**And then the sweep closed.** With this theorem in `equiv_check`'s inventory,
+`forensics/farkas.py` decides **every** residue of the three-term sweep: `393`
+residues, `0` undecided. `422`'s find, `424`'s and this one were the three facts
+the sweep had that the tree did not; the rest was always the inventory talking to
+itself.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** three cycles of search produced exactly three theorems and then
+stopped producing any, which is what a finished search looks like from the
+inside.

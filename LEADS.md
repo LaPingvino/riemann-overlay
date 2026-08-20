@@ -2656,5 +2656,8 @@ only unbuilt — and `416` is the precedent for how fast that kind of lead close
 once someone takes it as a wildcard.
 
 **`424`: built** (`forensics/farkas.py`), and it produced
-`Blindness.Noff_add_onLineOrdinates_le_N` on its first run. `17` further
-residues remain undecided against the tree; they are candidates, not findings.
+`Blindness.Noff_add_onLineOrdinates_le_N` on its first run.
+
+**`425`: closed.** `Blindness.Noff_add_onLine_charges_le_N` took the undecided
+residue to `0`. The three-term sweep is now entirely explained by the inventory;
+widening the shape again is the only way to ask it for more.

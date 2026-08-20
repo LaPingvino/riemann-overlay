@@ -10272,5 +10272,50 @@ theorem Noff_add_onLineOrdinates_le_N (D : ZeroData) :
   · simp only [hz, ne_eq, not_false_iff, if_true]
     omega
 
+/-- **`N_off + 3·oddAbove + 2·evenOnAt ≤ N`.**  `SESSION 425`.
+
+Off-line mass charged in full, and each on-line class charged its **minimum
+on-line** mass: an `oddAbove` ordinate has odd on-line mass other than `1`, hence
+at least `3`; an `evenOnAt` one has even non-zero on-line mass, hence at least
+`2`; the classes are disjoint.  The off-line analogue of
+`Blindness.mass_charges_every_class`, which charges *total* mass instead.
+
+**Found by `424`'s LP, in its second run.**  Adding `424`'s
+`Blindness.Noff_add_onLineOrdinates_le_N` to the cone took the undecided residue
+from `18` to `6`; this theorem covers four of the six, and the two it leaves are
+its own consequences.
+
+`0` violations and `5984` tight profiles among `40919` admissible ones at masses
+`1..9`, so the coefficients `3` and `2` were known maximal before the proof. -/
+theorem Noff_add_onLine_charges_le_N (D : ZeroData) :
+    D.Noff + 3 * oddAbove D + 2 * evenOnAt D ≤ D.N := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  rw [hoff, oddAbove, evenOnAt, Finset.card_filter, Finset.card_filter, hN,
+    Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  rcases Nat.even_or_odd (onAt D γ) with he | ho
+  · by_cases h0 : onAt D γ = 0
+    · rw [if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      omega
+    · have h2 : 2 ≤ onAt D γ := by rcases he with ⟨r, hr⟩; omega
+      rw [if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_pos ⟨he, h0⟩]
+      omega
+  · by_cases h1 : onAt D γ = 1
+    · rw [if_neg (by simp [h1] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      omega
+    · have h3 : 3 ≤ onAt D γ := by rcases ho with ⟨r, hr⟩; omega
+      rw [if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
+        if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
+          ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      omega
+
 end Blindness
 end Riemann

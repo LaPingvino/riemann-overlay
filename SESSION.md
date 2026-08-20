@@ -21047,3 +21047,39 @@ No Lean changed this cycle.
 
 **Might-mean:** the three rediscoveries this tool is calibrated on were all
 matches nobody queried, so what was missing was a search rather than judgement.
+
+## 432 — the same instrument, pointed backwards, measures nothing
+
+**Kill condition, stated first (`R12`).** Piece: run `431`'s matcher over the
+tree as a **retroactive** redundancy detector — same-shape groups whose
+conclusions differ textually are exactly the `412` pattern that
+`forensics/duplication_floor.py`'s exact matching cannot see. Kill: if the top
+pairs are legitimately distinct, report the rate and stop; do not dress a list of
+false positives as a backlog.
+
+**It fired.** Of `794` declarations, `73` fall into same-shape groups and `63` of
+those carry more than one distinct conclusion, giving `62` pairs — **eleven
+scoring `1.0`**. Two of the eleven, checked by hand:
+
+- `Basic.two_le_card_of_two_mem` and `Basic.three_le_card_of_three_mem`:
+  different arities, different constants, both wanted.
+- `Proportion.certified_offline` and
+  `Proportion.offline_via_derivative_family`: `OffLineImport zetaFamily 0.3275`
+  against `OffLineImport zetaFamily 0.14162` under three hypotheses.
+
+**Why the metric cannot work backwards.** The token score strips numerals — that
+is what makes it catch a name invented from real parts — and this project
+So a pair scoring `1.0` describes the tree's ordinary style, and the two I
+checked were both wanted — which is why this cycle reports a rate and proposes
+nothing.
+
+**The tool's docstring now says so at the location**: ask it about a statement
+you are about to write; do not ask it which of two existing declarations is
+redundant.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** a matcher calibrated to catch what a person is about to write
+does not invert into one that grades what they already wrote, because the corpus
+was built with the very repetition the matcher scores highest.

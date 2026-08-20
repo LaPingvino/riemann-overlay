@@ -511,4 +511,6 @@ It ranks the tree's declarations by conclusion **shape** and identifier overlap.
 Its three calibration cases are the arc's three rediscoveries — `412`'s
 `Riemann.starBound_of_mult_le`, `416`'s `Blindness.add_ordinates`, `430`'s
 `Blindness.Nsc_eq_sum_mass_one_nat` — and it fails loudly if any stops
-surfacing. A high score is a prompt to read, not a verdict.
+surfacing. A high score is a prompt to read, not a verdict. **`432`: prospective only** —
+run backwards it flags `62` pairs that are the project's own habit of stating a
+family at several constants.

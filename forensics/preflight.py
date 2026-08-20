@@ -25,6 +25,16 @@ matches loosely on purpose.
   shape that edit distance misses (`configAt_offAt` against
   `offAt_configAt_self`).
 
+**Prospective only, and `432` measured why.**  Run backwards over the tree as a
+redundancy detector, the same two scores flag `62` pairs at similarity `1.0` —
+and the ones checked by hand are legitimately distinct: `two_le_card_of_two_mem`
+against `three_le_card_of_three_mem`, `certified_offline` against
+`offline_via_derivative_family`.  The token score strips numerals, and this
+project deliberately states families at several constants, so *same shape, same
+identifiers* is its normal condition rather than a defect.  Ask this tool about a
+statement you are **about to write**; do not ask it which of two existing
+declarations is redundant.
+
 **Calibrated on the three rediscoveries above**, which run on every invocation:
 if the original does not surface for each, the tool has no discriminating power
 and says so rather than printing a ranking nobody should trust.

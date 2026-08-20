@@ -21346,3 +21346,38 @@ own proofs.
 **Might-mean:** the five-class vocabulary was a way of writing one truncation
 without a parameter, and having the parameter makes the proofs shorter than the
 special cases were.
+
+## 440 — the bridge, and two proofs become two lines
+
+**Kill condition, stated first (`R12`).** Piece: the identity `439` filed —
+`onCharge D 1` is the five-class charge. Wildcard: derive `430`'s bound and
+`436`'s equality case from the family. Kill: **if any statement changes, revert
+that one** — the condition `435` made mechanical, checked the same way.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+`Blindness.onCharge_one_eq_class_charge` — `onCharge D 1 = Nsc + hauntedCount +
+3·oddAbove + 2·evenOnAt`. The class weights are what the truncation at `k = 1`
+looks like written per class. `439` said this needs the per-class split; it does,
+and writing it **once** is the point.
+
+**The wildcard landed and it is the whole cycle's value.**
+`Blindness.Noff_add_every_class_charge_le_N` is now
+`Noff_add_onCharge_le_N D 1` plus a rewrite plus `omega`; `436`'s
+`Blindness.Noff_add_every_class_charge_eq_iff` is
+`Noff_add_onCharge_eq_iff D 1` plus the same rewrite. Two eight-way case splits
+deleted.
+
+**Measured: `199` lines removed against `111` added**, `0` statements changed,
+`0` declarations gone, one new — the bridge. The same mechanical check `435`
+introduced, run again because that is what makes *"nothing moved"* a fact rather
+than an impression.
+
+**`R23` did not fire.** I moved the whole family block above its consumers before
+touching them, as at `435`.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+Floors unmoved: warnings `54`, duplication `30`, overclaim `107`.
+
+**Might-mean:** the bridge cost one case split and retired two, so the price of
+the general statement was paid by the second special case rather than the first.

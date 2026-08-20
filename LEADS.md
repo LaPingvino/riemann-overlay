@@ -2691,3 +2691,7 @@ Proving it needs the per-class case split `436` wrote, which is what
 bridge, letting `430`'s and `437`'s class-form theorems be derived from the
 family rather than proved separately. Nothing about it is conjectural, only
 unbuilt.
+
+**`440`: built** — `Blindness.onCharge_one_eq_class_charge`. `430`'s bound and
+`436`'s equality case are now derived from the family, and their own case splits
+are gone. This lead is closed.

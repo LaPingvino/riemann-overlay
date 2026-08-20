@@ -10464,6 +10464,120 @@ theorem momentK_add_pow_mul_atomCount_le (D : ZeroData) (k : ℕ) :
     simp only [hone, if_false, mul_one, mul_zero, add_zero]
     omega
 
+/-- **The charge family `430`, `437` and `438` were instances of.**  `SESSION 439`.
+
+`438`'s might-mean: two charges into the same apparatus gave the same kind of
+answer with a different constant, so the object worth naming is the family.  Here
+it is — each ordinate charged its on-line mass, truncated at the largest value of
+its own parity not exceeding `2k + 1`.
+
+`430`'s five-class charge is the case `k = 1` and `437`'s is `k = 2`: the class
+weights `1, 1, 3, 2` and the `bigOn` bonus are what that truncation looks like
+when it is written per class instead of per ordinate. -/
+noncomputable def onCharge (D : ZeroData) (k : ℕ) : ℕ :=
+  ∑ γ ∈ D.ordinates.toFinset, min (onAt D γ) (2 * k + onAt D γ % 2)
+
+/-- Off-line mass in full plus the truncated on-line charge is at most `N`, for
+**every** `k` — one line of arithmetic per ordinate, since the truncation is a
+`min`. -/
+theorem Noff_add_onCharge_le_N (D : ZeroData) (k : ℕ) :
+    D.Noff + onCharge D k ≤ D.N := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  rw [hoff, onCharge, hN, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  have : min (onAt D γ) (2 * k + onAt D γ % 2) ≤ onAt D γ := Nat.min_le_left _ _
+  omega
+
+/-- **And it closes at `2k + 1`.**  `SESSION 439`.
+
+`436` proved the case `k = 1` (threshold `3`) with an eight-way split and `438`
+the case `k = 2` (threshold `5`) with another.  Stated over the family the whole
+thing is `min x y = x ↔ x ≤ y`, and the parity bookkeeping is one `omega`. -/
+theorem Noff_add_onCharge_eq_iff (D : ZeroData) (k : ℕ) :
+    D.Noff + onCharge D k = D.N ↔ ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ 2 * k + 1 := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have hterm : ∀ γ ∈ D.ordinates.toFinset,
+      offAt D γ + min (onAt D γ) (2 * k + onAt D γ % 2) ≤ D.H γ := by
+    intro γ _
+    have h := H_eq_onAt_add_offAt D γ
+    have : min (onAt D γ) (2 * k + onAt D γ % 2) ≤ onAt D γ := Nat.min_le_left _ _
+    omega
+  rw [hoff, onCharge, hN, ← Finset.sum_add_distrib,
+    Finset.sum_eq_sum_iff_of_le hterm]
+  constructor
+  · intro hall γ hγ
+    have hs := hall γ hγ
+    have h := H_eq_onAt_add_offAt D γ
+    have hmod : onAt D γ % 2 < 2 := Nat.mod_lt _ (by omega)
+    omega
+  · intro hall γ hγ
+    have hle := hall γ hγ
+    have h := H_eq_onAt_add_offAt D γ
+    have hmod := Nat.mod_two_eq_zero_or_one (onAt D γ)
+    have hm : onAt D γ ≤ 2 * k + onAt D γ % 2 := by omega
+    rw [Nat.min_eq_left hm]
+    omega
+
+/-- **The bridge `439` filed: the family at `k = 1` is the five-class charge.**
+`SESSION 440`.
+
+`Blindness.onCharge D 1 = Nsc + hauntedCount + 3·oddAbove + 2·evenOnAt`.  The
+class weights are what the truncation *at `k = 1`* looks like written per class:
+`1` for an ordinate with a single on-line zero, `3` for an odd one above that,
+`2` for an even non-zero one, `0` for one with no on-line mass.
+
+With it, `430`'s bound and `436`'s equality case are two-line consequences of
+`Blindness.Noff_add_onCharge_le_N` and `Blindness.Noff_add_onCharge_eq_iff`
+rather than eight-way case splits of their own. -/
+theorem onCharge_one_eq_class_charge (D : ZeroData) :
+    onCharge D 1 = D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D := by
+  classical
+  rw [onCharge, Nsc_eq_sum_mass_one_nat, hauntedCount, oddAbove, evenOnAt,
+    Finset.card_filter, Finset.card_filter, Finset.card_filter,
+    Finset.mul_sum, Finset.mul_sum]
+  rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun γ hγ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have hsub : D.H γ - offAt D γ = onAt D γ := by omega
+  rcases Nat.even_or_odd (onAt D γ) with he | ho
+  · obtain ⟨s, hs⟩ := id he
+    by_cases h0 : onAt D γ = 0
+    · rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub, h0] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      omega
+    · rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_pos ⟨he, h0⟩]
+      omega
+  · obtain ⟨s, hs⟩ := id ho
+    by_cases h1 : onAt D γ = 1
+    · rw [if_neg (by simp [h1] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      by_cases hH : D.H γ = 1
+      · rw [if_pos hH, if_neg (by simp [hH] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1))]
+        omega
+      · rw [if_neg hH, if_pos ⟨by omega, hH⟩]
+        omega
+    · rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
+        if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
+          ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      omega
+
 /-- **Off-line mass in full, and every on-line class charged its minimum.**
 `SESSION 430`.
 
@@ -10481,48 +10595,9 @@ again before `forensics/duplication_floor.py` said so.  It strengthens `Blindnes
 recovered terms, and `430`'s four-term sweep is what named it. -/
 theorem Noff_add_every_class_charge_le_N (D : ZeroData) :
     D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D ≤ D.N := by
-  classical
-  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
-    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
-  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
-  rw [hoff, Nsc_eq_sum_mass_one_nat, hauntedCount, oddAbove, evenOnAt,
-    Finset.card_filter, Finset.card_filter, Finset.card_filter, hN,
-    Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
-    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
-  refine Finset.sum_le_sum fun γ hγ => ?_
-  have h := H_eq_onAt_add_offAt D γ
-  have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
-  obtain ⟨r, hr⟩ := even_offAt D γ
-  have hsub : D.H γ - offAt D γ = onAt D γ := by omega
-  rcases Nat.even_or_odd (onAt D γ) with he | ho
-  · by_cases h0 : onAt D γ = 0
-    · rw [if_neg (by omega : ¬ D.H γ = 1),
-        if_neg (by simp [hsub, h0] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-        if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-      omega
-    · have h2 : 2 ≤ onAt D γ := by rcases he with ⟨r, hr⟩; omega
-      rw [if_neg (by omega : ¬ D.H γ = 1),
-        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-        if_pos ⟨he, h0⟩]
-      omega
-  · by_cases h1 : onAt D γ = 1
-    · rw [if_neg (by simp [h1] :
-          ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-        if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-      by_cases hH : D.H γ = 1
-      · rw [if_pos hH, if_neg (by simp [hH]: ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1))]
-        omega
-      · rw [if_neg hH, if_pos ⟨by omega, hH⟩]
-        omega
-    · have h3 : 3 ≤ onAt D γ := by rcases ho with ⟨r, hr⟩; omega
-      rw [if_neg (by omega : ¬ D.H γ = 1),
-        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-        if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
-        if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
-          ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-      omega
+  have h := Noff_add_onCharge_le_N D 1
+  rw [onCharge_one_eq_class_charge] at h
+  omega
 
 /-- **`430`'s inequality is attained, with all five classes and the off-line mass
 non-empty.**  `SESSION 433`.
@@ -10582,116 +10657,14 @@ in `430`'s bound comes from ordinates with four or more on-line zeros. -/
 theorem Noff_add_every_class_charge_eq_iff (D : ZeroData) :
     D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D = D.N
       ↔ ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ 3 := by
-  classical
-  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
-    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
-  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
-  have hterm : ∀ γ ∈ D.ordinates.toFinset,
-      offAt D γ + ((if D.H γ = 1 then 1 else 0)
-        + ((if D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1 then 1 else 0)
-        + (3 * (if ¬ Even (onAt D γ) ∧ onAt D γ ≠ 1 then 1 else 0)
-        + 2 * (if Even (onAt D γ) ∧ onAt D γ ≠ 0 then 1 else 0)))) ≤ D.H γ := by
-    intro γ hγ
-    have h := H_eq_onAt_add_offAt D γ
-    have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
-    obtain ⟨r, hr⟩ := even_offAt D γ
-    have hsub : D.H γ - offAt D γ = onAt D γ := by omega
-    rcases Nat.even_or_odd (onAt D γ) with he | ho
-    · by_cases h0 : onAt D γ = 0
-      · rw [if_neg (by omega : ¬ D.H γ = 1),
-          if_neg (by simp [hsub, h0] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-          if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-          if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-        omega
-      · have h2 : 2 ≤ onAt D γ := by rcases he with ⟨s, hs⟩; omega
-        rw [if_neg (by omega : ¬ D.H γ = 1),
-          if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-          if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-          if_pos ⟨he, h0⟩]
-        omega
-    · by_cases h1 : onAt D γ = 1
-      · rw [if_neg (by simp [h1] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-          if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-        by_cases hH : D.H γ = 1
-        · rw [if_pos hH, if_neg (by simp [hH] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1))]
-          omega
-        · rw [if_neg hH, if_pos ⟨by omega, hH⟩]
-          omega
-      · have h3 : 3 ≤ onAt D γ := by rcases ho with ⟨s, hs⟩; omega
-        rw [if_neg (by omega : ¬ D.H γ = 1),
-          if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-          if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
-          if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
-            ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-        omega
-  have hsum : D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D
-      = ∑ γ ∈ D.ordinates.toFinset, (offAt D γ + ((if D.H γ = 1 then 1 else 0)
-        + ((if D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1 then 1 else 0)
-        + (3 * (if ¬ Even (onAt D γ) ∧ onAt D γ ≠ 1 then 1 else 0)
-        + 2 * (if Even (onAt D γ) ∧ onAt D γ ≠ 0 then 1 else 0))))) := by
-    rw [hoff, Nsc_eq_sum_mass_one_nat, hauntedCount, oddAbove, evenOnAt,
-      Finset.card_filter, Finset.card_filter, Finset.card_filter,
-      Finset.mul_sum, Finset.mul_sum]
-    simp only [Finset.sum_add_distrib]
-    ring
-  rw [hsum, hN, Finset.sum_eq_sum_iff_of_le hterm]
+  have h := Noff_add_onCharge_eq_iff D 1
+  rw [onCharge_one_eq_class_charge] at h
   constructor
-  · intro hall γ hγ
-    have hs := hall γ hγ
-    have h := H_eq_onAt_add_offAt D γ
-    have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
-    obtain ⟨r, hr⟩ := even_offAt D γ
-    have hsub : D.H γ - offAt D γ = onAt D γ := by omega
-    by_contra hgt
-    have hgt : 4 ≤ onAt D γ := by omega
-    rcases Nat.even_or_odd (onAt D γ) with he | ho
-    · have h4 : 4 ≤ onAt D γ := by rcases he with ⟨s, hs2⟩; omega
-      rw [if_neg (by omega : ¬ D.H γ = 1),
-        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-        if_pos ⟨he, by omega⟩] at hs
-      omega
-    · have h5 : 5 ≤ onAt D γ := by rcases ho with ⟨s, hs2⟩; omega
-      rw [if_neg (by omega : ¬ D.H γ = 1),
-        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-        if_pos ⟨Nat.not_even_iff_odd.2 ho, by omega⟩,
-        if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
-          ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))] at hs
-      omega
-  · intro hall γ hγ
-    have hle := hall γ hγ
-    have h := H_eq_onAt_add_offAt D γ
-    have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
-    obtain ⟨r, hr⟩ := even_offAt D γ
-    have hsub : D.H γ - offAt D γ = onAt D γ := by omega
-    rcases Nat.even_or_odd (onAt D γ) with he | ho
-    · by_cases h0 : onAt D γ = 0
-      · rw [if_neg (by omega : ¬ D.H γ = 1),
-          if_neg (by simp [hsub, h0] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-          if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-          if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-        omega
-      · have h2 : onAt D γ = 2 := by rcases he with ⟨s, hs⟩; omega
-        rw [if_neg (by omega : ¬ D.H γ = 1),
-          if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-          if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-          if_pos ⟨he, h0⟩]
-        omega
-    · by_cases h1 : onAt D γ = 1
-      · rw [if_neg (by simp [h1] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
-          if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-        by_cases hH : D.H γ = 1
-        · rw [if_pos hH, if_neg (by simp [hH] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1))]
-          omega
-        · rw [if_neg hH, if_pos ⟨by omega, hH⟩]
-          omega
-      · have h3 : onAt D γ = 3 := by rcases ho with ⟨s, hs⟩; omega
-        rw [if_neg (by omega : ¬ D.H γ = 1),
-          if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
-          if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
-          if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
-            ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
-        omega
+  · intro he
+    exact h.1 (by omega)
+  · intro hc
+    have := h.2 hc
+    omega
 
 /-- **The ordinates `436` says the charge inequality cannot see.**  `SESSION 437`.
 
@@ -10897,67 +10870,6 @@ theorem Noff_add_class_charge_add_bigOn_eq_iff (D : ZeroData) :
     exact ((charge_term_le D hγ).2).1 (hall γ hγ)
   · intro hall γ hγ
     exact ((charge_term_le D hγ).2).2 (hall γ hγ)
-
-/-- **The charge family `430`, `437` and `438` were instances of.**  `SESSION 439`.
-
-`438`'s might-mean: two charges into the same apparatus gave the same kind of
-answer with a different constant, so the object worth naming is the family.  Here
-it is — each ordinate charged its on-line mass, truncated at the largest value of
-its own parity not exceeding `2k + 1`.
-
-`430`'s five-class charge is the case `k = 1` and `437`'s is `k = 2`: the class
-weights `1, 1, 3, 2` and the `bigOn` bonus are what that truncation looks like
-when it is written per class instead of per ordinate. -/
-noncomputable def onCharge (D : ZeroData) (k : ℕ) : ℕ :=
-  ∑ γ ∈ D.ordinates.toFinset, min (onAt D γ) (2 * k + onAt D γ % 2)
-
-/-- Off-line mass in full plus the truncated on-line charge is at most `N`, for
-**every** `k` — one line of arithmetic per ordinate, since the truncation is a
-`min`. -/
-theorem Noff_add_onCharge_le_N (D : ZeroData) (k : ℕ) :
-    D.Noff + onCharge D k ≤ D.N := by
-  classical
-  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
-    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
-  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
-  rw [hoff, onCharge, hN, ← Finset.sum_add_distrib]
-  refine Finset.sum_le_sum fun γ _ => ?_
-  have h := H_eq_onAt_add_offAt D γ
-  have : min (onAt D γ) (2 * k + onAt D γ % 2) ≤ onAt D γ := Nat.min_le_left _ _
-  omega
-
-/-- **And it closes at `2k + 1`.**  `SESSION 439`.
-
-`436` proved the case `k = 1` (threshold `3`) with an eight-way split and `438`
-the case `k = 2` (threshold `5`) with another.  Stated over the family the whole
-thing is `min x y = x ↔ x ≤ y`, and the parity bookkeeping is one `omega`. -/
-theorem Noff_add_onCharge_eq_iff (D : ZeroData) (k : ℕ) :
-    D.Noff + onCharge D k = D.N ↔ ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ 2 * k + 1 := by
-  classical
-  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
-    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
-  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
-  have hterm : ∀ γ ∈ D.ordinates.toFinset,
-      offAt D γ + min (onAt D γ) (2 * k + onAt D γ % 2) ≤ D.H γ := by
-    intro γ _
-    have h := H_eq_onAt_add_offAt D γ
-    have : min (onAt D γ) (2 * k + onAt D γ % 2) ≤ onAt D γ := Nat.min_le_left _ _
-    omega
-  rw [hoff, onCharge, hN, ← Finset.sum_add_distrib,
-    Finset.sum_eq_sum_iff_of_le hterm]
-  constructor
-  · intro hall γ hγ
-    have hs := hall γ hγ
-    have h := H_eq_onAt_add_offAt D γ
-    have hmod : onAt D γ % 2 < 2 := Nat.mod_lt _ (by omega)
-    omega
-  · intro hall γ hγ
-    have hle := hall γ hγ
-    have h := H_eq_onAt_add_offAt D γ
-    have hmod := Nat.mod_two_eq_zero_or_one (onAt D γ)
-    have hm : onAt D γ ≤ 2 * k + onAt D γ % 2 := by omega
-    rw [Nat.min_eq_left hm]
-    omega
 
 end Blindness
 end Riemann

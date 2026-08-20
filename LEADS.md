@@ -2681,3 +2681,13 @@ undecided residue `35 → 19`. What remains is one theorem: a **sharpened ladder
 `Blindness.momentK_add_pow_mul_Noff_le_momentK_succ`. The `c = 3` guess above was
 read off a residue whose coefficients stop at `3`; the true one is exact and
 tight at the mass-`2` atom. Undecided residue `19 → 14`.
+
+## `439` — is `onCharge D 1` the five-class charge?
+
+`Blindness.onCharge D 1 = D.Nsc + hauntedCount D + 3·oddAbove D + 2·evenOnAt D`
+holds on all `40919` admissible profiles at masses `1..9` and is **unproved**.
+Proving it needs the per-class case split `436` wrote, which is what
+`Blindness.onCharge` exists to avoid — so the identity is worth having only as a
+bridge, letting `430`'s and `437`'s class-form theorems be derived from the
+family rather than proved separately. Nothing about it is conjectural, only
+unbuilt.

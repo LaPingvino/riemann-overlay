@@ -21310,3 +21310,39 @@ exactly when"*, *"the shape of the answer does not change"*, *"both are exact"*.
 **Might-mean:** two charges into the same apparatus have now given the same kind
 of answer with a different constant, so the natural object is not either
 inequality but the family they belong to.
+
+## 439 — the family, and it collapses the proofs
+
+**Kill condition, stated first (`R12`).** Piece: `438`'s might-mean — two charges
+into the same apparatus gave the same kind of answer with a different constant,
+so name the family. Wildcard: prove the `k = 1` case **is** `430`'s five-class
+charge. Kill: if that identity needs the class decomposition re-derived, state
+the family, say the identity is unproved, and do not lean on the numerics.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.onCharge D k` — each ordinate charged its on-line mass truncated at
+  the largest value of its own parity not exceeding `2k + 1`.
+- `Blindness.Noff_add_onCharge_le_N` — the bound, for every `k`. **One line of
+  arithmetic per ordinate**, because the truncation is a `min`.
+- `Blindness.Noff_add_onCharge_eq_iff` — it closes iff `onAt ≤ 2k + 1`
+  everywhere.
+
+**What the generalisation cost, measured.** `436` proved the `k = 1` equality
+case with an eight-way case split and `438` proved `k = 2` with another. Stated
+over the family the whole thing is `min x y = x ↔ x ≤ y` plus one `omega` for the
+parity, and it covers every `k` at once. Two long proofs were the price of not
+having the parameter.
+
+**The wildcard did not land, and the kill condition says how to leave it.** The
+identity `onCharge D 1 = Nsc + hauntedCount + 3·oddAbove + 2·evenOnAt` holds on
+all `40919` profiles at masses `1..9` and is **not proved**: it needs the same
+per-class split `436` wrote, which is exactly what the family was introduced to
+avoid. Filed as an observation, not a claim, and `430`'s theorems stand on their
+own proofs.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** the five-class vocabulary was a way of writing one truncation
+without a parameter, and having the parameter makes the proofs shorter than the
+special cases were.

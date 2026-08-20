@@ -1029,3 +1029,8 @@ import Riemann
 
 -- 438: 437's charge closes at on-line mass 5.
 #check @Riemann.Blindness.Noff_add_class_charge_add_bigOn_eq_iff
+
+-- 439: the charge family 430/437/438 were instances of.
+#check @Riemann.Blindness.onCharge
+#check @Riemann.Blindness.Noff_add_onCharge_le_N
+#check @Riemann.Blindness.Noff_add_onCharge_eq_iff

@@ -10898,5 +10898,66 @@ theorem Noff_add_class_charge_add_bigOn_eq_iff (D : ZeroData) :
   · intro hall γ hγ
     exact ((charge_term_le D hγ).2).2 (hall γ hγ)
 
+/-- **The charge family `430`, `437` and `438` were instances of.**  `SESSION 439`.
+
+`438`'s might-mean: two charges into the same apparatus gave the same kind of
+answer with a different constant, so the object worth naming is the family.  Here
+it is — each ordinate charged its on-line mass, truncated at the largest value of
+its own parity not exceeding `2k + 1`.
+
+`430`'s five-class charge is the case `k = 1` and `437`'s is `k = 2`: the class
+weights `1, 1, 3, 2` and the `bigOn` bonus are what that truncation looks like
+when it is written per class instead of per ordinate. -/
+noncomputable def onCharge (D : ZeroData) (k : ℕ) : ℕ :=
+  ∑ γ ∈ D.ordinates.toFinset, min (onAt D γ) (2 * k + onAt D γ % 2)
+
+/-- Off-line mass in full plus the truncated on-line charge is at most `N`, for
+**every** `k` — one line of arithmetic per ordinate, since the truncation is a
+`min`. -/
+theorem Noff_add_onCharge_le_N (D : ZeroData) (k : ℕ) :
+    D.Noff + onCharge D k ≤ D.N := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  rw [hoff, onCharge, hN, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ _ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  have : min (onAt D γ) (2 * k + onAt D γ % 2) ≤ onAt D γ := Nat.min_le_left _ _
+  omega
+
+/-- **And it closes at `2k + 1`.**  `SESSION 439`.
+
+`436` proved the case `k = 1` (threshold `3`) with an eight-way split and `438`
+the case `k = 2` (threshold `5`) with another.  Stated over the family the whole
+thing is `min x y = x ↔ x ≤ y`, and the parity bookkeeping is one `omega`. -/
+theorem Noff_add_onCharge_eq_iff (D : ZeroData) (k : ℕ) :
+    D.Noff + onCharge D k = D.N ↔ ∀ γ ∈ D.ordinates.toFinset, onAt D γ ≤ 2 * k + 1 := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  have hterm : ∀ γ ∈ D.ordinates.toFinset,
+      offAt D γ + min (onAt D γ) (2 * k + onAt D γ % 2) ≤ D.H γ := by
+    intro γ _
+    have h := H_eq_onAt_add_offAt D γ
+    have : min (onAt D γ) (2 * k + onAt D γ % 2) ≤ onAt D γ := Nat.min_le_left _ _
+    omega
+  rw [hoff, onCharge, hN, ← Finset.sum_add_distrib,
+    Finset.sum_eq_sum_iff_of_le hterm]
+  constructor
+  · intro hall γ hγ
+    have hs := hall γ hγ
+    have h := H_eq_onAt_add_offAt D γ
+    have hmod : onAt D γ % 2 < 2 := Nat.mod_lt _ (by omega)
+    omega
+  · intro hall γ hγ
+    have hle := hall γ hγ
+    have h := H_eq_onAt_add_offAt D γ
+    have hmod := Nat.mod_two_eq_zero_or_one (onAt D γ)
+    have hm : onAt D γ ≤ 2 * k + onAt D γ % 2 := by omega
+    rw [Nat.min_eq_left hm]
+    omega
+
 end Blindness
 end Riemann

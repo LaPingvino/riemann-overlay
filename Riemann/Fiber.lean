@@ -10500,5 +10500,61 @@ theorem Noff_add_every_class_charge_le_N (D : ZeroData) :
           ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
       omega
 
+/-- **`430`'s inequality is attained, with all five classes and the off-line mass
+non-empty.**  `SESSION 433`.
+
+The profile `{(1,0), (3,2), (3,0), (2,0), (2,2)}` again — the one `418` used for
+`Blindness.chain_all_strict` and `419` for `Blindness.mass_charges_sharp`. Each
+of its five ordinates sits in one class and carries exactly that class's minimum
+on-line mass, so the charge equals the mass everywhere and the sum is `11 = 11`. -/
+theorem Noff_add_every_class_charge_sharp {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData,
+      D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D = D.N
+      ∧ 0 < D.Noff ∧ 0 < D.Nsc ∧ 0 < hauntedCount D ∧ 0 < oddAbove D
+      ∧ 0 < evenOnAt D ∧ 0 < offLineOnly D := by
+  classical
+  obtain ⟨D, hD⟩ := exists_profile_of_list a ha
+    [(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] (by decide)
+  have h1 : D.Nsc = 1 := by
+    rw [Nsc_eq_sum_mass_one_nat]
+    rw [show (∑ γ ∈ D.ordinates.toFinset, (if D.H γ = 1 then 1 else 0))
+        = Multiset.card ((profile D).filter fun q => q.1 = 1) from ?_, hD]
+    · decide
+    · rw [profile, Multiset.filter_map, Multiset.card_map, ← Finset.card_filter]
+      rfl
+  have h2 : hauntedCount D = 1 := by rw [hauntedCount_from_profile, hD]; decide
+  have h3 : oddAbove D = 1 := by rw [oddAbove_from_profile, hD]; decide
+  have h4 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
+  have h5 : offLineOnly D = 1 := by rw [offLineOnly_from_profile, hD]; decide
+  have h6 : D.N = 11 := by rw [N_from_profile, hD]; decide
+  have h7 : D.Noff = 4 := by rw [Noff_from_profile, hD]; decide
+  exact ⟨D, by omega, by omega, by omega, by omega, by omega, by omega, by omega⟩
+
+/-- **And none of the six weights can be raised.**  `SESSION 433`.
+
+Equality with every class occupied refutes each increment at the same
+`ZeroData`: `N_off`'s weight `1`, the four class weights `1, 1, 3, 2`, and the
+`0` on `offLineOnly` — the last being the statement that an ordinate with no
+on-line mass may not be charged at all.
+
+Same argument as `419`'s `Blindness.mass_charges_coefficients_maximal`, and the
+same witness. -/
+theorem Noff_add_every_class_charge_maximal {a : ℝ} (ha : a ≠ 1/2) :
+    ∃ D : ZeroData,
+      ¬ (2 * D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D
+          + 2 * evenOnAt D ≤ D.N)
+      ∧ ¬ (D.Noff + 2 * D.Nsc + hauntedCount D + 3 * oddAbove D
+          + 2 * evenOnAt D ≤ D.N)
+      ∧ ¬ (D.Noff + D.Nsc + 2 * hauntedCount D + 3 * oddAbove D
+          + 2 * evenOnAt D ≤ D.N)
+      ∧ ¬ (D.Noff + D.Nsc + hauntedCount D + 4 * oddAbove D
+          + 2 * evenOnAt D ≤ D.N)
+      ∧ ¬ (D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D
+          + 3 * evenOnAt D ≤ D.N)
+      ∧ ¬ (D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D
+          + 2 * evenOnAt D + offLineOnly D ≤ D.N) := by
+  obtain ⟨D, heq, hoff, hs, hh, ho, he, hf⟩ := Noff_add_every_class_charge_sharp ha
+  refine ⟨D, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> omega
+
 end Blindness
 end Riemann

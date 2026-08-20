@@ -21083,3 +21083,38 @@ No Lean changed this cycle.
 **Might-mean:** a matcher calibrated to catch what a person is about to write
 does not invert into one that grades what they already wrote, because the corpus
 was built with the very repetition the matcher scores highest.
+
+## 433 — `430`'s weights are maximal, on the same five-element witness
+
+**Kill condition, stated first (`R12`).** Piece: `430` proved
+`N_off + Nsc + hauntedCount + 3·oddAbove + 2·evenOnAt ≤ N` and did not show the
+weights maximal. Do `419`'s argument for it. Wildcard: the `0` on `offLineOnly`
+— can *it* be raised? Kill: if the attaining witness leaves a class empty, claim
+maximality only for the weights it exercises and name the gap.
+
+**Ran `431`'s pre-flight query first**, which is what it is for. The top hit was
+`430`'s own theorem at `0.85` and the next two were `419`'s sharpness pair, which
+is the right neighbourhood and no duplicate.
+
+**Installed, `8862` jobs green, sorries `0`:**
+
+- `Blindness.Noff_add_every_class_charge_sharp` — the profile
+  `{(1,0), (3,2), (3,0), (2,0), (2,2)}` attains it at `11 = 11`, with `N_off` and
+  all five class counts non-zero. The **third** question this one five-element
+  list has answered, after `418`'s chain strictness and `419`'s charge
+  maximality.
+- `Blindness.Noff_add_every_class_charge_maximal` — hence **six** refutations
+  from that witness: the weight on `N_off`, the four class weights, and the `0`
+  on `offLineOnly`. The last is the wildcard, and it is the statement that an
+  ordinate with no on-line mass may not be charged at all.
+
+**Snag, bin 2.** The `N_off` weight's maximality needs `0 < N_off`, which I had
+not put in the sharpness theorem — five class positivities and not the sixth.
+`omega`'s counterexample named the missing variable, which is the useful half of
+half of a failed `omega`.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** one profile chosen to occupy every class has now settled three
+unrelated questions, so the expensive object in this apparatus is the witness
+rather than the argument.

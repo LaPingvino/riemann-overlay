@@ -1009,3 +1009,7 @@ import Riemann
 
 -- 430: the full class-charge inequality 425 had to drop.
 #check @Riemann.Blindness.Noff_add_every_class_charge_le_N
+
+-- 433: 430's inequality attained, and all six weights maximal.
+#check @Riemann.Blindness.Noff_add_every_class_charge_sharp
+#check @Riemann.Blindness.Noff_add_every_class_charge_maximal

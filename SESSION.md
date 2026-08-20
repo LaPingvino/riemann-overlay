@@ -21004,3 +21004,46 @@ guard rather than by reading.
 **Might-mean:** `425` deferred this theorem for a lemma that already existed, so
 the kill condition cost a cycle not because the mathematics was missing but
 because nobody searched for the cast.
+
+## 431 — ask before proving
+
+**Kill condition, stated first (`R12`).** Piece: an instrument for the defect
+this arc has measured four times — a rediscovery, caught by a guard *after* the
+proof. Wildcard: does it work prospectively, on a statement it was not built
+around? Kill: if the three known rediscoveries stay out of its
+top hits, report that the ranking discriminates nothing and ship nothing.
+
+**The measured defect.** `412` rewrote `098`'s `Riemann.starBound_of_mult_le`;
+`416` rewrote `Blindness.add_ordinates`, twenty lines below the definition it is
+about; `425` **deferred a theorem** for want of
+`Blindness.Nsc_eq_sum_mass_one_nat`, `429` wrote that conversion inline, and
+`430` wrote the lemma again. `forensics/duplication_floor.py` matches conclusions
+**exactly**, so it catches only the last of those, and only afterwards.
+
+**`forensics/preflight.py`.** Two scores over the statement index's conclusions,
+computed with `412`'s depth-counted split so a cast does not truncate them:
+
+- **shape** — names and numerals stripped, so `A ≤ B + C` collides with
+  `X ≤ Y + Z`;
+- **tokens** — identifier overlap, `410`'s metric, the one that catches a name
+  invented from real parts where edit distance ranks it nowhere.
+
+**Calibrated on the three rediscoveries, and it found all three on the first
+run.** Those cases run on every invocation; if one stops surfacing, the tool
+reports a harness failure rather than a ranking nobody should trust.
+
+**The wildcard survived.** Asked about `430`'s own statement it returns that
+declaration first at identical shape, `425`'s weaker version second, and the rest
+of the charge family after — which is what `425` would have needed to see.
+
+**Not rostered.** It is a query rather than a check — its calibration is the one
+thing that can fail — and `373` is clear about what a guard that has not gone red
+is worth. It is also **not a rule** — the arc's own evidence is that the reflex to
+write a rule is what `409`'s brief warned about; the answer to a repeated miss is
+a thing you can run.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** the three rediscoveries this tool is calibrated on were all
+matches nobody queried, so what was missing was a search rather than judgement.

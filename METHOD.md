@@ -498,3 +498,17 @@ And **the kill condition must name which side it blames first.** `140`'s said
 the counting function is checked first."* It fired, the counting check passed,
 and the remaining branch was the answer. A kill condition that only says
 "something is wrong" would have cost a cycle of searching.
+
+## `431` — the pre-flight query
+
+Before writing a proof, run
+
+```
+python3 forensics/preflight.py '<the statement you are about to prove>'
+```
+
+It ranks the tree's declarations by conclusion **shape** and identifier overlap.
+Its three calibration cases are the arc's three rediscoveries — `412`'s
+`Riemann.starBound_of_mult_le`, `416`'s `Blindness.add_ordinates`, `430`'s
+`Blindness.Nsc_eq_sum_mass_one_nat` — and it fails loudly if any stops
+surfacing. A high score is a prompt to read, not a verdict.

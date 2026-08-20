@@ -1026,3 +1026,6 @@ import Riemann
 #check @Riemann.Blindness.bigOn
 #check @Riemann.Blindness.Noff_add_class_charge_add_bigOn_le_N
 #check @Riemann.Blindness.bigOn_coefficient_maximal
+
+-- 438: 437's charge closes at on-line mass 5.
+#check @Riemann.Blindness.Noff_add_class_charge_add_bigOn_eq_iff

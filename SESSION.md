@@ -21276,3 +21276,37 @@ same file, does the same job with `show` plus `Multiset.filter_congr`. Copied it
 
 **Might-mean:** an equality characterisation is a map of where a bound is loose,
 so the cycle after one should be the cycle that charges what it names.
+
+## 438 — the threshold moves from `3` to `5`
+
+**Kill condition, stated first (`R12`).** Piece: `437`'s might-mean said the
+cycle after an equality characterisation should charge what it names, and the
+cycle after **that** should characterise the new equality. Do it. Wildcard: does
+the answer keep its shape — a single bound on `onAt` — or fragment into a
+condition per class? Kill: if it fragments, state the per-class version and drop
+the claim that the apparatus has one degree of freedom.
+
+**It kept its shape.** `Blindness.Noff_add_class_charge_add_bigOn_eq_iff` —
+`437`'s sharpened inequality is an equality **iff every ordinate has
+`onAt ≤ 5`**. `430`'s closed at `3`, and adding `2·bigOn` moves the threshold to `5`.
+
+The arithmetic: an even ordinate at `onAt = 4` is charged `2 + 2 = 4`, an odd one
+at `5` is charged `3 + 2 = 5`, while at `6` and `7` the charge stalls at `4` and
+`5`.
+
+**One lemma, both halves.** `436` proved its bound and its converse as two
+separate eight-way case splits. `438`'s `charge_term_le` is one split returning a
+conjunction, and the theorem above it is four lines.
+`0` mismatches across `40919` profiles at masses `1..11` said the threshold was
+`5` before any of it was written.
+
+**Snag, bin 3 — three overclaims in one docstring pair.** *"equals the mass
+exactly when"*, *"the shape of the answer does not change"*, *"both are exact"*.
+`overclaim_floor` took them one at a time and I fixed them one at a time; a
+`git stash` diff of the flag sets found the third, which reading had not.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** two charges into the same apparatus have now given the same kind
+of answer with a different constant, so the natural object is not either
+inequality but the family they belong to.

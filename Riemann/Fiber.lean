@@ -10094,6 +10094,61 @@ theorem exists_atomCount_N {a : ℝ} (ha : a ≠ 1/2) {c n : ℕ} (hc : 1 ≤ c)
     simp [hLdef]
     omega
 
+/-- **The five-class witness, named.**  `SESSION 434`.
+
+`418` built the profile `{(1,0), (3,2), (3,0), (2,0), (2,2)}` for
+`Blindness.chain_all_strict`, `419` reused it for
+`Blindness.mass_charges_sharp` and `433` for
+`Blindness.Noff_add_every_class_charge_sharp` — three unrelated questions, one
+list, rebuilt each time with its counts re-derived.  `433`'s might-mean said the
+expensive object here is the witness rather than the argument; this is the
+witness.
+
+One ordinate per class: simple, haunted, odd-above, even-on-line, and off-line
+only, each carrying exactly its class's minimum on-line mass.  Written in
+`Blindness.nAtom`'s `(on, off-pairs)` coordinates, which is why the list here
+reads `(1,0), (1,1), (3,0), (2,0), (0,1)`. -/
+noncomputable def pentad (a : ℝ) : ZeroData :=
+  nAtom a [(1, 0), (1, 1), (3, 0), (2, 0), (0, 1)] 0
+
+/-- Its profile, in `(mass, off-line mass)` coordinates. -/
+lemma pentad_profile {a : ℝ} (ha : a ≠ 1/2) :
+    profile (pentad a) = ([(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] : List (ℕ × ℕ)) := by
+  rw [pentad, nAtom_profile a ha _ 0 (by decide)]
+  decide
+
+/-- **Every count of the witness, once.**  `SESSION 434`.
+
+`N = 11`, `N_off = 4`, and each of the five classes exactly `1`, with
+`atomCount = 5`, `oddAtoms = 3`, `NscStd = 2`.  The three sharpness theorems
+above re-derived these by hand; a fourth question can now read them off. -/
+lemma pentad_counts {a : ℝ} (ha : a ≠ 1/2) :
+    (pentad a).N = 11 ∧ (pentad a).Noff = 4 ∧ (pentad a).Nsc = 1
+      ∧ hauntedCount (pentad a) = 1 ∧ oddAbove (pentad a) = 1
+      ∧ evenOnAt (pentad a) = 1 ∧ offLineOnly (pentad a) = 1
+      ∧ atomCount (pentad a) = 5 ∧ oddAtoms (pentad a) = 3
+      ∧ (pentad a).NscStd = 2 := by
+  classical
+  have hp := pentad_profile ha
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [N_from_profile, hp]; decide
+  · rw [Noff_from_profile, hp]; decide
+  · rw [Nsc_eq_sum_mass_one_nat,
+      show (∑ γ ∈ (pentad a).ordinates.toFinset,
+          (if (pentad a).H γ = 1 then 1 else 0))
+        = Multiset.card ((profile (pentad a)).filter fun q => q.1 = 1) from ?_, hp]
+    · decide
+    · rw [profile, Multiset.filter_map, Multiset.card_map, ← Finset.card_filter]
+      rfl
+  · rw [hauntedCount_from_profile, hp]; decide
+  · rw [oddAbove_from_profile, hp]; decide
+  · rw [evenOnAt_from_profile, hp]; decide
+  · rw [offLineOnly_from_profile, hp]; decide
+  · rw [atomCount_eq_card_profile, hp]; decide
+  · rw [oddAtoms_from_profile, hp]; decide
+  · have h : ((pentad a).NscStd : ℤ) = 2 := by rw [NscStd_from_profile, hp]; decide
+    exact_mod_cast h
+
 /-- **Every link of the counting chain can be strict at once.**  `SESSION 418`.
 
 The chain is `Nsc ≤ NscStd ≤ oddAtoms ≤ onLineOrdinates ≤ atomCount ≤ N`.  The
@@ -10108,26 +10163,11 @@ theorem chain_all_strict {a : ℝ} (ha : a ≠ 1/2) :
     ∃ D : ZeroData, D.Nsc < D.NscStd ∧ D.NscStd < oddAtoms D
       ∧ oddAtoms D < onLineOrdinates D ∧ onLineOrdinates D < atomCount D
       ∧ atomCount D < D.N := by
-  classical
-  obtain ⟨D, hD⟩ := exists_profile_of_list a ha
-    [(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] (by decide)
-  refine ⟨D, ?_, ?_, ?_, ?_, ?_⟩
-  · have h1 : (D.Nsc : ℤ) = 1 := by rw [Nsc_from_profile, hD]; decide
-    have h2 : (D.NscStd : ℤ) = 2 := by rw [NscStd_from_profile, hD]; decide
-    omega
-  · have h2 : (D.NscStd : ℤ) = 2 := by rw [NscStd_from_profile, hD]; decide
-    have h3 : oddAtoms D = 3 := by rw [oddAtoms_from_profile, hD]; decide
-    omega
-  · have h3 : oddAtoms D = 3 := by rw [oddAtoms_from_profile, hD]; decide
-    have h4 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
-    rw [onLineOrdinates_eq_oddAtoms_add_evenOnAt, h3, h4]; omega
-  · have h3 : oddAtoms D = 3 := by rw [oddAtoms_from_profile, hD]; decide
-    have h4 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
-    have h5 : atomCount D = 5 := by rw [atomCount_eq_card_profile, hD]; decide
-    rw [onLineOrdinates_eq_oddAtoms_add_evenOnAt, h3, h4, h5]; omega
-  · have h5 : atomCount D = 5 := by rw [atomCount_eq_card_profile, hD]; decide
-    have h6 : D.N = 11 := by rw [N_from_profile, hD]; decide
-    omega
+  obtain ⟨hN, -, hNsc, -, -, -, -, hA, hOdd, hStd⟩ := pentad_counts ha
+  have hOn : onLineOrdinates (pentad a) = 4 := by
+    obtain ⟨-, -, -, -, -, hE, -, -, hO, -⟩ := pentad_counts ha
+    rw [onLineOrdinates_eq_oddAtoms_add_evenOnAt, hO, hE]
+  exact ⟨pentad a, by omega, by omega, by omega, by omega, by omega⟩
 
 /-- **And every link can be an equality at once.**  `SESSION 418`.
 
@@ -10168,16 +10208,8 @@ theorem mass_charges_sharp {a : ℝ} (ha : a ≠ 1/2) :
         + atomCount D = D.N
       ∧ 0 < hauntedCount D ∧ 0 < oddAbove D ∧ 0 < evenOnAt D
       ∧ 0 < offLineOnly D := by
-  classical
-  obtain ⟨D, hD⟩ := exists_profile_of_list a ha
-    [(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] (by decide)
-  have h1 : hauntedCount D = 1 := by rw [hauntedCount_from_profile, hD]; decide
-  have h2 : oddAbove D = 1 := by rw [oddAbove_from_profile, hD]; decide
-  have h3 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
-  have h4 : offLineOnly D = 1 := by rw [offLineOnly_from_profile, hD]; decide
-  have h5 : atomCount D = 5 := by rw [atomCount_eq_card_profile, hD]; decide
-  have h6 : D.N = 11 := by rw [N_from_profile, hD]; decide
-  exact ⟨D, by omega, by omega, by omega, by omega, by omega⟩
+  obtain ⟨hN, -, -, hH, hO, hE, hF, hA, -, -⟩ := pentad_counts ha
+  exact ⟨pentad a, by omega, by omega, by omega, by omega, by omega⟩
 
 /-- **And no coefficient can be raised.**  `SESSION 419`.
 
@@ -10198,16 +10230,8 @@ theorem mass_charges_coefficients_maximal {a : ℝ} (ha : a ≠ 1/2) :
           + atomCount D ≤ D.N)
       ∧ ¬ (2 * hauntedCount D + 2 * oddAbove D + evenOnAt D + offLineOnly D
           + 2 * atomCount D ≤ D.N) := by
-  classical
-  obtain ⟨D, hD⟩ := exists_profile_of_list a ha
-    [(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] (by decide)
-  have h1 : hauntedCount D = 1 := by rw [hauntedCount_from_profile, hD]; decide
-  have h2 : oddAbove D = 1 := by rw [oddAbove_from_profile, hD]; decide
-  have h3 : evenOnAt D = 1 := by rw [evenOnAt_from_profile, hD]; decide
-  have h4 : offLineOnly D = 1 := by rw [offLineOnly_from_profile, hD]; decide
-  have h5 : atomCount D = 5 := by rw [atomCount_eq_card_profile, hD]; decide
-  have h6 : D.N = 11 := by rw [N_from_profile, hD]; decide
-  exact ⟨D, by omega, by omega, by omega, by omega, by omega⟩
+  obtain ⟨hN, -, -, hH, hO, hE, hF, hA, -, -⟩ := pentad_counts ha
+  refine ⟨pentad a, ?_, ?_, ?_, ?_, ?_⟩ <;> omega
 
 /-- **Haunted and off-line-only ordinates each cost two off-line zeros, and they
 are disjoint.**  `SESSION 422`.
@@ -10499,61 +10523,6 @@ theorem Noff_add_every_class_charge_le_N (D : ZeroData) :
         if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
           ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
       omega
-
-/-- **The five-class witness, named.**  `SESSION 434`.
-
-`418` built the profile `{(1,0), (3,2), (3,0), (2,0), (2,2)}` for
-`Blindness.chain_all_strict`, `419` reused it for
-`Blindness.mass_charges_sharp` and `433` for
-`Blindness.Noff_add_every_class_charge_sharp` — three unrelated questions, one
-list, rebuilt each time with its counts re-derived.  `433`'s might-mean said the
-expensive object here is the witness rather than the argument; this is the
-witness.
-
-One ordinate per class: simple, haunted, odd-above, even-on-line, and off-line
-only, each carrying exactly its class's minimum on-line mass.  Written in
-`Blindness.nAtom`'s `(on, off-pairs)` coordinates, which is why the list here
-reads `(1,0), (1,1), (3,0), (2,0), (0,1)`. -/
-noncomputable def pentad (a : ℝ) : ZeroData :=
-  nAtom a [(1, 0), (1, 1), (3, 0), (2, 0), (0, 1)] 0
-
-/-- Its profile, in `(mass, off-line mass)` coordinates. -/
-lemma pentad_profile {a : ℝ} (ha : a ≠ 1/2) :
-    profile (pentad a) = ([(1, 0), (3, 2), (3, 0), (2, 0), (2, 2)] : List (ℕ × ℕ)) := by
-  rw [pentad, nAtom_profile a ha _ 0 (by decide)]
-  decide
-
-/-- **Every count of the witness, once.**  `SESSION 434`.
-
-`N = 11`, `N_off = 4`, and each of the five classes exactly `1`, with
-`atomCount = 5`, `oddAtoms = 3`, `NscStd = 2`.  The three sharpness theorems
-above re-derived these by hand; a fourth question can now read them off. -/
-lemma pentad_counts {a : ℝ} (ha : a ≠ 1/2) :
-    (pentad a).N = 11 ∧ (pentad a).Noff = 4 ∧ (pentad a).Nsc = 1
-      ∧ hauntedCount (pentad a) = 1 ∧ oddAbove (pentad a) = 1
-      ∧ evenOnAt (pentad a) = 1 ∧ offLineOnly (pentad a) = 1
-      ∧ atomCount (pentad a) = 5 ∧ oddAtoms (pentad a) = 3
-      ∧ (pentad a).NscStd = 2 := by
-  classical
-  have hp := pentad_profile ha
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · rw [N_from_profile, hp]; decide
-  · rw [Noff_from_profile, hp]; decide
-  · rw [Nsc_eq_sum_mass_one_nat,
-      show (∑ γ ∈ (pentad a).ordinates.toFinset,
-          (if (pentad a).H γ = 1 then 1 else 0))
-        = Multiset.card ((profile (pentad a)).filter fun q => q.1 = 1) from ?_, hp]
-    · decide
-    · rw [profile, Multiset.filter_map, Multiset.card_map, ← Finset.card_filter]
-      rfl
-  · rw [hauntedCount_from_profile, hp]; decide
-  · rw [oddAbove_from_profile, hp]; decide
-  · rw [evenOnAt_from_profile, hp]; decide
-  · rw [offLineOnly_from_profile, hp]; decide
-  · rw [atomCount_eq_card_profile, hp]; decide
-  · rw [oddAtoms_from_profile, hp]; decide
-  · have h : ((pentad a).NscStd : ℤ) = 2 := by rw [NscStd_from_profile, hp]; decide
-    exact_mod_cast h
 
 /-- **`430`'s inequality is attained, with all five classes and the off-line mass
 non-empty.**  `SESSION 433`.

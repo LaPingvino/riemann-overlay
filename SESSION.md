@@ -21157,3 +21157,43 @@ other three.
 **Might-mean:** `434` treats the three sharpness theorems as one configuration
 asked three questions, which makes the fourth question cost a `rw`.
 question cost a `rw`.
+
+## 435 — the other three consumers
+
+**Kill condition, stated first (`R12`).** Piece: `434` named the witness and
+routed one proof through it; route the rest. Wildcard: does anything else in the
+tree rebuild a bespoke witness? Kill: **if any statement changes, revert that
+one** — the same condition as `434`, checked mechanically this time rather than
+by eye.
+
+**Four proofs now read the counts instead of re-deriving them.**
+`Blindness.chain_all_strict` (`418`), `Blindness.mass_charges_sharp` and
+`Blindness.mass_charges_coefficients_maximal` (`419`), and `433`'s pair. Net
+**`95` lines removed against `64` added**.
+
+**Checked mechanically.** A script compared every `theorem`/`lemma` head in
+`Riemann/Fiber.lean` against `HEAD`: **`0` statements changed, `0` declarations
+gone, `0` new.** That is the kill condition tested rather than asserted —
+`R17` applies to my own edits as much as to a build.
+
+**The wildcard found the fourth consumer.**
+`Blindness.mass_charges_coefficients_maximal` was still building the same
+five-element list by hand two hundred lines below `419`'s sharpness theorem that
+had just built it. Routed as well.
+
+**`Blindness.exists_profile_of_list` still has two honest callers**:
+`Blindness.chain_all_collapse`, whose witness is the single simple zero `{(1,0)}`
+and needs no name, and `Blindness.exists_atomCount_N`, whose profile is
+parameterised by `c` and `n`. Neither is a rebuild of the pentad.
+
+**`R23` did not fire this time**, because I moved the definition above **all**
+its consumers before touching any of them rather than above the first one — the
+lesson `434` paid for.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+Floors unmoved: warnings `54`, duplication `30`, overclaim `107`,
+`citation_check` clean.
+
+**Might-mean:** naming the witness paid its cost back in one cycle, and the
+measure of the consolidation is that thirty-one lines of `decide` disappeared
+without a single statement moving.

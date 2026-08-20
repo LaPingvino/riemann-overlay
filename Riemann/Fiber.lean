@@ -10440,5 +10440,65 @@ theorem momentK_add_pow_mul_atomCount_le (D : ZeroData) (k : ℕ) :
     simp only [hone, if_false, mul_one, mul_zero, add_zero]
     omega
 
+/-- **Off-line mass in full, and every on-line class charged its minimum.**
+`SESSION 430`.
+
+`N_off + Nsc + hauntedCount + 3·oddAbove + 2·evenOnAt ≤ N`.  The five weights are
+the five classes' minimum on-line masses: `1` for a simple zero, `1` for a
+haunted ordinate, `3` for an odd one above the first rung, `2` for an even
+non-zero one, and `0` for an ordinate with no on-line mass, which is why
+`offLineOnly` does not appear.  `Blindness.NscStd_eq_Nsc_add_haunted` folds the
+first two into `NscStd`.
+
+This is the theorem `425` set out to prove and dropped: its kill condition fired
+on the missing `ℕ` form of `Nsc`, which is
+`Blindness.Nsc_eq_sum_mass_one_nat` — on disk all along, and `430` wrote it
+again before `forensics/duplication_floor.py` said so.  It strengthens `Blindness.Noff_add_onLine_charges_le_N` by the two
+recovered terms, and `430`'s four-term sweep is what named it. -/
+theorem Noff_add_every_class_charge_le_N (D : ZeroData) :
+    D.Noff + D.Nsc + hauntedCount D + 3 * oddAbove D + 2 * evenOnAt D ≤ D.N := by
+  classical
+  have hoff : D.Noff = ∑ γ ∈ D.ordinates.toFinset, offAt D γ := by
+    rw [Noff_from_profile, profile, Multiset.map_map]; rfl
+  have hN : D.N = ∑ γ ∈ D.ordinates.toFinset, D.H γ := N_eq_sum_H D
+  rw [hoff, Nsc_eq_sum_mass_one_nat, hauntedCount, oddAbove, evenOnAt,
+    Finset.card_filter, Finset.card_filter, Finset.card_filter, hN,
+    Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib, ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun γ hγ => ?_
+  have h := H_eq_onAt_add_offAt D γ
+  have hpos : 1 ≤ D.H γ := one_le_H_of_mem hγ
+  obtain ⟨r, hr⟩ := even_offAt D γ
+  have hsub : D.H γ - offAt D γ = onAt D γ := by omega
+  rcases Nat.even_or_odd (onAt D γ) with he | ho
+  · by_cases h0 : onAt D γ = 0
+    · rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub, h0] : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_neg (by simp [h0] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      omega
+    · have h2 : 2 ≤ onAt D γ := by rcases he with ⟨r, hr⟩; omega
+      rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_neg (by simp [he] : ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_pos ⟨he, h0⟩]
+      omega
+  · by_cases h1 : onAt D γ = 1
+    · rw [if_neg (by simp [h1] :
+          ¬ (¬ Even (onAt D γ) ∧ onAt D γ ≠ 1)),
+        if_neg (by simp [h1] : ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      by_cases hH : D.H γ = 1
+      · rw [if_pos hH, if_neg (by simp [hH]: ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1))]
+        omega
+      · rw [if_neg hH, if_pos ⟨by omega, hH⟩]
+        omega
+    · have h3 : 3 ≤ onAt D γ := by rcases ho with ⟨r, hr⟩; omega
+      rw [if_neg (by omega : ¬ D.H γ = 1),
+        if_neg (by simp [hsub]; omega : ¬ (D.H γ - offAt D γ = 1 ∧ D.H γ ≠ 1)),
+        if_pos ⟨Nat.not_even_iff_odd.2 ho, h1⟩,
+        if_neg (by simp [Nat.not_even_iff_odd.2 ho] :
+          ¬ (Even (onAt D γ) ∧ onAt D γ ≠ 0))]
+      omega
+
 end Blindness
 end Riemann

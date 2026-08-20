@@ -1006,3 +1006,6 @@ import Riemann
 
 -- 429: every non-simple ordinate pays 2^k for a moment step.
 #check @Riemann.Blindness.momentK_add_pow_mul_atomCount_le
+
+-- 430: the full class-charge inequality 425 had to drop.
+#check @Riemann.Blindness.Noff_add_every_class_charge_le_N

@@ -20965,3 +20965,42 @@ inventory.
 
 **Might-mean:** the same failure three times in three cycles was not carelessness
 but a missing test, and the test costs four lines.
+
+## 430 — widen to four terms, and recover the theorem `425` dropped
+
+**Kill condition, stated first (`R12`).** Piece: the four-term sweep
+`a·X + b·Y + c·Z ≤ d·W`, which `423` could not read for want of a filter and
+which the apparatus can now reduce automatically. Wildcard: prove what survives.
+Kill: if the undecided list runs past a page, report the count and stop —
+`423`'s discipline, now with a filter that earns it.
+
+**Two-stage, because the full box would take hours.** Enumerate against a small
+box (masses `1..4`, `≤ 3` ordinates), then **confirm every survivor on the full
+`3875`** — pruning on a subset can only over-admit, and the confirmation removes
+the rest. `21865` shapes survived stage one and **all `21865` confirmed**, which
+says the small box was not the binding constraint. After basis normalisation and
+the Farkas filter: `3886` residues, **`17` undecided** — a readable list, so the
+kill condition did not fire.
+
+**And the seventeen name the theorem `425` had to drop.**
+
+`Blindness.Noff_add_every_class_charge_le_N` — `N_off + Nsc + hauntedCount +
+3·oddAbove + 2·evenOnAt ≤ N`. The five weights are the five classes' **minimum
+on-line masses**: `1`, `1`, `3`, `2`, and `0` for an ordinate with no on-line
+mass, which is why `offLineOnly` does not appear.
+
+`425`'s kill condition fired on exactly this statement, for want of an `ℕ`-valued
+form of `Nsc` — `Blindness.Nsc_from_profile` is stated in `ℤ`.
+
+**Snag, bin 1.** That form was on disk the whole time, as
+`Blindness.Nsc_eq_sum_mass_one_nat`. I wrote it again, and
+`forensics/duplication_floor.py` caught it at `31`; collapsed, and the theorem
+now cites the original. `425` would have gone through unchanged had either of us
+looked. That is the fourth rediscovery this arc, and every one was caught by a
+guard rather than by reading.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+
+**Might-mean:** `425` deferred this theorem for a lemma that already existed, so
+the kill condition cost a cycle not because the mathematics was missing but
+because nobody searched for the cast.

@@ -20846,3 +20846,46 @@ chased.
 **Might-mean:** the search keeps finding the `k = 3` instance of things the tree
 already has at `k = 1`, which says the instrument's blind spot is not the
 mathematics but the arity of the statements it can read.
+
+## 427 — let the apparatus read its own finds
+
+**Kill condition, stated first (`R12`).** Piece: `426`'s filed lead — theorems
+with a numeric parameter are invisible to `equiv_check.facts()` and therefore to
+everything downstream. Instantiate them at the small orders the box uses.
+Wildcard: how far does the undecided residue fall? Kill: a textual substitution
+that produced a **false** statement would poison every later answer, so verify
+every generator on the box and treat a failure as a harness failure, not a
+result.
+
+**Built.** `forensics/farkas.py` gains `quantified()`: statements of the shape
+`(D : ZeroData) {k : ℕ} (hk : c ≤ k) : …` are instantiated at `k = 1…4`,
+`momentK D k` and `momentK D (k + 1)` resolved to the modelled moments, and
+constant powers folded. The cone went `38 → 45` generators.
+
+**The safety net is the point.** Every generator, instantiated or not, is now
+checked against all `3875` profiles before it is trusted; `45/45` verified. That
+check is what makes a textual substitution admissible at all.
+
+**Two bugs, both caught by their own guards.**
+
+1. My residue script's basis map did not know the new moment names and returned
+   the zero vector for them, which produced *"`0 ≤ −3N − 2N_off`"* — visibly
+   false. Fixed before it reached the page.
+2. The instantiation guard rejected any statement still containing the word
+   `momentK` after substitution, which silently dropped **every statement naming
+   two different orders** — precisely the ladder `426` had just proved. The
+   guard should have asked whether an *un-instantiated* `momentK D` remained.
+   Fixed, and the comment says so where it sits.
+
+**Result.** Undecided residue `35 → 19`. The nineteen are all
+`fourthMoment`/`thirdMoment`/`N_off` shapes with coefficients stronger than
+`Blindness.momentK_add_Noff_le_momentK_succ`'s — true, since `H³(H−1) ≥ 4H` for
+`H ≥ 2`, and the sharpened ladder that would settle them is the natural next
+theorem rather than tonight's.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** the apparatus can now absorb the theorems it produces, so the
+loop between search and proof closes without a person carrying statements across
+it.

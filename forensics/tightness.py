@@ -61,6 +61,12 @@ def counts(profile):
         # from `equiv_check`: it is not a functional of the profile.
         "thirdMoment": sum(h ** 3 for h, _ in profile),
         "fourthMoment": sum(h ** 4 for h, _ in profile),
+        # `427`: `momentK D j` for the small `j` the box uses, so that theorems
+        # quantified over the order can be instantiated and read.
+        "momentK_1": sum(h for h, _ in profile),
+        "momentK_2": sum(h ** 2 for h, _ in profile),
+        "momentK_3": sum(h ** 3 for h, _ in profile),
+        "momentK_4": sum(h ** 4 for h, _ in profile),
         "Noff": sum(o for _, o in profile),
         "Nsc": sum(1 for h, _ in profile if h == 1),
         "NscStd": sum(1 for (h, o) in profile if h - o == 1),
@@ -91,7 +97,7 @@ def to_expr(side):
             if tok not in NAMES:
                 return None
             out.append(tok)
-        elif tok in {"+", "*", "(", ")"} or tok.isdigit():
+        elif tok in {"+", "*", "-", "(", ")"} or tok.isdigit():
             out.append(tok)
         else:
             return None

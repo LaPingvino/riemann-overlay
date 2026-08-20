@@ -2671,3 +2671,8 @@ with a numeric parameter is invisible to it and to everything downstream —
 cannot then absorb. Instantiating such theorems at the small values the box
 uses (`k = 1, 2, 3, 4`) before adding them to the inventory would fix it, and is
 the same shape of work `416` and `424` turned out to be.
+
+**`427`: built.** `farkas.quantified()`; the cone went `38 → 45` and the
+undecided residue `35 → 19`. What remains is one theorem: a **sharpened ladder**,
+`momentK k + c·N_off ≤ momentK (k+1)` with `c > 1` for `k ≥ 2`. The box says
+`c = 3` holds; nothing is conjectural about it, only unproved.

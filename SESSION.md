@@ -21492,3 +21492,38 @@ No Lean changed this cycle.
 **Might-mean:** the gate reads exit codes and instruments print findings, so
 every new instrument arrives with the `442` gap by default and only loses it when
 someone drills it.
+
+## 444 — price the axiom split instead of arguing it
+
+**Kill condition, stated first (`R12`).** Piece: `393`'s ruling has been open
+about fifty cycles — should the ledger split the axiom count three ways.
+Implement it **behind a flag**, so the decision is a switch. Wildcard: does any
+axiom resist classification from what is on disk? Kill: if one does, print it
+**unclassified by name** rather than bucketing it to make the table tidy.
+
+**The split, read off the docstrings rather than judged.**
+
+| kind | count | axioms |
+|---|---|---|
+| carrier | `2` | `closePairsZeta`, `xiPrimeFamily` — objects declared, not constructed |
+| property | `3` | `fujii_closePair_bookkeeping`, `levinson_montgomery`, `zeta23_xiPrime` — statements about such objects, taken on trust |
+| too-weak | `1` | `fujii_ineffective` — believed, and still not what its consumer needs |
+
+`tools/proportion.go -axioms-by-kind` prints it. **The default line is
+unchanged**, which is the point: `forensics/banner_check.py` reads that line and
+so does every historical row of `PROPORTION.log`.
+
+**The wildcard is a guard, and `443` says to drill it.** An axiom absent from the
+table prints `UNCLASSIFIED <name>` instead of vanishing into a bucket. Drilled by
+deleting `levinson_montgomery` from the table: `property` fell to `2` and the
+name appeared. Restored.
+
+**Why a flag and not a decision.** `409`'s brief and `442`'s ruling both landed
+the same way — the loop's job is to make a ruling cheap to take, not to take it.
+The three-way split is now one line of `RULING.md` and one flag.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd`.
+No Lean changed this cycle.
+
+**Might-mean:** two of the six axioms are carriers, so a third of the trusted
+base is not a mathematical claim at all but an object nobody has built.

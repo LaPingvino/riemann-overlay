@@ -333,3 +333,24 @@ seventeenth roster entry**, not about whether the thing can fail. Live dangling
 has been `0` for thirty cycles of heavy register editing.
 
 **Not taken.** Runs as a report until Joop rules.
+
+## `393`/`444` — should the ledger split the axiom count three ways?
+
+`393` asked it; `444` implements it behind `-axioms-by-kind`, so the ruling is a
+switch rather than an argument. **The default ledger line is unchanged**, which
+matters because `forensics/banner_check.py` and every historical row read it.
+
+The classification is read off the axioms' own docstrings in
+`Riemann/Assumptions.lean`, not judged:
+
+| kind | axioms | what it means |
+|---|---|---|
+| carrier | `closePairsZeta`, `xiPrimeFamily` | an object declared rather than constructed |
+| property | `fujii_closePair_bookkeeping`, `levinson_montgomery`, `zeta23_xiPrime` | a statement about such an object, taken on trust |
+| too-weak | `fujii_ineffective` | believed, and still not what its consumer needs — `[OPEN 0]` |
+
+`2 / 3 / 1`. An axiom missing from the table is printed as `UNCLASSIFIED` with
+its name; drilled at `444` by removing `levinson_montgomery` from the table and
+watching it appear.
+
+**Not taken.** The flag exists; whether the default line changes is Joop's.

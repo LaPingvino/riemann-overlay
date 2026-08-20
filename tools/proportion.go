@@ -138,8 +138,29 @@ func countSources(root string) (sorries int, axioms []string, err error) {
 	return
 }
 
+// axiomKind classifies each declared axiom into `393`'s three groups.  The
+// classification is read off the axioms' own docstrings in
+// `Riemann/Assumptions.lean`, not judged: a *carrier* is an object declared
+// rather than constructed, a *property* is a statement about such an object
+// taken on trust, and *too weak* is a statement we believe and that still does
+// not deliver what its consumer needs.
+//
+// `444`: this exists so the ruling `393` raised — should the ledger split the
+// axiom count three ways — is a switch rather than an argument.  The default
+// output is unchanged; `-axioms-by-kind` prints the split alongside it.
+var axiomKind = map[string]string{
+	"xiPrimeFamily":               "carrier",
+	"closePairsZeta":              "carrier",
+	"fujii_closePair_bookkeeping": "property",
+	"levinson_montgomery":         "property",
+	"zeta23_xiPrime":              "property",
+	"fujii_ineffective":           "too-weak",
+}
+
 func main() {
 	appendLog := flag.Bool("append", false, "append the line to PROPORTION.log")
+	byKind := flag.Bool("axioms-by-kind", false,
+		"also print `393`'s three-way split of the axiom count")
 	flag.Parse()
 
 	root, err := os.Getwd()
@@ -272,6 +293,36 @@ func main() {
 		best.Binding)
 
 	fmt.Println(line)
+	if *byKind {
+		// `444`: the split `393` asked for, printed beside the unchanged line
+		// so the ledger's format does not move.  An axiom missing from
+		// `axiomKind` is named as unclassified rather than silently bucketed.
+		counts := map[string]int{}
+		var unclassified []string
+		for _, a := range declaredAxioms {
+			k, ok := axiomKind[a]
+			if !ok {
+				unclassified = append(unclassified, a)
+				continue
+			}
+			counts[k]++
+		}
+		fmt.Printf("  axioms by kind: carrier %d, property %d, too-weak %d\n",
+			counts["carrier"], counts["property"], counts["too-weak"])
+		for _, k := range []string{"carrier", "property", "too-weak"} {
+			var names []string
+			for _, a := range declaredAxioms {
+				if axiomKind[a] == k {
+					names = append(names, a)
+				}
+			}
+			fmt.Printf("    %-9s %s\n", k, strings.Join(names, ", "))
+		}
+		if len(unclassified) > 0 {
+			fmt.Printf("    UNCLASSIFIED %s — add it to axiomKind with its reason\n",
+				strings.Join(unclassified, ", "))
+		}
+	}
 	if hashMoved {
 		fmt.Printf("\nESCALATION: the trusted base's statement hash moved (%s -> %s) but base.version did not.\n", m.Base.Hash, hash)
 		fmt.Printf("  %d axiom statements fingerprinted. Either bump base.version in tools/metric.json\n", len(stmts))

@@ -210,6 +210,26 @@ The ones that have caught live defects, with the cycle: `forensics/citation_chec
   `Proportion`-versus-`ProportionStd` gap, whose content `283` names as
   `NoHaunted xiPrimeFamily`.
 
+## 8. Conditional on RH — `445`
+
+`Riemann/RH.lean` carries Mathlib's `RiemannHypothesis` as the hypothesis `h`,
+never as an axiom; each cone below is the three standard axioms
+(`audit/PrintAxioms.lean`). The reason for the section is `COMPARISON.md`: a
+proof of `h` was claimed on 2026-11-20 and is not checked here.
+
+| under `h` | declaration |
+|---|---|
+| no window has off-line mass | `Riemann.zetaZeroData_Noff_eq_zero` |
+| `ζ` has no haunted ordinate | `Riemann.noHaunted_zeta_of_RH` |
+| the two rows count the same zeros | `Riemann.Nsc_eq_NscStd_of_RH` |
+| the `Nsc` row is `67.25%` (from `50.88%`) | `Riemann.proportion_of_RH_zeta` |
+
+**The `NscStd` row does not move**, and neither does any wall in §5: `h` locates
+zeros and says nothing about their multiplicity — per window, `N_off = 0` admits
+`N⊛ > C·N` for every `C` (`Riemann.Blindness.noHaunted_no_starBound`). §3's blindness theorems are
+untouched — they are theorems about every `ZeroData` — and the claimed proof does
+not route through the `μ_T`-invariant class they describe (`COMPARISON.md` §4).
+
 ## The exchange arithmetic — where the numbers live
 
 **`S171`: seven cycles between `374` and `383` re-derived results already here**, among them

@@ -38,3 +38,10 @@ import Riemann
 #print axioms Riemann.certified_offline
 #print axioms Riemann.certified_nsc_via_offline
 #print axioms Riemann.certified_haunted
+-- 445: RiemannHypothesis as a hypothesis (Riemann/RH.lean). Each cone must stay
+-- the kernel's three standard axioms; h is a binder, not an axiom.
+#print axioms Riemann.re_eq_half_of_mem_zerosIn
+#print axioms Riemann.zetaZeroData_Noff_eq_zero
+#print axioms Riemann.noHaunted_zeta_of_RH
+#print axioms Riemann.Nsc_eq_NscStd_of_RH
+#print axioms Riemann.proportion_of_RH_zeta

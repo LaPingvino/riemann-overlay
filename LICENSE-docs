@@ -1,0 +1,21 @@
+The prose registers of this repository are licensed under the Creative Commons
+Attribution 4.0 International licence (CC BY 4.0):
+
+  https://creativecommons.org/licenses/by/4.0/
+  full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+Scope — every Markdown file outside `vendor/`, i.e. the top-level registers
+(README.md, MAP.md, METHOD.md, FRAMING.md, SESSION.md, SURPRISES.md, CLAIMS.md,
+PRICES.md, LEADS.md, ISSUES.md, FAILURES.md, LOOP.md, NIGHT.md, RULING.md,
+STATEMENTS.md, VERIFYING.md, COMPARISON.md, A.md, E.md, F.md, S.md), the files in
+dispatches/ and the Markdown notes in forensics/; plus PROPORTION.log.
+
+Everything else — the Lean sources, the scripts in forensics/ and tools/, the
+build files and the tab-separated indexes — is licensed under the Apache
+License, Version 2.0 (LICENSE).
+
+vendor/zeta23 is a byte-identical copy of an upstream project and keeps its own
+LICENSE and NOTICE (Apache-2.0, Copyright 2026 Anthropic, PBC).
+
+Attribution: "riemann — the overlay program, by Joop and the Claude
+instances that ran it", with a link to the repository.

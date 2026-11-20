@@ -45,3 +45,6 @@ venv/
 .DS_Store
 Thumbs.db
 data/zeros*
+
+# --- external Lean developments under audit (tools/trust_audit.py; never tracked)
+/vendor-ext/

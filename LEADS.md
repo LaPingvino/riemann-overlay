@@ -2695,3 +2695,38 @@ unbuilt.
 **`440`: built** — `Blindness.onCharge_one_eq_class_charge`. `430`'s bound and
 `436`'s equality case are now derived from the family, and their own case splits
 are gone. This lead is closed.
+
+## `445` — two leads from the claimed RH proof
+
+Both are filed from a reading of `COMPARISON.md`'s sources, not from a theorem,
+and neither is claimed. Grade: **parked, one question each**; no supplier on disk
+for either.
+
+**(a) Is M/S the right split?** W28's cold draft split the arithmetic past
+`ZeroData` into **M** (free monoid, `Λ ≥ 0`, Euler product, explicit formula) and
+**S** (Type I/II, level of distribution, short intervals), and read the Beurling
+negative control as *"any route must consume S"*. The half of that reading the
+claimed proof bears on held: Beurling systems have all of M, RH fails for them,
+and the proof does need more than M. The half it does not bear out is the name of
+the second bundle — its extra input is theta lifts, Galois representations and a
+weakened Vandiver (`SURPRISES` `S240`), none of which is S. So the split may be
+the wrong cut: *automorphic structure or not* separates Beurling systems from
+`ζ` as well as *additive structure or not* does, and only one of the two is what
+the one candidate proof used. **Kill condition:** if W28's draft or `FAILURES.md`
+W32 already names an automorphic field inside M or S, the question is answered on
+disk and this lead closes. Searched at `445` for `automorph` and `Galois` in
+`forensics/W28_atom_interface_cold.md` and `FAILURES.md`: no hit — a statement
+about those two files and those two words (`R28`).
+
+**(b) Can a sign-only Dirichlet-series positivity argument say anything about
+multiplicity?** The proof's endgame is Landau's theorem — a one-sided bound on a
+weighted prime sum, through a non-negative Mellin integrand, giving a zero-free
+half-plane. W16 found the prime side `β`-sensitive (`x^ρ = x^β e^{iγ log x}`);
+that was Landau's *formula*, and this is Landau's *theorem*, the same family and
+not the same tool. Every output of the theorem is a location statement. The
+question is whether any variant — positivity of a weighted sum whose weight sees
+`m(ρ)`, not only `β` — could bound `N⊛` or `momentK k`, which is what the
+`NscStd` row's wall needs (`MAP.md` §5). **Kill condition:** if every
+non-negative-coefficient argument factors through the zero-free region it
+produces, so that multiplicity enters only through the residue at a pole, the
+answer is no and this closes. Nothing here is conjectural, only unasked.

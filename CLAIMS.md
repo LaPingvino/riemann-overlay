@@ -199,6 +199,7 @@ grade A.**
 | "No free classical invariant *of any kind* will tighten `C`" (W7, general) | *"classical invariant"* — still informal | — | **C** |
 | "Post-1974 extremal technology cannot buy anything through the `v` slot" | the `v` slot of the rank–trace container at `λ = 1` — **well defined** | a quadrature optimisation (`N = 160` midpoint, `0.6725126` vs M–T's `0.6725007`), reproducible via `forensics/window_opt.py` | **N** |
 | E20's plane: the cleavage is the one thing no single-natured instrument can certify | *"single-natured instrument"* — informal | — | **C**, and already marked statistically unsupported in `FAILURES.md` |
+| **Conditional on `h : RiemannHypothesis` — carried as a hypothesis, never an axiom: the `Nsc` row reads `0.6725`, and `NscStd` does not move** — `h` gives `N_off = 0` in every window, hence no haunted ordinate, hence `Nsc = NscStd`; it carries no multiplicity information: per window, `N_off = 0` admits `N⊛ > C·N` for every `C` (`Blindness.noHaunted_no_starBound`), so no `StarBound` follows from it (`445`; `COMPARISON.md`) | `zetaFamily`, every window `0 < γ ≤ T`; Mathlib's `RiemannHypothesis` as stated at this repo's pin | `Riemann.proportion_of_RH_zeta`, `Riemann.noHaunted_zeta_of_RH`, `Riemann.Nsc_eq_NscStd_of_RH`, `Riemann.zetaZeroData_Noff_eq_zero`; each cone is the three standard axioms (`audit/PrintAxioms.lean`) | **A**, conditional on `h` |
 
 > **`SESSION 244` — two corrections to the bandwidth-one row above.**
 >

@@ -1,150 +1,106 @@
-# riemann — Lean skeleton for the overlay program
+# riemann — the overlay program, in Lean, run as a loop
 
-> **Start here:** [`MAP.md`](MAP.md) — what this project has established, in one
-> page, with a declaration name behind every claim (`SESSION 359`).
+**What this is.** A Lean 4 + Mathlib formalization of the *reduction structure*
+of a program for raising the proportion of zeros of the Riemann zeta function
+known to be simple and on the critical line. It is **not a proof of anything
+about `ζ`**. The deliverable is a machine-checked map of which piece of
+information composes with which, at what cost — and, as its largest part, the
+theorems saying what a whole class of certificates *cannot* see (`MAP.md` §3).
+The baseline it builds on is the vendored `zeta-23` development
+(arXiv:2608.13637, Alpöge–Furman; `vendor/PROVENANCE.md`).
 
-A Lean 4 formalization of the *reduction structure* of the program document
-"Toward 100% of Zeta Zeros on the Critical Line". Not a proof of anything
-about `ζ`: the deliverable is the **interfaces**, and a machine check that the
-arrows of the dependency graph compose.
+**How it was made.** The project was run as a standing loop by Claude
+instances, with Joop as operator: one numbered session per cycle, every claim
+routed to the fastest available *no* (the Lean kernel, a guard script, the
+literature, a second instance), and every wrong expectation logged. The record
+is the point as much as the theorems, and it is all here:
 
-```
-Riemann/Basic.lean        H(γ), N⊛, Prop 1, N + N_off ≤ N⊛     proved, axiom-free
-Riemann/Transfer.lean     (★) ⟹ proportion 2 − C               proved, axiom-free
-Riemann/Fujii.lean        the numeric window for [OPEN 0]      proved, axiom-free
-Riemann/Gauge.lean        NscStd is not gauge-invariant        proved, axiom-free
-Riemann/Blindness.lean    no μ_T-invariant hypothesis computes proved, axiom-free
-                          NscStd or N_off
-Riemann/Fiber.lean        the blindness is supported exactly   proved, axiom-free
-                          on the crowded atoms
-Riemann/Zeta.lean         zetaZeroData                         proved, axiom-free
-Riemann/Gaps.lean         one Prop per open problem            definitions
-Riemann/Assumptions.lean  every axiom, with its source         trusted base
-Riemann/Program.lean      the §6 arrows                        proved from the axioms
-Riemann/Proportion.lean   the fitness function                 certified vs conjectural
-```
+| read | for |
+|---|---|
+| [`METHOD.md`](METHOD.md) | how the loop is run — the rules, the two-row ledger, the anti-Goodhart defences, the guards |
+| [`FRAMING.md`](FRAMING.md) | where it came from — the operator, the two instances, the seam between them, with a verification appendix |
+| [`SURPRISES.md`](SURPRISES.md) | the calibration meter — every time the record went against a stated expectation, and who or what corrected it |
+| [`CLAIMS.md`](CLAIMS.md) | every "no member of class `C` can do `X`" claim, graded A (certified) / N (numerical) / C (class undefined) |
+| [`SESSION.md`](SESSION.md) | the numbered, append-only log of every cycle — the primary record |
+| [`MAP.md`](MAP.md) | what the project has established, in one page, with a declaration name behind every claim |
+| [`VERIFYING.md`](VERIFYING.md) | how to reproduce the build and check each headline claim yourself |
+
+Further registers: `LOOP.md` (the rules R1–R33, authoritative over `METHOD.md`),
+`ISSUES.md` (the friction), `FAILURES.md` (the census of dead routes and why
+they died), `PRICES.md` (what each escape channel costs), `LEADS.md` (the hold
+queue), `STATEMENTS.md`, `RULING.md`, `E.md`, `A.md`, `S.md`, `F.md`,
+`NIGHT.md`. The history is deliberately left as it was written: older entries
+carry stale numbers with dated corrections beside them rather than edits.
+
+> **20 Nov 2026 — a claimed proof of RH.** Levent Alpöge has released a Lean
+> development claiming the Riemann Hypothesis and GRH for Dirichlet
+> `L`-functions. **[`COMPARISON.md`](COMPARISON.md)** says what it is, what a
+> reproducible trust audit of it shows (`tools/trust_audit.py`), and what it
+> would and would not change here. In one line: carried as a *hypothesis*
+> (`Riemann/RH.lean`, never an axiom), RH moves the `Nsc` row from `50.88%` to
+> `67.25%` and leaves the multiplicity side untouched.
+
+## The ledger
+
+Two rows, always reported together (`go run tools/proportion.go`):
+
+| row | notion | certified | witness |
+|---|---|---|---|
+| `NscStd` | the literature's: multiplicity one, on the line (zeta-23's `N0simple`) | **67.25%** | `Riemann.certified_std` |
+| `Nsc` | this project's stronger one: the ordinate carries nothing else (`H = 1`) | **50.88%** | `Riemann.certified_nsc_unconditional` |
+| `Nsc`, conditional on RH | the same, under the hypothesis `h : RiemannHypothesis` | 67.25% | `Riemann.proportion_of_RH_zeta` |
+
+Both certified rows are unconditional: their axiom cones contain only Lean's
+three standard axioms (`axioms: 0` in `PROPORTION.log`). The trusted base,
+`Riemann/Assumptions.lean`, declares **six** axioms, each with its source in a
+docstring, and none of them is in either row's cone; they feed only conditional
+routes (`MAP.md` §1, `forensics/board.py --cones`). Open problems are never
+axioms — they are `Prop`s in `Riemann/Gaps.lean`, carried as hypotheses.
 
 `audit/regression/Boom_2026-08-13.lean` is a **negative** test: it derived
-`False` from an earlier version of the axioms and must never compile again
-(ISSUES #8).
+`False` from an early version of the axioms and must never compile again
+(`ISSUES.md` #8; `tools/proportion.go` exits `5` if it does).
 
-## Where to start
-
-* **`FRAMING.md`** — where this came from: the companion document written by the
-  collaborating claude.ai instance, describing the half of the project that does
-  not live in this repository (the operator, the two instances, the seam between
-  them), followed by a verification appendix that audits its own claims against
-  these files and records the one that had to be corrected.
-* **`F.md`** — the fictions: derivations narrated as if they existed, each
-  naming the cast that would have to be hired for the story to compile. A
-  fiction whose cast is proven impossible converts to a rung.
-* **`CLAIMS.md`** — every class-impossibility assertion ("no member of class `C`
-  can do `X`"), graded **A** certified / **B** certifiable-but-prose / **C**
-  class-undefined. Anything cited as a bound must be grade A.
-* **`SURPRISES.md`** — the calibration meter: every time the record went against
-  a stated expectation, with who or what did the correcting. Tallied
-  mechanically by `forensics/surprises.py`; read the breakdown, never the total
-  (the file says why).
-* **`METHOD.md`** — how the project is run: the loop, the rules R1–R19, the
-  two-row ledger, the anti-Goodhart defences, the guards.
-* **`VERIFYING.md`** — exact reproduction instructions and how to check every
-  claim below yourself.
-
-Then the registers, in this order: `SESSION.md` (the numbered log — read it
-first), `ISSUES.md` (the friction — that is where the content is),
-`STATEMENTS.md` (the translation layer, which needs human audit), `LEADS.md`
-(the wildcard queue), `FAILURES.md` (the census of deaths, with its
-contamination note), `E.md`, `A.md`, `S.md`, `PRICES.md`.
-
-## What is proved, what is assumed, what is conjectural
-
-**Proved, axiom-free** — and this is the project's own content — the
-combinatorial core and the transfer:
-
-```lean
-theorem certified_axiomFree (F : Family) (C : ℝ) (h : F.toCounts.StarBound C) :
-    F.toCounts.Proportion (2 - C) ∧
-      ∀ ε > 0, ∀ᶠ T in atTop, F.Noff T ≤ (C - 1 + ε) * F.Nz T
-```
-
-For **any** zero family, `(★)` transfers to a proportion and the off-line count
-is capped. Alongside it: the gauge/blindness/fiber cluster, which proves that
-no `μ_T`-invariant hypothesis — of any strength — computes `NscStd` or `N_off`,
-and locates that obstruction exactly on the atoms of mass `≥ 2`.
-
-**Assumed** — the trusted base is exactly the **six axioms** of
-`Riemann/Assumptions.lean`, each carrying its source in a docstring: the `ξ'`
-proportion `0.85838`, Levinson–Montgomery, the ineffective Fujii bound,
-close-pair bookkeeping, `xiPrimeFamily`, and `closePairsZeta`. There are no
-axioms anywhere else in the repository.
-
-*Three axioms have been discharged rather than assumed:* `baseline_przz` at
-`SESSION 233` (derivable from the zeta-23 record), and **`baseline_zeta23` and
-`zetaNonempty` at `SESSION 337`** — both are now theorems, proved through the
-vendored `zeta-23` tree. **The certified cone is empty:** both ledger rows are
-unconditional, which `go run tools/proportion.go` reports as `axioms: 0`.
-
-**Conjectural** — the `Nsc` row opens at `c₀ ≤ 4.5`; Route I at `c₀ ≤ 0.33`;
-`100%` conditional on [OPEN D].
-
-## The score
-
-The ledger is **two rows, always reported together**: `NscStd` is the
-literature's notion (multiplicity one, on the line — zeta-23's `N0simple`) and
-`Nsc` is this project's stronger notion (`H = 1`: the ordinate carries nothing
-else). They are linked by `ZeroData.two_NscStd_le` at a cost of `(C−1)/2`, so
-the gap between them is a certified function of `C` that closes exactly when
-`(★)` succeeds.
-
-> ⚠️ **The block below is a dated quote (2026-08-14), not the current line.**
-> The `Nsc` row is **50.88%** as of `SESSION 084`, and as of `SESSION 337` the
-> base is `v4`, the axiom count is `0`, and the binding is
-> `Zeta23.ThmD.thmD₀_simple_mult_cumulative` rather than an axiom of ours. Run
-> `go run tools/proportion.go` for the live line and believe that.
-
-A line of `PROPORTION.log`, as of 2026-08-14:
+## The Lean
 
 ```
-2026-08-14 | base: v2/cd7a22e688df (zetaNonempty) | context: v2 (compacted)
-  | certified[NscStd: 67.25%, Nsc: 0.00%] | conjectural: 100.00% (OPEN D)
-  | axioms: 2 (Riemann.baseline_zeta23, Riemann.zetaNonempty) | sorries: 0
-  | binding: Riemann.baseline_zeta23
+Riemann/Basic.lean        H(γ), N⊛, Prop 1, N + N_off ≤ N⊛     axiom-free
+Riemann/Transfer.lean     (★) ⟹ proportion 2 − C               axiom-free
+Riemann/Fujii.lean        the numeric window for [OPEN 0]      axiom-free
+Riemann/Gauge.lean        NscStd is not gauge-invariant        axiom-free
+Riemann/Blindness.lean    no μ_T-invariant hypothesis computes axiom-free
+                          NscStd or N_off
+Riemann/Fiber.lean        the blindness is supported exactly   axiom-free
+                          on the crowded atoms
+Riemann/Zeta.lean         zetaZeroData, built from zeta-23     axiom-free
+Riemann/Gaps.lean         one Prop per open problem            definitions
+Riemann/Assumptions.lean  every axiom, with its source         trusted base
+Riemann/Program.lean      the §6 arrows                        from the axioms
+Riemann/Proportion.lean   the fitness function                 certified vs conjectural
+Riemann/Capacity.lean     rung 0: no gain past the known range axiom-free
+Riemann/Optimal.lean      Proposition 1 is LP-optimal          axiom-free
+Riemann/RH.lean           what RiemannHypothesis buys,         axiom-free besides
+                          carried as a hypothesis              the hypothesis h
 ```
-
-`certified` counts only lemmas with no `sorry` in their cone (axioms of
-`Assumptions.lean` permitted and listed by name). The `NscStd` row is today
-carried entirely by an axiom — the imported zeta-23 Theorem D, whose discharge
-is blocked only on constructing `zetaFamily` from zeta-23's
-`zerosIn`/`zeroMult`.
-
-> ⚠️ **SESSION 084:** the `Nsc` row is no longer zero — it is **50.875%**, from
-> `3·NscStd ≤ N + 2·Nsc` (axiom-free) transported to the proportion layer with
-> no star bound. The principle stands; the example no longer applies to this row.
-
-The `Nsc` row *read* `0.00%` because no unconditional
-`(★)` exists at any constant, and `LOOP.md`'s empty-row principle says a row
-that is honestly zero beats a row quietly redefined until it is not.
-
-The `axioms: 2` field is the axiom **cone of the best certified row**, not the
-size of the trusted base (which is 9); see `VERIFYING.md` §3.2.
 
 ## Build
 
 ```bash
 lake exe cache get                       # Mathlib oleans for the pinned rev
-lake build                               # ~3700 jobs cold
-lake env lean audit/PrintAxioms.lean     # trusted-base audit
-lake env lean audit/Declarations.lean    # every claimed name must exist
-go run tools/proportion.go -append       # the score (also runs the guards)
+lake build                               # ~8900 jobs cold
+lake env lean audit/PrintAxioms.lean     # axiom cones of the claimed theorems
+lake env lean audit/Declarations.lean    # every name the registers cite must exist
+go run tools/proportion.go               # the ledger (also runs the guards)
+python3 forensics/session_gate.py        # the full guard roster
 ```
 
-Toolchain: `leanprover/lean4:v4.33.0-rc2` (see `lean-toolchain`). Mathlib and
-the rest are inherited transitively from `zeta-23-lean` and pinned by exact
-revision in `lake-manifest.json` — that file and `lean-toolchain` are tracked
-for exactly this reason. `.lake/` is gitignored.
+Toolchain `leanprover/lean4:v4.33.0-rc2` (`lean-toolchain`); every dependency
+is pinned by exact revision in `lake-manifest.json`. `VERIFYING.md` has the
+details, including the exit codes of `tools/proportion.go`.
 
-`tools/proportion.go` is a gate, not a reporter: it exits `4` if a claimed
-declaration is missing, `5` if a file in `audit/regression/` *compiles*, and `3`
-if the trusted base's statement hash moved without a `base.version` bump — and
-in cases `3` and `4` it refuses to write the log line. Full details, including
-the exit-4 signature of a missing `lake` on `PATH`, are in `VERIFYING.md`.
+## Licence
+
+Code (Lean, scripts, build files) is Apache-2.0 — [`LICENSE`](LICENSE). The
+prose registers (the Markdown files outside `vendor/`, and `PROPORTION.log`) are
+CC BY 4.0 — [`LICENSE-docs`](LICENSE-docs) lists the files. `vendor/zeta23`
+keeps its own Apache-2.0 `LICENSE` and `NOTICE`.

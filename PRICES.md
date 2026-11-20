@@ -1425,3 +1425,35 @@ escalation described, and the escalation should be re-read with these numbers.
 
 *Wall-clock on this machine, three samples each; `ThmD` measured in two runs of
 `570s` and `522s` because the tool budget is ten minutes.*
+
+## RH, priced as a hypothesis (`445`)
+
+On 2026-11-20 a proof of Mathlib's `RiemannHypothesis` was claimed in Lean
+(`COMPARISON.md`). It is not checked here, so it is priced the way every open
+input is: as a hypothesis `h`, never an axiom.
+
+| input | row it moves | from → to | witness | project axioms |
+|---|---|---|---|---|
+| `h : RiemannHypothesis` | `Nsc` | `0.50875` → `0.6725` | `Riemann.proportion_of_RH_zeta` | **none** |
+| `h` | `NscStd` | `0.6725` → `0.6725` | — (`certified_std` is the input, not an output) | — |
+| `h` | `StarBound`, `MomentBound` | nothing | per window, `N_off = 0` admits `N⊛ > C·N` for every `C`: `Riemann.Blindness.noHaunted_no_starBound` | — |
+
+**Why the `Nsc` row moves by exactly the haunted density.** `h` sets `N_off = 0`
+in every window (`Riemann.zetaZeroData_Noff_eq_zero`), so
+`Blindness.noHaunted_of_Noff_zero` empties `hauntedCount` and the two rows count
+the same zeros (`Riemann.Nsc_eq_NscStd_of_RH`). The gain `0.16375` is the
+certified haunted density `Riemann.certified_haunted` priced at `δ`, now `0`.
+
+**Why it is cheaper than it looks, and costs more than it buys.** `h` is strictly
+stronger than what the row consumes: `Blindness.noHaunted_strictly_weaker_than_RH`
+puts `NoHaunted` in strictly more configurations than `N_off = 0`, so the same
+row was already available at `NoHaunted zetaFamily`
+(`Riemann.proportion_of_noHaunted_zeta`). `FAILURES.md` W19's want-ad — *"filled
+only where the goods are worthless"* — is this row seen from the other side.
+
+**What it does not buy.** Every wall on the board past `0.6725` is a
+multiplicity wall: `MAP.md` §5, the `≈0.682` bandwidth-one ceiling, the
+`StarBound` and `MomentBound` channels. `h` is a statement about real parts. The
+RH-conditional literature constants that would bear on the multiplicity side —
+CMR's `1.3208`, the `~0.679` of `L9` — stay `[RECALL, UNVERIFIED]`; `445` did not
+fetch them, and becoming unconditional would not change that.

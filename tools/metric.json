@@ -50,6 +50,13 @@
       "binding": "Riemann.Cbound_lt_record"
     },
     {
+      "lean": "Riemann.proportion_of_RH_zeta",
+      "value": 0.6725,
+      "requires": "RH (Mathlib's RiemannHypothesis), carried as the hypothesis h and never as an axiom",
+      "binding": "Riemann.certified_std",
+      "note": "SESSION 445: h gives Noff = 0 in every window (zetaZeroData_Noff_eq_zero), hence NoHaunted zetaFamily, hence Nsc = NscStd; the row rises to the NscStd row's value and no further, because h carries no multiplicity information. A proof of h was claimed on 2026-11-20 (COMPARISON.md); it is not checked here, so this row stays conjectural"
+    },
+    {
       "lean": "Riemann.conjectural_full",
       "value": 1.0,
       "requires": "OPEN D",

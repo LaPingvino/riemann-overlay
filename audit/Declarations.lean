@@ -1040,3 +1040,10 @@ import Riemann
 
 -- 441: the family at k = 2 is 437's charge.
 #check @Riemann.Blindness.onCharge_two_eq_class_charge
+
+-- 445: what RiemannHypothesis buys, carried as the hypothesis `h` (Riemann/RH.lean).
+#check @Riemann.re_eq_half_of_mem_zerosIn
+#check @Riemann.zetaZeroData_Noff_eq_zero
+#check @Riemann.noHaunted_zeta_of_RH
+#check @Riemann.Nsc_eq_NscStd_of_RH
+#check @Riemann.proportion_of_RH_zeta

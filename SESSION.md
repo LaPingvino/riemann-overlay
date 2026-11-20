@@ -21527,3 +21527,98 @@ No Lean changed this cycle.
 
 **Might-mean:** two of the six axioms are carriers, so a third of the trusted
 base is not a mathematical claim at all but an object nobody has built.
+
+## 445 — a claimed proof of RH, taken as a hypothesis
+
+**Kill condition, stated first (`R12`).** Piece: on 2026-11-20 Levent Alpöge
+released a Lean development whose top level is `theorem riemannHypothesis :
+RiemannHypothesis`, Mathlib's own definition. Place what it would buy, with `RH`
+as a **hypothesis** — `Assumptions.lean` keeps open problems out of the axiom
+list, and a claim released today is not settled. Wildcard: make the scout's grep
+audit reproducible, and run it on the tarball. Kill: if `zetaZeroData`'s window
+is not covered by Mathlib's statement — if a zero with `0 < Re ρ < 1` could
+escape the side conditions — the composite is not one line and the row does not
+move this cycle. **It did not fire**: `0 < Re ρ < 1` excludes both the trivial
+zeros and the pole (`Riemann.re_eq_half_of_mem_zerosIn`).
+
+**What landed, in a new module.** `Riemann/RH.lean`, imported from `Riemann.lean`
+after `Riemann.Optimal`, built on the first attempt.
+
+| declaration | statement | `#print axioms` |
+|---|---|---|
+| `Riemann.re_eq_half_of_mem_zerosIn` | `h → ρ ∈ zerosIn T₁ T₂ → ρ.re = 1/2` | `propext, Classical.choice, Quot.sound` |
+| `Riemann.zetaZeroData_Noff_eq_zero` | `h → ∀ T, (zetaZeroData T).Noff = 0` | same |
+| `Riemann.noHaunted_zeta_of_RH` | `h → NoHaunted zetaFamily` | same |
+| `Riemann.Nsc_eq_NscStd_of_RH` | `h → (zetaZeroData T).Nsc = (zetaZeroData T).NscStd` | same |
+| `Riemann.proportion_of_RH_zeta` | `h → zetaFamily.toCounts.Proportion 0.6725` | same |
+
+So under `h` the `Nsc` row reads `67.25%`, from `50.88%`; the `NscStd` row is the
+input and does not move. Registered in `audit/PrintAxioms.lean`,
+`audit/Declarations.lean`, `forensics/board.py` (`EXPECTED` and
+`CONE_EXPECTED`), `tools/metric.json`'s conjectural list, `CLAIMS.md` (grade A,
+conditional on `h`), `PRICES.md`, `MAP.md` §8, and a dated note in `FAILURES.md`
+T3(b). `PROPORTION.log` gets the cycle's line, unchanged: a conditional row does not
+belong in the certified line. `duplication_floor` stays at `30`;
+`proportion_of_RH_zeta` shares its conclusion with
+`proportion_of_noHaunted_zeta` and `proportion_of_mult_le_two` and is graded a
+third route to the same row, not a copy — its proof is one line through the
+first. The multiplicity side has a witness rather than an argument:
+`Blindness.noHaunted_no_starBound` (`257`) gives, per window, `N_off = 0` with
+`N⊛ > C·N` for every `C`.
+
+**The wildcard.** `tools/trust_audit.py`: pins, shipped artefacts, a forbidden
+token list with comments and strings stripped, every metaprogram site, shadowing
+of statement-level names, the top-level statement. Drilled before use on a
+four-line fixture planting an `axiom`, a `native_decide`, a `notation` reusing
+`RiemannHypothesis` and a `sorry` inside a nested comment: the first three were
+reported and the fourth was not, exit `1`. The first draft **missed the
+notation**, because it stripped the string literal the name sat in; fixed by
+matching the keyword on stripped text and the name on the raw line, and
+re-drilled. **The advisor's review found a second gap before the commit**:
+`axiom` and `opaque` were line-anchored and `extern`/`csimp` matched only inside
+`@[…]`, so `set_option … in axiom`, two commands on one line and
+`attribute [csimp]` all passed. Widened to word boundaries, those three shapes
+added to the drill (all reported, exit `1`), and the tarball re-fetched — same
+SHA-256 — and re-audited. Result on the tarball, `175,187` files and `17,374,215` lines in 20 minutes: every forbidden token `0`, no shipped artefact, no shadowing of `RiemannHypothesis` or `DirichletCharacter.LFunction`, and the scout's four metaprograms are the only sites matching the listed patterns that touch the environment or a goal — a suggestion deny list, a kernel-checked `addDecl` copier, and two goal-assigning tactics. The `87` macros were counted, not read. The full report is
+`COMPARISON.md` §3.
+
+**The pin diff.** Mathlib `51e6992e` (ours) against `0df444a3` (theirs): no change
+under `NumberTheory/LSeries`, `DirichletCharacter`, `EulerProduct` or `Harmonic`,
+and three non-definitional edits under `SpecialFunctions/Gamma`. Five
+directories, not the whole closure of `riemannZeta`.
+
+**Coordinator's additions, checked against the registers first.** W7's epitaph,
+W28's bundles M and S and its Beurling control, and W16's `β`-sensitivity are
+where `COMPARISON.md` §5 says they are. The proof's endgame is read
+(`landau_entire`, `zero_free_of_Chebyshev_growth`); its middle is not, so the
+sentence placing it *"outside S"* is marked inferred. `SURPRISES` `S240` and
+`LEADS.md` `445`'s two leads record it. The search behind lead (a) — `automorph`
+and `Galois` in `forensics/W28_atom_interface_cold.md` and `FAILURES.md` — is
+named with its range (`R28`).
+
+**Housekeeping for a public reader.** `README.md` now opens with what the
+project is and how it was made, and points to `COMPARISON.md`; it no longer gives
+the trusted base as both six and nine. `LICENSE` (Apache-2.0, the vendored
+copy's text) and `LICENSE-docs` (CC BY 4.0, with the file list). `/vendor-ext/`
+is gitignored. `Riemann.v4240.bak/` is an untracked copy of seven `Riemann/`
+files from `SESSION 001`'s `v4.24.0` build, referenced only by `.gitignore`; two
+of them differ from the first commit, so it is the one pre-history draft on disk,
+and it was left for Joop.
+
+**Environment.** No Lean toolchain was on the machine — `001`'s was installed in
+a scratchpad that no longer exists. `elan` and `v4.33.0-rc2` are now in
+`.lake/elan/` (gitignored, on disk); every `lake` call this cycle ran as
+`env -C <repo> lake …` with `ELAN_HOME` set there, since `lake -d` ignores
+`lean-toolchain`. The existing `.lake` build was current: `lake build --no-build`
+returned `0`.
+
+**Guards.** `overclaim_floor --update` adds `Riemann/RH.lean` at `0` and moves no
+other file; `statement_index` and `process_index` regenerated (`+5`, `+1`).
+`forensics/session_gate.py`: `16/16` green, run in its own call before the commit; `board --cones` asked the kernel for `proportion_of_RH_zeta` and `noHaunted_zeta_of_RH` and got the empty project-axiom set. The `1.4 GB` unpacked tree, the downloaded parts and the Mathlib pin fetch under `vendor-ext/` were deleted after the audit; the hashes are in `COMPARISON.md` §7.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, axioms `6`, base `v4/3508643365fd` —
+unchanged. Conditional on `h`: `Nsc 67.25%`.
+
+**Might-mean:** if the proof stands, the project's two rows meet at `67.25%` and
+everything left between there and `100%` is multiplicity, which is the part the
+proof does not touch.

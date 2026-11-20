@@ -81,6 +81,16 @@ is the GM bridge's requirement, and that bridge is RH-conditional: in a ¬RH
 world the failure does not exist as stated. Sealed hash of the prediction file:
 `5d385586e174ddc4`.
 
+> **`SESSION 445` (2026-11-20) — conditional on `h : RiemannHypothesis`.** A
+> proof of `h` was claimed in Lean (`COMPARISON.md`); it is not checked here. If it
+> holds, the rubric's `¬RH` world is empty, so the `changes-*` verdicts on `#9`,
+> `#10` and `#11` have no world to apply in and **all eleven deaths stand as
+> stated, unconditionally**. None is revived: `#9` died of circularity and scale,
+> `#10` of LP duality, `#11` of the Type II gap, and none of those reasons is `h`.
+> What `h` would change is the status of the RH-conditional *inputs* the lint
+> marks (`CMR_1.3208`, `Lemma1_cap3`, `GM_bridge`), and `445` re-fetched none of
+> them.
+
 ## T2 RUN — and the alignment is **not confirmed**
 
 The de-contamination protocol was executed, not proposed: a Fable agent received

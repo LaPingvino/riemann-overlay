@@ -84,6 +84,10 @@ EXPECTED = {
         "(hM : ∀ T γ, (zetaFamily.D T).H γ ≤ 2)"),
     "proportion_of_noHaunted_zeta":         ("0.6725",
         "(hh : NoHaunted zetaFamily)"),
+    # `445`: the same row with `NoHaunted` discharged by Mathlib's
+    # `RiemannHypothesis`, which is carried as a binder and never as an axiom.
+    "proportion_of_RH_zeta":                ("0.6725",
+        "(h : RiemannHypothesis)"),
     "conjectural_routeIII":                 ("2/3 - ε",
         "(hbg : BGSTNarrowBox zetaFamily) (h : ∀ b > 0, NarrowBox zetaFamily b)"),
     "conjectural_routeI":                   ("∃ κ, 0.6725 < κ",
@@ -316,6 +320,10 @@ CONE_EXPECTED = {
     # (`NoHaunted F'`) as a visible hypothesis.  Also axiom-free.
     "certified_nsc_via_derivative_std": set(),
     "offline_via_xiPrime": {"xiPrimeFamily", "zeta23_xiPrime"},
+    # `445`: conditional on `h : RiemannHypothesis`, a binder — so the cone is
+    # empty, and a project axiom appearing here would mean `h` had been assumed.
+    "proportion_of_RH_zeta": set(),
+    "noHaunted_zeta_of_RH": set(),
 }
 
 LEAN_AX = re.compile(r"'Riemann\.([^']+)' depends on axioms: \[([^\]]*)\]", re.S)

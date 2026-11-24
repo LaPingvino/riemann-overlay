@@ -21622,3 +21622,28 @@ unchanged. Conditional on `h`: `Nsc 67.25%`.
 **Might-mean:** if the proof stands, the project's two rows meet at `67.25%` and
 everything left between there and `100%` is multiplicity, which is the part the
 proof does not touch.
+
+## 446 — an explorer of the released Lean, built from its source
+
+**Piece (Joop's request).** A browsable map of Alpöge's release, served on this
+repository's GitHub Pages: start at the five theorems of `src/Main.lean` and
+zoom into the declarations each one uses, down to the edge of Mathlib, built
+**only from the Lean** so it can be set beside the author's write-ups as they
+appear. **Kill condition, stated first (`R12`):** if a source-level parse cannot
+find all five `Main.lean` theorems and the right-hand names they cite
+(`rhOfAll`, `allChi`, `claimAll`, `critAll`, `COMPARISON.md` §2), the edges it
+reports are not worth publishing and the page ships without data.
+
+**Skeleton, published first.** `explorer/` (plain HTML, CSS and JS, no build
+step) and `.github/workflows/explorer.yml`, which uploads `explorer/` as the
+Pages artifact. At this step the page shows a *data being generated* notice.
+The generator, `tools/explorer` (Go, stdlib only, its own `go.mod`), is
+committed with its unit tests but not yet wired into the Action; its first
+full local run is the next step.
+
+**Re-fetch, `R17`'s witness.** The fourteen parts were fetched again on
+2026-11-24 into the RAM disk (compressed, `233 MB`); the concatenation's SHA-256
+is `9631b4f0…a7a0cfeb8d`, equal to `COMPARISON.md` §7. `tar -tzv` over the
+stream lists three entries not ending in `.lean` — `lake-manifest.json`,
+`lakefile.toml`, `lean-toolchain` — and no directory entries. So the tarball
+carries **no `LICENSE` and no `README`** under any name.

@@ -1,0 +1,44 @@
+# Regenerate the Lean explorer's data from Alpöge's release and deploy it to
+# GitHub Pages.  The release is streamed (curl | gzip | tar), never stored:
+# only the compact JSON shards under explorer/data/ are written.
+# See explorer/README section in README.md and tools/explorer/main.go.
+name: Explorer (Pages)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "explorer/**"
+      - "tools/explorer/**"
+      - ".github/workflows/explorer.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Viewer only (no data yet)
+        run: ls -la explorer
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: explorer
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

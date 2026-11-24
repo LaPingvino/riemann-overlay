@@ -81,7 +81,7 @@ func joinNS(ns []string) string { return strings.Join(ns, ".") }
 func parseFile(path, src string, keepText bool) pfile {
 	toks, docs := lexFile(src)
 	f := pfile{path: path, module: moduleOf(path)}
-	f.lines = int32(strings.Count(src, "\n") + 1)
+	f.lines = int32(strings.Count(src, "\n")) // as wc -l counts, and COMPARISON.md §3
 	lines := strings.Split(src, "\n")
 
 	var ns []string

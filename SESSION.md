@@ -21665,11 +21665,11 @@ the release, `11s` for the dependencies, `14 min` to resolve; peak heap about
 | resolved to a tree declaration / a dependency declaration | `5,492,834` / `12,769,322` |
 | unresolved (mostly local binders) | `14,341,674` |
 | credited to a parent through a generated name (`Foo.ext` → `Foo`) | `1,573,687` |
-| names declared more than once / mentions of them left unsettled | `4,080` / `214,115` |
+| names declared more than once / lookups of them left unsettled (once per name per file, behind the per-file cache) | `4,080` / `214,115` |
 
-The line count differs from `COMPARISON.md` §3's `17,374,215` because this
-counts newline-separated pieces, a final line without a newline included; the
-two counts were not reconciled further.
+The line count is `COMPARISON.md` §3's `17,374,215` plus `175,187`, the file
+count: the run counted one more piece than newlines per file. The generator now
+counts newlines, as `wc -l` does, so the page will read `17,374,215`.
 
 **The kill condition did not fire.** All five theorems were found at lines `4`–`12`
 of `src/Main.lean`, with the edges §2 reads: `riemannHypothesis` →
@@ -21692,7 +21692,19 @@ this instrument still owes (`443`'s rule).
 **Known gap, found after the run and left for the next step.** An ambiguous
 name with no candidate in the file's import closure is counted unsettled and
 stops the search, where it should fall through to the next namespace prefix
-and to the dependencies. Part of the `214,115` is that, not real ambiguity.
+and to the dependencies. Part of the `214,115` lookups is that, not real ambiguity.
+
+**No giant cycle, which is what makes the sizes mean something.** A Lean
+dependency graph is acyclic apart from `mutual` blocks, so any large strongly
+connected component in the parsed graph would be spurious edges. Tarjan over the
+written shards: `94` non-trivial components holding `1,449` declarations, the
+largest `387`. The size histogram is spread, not flat: `1,010,542` declarations
+have at most `1,000` below them, `44,142` more than `1,000`, `6,741` more than
+`10,000`, `66` more than `100,000`, `13` more than `500,000`. The viewer's decode
+path was run in `node` on those shards: the five roots list the children above,
+and `rhOfAll` links Mathlib's `RiemannHypothesis` at
+`Mathlib/NumberTheory/LSeries/RiemannZeta.lean#L185` of the pinned revision. It
+found one bug, fixed: Go writes an empty list as `null`.
 
 **Licence.** Statements and docstrings are left out of the data; `-statements`
 switches them on. The page credits the release and links <https://alpo.ge/>

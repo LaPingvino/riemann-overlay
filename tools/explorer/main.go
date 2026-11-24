@@ -478,9 +478,9 @@ type stats struct {
 	ExtEdges       int64   `json:"extEdges"`
 	Unresolved     int64   `json:"unresolvedMentions"`
 	ViaParent      int64   `json:"edgesViaGeneratedName"`
-	Ambiguous      int64   `json:"ambiguousMentions"`
-	AmbigByImports int64   `json:"ambiguousSettledByImports"`
-	AmbigUnsettled int64   `json:"ambiguousUnsettled"`
+	Ambiguous      int64   `json:"ambiguousLookups"`
+	AmbigByImports int64   `json:"ambiguousLookupsSettledByImports"`
+	AmbigUnsettled int64   `json:"ambiguousLookupsUnsettled"`
 	DupNames       int     `json:"namesDeclaredMoreThanOnce"`
 	StreamSec      float64 `json:"streamSeconds"`
 	ExtSec         float64 `json:"dependencySeconds"`

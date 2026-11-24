@@ -30,7 +30,7 @@ function loadShard(kind, i) {
 
 // node row layout, as written by tools/explorer/write.go
 // id lists are delta-encoded: [first, gap, gap, …]
-const undelta = a => { let x = 0; return a.map(d => (x += d)); };
+const undelta = a => { let x = 0; return (a || []).map(d => (x += d)); }; // Go writes an empty list as null
 function decode(id, shard, row) {
   let [name, kind, fi, line, declLine, endLine, sUses, bUses, sExt, bExt,
     usedBy, subDecls, subLines, exact, reach, stmt, doc] = row;
@@ -88,7 +88,7 @@ function header() {
         ". It can add a spurious edge when a local binder shares a name with a declaration in scope. ",
         `References like Foo.ext, generated from a declaration Foo, are credited to Foo (${fmt(st.edgesViaGeneratedName)} mentions). `,
         `${fmt(st.unresolvedMentions)} of ${fmt(st.identifierMentions)} identifier mentions resolved to nothing (mostly local variables). `,
-        `${fmt(st.ambiguousUnsettled)} ambiguous mentions could not be settled by imports and are dropped.`),
+        `${fmt(st.ambiguousLookupsUnsettled)} lookups of a name declared in several modules (counted once per name per file) could not be settled by imports and are dropped.`),
       h("p", {}, h("b", {}, "Not checked: "), "whether the development builds, and with which axioms. No ",
         h("b", {}, "[elaborated]"), " edge appears here: that needs Lean's own environment after a build of the 17M-line tree, which was not done. ",
         "Sizes count the distinct declarations reachable through parsed edges, the node itself included; ",

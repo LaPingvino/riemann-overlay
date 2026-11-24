@@ -1,7 +1,8 @@
 # Regenerate the Lean explorer's data from Alpöge's release and deploy it to
-# GitHub Pages.  The release is streamed (curl | gzip | tar), never stored:
-# only the compact JSON shards under explorer/data/ are written.
-# See explorer/README section in README.md and tools/explorer/main.go.
+# GitHub Pages. The release is streamed (HTTP -> gzip -> tar, in memory) and
+# never stored: only the compact JSON shards under explorer/data/ are written.
+# The generator refuses to write anything if the concatenation's SHA-256 is not
+# the one recorded in COMPARISON.md §7. See README.md, "The explorer".
 name: Explorer (Pages)
 
 on:
@@ -25,10 +26,20 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
-      - name: Viewer only (no data yet)
-        run: ls -la explorer
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+          cache: false
+      - name: Unit tests of the parser
+        run: go -C tools/explorer test .
+      - name: Stream the release and write the data
+        shell: bash # -eo pipefail: a generator failure fails the job
+        run: go -C tools/explorer run . -out ../../explorer/data 2>&1 | tee generator.log
+      - name: Data size
+        run: du -sh explorer/data explorer/data/*
       - uses: actions/upload-pages-artifact@v3
         with:
           path: explorer

@@ -14,6 +14,7 @@ type pdecl struct {
 	doc       string
 	stmt      string   // signature text, as written
 	aliases   []string // fields / constructors (full names), which resolve to this decl
+	private   bool     // visible from its own file only
 	ctx       int      // index into the file's contexts
 	stmtToks  []string // identifiers in the statement
 	bodyToks  []string // identifiers in the body
@@ -165,6 +166,7 @@ func parseFile(path, src string, keepText bool) pfile {
 		// strip attributes, modifiers, `set_option … in`, `open … in`
 		j := 0
 		var localOpens []string
+		isPrivate := false
 		for j < len(cmd) {
 			t := cmd[j]
 			if t.s == "@[" {
@@ -181,6 +183,9 @@ func parseFile(path, src string, keepText bool) pfile {
 				continue
 			}
 			if t.id && modifiers[t.s] {
+				if t.s == "private" {
+					isPrivate = true
+				}
 				j++
 				continue
 			}
@@ -284,7 +289,7 @@ func parseFile(path, src string, keepText bool) pfile {
 		if kind == "example" {
 			continue
 		}
-		d := pdecl{kind: kind, declLine: head.line, line: cmdLine, endLine: endLine}
+		d := pdecl{kind: kind, declLine: head.line, line: cmdLine, endLine: endLine, private: isPrivate}
 		if kind == "lemma" {
 			d.kind = "theorem"
 		}

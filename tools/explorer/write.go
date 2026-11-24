@@ -62,14 +62,22 @@ func write(r *result, toolchain string) {
 	S := *flagShard
 	n := len(r.order)
 	nShards := (n + S - 1) / S
+	// id lists are sorted and delta-encoded: [first, gap, gap, …]
+	delta := func(o []int32) []int32 {
+		sort.Slice(o, func(a, b int) bool { return o[a] < o[b] })
+		for i := len(o) - 1; i > 0; i-- {
+			o[i] -= o[i-1]
+		}
+		return o
+	}
 	ids := func(xs []int32) []int32 {
 		o := make([]int32, len(xs))
 		for i, x := range xs {
 			o[i] = r.nodeOf[x]
 		}
-		sort.Slice(o, func(a, b int) bool { return o[a] < o[b] })
-		return o
+		return delta(o)
 	}
+	xids := func(xs []int32) []int32 { return delta(append([]int32(nil), xs...)) }
 	for s := 0; s < nShards; s++ {
 		var paths []string
 		pidx := map[int32]int{}
@@ -91,7 +99,7 @@ func write(r *result, toolchain string) {
 				reach = 1
 			}
 			row := []any{d.name, d.kind, pi, d.line, d.declLine, d.endLine,
-				ids(r.sUses[di]), ids(r.bUses[di]), r.sExt[di], r.bExt[di],
+				ids(r.sUses[di]), ids(r.bUses[di]), xids(r.sExt[di]), xids(r.bExt[di]),
 				r.usedBy[di], r.subDecls[di], r.subLines[di], exact, reach}
 			if *flagStmts {
 				row = append(row, d.stmt, d.doc)
@@ -109,25 +117,25 @@ func write(r *result, toolchain string) {
 		}
 		total += writeJSON(filepath.Join(out, "x", itoa(s)+".json"), rows)
 	}
-	// search buckets: every declaration under the key of each component of its
-	// name, so "VW", "rh_of" and "Formalism.VW.rh" all land in a bucket that
-	// holds Formalism.VW.rh_of_every.
+	// search buckets: every declaration under the first two letters of the
+	// last component of its name, so "rh_of" and "Formalism.VW.rh_of" both
+	// land in the bucket that holds Formalism.VW.rh_of_every.
 	buckets := map[string][][]any{}
 	for id := 0; id < n; id++ {
 		d := &decls[r.order[id]]
-		seen := map[string]bool{}
-		for _, comp := range strings.Split(d.name, ".") {
-			k := searchKey(comp)
-			if k == "" || seen[k] {
-				continue
-			}
-			seen[k] = true
-			reach := 0
-			if r.reach[r.order[id]] {
-				reach = 1
-			}
-			buckets[k] = append(buckets[k], []any{d.name, id, reach})
+		last := d.name
+		if k := strings.LastIndexByte(last, '.'); k >= 0 {
+			last = last[k+1:]
 		}
+		k := searchKey(last)
+		if k == "" {
+			continue
+		}
+		reach := 0
+		if r.reach[r.order[id]] {
+			reach = 1
+		}
+		buckets[k] = append(buckets[k], []any{d.name, id, reach})
 	}
 	var bsizes []int64
 	for k, rows := range buckets {

@@ -174,6 +174,7 @@ type decl struct {
 	sToks    []int32 // interned identifiers, statement
 	bToks    []int32 // interned identifiers, body
 	aliases  []string
+	private  bool
 }
 
 type file struct {
@@ -266,7 +267,7 @@ func main() {
 		}
 		for _, d := range pf.decls {
 			nd := decl{name: d.name, kind: d.kind, file: fi, line: d.line, declLine: d.declLine, endLine: d.endLine,
-				doc: d.doc, stmt: d.stmt, ctx: gctx[d.ctx], aliases: d.aliases}
+				doc: d.doc, stmt: d.stmt, ctx: gctx[d.ctx], aliases: d.aliases, private: d.private}
 			nd.sToks = make([]int32, len(d.stmtToks))
 			for i, t := range d.stmtToks {
 				nd.sToks[i] = toks.id(t)
@@ -618,14 +619,24 @@ func resolve(exts []extDecl) *result {
 	extUsedIdx := map[int32]int32{}
 	pick := func(di int32, cands []int32) int32 {
 		if len(cands) == 1 {
+			if c := cands[0]; decls[c].private && decls[c].file != decls[di].file {
+				return -1 // private to another file
+			}
 			return cands[0]
 		}
 		r.stats.Ambiguous++
 		f := decls[di].file
 		var hit []int32
-		for _, c := range cands {
-			if decls[c].file == f || inClosure(f, decls[c].file) {
+		for _, c := range cands { // a declaration in the same file wins
+			if decls[c].file == f {
 				hit = append(hit, c)
+			}
+		}
+		if len(hit) == 0 {
+			for _, c := range cands { // private declarations are file-local
+				if !decls[c].private && inClosure(f, decls[c].file) {
+					hit = append(hit, c)
+				}
 			}
 		}
 		if len(hit) == 1 {
@@ -844,6 +855,27 @@ func resolve(exts []extDecl) *result {
 		}
 	}
 	sizes(r)
+	// the roots' sizes exactly, by search (the sketch estimates them)
+	for _, rt := range r.roots {
+		seen := map[int32]bool{rt: true}
+		st := []int32{rt}
+		var ln int64
+		for len(st) > 0 {
+			x := st[len(st)-1]
+			st = st[:len(st)-1]
+			ln += int64(decls[x].endLine - decls[x].line + 1)
+			for _, ys := range [][]int32{r.sUses[x], r.bUses[x]} {
+				for _, y := range ys {
+					if !seen[y] {
+						seen[y] = true
+						st = append(st, y)
+					}
+				}
+			}
+		}
+		logf("root %s: %d declarations exactly (sketch said %d)", decls[rt].name, len(seen), r.subDecls[rt])
+		r.subDecls[rt], r.subLines[rt], r.subExact[rt] = int64(len(seen)), ln, true
+	}
 	r.stats.ResolveSec = time.Since(t0).Seconds()
 	return r
 }

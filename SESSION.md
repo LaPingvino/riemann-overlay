@@ -21647,3 +21647,63 @@ is `9631b4f0…a7a0cfeb8d`, equal to `COMPARISON.md` §7. `tar -tzv` over the
 stream lists three entries not ending in `.lean` — `lake-manifest.json`,
 `lakefile.toml`, `lean-toolchain` — and no directory entries. So the tarball
 carries **no `LICENSE` and no `README`** under any name.
+
+**The first local run (step 2).** `tools/explorer`, run on the fourteen parts
+cached on the RAM disk and on the dependency tarballs from `codeload`, at the
+pinned revisions the release's own `lake-manifest.json` names (Mathlib
+`0df444a3`, Batteries, Aesop, Qq, Plausible) and Lean core at `v4.33.1`, its
+`lean-toolchain`. Wall time `15m56s` on this machine: `83s` to stream and parse
+the release, `11s` for the dependencies, `14 min` to resolve; peak heap about
+`3.3 GB`. Output `247 MB` — node shards `180 MB`, search buckets `63 MB`
+(largest `4.2 MB`), dependency names `3.5 MB`. What it counted:
+
+| | |
+|---|---|
+| `.lean` files / lines / declarations | `175,187` / `17,549,402` / `1,061,504` |
+| reached from the five `Main.lean` theorems | `753,343` declarations, `10,162,007` lines |
+| identifier mentions | `33,908,329` |
+| resolved to a tree declaration / a dependency declaration | `5,492,834` / `12,769,322` |
+| unresolved (mostly local binders) | `14,341,674` |
+| credited to a parent through a generated name (`Foo.ext` → `Foo`) | `1,573,687` |
+| names declared more than once / mentions of them left unsettled | `4,080` / `214,115` |
+
+The line count differs from `COMPARISON.md` §3's `17,374,215` because this
+counts newline-separated pieces, a final line without a newline included; the
+two counts were not reconciled further.
+
+**The kill condition did not fire.** All five theorems were found at lines `4`–`12`
+of `src/Main.lean`, with the edges §2 reads: `riemannHypothesis` →
+`rhOfAll`; `riemannZeta_eq_zero_re` → `RiemannZetaZerosOnLine`, `rhOfAll`;
+`LFunction_ne_zero_of_half_lt_re` → `DirichletLNonvanishingRightOfHalf`,
+`allChi`; `LFunction_eq_zero_re` → `DirichletLZerosOnLine`, `claimAll`;
+`LFunction_eq_zero_re_of_isPrimitive` → `PrimitiveDirichletLZerosOnLine`,
+`critAll`. Each root reaches between `753,320` and `753,330` declarations by a
+full search; the bottom-`128` sketch had said `848,705`, `13%` high, so the
+roots' figures come from the search and the page marks every sketched figure `≈`.
+
+**What the edges are: `[parsed]`, all of them.** No `[elaborated]` edge exists
+in this data, because none can without a build. The parse misses whatever the
+elaborator supplies without a name in the text (instances, `simp` sets,
+coercions, notation, tactic-built terms, dot notation on a local) and can add a
+spurious edge where a local binder shares a declaration's name. **Not checked:**
+a sample of edges against an elaborated environment, which is the calibration
+this instrument still owes (`443`'s rule).
+
+**Known gap, found after the run and left for the next step.** An ambiguous
+name with no candidate in the file's import closure is counted unsettled and
+stops the search, where it should fall through to the next namespace prefix
+and to the dependencies. Part of the `214,115` is that, not real ambiguity.
+
+**Licence.** Statements and docstrings are left out of the data; `-statements`
+switches them on. The page credits the release and links <https://alpo.ge/>
+and the note.
+
+**Publishing.** The gated skeleton commit was fast-forwarded into the local
+`main` and GitHub Pages was enabled with Actions as its source
+(<https://lapingvino.github.io/riemann-overlay/>). `git push origin main` was
+refused by this session's permission check, so nothing is on `origin` yet; the
+push is Joop's.
+
+**Might-mean:** seven tenths of the release's declarations sit under the five
+lines of `Main.lean`, so the explorer's first use may be the other three tenths —
+`308,161` declarations no parsed edge from those theorems reaches.

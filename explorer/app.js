@@ -29,9 +29,12 @@ function loadShard(kind, i) {
 }
 
 // node row layout, as written by tools/explorer/write.go
+// id lists are delta-encoded: [first, gap, gap, …]
+const undelta = a => { let x = 0; return a.map(d => (x += d)); };
 function decode(id, shard, row) {
-  const [name, kind, fi, line, declLine, endLine, sUses, bUses, sExt, bExt,
+  let [name, kind, fi, line, declLine, endLine, sUses, bUses, sExt, bExt,
     usedBy, subDecls, subLines, exact, reach, stmt, doc] = row;
+  [sUses, bUses, sExt, bExt] = [sUses, bUses, sExt, bExt].map(undelta);
   return { id, name, kind, file: shard.f[fi], line, declLine, endLine, sUses, bUses,
     sExt, bExt, usedBy, subDecls, subLines, exact: !!exact, reach: !!reach, stmt, doc };
 }
@@ -221,7 +224,7 @@ function keyOf(s) {
 }
 let searchTimer = null, lastQ = "";
 function searchBox() {
-  const input = h("input", { type: "search", placeholder: "Search any declaration by name — e.g. rh_of_every, landau, Formalism.VW", value: lastQ, autocomplete: "off", spellcheck: "false" });
+  const input = h("input", { type: "search", placeholder: "Search by name: the start of its last part, optionally qualified — rh_of_every, landau_entire, VW.crit", value: lastQ, autocomplete: "off", spellcheck: "false" });
   const out = h("div", { class: "results" });
   input.addEventListener("input", () => {
     clearTimeout(searchTimer);
@@ -237,14 +240,16 @@ function searchBox() {
 async function runSearch(q, out) {
   lastQ = q;
   if ([...q].length < 2) { out.replaceChildren(); return; }
+  // buckets hold names by the first two letters of their last component
   const comps = q.split(".").filter(Boolean);
-  const comp = comps.reduce((a, b) => (b.length > a.length ? b : a), "");
-  if ([...comp].length < 2) { out.replaceChildren(); return; }
+  const comp = comps[comps.length - 1] || "";
+  if (!comp) { out.replaceChildren(); return; }
   let rows;
   try { rows = await loadShard("s", keyOf(comp)); } catch { rows = []; }
   if (q !== lastQ) return;
   const ql = q.toLowerCase();
-  const hits = rows.filter(r => r[0].toLowerCase().includes(ql));
+  const lq = lastComp(ql);
+  const hits = rows.filter(r => { const n = r[0].toLowerCase(); return n.includes(ql) && lastComp(n).startsWith(lq); });
   const score = r => {
     const n = r[0].toLowerCase();
     return (n === ql || n.endsWith("." + ql) ? 0 : 2) + (lastComp(n).startsWith(lastComp(ql)) ? 0 : 1) - r[2] * 4;

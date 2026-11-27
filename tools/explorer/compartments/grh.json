@@ -1,0 +1,227 @@
+{
+  "id": "grh",
+  "title": "The five theorems of src/Main.lean",
+  "summary": "RH (Mathlib's RiemannHypothesis) and GRH for Dirichlet L-functions, in four forms. All five come from one theorem, New.grh: no Dirichlet L-function vanishes in re s > 1/2. RH and the critical-line forms then follow by the functional equation's symmetry s -> 1 - s (New/Main.lean). The boundaries below follow the authors' own reading guide (GUIDE.md, section 1, the topic table) and the volumes of the GRH Lean Handbook (github.com/tamnd/grh-lean-handbook at 152bdf2a), which cut this edition along the same folders.",
+  "children": [
+    {
+      "id": "top",
+      "title": "The statements and the last step",
+      "summary": "src/Statements.lean (imports only Mathlib: the four Prop definitions the theorems are stated with), src/Main.lean (the five theorems, each one line) and src/New/Main.lean (from no zero in re s > 1/2 to zeros on the line, by the functional equation). Their cone is the whole tree, since Main imports everything.",
+      "align": "README: 'To trust the result, read src/Statements.lean ... the five statements in src/Main.lean'; Handbook vol. 0",
+      "prefixes": [
+        "src/Main.lean",
+        "src/Statements.lean",
+        "src/New/Main.lean"
+      ]
+    },
+    {
+      "id": "endgame",
+      "title": "Endgame: from a one-sided prime bound to the zeros",
+      "summary": "The analytic end of the proof, and the only part that talks about zeros. A weighted sum over prime powers n = 1 mod q, with the non-negative weight Lambda(n)(1 - (n/d)), has a remainder R_q(x). Its Laplace transform has simple poles at the zeros of the L-functions mod q, with the zeros' orders as residues (up to a factor). Landau's lemma: a one-sided bound R_q(x) <= x^(beta - 1) and residues of one sign leave no zero in re s > beta. The twist by (./d) is chosen, by a zero-density count from Polya-Vinogradov, so that its zeros do not spoil the sign. Also here: the classical zero-free region and a Tauberian theorem (the prime number theorem with error, used at the second cut-off), and the symmetry of zeros from the functional equation.",
+      "align": "GUIDE: 'From a one-sided bound to the zeros (Zeros)'; Handbook vol. 1 (in part) and vol. 2 'Analytic number theory' (Lib/Analytic)",
+      "prefixes": [],
+      "children": [
+        {
+          "id": "zeros",
+          "title": "The criterion and the prime-sum remainder",
+          "summary": "New/Reduction/Zeros: the remainder R_q and its poles (PrimeError), the one-sided criterion LFunction_ne_zero_of_primeRemainder_le (Criterion), and the prime number theorem for the remainder at the second cut-off (PrimeNumberTheorem).",
+          "align": "GUIDE: Reduction/Zeros",
+          "prefixes": [
+            "src/New/Reduction/Zeros/"
+          ]
+        },
+        {
+          "id": "analytic",
+          "title": "Analytic background on Dirichlet L-functions",
+          "summary": "Lib/Analytic: Landau's lemma, the entire L-function and the residues of its log-derivative (the orders of its zeros), theta series and the functional equation in absolute value, Polya-Vinogradov, a zero-density count for quadratic twists in a box, primes in progressions, symmetry of zeros, and the prime number theorem (crude zero-free region, Tauberian step, growth near re s = 1). No Hadamard product, no zero-counting function N(T), no explicit formula over zeros.",
+          "align": "Handbook vol. 2",
+          "prefixes": [
+            "src/Lib/Analytic/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reduction",
+      "title": "The reduction: data, lattices and the main inequality",
+      "summary": "New/Reduction outside Zeros. The admissible data (a CM field E, places, levels, twists and the scales x << x1 << b), heights and twisted lattices, the prime sums that are compared, and the main inequality star_inequality: one covolume, corrected by an index, bounded from above (Theorems A and B) and from below (Theorem C); the main amount cancels and the prime-sum remainder is bounded above. OneSidedBound turns it into R_q(x) <= x^(-1/2 + eps) and ends with grh. This is the one interface between the endgame and the automorphic machinery.",
+      "align": "GUIDE: Reduction (Lattices, Data, PrimeSums, IntegralTargetForms, ShortAndEnough, MainInequality, OneSidedBound); Handbook vol. 1",
+      "prefixes": [
+        "src/New/Reduction/"
+      ]
+    },
+    {
+      "id": "theoremA",
+      "title": "Theorem A: short forms (the upper bound)",
+      "summary": "A composite of m theta lifts between definite hermitian spaces, its divisibility (a seesaw identity, Stepanov's count of zeros in the root lemma) and its size: a multiple of the projected Poincare series has short lifts and a small index. Derivatives of theta functions count primes; this is where the prime sum enters the size.",
+      "align": "GUIDE: 'Upper bound: a composite lift' and 'Derivatives of theta functions'; Handbook vol. 9 (New/UpperBound, New/Derivatives without Sharpness)",
+      "children": [
+        {
+          "id": "upper",
+          "title": "Upper bound: a composite lift",
+          "summary": "New/UpperBound: theta kernels, source and target forms, chains of lifts, the seesaw identity, divisibility and size of the composite lift, elementary divisors of a Hecke operator.",
+          "align": "GUIDE: UpperBound",
+          "prefixes": [
+            "src/New/UpperBound/"
+          ]
+        },
+        {
+          "id": "derivatives",
+          "title": "Derivatives of theta functions",
+          "summary": "New/Derivatives (without Sharpness): derivatives that count primes, the field and its characters, the formal group and the exponential factor, the integral vacuum.",
+          "align": "GUIDE: Derivatives",
+          "prefixes": [
+            "src/New/Derivatives/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "theoremB",
+      "title": "Theorem B: enough forms (a second moment)",
+      "summary": "New/Spanning: few translates of Poincare series span almost all target forms. A Petersson-type second moment, equality of multiplicities of Hecke eigensystems on two forms of one space, Bessel functions, unfolding, the main term and the remaining terms.",
+      "align": "GUIDE: 'Spanning: a second moment'; Handbook vol. 10",
+      "prefixes": [
+        "src/New/Spanning/"
+      ]
+    },
+    {
+      "id": "theoremC",
+      "title": "Theorem C: long forms (the lower bound)",
+      "summary": "Integral forms are long: the covolume and twice the index are at least about the main amount. A twist for each prime, norms of theta lifts, an exchange identity of Siegel-Weil type, the norm of a chain of lifts, one lift and its Hecke L-values, and congruences: Galois representations, Selmer groups of anticyclotomic twists, lifting crystalline classes.",
+      "align": "GUIDE: 'Lower bound: the determinant', 'Lower bound: one lift', 'Lower bound: congruences'; Handbook vols. 11 and 12",
+      "children": [
+        {
+          "id": "determinant",
+          "title": "The determinant",
+          "summary": "New/Determinant: a twist for each prime, norms of theta lifts, the exchange identity, the norm of a chain, auxiliary forms; Theorem C itself (Twist/LongForms).",
+          "align": "GUIDE: Determinant; Handbook vol. 11",
+          "prefixes": [
+            "src/New/Determinant/"
+          ]
+        },
+        {
+          "id": "onelift",
+          "title": "One lift",
+          "summary": "New/OneLift: one lift and Hecke values, the comparison operator, periods of false lifts, Hecke L-values as squared norms and their valuations.",
+          "align": "GUIDE: OneLift; Handbook vol. 11",
+          "prefixes": [
+            "src/New/OneLift/"
+          ]
+        },
+        {
+          "id": "sharpness",
+          "title": "The bound is attained",
+          "summary": "New/Derivatives/Sharpness: the divisibility bound of Theorem A is attained, as the lower bound needs.",
+          "align": "GUIDE: Derivatives/Sharpness; Handbook vol. 11",
+          "prefixes": [
+            "src/New/Derivatives/Sharpness/"
+          ]
+        },
+        {
+          "id": "congruences",
+          "title": "Congruences and Selmer groups",
+          "summary": "New/Congruences: the choice of twists, congruences and Galois representations, first-order congruences, anticyclotomic twists with small Selmer groups, the local loss, lifting crystalline extension classes in large weight. Its denominator bound uses odd classes only; the even classes, where Vandiver's conjecture lives, do not enter (FirstOrder/DenominatorBound, head).",
+          "align": "GUIDE: Congruences; Handbook vol. 12",
+          "prefixes": [
+            "src/New/Congruences/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "appendix",
+      "title": "Supplement: discrete series with a large gap",
+      "summary": "New/Appendix: discrete series representations with a large gap between weights, used by Theorems B and C.",
+      "align": "GUIDE: Appendix; Handbook vol. 5 (with the representations)",
+      "prefixes": [
+        "src/New/Appendix/"
+      ]
+    },
+    {
+      "id": "background",
+      "title": "Background theories Mathlib lacks (src/Lib)",
+      "summary": "Results classed as known in the literature, with their proofs, often in a weaker form that suffices here and with the development's own definitions. Lib imports nothing from New. Grouped as the Handbook's volumes 3 to 8 group them; Lib/Analytic is under the endgame.",
+      "align": "GUIDE: section 1, last paragraph; Handbook vols. 3-8",
+      "children": [
+        {
+          "id": "numberfields",
+          "title": "Number fields, class field theory, CM",
+          "summary": "Lib/ClassField, Lib/Cyclotomic, Lib/CM: class field theory and duality (artin_reciprocity), odd classes over cyclotomic fields, complex multiplication and a Chowla-Selberg formula.",
+          "align": "Handbook vol. 3",
+          "prefixes": [
+            "src/Lib/ClassField/",
+            "src/Lib/Cyclotomic/",
+            "src/Lib/CM/"
+          ]
+        },
+        {
+          "id": "automorphic",
+          "title": "Unitary groups and automorphic forms",
+          "summary": "Lib/Adelic and Lib/General/Groups: adeles, unitary groups, automorphic forms, Hecke eigenforms, a simple trace formula.",
+          "align": "Handbook vol. 4",
+          "prefixes": [
+            "src/Lib/Adelic/",
+            "src/Lib/General/Groups/"
+          ]
+        },
+        {
+          "id": "representations",
+          "title": "Representations of real, p-adic and finite groups",
+          "summary": "Lib/DiscreteSeries (without Theta), Lib/GLn, Lib/LocalGL: discrete series, Green's characters of GL_r over finite fields, local representations.",
+          "align": "Handbook vol. 5",
+          "prefixes": [
+            "src/Lib/DiscreteSeries/",
+            "src/Lib/GLn/",
+            "src/Lib/LocalGL/"
+          ]
+        },
+        {
+          "id": "theta",
+          "title": "The theta correspondence and Siegel-Weil",
+          "summary": "Lib/Weil, Lib/SiegelWeil, Lib/DiscreteSeries/Theta: the Weil representation, theta lifts, the Siegel-Weil and Rallis formulas.",
+          "align": "Handbook vol. 6",
+          "prefixes": [
+            "src/Lib/Weil/",
+            "src/Lib/SiegelWeil/",
+            "src/Lib/DiscreteSeries/Theta/"
+          ]
+        },
+        {
+          "id": "cohomology",
+          "title": "Cohomology and p-adic Hodge theory",
+          "summary": "Lib/Cohomology, Lib/PadicHodge, Lib/PadicComparison, Lib/General/Geometry, Lib/General/Algebra: l-adic and Hodge cohomology, p-adic comparison, Kisin modules.",
+          "align": "Handbook vol. 7",
+          "prefixes": [
+            "src/Lib/Cohomology/",
+            "src/Lib/PadicHodge/",
+            "src/Lib/PadicComparison/",
+            "src/Lib/General/Geometry/",
+            "src/Lib/General/Algebra/"
+          ]
+        },
+        {
+          "id": "shimura",
+          "title": "Shimura varieties and Galois representations",
+          "summary": "Lib/Shimura, Lib/GaloisRep: models of Shimura varieties and the Galois representations of eigenforms, matched to Hecke polynomials for most Frobenii only.",
+          "align": "Handbook vol. 8",
+          "prefixes": [
+            "src/Lib/Shimura/",
+            "src/Lib/GaloisRep/"
+          ]
+        },
+        {
+          "id": "general",
+          "title": "General mathematics and global settings",
+          "summary": "The rest of Lib/General (analysis, linear algebra, measure, number theory, topology, combinatorics), Lib/Base and Lib/Speed (instance priorities and simp settings for the whole development; the authors report that everything still compiles with Speed emptied).",
+          "align": "no Handbook volume of its own",
+          "prefixes": [
+            "src/Lib/General/",
+            "src/Lib/Base.lean",
+            "src/Lib/Speed.lean"
+          ]
+        }
+      ]
+    }
+  ]
+}

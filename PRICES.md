@@ -1457,3 +1457,10 @@ multiplicity wall: `MAP.md` §5, the `≈0.682` bandwidth-one ceiling, the
 RH-conditional literature constants that would bear on the multiplicity side —
 CMR's `1.3208`, the `~0.679` of `L9` — stay `[RECALL, UNVERIFIED]`; `445` did not
 fetch them, and becoming unconditional would not change that.
+
+**`447` annotation.** Two shorter editions of the claimed proof (`lsernau/grh-lean` at
+`72fead10`; `COMPARISON.md` §8) state the same five theorems, with a byte-identical
+`Statements.lean`. Neither edition contains a metaprogram site. Nothing in this table moves:
+`h` is still a hypothesis, priced as above. The readable edition's endgame consumes
+multiplicity only as the sign of a residue (§8.5), so the *"what it does not buy"* paragraph
+is now read in the proof itself, not inferred from its shape.

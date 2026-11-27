@@ -2730,3 +2730,33 @@ question is whether any variant — positivity of a weighted sum whose weight se
 non-negative-coefficient argument factors through the zero-free region it
 produces, so that multiplicity enters only through the residue at a pole, the
 answer is no and this closes. Nothing here is conjectural, only unasked.
+
+**`447` annotation on (b).** The readable edition of `lsernau/grh-lean` is an instance of
+(b)'s kill shape: multiplicity enters its endgame **only through the residue at a pole**.
+The residue is `(n(s) − n′(s)) / (φ(q) s (1 − s))` with `n` a sum of zero orders, it is used
+only as `n(s) ≥ 0` and `n(ρ) = 0`, and the twists' `n′` is removed by the choice of `d`
+(`COMPARISON.md` §8.5). That is one instance, not "every non-negative-coefficient argument", so
+(b) stays open. It is graded **one confirming instance, unchanged otherwise**.
+
+## `447` — borrowing from the shortened editions, compartment by compartment
+
+Read against the compartment map (`COMPARISON.md` §9), at `lsernau/grh-lean`
+`72fead10`, Apache-2.0 (a port keeps `NOTICE` and per-file attribution). The pins are Lean
+`v4.35.0` and Mathlib `56a00585` against this repository's `v4.33.0-rc2` and `51e6992e`, 1,776
+Mathlib commits apart, so every port is a re-check on our pin, never a copy. None is claimed.
+Grades: **A** ready to try, closed compartment and a use on the board; **B** useful,
+blocked by size or by a missing use; **C** no use here.
+
+| compartment | ~tokens (itself / cone) | what it offers | use in this project | grade |
+|---|---|---|---|---|
+| endgame · `Lib/Analytic/EntireLFunction` + `Landau` | 56k / 113k for all of `Lib/Analytic` | residues of `L′/L` are zero orders (`tendsto_sub_mul_logDeriv_entireL_analyticOrderNatAt`); Landau's lemma for `IsPolar` transforms | **not new here:** `vendor/zeta23` already has the argument principle with zero orders (`Zeta23/Analytic/RectangleLogDeriv.lean`, `rectangleIntegral'_mul_logDeriv`, 21 `analyticOrder` sites), and `Zeta23.zeroMult` is Mathlib's `analyticOrderAt` (`Riemann/Zeta.lean`). The edition adds the same tie for Dirichlet `L(s, χ)` and Landau's lemma, and this project has no Dirichlet-`L` row. **Kill condition for an upgrade:** a row on the board that needs a sign argument on a transform with zero-order residues; none does today, so it stays here | **B** |
+| endgame · `Lib/Analytic/PrimeNumberTheorem` | inside the 113k | crude zero-free region `re s ≥ 1 − l⁻²⁵`, a Tauberian step, growth near `re s = 1` | none on the board: no row consumes a zero-free region | **C** |
+| endgame · `Lib/Analytic/QuadraticTwist`, `PolyaVinogradov` | inside the 113k | zero density for quadratic twists in a box; Pólya–Vinogradov | none on the board; a candidate supplier for W28's bundle **S** question (`445`(a)), only as an example of an additive input the proof *does* use | **C**, a note for (a) |
+| endgame · `New/Reduction/Zeros` | 12k / 119k | the one-sided criterion | the shape of a plucked check: the criterion's one-sided bound left open as a hypothesis, as `Riemann/RH.lean` leaves `h` open. **Done at `447`**: built alone under a `9 GB` cap, the six lemmas on the three standard axioms (`COMPARISON.md` §8.4) | **done**, an audit target, not a borrowing |
+| reduction · `MainInequality`, `Data/Existence` | 79k / 7.5M | the two inputs the endgame takes from the rest: `star_inequality` and `eventually_exists_data` | none to borrow; the plucked check cuts below them, at the criterion's hypothesis | — |
+| Theorems A, B, C; `Lib` theories | 0.7–4.4M / 1.8–7.1M | theta lifts, Selmer groups, Galois representations, Shimura varieties | none: no row of the ledger is automorphic. Checked one file at a time if at all | **C** |
+| Hadamard, `ξ`, `ξ′`, `N(T)`, explicit formula over zeros | — | **absent from both editions**: every hit of a case-insensitive grep over both `src/` trees is accounted for (`COMPARISON.md` §9.4) | `Riemann.xiPrimeFamily` stays an axiom with no construction | — |
+
+**Might-mean (`447`):** the one closed compartment of the proof is the half this project
+already owns in another form, the argument principle with zero orders, so the proof and this
+project meet at the residue and nowhere else.

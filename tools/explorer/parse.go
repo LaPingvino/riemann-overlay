@@ -6,18 +6,18 @@ import (
 
 // A parsed declaration, before resolution.
 type pdecl struct {
-	name      string // full name, namespace applied
-	kind      string
-	line      int32 // first line (docstring or attribute included)
-	declLine  int32 // line of the keyword
-	endLine   int32
-	doc       string
-	stmt      string   // signature text, as written
-	aliases   []string // fields / constructors (full names), which resolve to this decl
-	private   bool     // visible from its own file only
-	ctx       int      // index into the file's contexts
-	stmtToks  []string // identifiers in the statement
-	bodyToks  []string // identifiers in the body
+	name     string // full name, namespace applied
+	kind     string
+	line     int32 // first line (docstring or attribute included)
+	declLine int32 // line of the keyword
+	endLine  int32
+	doc      string
+	stmt     string   // signature text, as written
+	aliases  []string // fields / constructors (full names), which resolve to this decl
+	private  bool     // visible from its own file only
+	ctx      int      // index into the file's contexts
+	stmtToks []string // identifiers in the statement
+	bodyToks []string // identifiers in the body
 }
 
 type pfile struct {
@@ -27,6 +27,8 @@ type pfile struct {
 	decls   []pdecl
 	ctxs    [][]string // resolution prefixes, in priority order ("" = root)
 	lines   int32
+	bytes   int64
+	heading string // the first `# ` line of the module docstring, if any
 }
 
 var declKinds = map[string]bool{
@@ -82,6 +84,8 @@ func parseFile(path, src string, keepText bool) pfile {
 	toks, docs := lexFile(src)
 	f := pfile{path: path, module: moduleOf(path)}
 	f.lines = int32(strings.Count(src, "\n")) // as wc -l counts, and COMPARISON.md §3
+	f.bytes = int64(len(src))
+	f.heading = moduleHeading(src)
 	lines := strings.Split(src, "\n")
 
 	var ns []string
@@ -506,4 +510,24 @@ func prefixOnly(seq []tok) bool {
 		}
 	}
 	return len(seq) > 0
+}
+
+// moduleHeading returns the text of the first "# " line inside the first
+// `/-!` module docstring of src — the title the authors gave the file.
+func moduleHeading(src string) string {
+	i := strings.Index(src, "/-!")
+	if i < 0 {
+		return ""
+	}
+	rest := src[i+3:]
+	if j := strings.Index(rest, "-/"); j >= 0 {
+		rest = rest[:j]
+	}
+	for _, l := range strings.Split(rest, "\n") {
+		l = strings.TrimSpace(l)
+		if strings.HasPrefix(l, "# ") {
+			return strings.TrimSpace(l[2:])
+		}
+	}
+	return ""
 }

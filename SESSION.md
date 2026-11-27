@@ -21719,3 +21719,118 @@ push is Joop's.
 **Might-mean:** seven tenths of the release's declarations sit under the five
 lines of `Main.lean`, so the explorer's first use may be the other three tenths —
 `308,161` declarations no parsed edge from those theorems reaches.
+
+## 447 — the shortened editions, audited, and cut into compartments
+
+**Piece (Joop's plan of 2026-11-27, then his three course corrections).** On 2026-11-25
+Luke Sernau released two shortened editions of the claimed RH/GRH proof. This session
+(1) pins them, redoes `COMPARISON.md`'s audit on them, and checks the statements and the
+axioms, (2) cuts the readable edition into a **fractal compartment map** with token sizes,
+built as a generated data step of the `446` explorer, and (3) only then reads this project's
+reductions against that map. RH stays a hypothesis, `h`, as at `445`.
+
+**Wildcard and its kill condition, both registered before this run.** `LEADS.md` `445`(b)
+stated its own kill condition at `445`: *"if every non-negative-coefficient argument
+factors through the zero-free region it produces, so that multiplicity enters only through
+the residue at a pole, the answer is no."* The readable edition is one instance of that kill shape
+(§8.5 below). One instance does not kill a universal question, so (b) stays open with one
+confirming instance (`LEADS.md`, the `447` annotation on (b)).
+
+**The primary source.** <https://github.com/lsernau/grh-lean>, found by a GitHub search for
+`grh-lean`. It has one commit, `72fead102f663d5c7a407964a13dc0cf9d977207` (author line Luke
+Sernau, 2026-11-25), and is Apache-2.0. It was cloned into `~/Projects/.riemann-ext/grh-lean`,
+outside this repository, and treated as untrusted: none of its scripts was run. Anthropic's
+part rests on the README's and `NOTICE`'s own words (`COMPARISON.md` §8.1). The press
+pieces Joop named were not fetched; nothing here relies on them.
+
+**Audit (`COMPARISON.md` §8.2–8.3).** `tools/trust_audit.py` finds no forbidden token in
+either edition, except the five `sorry`s of `Challenge.lean`. That is the Comparator stub,
+outside the default targets and imported by nothing. It finds **zero metaprogram sites
+of any listed kind**, and `445`'s extra greps (`setEnv`, attribute-registered elaborators)
+find nothing either. So nothing like Alpöge's `D1`–`D5` or `cpt_copy_thms` survives. What
+remains is elaborator-only: `Lib/Speed.lean` lowers 84 instance priorities and removes 64
+`simp` lemmas, and there are 44 `set_option`s. `Statements.lean` is byte-identical in both
+editions and in Alpöge's tarball (SHA-256 `79ef7ca7…`). Mathlib's `RiemannHypothesis` reads
+the same at the new pin `56a00585` (upstream `master`) as at ours.
+
+**Build and axioms (`COMPARISON.md` §8.4).** The full build of the readable edition ran in a
+`9 GB` cgroup, drilled first: a `400 MB` allocation under a `200 MB` cap was killed. It managed
+about 65 of 803 tree modules in 20 minutes, which projects to about 6.5 hours, past the 4-hour
+time-box. It was stopped, and its `.olean`s are kept, so a later run resumes.
+**There is no `#print axioms` here for the five theorems**, and the README's kernel and
+Comparator runs stay [secondhand]. What was done is a **plucked build** of the endgame
+compartment alone, the first use of the map. It took 4 minutes on top of what was already
+built, and this session's own `Axioms` file printed `[propext, Classical.choice, Quot.sound]`
+for the criterion, `isPolar_primeRemainder`, `IsPolar.landau`, the twist-choice lemma, the
+residue lemma and the prime number theorem for the remainder.
+
+**The compartment map (`COMPARISON.md` §9).** `tools/explorer` gains a directory source
+(`-src`, `-commit`, `-repo`, `-edition`), byte counts, and `compart.go`. That file takes a
+spec of the top two levels (`tools/explorer/compartments/grh.json`), with summaries and
+alignment notes, and generates every level below it, directory by directory and file by
+file, down to the declarations, with size, ~tokens (bytes/4) and import cone at every node.
+The boundaries are not invented. The top level is the authors' `GUIDE.md` topic table, and
+the background and A/B/C sub-compartments follow the GRH Lean Handbook's volumes
+(`tamnd/grh-lean-handbook` at `152bdf2a`). The blueprint `Euler2023/grh-blueprint` uses the
+same cut. The maps of Alpöge's original (`rh-lean-roadmap`, J. Shore's kernel-traced
+dependencies, `rh-lean-dissection`) are cited, and §9.1 records where Sernau's editions depart
+from them. The Pages Action now also fetches the pinned commit and writes `explorer/data/grh/`. The
+viewer opens that data at `?d=grh` and starts from the compartment root (checked in headless
+Chromium against a local server: root and a level-2 node render with sizes, cones and
+children). The headline numbers:
+
+| | ~tokens |
+|---|---:|
+| Alpöge's release | ~350M |
+| readable edition / compact edition | 7.5M / 1.9M |
+| the five theorems' cone (one cone, the whole tree at the module level) | 7.5M |
+| **the endgame compartment with its whole import cone** (Landau, the criterion, PNT) | **126k** |
+| the map above any compartment (summaries on its path) | < 1k |
+| one file: median / largest | 8.9k / 24k |
+
+So one compartment plus the map fits one context only where the compartment is closed under
+imports. The endgame is, and its plucked build above shows that the same cut also bounds memory. Theorems A, B and C are 0.7–1.3M tokens each. Inside them the unit
+is the file, read against the *statements* of its imports, and that statement-only cone is the
+next instrument. The endgame meets the rest through two inputs, `star_inequality` (used once,
+`OneSidedBound.lean:51`) and `eventually_exists_data`. The clean cut is the criterion's
+hypothesis, a one-sided bound on `primeRemainder`, which is what the plucked build left open.
+
+**A limit of the instrument, found and measured.** On this edition the explorer's [parsed]
+declaration cones reach about 440 of 23,839 declarations, because its proofs call lemmas by
+dot notation on a local (`D.integral_forms_long`). The new `-dot k` option resolves `x.foo` to
+the tree declarations ending in `.foo` when there are at most `k` of them. With `k = 1` the cone
+is 444 declarations, and with `k = 4` it is 924, at the price of spurious edges. The published data use
+`k = 1`, the map's sizes are counted from the `import` lines, and the page says so. The true
+declaration cone waits for an elaborated environment.
+
+**Against this project (`COMPARISON.md` §9.4; `LEADS.md` `447`).** Witness: the grep over `src/` and the five
+files of `COMPARISON.md` §8.5. The multiplicity side (the `NscStd` row, the `≈0.682` wall,
+pair correlation past support 1) appears in none of the compartments, multiplicity is consumed
+as the sign `n(s) ≥ 0`, and §5's Blindness row is upgraded to **[read]** for this
+edition: the definitions of `primeRemainder` and its weight were opened. Neither edition has a Hadamard product, `ξ′` or `N(T)`; the witness is a grep whose every hit
+is accounted for (`COMPARISON.md` §9.4), so `Riemann.xiPrimeFamily` stays an axiom. **A slip, caught before the
+commit (`R17`):** the first draft of `LEADS` `447` called the order-as-residue lemma *"the
+first Lean statement on disk that ties a zero order to an analytic quantity"*. A grep of this
+tree found `vendor/zeta23/Zeta23/Analytic/RectangleLogDeriv.lean`, the argument principle with
+orders, so the row was regraded from **A** to **B** and reworded.
+
+**Corrections made before the commit, from a review of this entry's first draft.** The `[read]`
+tags on the weight and the residue now rest on the definitions and lemmas themselves
+(`PrimeError.lean:45,76,414`), not on the file head. "One interface theorem" became the two
+inputs above. The absence of Hadamard, `ξ` and `N(T)` was re-grepped case-insensitively on
+both editions. The viewer's "not reached from Main.lean" label is hidden for this edition, where
+it would be false almost everywhere. `compart_test.go` was added and drilled: with the
+`Main.lean` key collision reinjected it fails with *"no file node for src/New/Main.lean"*. It also
+tests the tarball walker after its refactor.
+
+**Registers.** `COMPARISON.md` §8–9 added. `LEADS.md`: the `447` annotation on `445`(b), and a
+new `447` table that grades each compartment for borrowing. `PRICES.md`: a `447` annotation on
+the RH section, where nothing moves. `CLAIMS.md` and `FAILURES.md` are unchanged: no new theorem,
+and no death is touched.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, base `v4/3508643365fd`, all unchanged. Conditional on
+`h`: `Nsc 67.25%`.
+
+**Might-mean:** the one closed compartment of the proof is the half this project already owns in
+another form, the argument principle with zero orders, so the proof and this project meet at the
+residue and nowhere else.

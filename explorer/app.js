@@ -15,13 +15,15 @@ const h = (tag, attrs = {}, ...kids) => {
   return e;
 };
 
-let META = null;
+let META = null, COMP = null;
+// ?d=grh reads data/grh/ (another edition, with a compartment map); default data/
+const DATA = (() => { const d = new URLSearchParams(location.search).get("d"); return d && /^[a-z0-9-]+$/.test(d) ? `data/${d}/` : "data/"; })();
 const shardCache = new Map(); // "n/12" -> Promise
 function loadShard(kind, i) {
   const key = kind + "/" + i;
   if (!shardCache.has(key)) {
-    shardCache.set(key, fetch(`data/${key}.json`).then(r => {
-      if (!r.ok) throw new Error(`data/${key}.json: HTTP ${r.status}`);
+    shardCache.set(key, fetch(`${DATA}${key}.json`).then(r => {
+      if (!r.ok) throw new Error(`${DATA}${key}.json: HTTP ${r.status}`);
       return r.json();
     }));
   }
@@ -63,9 +65,24 @@ const kindChip = k => h("span", { class: "kind k-" + k.replace(/\s+/g, "-") }, k
 
 const app = () => $("#app");
 
+function editionLine() {
+  const R = META.release;
+  return h("p", { class: "editions small" }, "Editions: ",
+    h("a", { href: "./" }, "Alpöge's release (17.4M lines)"), " · ",
+    h("a", { href: "?d=grh" }, "lsernau/grh-lean, readable edition (477k lines), with a compartment map"),
+    R.commit ? h("span", { class: "muted" }, " — showing ", h("a", { href: R.repo }, R.edition), " at ",
+      h("code", {}, R.commit.slice(0, 12))) : null);
+}
+
 function header() {
   const st = META.stats;
-  return h("section", { class: "about" },
+  if (META.release.commit) return h("section", { class: "about" }, editionLine(),
+    h("p", {}, `Built from the edition's source at a pinned commit: ${fmt(st.files)} .lean files, ${fmt(st.lines)} lines, `,
+      `${fmt(st.decls)} declarations. Declaration edges are [parsed]; in this edition most proofs call lemmas by dot notation on a local `,
+      `(D.foo with D : Data P), which a parse cannot type, so the declaration cones below are far too small. `,
+      `The compartment map's sizes and cones use module imports, which are exact.`),
+    h("p", { class: "small" }, h("b", {}, "Licence: "), META.licence));
+  return h("section", { class: "about" }, editionLine(),
     h("p", {},
       `Built from the release alone: ${fmt(st.files)} .lean files, ${fmt(st.lines)} lines, `,
       `${fmt(st.decls)} declarations. The five theorems of `, h("code", {}, "src/Main.lean"),
@@ -121,13 +138,13 @@ function card(d, big) {
     h("div", { class: "loc mono" }, `${d.file}:${d.declLine}`,
       h("span", { class: "muted" }, ` · ${fmt(lines(d))} lines · used by ${fmt(d.usedBy)}`)),
     h("div", { class: "size" }, "under it: ", h("b", {}, sizeText(d)),
-      d.reach ? null : h("span", { class: "muted" }, " · not reached from Main.lean")),
+      d.reach || META.release.commit ? null : h("span", { class: "muted" }, " · not reached from Main.lean")),
   );
   if (META.statements) {
     if (d.stmt) c.append(h("pre", { class: "stmt" }, d.stmt));
     if (d.doc) c.append(h("div", { class: "doc" }, d.doc));
   } else if (big) {
-    c.append(h("div", { class: "stmt off" }, "Statement and docstring withheld: the release carries no licence (see “What this is”)."));
+    c.append(h("div", { class: "stmt off" }, META.release.commit ? "Statement and docstring left out of this data to keep it small; follow the file link." : "Statement and docstring withheld: the release carries no licence (see “What this is”)."));
   }
   return c;
 }
@@ -191,7 +208,74 @@ async function childLists(d, path, nested) {
   return box;
 }
 
+// ------------------------------------------------------------------ compartments
+
+const tk = n => n >= 1e6 ? (n / 1e6).toFixed(1) + "M" : n >= 1e4 ? Math.round(n / 1e3) + "k" : n >= 1e3 ? (n / 1e3).toFixed(1) + "k" : String(n);
+function sizeLine(s) {
+  return `${fmt(s.files)} files · ${fmt(s.lines)} lines · ~${tk(s.tokens)} tokens · ${fmt(s.decls)} declarations`;
+}
+function compCrumbs(i) {
+  const chain = [];
+  for (let j = i; j >= 0; j = COMP.nodes[j].parent) chain.unshift(j);
+  const nav = h("nav", { class: "crumbs" });
+  chain.forEach((j, k) => {
+    if (k) nav.append(" › ");
+    nav.append(j === i ? h("span", { class: "here" }, COMP.nodes[j].title) : h("a", { href: "#/c/" + j }, COMP.nodes[j].title));
+  });
+  return [nav, chain];
+}
+function edgeList(label, es) {
+  if (!es || !es.length) return null;
+  return h("p", { class: "small" }, h("b", {}, label + ": "),
+    ...es.flatMap(([j, w], k) => [k ? ", " : "", h("a", { href: "#/c/" + j }, COMP.nodes[j].title), h("span", { class: "muted" }, ` (${w})`)]));
+}
+async function showComp(i) {
+  const n = COMP.nodes[i];
+  const [nav, chain] = compCrumbs(i);
+  // what a reader must hold to read this node: the summaries on the path above it, and this node's own source
+  const above = chain.slice(0, -1).reduce((a, j) => a + COMP.nodes[j].title.length + (COMP.nodes[j].summary || "").length, 0);
+  const box = h("div", {}, editionLine(), searchBox(), nav,
+    h("article", { class: "card big" },
+      h("div", { class: "row1" }, h("span", { class: "kind k-" + n.kind }, n.kind), h("span", { class: "name" }, n.title)),
+      n.path ? h("div", { class: "loc mono" }, h("a", { href: META.release.blob + n.path, target: "_blank", rel: "noopener" }, n.path)) : null,
+      n.summary ? h("p", {}, n.summary) : null,
+      n.align ? h("p", { class: "small muted" }, "Aligned with: " + n.align) : null,
+      h("p", { class: "size" }, h("b", {}, "Itself: "), sizeLine(n.size)),
+      h("p", { class: "size" }, h("b", {}, "Its cone "), "(every file it imports in the tree, itself included; Mathlib not counted): ", sizeLine(n.cone)),
+      h("p", { class: "small muted" }, `To read it in one context: its cone, ~${tk(n.cone.tokens)} tokens, plus the map above it, ~${tk(Math.ceil(above / 4))} tokens. ${COMP.rule}.`),
+      edgeList("Imports, at this level", n.uses), edgeList("Imported by, at this level", n.usedBy)));
+  if (i === 0 && COMP.roots) {
+    const sec = h("section", { class: "group" }, h("h3", {}, "The five theorems", h("span", { class: "muted" }, " — parsed declaration cones (an undercount, see above)")));
+    for (const r of COMP.roots) sec.append(h("div", { class: "child" }, h("div", { class: "line" },
+      h("span", { class: "tog" }, "·"), h("a", { class: "name mono", href: "#/n/" + r.node }, r.name),
+      h("span", { class: "loc muted" }, `${fmt(r.decls)} decls · ${fmt(r.lines)} lines · ~${tk(r.tokens)} tokens`))));
+    box.append(sec);
+  }
+  const kids = (n.children || []).map(j => [j, COMP.nodes[j]]);
+  if (kids.length) {
+    const max = Math.max(...kids.map(([, c]) => c.size.tokens), 1);
+    const sec = h("section", { class: "group" }, h("h3", {}, "Inside", h("span", { class: "muted" }, ` — ${kids.length}; bar: tokens of the node itself`)));
+    for (const [j, c] of kids) sec.append(h("div", { class: "child" }, h("div", { class: "line" },
+      h("span", { class: "kind k-" + c.kind }, c.kind),
+      h("a", { class: "name", href: "#/c/" + j, title: c.summary || c.path || "" }, c.title),
+      h("span", { class: "loc muted" }, `${fmt(c.size.lines)} lines · cone ~${tk(c.cone.tokens)}`),
+      h("span", { class: "sz", title: sizeLine(c.size) }, h("span", { class: "bar", style: `width:${Math.max(2, Math.round(100 * c.size.tokens / max))}%` }),
+        h("span", { class: "szt" }, "~" + tk(c.size.tokens))))));
+    box.append(sec);
+  }
+  if (n.decls && n.decls.length) {
+    const ds = await Promise.all(n.decls.map(node));
+    META._max = META._max || Math.max(...ds.map(d => d.subDecls), 1);
+    const sec = h("section", { class: "group" }, h("h3", {}, "Declarations", h("span", { class: "muted" }, ` — ${ds.length}, in file order`)));
+    ds.forEach(d => sec.append(childRow(d, [])));
+    box.append(sec);
+  }
+  app().replaceChildren(box);
+  window.scrollTo(0, 0);
+}
+
 async function showHome() {
+  if (COMP) return showComp(0);
   const roots = await Promise.all(META.roots.map(node));
   META._max = Math.max(...roots.map(r => r.subDecls));
   const box = h("div", {}, header(), searchBox(),
@@ -257,16 +341,18 @@ async function runSearch(q, out) {
   hits.sort((a, b) => score(a) - score(b) || a[0].length - b[0].length);
   out.replaceChildren(
     h("div", { class: "muted small" }, `${fmt(hits.length)} match${hits.length === 1 ? "" : "es"}` + (hits.length > 60 ? " — first 60" : "")),
-    ...hits.slice(0, 60).map(r => h("a", { class: "hit mono" + (r[2] ? "" : " unreached"), href: "#/n/" + r[1] }, r[0],
-      r[2] ? null : h("span", { class: "muted" }, " (not reached from Main.lean)"))));
+    ...hits.slice(0, 60).map(r => h("a", { class: "hit mono" + (r[2] || META.release.commit ? "" : " unreached"), href: "#/n/" + r[1] }, r[0],
+      r[2] || META.release.commit ? null : h("span", { class: "muted" }, " (not reached from Main.lean)"))));
 }
 
 // ------------------------------------------------------------------ routing
 
 async function route() {
   const m = location.hash.match(/^#\/n\/([\d,]+)/);
+  const c = location.hash.match(/^#\/c\/(\d+)/);
   try {
-    if (m) await showNode(m[1].split(",").map(Number));
+    if (c && COMP) await showComp(+c[1]);
+    else if (m) await showNode(m[1].split(",").map(Number));
     else await showHome();
   } catch (e) {
     app().replaceChildren(h("div", { class: "notice" }, "Could not load: " + e.message));
@@ -275,9 +361,13 @@ async function route() {
 
 (async function () {
   try {
-    const r = await fetch("data/meta.json", { cache: "no-cache" });
+    const r = await fetch(DATA + "meta.json", { cache: "no-cache" });
     if (!r.ok) throw new Error(r.status);
     META = await r.json();
+    if (META.compartments) {
+      const rc = await fetch(DATA + "c.json", { cache: "no-cache" });
+      if (rc.ok) COMP = await rc.json();
+    }
   } catch (e) {
     app().replaceChildren(h("div", { class: "notice" }, h("b", {}, "Data being generated. "),
       "The page is live; the declaration graph is still being parsed from the release and will appear here when the generator has run."));

@@ -238,3 +238,321 @@ cf83a159d1a9540012229c376562587dd966da10cd657cbcef53acfd03232448  lean.tar.gz.pa
 
 Fetched 2026-11-20 ~22:19 UTC. The site can change; these hashes are what this
 session read.
+
+## 8. The shortened editions (`SESSION 447`, 2026-11-27)
+
+Tags as above: **[read]** checked here against the primary source, **[secondhand]**
+reported by someone else, **[inferred]** this session's reading.
+
+### 8.1 What was released
+
+* **The repository.** <https://github.com/lsernau/grh-lean>, one commit,
+  **`72fead102f663d5c7a407964a13dc0cf9d977207`** (author line *Luke Sernau
+  &lt;l.sernau@gmail.com&gt;*, 2026-11-25 12:38 −0800), Apache-2.0. The GitHub
+  profile `lsernau` carries no name or affiliation. That the work comes from
+  Anthropic rests on the README's own words, *"produced in collaboration with my
+  colleagues at Anthropic, and Claude"*, and on `LICENSE` and `NOTICE`
+  (*Copyright 2026 Anthropic, PBC*). **[read]** The press reports
+  (heise.de; Wikipedia's article on the proof) were not fetched by this session.
+  **[secondhand]**
+* **Two editions, one Lake project each.** Both are pinned to
+  `leanprover/lean4:v4.35.0` and Mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679`. That
+  commit is on upstream Mathlib `master` (the GitHub compare API reports the
+  pin `behind_by 0` against master). Every package URL in `lake-manifest.json` is
+  `leanprover-community` or `leanprover`, and the two manifests are byte-identical. **[read]**
+
+| edition | `.lean` files under `src/` | lines (`wc -l`) | non-blank | code (no comments) | bytes | ~tokens (bytes/4) |
+|---|---:|---:|---:|---:|---:|---:|
+| `grh/` (readable) | 803 | 477,124 | 432,527 | 299,902 | 30,050,271 | ~7.5M |
+| `grh-compact/` | 794 | 112,827 | 95,030 | 76,149 | 7,420,187 | ~1.9M |
+| Alpöge's release (§1) | 175,187 | 17,374,215 | — | — | ~1.4 GB unpacked | ~350M |
+
+The README's *"about 300,000 lines of code"* and *"about 76,000"*, and the press
+figure of 477k, are the code and `wc -l` columns: all three readings check out. **[read]**
+(Counts are this session's: comments are `--` and nested `/- -/`; the token figure is a
+rough rule, not a tokenizer.)
+
+### 8.2 The audit, redone on both editions
+
+`tools/trust_audit.py`, run unchanged on each folder (`src/`, `scripts/` and
+`Challenge.lean`). Its exit code is `1` on both, and the hits explain it: the
+**five `sorry`s of `Challenge.lean`**, the Comparator challenge file, with one
+`sorry` per theorem by design. Nothing imports that file, and it is not among the lakefile's
+`defaultTargets` (`Lib`, `New`, `Main`). Its only importer, `comparator.json`'s
+`challenge_module`, is a reference by name. The hits also show that the scanner
+does see a token when one is there. **[read]**
+
+| check | `grh/` | `grh-compact/` |
+|---|---|---|
+| `axiom`, `sorryAx`, `admit`, `native_decide`, `implemented_by`, `extern`, `unsafe`, `reduceBool`, `reduceNat`, `trustCompiler`, `debug.skipKernelTC`, `addDeclWithoutChecking`, `csimp`, `opaque` | **0 each** | **0 each** |
+| `sorry` | 5, all in `Challenge.lean` | 5, all in `Challenge.lean` |
+| `run_cmd`, `run_elab`, `run_meta`, `#eval`, `modifyEnv`, `addDecl`, `addAndCompile`, `elab`, `macro`, `syntax`, `notation`, `initialize`, `import Lean` | **0 each** | **0 each** |
+| extra greps (`445`'s gaps): `setEnv`, `command_elab`, `term_elab`, `tactic_elab`, `@[tactic`, `builtin_initialize`, `declare_syntax_cat`, `macro_rules`, `Lean.Environment`, `CoreM`, `MetaM`, `TacticM` | **0** | **0** |
+| shadowing of `RiemannHypothesis`, `riemannZeta`, `DirichletCharacter`, `LFunction`, … | none | none |
+| shipped artefacts (`.lake/`, `.olean`, native code) | none | none |
+
+So **none of Alpöge's metaprogram sites** (§3: the `D1`–`D5` deny-list
+`run_cmd`s, `cpt_copy_thms`'s `addDecl`, the `kexactB`/`kcopy` elaborators) has a
+counterpart in either edition: neither contains a single user-written macro, notation,
+elaborator or environment edit. **[read]** What is left at the elaborator level, read
+here: `Lib/Speed.lean` lowers the priorities of 84 Mathlib instances and takes 64
+Mathlib lemmas out of the default `simp` set (`attribute [simp ←, simp]`). The
+authors say *"with this file emptied, everything still compiled on Lean 4.33.1"*,
+which was not checked here. The `set_option`s in the files are 33 `backward.isDefEq.respectTransparency`,
+5 `synthInstance.maxSize`, 5 `synthInstance.maxHeartbeats` and one
+`warning.simp.varHead`. These are among further local settings (`seal … in`, `irreducible`
+marks, local instances; `GUIDE.md` §5 lists them), which were not counted here. All of them steer elaboration. None reaches the kernel or
+changes a statement whose type is a Mathlib or `Statements.lean` constant.
+
+### 8.3 The statements
+
+* `src/Statements.lean` is **byte-identical in all three releases**: both editions
+  and Alpöge's tarball (extracted again from the parts cached on this machine, whose
+  concatenation still hashes to `9631b4f0…`), SHA-256
+  `79ef7ca776e42abe1f46caee13ea09bd19f1e2d0b1620d8d5d200258f33b47bf`. So
+  *"the same five theorems"* is [read] for the statement bodies, not only for the names.
+  `Main.lean` has the five names and types of §2, with different proof terms:
+  `New.zeta_zeros_on_line New.grh`, `New.grh`,
+  `New.zeros_on_line New.grh`. **[read]**
+* **Mathlib's `RiemannHypothesis` at the new pin.** Its text at `56a00585`
+  (`RiemannZeta.lean:185`) is identical to the one at this repository's pin
+  `51e6992e`. Between the two pins (1,776 commits), the five directories of §2 show 42
+  changed files. The only definition-header line added or removed is a new
+  `def hardyZ`. Read by hand, the changes to `RiemannZeta.lean`,
+  `DirichletContinuation.lean`, `HurwitzZeta.lean` and `DirichletCharacter/Basic.lean`
+  are proof edits and import moves. **[read]** The caveat of §2 stands: this is
+  not the whole dependency closure of `riemannZeta`.
+
+### 8.4 Build and axioms
+
+**The full build was started and stopped.** It ran in a cgroup capped at `9 GB` with no
+swap (`systemd-run --user --scope -p MemoryMax=9G`, drilled first: a `400 MB` allocation under
+a `200 MB` cap was killed), with `LEAN_NUM_THREADS=4`, the Mathlib cache from
+`lake exe cache get` and a 4-hour time-box. No script of the repository was run. After about
+`20` minutes it had built about 65 of the 803 tree modules, which puts the whole build near
+6.5 hours on this machine, past the time-box. It was stopped there, and the built `.olean`s are
+kept in `~/Projects/.riemann-ext/grh-lean/grh/.lake`, so a later run resumes. **So there is no
+`#print axioms` here for the five theorems.** The README reports the build, `#print axioms`,
+three independent kernels (nanoda, con-leche, con-ron) on a `leanexport` of the five theorems,
+and Comparator v4.35.0. All of that is **[secondhand]**.
+
+**A plucked build of one compartment was done instead.** That compartment is the endgame of §9,
+built alone with `lake build New.Reduction.Zeros.Criterion New.Reduction.Zeros.PrimeNumberTheorem`
+under the same cap. It completed in 4 minutes on top of the modules the stopped run had already
+built. Then this session's own file (`.riemann-ext/axcheck/Endgame.lean`; the repository's
+`scripts/PrintAxioms.lean` was not used) printed **`[propext, Classical.choice, Quot.sound]`** for
+each of `New.LFunction_ne_zero_of_primeRemainder_le`, `New.isPolar_primeRemainder`,
+`New.IsPolar.landau`, `New.exists_entireL_quadTwist_ne_zero`,
+`New.tendsto_sub_mul_logDeriv_entireL_analyticOrderNatAt` and
+`New.eventually_abs_primeRemainder_le`. **[read]** This checks the endgame's lemmas with the kernel
+of `v4.35.0` and nothing beyond them. It says nothing about `star_inequality` or the five theorems.
+
+### 8.5 The route, read in the readable edition
+
+This settles several of §4's **[inferred]** tags *for this edition*. It does not settle them
+for Alpöge's tree, whose names and files differ.
+
+* **The endgame is Landau's lemma, and the prime sum is now read, not inferred.**
+  `New.LFunction_ne_zero_of_primeRemainder_le` (`New/Reduction/Zeros/Criterion.lean`)
+  takes the remainder `R_q(x) = Σ_{n≤x} λ(n)(1/n − 1/x) − log x/φ(q) − c_q` with
+  `λ(n) = Λ(n)(1 − (n/d))` on `n ≡ 1 mod q` and `0` otherwise. That weight is **non-negative**
+  (`lambdaKResidueClass_nonneg`, `New/Reduction/Zeros/PrimeError.lean:45,76`: the definition is
+  Mathlib's `vonMangoldt.residueClass 1 n · (1 − chiK d n)`, and the lemma is
+  `mul_nonneg (residueClass_nonneg …) (one_sub_chiK_mem_Icc …).1`; both are in the plucked build
+  of §8.4). The criterion turns a
+  one-sided bound `R_q(x) ≤ x^(β−1)` into no zero of any `L(s, ψ)` mod `q` in
+  `re s > β`. The transform of `R_q(e^v)` has simple poles with residue
+  `(n(s) − n′(s)) / (φ(q) s (1 − s))` (`isPolar_primeRemainder`), where `n` and `n′`
+  sum the **orders of the zeros** (`analyticOrderNatAt`) of the `L(s, ψ)` and of their
+  twists by `(·/d)`. A prime `d` is chosen with no twisted zero in the box
+  (`exists_entireL_quadTwist_ne_zero`, a zero-density count from Pólya–Vinogradov). So
+  `n′ = 0` there, the residue is `n(s)/(φ(q)s(1−s)) ≥ 0` at real `s`, and
+  `IsPolar.landau` forces `n(ρ) = 0`. **[read]**
+* **The one-sided bound comes from one inequality.** `New.Data.primeRemainder_le`
+  (`OneSidedBound.lean`) bounds `R_{q₀}(x)` by `φ(q₀) log⁶ b / m + |R_{q₀}(x₁)| + log b·|R₁(x₁)|`
+  through `star_inequality` (`MainInequality.lean`). The two error terms at the far
+  cut-off `x₁` are handled by the prime number theorem with a crude zero-free region
+  (`Lib/Analytic/PrimeNumberTheorem`). The main inequality compares a covolume bounded
+  above by Theorems A (short forms) and B (enough forms) with one bounded below by
+  Theorem C (long forms). Its head lists, as earlier bounds for sums over primes by size against divisibility,
+  Pritsker (the Gelfond–Schnirelman method), Granville–Stark, Bombieri (*Counting points on
+  curves over finite fields*) and van Frankenhuijsen. **[read]**
+* **Stepanov is present; Vandiver is not used.** `New.stepanov_count`
+  (`New/UpperBound/ElementaryDivisors/RootLemma.lean`, *"Stepanov's count of zeros at
+  the residue classes of a local ring"*) [read]. The only occurrence of *Vandiver* is a
+  comment in `New/Congruences/FirstOrder/DenominatorBound.lean`: *"the orders of the even
+  classes, where Vandiver's conjecture lives, do not enter"*. So §4's *"a significant
+  weakening of Vandiver"* (the note's item 17) has **no counterpart in this edition's
+  inputs**, by the authors' account. **[read, as their comment; not traced]**
+* **Multiplicity enters only as a sign.** In the whole edition, zero orders
+  (`analyticOrderNatAt`, `analyticOrderAt`, `meromorphicOrderAt`) occur in exactly five
+  files: `Lib/Analytic/Landau`, `Lib/Analytic/EntireLFunction`, `New/Reduction/Zeros/Criterion`,
+  `New/Reduction/Zeros/PrimeError`, and `Lib/CM/Sigma/Basic` (there the order is that of the Weierstrass `℘`).
+  The positive witness (`R17`) is that list together with the one place the orders are consumed: the
+  residue above, used through `n(s) ≥ 0` and `n(ρ) = 0`. The order statements in the
+  four analytic files are `analyticOrderAt_entireL_ne_top`, `analyticOrderNatAt_entireL_eq_zero_iff`
+  (order zero exactly where `entireL` does not vanish), the residue lemma
+  `tendsto_sub_mul_logDeriv_entireL_analyticOrderNatAt`, and the uses in `isPolar_primeRemainder`
+  and the criterion. None bounds an order from above, and none of the five top-level statements
+  mentions one. **[read]**
+
+## 9. The compartment map (`447`): the readable edition, level by level
+
+**Why.** To check and borrow one compartment at a time, with memory and context bounded,
+rather than the whole tree. The map is generated, not hand-drawn: `tools/explorer` (the
+`446` generator) now reads a checked-out edition (`-src`, `-commit`) and writes
+`c.json` from a spec, `tools/explorer/compartments/grh.json`. The spec holds the top
+two levels and their plain-language summaries. Below them every directory and every file
+becomes a node, and each file lists its declarations, which link into the explorer's
+declaration view. The Pages Action regenerates it from the pinned commit, and the explorer
+shows it at `?d=grh`. Not on `origin` yet: the push is Joop's.
+
+**Summaries at every level.** Levels 0–2 carry the spec's hand-written summaries. Every file
+node (801 of 803) carries the title its authors gave it, the first `# ` line of its module
+docstring. Every directory lists the titles of its files. Declarations are named and sized, and
+their statements are left out of the data to keep it small; the edition's Apache-2.0 licence
+allows `-statements`. **The compact edition is not mapped.** It is not flat (794 files under
+`Lib/` and `New/`), but its folders differ from the readable edition's (`New/Endgame`,
+`New/Filling`, …), and neither the authors' guide (three pages) nor the Handbook names
+boundaries for it. It needs a spec of its own, which is next.
+
+### 9.1 Others' maps, and the boundaries reused
+
+Read through the GitHub API at the commits named. What these projects claim about the
+proof is **[secondhand]**.
+
+* **The authors' own:** `grh/GUIDE.md` §1 has a topic table (Reduction; Derivatives; Upper
+  bound; Spanning; Lower bound: determinant, one lift, congruences; Appendix) and
+  sorts `Lib` from `New`. **This map's top level is that table.**
+* **The GRH Lean Handbook,** <https://github.com/tamnd/grh-lean-handbook> at `152bdf2a`, on
+  this edition: 13 planned volumes, each a union of folders (vol. 1 Reduction; 2
+  `Lib/Analytic`; 3–8 the `Lib` theories; 9 Theorem A = `UpperBound` + `Derivatives`
+  without `Sharpness`; 10 Theorem B = `Spanning`; 11 Theorem C = `Determinant` +
+  `OneLift` + `Derivatives/Sharpness`; 12 `Congruences`). **The background sub-compartments
+  and the A/B/C split follow its volumes**, and each node names its volume. There are two
+  departures. The appendix stands alone here, where the Handbook puts it with representations
+  (vol. 5). And `Reduction/Data/Existence` sits under the reduction, where vol. 2 takes it in part.
+* **A blueprint of this edition,** <https://github.com/Euler2023/grh-blueprint> at
+  `23025bd0` (in Chinese, with an English monograph): an interactive dependency graph
+  from the data and the weighted prime remainder, through Theorems A, B, C and the main
+  inequality, to the zeros. It uses the same top-level cut.
+* **On Alpöge's original:** <https://github.com/rh-lean-roadmap/rh-lean-roadmap> at
+  `0be265cc` has a six-step reading guide, a `Roadmap.lean` that derives `RiemannHypothesis`
+  inside the archive from three inputs (`Green`, `VWin`, `HypsAlt …`), and a slicer that
+  keeps 18,096 of 175,188 files (3.2M of 17.4M lines). It cites J. Shore's kernel-traced
+  dependency data (<https://github.com/james-shore/rh-proof-dependencies>): 804,912 of
+  1,061,400 declarations are used by the five theorems.
+  <https://github.com/thekeunpie-hash/rh-lean-dissection> at `5f66a21e` has a static audit
+  and a "minimal backbone" spec. <https://github.com/Sidler4Hare/alpoge-claude-rh-reconstruction>
+  at `7d17bb99` is a 329-page paper reconstruction.
+* **Where Sernau's editions differ from those maps:** the original's folders
+  (`Formalism/…`, `Supplements/…`) do not survive. The endgame's prime sum is a
+  differently named object (`primeRemainder` with weight `Λ(n)(1 − (n/d))`, against §4's
+  `Gz`/`Gm` Chebyshev-growth form). The edition's size is 2.7% of the original's lines. So the
+  original's slices and step numbers do not carry over by name. The *shape*
+  (endgame by Landau, one main inequality, three theorems behind it) does. **[inferred]**
+
+### 9.2 The top levels
+
+Tokens ≈ bytes/4. *Cone* = every file the node imports inside the tree, itself included,
+Mathlib not counted: what a reader or a build needs besides Mathlib to check that node
+alone. Module imports are exact (read from the `import` lines).
+
+| level · node | files | lines | ~tokens | decls | cone files | cone ~tokens |
+|---|---:|---:|---:|---:|---:|---:|
+| **0 · the five theorems** (all through `New.grh`) | 803 | 477,124 | 7.5M | 23,839 | 803 | 7.5M |
+| 1 · the statements and the last step (`Statements`, `Main`, `New/Main`) | 3 | 103 | 1.3k | 11 | 803 | 7.5M |
+| **1 · endgame: one-sided prime bound → zeros** | 13 | 4,320 | 69k | 186 | **22** | **126k** |
+| 2 · · the criterion and the remainder (`New/Reduction/Zeros`) | 3 | 775 | 12k | 37 | 21 | 119k |
+| 2 · · analytic background (`Lib/Analytic`) | 10 | 3,545 | 56k | 149 | 19 | 113k |
+| 1 · the reduction: data, lattices, main inequality | 14 | 5,378 | 79k | 412 | 801 | 7.5M |
+| 1 · Theorem A: short forms | 72 | 44,510 | 704k | 2,387 | 428 | 3.9M |
+| 2 · · upper bound: a composite lift | 55 | 35,318 | 559k | 1,865 | 428 | 3.9M |
+| 2 · · derivatives of theta functions | 17 | 9,192 | 145k | 522 | 221 | 1.9M |
+| 1 · Theorem B: enough forms (`Spanning`) | 91 | 59,251 | 952k | 2,800 | 451 | 4.1M |
+| 1 · Theorem C: long forms | 116 | 77,040 | 1.3M | 3,279 | 754 | 7.1M |
+| 2 · · the determinant | 33 | 21,707 | 360k | 941 | 754 | 7.1M |
+| 2 · · one lift | 24 | 17,323 | 286k | 725 | 665 | 6.2M |
+| 2 · · the bound is attained (`Derivatives/Sharpness`) | 6 | 3,199 | 52k | 178 | 274 | 2.4M |
+| 2 · · congruences and Selmer groups | 53 | 34,811 | 578k | 1,435 | 723 | 6.8M |
+| 1 · supplement: discrete series with a large gap | 9 | 4,979 | 81k | 264 | 122 | 1.0M |
+| 1 · background theories (`Lib`, without `Analytic`) | 485 | 281,543 | 4.4M | 14,500 | 487 | 4.4M |
+| 2 · · number fields, class field theory, CM | 63 | 36,235 | 565k | 1,817 | 348 | 3.2M |
+| 2 · · unitary groups, automorphic forms | 59 | 29,418 | 437k | 1,966 | 214 | 1.8M |
+| 2 · · representations | 61 | 39,440 | 618k | 1,965 | 222 | 2.0M |
+| 2 · · theta correspondence, Siegel–Weil | 91 | 52,216 | 813k | 2,753 | 283 | 2.4M |
+| 2 · · cohomology, p-adic Hodge theory | 96 | 61,680 | 942k | 3,228 | 270 | 2.4M |
+| 2 · · Shimura varieties, Galois representations | 74 | 48,555 | 771k | 1,911 | 356 | 3.3M |
+| 2 · · general mathematics, global settings | 41 | 13,999 | 206k | 860 | 155 | 1.3M |
+| 3 · 115 directories | — | — | 109 of them ≤ 150k | — | 10 of them ≤ 200k | — |
+| 4 · 803 files | — | — | median 8.9k, max 24k | — | 191 of them ≤ 200k | — |
+
+**Which compartments are shared.** Counts of import lines between compartments at level 1:
+`background` is imported by Theorem C (68), A (67), B (51), the appendix (9), the reduction (6)
+and the endgame (2). The endgame is imported by the reduction (4), by `background` (3: CM,
+cyclotomic and Siegel–Weil files use `Lib/Analytic`) and by Theorem B (1). It imports only
+`Lib.Base` and `Lib.General.NumberTheory.ImaginaryQuadraticField`. The authors' warning
+(*"folders are not layers: files of different folders import each other in both directions"*)
+shows at this level: A and C import each other (A→C 3, C→A 22), and so do A and B and B and C. At
+the file level the graph is acyclic, as Lean requires.
+
+**The five theorems have one cone between them.** At the module level each is the whole
+tree, since `Main` imports everything. At the declaration level the explorer's edges are
+**[parsed]**, and in this edition they undercount badly: the cones reach about 440
+declarations (~91k tokens), because most proofs call lemmas by dot notation on a local
+(`D.integral_forms_long` with `D : Data P`), whose type a parse cannot know. A new `-dot`
+option resolves `x.foo` to the unique tree declaration ending in `.foo`. That helps a little,
+and accepting up to four candidates helps more at the price of spurious edges.
+The true declaration cone needs the elaborated environment, which the build gives.
+
+### 9.3 What fits in one session's context
+
+* **No whole edition does.** The compact edition is ~1.9M tokens and the readable one ~7.5M.
+* **No single theorem's cone does,** at any granularity that is exact: all five share one,
+  and it is the whole tree.
+* **One compartment plus the map above it does, where the compartment is closed under
+  imports.** The endgame is: ~126k tokens with its cone, plus ~0.4k of summaries above it.
+  That is the analytic half of the proof, with Landau, the criterion and the prime number theorem
+  it uses. The theorems behind it are not: each of A, B and C is 0.7–1.3M tokens itself
+  and 3.9–7.1M with its cone. There the unit is the **file**: every file is ≤ 24k tokens and
+  every directory but six is ≤ 150k tokens, but only 191 of 803 files have a cone ≤ 200k.
+  So a check of one file in context needs the *statements* of its imports, not their
+  proofs, and that is the next instrument (statement-only cone sizes, `-statements`).
+* **The clean cut is the criterion's own hypothesis.** `OneSidedBound.lean` draws on the
+  automorphic side through two inputs. One is `star_inequality`, used once, in
+  `Data.primeRemainder_le` (`OneSidedBound.lean:51`, its only use outside its own file). The other is
+  `eventually_exists_data`, from `Reduction/Data/Existence` (a 186-file cone): admissible data
+  exist at every large `x`. Both are stated over `Data P`. The cut that needs neither is the
+  hypothesis `h_bound` of `LFunction_ne_zero_of_primeRemainder_le`, a one-sided bound on
+  `primeRemainder`, stated with Mathlib objects and this compartment's own definitions only.
+  The endgame was built and axiom-checked alone with that hypothesis open (§8.4), the way
+  `Riemann/RH.lean` keeps `RiemannHypothesis` open. **[read]**
+
+### 9.4 This project's reductions, read against the map
+
+* **The `NscStd` row, the `≈0.682` wall, pair correlation past support 1.** None of them
+  has a compartment. Multiplicity appears in the endgame only as `n(s) ≥ 0` (§8.5), and no
+  compartment speaks of `N(T)`, pair correlation, form factors or Fourier support. The witness
+  is a case-insensitive grep over both editions' `src/` for `hadamard`, `weierstrass product`,
+  `riemannXi`, `completedRiemannZeta`, `zeroCount`, `explicit formula`, `riemann-von mangoldt` and
+  `pair correlation`. Its 18 hits (readable) and 7 (compact) are all Hadamard's *determinant*
+  inequality (used for the covolume bound), one docstring saying the CM sigma function is *not*
+  defined by a Weierstrass product, `completedRiemannZeta` in `New/Main` (the functional
+  equation), and one compact docstring's *"by an explicit formula"* about the choice of data.
+  `xi` alone hits only Fontaine's `ξ` in p-adic Hodge theory. **The multiplicity side is untouched**, as `445` read from the
+  original. **[read]**
+* **Blindness.** It is confirmed, and now at the level of a read definition. The route's
+  only zero-side input is the *sign* of a residue whose numerator is a count of zeros at
+  one point. Its information comes from the prime side (`λ ≥ 0`, the main inequality),
+  and no quantity of the endgame is a function of the ordinate measure `μ_T`. This
+  upgrades §5's **[inferred]** Blindness row to **[read]** *for this edition*: the
+  definitions of `primeRemainder` and `lambdaKResidueClass` were opened.
+* **What could be borrowed.** These live in the endgame compartment, which is closed and fits
+  in context and is kernel-checked here (§8.4): Landau's lemma (`IsPolar.landau`); residues of the log-derivative as zero
+  orders (`tendsto_sub_mul_logDeriv_entireL_analyticOrderNatAt`); the entire
+  `L`-function; a crude zero-free region; a Tauberian PNT with error; Pólya–Vinogradov;
+  the symmetry of Dirichlet zeros. Of these, the order-as-residue tie is not new on this disk:
+  `vendor/zeta23` has the argument principle with zero orders (`Zeta23/Analytic/RectangleLogDeriv.lean`)
+  for `ζ`, and the edition adds it for Dirichlet `L`, which this project has no row for. **Not there:** Hadamard factorisation, `ξ′`, `N(T)`. So
+  `Riemann.xiPrimeFamily` gets no construction from this edition. Graded in `LEADS.md`
+  `447`.

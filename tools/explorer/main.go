@@ -19,12 +19,22 @@
 //     tactic-generated terms, dot notation `x.foo` on a local `x`;
 //   - spurious: a local binder whose name happens to equal a declaration in an
 //     enclosing namespace.
+//
 // An [elaborated] edge would come from Lean's own environment after a build,
 // which needs the 17M-line tree compiled; this generator does not do that.
 //
 // Usage:
-//   go run ./tools/explorer -out explorer/data            # fetch and stream
-//   go run ./tools/explorer -parts DIR -out explorer/data # read cached parts
+//
+//	go run ./tools/explorer -out explorer/data            # fetch and stream
+//	go run ./tools/explorer -parts DIR -out explorer/data # read cached parts
+//	go run ./tools/explorer -src DIR -commit SHA -repo URL \
+//	    -compartments FILE -out explorer/data/grh          # a checked-out edition
+//
+// With -src the tree is a directory (a checkout of another edition, e.g.
+// lsernau/grh-lean's grh/ at a pinned commit, which the caller checks out by
+// SHA); no tarball hash applies, and -commit is recorded as the pin. With
+// -compartments the generator also writes c.json, the fractal compartment map
+// (compart.go).
 package main
 
 import (
@@ -58,6 +68,12 @@ var (
 	flagExtDir  = flag.String("ext-cache", "", "directory to cache dependency tarballs (default: stream, no cache)")
 	flagShard   = flag.Int("shard", 400, "declarations per node shard")
 	flagSketchK = flag.Int("k", 128, "bottom-k sketch size for subtree sizes (exact below k)")
+	flagSrc     = flag.String("src", "", "read the tree from this directory instead of the release parts")
+	flagCommit  = flag.String("commit", "", "with -src: the pinned commit the directory is checked out at")
+	flagRepo    = flag.String("repo", "", "with -src: the repository URL and subdirectory, for source links")
+	flagEdition = flag.String("edition", "", "with -src: the edition's name, shown by the viewer")
+	flagComp    = flag.String("compartments", "", "compartment spec (JSON) for the fractal map, c.json")
+	flagDot     = flag.Int("dot", 0, "resolve dot notation on a local (x.foo.bar) to every tree declaration ending in .foo.bar, if there are at most this many (0: off)")
 )
 
 func logf(f string, a ...any) {
@@ -141,6 +157,45 @@ func walkTarGz(r io.Reader, fn func(name string, data []byte)) error {
 	return err
 }
 
+// walkDir calls fn for each regular file under dir, named as the release names
+// its entries ("lean/" + relative path), in a stable (sorted) order. It skips
+// .git and .lake, and reads only .lean files plus the two pin files.
+func walkDir(dir string, fn func(name string, data []byte)) error {
+	var paths []string
+	err := filepath.WalkDir(dir, func(p string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			if n := d.Name(); n == ".git" || n == ".lake" {
+				return filepath.SkipDir
+			}
+			return nil
+		}
+		if !d.Type().IsRegular() {
+			return nil
+		}
+		rel, _ := filepath.Rel(dir, p)
+		rel = filepath.ToSlash(rel)
+		if strings.HasSuffix(rel, ".lean") || rel == "lake-manifest.json" || rel == "lean-toolchain" {
+			paths = append(paths, rel)
+		}
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+	sort.Strings(paths)
+	for _, rel := range paths {
+		data, err := os.ReadFile(filepath.Join(dir, rel))
+		if err != nil {
+			return err
+		}
+		fn("lean/"+rel, data)
+	}
+	return nil
+}
+
 // ---------------------------------------------------------------- interning
 
 type interner struct {
@@ -182,6 +237,8 @@ type file struct {
 	module  string
 	imports []string
 	lines   int32
+	bytes   int64
+	heading string
 	ndecls  int32
 }
 
@@ -239,10 +296,19 @@ func main() {
 	}
 	h := sha256.New()
 	var counted int64
-	src := io.TeeReader(&multiFetch{urls: urls}, h)
+	var walker func(fn func(name string, data []byte)) error
+	if *flagSrc != "" {
+		if *flagCommit == "" {
+			fatal("-src needs -commit, the pin the directory is checked out at")
+		}
+		walker = func(fn func(string, []byte)) error { return walkDir(*flagSrc, fn) }
+	} else {
+		src := io.TeeReader(&multiFetch{urls: urls}, h)
+		walker = func(fn func(string, []byte)) error { return walkTarGz(src, fn) }
+	}
 	var manifest, toolchain []byte
 	var nLean, totalLines int64
-	err := parallelParse(src, func(name string, data []byte) bool {
+	err := parallelParse(walker, func(name string, data []byte) bool {
 		counted += int64(len(data))
 		switch {
 		case name == "lean/lake-manifest.json":
@@ -254,13 +320,18 @@ func main() {
 		case !strings.HasSuffix(name, ".lean"):
 			logf("non-.lean entry: %s (%d bytes)", name, len(data))
 			return false
+		case *flagSrc != "" && !strings.HasPrefix(name, "lean/src/"):
+			// Challenge.lean (the Comparator stub, five sorries) and scripts/:
+			// outside the library, imported by nothing
+			logf("outside src/, not parsed: %s", name)
+			return false
 		}
 		return true
 	}, *flagStmts, func(name string, pf pfile) {
 		nLean++
 		totalLines += int64(pf.lines)
 		fi := int32(len(files))
-		files = append(files, file{path: strings.TrimPrefix(name, "lean/"), module: pf.module, imports: pf.imports, lines: pf.lines, ndecls: int32(len(pf.decls))})
+		files = append(files, file{path: strings.TrimPrefix(name, "lean/"), module: pf.module, imports: pf.imports, lines: pf.lines, bytes: pf.bytes, heading: pf.heading, ndecls: int32(len(pf.decls))})
 		gctx := make([]int32, len(pf.ctxs))
 		for i, c := range pf.ctxs {
 			gctx[i] = addCtx(c)
@@ -286,7 +357,7 @@ func main() {
 		fatal("release stream: %v", err)
 	}
 	got := hex.EncodeToString(h.Sum(nil))
-	if got != releaseSHA {
+	if *flagSrc == "" && got != releaseSHA {
 		fatal("release SHA-256 %s, expected %s (COMPARISON.md §7) — refusing to publish", got, releaseSHA)
 	}
 	tStream := time.Since(t0)
@@ -307,7 +378,11 @@ func main() {
 	res.stats.Bytes = counted
 	res.stats.StreamSec = tStream.Seconds()
 	res.stats.ExtSec = tExt.Seconds()
-	write(res, strings.TrimSpace(string(toolchain)))
+	var comp *compMap
+	if *flagComp != "" {
+		comp = buildCompartments(res, *flagComp)
+	}
+	write(res, strings.TrimSpace(string(toolchain)), comp)
 	var ms runtime.MemStats
 	runtime.ReadMemStats(&ms)
 	logf("done in %s (peak heap ~%d MB)", time.Since(t0).Round(time.Second), ms.Sys>>20)
@@ -387,7 +462,7 @@ func loadExternals(manifest, toolchain []byte) ([]extLib, []extDecl) {
 		}
 		n0 := len(exts)
 		nf := 0
-		err := parallelParse(r, func(name string, data []byte) bool {
+		err := parallelParse(func(fn func(string, []byte)) error { return walkTarGz(r, fn) }, func(name string, data []byte) bool {
 			if !strings.HasSuffix(name, ".lean") {
 				return false
 			}
@@ -478,6 +553,7 @@ type stats struct {
 	ExtEdges       int64   `json:"extEdges"`
 	Unresolved     int64   `json:"unresolvedMentions"`
 	ViaParent      int64   `json:"edgesViaGeneratedName"`
+	ViaDot         int64   `json:"lookupsViaDotNotation"`
 	Ambiguous      int64   `json:"ambiguousLookups"`
 	AmbigByImports int64   `json:"ambiguousLookupsSettledByImports"`
 	AmbigUnsettled int64   `json:"ambiguousLookupsUnsettled"`
@@ -687,9 +763,17 @@ func resolve(exts []extDecl) *result {
 		}
 		return n
 	}
+	// for -dot: tree declarations by the last component of their name
+	byLast := map[string][]int32{}
+	if *flagDot > 0 {
+		for nm, cs := range byName {
+			byLast[lastOf(nm)] = append(byLast[lastOf(nm)], cs...)
+		}
+	}
 	type hit struct {
 		tree, ext int32
 		via       bool
+		more      []int32 // -dot: the other candidates, all taken
 	}
 	cache := map[int64]hit{}
 	cacheFile := int32(-1)
@@ -705,7 +789,7 @@ func resolve(exts []extDecl) *result {
 		}
 		pre := ctxs[d.ctx]
 		name := strings.TrimPrefix(toks.s[t], "_root_.")
-		res := hit{-1, -1, false}
+		res := hit{-1, -1, false, nil}
 		found := false
 		if _, ok := lastSet[lastOf(name)]; ok {
 			for _, p := range pre {
@@ -715,7 +799,7 @@ func resolve(exts []extDecl) *result {
 				}
 				tr, ex, v := lookup(int32(i), full)
 				if tr >= 0 || ex >= 0 {
-					res, found = hit{tr, ex, v}, true
+					res, found = hit{tr, ex, v, nil}, true
 					break
 				}
 				if _, ok := byName[full]; ok { // ambiguous, unsettled
@@ -735,14 +819,33 @@ func resolve(exts []extDecl) *result {
 							full = ps + "." + base
 						}
 						if c, ok := byName[full]; ok {
-							res = hit{pick(int32(i), c), -1, true}
+							res = hit{pick(int32(i), c), -1, true, nil}
 							break
 						}
 						if e, ok := extBy[full]; ok {
-							res = hit{-1, e, true}
+							res = hit{-1, e, true, nil}
 							break
 						}
 					}
+				}
+			}
+		}
+		if !found && res.tree < 0 && res.ext < 0 && *flagDot > 0 {
+			// dot notation on a local: `D.integral_forms_long` with `D : Data P`
+			// names `Data.integral_forms_long`. The local's type is unknown to a
+			// parse, so take the suffix after the first component and accept it
+			// only if exactly one tree declaration ends with it.
+			if k := strings.IndexByte(name, '.'); k > 0 && k < len(name)-1 {
+				suf := name[k+1:]
+				var hitc []int32
+				for _, c := range byLast[lastOf(suf)] {
+					if nm := decls[c].name; (nm == suf || strings.HasSuffix(nm, "."+suf)) && !(decls[c].private && decls[c].file != d.file) {
+						hitc = append(hitc, c)
+					}
+				}
+				if len(hitc) >= 1 && len(hitc) <= *flagDot {
+					res = hit{hitc[0], -1, false, hitc[1:]}
+					r.stats.ViaDot++
 				}
 			}
 		}
@@ -764,6 +867,18 @@ func resolve(exts []extDecl) *result {
 			for _, t := range ts {
 				r.stats.TokRefs++
 				hr := resolveTok(i, t)
+				for _, m := range hr.more {
+					if !seenT[m] {
+						seenT[m] = true
+						r.stats.TreeEdges++
+						if part == 0 {
+							r.sUses[i] = append(r.sUses[i], m)
+						} else {
+							r.bUses[i] = append(r.bUses[i], m)
+						}
+						r.usedBy[m]++
+					}
+				}
 				tree, ext, via := hr.tree, hr.ext, hr.via
 				switch {
 				case tree >= 0:
@@ -894,11 +1009,11 @@ func mix(x uint64) uint64 {
 }
 
 func unmix(x uint64) uint64 {
-	x ^= x >> 31 ^ x >> 62
+	x ^= x>>31 ^ x>>62
 	x *= 0x319642b2d24d8ec3
-	x ^= x >> 27 ^ x >> 54
+	x ^= x>>27 ^ x>>54
 	x *= 0x96de1b173f119089
-	x ^= x >> 30 ^ x >> 60
+	x ^= x>>30 ^ x>>60
 	return x
 }
 
@@ -1070,7 +1185,7 @@ func bottomK(b []uint64, k int) []uint64 {
 // parallelParse streams a .tar.gz, parses the files keep accepts on all cores,
 // and hands the results to consume in archive order (so the output does not
 // depend on scheduling).
-func parallelParse(r io.Reader, keep func(string, []byte) bool, keepText bool, consume func(string, pfile)) error {
+func parallelParse(walk func(fn func(name string, data []byte)) error, keep func(string, []byte) bool, keepText bool, consume func(string, pfile)) error {
 	type job struct {
 		seq  int
 		name string
@@ -1112,7 +1227,7 @@ func parallelParse(r io.Reader, keep func(string, []byte) bool, keepText bool, c
 		close(done)
 	}()
 	seq := 0
-	err := walkTarGz(r, func(name string, data []byte) {
+	err := walk(func(name string, data []byte) {
 		if keep(name, data) {
 			jobs <- job{seq, name, data}
 			seq++

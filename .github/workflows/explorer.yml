@@ -38,6 +38,22 @@ jobs:
       - name: Stream the release and write the data
         shell: bash # -eo pipefail: a generator failure fails the job
         run: go -C tools/explorer run . -out ../../explorer/data 2>&1 | tee generator.log
+      # The readable edition of lsernau/grh-lean, pinned by commit (SESSION 447).
+      # Fetching a SHA checks it out exactly; nothing in the clone is run, it is
+      # only read by the generator, which also writes the compartment map c.json.
+      - name: The readable edition of lsernau/grh-lean, with its compartment map
+        shell: bash
+        run: |
+          set -eo pipefail
+          GRH_COMMIT=72fead102f663d5c7a407964a13dc0cf9d977207
+          git init -q "$RUNNER_TEMP/grh-lean"
+          git -C "$RUNNER_TEMP/grh-lean" fetch -q --depth 1 https://github.com/lsernau/grh-lean "$GRH_COMMIT"
+          git -C "$RUNNER_TEMP/grh-lean" checkout -q FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/grh-lean" rev-parse HEAD)" = "$GRH_COMMIT"
+          go -C tools/explorer run . -dot 1 -src "$RUNNER_TEMP/grh-lean/grh" -commit "$GRH_COMMIT" \
+            -repo "https://github.com/lsernau/grh-lean/tree/$GRH_COMMIT/grh" \
+            -edition "lsernau/grh-lean, readable edition (grh/)" \
+            -compartments compartments/grh.json -out ../../explorer/data/grh 2>&1 | tee generator-grh.log
       - name: Data size
         run: du -sh explorer/data explorer/data/*
       - uses: actions/upload-pages-artifact@v3

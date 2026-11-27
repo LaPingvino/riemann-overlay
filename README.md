@@ -128,6 +128,23 @@ declaration. A name search finds any node.
   python3 -m http.server -d explorer                      # then open :8000
   ```
 
+* **A second edition, with a compartment map (`447`).** At
+  **<https://lapingvino.github.io/riemann-overlay/?d=grh>** the same viewer shows the
+  readable edition of `lsernau/grh-lean` (`COMPARISON.md` §8), pinned at commit
+  `72fead10`, and opens on a **fractal compartment map**: the five theorems, then their
+  compartments and sub-compartments (from `tools/explorer/compartments/grh.json`, which
+  follows the authors' `GUIDE.md` and the GRH Lean Handbook's volumes), then generated
+  directory and file nodes, down to the declarations. Every node gives its size in files,
+  lines, ~tokens (bytes/4) and declarations, and its import cone: what checking that node
+  alone needs besides Mathlib. Its edges are module imports, read from the `import` lines.
+  The Action fetches the pinned commit and runs the generator with `-src`; locally:
+
+  ```bash
+  go -C tools/explorer run . -dot 1 -src DIR/grh -commit 72fead102f663d5c7a407964a13dc0cf9d977207 \
+     -repo https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207/grh \
+     -compartments compartments/grh.json -out ../../explorer/data/grh
+  ```
+
 ## Licence
 
 Code (Lean, scripts, build files) is Apache-2.0 — [`LICENSE`](LICENSE). The

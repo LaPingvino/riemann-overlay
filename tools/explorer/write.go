@@ -53,8 +53,9 @@ func writeJSON(path string, v any) int64 {
 	return st.Size()
 }
 
-func write(r *result, toolchain string) {
+func write(r *result, toolchain string, comp *compMap) {
 	out := *flagOut
+	os.Remove(filepath.Join(out, "c.json"))
 	for _, sub := range []string{"n", "x", "s"} {
 		os.RemoveAll(filepath.Join(out, sub))
 	}
@@ -149,13 +150,8 @@ func write(r *result, toolchain string) {
 		roots[i] = r.nodeOf[x]
 	}
 	meta := map[string]any{
-		"generated": time.Now().UTC().Format(time.RFC3339),
-		"release": map[string]any{
-			"urls":   *flagURL + "01 … " + itoa(*flagNParts),
-			"sha256": releaseSHA,
-			"note":   "https://alpo.ge/remark.pdf",
-			"site":   "https://alpo.ge/",
-		},
+		"generated":  time.Now().UTC().Format(time.RFC3339),
+		"release":    releaseMeta(),
 		"toolchain":  toolchain,
 		"libs":       r.libs,
 		"stats":      r.stats,
@@ -169,6 +165,13 @@ func write(r *result, toolchain string) {
 		"sketchK":    *flagSketchK,
 		"licence":    "The release tarball carries no LICENSE or README (its only non-.lean files are lake-manifest.json, lakefile.toml and lean-toolchain). Statements and docstrings are therefore left out of this data; the generator's -statements flag switches them on.",
 	}
+	if *flagSrc != "" {
+		meta["licence"] = "This edition is Apache-2.0 (Copyright 2026 Anthropic, PBC; see its LICENSE, NOTICE and ATTRIBUTION.md at the pinned commit). Statements and docstrings are left out of this data only to keep it small; the generator's -statements flag switches them on."
+	}
+	if comp != nil {
+		meta["compartments"] = true
+		total += writeJSON(filepath.Join(out, "c.json"), comp)
+	}
 	total += writeJSON(filepath.Join(out, "meta.json"), meta)
 	big := int64(0)
 	if len(bsizes) > 0 {
@@ -176,4 +179,21 @@ func write(r *result, toolchain string) {
 	}
 	logf("wrote %s: %d node shards, %d dependency shards, %d search buckets (largest %d KB), %.1f MB total",
 		out, nShards, (nx+extShard-1)/extShard, len(buckets), big>>10, float64(total)/1e6)
+}
+
+func releaseMeta() map[string]any {
+	if *flagSrc != "" {
+		return map[string]any{
+			"edition": *flagEdition,
+			"repo":    *flagRepo,
+			"commit":  *flagCommit,
+			"blob":    strings.TrimSuffix(strings.Replace(*flagRepo, "/tree/", "/blob/", 1), "/") + "/",
+		}
+	}
+	return map[string]any{
+		"urls":   *flagURL + "01 … " + itoa(*flagNParts),
+		"sha256": releaseSHA,
+		"note":   "https://alpo.ge/remark.pdf",
+		"site":   "https://alpo.ge/",
+	}
 }

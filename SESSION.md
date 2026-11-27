@@ -21754,9 +21754,11 @@ editions and in Alpöge's tarball (SHA-256 `79ef7ca7…`). Mathlib's `RiemannHyp
 the same at the new pin `56a00585` (upstream `master`) as at ours.
 
 **Build and axioms (`COMPARISON.md` §8.4).** The full build of the readable edition ran in a
-`9 GB` cgroup, drilled first: a `400 MB` allocation under a `200 MB` cap was killed. It managed
-about 65 of 803 tree modules in 20 minutes, which projects to about 6.5 hours, past the 4-hour
-time-box. It was stopped, and its `.olean`s are kept, so a later run resumes.
+`9 GB` cgroup, drilled first: a `400 MB` allocation under a `200 MB` cap was killed. It built
+52 tree modules in the 16 minutes after the cache was in place, which projects to about 4–4.5
+hours, at or past the 4-hour time-box. It was stopped by choice, within the cap, to run the
+plucked build instead. Its `.olean`s and the two scripts (`.riemann-ext/axcheck/`) are kept, so a
+later run resumes.
 **There is no `#print axioms` here for the five theorems**, and the README's kernel and
 Comparator runs stay [secondhand]. What was done is a **plucked build** of the endgame
 compartment alone, the first use of the map. It took 4 minutes on top of what was already
@@ -21789,7 +21791,8 @@ children). The headline numbers:
 | one file: median / largest | 8.9k / 24k |
 
 So one compartment plus the map fits one context only where the compartment is closed under
-imports. The endgame is, and its plucked build above shows that the same cut also bounds memory. Theorems A, B and C are 0.7–1.3M tokens each. Inside them the unit
+imports. The endgame is, and its plucked build above ran within the same `9 GB` cap (its peak was not
+measured). Theorems A, B and C are 0.7–1.3M tokens each. Inside them the unit
 is the file, read against the *statements* of its imports, and that statement-only cone is the
 next instrument. The endgame meets the rest through two inputs, `star_inequality` (used once,
 `OneSidedBound.lean:51`) and `eventually_exists_data`. The clean cut is the criterion's
@@ -21806,8 +21809,9 @@ declaration cone waits for an elaborated environment.
 **Against this project (`COMPARISON.md` §9.4; `LEADS.md` `447`).** Witness: the grep over `src/` and the five
 files of `COMPARISON.md` §8.5. The multiplicity side (the `NscStd` row, the `≈0.682` wall,
 pair correlation past support 1) appears in none of the compartments, multiplicity is consumed
-as the sign `n(s) ≥ 0`, and §5's Blindness row is upgraded to **[read]** for this
-edition: the definitions of `primeRemainder` and its weight were opened. Neither edition has a Hadamard product, `ξ′` or `N(T)`; the witness is a grep whose every hit
+as the sign `n(s) ≥ 0`, and the facts behind §5's Blindness row are now **[read]** for this
+edition (the definitions of `primeRemainder` and its weight were opened). The Blindness reading
+drawn from them stays **[inferred]**. Neither edition has a Hadamard product, `ξ′` or `N(T)`; the witness is a grep whose every hit
 is accounted for (`COMPARISON.md` §9.4), so `Riemann.xiPrimeFamily` stays an axiom. **A slip, caught before the
 commit (`R17`):** the first draft of `LEADS` `447` called the order-as-residue lemma *"the
 first Lean statement on disk that ties a zero order to an analytic quantity"*. A grep of this
@@ -21822,6 +21826,12 @@ both editions. The viewer's "not reached from Main.lean" label is hidden for thi
 it would be false almost everywhere. `compart_test.go` was added and drilled: with the
 `Main.lean` key collision reinjected it fails with *"no file node for src/New/Main.lean"*. It also
 tests the tarball walker after its refactor.
+
+**A second review, after the first commit.** The build projection was corrected (the first
+text said 65 modules and 6.5 hours, figures that were not read off the log). The compact guide was
+opened, and it does assign folders to A, B and C, so "no boundaries named" became "a spec to
+write". The notation grep was widened to `infix`/`prefix`/`postfix`/`notation3` with
+`local`/`scoped`; its one hit is prose in a docstring.
 
 **Registers.** `COMPARISON.md` §8–9 added. `LEADS.md`: the `447` annotation on `445`(b), and a
 new `447` table that grades each compartment for borrowing. `PRICES.md`: a `447` annotation on

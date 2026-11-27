@@ -293,7 +293,10 @@ does see a token when one is there. **[read]**
 
 So **none of Alpöge's metaprogram sites** (§3: the `D1`–`D5` deny-list
 `run_cmd`s, `cpt_copy_thms`'s `addDecl`, the `kexactB`/`kcopy` elaborators) has a
-counterpart in either edition: neither contains a single user-written macro, notation,
+counterpart in either edition. A further grep, for `infix`, `infixl`, `infixr`, `prefix`,
+`postfix`, `notation`, `notation3`, `macro`, `syntax` and `elab` at the start of a line (with or
+without `local`/`scoped` and attributes), finds one hit, and that hit is prose inside a docstring
+(`New/Spanning/Unfolding/PoincareSeries.lean:13`). So neither edition declares a macro, notation,
 elaborator or environment edit. **[read]** What is left at the elaborator level, read
 here: `Lib/Speed.lean` lowers the priorities of 84 Mathlib instances and takes 64
 Mathlib lemmas out of the default `simp` set (`attribute [simp ←, simp]`). The
@@ -328,10 +331,13 @@ changes a statement whose type is a Mathlib or `Statements.lean` constant.
 **The full build was started and stopped.** It ran in a cgroup capped at `9 GB` with no
 swap (`systemd-run --user --scope -p MemoryMax=9G`, drilled first: a `400 MB` allocation under
 a `200 MB` cap was killed), with `LEAN_NUM_THREADS=4`, the Mathlib cache from
-`lake exe cache get` and a 4-hour time-box. No script of the repository was run. After about
-`20` minutes it had built about 65 of the 803 tree modules, which puts the whole build near
-6.5 hours on this machine, past the time-box. It was stopped there, and the built `.olean`s are
-kept in `~/Projects/.riemann-ext/grh-lean/grh/.lake`, so a later run resumes. **So there is no
+`lake exe cache get` and a 4-hour time-box. No script of the repository was run. In the
+16 minutes after the cache was in place it built 52 tree modules (log jobs 9047 to 9098 of
+9852), which projects the 803 modules to about 4–4.5 hours, at or past the time-box. It was
+**stopped by choice** at that point, to run the plucked build below instead. It ran within the cap
+and was not killed. The built `.olean`s are kept in `~/Projects/.riemann-ext/grh-lean/grh/.lake`,
+and the scripts are in `~/Projects/.riemann-ext/axcheck/` (`build.sh`, `pluck.sh`), so a later run
+resumes where it stopped. **So there is no
 `#print axioms` here for the five theorems.** The README reports the build, `#print axioms`,
 three independent kernels (nanoda, con-leche, con-ron) on a `leanexport` of the five theorems,
 and Comparator v4.35.0. All of that is **[secondhand]**.
@@ -413,8 +419,10 @@ docstring. Every directory lists the titles of its files. Declarations are named
 their statements are left out of the data to keep it small; the edition's Apache-2.0 licence
 allows `-statements`. **The compact edition is not mapped.** It is not flat (794 files under
 `Lib/` and `New/`), but its folders differ from the readable edition's (`New/Endgame`,
-`New/Filling`, …), and neither the authors' guide (three pages) nor the Handbook names
-boundaries for it. It needs a spec of its own, which is next.
+`New/Filling`, …). Its own `GUIDE.md` §2 does assign them: A to `Curve`, `Columns`, `TwistedHecke`,
+`Core`, `Seesaw`; B to `Filling`, `RealPlace`, `DiscreteSeries`; C to `Heights`, `Rows`, `Exchange`,
+`Trace`, `GaloisRep`, `Forms`, `SiegelWeil`, `Weil`, `Selmer`, `Patching`, `Lift`. A spec of its own,
+following that list, is the next step. It was not written in this session.
 
 ### 9.1 Others' maps, and the boundaries reused
 
@@ -541,12 +549,13 @@ The true declaration cone needs the elaborated environment, which the build give
   equation), and one compact docstring's *"by an explicit formula"* about the choice of data.
   `xi` alone hits only Fontaine's `ξ` in p-adic Hodge theory. **The multiplicity side is untouched**, as `445` read from the
   original. **[read]**
-* **Blindness.** It is confirmed, and now at the level of a read definition. The route's
-  only zero-side input is the *sign* of a residue whose numerator is a count of zeros at
-  one point. Its information comes from the prime side (`λ ≥ 0`, the main inequality),
-  and no quantity of the endgame is a function of the ordinate measure `μ_T`. This
-  upgrades §5's **[inferred]** Blindness row to **[read]** *for this edition*: the
-  definitions of `primeRemainder` and `lambdaKResidueClass` were opened.
+* **Blindness.** The facts are **[read]** for this edition: the definitions of
+  `primeRemainder` and `lambdaKResidueClass` were opened, and the route's only zero-side input
+  is the *sign* of a residue whose numerator is a count of zeros at one point. The reading is
+  **[inferred]**: that this means the route goes around the `μ_T`-invariant class, as `MAP.md`
+  §3 says any route must, because its information comes from the prime side (`λ ≥ 0`, the main
+  inequality) and no quantity of the endgame is a function of the ordinate measure `μ_T`. §5's
+  row keeps its **[inferred]** tag, now resting on read definitions.
 * **What could be borrowed.** These live in the endgame compartment, which is closed and fits
   in context and is kernel-checked here (§8.4): Landau's lemma (`IsPolar.landau`); residues of the log-derivative as zero
   orders (`tendsto_sub_mul_logDeriv_entireL_analyticOrderNatAt`); the entire

@@ -209,6 +209,12 @@ The ones that have caught live defects, with the cycle: `forensics/citation_chec
   `Riemann.xiPrimeFamily` is itself an axiom with no construction, and `ISSUES` `#7`'s
   `Proportion`-versus-`ProportionStd` gap, whose content `283` names as
   `NoHaunted xiPrimeFamily`.
+* **The direction after the RH proof (`448`, 2026-11-27, Joop's pivot).** Besides the ledger
+  above, the project's direction now includes a **ladder programme**. It asks whether the claimed proof's
+  theta squeeze, which sits on the ℂ rung (`ℤ[i]` theta, unitary dual pairs), runs rung by rung on dual
+  pairs over the composition algebras ℝ, ℂ, ℍ, 𝕆, and how far positivity and integrality carry it across
+  the `L`-function family. It starts with a **property ledger** of the proof. All of it is graded, and none of
+  it is claimed: `COMPARISON.md` §10, `LEADS.md` `448`(a)–(c). The earlier trail stands as written.
 
 ## 8. Conditional on RH — `445`
 

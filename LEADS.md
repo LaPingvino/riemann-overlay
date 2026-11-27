@@ -2760,3 +2760,226 @@ blocked by size or by a missing use; **C** no use here.
 **Might-mean (`447`):** the one closed compartment of the proof is the half this project
 already owns in another form, the argument principle with zero orders, so the proof and this
 project meet at the residue and nowhere else.
+
+## `448` — after the proof: the family, the ladder, and a property ledger
+
+Filed from the orientation in `COMPARISON.md` §10, from the editions on disk, and from Joop's
+idea and plan of 2026-11-27. **None is claimed.** Grades: *established* means the classical fact was
+checked here or read in a primary or tertiary source named beside it. `[RECALL, UNVERIFIED]` means
+from memory, not confirmed in a source this session. *Conjecture* means a mapping put forward to be
+tested. Each lead's kill condition was stated before anything was run (`R12`), and a kill is
+container-local.
+
+### (a) Reach across the `L`-function family
+
+**Question.** The squeeze needs two things, a **positivity** (a Dirichlet series with non-negative
+coefficients whose poles are the zeros in question) and an **integrality** (the theta-side divisibility of
+§10.3). Moving from `ζ` and Dirichlet `L` to the wider family, which of the two breaks first?
+
+**What the proof does, read.** The edition's positivity is `λ(n) = Λ(n)(1 − (n/d)) ≥ 0` on
+`n ≡ 1 mod q` (`COMPARISON.md` §8.5, **[read]**). **[checked here: arithmetic]** Since
+`Σ_{χ mod q} χ(n) = φ(q)·1_{n ≡ 1 (q)}`, `φ(q)λ(n)` is the `n`-th coefficient of
+`Σ_χ (−L′/L(s, χ)) − Σ_χ (−L′/L(s, χ·(·/d)))`. This is the log-derivative of a **ratio of norms**: the
+product over all `χ` mod `q`, which is the Dedekind zeta of `ℚ(ζ_q)` up to Euler factors at `p | q`,
+over its twist by `(·/d)`. That is why the residue is `n − n′` and why `d` is chosen to make `n′ = 0`
+in the box. So positivity here is recovered by a norm (the sum over `χ`) and a sign
+(`1 − (n/d) ≥ 0`). The reading as norms is **[inferred]**, from the read definitions.
+
+**The family, as positivity tools.**
+* The product over `χ` is a Dedekind zeta: `∏_{χ mod q} L(s, χ*) = ζ_{ℚ(ζ_q)}(s)` over the primitive
+  characters inducing the `χ`. **[RECALL, standard]**
+* Rankin–Selberg: `−L′/L(s, π × π̃)` has non-negative coefficients for unitary cuspidal `π`
+  on `GL(n)`, at least at unramified primes. **[RECALL, UNVERIFIED]** Its pole at `s = 1` is simple.
+* **The isobaric trick.** Let `Π = 1 ⊞ π`. Then `L(Π × Π̃) = ζ · L(π) · L(π̃) · L(π × π̃)`.
+  **[checked here]** This is `(1 ⊞ π) × (1 ⊞ π̃) = 1 ⊞ π̃ ⊞ π ⊞ (π × π̃)`. Its log-derivative has
+  `p^k`-coefficient `log p · |1 + Σ_i α_i(p)^k|² ≥ 0` at unramified `p`, because for unitary `π` the parameters of `π̃` are the conjugates `ᾱ_i(p)`,
+  and it contains `L(π)` as a factor. That is de la Vallée Poussin's `3 + 4cos θ + cos 2θ` idea grown into a
+  product. It is attributed to Goldfeld–Hoffstein–Lieman (appendix to Hoffstein–Lockhart, Ann. of Math.
+  140, 1994). **[RECALL, UNVERIFIED]**: the Wikipedia *Siegel zero* page, fetched this session, does not name it.
+
+**The hypothesis to test.** Positivity can always be recovered (by norms, Rankin–Selberg and
+isobaric sums), and **integrality breaks first**. That is, the obstruction to GRH for `L(π)` by this method lies on the
+theta side and not on the Landau side.
+
+**Kill condition, stated first.** The hypothesis dies, for that container, if some family member
+(the first test is `L(f)` for a holomorphic newform on `GL(2)`) fails at the positivity step itself.
+That happens if no non-negative combination containing `L(π)` has a twisted part `n′` that can be removed
+as the edition removes it, by a zero-density count for twists in a box
+(`exists_entireL_quadTwist_ne_zero`, Pólya–Vinogradov). Then positivity breaks first. **First check:**
+what that twist step needs, read in the endgame compartment (126k tokens, it fits), and whether
+`L(Π × Π̃)` has it. **Grade: parked, one question; no supplier on disk.**
+
+### (b) The Cayley–Dickson ladder of theta squeezes (Joop's idea)
+
+**The established parts.**
+
+| rung | algebra | integral order | norm-form theta (counts `r(n)`, `n ≥ 1`) | `Σ r(n) n^{−s}` | dual pairs |
+|---|---|---|---|---|---|
+| ℝ | ℝ | ℤ | Jacobi `θ₃ = Σ q^{k²}` | `2ζ(2s)` (that is `ζ`, at `2s`) | type I over ℝ: orthogonal–symplectic |
+| ℂ | ℂ | ℤ[i] | `r₂(n) = 4 Σ_{d|n} χ₋₄(d)` | `4ζ(s)L(s, χ₋₄) = 4ζ_{ℚ(i)}(s)` | type I over ℂ: unitary pairs |
+| ℍ | ℍ | Hurwitz quaternions (Hurwitz 1919) | `24 σ_odd(n)`; for the Lipschitz order `ℤ⁴`, Jacobi's four-square theorem `8 Σ_{d|n, 4∤d} d` | `24(1 − 2^{1−s})ζ(s)ζ(s−1)`; Lipschitz `8(1 − 4^{1−s})ζ(s)ζ(s−1)` | type I over ℍ: quaternionic pairs |
+| 𝕆 | 𝕆 | Coxeter's integral octonions, a rescaled `E₈` | `240 σ₃(n)`, so `Θ = E₄` | `240 ζ(s)ζ(s−3)` | no type I pair; exceptional dual pairs (magic square) |
+| 𝕊 | sedenions | — | not a composition algebra | — | — |
+
+*Checks and sources for the table.*
+* **[checked here, by brute-force lattice counts]** All the theta columns. `r₂` for `n ≤ 12`. The
+  Lipschitz and Hurwitz counts for `n ≤ 12`. The `E₈` counts `240, 2160, 6720` for `n = 1, 2, 3` (norm `2n` in the
+  even coordinates, so norm `n` for integral octonions). The two Euler-factor identities, as
+  Dirichlet convolutions for `n < 200`.
+* The `ζ(s)ζ(s−1)` rows are exact only **with the factor at 2** shown, and the ℤ row is `ζ(2s)`, not `ζ(s)`.
+  The theta function of a lattice is a weight-`dim/2` modular form, and Θ(Hurwitz) is a level-2 form of
+  weight 2. The source for Θ(Hurwitz) is Wikipedia *Hurwitz quaternion*, rev. `1375286404`: *"24 times the
+  sum of the odd divisors"*, `2E₂(2τ) − E₂(τ)`.
+* **Hurwitz 1898**, *Über die Composition der quadratischen Formen von beliebig vielen Variabeln*,
+  Gött. Nachr. 1898, 309–316: composition only in dimensions 1, 2, 4, 8. The Hurwitz *order* is a
+  different work, *Vorlesungen über die Zahlentheorie der Quaternionen* (1919). Both citations come from
+  Wikipedia (*Hurwitz's theorem (composition algebras)* rev. `1357759167`; *Hurwitz quaternion*);
+  the papers themselves were not opened.
+* **The integral octonions are a rescaled `E₈`** (minimum norm 1 against 2): Wikipedia *E8 lattice*,
+  rev. `1374879442`. The attribution to Coxeter (*Integral Cayley numbers*, Duke Math. J. 13, 1946) is
+  **[RECALL, UNVERIFIED]**: the page fetched does not cite it.
+* **Howe's dual pairs.** Introduced in Howe 1979 (Proc. Sympos. Pure Math. 33, Part 1). Type I pairs are
+  built from a division algebra `D` with involution and a hermitian and a skew-hermitian form
+  (Wikipedia *Reductive dual pair*, rev. `1383895745`). Over ℝ the division algebras are ℝ, ℂ and ℍ
+  (Frobenius), which gives the three rows. Howe duality for **quaternionic** dual pairs was completed by Gan–Sun
+  (2017), after Gan–Takeda (JAMS 29, 2016) for the orthogonal–symplectic and unitary pairs (Wikipedia *Theta
+  correspondence*, rev. `1387914503`). That result is local and says nothing about integrality.
+* **The octonions through the Freudenthal–Tits magic square** (Tits 1966; Wikipedia rev. `1351313031`:
+  every exceptional Lie algebra except `G₂` appears in it). The **Gan–Savin exceptional theta
+  correspondences** (for example the dual pair `G₂ × PU₃(D)`, and minimal representations) are
+  **[RECALL, UNVERIFIED]**: the magic-square page fetched does not mention them, and no Gan–Savin paper was opened.
+* **The proof sits on the ℂ rung.** Its prototype is `ℤ[i]` theta (`COMPARISON.md` §10.3), its lifts run
+  between unitary groups, and its integrality comes from CM. **[secondhand, consistent with the edition's
+  node names]**
+
+**The mapping, graded conjecture.** Each step up the ladder loses one property, and the conjecture
+matches each loss to a change in the arithmetic.
+
+| step | lost | matched with (conjecture) |
+|---|---|---|
+| ℝ → ℂ | order | losing positive coefficients (the squeeze's positivity must then be recovered, as in (a)) |
+| ℂ → ℍ | commutativity | GL(2), through quaternion algebras: Eichler's theta series of quaternion orders, Jacquet–Langlands (1970, LNM 114, §16; Wikipedia rev. `1292421037`) |
+| ℍ → 𝕆 | associativity | the exceptional groups |
+| 𝕆 → 𝕊 | composition (Hurwitz) | the end of the method |
+
+**The conjecture.** The squeeze runs on dual pairs over composition algebras, rung by rung. The ℂ rung
+gives the claimed proof for Dirichlet `L`. The ℍ rung would reach GL(2) through quaternion algebras, and
+the 𝕆 rung the exceptional theta correspondences. It stops at the sedenions, where Hurwitz's theorem
+ends composition. **The open crux:** whether the integrality and covolume bookkeeping of §10.3
+survives non-commutativity. Over ℍ, ideals are one-sided, class numbers count left (or right) ideal classes,
+and a matrix of lifts has entries in a non-commutative order. Divisibility by `p^a` of a product needs a two-sided
+ideal to make sense as stated.
+
+**An observation from the edition, [read as docstrings, not traced].** The ℍ rung already appears
+*inside* the proof, as a tool:
+* `New/Spanning/Multiplicities/EqualMultiplicities.lean`: *"the analogue of the Jacquet–Langlands
+  correspondence for a quaternion algebra that is ramified exactly at the real places"*;
+* `New/Determinant/Exchange/OneSquare.lean`, which cites Chan, *Period identities of CM forms on
+  quaternion algebras* (2020), and Kudla's seesaw pairs;
+* `New/Determinant/Exchange/ExplicitMatching.lean`, which cites Böcherer–Schulze-Pillot on theta series of
+  quaternion algebras (1991).
+
+A grep for `octonion`, `E8` and `Arakelov` over both editions' `.lean` files returns zero files.
+
+**Kill condition, stated first.** The ladder **stops at ℂ**, in the container of Hurwitz and
+maximal quaternion orders, if check (2) finds no integral normalisation of quaternionic theta lifts
+with multiplicative `p`-adic divisibility under composition. That would be no analogue of `A_n ∈ ℤ` and
+`p^a · p^b → p^{a+b}`. The ladder stops at ℍ if check (3) finds exceptional theta lifts with no
+integral structure. Either is a stop at a rung, not a death of the whole idea.
+
+**Three concrete checks.**
+1. **Where, in the Lean, the unitary dual pairs and the CM integrality enter.** It must fit one
+   compartment plus the map (`COMPARISON.md` §9.3). Starting points: 101 readable files match
+   `dual pair`, `DualPair` or `seesaw`, among them `Lib/DiscreteSeries/Theta/LocalCorrespondence`. The CM
+   background node is 565k tokens itself and 3.2M with its cone, so this is a file-level read against
+   statement-only cones. The property ledger (c) is the tool that answers it.
+2. **Quaternionic dual pairs over Hurwitz orders.** Do they have integral theta lifts with the needed
+   divisibility? Literature first (Eichler; Böcherer–Schulze-Pillot; Chan 2020, all **[RECALL]** until
+   opened). Then a numeric toy: the Hurwitz analogue of `T_n`, with
+   `Σ_{λ ∈ Hurwitz} λ^n e^{−π|λ|²}` taken in ℍ, its vanishing pattern and its denominators.
+3. **Are exceptional theta lifts integral at all?** Literature only at first (Gan–Savin, minimal
+   representations). **[RECALL, UNVERIFIED]**
+
+**Grade: conjecture, with the established rows checked. Not claimed.**
+
+### (c) The property ledger: a planned programme (planning only; the work is the next session's)
+
+**What it is.** For each part of the proof, first each compartment of §9 and then each key
+declaration, the **number properties it relies on**, and which **ladder steps it survives**. The parts that
+do not survive are then either **substituted** or **checked for need**.
+
+**The properties (columns).**
+* commutativity (`CommRing`/`CommMonoid` against `Ring`/`Monoid`);
+* order and positivity (`LinearOrder`, `OrderedField`, `StarOrderedRing`, the `positivity` tactic);
+* integrality and unique factorisation (`IsDomain`, `IsDedekindDomain`, `UniqueFactorizationMonoid`,
+  `IsIntegral`, `IsIntegralClosure`);
+* CM structure (`IsCMField`, imaginary quadratic fields, complex conjugation as an automorphism);
+* archimedean size bounds (`Archimedean`, norms and absolute values, `IsAbsoluteValue`);
+* finiteness of class numbers and of units (`Fintype (ClassGroup _)`, the Dirichlet unit theorem);
+* characteristic zero, completeness, and others as they turn up.
+
+**The ladder columns.** For each property, whether it survives ℝ → ℂ (order lost), ℂ → ℍ
+(commutativity lost), ℍ → 𝕆 (associativity lost) and 𝕆 → 𝕊 (composition lost).
+
+**Three editions, matched.** Alpöge's release (175,187 files, 17.4M lines, cached in parts here and not
+extracted, `COMPARISON.md` §8.3), the readable edition (477k lines) and the compact edition (112,827
+lines by `wc -l`, of which 76,149 are code, which is the "76k"; §8.1). Declarations are matched across
+editions **by name and by statement**, through a normalised statement hash. Names alone fail, because
+Sernau's editions renamed the objects (§9.1). The point of three editions is that a bigger edition may
+already hold a substitute proof of the same lemma that uses fewer properties.
+
+**Method, in two passes.**
+1. **Source pass, the first approximation, with no build.** Read each declaration's binders for
+   typeclass assumptions (`[CommRing R]`, `[LinearOrder α]`, `[IsDomain R]`, …) with the explorer's
+   parser (`tools/explorer`, `446`/`447`), and propagate them up the [parsed] cones. **Its limit, stated:**
+   it misses every property used through a *concrete* instance. Examples are `mul_comm` on `ℂ`, `ring`,
+   `norm_num`, `positivity` and `linarith` on `ℝ`, and instances found by unification. On a tree like this one
+   those are most of the uses. The parsed cones also undercount (`447`: dot notation, `-dot k`). So the source
+   pass is a lower bound on what each declaration relies on, and it must be labelled as one.
+2. **`.olean` pass, the exact one.** Instances are constants, so each declaration's elaborated type
+   and value name exactly the instances it depends on (`Complex.commRing`, `Real.linearOrder`, …).
+   Read them off per declaration, map each instance constant to the property it provides through its
+   class, and close over the declaration graph.
+
+**Tools it needs.**
+* **lean-pluck**, `~/Projects/lean-pluck`, its `DESIGN.md` (*"streaming and plucking for big Lean 4
+  developments"*, design draft of 2026-11-24, at commit `13fc7ef`). It is the survey this programme builds on.
+  It is **local only**: `git remote -v` prints nothing, so this public repository cites it by path and commit
+  and cannot link it. Its phase 1 (record, pluck, verify) ran on this repository (`DESIGN.md` §10). **Streaming**
+  (refcounted, bounded-disk compilation) is its phase 2, and **unbuilt**. **Instance and attribute
+  extraction** (its §11.1 `attribute` relation) is phase-3 extractor work, also **unbuilt**. Both are on
+  this programme's critical path.
+* The explorer's source parser, extended to emit binder classes per declaration. This is new and small.
+* A table that maps classes to properties. It is hand-written, reviewed and versioned like `tools/metric.json`.
+* A statement normaliser for matching across editions, the explorer's `-statements` output plus a hash.
+
+**Milestone 1: the first test target of the streaming/plucking engine.** The ledger suits streaming
+because each compartment, or each file, is processed on its own. Pluck one declaration and its
+dependency cone, read off the typeclass instances, emit one small record, and move on. Memory stays
+bounded and the records merge.
+* **Target:** the **endgame compartment** of the readable edition. It is closed under imports, 126k
+  tokens with its cone, and already plucked and axiom-checked under a `9 GB` cap at `447`.
+* **Measure of success:** the property ledger of the endgame, **built by streaming**, declaration by
+  declaration, is **identical** to the ledger from a **whole-compartment pass** over the same `.olean`s,
+  one environment loaded at once. Identical means the same records, the same instance sets and the same
+  property columns.
+* **Positive control (`R17`)**, because "stream = whole" tests the engine and not the ledger. Inject one
+  declaration whose only use of commutativity is a concrete `mul_comm` on `ℂ`. The `.olean` ledger must
+  flag it, and the source pass must miss it (the known limit, shown). Inject one declaration with a
+  `[CommRing R]` binder used nowhere. Both passes must show it, and the "really needed?" step must flag it as
+  removable. If either control fails, the ledger is not trusted, whatever the stream-against-whole
+  comparison says.
+* **Then:** Theorems A, B and C, file by file, against statement-only cones (§9.3). Then the three-edition match.
+  Then substitution or need checks for every part that does not survive ℂ → ℍ. That last step is check (1)
+  of (b), answered mechanically.
+
+**Kill condition for the programme, stated first.** If the `.olean` pass on the endgame shows
+that almost every declaration depends on `CommRing ℂ` or `LinearOrder ℝ` through Mathlib's basic analysis,
+the commutativity column carries no information at this grain. Then the ledger must run at the grain of the
+*arithmetic* objects (the orders, lattices and forms) and not of the scalars, and milestone 1 is redesigned
+before it is scaled.
+
+**Grade: planned. Nothing here has been run.**
+
+**Might-mean (`448`):** the proof is the ℂ rung of a ladder whose next rung is already used
+inside it as a tool, so the question after the proof is not *what else* but *one floor up*.

@@ -411,7 +411,7 @@ rather than the whole tree. The map is generated, not hand-drawn: `tools/explore
 two levels and their plain-language summaries. Below them every directory and every file
 becomes a node, and each file lists its declarations, which link into the explorer's
 declaration view. The Pages Action regenerates it from the pinned commit, and the explorer
-shows it at `?d=grh`. Not on `origin` yet: the push is Joop's.
+shows it at `?d=grh`. Not on `origin` yet: the push is Joop's. *(`448`: pushed since; `origin/main` was at `1032e78` on 2026-11-27.)*
 
 **Summaries at every level.** Levels 0–2 carry the spec's hand-written summaries. Every file
 node (801 of 803) carries the title its authors gave it, the first `# ` line of its module
@@ -565,3 +565,138 @@ The true declaration cone needs the elaborated environment, which the build give
   for `ζ`, and the edition adds it for Dirichlet `L`, which this project has no row for. **Not there:** Hadamard factorisation, `ξ′`, `N(T)`. So
   `Riemann.xiPrimeFamily` gets no construction from this edition. Graded in `LEADS.md`
   `447`.
+
+## 10. Orientation: the proof strategy in plain words (`SESSION 448`, 2026-11-27)
+
+**Source, and its grade.** Wikipedia, *"Alpöge's proof of the Riemann hypothesis"*, section
+*"Proof strategy"* and its subsection *"Obtaining estimates from theta functions"*, at revision
+`1388368826`. It was fetched on 2026-11-27 through the MediaWiki API (`action=parse`, the wikitext)
+with a plain client name. Every formula below was copied from that wikitext and checked against it
+symbol by symbol. The section says of itself *"The following is based on those sources"*: a note by
+Robin Zhang (IHES, Hexagon preprint `2611.00809v2`, 22 November 2026) and a working draft
+written by three AI agents *"at the behest of Michael O. Rubinstein"* (Waterloo, version 2, 22
+November 2026). These are its refs 42–43, counted from the wikitext's `<ref>` tags. Both were
+made by using AI agents to scan the Lean source. Neither was fetched here. So everything in §10.1–10.3 is
+**[secondhand]**, two steps from the Lean. Checks made in this session are tagged **[checked here]**, and
+§10.4 sets the account against the editions on disk.
+
+### 10.1 What is estimated
+
+* **The classical equivalence.** RH is equivalent to `ψ(x) = x + O(√x log² x)`, where
+  `ψ(x) = Σ_{p^k ≤ x} log p = Σ_{n ≤ x} Λ(n)` is Chebyshev's function. The article cites Broughan,
+  *Equivalents of the Riemann Hypothesis* vol. 1, Thm 4.9 (the Schoenfeld criterion). Note the
+  square root: it is the `√x` here that the choice `m ≈ √x` below has to reproduce.
+* **The smoothed error (de la Vallée-Poussin).** The proof does not bound `|ψ(x) − x|` directly. It bounds
+  `G(x) = Σ_{n ≤ x} Λ(n)(x/n − 1) − x log x + (1 + γ)x`, with `γ` Euler's constant.
+  **[checked here]** Since `Σ_{n≤x} Λ(n)/n = log x − γ + o(1)` (Mertens), `G(x) = x − ψ(x) + o(x)`.
+  The constant `1 + γ` is the one that makes `G` small, and an upper bound on `G` is a bound on
+  `ψ` from below.
+* **The target: intermittent and one-sided.** For every `ε > 0` and every `A` there is a `Y > A`
+  with `G(x) ≤ x^{1/2+ε}` for all `x` with `Y < x < Y^{3/2}`. It is an upper bound only, and it holds
+  only on some windows `(Y, Y^{3/2})`, not for all large `x`. So the proof needs two steps.
+
+### 10.2 Step one: the intermittent bound gives RH (Landau–Turán)
+
+The article: this step is *"essentially"* classical, the theory of oscillations of prime-counting errors
+due to Landau and Turán. It cites Kaczorowski–Pintz, *Oscillatory properties of arithmetical
+functions I*, Acta Math. Hungar. 48 (1986), Thm 1 and Cor 1. The Mellin transform of `G` has poles at
+the zeros of `ζ`. Differentiating the transform many times puts a weight on it that concentrates the
+integral on a window where the bound holds. The bounds on the derivatives that result rule out a pole
+to the right of the critical line. **[secondhand]**
+
+### 10.3 Step two: the bound itself, from theta lifts
+
+* **Stepanov's descendant.** By Alpöge's own note (*Remark*, 20 November 2026, the article's ref 7),
+  an early milestone is a *"descendant"* of Stepanov's argument for RH for curves over finite fields.
+  Carrying it over to the integers needs control of *"the length of a chain of theta lifts"*. In Stepanov's
+  method an auxiliary function vanishes to high order. Here repeated theta lifts between unitary
+  groups take that role, and each lift raises the **divisibility** of periods of automorphic forms.
+  Arakelov theory compares this divisibility with the **size** of those periods. **[secondhand]**
+* **Chebyshev's squeeze, the model: divisible but bounded.** `C(2n, n)` is divisible by every prime
+  `n < p ≤ 2n` and is less than `4^n`, so `Σ_{n<p≤2n} log p ≤ n log 4`. The divisibility gives the left side,
+  a prime-log sum like those in `G`. The size of the integer gives the right side. **[checked here: classical]**
+* **The prototype in the proof: ℤ[i] theta.** Let `Θ(z) = Σ_{λ ∈ ℤ[i]} e^{−π|λ|² + λz}` and
+  `T_n = Θ^{(n)}(0) = Σ_{λ ∈ ℤ[i]} λ^n e^{−π|λ|²}`. Then:
+  * `T_n = 0` unless `4 | n`. **[checked here]** `λ ↦ iλ` gives `T_n = i^n T_n`.
+  * The article states that `A_n = 2^n T_n / T_0^{n+1}` is an integer, and more generally for theta
+    functions of CM fields. **[not checked here]**
+  * Analytically `|T_n| ≤ T_0 (n/(πe))^{n/2}`. **[consistent, checked here]** The largest value of a single
+    term, `max_r r^n e^{−πr²} = (n/(2πe))^{n/2}`, lies below this bound.
+  * So `log|T_n|² ≤ n log n + O(n)`, and the same holds for `log A_n²`.
+  * If a nonzero `A_n` is divisible by `p^{e_p}` for each `p` in a finite set `S`, then
+    `Σ_{p∈S} e_p log p ≤ ½ n log n + O(n)`. Note the `½` and the exponent `n/2`. **[secondhand]**
+* **How this meets `G`.** In the proof's theta functions the lower bounds for `e_p` contain terms
+  `max(a/p^j − w, 0)`, where `a` is an order of differentiation and `w > 0` a weight. Put
+  `x = a/w` and multiply by `log p`. The result is `w · max(x/p^j − 1, 0) log p`, which is `w` times the
+  `p^j` term of the sum in `G(x)`. **[checked here: `Λ(p^j) = log p`; the lower bound itself is secondhand]**
+* **Composing lifts: integral matrices.** For unitary groups a theta lift is a finite sum over
+  lattice classes. So each lift is a matrix whose entries are derivatives of theta functions of pairs
+  of lattices, and composing lifts multiplies the matrices. Entries divisible by `p^a` and by `p^b` give a product
+  divisible by `p^{a+b}`, provided the denominators met along the way are controlled. Over a chain of
+  `m` lifts the main divisibility grows like `m`. The covolume errors telescope to the first and last
+  lattices, and the other errors (denominators among them) accumulate. With the chains chosen well,
+  the endpoint error is of order `x/m` and the accumulated error of order `m`, up to small powers of
+  `x`. **[secondhand]**
+* **Why `m ≈ √x`.** `m = x/m` at `m = √x`, and only there. Both errors are then `√x · x^{o(1)}`, which is
+  `G(x) ≤ x^{1/2+ε}`, the square root of §10.1. **[checked here: arithmetic]**
+
+### 10.4 Against the editions on disk, and onto the compartments of §9
+
+The article describes Alpöge's proof, read by agents. The editions on disk are Sernau's rewrites
+(§8). Where they disagree, the files win for what *they* do, and neither reading settles what the
+original does.
+
+* **`G` is the edition's `primeRemainder`, twisted.** `R_q(x) = Σ_{n≤x} λ(n)(1/n − 1/x) − log x/φ(q) − c_q`
+  has the shape of `G(x)/x`, with `Λ(n)` replaced by `λ(n) = Λ(n)(1 − (n/d))` on `n ≡ 1 mod q` (§8.5).
+  So the bound `G ≤ x^{1/2+ε}` corresponds to `R ≤ x^{β−1}` with `β = 1/2 + ε`.
+  **[read: the definition; the correspondence is this session's arithmetic]**
+* **`m` is read.** `Data.primeRemainder_le` takes an `m` in `[√x, 2√x]`, the least power of `2`
+  that is at least `√x` (`Reduction/Data/Existence.lean`: `isLeast_m`, line 555). Its bound is
+  `φ(q₀) log⁶ b / m` plus two errors at the far scale `x₁`. In the `R` normalisation the `1/m` term is the
+  `x/m` error. The `m`-sized error was not traced: it is not visible in that lemma. **[read]**
+* **The intermittent step does not match. Recorded, not harmonised.** On disk, every criterion that
+  turns a prime bound into zeros takes it **for all large `x`**:
+  * the readable edition's `LFunction_ne_zero_of_primeRemainder_le` (`h_bound : … ∀ᶠ x in atTop`)
+    and `IsPolar.landau` (`∀ᶠ v in atTop`), which are Landau's lemma, not Landau–Turán;
+  * the compact edition's `entireL_ne_zero_of_primeError_le` (*"eventually ≤ x^(β−1)"*);
+  * Alpöge's tree's `zero_free_of_Chebyshev_growth`, *"for all large y"* (§4, **[read]** at `445`).
+
+  The windowed idea shows on disk in one place: the compact edition's
+  `IsPolar.exists_window_sub_mul_le` (`New/Endgame/OneSidedCriterion.lean`). It differentiates the
+  transform `k` times under the integral (`iteratedDeriv k`) and bounds the moments to find some
+  `u ∈ [t, t²]` with `E(u) − X E′(u) ≤ e^{−t}`, citing Pintz and Kaczorowski. Its docstring gives it
+  another job: it *"replaces a pointwise prime number theorem in progressions when the second scale of
+  (⋆) is chosen"*, that is, it picks the far scale `x₁`. It does not weaken the criterion's hypothesis. **[read]**
+
+  There are two readings, and neither is settled. Either the agents' specialisation to `ζ` (refs 42–43)
+  rearranges the argument, or Alpöge's tree has an intermittent step that `445`'s reading did not reach.
+  The witness for "no Turán in the readable edition" is a grep for `Turán`, `Turan` and `Kaczorowski`
+  over both editions' `.lean` files outside `.lake`. Its only hit is the compact file above. The grep
+  did not cover Alpöge's tarball, which is cached in parts on this machine (§8.3) but not extracted.
+* **Arakelov and Chebyshev, by name.** A grep for `Arakelov` over both editions' `.lean` files returns **zero files**. The sizes go by
+  *heights*: `New/Reduction/Lattices/Heights`, and the compact `Heights` folder, which its guide puts
+  in Theorem C (§9). That these are the article's *"Arakelov sizes"* is **[inferred]**. `Chebyshev`
+  hits five readable files: `Lib/Analytic/Primes`, the two `Zeros` files, `Lib/Shimura/ThetaModuli/ThetaFamilyRigidity`
+  and `New/Spanning/Bessel/CutTailBound`. None of them was read as a binomial squeeze, so no compartment
+  is claimed for the squeeze. Stepanov is `New.stepanov_count`, in one file (§8.5).
+
+| the article's part | compartment (§9.2) | grade |
+|---|---|---|
+| `ψ`/`G` equivalence; the zeros from a one-sided bound (the article's Landau–Turán step) | **endgame** (13 files; 126k tokens with its cone): the criterion, Landau's lemma, the twist that removes `n′`, PNT at the far scale | **[inferred]** that it plays that role; the mechanism differs (above) |
+| the main estimate `G ≤ x^{1/2+ε}` and the choice of `m` | **reduction**: `star_inequality`, `Data.primeRemainder_le`, `eventually_exists_data` | **[read]** names and `m` |
+| divisibility from composed lifts (Stepanov's vanishing order) | **Theorem A** (upper bound: *a composite lift*; derivatives of theta functions); **Theorem C** (one lift, the determinant, congruences and Selmer groups) | **[inferred]**, from §9.2's node names only |
+| enough forms for the lifts to act on | **Theorem B** (`Spanning`) | **[inferred]**, node names |
+| sizes against divisibility (Arakelov, covolumes) | the main inequality compares a covolume bounded above by A and B with one bounded below by C (§8.5); heights | covolume comparison **[read]**; "Arakelov" **[inferred]** |
+| the ℤ[i]/CM theta prototype | background: *number fields, class field theory, CM* and *theta correspondence, Siegel–Weil*; *derivatives of theta functions* | **[inferred]** |
+
+So, at the level of §9's names: the endgame compartment is the analytic half, the part the article
+gives to Landau–Turán, and Theorems A, B and C hold the theta lifts.
+
+### 10.5 A note on the word "multiplicity"
+
+In the proof, *multiplicity* means **Stepanov's vanishing order**, which the chain of lifts turns into
+**`p`-adic divisibility**: the article's `e_p` and the `p^{a+b}` of composed matrices. It is **not** the
+multiplicity of the zeros of `ζ`, which this project's `NscStd` row and the `≈0.682` wall are about.
+The proof uses that only as the sign `n(s) ≥ 0` of a residue (§8.5). §4's last bullet made the same
+distinction for Alpöge's note. In these registers, plain *multiplicity* keeps the meaning `m(ρ)`. The
+proof's sense is written *Stepanov multiplicity* or *`p`-adic divisibility*.

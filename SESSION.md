@@ -21844,3 +21844,69 @@ and no death is touched.
 **Might-mean:** the one closed compartment of the proof is the half this project already owns in
 another form, the argument principle with zero orders, so the proof and this project meet at the
 residue and nowhere else.
+
+## 448 — the pivot: the proof read in plain words, and a ladder to test (docs only)
+
+**Piece (Joop's brief of 2026-11-27, approved as a docs-only session with the push).** After the RH
+proof, set the repository's direction without claiming anything beyond its grade. (1) Write a plain-words
+orientation to the proof strategy, from Wikipedia's *"Proof strategy"* section, and map it onto `447`'s
+compartments. (2) Add a terminology note on *multiplicity*. (3) File two graded leads: the reach across the
+`L`-function family, and Joop's Cayley–Dickson ladder of theta squeezes. Two additions came from Joop
+during the session: (4) a **property ledger** of the proof as a planned programme, and (5) that ledger
+as the first test target of the streaming/plucking engine. Then (6) a short pivot note. No Lean was touched.
+
+**Wildcard and its kill conditions, registered before anything was run.** Lead (a) dies in its
+container if a family member fails at the positivity step itself. Lead (b) stops at ℂ if quaternionic
+theta lifts over Hurwitz orders have no integral, multiplicative divisibility, and at ℍ if exceptional
+lifts have no integral structure. Programme (c) is redesigned if the commutativity column carries no
+information at the grain of the scalars. All three are in `LEADS.md` `448`.
+
+**The primary source, and what it rests on.** The Wikipedia article at revision `1388368826`, fetched
+through the MediaWiki API (wikitext, plain client name, no bot wall met). Its section rests on two
+AI-agent summaries of the Lean source, by Robin Zhang (IHES) and by three agents for Michael Rubinstein
+(Waterloo). These are refs 42–43 by a count of the wikitext's `<ref>` tags, so the account is
+**[secondhand]**. Every formula in `COMPARISON.md` §10 was copied from the wikitext and re-checked against it,
+including the `√x` in `ψ(x) = x + O(√x log² x)`, the `½` in `Σ e_p log p ≤ ½ n log n + O(n)`, and the
+order of quantifiers (for every `ε` and `A`, some `Y > A`). Several checks were made here: Mertens gives
+`G(x) = x − ψ(x) + o(x)`; `T_n = 0` unless `4 | n`; the term-maximum is consistent with the article's `|T_n|`
+bound; `w·max(x/p^j − 1, 0) log p` is `w` times `G`'s term; and `m = x/m` at `m = √x`.
+
+**A mismatch, found and recorded rather than harmonised (`COMPARISON.md` §10.4).** The article's first
+step takes an **intermittent** bound (`Y < x < Y^{3/2}`) to RH by Landau–Turán with repeated
+differentiation. On disk every criterion takes the bound **for all large `x`**: the readable edition's
+`LFunction_ne_zero_of_primeRemainder_le` with `IsPolar.landau`, the compact edition's
+`entireL_ne_zero_of_primeError_le`, and Alpöge's `zero_free_of_Chebyshev_growth` (§4, at `445`). The windowed
+idea appears in one file only, the compact `IsPolar.exists_window_sub_mul_le` (`iteratedDeriv k`, a
+`u ∈ [t, t²]`, citing Pintz and Kaczorowski). Its own docstring says it picks the far scale `x₁`. Witness: a grep
+for `Turán`/`Turan`/`Kaczorowski` over both editions' `.lean` files, whose only hit is that file. It did not cover
+Alpöge's tarball, which is in parts and not extracted. So "the endgame is the Landau–Turán part" is entered as
+**[inferred]**, for the role, with the mechanism noted as different. Also **[read]**: `m ∈ [√x, 2√x]`
+(`isLeast_m`) and the `1/m` term of `Data.primeRemainder_le`. The `m`-sized error was not traced. A grep for `Arakelov` over both editions'
+`.lean` files returns zero files.
+
+**Lead (b)'s established rows, checked.** Brute-force lattice counts confirm the theta columns for `ℤ[i]`
+(`n ≤ 12`), for the Lipschitz order (Jacobi's `8Σ_{4∤d}d`) and the Hurwitz order (`24σ_odd`, both `n ≤ 12`), and for
+`E₈` (`240, 2160, 6720`). Dirichlet convolutions confirm the Euler factors: `24(1 − 2^{1−s})ζ(s)ζ(s−1)`, the
+Lipschitz `8(1 − 4^{1−s})ζ(s)ζ(s−1)` and `240ζ(s)ζ(s−3)`. The ℤ row is `2ζ(2s)`. These correct the brief's shorthand, which
+dropped the factor at 2 and the `2s`. The citations were read on Wikipedia pages at pinned revisions: Hurwitz 1898
+(composition) as distinct from Hurwitz 1919 (the order); Howe 1979; Gan–Takeda 2016 and Gan–Sun 2017
+(Howe duality, quaternionic pairs included); integral octonions as a rescaled `E₈`; Jacquet–Langlands 1970;
+Freudenthal–Tits. Some sources were **not verified** and are tagged `[RECALL, UNVERIFIED]`: Coxeter 1946 by name,
+Gan–Savin, and Goldfeld–Hoffstein–Lieman. The edition already uses the ℍ rung as a tool (an
+analogue of Jacquet–Langlands in `EqualMultiplicities.lean`; Chan 2020 and Böcherer–Schulze-Pillot 1991
+cited in two `Determinant/Exchange` files), **[read as docstrings]**.
+
+**The engine's survey, found.** `~/Projects/lean-pluck/DESIGN.md` (2026-11-24, commit `13fc7ef`, local only:
+no git remote). Its streaming is phase 2 and its instance extraction phase 3, and neither is built. Milestone 1
+of the ledger is the endgame compartment, streamed against a whole-compartment pass, with two injected
+positive controls. A correction to the brief's figures: the compact edition's "76k" is its **code** lines
+(76,149); `wc -l` gives 112,827 (§8.1).
+
+**Registers.** `COMPARISON.md` gains §10 and a dated annotation on §9's "not on `origin` yet" (447 was pushed;
+`origin/main` was at `1032e78`). `LEADS.md` gains `448`(a)–(c). `MAP.md` §7 gains the pivot note. `CLAIMS.md`,
+`FAILURES.md` and `PRICES.md` are unchanged: no theorem, no death and no price moves.
+
+**Ledger.** `NscStd 67.25%`, `Nsc 50.88%`, base `v4/3508643365fd`, all unchanged. Conditional on `h`: `Nsc 67.25%`.
+
+**Might-mean:** the proof is the ℂ rung of a ladder whose next rung is already used inside it as a
+tool, so the question after the proof is not *what else* but *one floor up*.
